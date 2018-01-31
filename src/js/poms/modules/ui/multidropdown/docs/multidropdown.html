@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="poms.ui.multidropdown">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Multidropdown</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+
+    <link rel="stylesheet" href="multidropdown.css" />
+    <script src="../multidropdown.js"></script>
+
+    <script>
+        angular.module('poms.ui.multidropdown').controller('DemoController',[
+                '$scope',
+                (function () {
+
+                    function DemoController ($scope) {
+
+                        this.$scope = $scope;
+
+                        $scope.selectedItems = [
+                            {
+                                id:456,
+                                soort:'sinaasappel',
+                                kleur:'oranje'
+                            }
+                        ];
+                        $scope.items = [
+                            {
+                                id:123,
+                                soort:'appel',
+                                kleur:'groen'
+                            },
+                            {
+                                id:456,
+                                soort:'sinaasappel',
+                                kleur:'oranje'
+                            },
+                            {
+                                id:789,
+                                soort:'aardbei',
+                                kleur:'rood'
+                            }
+                        ];
+
+                    }
+                    DemoController.prototype = {
+                        setValue: function () {
+                            this.$scope.selectedItems = [
+                                {
+                                    id:789,
+                                    soort:'aardbei',
+                                    kleur:'rood'
+                                }
+                            ];
+                        },
+                        changeValue:function () {
+                            this.$scope.selectedItems.push({
+                                id:456,
+                                soort:'sinaasappel',
+                                kleur:'oranje'
+                            });
+                        },
+                        remove: function (collection, item) {
+                            collection.some(function (someItem, index) {
+                                if (angular.equals(someItem, item)) {
+                                    collection.splice(index,1);
+                                    return true;
+                                }
+                            });
+                        }
+                    };
+                    return DemoController;
+                }())
+        ]);
+
+    </script>
+</head>
+
+<body>
+
+    <div ng-controller="DemoController as ctrl">
+        <poms-multi-dropdown items="items" labelfield="kleur" ng-model="selectedItems"><em>pipo</em><i class="arrow-down"></i></poms-multi-dropdown>
+        <poms-multi-dropdown items="items" labelfield="soort" single ng-model="selectedItem"><em>kluk kluk</em><i class="arrow-down"></i></poms-multi-dropdown>
+        <button ng-click="ctrl.setValue()">zet een nieuw array</button>
+        <button ng-click="ctrl.changeValue()">push iets op de huidige array</button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <table border="1">
+            <tr><td colspan="2">pipo</td></tr>
+            <tr ng-repeat="item in selectedItems" ng-click="ctrl.remove(selectedItems, item)"><td>{{item.soort}}</td><td>{{item.kleur}}</td></tr>
+        </table>
+        <br />
+        <br />
+        <br />
+        <table border="1">
+            <tr><td colspan="2">kluk kluk</td></tr>
+            <tr ng-click="selectedItem = null"><td>{{selectedItem.soort}}</td><td>{{selectedItem.kleur}}</td></tr>
+        </table>
+    </div>
+</body>
+</html>

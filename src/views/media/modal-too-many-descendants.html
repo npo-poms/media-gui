@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <div class="modal-title"> Deze koppelingsactie initieert te veel publicaties</div>
+    <div class="modal-close-button" ng-click="tooManyDescendantsController.close()"> sluiten</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+        <p class="col-8" >
+            Bij het koppelen van onderdelen (of afleveringen) of het hersorteren van deze onderdelen worden alle onderdanen opnieuw gepubliceerd. Als dit meer dan {{tooManyDescendantsController.max}} herpublicaties geeft, is dit niet toegestaan.
+        </p>
+
+        <p class="col-8">
+            In dit geval worden {{tooManyDescendantsController.count}} herpublicaties veroorzaakt.
+        </p>
+
+        <p class="col-8" >
+            Je kunt een <a href="mailto:servicecenter@npo.nl?subject=POMS koppelen van {{tooManyDescendantsController.type}}&body={{tooManyDescendantsController.message}}">verzoek</a> indienen bij de NPO-servicedesk om deze koppeling door te voeren. Zij zullen dit verzoek inplannen op een tijdstip waarop de herpublicaties weinig overlast veroorzaken.
+        </p>
+    </div>
+</div>
+
+<form role="form" class="confirmForm" name="confirmForm">
+    <div class="footer-container">
+        <div class="footer modal-footer footer-one-button">
+            <div class="footer-message">&nbsp;</div>
+            <button class="btn-rect btn-rect-warning" ng-click="tooManyDescendantsController.close()"> sluiten</button>
+        </div>
+    </div>
+</form>

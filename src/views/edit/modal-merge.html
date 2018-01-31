@@ -1,0 +1,127 @@
+<div class="modal-header">
+    <div class="modal-title"> Samenvoegen </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+<form role="form" class="poms-form"  name="mergeForm"  ng-class="{'waiting': waiting}">
+
+    <div class="modal-body">
+        <div class="form-fields">
+
+            <table class="poms-table poms-table-multiline">
+                <thead>
+                    <tr class="poms-table-head-row">
+                        <th>Van ({{merge.source.mid}})</th>
+                        <th>Naar ({{merge.destination.mid}})</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="poms-table-row" ng-repeat="column in columns">
+
+                        <td class="merge-field" >
+                            <h2 class="merge-field-title small-header"
+                                ng-class="{'empty' : !merge.source[column.id].text }">
+                                {{column.title}}
+                                <span ng-if="controller.hasOwner('source', column)" class="media-field-owner">
+                                    bron: {{merge.source[column.id].owner}}
+                                </span>
+                            </h2>
+
+                             <span ng-switch="" on="column.type">
+
+                                <span ng-switch-when="object">
+                                    {{merge.source[column.id].text}}
+                                </span>
+
+                                <span ng-switch-default>
+                                    {{merge.source[column.id]}}
+                                </span>
+
+                                <span ng-switch-when="array">
+                                    <span ng-if="column.id=='genres'">
+                                        <span ng-repeat="genre in merge.source.genres"> {{genre.text}} {{$last?'':', '}}</span>
+                                    </span>
+
+                                    <span ng-if="column.id=='websites'  || column.id=='twitter' || column.id=='tags'">
+                                        <span ng-repeat="item in merge.source[column.id]"> {{item}} {{$last?'':', '}}</span>
+                                    </span>
+
+                                    <span ng-if="column.id=='persons'">
+                                        <span ng-repeat="person in merge.source.persons"> {{person.role.text}}: {{person.givenName}} {{person.familyName}} {{$last?'':', '}}</span>
+                                    </span>
+                                </span>
+
+
+                            </span>
+                        </td>
+
+                        <td class="merge-field" >
+                            <h2 class="merge-field-title small-header"
+                                ng-class="{'empty' : !merge.source[column.id].text }">
+                                {{column.title}}
+
+                                <span ng-if="controller.hasOwner('destination', column)" class="media-field-owner">
+                                    bron:{{merge.destination[column.id].owner}}
+                                </span>
+
+                            </h2>
+
+                            <span ng-switch="" on="column.type">
+
+                                <span ng-switch-when="object">
+                                    {{merge.destination[column.id].text}}
+                                </span>
+
+                                <span ng-switch-default>
+                                    {{merge.destination[column.id]}}
+                                </span>
+
+                                <span ng-switch-when="array">
+                                    <span ng-if="column.id=='genres'">
+                                        <span ng-repeat="genre in merge.destination.genres"> {{genre.text}} {{$last?'':', '}}</span>
+                                    </span>
+
+                                    <span ng-if="column.id=='websites' || column.id=='twitter' || column.id=='tags'">
+                                        <span ng-repeat="item in merge.destination[column.id]"> {{item}} {{$last?'':', '}}</span>
+                                    </span>
+
+                                    <span ng-if="column.id=='persons'">
+                                        <span ng-repeat="person in merge.destination.persons"> {{person.role.text}}: {{person.givenName}} {{person.familyName}} {{$last?'':', '}}</span>
+                                    </span>
+                                </span>
+
+
+                            </span>
+                        </td>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="footer-message">
+
+            </div>
+
+            <button class="btn-rect"
+                    poms-confirm="::'Media-object samenvoegen en '"
+                    poms-message="::controller.message()"
+                    poms-submit-button-text="'Voeg samen'"
+                    poms-submit="controller.submit()"
+                    poms-cancel="controller.cancel()" ng-disabled="waiting"> Voeg samen </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel()" ng-disabled="waiting">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>

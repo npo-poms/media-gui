@@ -1,0 +1,45 @@
+<div class="editfield-wrapper editfield-uiselect"
+     ng-click="multiEditController.showEditElement($event)"
+     ng-keyup="multiEditController.keyEvent($event)"
+     ng-class="{'empty' : !multiEditController.values.length,  'forbidden': !multiEditController.mayWrite, 'may-write' : multiEditController.mayWrite, 'waiting': multiEditController.waiting, 'opened' : multiEditController.isOpen }"
+     save-feedback>
+
+    <h2 class="small-header">{{header}}</h2>
+
+    <div ng-show="multiEditController.isOpen" class="ui-select" style="max-height:400px;">
+
+        <div ng-show="multiEditController.isOpen" class="editfield-uiselect-backdrop"
+             ng-click="multiEditController.blurredSave($event, true)"></div>
+
+        <ui-select name="uiselect" multiple tagging tagging-label="(nieuw)" tagging-tokens=",|ENTER"
+                   ng-model="multiEditController.selection" theme="bootstrap" close-on-select="true"
+                   reset-search-input="true">
+
+            <ui-select-match placeholder="{{placeholder}}">{{$item}}</ui-select-match>
+
+            <ui-select-choices repeat="item in multiEditController.options | filter : $select.search"
+                               refresh="multiEditController.updateOptions($select.search)" refresh-delay="10">
+                {{item}}
+            </ui-select-choices>
+
+        </ui-select>
+
+        <span class="editable-buttons">
+            <button class="button-save" type='button' ng-click="multiEditController.submit($event)">save</button>
+            <button class="button-cancel" type='button' ng-click="multiEditController.close($event)">cancel</button>
+        </span>
+
+    </div>
+
+    <div class="editable-error" ng-if="errorText">{{errorText}}</div>
+
+    <div ng-show="!multiEditController.isOpen">
+        <span ng-repeat="item in multiEditController.values">
+            {{item}}{{$last ? '' : ', '}}
+        </span>
+    </div>
+
+
+    <poms-edit-tools may-write="multiEditController.mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+
+</div>

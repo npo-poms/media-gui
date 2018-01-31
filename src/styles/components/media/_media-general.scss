@@ -1,0 +1,562 @@
+.media-data {
+    position: relative;
+    padding: 16px 16px;
+
+    border-bottom: 1px solid $extralichtgrijs;
+
+    font-size: $fontsizebig;
+    line-height: 18px;
+
+    @include clearfix;
+}
+
+
+
+.media-data .editfield-wrapper.opened h2{
+    z-index: 1000;
+    position: relative;
+}
+
+.media-section-title {
+    color: $oranje;
+    font-size: $fontsizemedium * 1.75;
+    line-height:21px;
+
+
+    &.waiting:after {
+        content: " ";
+        display: inline-block;
+
+        width: 16px;
+        height: 16px;
+
+        background-image: url("../resources/images/loading.gif");
+        background-size: 18px 18px;
+        background-repeat: no-repeat;
+
+        position: relative;
+        top: 3px;
+        left: 2px;
+
+    }
+
+}
+
+.media-section-title .tooltip-wrapper {
+    right: -2px;
+    top: 2px;
+    display: none;
+}
+
+.media-section:hover {
+    .media-section-title .tooltip-wrapper {
+        display: inline-block;
+    }
+}
+
+.media-data-tab-switch {
+    display: inline-block;
+    color: $grijs;
+    text-transform: uppercase;
+    width: 60px;
+    cursor: pointer;
+
+    span.active, span:hover {
+        color: $oranje;
+    }
+}
+
+
+/* section general */
+
+.media-section-general {
+    padding: 16px 0;
+}
+
+.media-section-general-right .btn-text-icon-add {
+    margin-left: -7px;
+}
+
+.media-section-general-left {
+    @include span-columns(8 of 12);
+}
+
+.media-section-general-right {
+    @include span-columns(4 of 12);
+}
+
+.media-section-general-right-header {
+    border-bottom: 1px solid $extralichtgrijs;
+    font-size: $fontsizemedium;
+
+    color: #888;
+    letter-spacing: 0.04em;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    margin-left: 8px;
+
+    margin-top: 30px;
+    padding-bottom: 10px;
+
+    &:before {
+        width: 19px;
+        height: 19px;
+        top: 3px;
+        position: relative;
+        display: inline-block;
+        content: ' ';
+    }
+
+    &:first-child {
+        margin-top: 0;
+        padding-top: 0;
+    }
+}
+
+.media-section-general-right .media-field.not-editable,
+.media-section-general-right .media-field .editfield-wrapper {
+    padding: 8px 8px;
+}
+
+.media-header-publication:before {
+    @include icon('globe', 19px, 'left center');
+}
+
+.media-header-appears-in:before {
+    @include icon('topology', 19px, 'left center');
+}
+
+.media-header-restrictions:before {
+    @include icon('restrictions', 19px, 'left center');
+}
+
+/* end section general */
+
+
+
+
+
+
+
+.media-field .empty .small-header {
+    color: $lichtgrijs;
+}
+
+.editfield-wrapper {
+    padding: 8px 16px;
+    position: relative;
+
+    @include transition(background-color .2s);
+
+    &:hover {
+
+        .owner-indicator {
+            display: inline;
+        }
+    }
+
+    &.forbidden {
+        .forbidden-icon {
+            display: inline-block;
+        }
+
+        &:hover {
+            background-color: $ultralichtgrijs;
+        }
+    }
+
+    &.may-write {
+
+        .edit-icon {
+            display: inline-block;
+        }
+
+        &:hover {
+            background-color: $extralichtoranje;
+        }
+
+        cursor: pointer;
+    }
+
+    &.opened {
+        padding: 16px;
+        background-color: $extralichtoranje;
+
+        .editfield-backdrop {
+            display: block;
+        }
+
+    }
+}
+
+.editfield-backdrop {
+    display: none;
+    content: '';
+    width: 100%;
+    z-index: $z-index-edit-backdrop;
+    position: fixed;
+    height: 100%;
+    opacity: 0.6;
+    background-color: $white;
+    top: 0;
+    left: 0;
+}
+
+.editfield-uiselect-backdrop {
+    display: block;
+    width: 100%;
+    content: '';
+    position: fixed;
+    height: 100%;
+    opacity: 0.6;
+    background-color: $white;
+    top: 0;
+    left: 0;
+}
+
+.media-field {
+    position: relative;
+}
+
+
+.media-field .editfield-area textarea,
+.media-field textarea {
+    width: 100%;
+    min-height: 200px;
+    font-size: $fontsizebig;
+
+    border: 1px solid $oranje;
+    padding: 8px;
+
+}
+
+.media-field .editable-click {
+    color: inherit;
+    border: 0;
+    margin: 0;
+}
+
+.media-field .empty .editfield {
+    display: none;
+}
+
+.media-field .editable-wrap {
+    width: 100%;
+    position: relative;
+    font-size: $fontsizebig;
+}
+
+.media-field .editable-wrap input[type='text'],
+.media-field .editable-wrap input[type='url'],
+.media-field .editable-wrap input[type='number'] {
+
+    width: 100%;
+
+    font-size: $fontsizebig;
+
+    border: 1px solid $lichtgrijs;
+    padding: 6px;
+
+}
+
+.media-field .editable-wrap input[type='number'] {
+    max-width: 150px;
+}
+
+.media-field .editable-wrap input {
+
+    &:active, &:focus {
+        border: 1px solid $oranje;
+    }
+}
+
+.media-field .editable-checklist-icons .editable-input,
+.media-field .editable-checklist .editable-input {
+    position: absolute;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    border: 1px solid $oranje;
+
+    background-color: white;
+
+    width: 100%;
+}
+
+.media-field .editable-radiolist-icons .editable-input,
+.media-field .editable-radiolist .editable-input {
+    position: absolute;
+    border: 1px solid $oranje;
+
+    background-color: white;
+
+}
+
+.media-field .editable-checklist-icons label,
+.media-field .editable-checklist label,
+.media-field .editable-radiolist-icons label,
+.media-field .editable-radiolist label {
+    padding: 8px;
+    display: block;
+
+    &:hover {
+        background-color: $extralichtoranje;
+    }
+}
+
+.media-field .editable-controls {
+    position: relative;
+    z-index: $z-index-edit-controls;
+    display: block;
+}
+
+.media-field .editable-error {
+    color: $rood;
+    font-size: $fontsizemedium;
+    position: relative;
+    padding-top: 4px;
+    z-index: $z-index-edit-controls;
+
+}
+
+.media-field .editable-buttons {
+    position: absolute;
+    right: -5px;
+    top: -36px;
+}
+
+.media-field .editfield-wrapper.waiting .form-buttons:before,
+.media-field .editfield-wrapper.waiting .editable-buttons:before {
+    content: " ";
+    display: inline-block;
+
+    width: 24px;
+    height: 24px;
+
+    background-image: url("../resources/images/loading.gif");
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+
+    position: absolute;
+    left: -24px;
+
+}
+
+.media-section-general-right .ui-select .editable-buttons {
+    top: -22px;
+}
+
+.media-section-general-left .editable-buttons {
+    position: absolute;
+    right: -13px;
+    top: -30px;
+}
+
+.media-section-general-right .editable-text .editable-buttons,
+.media-section-general-right .editable-time .editable-buttons,
+.media-section-general-right .editable-number .editable-buttons {
+    right: -5px;
+    top: -22px;
+}
+
+.editable-buttons button,
+.form-buttons button {
+    width: 18px;
+    height: 18px;
+
+    @include hide-text;
+    border: 0;
+
+    margin-right: 5px;
+
+    background-color: transparent;
+    @include icon('edit-cancel', '', 'center center');
+
+    cursor: pointer;
+}
+
+.editable-buttons button[type='submit'],
+.form-buttons button[type='submit'],
+.editable-buttons .button-save,
+.form-buttons .button-save {
+    @include icon('edit-confirm', '', 'center center');
+}
+
+.media-data .waiting .editable-buttons,
+.media-data .waiting .form-buttons {
+    opacity: 0.5;
+
+    button {
+        cursor: default;
+    }
+}
+
+.media-data .editable-time input {
+    font-size: 14px;
+    padding: 8px;
+    font-family: $basefont;
+}
+
+.media-data .editfield-wrapper,
+#media-workflow {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.saved {
+    -webkit-animation-name: saved;
+    animation-name: saved;
+}
+
+/* tooltips in media section */
+
+.media-data .media-field-tools {
+    @include transition(opacity .2s);
+    opacity: 0;
+
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    .edit-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        position: relative;
+        @include icon('edit');
+    }
+
+    .preview-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        position: relative;
+        @include icon('preview');
+    }
+
+    .forbidden-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        position: relative;
+        @include icon('action-forbidden');
+    }
+}
+
+.media-data .media-field-tools .tooltip-wrapper {
+    display: inline-block;
+}
+.media-data .media-field:hover {
+    .media-field-tools {
+
+        opacity: 1;
+    }
+    .opened {
+        .media-field-tools {
+            opacity: 0;
+        }
+    }
+}
+
+
+
+
+
+.media-field .editfield-wrapper.editfield-persons.may-write:hover{
+    background-color: transparent;
+    cursor: default;
+}
+
+
+.media-schedule-events {
+    float: left;
+    width: 140px;
+}
+
+.media-field-owner {
+    display: inline;
+    padding-left: 3px;
+
+    font-size: 10px;
+    color: $lichtgrijs;
+    a {
+        text-transform: uppercase;
+        color: $lichtgrijs;
+    }
+}
+
+
+/* static fields */
+
+.media-static-field {
+    padding: 3px 8px;
+    position: relative;
+    @include clearfix();
+    font-size: $fontsizemedium;
+}
+
+.media-static-field .media-field-tools {
+    top: 3px;
+}
+
+.media-static-field-title {
+    display: inline-block;
+    float: left;
+    width: 130px;
+    margin: 0;
+}
+
+.media-static-field-content {
+    display: inline-block;
+    float: left;
+}
+
+
+.media-static-field:hover {
+    .media-field-tools {
+        opacity: 1;
+    }
+}
+
+.media-workflow {
+    @include transition(background-color .2s);
+    @include transition(color .2s);
+    background-color: transparent;
+}
+
+/* end static fields */
+
+
+.media-all-edits{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+.media-toggle-ordered{
+    font-size: $fontsizemedium;
+    color: $lichtgrijs;
+    line-height: 27px;
+
+    cursor: pointer;
+
+    .tooltip-wrapper{
+        top: 4px;
+        display: none;
+    }
+
+    &:hover{
+        .tooltip-wrapper{
+            display: inline-block;
+        }
+
+    }
+}

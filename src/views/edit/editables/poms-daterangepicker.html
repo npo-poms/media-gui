@@ -1,0 +1,93 @@
+<div class="editfield-wrapper editfield-daterangepicker "
+     ng-keyup="keyEvent($event)"
+     ng-class="{'opened' : editableForm.$visible , 'may-write' : mayWrite, 'empty': !media[field].start && !media[field].stop ,  'forbidden': !mayWrite, 'waiting': waiting }" save-feedback
+        >
+
+    <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
+
+    <div class="pickers" ng-if="!mayWrite">
+
+        <h2 class="small-header"> {{header}} </h2>
+        {{media[field].start | mediaDateTime }} <span ng-if="media[field].start && media[field].stop"> / </span>
+        {{media[field].stop | mediaDateTime }}
+
+    </div>
+
+    <div ng-click="editableForm.$show()"  ng-if="mayWrite && !editableForm.$visible">
+
+        <h2 class="small-header"> {{header}} </h2>
+        {{media[field].start | mediaDateTime }} <span ng-if="media[field].start && media[field].stop"> / </span>
+        {{media[field].stop | mediaDateTime }}
+
+    </div>
+
+    <form editable-form name="editableForm" onbeforesave="save()" class="daterangepicker-form" blur="ignore" ng-show="editableForm.$visible">
+
+        <h2 class="small-header"> {{header}} </h2>
+
+        <div>
+
+            <div class="form-buttons">
+
+                <button type="submit" class="confirm-edit" ng-disabled="editableForm.$waiting" >
+                    Save
+                </button>
+                <button type="button" class="cancel-edit" ng-disabled="editableForm.$waiting" ng-click="cancel()">
+                    Cancel
+                </button>
+            </div>
+
+
+            <div class="pickers" daterangepicker>
+                <div class="editable-datepicker from-date datepicker-dropdown" >
+
+                    <a href="#"
+                       e-name="startdate"
+                       editable-bsdate="media[field].start"
+                       e-datepicker-popup="dd-MM-yyyy HH:mm"
+                       e-close-on-date-selection="true"
+                       e-is-open="startdate.open"
+                       e-max-date="maxStart"
+                       e-close-text="sluit"
+                       e-ng-change="setMinStop(this.$data)">
+                        {{ (media[field].start | mediaDateTime) || 'empty' }}
+                    </a>
+                    <button class="open-calendar" ng-click="openStartDate($event)"></button>
+
+                </div>
+
+                <br />
+
+                <div class="editable-datepicker to-date datepicker-dropdown" >
+
+                    <a href="#"
+                       e-name="stopdate"
+                       editable-bsdate="media[field].stop"
+                       e-datepicker-popup="dd-MM-yyyy HH:mm"
+                       e-close-on-date-selection="true"
+                       e-is-open="stopdate.open"
+                       e-min-date="minStop"
+                       e-close-text="sluit"
+                       e-ng-change="setMaxStart(this.$data)"
+                       >
+                        {{ (media[field].stop | mediaDateTime) || 'empty' }}
+                    </a>
+                    <button class="open-calendar" ng-click="openStopDate($event)"></button>
+
+                </div>
+            </div>
+
+            <div class="daterangepicker-error"> {{errorText}} </div>
+
+
+        </div>
+
+    </form>
+
+    <div class="media-field-tools">
+        <div ng-if="mayWrite" ng-click="editableForm.$show()" class="edit-icon"></div>
+        <div ng-if="!mayWrite" class="forbidden-icon"></div>
+        <poms-help field="{{helpField}}"></poms-help>
+    </div>
+
+</div>

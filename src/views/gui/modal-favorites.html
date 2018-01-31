@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <div class="modal-title"> Favorieten</div>
+    <div class="modal-close-button" ng-click="favoritesController.cancel()"> close</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message" ng-init="favoritesController.init()">
+
+        <div class="modal-column">
+            <h3> Favoriete Zoekopdrachten </h3>
+            <ul>
+                <li ng-repeat="search in searches" class="animate-fade">
+                    <a class="btn-text-icon btn-text-icon-favorite-highlight" title='voer deze zoekopdracht uit' ng-click="favoritesController.openSearch( search )">
+                       {{ search._backup.summary }}
+                    </a>
+                    <button title='verwijder dit als favoriet' class="remove-favorite" ng-click="favoritesController.removeSearch( search )"></button>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-column">
+            <h3> Favoriete Media-items </h3>
+            <ul>
+                <li ng-repeat="item in media" class="animate-fade">
+                    <a class="btn-text-icon btn-text-icon-favorite-highlight" title="ga naar dit media-item" ng-click="favoritesController.openMediaItem( item.mid )">
+                        {{item.type.text}} - {{item.mainTitle.text}} - {{item.mid}}
+                    </a>
+                    <button title='verwijder dit als favoriet' class="remove-favorite" ng-click="favoritesController.removeMediaItem( item.mid )"></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button ">
+
+        <div class="footer-message">
+            &nbsp;
+        </div>
+
+        <button class="btn-rect btn-rect-cancel" ng-click="favoritesController.cancel($event)">Sluit</button>
+
+    </div>
+</div>

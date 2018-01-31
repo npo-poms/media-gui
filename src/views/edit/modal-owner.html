@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::ownerController.title }}</div>
+    <div class="modal-close-button" ng-click="ownerController.close()"> sluit</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+
+        <div class="owner-field"  >
+           {{::ownerController.owner}} bevat voor dit media-item de volgende velden:
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.mainTitle" >
+            <h2 class="small-header">Titel</h2>
+            <p>{{::ownerController.ownerData.mainTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.subTitle" >
+            <h2 class="small-header">Subtitel</h2>
+            <p>{{::ownerController.ownerData.subTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.shortTitle" >
+            <h2 class="small-header">Korte titel</h2>
+            <p>{{::ownerController.ownerData.shortTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.abbreviationTitle" >
+            <h2 class="small-header">Afkorting</h2>
+            <p>{{::ownerController.ownerData.abbreviationTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.workTitle" >
+            <h2 class="small-header">Werktitel</h2>
+            <p>{{::ownerController.ownerData.workTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.originalTitle" >
+            <h2 class="small-header">Originele titel</h2>
+            <p>{{::ownerController.ownerData.originalTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.lexicoTitle" >
+            <h2 class="small-header">Lexicografische titel</h2>
+            <p>{{::ownerController.ownerData.lexicoTitle}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.mainDescription" >
+            <h2 class="small-header">Beschrijving</h2>
+            <p>{{::ownerController.ownerData.mainDescription}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.shortDescription" >
+            <h2 class="small-header">Korte beschrijving</h2>
+            <p>{{::ownerController.ownerData.shortDescription}}</p>
+        </div>
+
+        <div class="owner-field" ng-if="ownerController.ownerData.kickerDescription" >
+            <h2 class="small-header">Eenregelige beschrijving</h2>
+            <p>{{::ownerController.ownerData.kickerDescription}}</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect" ng-click="ownerController.close()">Sluit</button>
+    </div>
+</div>

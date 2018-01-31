@@ -1,0 +1,102 @@
+@mixin icon($name, $size:'', $position: 'center center') {
+
+    background-color: transparent;
+
+    background-position: unquote($position);
+    background-repeat: no-repeat;
+    background-image: url('../resources/icons/' + $name + '.svg');
+
+    @if $size != '' {
+        background-size: $size $size;
+    }
+
+
+}
+
+
+@mixin input-placeholder($color){
+    &::-webkit-input-placeholder{
+        color: $color;
+    }
+    &:-moz-placeholder{
+        color: $color;
+    }
+    &::-moz-placeholder{ //for newer versions of Firefox
+        color: $color;
+    }
+    &:-ms-input-placeholder{
+        color: $color;
+    }
+}
+
+
+
+@mixin placeholder($width:230px, $height:230px, $bgcolor:#ccc, $triangle-color: #d0d0d0, $gutter-size: 1px) {
+    position: relative;
+    background: $bgcolor;
+    z-index:1;
+    width:$width;
+    text-align:center;
+    height:$height;
+    span {
+        box-shadow: 0 0 2px 0 $bgcolor inset;
+        position:relative;
+        height: $height;
+        width: $width;
+        display:block;
+        font-size: 12px;
+        color: #000;
+        line-height: $height;
+        text-align: center;
+        z-index:2;
+        &:after {
+            position: absolute;
+            top:$gutter-size*2;
+            left: $gutter-size;
+            content: " ";
+            width: 0;
+            height: 0;
+            border-top:  -$gutter-size*2 + $height/2 solid transparent;
+            border-bottom:  -$gutter-size*2 + $height/2 solid transparent;
+            border-left:  -$gutter-size*2 + $width/2 solid $triangle-color;
+            z-index:-1;
+        }
+        &:before {
+            position: absolute;
+            top: $gutter-size*2;
+            right: $gutter-size;
+            content: " ";
+            width: 0;
+            height: 0;
+            border-top: -$gutter-size*2 + $height/2 solid transparent;
+            border-bottom: -$gutter-size*2 + $height/2 solid transparent;
+            border-right: -$gutter-size*2 +$width/2 solid $triangle-color;
+            z-index:-1;
+        }
+    }
+
+    &:after {
+        position: absolute;
+        top:$gutter-size;
+        left: $gutter-size*2;
+        content: " ";
+        width: 0;
+        height: 0;
+        border-left: -$gutter-size*2 + $width/2 solid transparent;
+        border-right: -$gutter-size*2 + $width/2 solid transparent;
+        border-top: -$gutter-size*2 + $height/2 solid $triangle-color;
+        z-index:-1;
+    }
+    &:before {
+        position: absolute;
+        left: $gutter-size*2;
+        bottom: $gutter-size;
+        content: " ";
+        width: 0;
+        height: 0;
+        border-left: -$gutter-size*2 + $width/2 solid transparent;
+        border-right: -$gutter-size*2 +  $width/2 solid transparent;
+        border-bottom: -$gutter-size*2 +  $height/2 solid $triangle-color;
+        z-index:-1;
+    }
+}

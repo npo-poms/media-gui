@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::subtitlesController.title }}</div>
+    <div class="modal-close-button" ng-click="subtitlesController.close()"> sluit</div>
+</div>
+
+<div class="modal-body">
+
+    <table class="poms-table poms-table-subtitles">
+        <thead>
+        <tr class="poms-table-head-row">
+            <!--<poms-help field=""></poms-help>-->
+            <th class="poms-table-header">Taal</th>
+            <th class="poms-table-header">Type<poms-help field="editor.general.subtitles.type"></poms-help></th>
+            <th class="poms-table-header">Offset (hh:mm:ss)<poms-help field="editor.general.subtitles.offset"></poms-help></th>
+
+            <th class="poms-table-header column-tools"></th>
+        </tr>
+        </thead>
+
+        <tbody ng-model="subtitlesController.subtitles">
+
+        <tr ng-repeat="item in subtitlesController.subtitles" class="poms-table-row"
+            ng-class="{'editing': rowform.$visible, 'may-write': subtitlesController.mayWrite }">
+
+            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+                <div>{{item.displayLanguage || item.language }}</div>
+            </td>
+
+            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+                <div>{{item.type }}</div>
+            </td>
+
+            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+
+                <div class="editable-duration">
+                    <div e-name="offset"
+                         e-form="rowform"
+                         editable-time="item.offset"
+                         e-step="1"
+                         e-show-meridian="false"
+                         e-close-text="sluit"
+                         e-autocomplete="off"
+                         e-placeholder="hh:mm:ss"
+                         ng-show="mayWrite"
+                    >
+                        {{ (item.offset | mediaDuration) || '' }}
+                    </div>
+
+                    <div class="editfield" ng-hide="mayWrite">{{ item.offset | mediaDuration }} </div>
+                </div>
+            </td>
+
+
+            <td class="column-tools" ng-class="{'waiting': waiting}">
+                <form editable-form name="rowform" onbeforesave="subtitlesController.submit( item, $data)"
+                      oncancel="subtitlesController.cancel($index)"
+                      ng-show="rowform.$visible" class="form-buttons form-inline">
+                    <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        bewaar
+                    </button>
+                    <button title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"
+                            class="btn btn-default">
+                        annuleer
+                    </button>
+                </form>
+                <div class="tools" ng-show="!rowform.$visible">
+                    <button title='bekijk de ondertiteling in een nieuw scherm' class="poms-icon icon-preview" ng-click="subtitlesController.showSubtitle( item )">bekijk</button>
+                    <button title='bewerk' class="poms-icon icon-edit" ng-show="mayWrite" ng-click="rowform.$show()">bewerk</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect" ng-click="subtitlesController.close()">Sluit</button>
+    </div>
+</div>

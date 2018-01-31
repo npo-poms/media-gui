@@ -1,0 +1,31 @@
+.poms-typeahead .dropdown-menu {
+    position: absolute;
+
+    width: 100%;
+    overflow: hidden;
+    z-index: 10001;
+
+    padding: 0;
+
+    background-color: white;
+
+    border: 1px solid $lichtgrijs;
+
+    line-height: 16px;
+}
+
+.poms-typeahead .dropdown-menu .active {
+    background-color: $ultralichtgrijs;
+}
+
+.poms-typeahead .dropdown-menu a {
+    display: inline-block;
+
+    overflow: hidden;
+    width: 100%;
+    padding: 4px;
+
+    color: $grijs;
+    text-overflow: ellipsis;
+
+}

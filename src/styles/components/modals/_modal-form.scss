@@ -1,0 +1,33 @@
+.modal-form{
+    color: $oranje;
+}
+
+.modal-form .poms-form {
+    position:relative;
+    height:100%;
+    box-sizing: border-box;
+
+    margin-bottom: 24px;
+}
+
+.modal-form .poms-form .form-fields{
+    overflow:auto;
+    height:100%;
+}
+
+.form-fields .field{
+    position:relative;
+}
+
+.modal-form .preview-image{
+    @include span-columns(12);
+
+    img{
+        width:100%;
+    }
+}
+
+
+.modal-form .publication-placeholder{
+    color: $lichtgrijs;
+}

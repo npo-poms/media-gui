@@ -1,0 +1,48 @@
+
+/* inputs */
+
+input[type="text"]:not(.clipboard-input-button) ,
+input[type="email"],
+input[type="number"],
+input[type="time"],
+textarea,
+select {
+
+    color: $grijs;
+
+    outline: 0 none;
+    padding: 6px 8px;
+
+    font-size: $fontsizebig;
+    border: 1px solid $lichtgrijs;
+
+    &:focus {
+        border: 1px solid $oranje;
+    }
+
+    width: 100%;
+
+    @include input-placeholder($lichtgrijs);
+
+    &:disabled {
+        @include input-placeholder($rood);
+    }
+}
+
+
+input[type='text'].waiting{
+    background-image: url('../resources/images/loading.gif');
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+
+input[readonly],
+textarea[readonly],
+input[disabled],
+textarea[disabled] {
+    color: $disabled-color !important;
+    &:focus {
+        border: 1px solid !important;
+    }
+}

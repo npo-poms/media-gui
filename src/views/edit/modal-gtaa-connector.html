@@ -1,0 +1,192 @@
+<form role="form" class="poms-form personForm"  name="personForm"  ng-class="{'waiting': waiting}">
+
+    <div class="modal-body">
+        <div class="form-fields">
+
+            <div class="row">
+                <div class="col-12 personfields">
+
+                    <div ng-show="!registerNewPerson && !linkedPerson" class="poms-typeahead field col-8">
+
+                        <label label-for="suggestions">Zoek een persoon in GTAA:</label>
+                        <input ng-class="{'waiting': suggestionsWaiting }" ng-disabled="waiting" id="suggestions" name='suggestions' type="text"
+                               ng-model="suggestData"
+                               typeahead="suggestion as suggestion.displayValue for suggestion in controller.suggest($viewValue, 50)"
+                               typeahead-editable="false"
+                               typeahead-on-select="controller.suggestionSelected( suggestData )"
+                               typeahead-template-url="itemTpl.html"
+                               autocomplete="off"
+                                />
+
+                        <script type="text/ng-template" id="itemTpl.html">
+                            <a tabindex="-1" >
+                                <span ng-if="!match.model.new">
+                                    <span title='{{match.model.gtaaRecord.status }}' class='modal-person-gtaa media-person-gtaa-{{match.model.gtaaRecord.status}}'></span>
+                                    <span ng-bind-html="match.model.givenName || '' | typeaheadHighlight:query"></span>
+                                    <span ng-bind-html="match.model.familyName || '' | typeaheadHighlight:query"></span>
+                                    <span class='gtaa-suggest-knownas' ng-if="match.model.knownAs.length > 0">
+                                        "<span ng-repeat='altLabel in match.model.knownAs' ><span ng-bind-html="altLabel.givenName || '' | typeaheadHighlight:query"></span>
+                                        <span ng-bind-html="altLabel.familyName || '' | typeaheadHighlight:query"></span>{{$last?'':', '}}</span>"
+                                    </span>
+                                    <span ng-if="match.model.notes.length > 0">
+                                        <br/>
+                                        <span ng-repeat='note in match.model.notes' >
+                                            <span ng-bind-html="note.value || '' | typeaheadHighlight:query"></span>
+                                            {{$last?'':', '}}
+                                        </span>
+                                    </span>
+                                </span>
+
+                                <span class="new" ng-if="match.model.new">
+                                   <span ng-bind-html="match.model.displayValue | typeaheadHighlight:query"></span>
+                                </span>
+                            </a>
+                        </script>
+
+                        <p ng-if="personForm.suggestions.$invalid || personForm.suggestions.$pristine">
+                            U moet een persoon uit de GTAA kiezen <br />
+                            &oacute;f de optie selecteren om een nieuw persoon aan te maken
+                        </p>
+
+                        <poms-help field="editor.general.persons.gtaa"></poms-help>
+
+                    </div>
+                </div>
+
+                <div class="row" ng-if="linkedPerson  && !registerNewPerson">
+                    <label>Registreren</label>
+
+                        <div class="col-6" ng-if="suggestions.length">
+                            <p>U kunt de naam {{linkedPerson.givenName}} {{linkedPerson.familyName}} aan de volgende bestaande records koppelen:</p>
+
+                            <div class="suggestions">
+                                <span ng-repeat="sug in suggestions">
+                                    <label class="person-label"  ng-class="(linksuggestion==$index) ? 'checked' : ''">
+                                    <input ng-model="$parent.linksuggestion"
+                                           ng-disabled="waiting"
+                                           type="radio"
+                                           ng-value="$index"
+                                           name="linksuggestion"
+                                           ng-click="controller.recordSelected( sug )">
+                                        {{sug.displayValue}}
+                                        <div title='{{sug.gtaaRecord.status }}' class='modal-person-gtaa-suggestion media-person-gtaa-{{sug.gtaaRecord.status}}'></div>
+
+                                    </label>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="col-5">
+                            <p ng-if="suggestions.length">
+                                Of wilt u de huidige persoon "{{linkedPerson.givenName}} {{linkedPerson.familyName}}" nieuw registreren bij GTAA?
+                            </p>
+
+                            <p ng-if="!suggestions.length">
+                                De persoon "{{linkedPerson.givenName}} {{linkedPerson.familyName}}" is niet bekend in GTAA. U kunt deze als nieuw registreren.
+                            </p>
+
+                            <div class="suggestions">
+                                <button class="btn-rect btn-rect-secondary btn-rect-large" ng-click="controller.createRegisterForm()">registreer</button>
+                            </div>
+                        </div>
+
+
+                        <poms-help field="editor.general.persons.gtaa.match"></poms-help>
+
+                </div>
+
+                <div class="row">
+                    <div class='field col-12' ng-if="selectedPerson.knownAs.length > 0">
+                        <span> Deze persoon heeft meerdere bekende namen. <br /> Welke naam wilt u gebruiken om te tonen? </span>
+
+                        <div class="suggestions">
+
+                            <span>
+                                <label class="gtaa-suggest-preferred person-label" ng-class="(displayname=='-1') ? 'checked' : ''" >
+                                    <input ng-checked="true"
+                                           ng-disabled="waiting"
+                                           type="radio"
+                                           name="displayname"
+                                           ng-value="-1"
+                                           ng-click="controller.setPersonName( selectedPerson.givenName, selectedPerson.familyName, false)" />
+                                    {{selectedPerson.givenName}} {{selectedPerson.familyName}} (aangeraden)
+                                </label>
+                            </span>
+
+                            <span class="gtaa-suggest-knownas" ng-repeat="knownAs in selectedPerson.knownAs">
+                                <label class="person-label"  ng-class="($parent.displayname==$index) ? 'checked' : ''" >
+                                    <input
+                                           type="radio"
+                                           ng-disabled="waiting"
+                                           name="displayname"
+                                           ng-value="$index"
+                                           ng-click="controller.setPersonName( knownAs.givenName, knownAs.familyName, true )" />
+                                    {{knownAs.givenName}} {{knownAs.familyName}}
+                                </label>
+                            </span>
+
+
+                        </div>
+                        <poms-help  field="editor.general.persons.gtaa.knownAs"></poms-help>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class='field' ng-if="registerNewPerson">
+                        U gaat een nieuw persoon registreren bij de GTAA. <br />
+                        Controleer de voor- en achternaam van deze persoon.
+                    </div>
+                    <poms-help  field="editor.general.persons.gtaa.register"></poms-help>
+                </div>
+
+
+                <hr >
+
+
+                <div class="row" >
+                    <div class="col-4 field">
+                        <label label-for="givenName">Voornaam: </label>
+                        <input ng-disabled="!registerNewPerson || waiting" id="givenName" type="text" ng-model="person.givenName"/>
+                        <poms-help  field="editor.general.persons.givenName"></poms-help>
+                    </div>
+
+                    <div class="col-4 field">
+                        <label label-for="familyName">Achternaam: </label>
+                        <input  ng-disabled="!registerNewPerson || waiting" id="familyName" type="text" ng-model="person.familyName"/>
+                        <poms-help  field="editor.general.persons.familyName"></poms-help>
+                    </div>
+                </div>
+
+
+                <div class="row" ng-if="registerNewPerson">
+                    <div class="col-8 field">
+                        <label label-for="note">Opmerking: </label>
+                        <input ng-disabled="waiting" id="note" type="text" ng-model="person.note"/>
+                        <poms-help  field="editor.general.persons.gtaa.note"></poms-help>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message" >
+                <span class="required-feedback-message" ng-if="!person.familyName || !person.givenName || ( ! person.note && registerNewPerson )">Nog in te vullen:</span>
+                <span class="required-field" ng-if="!person.givenName"> Voornaam  </span>
+                <span class="required-field" ng-if="!person.familyName"> Achternaam  </span>
+                <span class="required-field" ng-if="!person.note && registerNewPerson"> Opmerking  </span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.submit()" ng-disabled="!personFormValid || personForm.suggestions.$invalid || waiting || ( ! registerNewPerson && ! person.gtaaRecord )" > Sla op </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)" ng-disabled="waiting">Annuleer</button>
+        </div>
+    </div>
+
+</form>

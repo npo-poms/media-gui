@@ -1,0 +1,10 @@
+<div class="tooltip-wrapper" ng-click="helpClicked($event)">
+    <div class="tooltip-icon" ng-mouseover="getHelp()"></div>
+
+    <div class="tooltip">
+        <span ng-bind-html="message.text">
+            {{message.text}}
+        </span>
+        <a target="_blank" href="{{message.url}}" class="tooltip-link" ng-if="message.url"> meer info </a>
+    </div>
+</div>

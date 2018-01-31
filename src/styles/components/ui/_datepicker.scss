@@ -1,0 +1,63 @@
+.open .daterange-select {
+    display: block;
+}
+
+.daterange-select {
+    display: none;
+
+    width: 282px;
+    padding: 8px;
+    border: 1px solid $lichtgrijs;
+
+    position: absolute;
+    z-index: $z-index-edit;
+
+    background-color: $white;
+    line-height: 24px;
+}
+
+.daterange-select button {
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.daterange-select:before {
+    display: block;
+}
+
+.daterange-select .date-input-label {
+    width: 30px;
+    display: inline-block;
+}
+
+.daterange-select input {
+    height: 30px;
+    width: 200px !important;
+    border: 1px solid $lichtgrijs;
+}
+
+.daterange-select input.date-type-select {
+    width: 30px !important;
+    height: 13px;
+}
+
+.daterange-select .input-group {
+    height: 30px;
+    margin: 4px 0;
+}
+
+.daterange-select .open-calendar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+
+    margin: 0;
+    position: absolute;
+
+    @include icon('calendar', 14px);
+
+    background-color: $lichtgrijs;
+}
+
+

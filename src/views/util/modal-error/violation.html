@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <div class="modal-title">Validatie-fout</div>
+</div>
+
+
+<div class="modal-body">
+    <div class="modal-message">
+        De inhoud is niet geldig
+    </div>
+
+    <div class="modal-stacktrace">
+        <table>
+            <tr ng-repeat="(key, violation) in alertController.error.violations">
+                <th>{{key}}</th><td>{{violation}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect btn-rect-error" ng-click="alertController.cancel()">ga door</button>
+        <button class="btn-rect btn-rect-error" ng-click="alertController.reloadPage()">herlaad</button>
+    </div>
+</div>

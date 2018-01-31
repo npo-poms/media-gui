@@ -1,0 +1,12 @@
+.modal-edit{
+    padding:16px;
+}
+
+.modal-edit .footer button{
+
+    &:hover{
+        color:white;
+        background-color: $oranje;
+    }
+}
+

@@ -1,0 +1,133 @@
+<div id="{{section}}" class="media-data media-members media-section"
+     ng-controller="MembersController as membersController">
+
+    <h1 class='media-section-title' ng-class="{'waiting': waiting}">
+        {{header}} ({{members.length}})
+        <poms-help field="{{helpField}}"></poms-help>
+    </h1>
+
+    <button class="btn-text-icon btn-text-icon-add" ng-if="membersController.mayWrite" ng-click="membersController.addMember()">
+        Onderdeel toevoegen
+    </button>
+
+    <table class="poms-table poms-table-members" ng-if="members.length > 0" ng-class="{'updating': waiting}">
+
+        <thead>
+        <tr class="poms-table-head-row">
+            <th class="poms-table-header column-sort" ng-if="membersController.sortable(media)"></th>
+
+            <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
+                <span ng-if="column.id == 'number' && media.ordered" title="{{column.value}}"> {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }} </span>
+
+                <span ng-if="column.id != 'number'" title="{{column.value}}"> {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }} </span>
+            </th>
+
+            <th class="poms-table-header column-tools">
+                <poms-member-columns namespace="type"></poms-member-columns>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody ui-sortable="sortableOptions" ng-model="members">
+        <tr class="poms-table-row" ng-repeat="member in members  | limitTo: displayQuantity"
+            ng-class="{ 'editing': rowform.$visible, 'may-write': membersController.mayWrite, 'deleted-row': member.workflow.id == ('FOR_DELETION' || 'DELETED'), 'not-sortable': member.number == null }"
+            ng-dblclick="membersController.openInEditor( $event, member.mid, rowform )"
+            >
+
+            <td class="column-sort" ng-if="membersController.sortable(media)">
+                <span ng-class="{'sort-handle': member.number != null}"></span>
+            </td>
+
+            <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+
+                <span ng-switch-when="workflow">
+                      <poms-workflow
+                              mid="::member.mid"
+                              workflow="::member.workflow"
+                              on-deleted="membersController.onRemoveMember()"></poms-workflow>
+                </span>
+
+                <span ng-switch-when="preview">
+                    <div class="preview-image-container">
+                        <a class="preview-image" title='bekijk de volledige afbeelding' href="{{::member.image | mediaFullImage }}" target="blank" ng-if="::member.image" style="background-image: url('{{member.image | mediaFullImage }}')">
+                        </a>
+                        <span class="preview-image" ng-if="!member.image"></span>
+                    </div>
+                </span>
+
+
+                <span title="volgnummer" ng-switch-when="number"  >
+                    <span ng-if="media.ordered" editable-number="::member.number" e-name="number" e-form="rowform" ng-click="membersController.edit(rowform, $event)">
+                        {{::member.number || '-'}}
+                    </span>
+                </span>
+
+                <span title="uitgelicht" ng-switch-when="highlighted" editable-checkbox="::member.highlighted" e-name="highlighted" e-form="rowform" >
+                    <span class="highlighted" ng-class="{'selected' : member.highlighted}"></span>
+                </span>
+
+                <span ng-switch-when="locations">
+                    <span class='location-count' ng-if="member.locations.length > 0 " ng-attr-title="{{membersController.locationTypes(member.locations).join(',')}}" >
+                        {{::member.locations.length}} (<span ng-repeat="locationType in ::membersController.locationTypes(member.locations)">{{locationType}}{{$last ? '' : ', '}}</span>)
+                    </span>
+                </span>
+
+                <span ng-switch-when="sortDate">
+                    <span title="{{::member | searchColumnFilter:column.id }}"> {{::member | searchColumnFilter:column.id }}
+                        <span ng-if="::member.sortDateScheduleEvent">({{::member.sortDateScheduleEvent.channel.id}})</span>
+                    </span>
+                </span>
+
+                <span ng-switch-when="mid">
+                     <poms-clipboard field="::member.mid"></poms-clipboard>
+                </span>
+
+                <span ng-switch-default>
+                    <span title="{{::member | searchColumnFilter: column.id }}">{{::member | searchColumnFilter: column.id }}</span>
+                </span>
+
+            </td>
+
+            <td class="column-tools" ng-show="membersController.mayWrite">
+
+                <form editable-form name="rowform" onbeforesave="membersController.updateMember(member, $data)"
+                      ng-show="rowform.$visible" class="form-buttons form-inline">
+                    <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        bewaar
+                    </button>
+                    <button title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="membersController.cancel($index, rowform)"
+                            class="btn btn-default">
+                        annuleer
+                    </button>
+                </form>
+
+                <div class="tools" ng-show="!rowform.$visible">
+                    <button title='edit item' class="poms-icon icon-edit" ng-click="membersController.openInEditor( $event, member.mid, rowform )">bewerk</button>
+                    <button title='verwijder item' class="poms-icon icon-remove"
+                            poms-confirm="Onderdeel"
+                            poms-submit="membersController.remove(member)"
+                            ng-show="membersController.mayRemove(member)"
+                            >
+                        Onderdeel verwijderen
+                    </button>
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <div class='show-all-rows' ng-if="displayQuantity < members.length" ng-click="membersController.showAllMembers()">
+        <a> Toon alle {{members.length}} {{::header | lowercase}} </a>
+    </div>
+
+   <span ng-if="type=='members' && media.orderable" >
+        <label class='media-toggle-ordered'>
+            <input ng-disabled="!membersController.mayWrite" type="checkbox" ng-model="media.ordered" ng-change="membersController.toggleOrdered()"> Geordende lijst
+            <poms-help field="editor.members.ordered"></poms-help>
+
+        </label>
+
+    </span>
+
+</div>

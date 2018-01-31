@@ -1,0 +1,14 @@
+<div class="editfield-wrapper editfield-checkbox" ng-keyup="keyEvent($event)" ng-show="mayRead" save-feedback>
+
+    <h2 class="small-header">{{header}}</h2>
+
+    <p class="editfield" >
+        <input type="checkbox" ng-model="media[field]" ng-change="save()" ng-disabled="!mayWrite" >
+    </p>
+
+    <div class="media-field-tools">
+        <div class="edit-icon"></div>
+        <poms-help field="{{helpField}}"></poms-help>
+    </div>
+
+</div>

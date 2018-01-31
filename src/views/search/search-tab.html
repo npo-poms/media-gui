@@ -1,0 +1,16 @@
+<poms-search submit-choices="modalSearchController.select(mids)" search="search"></poms-search>
+
+<div class="footer-container" ng-if="search.selection.length > 1">
+    <div class="footer search footer-three-buttons">
+
+        <div class="footer-message">
+            &nbsp;
+        </div>
+
+        <button class="btn-rect" ng-click="searchTabController.bulkUpdateSelection()">Bewerk selectie</button>
+        <button class="btn-rect" ng-click="searchTabController.editSelection()">Open selectie</button>
+        <button class="btn-rect" ng-click="searchTabController.previewSelection()">Preview selectie</button>
+
+    </div>
+</div>
+

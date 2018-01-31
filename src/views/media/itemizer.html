@@ -1,0 +1,174 @@
+<div class="modal-header">
+    <div class="modal-title"> Segment</div>
+    <div class="modal-close-button" ng-click="itemizerController.cancel()"> close</div>
+</div>
+
+<form role="form" class="poms-form segmentForm" name="segmentForm" >
+
+    <div class="modal-body" ng-class="{'waiting': waiting}">
+        <div class="form-fields">
+
+            <div class="col-8">
+                <div ng-show="itemizerController.canvas" class="framegrabber-container">
+                    <div class="framegrabber" >
+                    </div>
+
+                </div>
+
+                <div ng-show="!itemizerController.canvas && unplayableMedia" >
+                    <p>
+                        De videospeler waarmee afbeeldingen gemaakt kunnen worden is voor deze bron niet beschikbaar in deze browser.
+                        (Zorg ook dat Flash geinstalleerd is in deze browser)
+                    </p>
+                </div>
+
+                <div ng-show="itemizerController.canvas" class="canvasscrubber">
+                    <div class="canvas-download-progress" ng-style="{'width': downloadProgress}"></div>
+                    <input type=range min='0' max='{{duration}}' step='1' ng-model="canvasPosition" ng-mousedown="itemizerController.setScrubbing()" ng-mouseup="itemizerController.seekviaScrubber()">
+                </div>
+
+                <div  ng-show="itemizerController.canvas" class="canvas-controls">
+
+                    <div class="canvas-play" ng-class="{'playing' : isPlaying}" ng-click="itemizerController.canvasPlay()">  </div>
+                    <div class="canvas-time">
+                        {{canvasPosition | withTimezone | mediaDuration }} - {{duration | withTimezone | mediaDuration}}
+                    </div>
+
+                    <div ng-if="media.avType.id == 'VIDEO' && itemizerController.mayUpload()" class="canvas-grab" ng-click="itemizerController.grabFrame()" > </div>
+
+                </div>
+
+
+                <div class="clear"> </div>
+
+                <div ng-if="playerReady && duration > 1" style="width:100%;" range-slider min="0" max="duration" model-min="segment.start" model-max="segment.stop"
+                     filter="withTimezone">
+                </div>
+
+                <div class="row" ng-if="playerReady">
+                    <div class='field col-6 itemizer-start'>
+                        <span class='itemizer-start-button' ng-click="itemizerController.markStart()">Zet huidige positie als starttijd</span>
+                    </div>
+
+                    <div class='field col-6 itemizer-stop'>
+                        <span class='itemizer-stop-button' ng-click="itemizerController.markStop()">Zet huidige positie als stoptijd</span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class='field col-6 itemizer-start'>
+                        <label for="inputStart">Starttijd &#42;
+                            <span ng-if="playerReady" class="itemizer-segment-play" ng-click="itemizerController.playSegment()"> (speel vanaf)</span>
+                        </label>
+                        <input ng-disabled="waiting" id="inputStart" type="time" step="0.001" ng-model="segment.startAsTime" ng-change="itemizerController.setStartValueAsMs()">
+                        <span class="error" ng-show="invalidTimes">De starttijd van een segment mag niet later zijn dan  of gelijk zijn aan de stoptijd.</span>
+
+                    </div>
+
+                    <div class='field col-6 itemizer-stop'>
+                        <label for="inputStop">Eindtijd &#42;
+                            <span ng-if="playerReady" class="itemizer-segment-play" ng-click="itemizerController.playEnd()">(speel vanaf) </span>
+                        </label>
+                        <input ng-disabled="waiting" id="inputStop" type="time" step="0.001" ng-model="segment.stopAsTime" ng-change="itemizerController.setStopValueAsMs()">
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="field " ng-class="{'has-error' : segmentForm.inputTitle.$invalid}">
+                            <label for="inputTitle">Titel &#42; </label>
+                            <input  type="text" name="inputTitle" id="inputTitle" required
+                                    placeholder="Titel (verplicht)"
+                                    ng-model="segment.mainTitle.text"
+                                    ng-disabled="waiting"/>
+                            <poms-invalid violation="controller.violations.title"></poms-invalid>
+                            <poms-help field="editor.segment.title"></poms-help>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="field" ng-class="{'has-error' : segmentForm.inputDescription.$invalid}">
+                            <label for="inputDescription">Beschrijving &#42;</label>
+                            <textarea type="text" name="inputDescription" id="inputDescription" required
+                                      placeholder="Korte beschrijving (verplicht)"
+                                      ng-model="segment.mainDescription.text"
+                                      ng-disabled="waiting"/>
+                            <poms-invalid violation="controller.violations.description"></poms-invalid>
+                            <poms-help field="editor.segment.description"></poms-help>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-4">
+
+                <p>
+                    De bron van dit media-item is niet beschikbaar op het streaming platform. Het kan zijn dat de flash-player voor het itemizen niet goed werkt.
+                </p>
+
+
+                <label for="inputStart">Afbeeldingen </label>
+
+                <div ng-if="!itemizerController.mayUpload()">
+                    <p>Je hebt niet de rechten om nieuwe plaatjes aan te maken in poms</p>
+                </div>
+
+                <div class="clear"></div>
+
+                <div ng-if="media.avType.id == 'VIDEO' && itemizerController.mayUpload()">
+
+                    <div class="image-preview" ng-if="still" style="background-image:url('{{still}}')">
+
+                    </div>
+
+                </div>
+
+                <div class="clear"></div>
+
+                <div ng-repeat="image in segmentImages"  class="segment-image" style="background-image: url('{{image | mediaGridImage }}')">
+                </div>
+
+                <p ng-show="!segmentImages.length">Er zijn nog geen afbeelding gekoppeld aan dit segment.</p>
+
+
+            </div>
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-three-buttons" ng-class="{'waiting': waiting}">
+
+            <div class="required-feedback footer-message" >
+                <span class="required-feedback-message" ng-if="!segmentFormValid">Nog in te vullen:</span>
+                <span class="required-field" ng-repeat='field in required' ng-if="(!segment[field.id].text)">{{field.text}}</span>
+                <span class="required-field" ng-if='invalidTimes'> starttijd-stoptijd </span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="itemizerController.save()" ng-disabled="!segmentFormValid || waiting">Bewaar en sluit</button>
+            <button class="btn-rect" ng-click="itemizerController.saveAndNew()" ng-disabled="!segmentFormValid || waiting">Bewaar en nieuw</button>
+            <button class="btn-rect btn-rect-cancel" ng-disabled="waiting" ng-click="itemizerController.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>
+
+
+

@@ -1,0 +1,59 @@
+.dropdown-wrapper {
+    color: $grijs;
+}
+
+.dropdown-toggle {
+
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    padding: 0 40px 6px 0;
+    box-sizing: border-box;
+    display: inline-block;
+
+    white-space: nowrap;
+    text-overflow: clip;
+
+    &:after {
+
+        width: 8px;
+        height: 8px;
+
+        display: inline-block;
+        @include icon('pulldown', 8px);
+        content: '';
+        margin-left: 8px;
+
+    }
+
+    &:hover {
+        color: $oranje;
+    }
+}
+
+.dropdown-selected {
+    display: block;
+
+    color: $oranje;
+    cursor: pointer;
+
+    margin-bottom: 4px;
+
+    &:before {
+
+        content: '';
+        top: 2px;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+
+        @include icon('tab-close_hover', 250%);
+
+        position: relative;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+}

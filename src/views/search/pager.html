@@ -1,0 +1,13 @@
+<a title="Eerste pagina" class="pager-button first" ng-class="{ 'disabled': offset <= 0}" ng-click="first()"></a>
+
+<a title="Vorige pagina" class="pager-button prev" ng-class="{ 'disabled': offset <= 0}" ng-click="previous()"></a>
+
+<div class="pager-pagenumber">
+    <label label-for="pageNumber"> Pagina </label> <input class="pager-pagenumber-input" name="pageNumber" ng-model="currentPage" ng-change="to()" />
+
+    <span> / {{totalPages}} </span>
+</div>
+
+<a title="Volgende pagina" class="pager-button next" ng-class="{ 'disabled' : offset + max >= total}" ng-click="next()"></a>
+
+<a title="Laatste pagina" class="pager-button last" ng-class="{ 'disabled' : offset + max >= total}" ng-click="last()"></a>

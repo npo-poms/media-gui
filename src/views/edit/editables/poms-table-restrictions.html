@@ -1,0 +1,127 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::header }}</div>
+    <div class="modal-close-button" ng-click="modalTableEditController.close()"> close</div>
+</div>
+
+<div class="modal-body">
+    <table class="poms-table poms-table-restriction">
+        <thead>
+        <tr class="poms-table-head-row">
+
+            <th class=" poms-table-header column-{{column.id}}" ng-repeat="column in modalTableEditController.columns">
+                {{ ::column.text }}
+                <poms-help field="{{::column.helpField}}"></poms-help>
+            </th>
+
+            <th class="poms-table-header column-tools"></th>
+        </tr>
+        </thead>
+
+        <tbody ui-sortable="sortableOptions" ng-model="modalTableEditController.items">
+
+        <tr ng-repeat="item in modalTableEditController.items" class="poms-table-row" daterangepicker
+            ng-class="{'editing': rowform.$visible, 'may-write': modalTableEditController.mayWrite }">
+
+            <td ng-repeat="column in modalTableEditController.columns" ng-click="rowform.$show()" class="column-{{column.id}}">
+
+                <div ng-if="column.id == 'region'">
+                    <span e-form="rowform" e-name='{{column.id}}' e-required
+                          editable-select="item[column.id].id"
+                          e-ng-options="s.id as s.text for s in modalTableEditController.options">
+                        {{ item[ column.id ].text || 'kies' }}
+                    </span>
+                    <poms-invalid violation="item.violations.region"></poms-invalid>
+                </div>
+
+                <div ng-if="column.id == 'platform'">
+                    <span e-form="rowform" e-name='{{column.id}}' e-required
+                          editable-select="item[column.id]"
+                          e-ng-options="s.id as s.text for s in modalTableEditController.platforms">
+                        {{ item[ column.id ] || 'kies' }}
+                    </span>
+                    <poms-invalid violation="item.violations.platform"></poms-invalid>
+                </div>
+
+                <div ng-if="column.id == 'portal'">x
+                    <span e-form="rowform" e-name='{{column.id}}' e-required
+                          editable-select="item[column.id].id"
+                          e-ng-options="s.id as s.text for s in modalTableEditController.options">
+                        {{ item[ column.id ].text || 'kies' }}
+                    </span>
+                    <poms-invalid violation="item.violations.portal"></poms-invalid>
+                </div>
+
+                <div ng-if="column.id=='start' " class="editable-datepicker from-date datepicker-dropdown">
+                    <div href="#"
+                         e-name="startdate" e-form="rowform"
+                         editable-bsdate="item.publication.start"
+                         e-datepicker-popup="dd-MM-yyyy HH:mm"
+                         e-close-on-date-selection="true"
+                         e-is-open="startdate.open"
+                         e-max-date="maxStart"
+                         e-close-text="sluit"
+                         e-ng-change="setMinStop(this.$data)">
+                        {{ (item.publication.start | mediaDateTime) || '...' }}
+                    </div>
+                    <button class="open-calendar" ng-click="openStartDate($event)" ng-show="rowform.$visible"></button>
+
+                </div>
+
+                <div ng-if="column.id=='stop' " class="editable-datepicker to-date datepicker-dropdown">
+                    <div href="#"
+                         e-name="stopdate"
+                         e-form="rowform"
+                         editable-bsdate="item.publication.stop"
+                         e-datepicker-popup="dd-MM-yyyy HH:mm"
+                         e-close-on-date-selection="true"
+                         e-is-open="stopdate.open"
+                         e-min-date="minStop"
+                         e-close-text="sluit"
+                         e-ng-change="setMaxStart(this.$data)">
+                        {{ (item.publication.stop | mediaDateTime) || '...' }}
+                    </div>
+                    <button class="open-calendar" ng-click="openStopDate($event)" ng-show="rowform.$visible"></button>
+
+                </div>
+
+            </td>
+
+
+            <td class="column-tools" ng-class="{'waiting': waiting}">
+
+                <form editable-form name="rowform" onbeforesave="modalTableEditController.submit($index, $data)"
+                      oncancel="modalTableEditController.cancel($index)" shown="inserted == item"
+                      ng-show="rowform.$visible" class="form-buttons form-inline">
+                    <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        bewaar
+                    </button>
+                    <button title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="modalTableEditController.cancelEdit($index, rowform)"
+                            class="btn btn-default">
+                        annuleer
+                    </button>
+                </form>
+                <div class="tools" ng-show="!rowform.$visible">
+                    <button title='bewerk' class="poms-icon icon-edit" ng-click="rowform.$show()">bewerk</button>
+                    <button title='verwijder' class="poms-icon icon-remove" poms-confirm="Beperking"
+                            poms-submit="modalTableEditController.remove($index)">verwijder
+                    </button>
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <button class="btn-text-icon btn-text-icon-add" ng-if="modalTableEditController.mayWrite" ng-click="modalTableEditController.addItem()">
+        {{singleName}} toevoegen
+    </button>
+</div>
+
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect btn-rect-close" ng-click="modalTableEditController.close()"> Sluit</button>
+    </div>
+</div>

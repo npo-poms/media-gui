@@ -1,0 +1,337 @@
+<div class="modal-header">
+    <div class="modal-title">
+        Bewerk {{ ::media.length }} items - Stap {{step + 1}}:
+        <span ng-if="step == 0"> Titels </span>
+        <span ng-if="step == 1"> Beschrijvingen </span>
+        <span ng-if="step == 2"> Tags </span>
+        <span ng-if="step == 3"> Bevestig </span>
+    </div>
+    <div class="modal-close-button" ng-click="bulkUpdateController.cancel()"> close </div>
+</div>
+
+
+<div class="modal-body">
+
+    <div class="poms-form" ng-if="!mayWrite">
+        <p>
+            Je hebt onvoldoende schijfrechten om alle gevraagde media aan te passen.
+        </p>
+
+        <div class="footer-container">
+            <div class="footer footer-one-button">
+
+                <button class="btn-rect btn-rect-cancel" ng-click="bulkUpdateController.cancel($event)">Annuleer</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div role="form" class="poms-form bulkUpdateForm" ng-class="{'waiting': waiting}" name="bulkUpdateForm" ng-if="mayWrite">
+        <div class="form-fields ">
+
+            <div class="step" ng-show="step == 0">
+
+                <p>
+                    Met deze bulk editor kun je van meerdere items in één keer een aantal velden aanpassen. <br/>
+                    Let op, dit kan niet ongedaan worden gemaakt!
+                    <hr>
+                <br />
+                </p>
+
+
+                <div class="modal-column">
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputMainTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('mainTitle')">
+                        <label for="inputMainTitle">Titel</label>
+                        <input  type="text" name="inputMainTitle" id="inputMainTitle"
+                                ng-change="bulkUpdateController.validate()" ng-model="update.mainTitle"  placeholder="{{ 'geen wijziging' }}"/>
+                        <poms-invalid violation="violations.mainTitle"></poms-invalid>
+                        <poms-help field="bulk.mainTitle"></poms-help>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputSubTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('subTitle')">
+                        <label for="inputSubTitle">Subtitel</label>
+                        <input  type="text" name="inputSubTitle" id="inputSubTitle"
+                                ng-change="bulkUpdateController.validate()"
+                                ng-model="update.subTitle"
+                                ng-disabled="erase.subTitle"
+                                placeholder="{{ erase.subTitle ? 'wordt gewist' : 'geen wijziging' }}"/>
+
+                        <input class="form-erase-field" type="checkbox" id="clearSubTitle" ng-change="bulkUpdateController.validate()" ng-model="erase.subTitle" />
+                        <label class="form-inline-label" for="clearSubTitle">Wis in {{ ::media.length }} items</label>
+
+                        <poms-invalid violation="violations.subTitle"></poms-invalid>
+                        <poms-help field="bulk.subTitle"></poms-help>
+
+                        <div ng-if="false">
+                            <h4>Waardes</h4>
+                            <p ng-repeat="item in media">{{::item.subTitle}}</p>
+                        </div>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputShortTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('shortTitle')">
+                        <label for="inputShortTitle">Korte titel</label>
+                        <input  type="text" name="inputShortTitle" id="inputShortTitle"
+                                ng-change="bulkUpdateController.validate()"
+                                ng-model="update.shortTitle"
+                                ng-disabled="erase.shortTitle"
+                                placeholder="{{ erase.shortTitle ? 'wordt gewist' : 'geen wijziging' }}"/>
+
+                        <label class="form-inline-label" for="clearShortTitle">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearShortTitle" ng-change="bulkUpdateController.validate()" ng-model="erase.shortTitle" />
+
+                        <poms-invalid violation="violations.shortTitle"></poms-invalid>
+                        <poms-help field="bulk.shortTitle"></poms-help>
+
+                        <div ng-if="false">
+                            <h4>Waardes</h4>
+                            <p ng-repeat="item in media">{{::item.shortTitle}}</p>
+                        </div>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputAbbreviationTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('abbreviationTitle')">
+                        <label for="inputAbbreviationTitle">Afkorting</label>
+                        <input  type="text" name="inputAbbreviationTitle" id="inputAbbreviationTitle"
+                                ng-change="bulkUpdateController.validate()"
+                                ng-model="update.abbreviationTitle"
+                                ng-disabled="erase.abbreviationTitle"
+                                placeholder="{{ erase.abbreviationTitle ? 'wordt gewist' : 'geen wijziging' }}"/>
+
+                        <label class="form-inline-label" for="clearAbbreviationTitle">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearAbbreviationTitle" ng-change="bulkUpdateController.validate()" ng-model="erase.abbreviationTitle" />
+
+                        <poms-invalid violation="violations.abbreviationTitle"></poms-invalid>
+                        <poms-help field="bulk.abbreviationTitle"></poms-help>
+
+                        <div ng-if="false">
+                            <h4>Waardes</h4>
+                            <p ng-repeat="item in media">{{::item.abbreviationTitle}}</p>
+                        </div>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputWorkTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('workTitle')">
+                        <label for="inputWorkTitle">Werktitel</label>
+                        <input  type="text" name="inputWorkTitle" id="inputWorkTitle"
+                                ng-change="bulkUpdateController.validate()"
+                                ng-model="update.workTitle"
+                                ng-disabled="erase.workTitle"
+                                placeholder="{{ erase.workTitle ? 'wordt gewist' : 'geen wijziging' }}"/>
+
+                        <label class="form-inline-label" for="clearWorkTitle">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearWorkTitle" ng-change="bulkUpdateController.validate()" ng-model="erase.workTitle" />
+
+                        <poms-invalid violation="violations.workTitle"></poms-invalid>
+                        <poms-help field="bulk.workTitle"></poms-help>
+
+                        <div ng-if="false">
+                            <h4>Waardes</h4>
+                            <p ng-repeat="item in media">{{::item.workTitle}}</p>
+                        </div>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputOriginalTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('originalTitle')">
+                        <label for="inputOriginalTitle">Originele titel</label>
+                        <input  type="text" name="inputOriginalTitle" id="inputOriginalTitle"
+                                ng-change="bulkUpdateController.validate()"
+                                ng-model="update.originalTitle"
+                                ng-disabled="erase.originalTitle"
+                                placeholder="{{ erase.originalTitle ? 'wordt gewist' : 'geen wijziging' }}"/>
+
+                        <label class="form-inline-label" for="clearOriginalTitle">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearOriginalTitle" ng-change="bulkUpdateController.validate()" ng-model="erase.originalTitle" />
+
+                        <poms-invalid violation="violations.originalTitle"></poms-invalid>
+                        <poms-help field="bulk.originalTitle"></poms-help>
+
+                        <div ng-if="false">
+                            <h4>Waardes</h4>
+                            <p ng-repeat="item in media">{{::item.originaTitle}}</p>
+                        </div>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputLexicoTitle.$invalid}" ng-if="bulkUpdateController.hasWritePermission('lexicoTitle')">
+                        <label for="inputLexicoTitle">Lexicografische titel</label>
+                        <input  type="text" name="inputLexicoTitle" id="inputLexicoTitle"
+                                ng-change="bulkUpdateController.validate()"
+                                ng-model="update.lexicoTitle"
+                                ng-disabled="erase.lexicoTitle"
+                                placeholder="{{ erase.lexicoTitle ? 'wordt gewist' : 'geen wijziging' }}"/>
+
+                        <label class="form-inline-label" for="clearLexicoTitle">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearLexicoTitle" ng-change="bulkUpdateController.validate()" ng-model="erase.lexicoTitle" />
+
+                        <poms-invalid violation="violations.lexicoTitle"></poms-invalid>
+                        <poms-help field="bulk.lexicoTitle"></poms-help>
+
+
+                        <div ng-if="false">
+                            <h4>Waardes</h4>
+                            <p ng-repeat="item in media">{{::item.lexicoTitle}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" ng-show="step == 1">
+
+
+                <p>
+                    Met deze bulk editor kun je van meerdere items in één keer een aantal velden aanpassen. <br/>
+                    Let op, dit kan niet ongedaan worden gemaakt!
+                <hr>
+                <br />
+                </p>
+
+                <div class="modal-column">
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputMainDescription.$invalid}" ng-if="bulkUpdateController.hasWritePermission('mainDescription')">
+                        <label for="inputMainDescription">Beschrijving</label>
+                        <textarea type="text" name="inputMainDescription" id="inputMainDescription"
+                                ng-change="bulkUpdateController.validate()"
+                                  ng-model="update.mainDescription"
+                                  ng-disabled="erase.mainDescription"
+                                  placeholder="{{ erase.mainDescription ? 'wordt gewist' : 'geen wijziging' }}"></textarea>
+
+                        <label class="form-inline-label" for="clearMainDescription">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearMainDescription" ng-change="bulkUpdateController.validate()" ng-model="erase.mainDescription" />
+
+                        <poms-invalid violation="violations.mainDescription"></poms-invalid>
+                        <poms-help field="bulk.mainDescription"></poms-help>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputSubDescription.$invalid}" ng-if="bulkUpdateController.hasWritePermission('mainDescription')">
+                        <label for="inputSubDescription">Afleveringsbeschijving</label>
+                        <textarea  type="text" name="inputSubDescription" id="inputSubDescription"
+                                ng-change="bulkUpdateController.validate()"
+                                   ng-model="update.subDescription"
+                                   ng-disabled="erase.subDescription"
+                                   placeholder="{{ erase.subDescription ? 'wordt gewist' : 'geen wijziging' }}"></textarea>
+
+                        <label class="form-inline-label"for="clearSubDescription">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearSubDescription" ng-change="bulkUpdateController.validate()" ng-model="erase.subDescription" />
+
+                        <poms-invalid violation="violations.subDescription"></poms-invalid>
+                        <poms-help field="bulk.subDescription"></poms-help>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputShortDescription.$invalid}" ng-if="bulkUpdateController.hasWritePermission('shortDescription')">
+                        <label for="inputShortDescription">Korte beschrijving</label>
+                        <textarea  type="text" name="inputShortDescription" id="inputShortDescription"
+                                ng-change="bulkUpdateController.validate()"
+                                   ng-model="update.shortDescription"
+                                   ng-disabled="erase.shortDescription"
+                                   placeholder="{{ erase.shortDescription ? 'wordt gewist' : 'geen wijziging' }}"></textarea>
+
+                        <label class="form-inline-label" for="clearShortDescription">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearShortDescription" ng-change="bulkUpdateController.validate()" ng-model="erase.shortDescription" />
+
+                        <poms-invalid violation="violations.shortDescription"></poms-invalid>
+                        <poms-help field="bulk.shortDescription"></poms-help>
+                    </div>
+
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputKickerDescription.$invalid}" ng-if="bulkUpdateController.hasWritePermission('kickerDescription')">
+                        <label for="inputKickerDescription">Eenregelige beschrijving</label>
+                        <textarea  type="text" name="inputKickerDescription" id="inputKickerDescription"
+                                ng-change="bulkUpdateController.validate()"
+                                   ng-model="update.kickerDescription"
+                                   ng-disabled="erase.kickerDescription"
+                                   placeholder="{{ erase.kickerDescription ? 'wordt gewist' : 'geen wijziging' }}"></textarea>
+
+                        <label class="form-inline-label" for="clearKickerDescription">Wis in {{ ::media.length }} items</label>
+                        <input class="form-erase-field" type="checkbox" id="clearKickerDescription" ng-change="bulkUpdateController.validate()" ng-model="erase.kickerDescription" />
+
+                        <poms-invalid violation="violations.kickerDescription"></poms-invalid>
+                        <poms-help field="bulk.kickerDescription"></poms-help>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="step" ng-show="step == 2">
+
+                <p>
+                    Met deze bulk editor kun je van meerdere items in één keer een aantal velden aanpassen. <br/>
+                    Let op, dit kan niet ongedaan worden gemaakt!
+                <hr>
+                <br />
+                </p>
+
+
+                <div class="modal-column">
+                    <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputMainDescription.$invalid}" ng-if="bulkUpdateController.hasWritePermission('tags')">
+                        <label for="inputMainDescription">Tags</label>
+                        <ui-select multiple tagging tagging-label="(nieuw)" ng-change="bulkUpdateController.validate()" ng-model="update.tags" theme="bootstrap" close-on-select="true" reset-search-input="true"  >
+
+                            <ui-select-match  ng-class="{'empty': $select.selected.length == 0}" placeholder="Voeg tags toe">{{$item}}</ui-select-match>
+
+                            <ui-select-choices repeat="tag in tags" refresh="bulkUpdateController.getTags($select.search)" refresh-delay="10">{{tag}}</ui-select-choices>
+
+                        </ui-select>
+
+                        <poms-invalid violation="violations.tags"></poms-invalid>
+                        <poms-help field="bulk.tags"></poms-help>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" ng-show="step == 3">
+
+                <div class="row">
+                    <div class="modal-column bulk-edit-confirm">
+
+                        <p>voor de volgende MIDS:</p>
+                        <ul class="bullet-list">
+                            <li ng-repeat="item in media track by $index">{{item.title}} ({{item.mid}})</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="modal-column">
+                        <p ng-if="displayUpdate.update && hasUpdatedFields" > worden de volgende velden gezet:
+                            <ul class="bullet-list">
+                                <li ng-repeat="(key, value) in displayUpdate.update track by $index" ng-if="key != 'mids' && value && value != ''" >
+
+                                    {{ key | displayName }} :
+                                    <span ng-if="key =='tags'" ng-repeat="item in value track by $index">{{ item }}{{$last ? '' : ', '}}</span>
+                                    <span ng-if="key !='tags'">{{ value }}</span>
+                                    <br />
+                                </li>
+                            </ul>
+                        </p>
+
+                        <p ng-if="displayUpdate.erase"> worden de volgende velden leeg gemaakt:
+                            <ul class="bullet-list">
+                                <li ng-repeat="(key, value) in displayUpdate.erase track by $index" >
+                                    {{ key | displayName }}
+                                </li>
+                            </ul>
+                        </p>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <button class="btn-rect" ng-click="bulkUpdateController.submit()">Bewaar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-four-buttons">
+
+            <div class="footer-message">
+                &nbsp;
+            </div>
+
+            <button class="btn-rect btn-rect-secondary" ng-click="bulkUpdateController.previous()" ng-disabled="!bulkUpdateController.hasPrevious()">Vorige</button>
+            <button class="btn-rect btn-rect-secondary" ng-click="bulkUpdateController.next()" ng-disabled="!bulkUpdateController.hasNext()">Volgende</button>
+
+            <button class="btn-rect" ng-click="bulkUpdateController.confirm()" ng-disabled="!bulkUpdateController.hasSave()">Verwerk</button>
+            <button class="btn-rect btn-rect-cancel" ng-click="bulkUpdateController.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,64 @@
+<table class="poms-table">
+    <thead>
+    <tr class="poms-table-head-row">
+        <th title="Titel" class="poms-table-header">Titel</th>
+        <th title="Status" class="poms-table-header">Status</th>
+        <th title="Beschrijving" class="poms-table-header">Beschrijving</th>
+        <th title="Url" class="poms-table-header">Url</th>
+        <th class="poms-table-header"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr class="poms-table-row" ng-repeat="item in screens" ng-class="{'deleted-row': item.workflow.id == 'FOR_DELETION' || item.workflow.id == 'DELETED' }"
+        ng-show="!item.screen || item.screen && !item.screen.collapsed">
+
+
+        <td>
+            <span>
+                    {{ item.title }}
+            </span>
+        </td>
+
+        <td>
+            <span>
+               <poms-workflow mid="::item.sid" workflow="item.workflow"></poms-workflow>
+            </span>
+
+        </td>
+
+        <td>
+            <span>
+                    {{ item.description }}
+            </span>
+        </td>
+
+        <td>
+            <span>
+                    {{ item.url }}
+            </span>
+
+        </td>
+
+        <td class="column-tools">
+            <div class="tools">
+                <a class="poms-icon icon-remove"
+                   poms-submit="allScreensController.removeScreen(item)"
+                   poms-confirm="'Second screen'"
+                   title="verwijder"></a>
+
+                <a class="poms-icon icon-edit"
+                   href="{{allScreensController.editScreen(item)}}"
+                   title="edit"></a>
+            </div>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+
+<button class="btn-text-icon btn-text-icon-add" ng-click="allScreensController.addScreen()">
+    Scherm toevoegen
+</button>

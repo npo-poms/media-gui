@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <div class="modal-title"> Persoon </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+<form role="form" class="poms-form personForm"  name="personForm"  ng-class="{'waiting': waiting}">
+
+    <div class="modal-body">
+        <div class="form-fields">
+
+            <div class="col-8 personfields">
+
+                <div class="row" >
+                    <div class="col-6 field">
+                        <label label-for="familyName">Voornaam: </label>
+                        <input id="familyName" type="text" ng-model="person.givenName"/>
+                        <poms-help  field="editor.general.persons.familyName"></poms-help>
+                    </div>
+
+                    <div class="col-6 field">
+                        <label label-for="givenName">Achternaam: </label>
+                        <input id="givenName" type="text" ng-model="person.familyName"/>
+                        <poms-help  field="editor.general.persons.givenName"></poms-help>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class='field'>
+                        <label label-for="role">
+                            Rol:
+                        </label>
+
+                        <select class="poms-select" ng-required id='role' ng-model="person.role" ng-options="role.text for role in roles">
+                            <option value=""> -- kies Rol -- </option>
+                        </select>
+
+                        <div class="editable-error" ng-if="errorText" >{{errorText}}</div>
+                        <poms-help field="editor.general.persons.role"></poms-help>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message" >
+                <span class="required-feedback-message" ng-if="!personFormValid">Nog in te vullen:</span>
+                <span class="required-field" ng-if="!person.familyName && !person.givenName">Naam</span>
+                <span class="required-field" ng-if="!person.role">Rol</span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.save()" ng-disabled="!personFormValid || waiting" > Sla op </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>

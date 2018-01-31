@@ -1,0 +1,106 @@
+.footer-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    z-index: 20;
+}
+
+.footer {
+
+    height: 48px;
+
+    background-color: $extralichtgrijs;
+    color: $grijs;
+    font-size: $fontsizesmall;
+    padding: 8px 16px;
+
+    @include span-columns(12);
+    @include outer-container();
+
+    border-top: 2px solid $oranje;
+
+    &.no-edit {
+        border-top: 2px solid #000;
+    }
+
+    &.FOR_REPUBLICATION {
+        border-top: 2px dashed $oranje;
+    }
+
+    &.search {
+        border-top: 2px solid $grijs;
+    }
+}
+
+.footer.waiting {
+    background-image: url('../resources/images/loading.gif');
+    background-position: 24px center;
+    background-repeat: no-repeat;
+}
+
+.footer {
+    .footer-message {
+        @include span-columns(12);
+    }
+
+}
+
+.footer-one-button {
+
+    .footer-message {
+        @include span-columns(10);
+    }
+
+}
+
+.footer-two-buttons {
+
+    .footer-message {
+        @include span-columns(8);
+    }
+}
+
+.footer-three-buttons {
+
+    .footer-message {
+        @include span-columns(6);
+    }
+}
+
+.footer-four-buttons {
+
+    .footer-message {
+        @include span-columns(4);
+    }
+}
+
+.footer .required-feedback {
+    font-size: $fontsizebig;
+    line-height: 32px;
+}
+
+
+
+.footer .required-feedback-message {
+    padding-left: 28px;
+    @include icon('warning', 20px, 0 center)
+}
+
+.footer .required-field {
+    &:after {
+        content: ',\00a0';
+        display: inline-block;
+    }
+}
+
+.footer .required-field:last-child{
+    &:after {
+        content: '';
+        display: inline-block;
+    }
+}
+
+.media-footer-container .footer-message {
+    padding: 8px;
+}

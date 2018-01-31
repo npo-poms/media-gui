@@ -1,0 +1,166 @@
+.tabset {
+    @include outer-container();
+    width: 100%;
+
+    background-color: transparent;
+}
+
+.tab .nav-link {
+    display: block;
+    float: left;
+    width: calc(1400px / 9);
+    height: 40px;
+    padding: 5px 10px 0;
+
+    border-top: 2px solid $bordercolorfaded;
+    border-right: 1px solid $bgcolor;
+    background-color: $bgcolordark;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        background-color: $white;
+    }
+}
+
+.tab.active .nav-link {
+    background-color: $white;
+}
+
+.tab-search .nav-link {
+    border-top: 2px solid $lichtgrijs;
+}
+
+.tab-search.active .nav-link {
+    border-top-color: $grijs;
+}
+
+.tab-media.active .nav-link {
+    border-top-color: $oranje;
+}
+
+.no-edit .nav-link {
+    border-top-color: $grijs;
+}
+
+.no-edit.active .nav-link {
+    border-top-color: $black;
+}
+
+.tab-media-FOR_REPUBLICATION .nav-link {
+    border-top: 2px dashed $lichtoranje;
+}
+
+.tab-media-FOR_REPUBLICATION.active .nav-link {
+    border-top: 2px dashed $oranje;
+}
+
+.tab-media-FOR_REPUBLICATION.no-edit .nav-link {
+    border-top: 2px dashed $grijs;
+}
+
+.tab-media-FOR_REPUBLICATION.no-edit .nav-link {
+    border-top: 2px dashed $black;
+}
+
+.tab-heading {
+    display: block;
+    position: relative;
+}
+
+.tab-subtitle,
+.tab-title {
+    display: block;
+}
+
+.tab-subtitle {
+    color: $textcolorlight;
+    font-size: $fontsizesmall;
+    line-height: $fontsizemedium;
+    text-transform: uppercase;
+}
+
+.tab-title {
+    display: block;
+    width: 130px;
+    overflow: hidden;
+
+    font-size: $fontsizemedium;
+    color: $textcolor;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tab-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12px;
+    height: 12px;
+
+    @include icon('tab-close');
+
+    text-indent: -9999px;
+
+    &:hover {
+        @include icon('tab-close_hover');
+    }
+}
+
+.tab-add .nav-link {
+    display: block;
+    float: left;
+
+    width: 40px;
+    height: 38px;
+
+    box-sizing: content-box;
+
+    border-top: 2px solid transparent;
+
+    text-decoration: none;
+
+    @include icon('tab-new', 32px);
+
+    &:hover {
+        background-color: $white;
+        border-top-color: $oranje;
+    }
+}
+//
+//.tab-close-all {
+//    float: right;
+//}
+//
+//.tab-close-all .nav-link {
+//    display: block;
+//    float: left;
+//
+//    width: 115px;
+//    height: 38px;
+//
+//    box-sizing: content-box;
+//    padding-left: 8px;
+//
+//    border-top: 2px solid transparent;
+//
+//    text-decoration: none;
+//
+//    @include icon('tab-close', 32px, 'right center');
+//
+//    &:hover {
+//        background-color: $rood !important;
+//        border-top-color: $rood;
+//        @include icon('tab-close-white', 32px, 'right center');
+//
+//        .tab-subtitle{
+//            color: white;
+//        }
+//    }
+//}
+
+.tab-close-all .tab-heading {
+    position: relative;
+    top: 13px;
+}

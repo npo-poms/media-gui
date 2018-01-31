@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>POMS GTAA</title>
+    <script src="../js/gtaa.js"></script>
+    <link rel="stylesheet" href="../../css/poms-0.2.0.css"  />
+    <style type="text/css">
+
+        body {
+            padding: 20px;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        .row {
+            padding-top: 1em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="poms-form">
+    <div class="form-fields">
+
+        <div class="col-8">
+
+            <div class="row">
+                <h1>GTAA - example</h1>
+                <p>
+                    Fill in the below form if you want (they are all optional) and press 'Open'.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="givenName">Given name:</label>
+                    <input type="text" id="givenName" >
+                </div>
+                <div class="col-6">
+                    <label for="familyName">Family name:</label>
+                    <input type="text" id="familyName" >
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="gtaaId">GTAA ID ( full GTAA uri ):</label>
+                    <input type="text" id="gtaaId" >
+                </div>
+                <div class="col-6">
+                    <label for="origin">Origin (who's registering new GTAA Persons):</label>
+                    <input type="text" id="origin" >
+                </div>
+            </div>
+
+            <div class="row">
+                <button id="open" class="btn-rect">Open</button>
+            </div>
+
+            <div class="row">
+                <label for="value">Result:</label>
+                <input id="value" type="text"/>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+    document.getElementById( 'open' ).addEventListener( 'click', function () {
+
+        gtaa.open(
+            function ( value ) {
+
+                if ( typeof value === 'object' ) {
+                    value = JSON.stringify( value );
+                }
+
+                document.getElementById( 'value' ).value = value || '';
+
+            }, {
+                givenName: document.getElementById('givenName').value,
+                familyName: document.getElementById('familyName').value,
+                gtaaId: document.getElementById('gtaaId').value,
+                origin: document.getElementById('origin').value
+            }
+        );
+    } );
+</script>
+
+</body>
+</html>

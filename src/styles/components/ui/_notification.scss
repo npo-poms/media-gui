@@ -1,0 +1,49 @@
+.ng-toast__message .alert{
+    background-color: $groen;
+    color: $white;
+    font-size: $fontsizemedium;
+    padding: 15px;
+
+    margin: 8px;
+
+    box-shadow: 0 0 3px rgba(0,0,0,0.4);
+}
+
+.ng-toast__message .alert.alert-error{
+    background-color: $rood;
+
+}
+
+.ng-toast__message .close{
+    -webkit-appearance: none;
+    background-color: transparent;
+
+    color: $extralichtgrijs;
+
+    border: none;
+    float: right;
+
+    font-size: 18px;
+
+    vertical-align: middle;
+    display: inline-block;
+
+    line-height: 9px;
+    margin-left:4px;
+}
+
+
+.ng-toast__message.ng-enter {
+    transition: all linear 500ms;
+    opacity: 0;
+}
+.ng-toast__message.ng-enter-active {
+    opacity: 1;
+}
+.ng-toast__message.ng-leave {
+    transition: all linear 500ms;
+    opacity: 1;
+}
+.ng-toast__message.ng-leave-active {
+    opacity: 0;
+}

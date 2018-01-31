@@ -1,0 +1,115 @@
+.header {
+    @include outer-container();
+    position: relative;
+    height: 75px;
+    margin-bottom: 20px;
+}
+
+
+.header-logo-image {
+    height:100%;
+    vertical-align: middle;
+}
+
+.header-title{
+    padding: 0 24px 0 0;
+
+    font-weight: bold;
+    font-size: $fontsizebig;
+
+}
+
+.header-link{
+    padding: 0 24px;
+
+    text-decoration: none;
+    color: $grijs;
+    text-transform: uppercase;
+
+    &:hover{
+        text-decoration: underline;
+    }
+
+}
+
+.header-account-details {
+    position:absolute;
+    top:0;
+    right:0;
+
+    background: $white;
+
+    line-height: 16px;
+
+    &.open {
+        box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
+
+        .header-account-dropdowns{
+            display:block;
+        }
+
+    }
+    z-index:1000;
+}
+
+
+.header-account-dropdowns{
+    padding: 8px;
+
+    border-top: 2px solid $ultralichtgrijs;
+    display:none;
+}
+
+.header-account-link{
+
+    padding: 8px;
+    border-left: 2px solid $ultralichtgrijs;
+
+    position:relative;
+    display:inline-block;
+    min-width: 30px;
+    text-transform: none;
+
+    .open {
+        text-decoration: underline;
+
+        .header-dropdown-menu {
+            display: block;
+        }
+    }
+
+    &:hover{
+        text-decoration: underline;
+    }
+
+    &.no-border{
+        border-left: 0 solid $ultralichtgrijs;
+    }
+
+    cursor: pointer;
+}
+
+.header-account-owner{
+    color: $oranje;
+    font-weight: bold;
+}
+
+.header-dropdown{
+    &.open .header-dropdown-menu {
+        display: block;
+    }
+}
+
+.header-dropdown-menu {
+    position: relative;
+    display: none;
+    width: 100%;
+    line-height:21px;
+}
+
+
+.header-favorites{
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    @include transition(background-color .3s);
+}

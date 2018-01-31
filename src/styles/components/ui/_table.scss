@@ -1,0 +1,343 @@
+
+.poms-table {
+    background-color: $white;
+    font-size: $fontsizebig;
+    border-spacing: 0;
+    width: 100%;
+    @include clearfix;
+    margin-bottom: 8px;
+    &.updating {
+        opacity: 0.5;
+    }
+
+    .sort-handle {
+        width: 20px;
+        height: 20px;
+
+        opacity: 0;
+        display: block;
+        @include icon('drag_hover', 14px);
+        cursor: move;
+
+    }
+
+    .play-icon {
+        width: 20px;
+        height: 20px;
+
+        display: block;
+        @include icon('play', 28px);
+
+        &:hover{
+            @include icon('play_hover', 28px);
+        }
+    }
+}
+
+.poms-table-header {
+
+    .tooltip-wrapper {
+        top: 3px;
+        display: none;
+    }
+
+    &:hover {
+        .tooltip-wrapper {
+            display: inline-block;
+        }
+    }
+
+    line-height: 36px;
+    text-align: left;
+
+    &.sortable {
+        cursor: pointer;
+
+        &:hover {
+            color: $oranje;
+        }
+    }
+
+    &.sortable .column-header:after {
+        width: 30px;
+
+        height: 8px;
+        display: inline-block;
+        @include icon('pulldown', 8px);
+
+        content: '';
+    }
+
+    &.ordered .column-header.DESC, &.ordered .column-header.ASC {
+        text-decoration: underline;
+    }
+
+    &.ordered .column-header.ASC:after {
+
+        width: 30px;
+        height: 8px;
+
+        display: inline-block;
+        @include icon('pulldown', 8px);
+
+        content: '';
+
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+
+    }
+}
+
+.poms-table-head-row > th,
+.poms-table-row > th,
+.poms-table-head-row > td,
+.poms-table-row > td {
+    border: 0;
+    padding: 0 5px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.poms-table-row {
+
+    &:nth-child(even) {
+        background-color: $superultralichtgrijs;
+    }
+    &:nth-child(odd) {
+        background-color: $white;
+    }
+
+    color: $textcolor;
+    height: 40px;
+
+    &:hover {
+        background-color: $bgcolorhighlight;
+
+        .tools {
+            display: block;
+        }
+
+    }
+
+    &.may-write {
+        cursor: pointer;
+
+        &:hover {
+            .sort-handle {
+                opacity: 1;
+            }
+        }
+
+    }
+
+    &.selected {
+        background-color: $bgcolorhighlight;
+        color: $textcolordark;
+    }
+
+    &:hover,
+    &.selected {
+
+        color: $textcolordark;
+
+        & .search-result-checkbox {
+            display: block;
+        }
+    }
+
+    &.editing {
+        border: 1px solid $lichtgrijs;
+    }
+
+    &.DELETED {
+        color: $rood;
+    }
+}
+
+.show-all-rows {
+    width: 100%;
+    cursor: pointer;
+    background-color: $extralichtoranje;
+    text-align: center;
+    line-height: 36px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.poms-table .preview-image-container {
+    position: relative;
+}
+
+.poms-table .preview-image {
+    background-color: $extralichtgrijs;
+    background-size: cover;
+    background-position: center center;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    margin-top: -13px;
+    margin-left: 4px;
+}
+
+.poms-table .highlighted {
+    display: block;
+    width: 14px;
+    height: 14px;
+    @include icon('highlighted-unchecked', '', 'center, center');
+}
+
+.poms-table .highlighted.selected {
+    @include icon('highlighted-checked');
+}
+
+.poms-table-row.editing {
+
+    position: relative;
+    z-index: $z-index-edit;
+
+    td {
+        position: relative;
+        z-index: $z-index-edit;
+    }
+
+    &:after {
+        display: block;
+        content: '';
+        width: 100%;
+        z-index: $z-index-edit-backdrop;
+        position: fixed;
+        height: 100%;
+        opacity: 0.6;
+        background-color: $white;
+        top: 0;
+        left: 0;
+    }
+}
+
+.poms-table .tools {
+    display: none;
+}
+
+.poms-table.tools-visible .tools {
+    display: block;
+}
+
+.poms-table .tools .poms-icon {
+    text-indent: -9999px;
+
+    border: 0;
+    background-color: transparent;
+    display: inline-block;
+
+    width: 28px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.poms-table .tools .icon-remove {
+    @include icon('remove_hover', 32px);
+}
+
+.poms-table .tools .icon-edit {
+    @include icon('edit');
+}
+
+.poms-table .tools .icon-preview {
+    @include icon('preview');
+}
+
+.poms-table .tools .icon-itemizer {
+    @include icon('itemizer');
+}
+
+.poms-table .column-select {
+
+    float: right;
+    margin: 8px;
+
+    .poms-multidropdown-items {
+        right: 0;
+        left: inherit;
+    }
+
+    .label {
+        font-weight: normal;
+    }
+
+}
+
+.poms-table .column-select-icon {
+    width: 28px;
+    height: 25px;
+
+    display: block;
+
+    @include icon('config', 18px);
+
+    &:hover {
+        background-image: url("../resources/icons/config_hover.svg");
+        cursor: pointer;
+    }
+}
+
+.poms-table .datepicker-dropdown {
+    font-size: $fontsizebig;
+}
+
+.poms-table poms-invalid {
+    color: red;
+
+    &:before {
+        display: block;
+        content: '';
+    }
+}
+
+.poms-table {
+    table-layout: fixed;
+}
+
+.poms-table th {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.poms-table td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.poms-table-multiline td{
+    white-space: normal;
+    vertical-align: top;
+    padding:8px;
+}
+
+.poms-table .deleted-row {
+    color: $lichtrood;
+}
+
+
+.poms-table .highlight-checkbox .editable-wrap label {
+    position: relative;
+    cursor: pointer;
+}
+
+.poms-table .highlight-checkbox .editable-wrap label [type="checkbox"] {
+    display: none;
+}
+
+.poms-table .highlight-checkbox .editable-wrap [type="checkbox"] + span {
+    display: inline-block;
+    padding: 1em;
+    text-indent: -99999px;
+    @include icon('highlighted-unchecked', 14px, 'center, center');
+}
+
+.poms-table .highlight-checkbox .editable-wrap :checked + span {
+    @include icon('highlighted-checked', 14px, 'center, center');
+    display: inline-block;
+}

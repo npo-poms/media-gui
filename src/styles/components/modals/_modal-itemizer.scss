@@ -1,0 +1,349 @@
+.modal-itemizer .footer {
+    background-color: $extralichtgrijs;
+    border-top: 2px solid $groen;
+}
+
+.modal-itemizer .poms-table tr:hover {
+    background-color: transparent;
+}
+
+.modal-itemizer .itemizer-player-wrapper {
+    margin: 0;
+    margin-bottom: 12px;
+    width: 100%;
+    height: 250px;
+    background-color: black;
+    float: left;
+    margin-right: 10px;
+}
+
+.modal-itemizer .npoplayer_wrapper {
+    margin: 0;
+}
+
+.itemizer-start,
+.itemizer-stop {
+    float: left;
+}
+
+.itemizer-segment-play {
+    cursor: pointer;
+}
+
+.itemizer-segment-stop {
+    cursor: pointer;
+}
+
+.itemizer-start-button {
+    color: $grijs;
+    line-height: 24px;
+    cursor: pointer;
+
+    display: block;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:before {
+        width: 18px;
+        height: 18px;
+        text-indent: -9999px;
+        border: 0;
+        @include icon('itemizer-start');
+        cursor: pointer;
+        display: inline-block;
+        content: '';
+        top: 4px;
+        position: relative;
+    }
+}
+
+.itemizer-stop-button {
+    color: $grijs;
+    line-height: 24px;
+    cursor: pointer;
+
+    display: block;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:before {
+        width: 18px;
+        height: 18px;
+        text-indent: -9999px;
+        border: 0;
+        @include icon('itemizer-stop');
+
+        cursor: pointer;
+        display: inline-block;
+        content: '';
+        top: 4px;
+        position: relative;
+    }
+}
+
+.itemizer-tooltip-image.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    top: 8px;
+}
+
+.modal-itemizer .preview-image {
+    display: block;
+    width: 50px;
+    background-color: $lichtgrijs;
+    background-size: cover;
+    height: 50px;
+}
+
+.image-preview-container {
+    width: 220px;
+    height: 125px;
+    position: relative;
+    float: left;
+    margin-bottom: 12px;
+    @include placeholder(220px, 125px);
+}
+
+.segment-image {
+    width: 50px;
+    height: 35px;
+    float: left;
+    background-size: contain;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.image-preview-container .image {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.image-preview {
+    width: 100%;
+    height: 125px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0 center;
+}
+
+.framegrabber-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-color: black;
+}
+
+.image-upload-input {
+    display: none;
+}
+
+.canvasscrubber {
+    margin: 0;
+    padding: 0;
+    height: 15px;
+    background-color: $lichtgrijs;
+    position: relative;
+    width: 100%;
+}
+
+.canvasscrubber{
+
+    input[type=range] {
+        /*removes default webkit styles*/
+        -webkit-appearance: none;
+
+        /*fix for FF unable to apply focus style bug */
+        //border: 1px solid white;
+
+        /*required for proper track sizing in FF*/
+        width: 100%;
+
+        z-index:1000;
+
+        position: absolute;
+        top:0;
+        height: 15px;
+        background-color: transparent;
+        margin:0;
+        padding:0;
+        cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 15px;
+        background: rgba(235, 110, 41, 0);;
+        border: none;
+        border-radius: 0;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 15px;
+        width: 15px;
+        border-radius: 0;
+        background-color: rgba(235, 110, 41, 1);
+        //margin-top: -4px;
+    }
+    input[type=range]:focus {
+        outline: none;
+    }
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: rgba(235, 110, 41, 0);
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 15px;
+        background: rgba(235, 110, 41, 0);
+        border: none;
+        border-radius: 0;
+    }
+    input[type=range]::-moz-range-thumb {
+        border: none;
+        height: 15px;
+        width: 15px;
+        border-radius: 0;
+        background: rgba(235, 110, 41, 1);
+    }
+
+    /*hide the outline behind the border*/
+    input[type=range]:-moz-focusring{
+        outline: 1px solid white;
+        outline-offset: -1px;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 15px;
+
+        /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+        background: transparent;
+
+        /*leave room for the larger thumb to overflow with a transparent border */
+        border-color: transparent;
+        border-width: 6px 0;
+
+        /*remove default tick marks*/
+        color: transparent;
+
+    }
+    input[type=range]::-ms-fill-lower {
+        background: rgba(235, 110, 41, 0);
+        height: 8px;
+        border-radius: 0;
+    }
+    input[type=range]::-ms-fill-upper {
+        background: rgba(235, 110, 41, 0);
+        height: 8px;
+
+        border-radius: 0;
+    }
+    input[type=range]::-ms-thumb {
+        border: none;
+        height: 15px;
+        width: 15px;
+        border-radius: 0;
+        background: rgba(235, 110, 41, 1);
+        position:absolute;
+        top:0;
+
+    }
+    input[type=range]:focus::-ms-fill-lower {
+        background: rgba(235, 110, 41, 0);
+    }
+    input[type=range]:focus::-ms-fill-upper {
+        background: rgba(235, 110, 41, 0);
+    }
+
+}
+
+.canvas-controls {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 4px;
+
+    background-color: $donkergrijs;
+
+}
+
+.canvas-play {
+    height: 35px;
+    float: left;
+    background-color: $oranje;
+    color: white;
+    width: 55px;
+
+    &:after {
+        width: 100%;
+        height: 100%;
+        text-indent: -9999px;
+        border: 0;
+        @include icon('scrubber-play');
+        cursor: pointer;
+        display: inline-block;
+        content: '';
+        position: relative;
+    }
+
+    cursor: pointer;
+
+}
+
+.canvas-play.playing {
+    &:after {
+        width: 24px;
+        height: 24px;
+        @include icon('scrubber-pause');
+        top: 4px;
+        left: 14px;
+    }
+}
+
+.canvas-time {
+    height: 35px;
+
+    float: left;
+    color: white;
+    width: 400px;
+    box-sizing: border-box;
+    padding: 8px
+}
+
+.canvas-grab {
+    height: 35px;
+
+    float: right;
+    background-color: $oranje;
+    color: white;
+    width: 60px;
+
+    cursor: pointer;
+
+    &:after {
+        width: 100%;
+        height: 100%;
+        text-indent: -9999px;
+        border: 0;
+        @include icon('camera');
+        cursor: pointer;
+        display: inline-block;
+        content: '';
+
+        position: relative;
+    }
+
+}
+
+.canvas-download-progress {
+    position: absolute;
+    background-color: rgba(243, 181, 143, 1);
+    width: 0;
+    height: 15px;
+    z-index:999;
+}

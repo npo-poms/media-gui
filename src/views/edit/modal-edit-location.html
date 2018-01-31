@@ -1,0 +1,184 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::modalTitle }} </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
+</div>
+
+<form role="form" class="poms-form editLocationForm" ng-class="{'waiting': waiting}" name="editLocationForm" >
+
+    <div class="modal-body">
+
+        <div class="form-fields ">
+
+            <div class="modal-column">
+
+                <div class="row">
+                    <div class="field"  ng-class="{'has-error' : editLocationForm.inputUrl.$invalid}">
+                        <label for="inputUrl">URL &#42;</label>
+
+                        <input type="text" name="inputUrl" id="inputUrl" required
+                               placeholder="Url (verplicht)"
+                               ng-disabled="!controller.mayWrite('programUrl')"
+                               ng-model="location.url"/>
+                        <poms-invalid violation="controller.violations.programUrl"></poms-invalid>
+                        <poms-help field="editor.location.url"></poms-help>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field col-6" ng-class="{'has-error' : editLocationForm.inputFormat.$invalid}" >
+
+
+                        <label>Type &#42;</label>
+
+                        <ui-select
+                                ng-disabled="!controller.mayWrite('format')"
+                                ng-model="location.format"
+                                theme="selectize"
+                                close-on-select="true"
+                                reset-search-input="true"
+                        >
+                            <ui-select-choices repeat="format in AVFileFormats | filter: {text: $select.search}">
+                                <div ng-bind-html="controller.trustAsHtml((format.text | highlight: $select.search))"></div>
+                            </ui-select-choices>
+
+                            <ui-select-match placeholder="Kies een type">{{$select.selected.text || location.format }}</ui-select-match>
+                        </ui-select>
+
+                        <poms-invalid violation="controller.violations.format"></poms-invalid>
+                        <poms-help class="tooltip-right" field="editor.location.format"></poms-help>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="field col-6" ng-class="{'has-error' : editLocationForm.inputBitrate.$invalid}">
+                        <label for="inputBitrate">Bitrate</label>
+
+                        <input type="number" name="inputBitrate" id="inputBitrate"
+                               ng-disabled="!controller.mayWrite('bitrate')"
+                               min="0"
+                               placeholder=""
+                               ng-model="location.bitrate"
+                               />
+                        <poms-invalid violation="controller.violations.date"></poms-invalid>
+                        <poms-help  field="editor.location.bitrate"></poms-help>
+
+                    </div>
+
+                    <div class="field col-6" ng-class="{'has-error' : editLocationForm.inputByteSize.$invalid}">
+                        <label for="inputByteSize">Bestandsgrootte</label>
+
+                        <input type="number" name="inputByteSize" id="inputByteSize"
+                               ng-disabled="!controller.mayWrite('byteSize')"
+                               min="0"
+                               placeholder=""
+                               ng-model="location.byteSize"/>
+                        <poms-invalid violation="controller.violations.date"></poms-invalid>
+                        <poms-help class="tooltip-right" field="editor.location.byteSize"></poms-help>
+
+                    </div>
+
+                    <div class="field col-6" ng-class="{'has-error' : editLocationForm.inputOffset.$invalid}">
+                        <label for="inputOffset">Offset</label>
+
+                        <input type="time" name="inputOffset" id="inputOffset"
+                               ng-disabled="!controller.mayWrite('offset')"
+                               placeholder=""
+                               ng-model="location.offset" step="0.001" />
+                        <poms-invalid violation="controller.violations.date"></poms-invalid>
+                        <poms-help field="editor.location.offset"></poms-help>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div dropdown class="dropdown-wrapper col-6 field">
+                        <span class="dropdown-toggle" dropdown-toggle > Online / Offline </span>
+
+                        <div dropdown-menu class="daterange-select" daterangepicker >
+
+                            <div class="input-group datepicker-dropdown"  >
+                                <label class='date-input-label' label-for="fromdate" >Start</label>
+
+
+                                <input name='fromdate' type="text" class="form-control"
+                                       ng-disabled="!controller.mayWrite('publishStart')"
+                                       datepicker-popup="dd-MM-yyyy HH:mm"
+                                       max-date='maxStart'
+                                       ng-model="location.publication.start"
+                                       is-open="startdate.open"
+                                       close-text="sluit"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       ng-change="setMinStop(location.publication.start)"/>
+
+                                <button class="open-calendar" ng-click="openStartDate($event)">
+                                </button>
+                            </div>
+
+
+                            <div class="input-group datepicker-dropdown"  >
+                                <label class='date-input-label' label-for="todate" >Stop</label>
+
+                                <input name='fromdate' type="text" class="form-control"
+                                       ng-disabled="!controller.mayWrite('publishStop')"
+                                       datepicker-popup="dd-MM-yyyy HH:mm"
+                                       min-date='minStop'
+                                       ng-model="location.publication.stop"
+                                       is-open="stopdate.open"
+                                       close-text="sluit"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       ng-change="setMaxStart(location.publication.stop)"/>
+
+                                <button class="open-calendar" ng-click="openStopDate($event)">
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <a title="verwijder" class="dropdown-selected " ng-if="location.publication.start" ng-click="location.publication.start = undefined">
+                            start: <span> {{location.publication.start | mediaDateTime}} </span>
+                        </a>
+
+                        <a title="verwijder" class="dropdown-selected " ng-if="location.publication.stop" ng-click="location.publication.stop = undefined">
+                            stop: <span> {{location.publication.stop | mediaDateTime}} </span>
+                        </a>
+
+                        <span class='publication-placeholder' ng-if="!location.publication.start && !location.publication.stop">
+                            geen publicatiedatum geselecteerd
+                        </span>
+
+                        <poms-help class="tooltip-right" field="editor.location.publication"></poms-help>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message" >
+                <span class="required-feedback-message"ng-if="!editLocationFormValid">Nog in te vullen:</span>
+                <span class="required-field" ng-repeat='field in required' ng-if="controller.isFieldMissing(field) ">{{field.text}}</span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.save()" ng-disabled="!editLocationFormValid || waiting">
+                {{submitText}}
+            </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>

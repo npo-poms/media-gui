@@ -1,0 +1,36 @@
+<div class="editfield-wrapper editable-duration"
+     ng-keyup="keyEvent($event, editElement, $data)"
+     ng-click="showEditElement($event, editElement)"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite,  'opened' : isOpen , 'forbidden': !mayWrite, 'waiting': waiting}"
+     ng-show="mayRead"
+     save-feedback
+        >
+
+    <h2 class="small-header"> {{header}} (hh:mm:ss)</h2>
+
+    <p class="editfield"
+       editable-time="tempDuration"
+       e-step="1"
+       e-show-meridian="false"
+       onbeforesave="save($data)"
+       onshow="onShow()"
+       onhide="onHide()"
+       blur="ignore"
+       e-form="editElement"
+       e-name="editvalue"
+       ng-show="mayWrite"
+       e-placeholder="hh:mm:ss"
+       e-autocomplete="off">
+        {{ tempDuration |  mediaDuration }}
+    </p>
+
+    <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
+
+    <p class="editfield" ng-hide="mayWrite">{{ tempDuration | mediaDuration }} </p>
+
+    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+
+
+</div>
+
+

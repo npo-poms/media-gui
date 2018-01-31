@@ -1,0 +1,71 @@
+<div id="{{section}}" class="media-data media-images media-section" ng-controller="ScheduleEventOverviewController as scheduleEventOverviewController">
+    <h1 class="media-section-title" ng-class="{'waiting': scheduleEventOverviewController.waiting}"> Uitzendingen ({{events.length}})
+        <!--<poms-help field="editor.images"></poms-help>-->
+    </h1>
+
+    <table class="poms-table" ng-show="events.length > 0">
+        <thead>
+        <tr class="poms-table-head-row">
+
+            <th class="poms-table-header column-events-{{::column.id}}" ng-repeat="column in selectedColumns">
+                <span title="{{column.value}}">
+                     {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
+                </span>
+            </th>
+
+            <th class="poms-table-header column-tools" >
+                <poms-schedule-event-columns> </poms-schedule-event-columns>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody ui-sortable="sortableOptions" ng-model="events">
+        <tr class="poms-table-row" ng-repeat="event in events"
+            ng-class="{'waiting': scheduleEventOverviewController.waiting, 'may-write': scheduleEventOverviewController.mayWrite}"
+            ng-dblclick="scheduleEventOverviewController.edit(event, scheduleEventOverviewController.mayWrite)">
+
+            <td class="column-events-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+
+                <span ng-switch-when="title">
+                    {{::event.mainTitle.text}}
+                </span>
+
+                <span ng-switch-when="description">
+                    {{::event.mainDescription.text}}
+                </span>
+
+                <span ng-switch-when="channel">
+                    {{::event.channel.text}}
+                </span>
+
+                <span ng-switch-when="start">
+                    {{::event.start | mediaDateTime}}
+                </span>
+
+                <span ng-switch-when="textPage">
+                    {{::event.textPage}}
+                </span>
+
+                <span ng-switch-when="textSubtitles">
+                    888
+                </span>
+
+                <span ng-switch-when="repeat">
+                      <span ng-if="::event.rerun">
+                          ja
+                      </span>
+                </span>
+
+
+
+            <td class="column-tools" ng-show="::scheduleEventOverviewController.mayWrite">
+                <div class="tools" >
+                    <button title='edit uitzending gegevens' class="poms-icon icon-edit" ng-click="scheduleEventOverviewController.edit(event)">bewerk</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>

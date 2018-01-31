@@ -1,0 +1,16 @@
+.modal-images .input-file-container {
+     display: none;
+ }
+
+.modal-images .image-name {
+    font-size: $fontsizesmall;
+}
+
+.modal-images .image-thumb {
+    background-size: contain;
+    width: 50px;
+    height: 35px;
+    float: left;
+    margin-right: 4px;
+    margin-top: 4px;
+}

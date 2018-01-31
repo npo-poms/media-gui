@@ -1,0 +1,34 @@
+h1,
+h2,
+h3,
+h4,
+h5{
+    font-weight: normal;
+    color: $highlightcolor;
+}
+
+
+.small-header{
+    font-size: $fontsizemedium;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.small-header.empty{
+    color: $lichtgrijs;
+}
+
+a{
+    color: $grijs;
+    text-decoration: none;
+
+    &:hover{
+        color: $donkergrijs;
+        text-decoration: underline;
+    }
+    cursor: pointer;
+}
+
+.inline-error{
+    color: $rood;
+    font-size: $fontsizemedium;
+}

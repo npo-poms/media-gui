@@ -1,0 +1,82 @@
+.tab-pane {
+    display: none;
+
+    height: calc(100vh - 138px);
+    overflow: auto;
+
+    width:960px;
+
+    @include media(min-width 1250px){
+        width:1250px;
+    }
+
+    @include media(min-width 1400px){
+        width:1400px;
+    }
+}
+
+.tab-pane.active {
+    display: inline-block;
+}
+
+.nav-tabs {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+
+    @include clearfix;
+}
+
+.tabset {
+    height: calc(100% - 100px);
+}
+
+.nav-tabs {
+    border-bottom: 1px solid $extralichtgrijs;
+}
+
+.tabset .ui-tabs-scrollable .nav > li{
+    margin:0;
+}
+
+.tabset  .ui-tabs-scrollable .nav-button {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    color: white;
+    border: 0 solid #ddd;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: $grijs;
+
+    &:hover{
+        background-color: $oranje;
+    }
+}
+
+.tabset  .ui-tabs-scrollable .nav-button[disabled='disabled']{
+    background-color: $lichtgrijs;
+    opacity: 0.5;
+    &:hover{
+        background-color: $lichtgrijs;
+    }
+}
+
+.tabset .right-nav-button{
+    &:before{ display:none; }
+    @include icon('arrow-right-white', 14px);
+}
+.tabset .left-nav-button{
+    &:before{ display:none; }
+    @include icon('arrow-left-white', 14px);
+}
+
+.tabset .ui-tabs-scrollable .spacer:not(.hidden-buttons) {
+  margin-left: 42px;
+  margin-right: 42px;
+}
+
+.tabset .ui-tabs-scrollable .spacer:not(.hidden-buttons) .tab-content {
+  margin-left: -42px;
+  margin-right: -42px;
+}

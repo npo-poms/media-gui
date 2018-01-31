@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::modalTitle }} </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
+</div>
+
+<form role="form" class="poms-form editScheduleEventForm" ng-class="{'waiting': waiting}" name="editScheduleEventForm" >
+
+    <div class="modal-body">
+
+        <div class="form-fields ">
+
+            <div class="modal-column">
+
+                <div class="row">
+                    <p>Kanaal: {{::event.channel.text}}</p>
+                    <p>Tijd: {{::event.start | mediaDateTime}}</p>
+                    <p>Teletekst pagina: {{::event.textPage}}</p>
+                    <p>Ondertiteling: {{::event.textSubtitles}}</p>
+                    <p>Herhaling: {{::event.repeat}}</p>
+                </div>
+
+                <div class="row" ng-repeat="title in titles">
+                    <div class="field"  ng-class="{'has-error' : editScheduleEventForm.mainTitle.$invalid}">
+                        <label for="{{title}}">{{textfieldNames[title]}}</label>
+                        <input type="text" name="{{title}}" id="{{title}}"
+                               ng-model="event[title].text"/>
+                        <!--<poms-invalid violation="controller.violations.programUrl"></poms-invalid>-->
+                        <!--<poms-help field="editor.event.url"></poms-help>-->
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-column">
+
+                <div class="row" ng-repeat="description in descriptions">
+                    <div class="field"  ng-class="{'has-error' : editScheduleEventForm.mainTitle.$invalid}">
+                        <label for="{{description}}">{{textfieldNames[description]}}</label>
+                        <textarea type="text" name="{{description}}" id="{{description}}"
+                               ng-model="event[description].text"/>
+                        <!--<poms-invalid violation="controller.violations.programUrl"></poms-invalid>-->
+                        <!--<poms-help field="editor.event.url"></poms-help>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message">
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.save()">
+               Bewaar
+            </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>

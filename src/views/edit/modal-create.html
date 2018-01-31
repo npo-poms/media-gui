@@ -1,0 +1,212 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::modalTitle }}</div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+
+<form role="form" class="poms-form modal-form" name="createForm" ng-class="{'waiting': waiting}">
+    <div class="modal-body">
+
+        <div class="form-fields">
+
+            <div class="modal-column">
+
+                <div class="row">
+
+                    <div class="field" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
+                        <label for="inputTitle">Hoofdtitel &#42;</label>
+
+                        <input type="text" name="inputTitle" id='inputTitle' class="input-title" required
+                               placeholder="Titel (verplicht)"
+                               ng-model="media.title"/>
+                        <poms-invalid violation="violations.title"></poms-invalid>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field col-6 dropdown-wrapper"
+                         ng-class="{'has-error' : createForm.inputMediaType.$invalid}">
+                        <poms-ui-select class="poms-uiselect"
+                                        options="mediaTypes"
+                                        name="Media Type &#42;"
+                                        selection="media.type"
+                                ></poms-ui-select>
+                        <div>
+                            <div class="dropdown-selected" ng-if="media.type" ng-click="media.type = undefined">
+                                {{media.type.text}}
+                            </div>
+                        </div>
+                        <poms-invalid violation="violations.type"></poms-invalid>
+
+                    </div>
+
+
+                    <div class="field col-6  dropdown-wrapper" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
+                        <poms-ui-select class="poms-uiselect"
+                                        options="avTypes"
+                                        name="AV Type &#42;"
+                                        selection="media.avType"
+                                ></poms-ui-select>
+                        <div>
+                            <div class="dropdown-selected" ng-if="media.avType" ng-click="media.avType = undefined">
+                                {{media.avType.text}}
+                            </div>
+                        </div>
+                        <poms-invalid violation="violations.avType"></poms-invalid>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="field col-6 dropdown-wrapper scrollable"
+                         ng-class="{'has-error' : createForm.inputBroadcasters.$invalid}">
+
+                        <poms-ui-select-multi class="poms-uiselect"
+                                              options="broadcasters"
+                                              name="Omroep &#42;"
+                                              selection="media.broadcasters"
+                                ></poms-ui-select-multi>
+
+                        <div>
+                            <div class="dropdown-selected" ng-if="media.broadcasters"
+                                 ng-repeat="broadcaster in media.broadcasters"
+                                 ng-click="controller.remove( media.broadcasters, broadcaster)">
+                                {{broadcaster.text}}
+                            </div>
+                        </div>
+                        <poms-invalid violation="violations.broadcasters"></poms-invalid>
+
+                    </div>
+
+
+                    <div class="field col-6 dropdown-wrapper scrollable"
+                         ng-class="{'has-error' : createForm.inputBroadcasters.$invalid}">
+
+                        <poms-ui-select-multi class="poms-uiselect"
+                                              options="genres"
+                                              name="{{genresHeader}}"
+                                              selection="media.genres"
+                                ></poms-ui-select-multi>
+
+                        <div>
+                            <div class="dropdown-selected" ng-if="media.genres"
+                                 ng-repeat="genre in media.genres"
+                                 ng-click="controller.remove( media.genres, genre)">
+                                {{genre.text}}
+                            </div>
+                        </div>
+                        <poms-invalid violation="violations.genres"></poms-invalid>
+
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="field col-6">
+                        <div ng-if='media.portals' class="dropdown-wrapper"
+                             ng-class="{'has-error' : createForm.inputPortals.$invalid}">
+                            <poms-ui-select-multi class="poms-uiselect"
+                                                  options="portals"
+                                                  name="Portals"
+                                                  selection="media.portals"
+                                    ></poms-ui-select-multi>
+                            <div>
+                                <div class="dropdown-selected" ng-repeat="portal in media.portals"
+                                     ng-click="controller.remove( media.portals, portal)">
+                                    {{portal.text}}
+                                </div>
+                            </div>
+                        </div>
+                        <poms-invalid violation="violations.portals"></poms-invalid>
+
+                    </div>
+
+                    <div class="field col-6 dropdown-wrapper">
+                        <div dropdown>
+                            <span class="dropdown-toggle" dropdown-toggle> Publicatiestart </span>
+
+
+                            <div dropdown-menu class="daterange-select" daterangepicker>
+
+                                <div class="input-group datepicker-dropdown">
+                                    <label class='date-input-label' label-for="fromdate">Start</label>
+
+                                    <input name='fromdate' type="text" class="form-control"
+                                           datepicker-popup="dd-MM-yyyy HH:mm"
+                                           max-date='maxStart'
+                                           ng-model="media.publication.start"
+                                           is-open="startdate.open"
+                                           close-text="sluit"
+                                           ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                           ng-change="setMinStop( media.publication.start )"/>
+
+                                    <button class="open-calendar" ng-click="openStartDate($event)">
+                                    </button>
+                                </div>
+
+
+                                <div class="input-group datepicker-dropdown">
+                                    <label class='date-input-label' label-for="todate">Stop</label>
+
+                                    <input name='todate' type="text" class="form-control"
+                                           datepicker-popup="dd-MM-yyyy HH:mm"
+                                           min-date='minStop'
+                                           ng-model="media.publication.stop"
+                                           is-open="stopdate.open"
+                                           close-text="sluit"
+                                           ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                           ng-change="setMaxStart( media.publication.stop )"/>
+
+                                    <button class="open-calendar" ng-click="openStopDate($event)">
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="dropdown-selected" ng-if="media.publication.start" ng-click="media.publication.start = undefined">
+                            van: <span> {{media.publication.start | mediaDateTime }} </span>
+                        </div>
+
+                        <div class="dropdown-selected" ng-if="media.publication.stop" ng-click="media.publication.stop = undefined">
+                            tot: <span> {{media.publication.stop | mediaDateTime }} </span>
+                        </div>
+                        <poms-invalid violation="violations.publication"></poms-invalid>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message">
+                <span ng-if="!createFormValid">Nog in te vullen:</span>
+                <span class="required-field" ng-repeat='field in required' ng-if="!media[field.id] || ( !media[field.id].length && !media[field.id].id )">{{field.text}}</span>
+                <span ng-if="genreRequired && (!media.genres || media.genres.length == 0)">Genre</span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.submit()" ng-disabled="!createFormValid || waiting"> Maak aan </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+
+        </div>
+    </div>
+
+</form>

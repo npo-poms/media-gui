@@ -1,0 +1,169 @@
+
+.poms-table .column-familyName,
+.poms-table .column-givenName {
+    overflow: visible;
+}
+
+.poms-table .column-preview {
+    width: 60px;
+    max-width: 60px;
+}
+
+.poms-table .column-preview {
+    width: 40px;
+    max-width: 40px;
+}
+
+.poms-table .column-checkbox {
+    width: 40px;
+    max-width: 40px;
+}
+
+.poms-table .column-sort {
+    width: 25px;
+    max-width: 25px;
+}
+
+.poms-table .column-play {
+    width: 35px;
+    max-width: 35px;
+}
+
+.poms-table .column-number {
+    width: 60px;
+    max-width: 60px;
+}
+
+.poms-table .column-events-channel {
+    width: 150px;
+    max-width: 150px;
+}
+
+.poms-table .column-events-start {
+    width: 250px;
+    max-width: 250px;
+}
+
+.poms-table .column-type {
+    width: 100px;
+    max-width: 100px;
+}
+
+.poms-table .column-type {
+    width: 100px;
+    max-width: 100px;
+}
+
+.poms-table .column-start,
+.poms-table .column-stop,
+.poms-table .column-format,
+.poms-table .column-bitrate,
+.poms-table .column-offset {
+    width: 80px;
+    max-width: 80px;
+}
+
+.poms-table .column-tools {
+    width: 70px;
+    max-width: 70px;
+    overflow: visible;
+}
+
+.poms-table .column-tools-xl {
+    width: 110px;
+    max-width: 110px;
+    overflow: visible;
+}
+
+.poms-table .column-tools .poms-multidropdown-label,
+.poms-table .column-tools-xl .poms-multidropdown-label {
+    padding: 0 8px 0 0;
+}
+
+.poms-table .column-mid {
+    width: 160px;
+    max-width: 160px;
+}
+
+.poms-table .column-role {
+    width: 130px;
+    max-width: 130px;
+    overflow: visible;
+}
+
+.poms-table .column-region {
+    width: 130px;
+    max-width: 130px;
+    overflow: visible;
+}
+
+.poms-table.poms-table-restriction .column-start,
+.poms-table.poms-table-restriction .column-stop {
+    width: 300px;
+    max-width: 300px;
+    overflow: visible;
+}
+
+.poms-table .column-sortDate {
+    width: 200px;
+    max-width: 200px;
+}
+
+.poms-table .column-lastPublished,
+.poms-table .column-creationDate,
+.poms-table .column-publishStop,
+.poms-table .column-publishStart
+{
+    width: 150px;
+    max-width: 150px;
+}
+
+.poms-table .column-broadcasters {
+    width: 115px;
+    max-width: 115px;
+}
+
+.poms-table .column-locations {
+    width: 180px;
+    max-width: 180px;
+}
+
+.poms-table .column-dates {
+    width: 250px;
+    max-width: 250px;
+}
+
+.poms-table .column-url .url-outer {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.poms-table .column-url .url-inner {
+    display: block;
+    white-space: nowrap;
+    right: 0;
+    position: absolute;
+    min-width: 100%;
+    line-height: 0;
+
+}
+
+.poms-table .column-highlighted {
+    width: 50px;
+    max-width: 50px;
+}
+
+.poms-table .column-play-icon {
+    width: 50px;
+    max-width: 50px;
+}
+
+.poms-table .column-workflow {
+  width: 50px;
+}
+
+.poms-table-locations .column-platform {
+  width: 12em;
+}
+

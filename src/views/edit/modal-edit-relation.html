@@ -1,0 +1,84 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::modalTitle }} </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
+</div>
+
+<form role="form" class="poms-form editRelationForm" ng-class="{'waiting': waiting}" name="editRelationForm" >
+
+    <div class="modal-body">
+        <div class="form-fields ">
+
+            <div class="modal-column">
+
+
+                <div class="row">
+                    <div class="col-6 field" ng-class="{'has-error' : editRelationForm.inputType.$invalid}" >
+
+                        <label>Type &#42;</label>
+
+                        <ui-select ng-model="relation.type" theme="selectize" close-on-select="true" reset-search-input="true" >
+                            <ui-select-choices repeat="type in types | filter: {text: $select.search}">
+                            <div ng-bind-html="controller.trustAsHtml((type.text | highlight: $select.search))"></div>
+                            </ui-select-choices>
+
+                            <ui-select-match placeholder="Kies een type">{{$select.selected.text || relation.type}}</ui-select-match>
+                        </ui-select>
+
+                        <poms-invalid violation="controller.violations.type"></poms-invalid>
+                        <poms-help class="tooltip-right" field="editor.relation.type"></poms-help>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="field"  ng-class="{'has-error' : editRelationForm.inputText.$invalid}">
+                        <label for="inputText">Tekst &#42;</label>
+
+                        <input type="text" name="inputText" id="inputText"
+                               placeholder="Text (verplicht)"
+                               ng-model="relation.text"/>
+                        <poms-invalid violation="controller.violations.text"></poms-invalid>
+                        <poms-help field="editor.relation.text"></poms-help>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field"  ng-class="{'has-error' : editRelationForm.inputUriRef.$invalid}">
+                        <label for="inputUriRef">URL</label>
+
+                        <input type="text" name="inputUriRef" id="inputUriRef"
+                               placeholder="Uri"
+                               ng-model="relation.uriRef"/>
+                        <poms-invalid violation="controller.violations.uriRef"></poms-invalid>
+                        <poms-help field="editor.relation.uriRef"></poms-help>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message" >
+                <span class="required-feedback-message" ng-if="!editRelationFormValid">Nog in te vullen:</span>
+                <span class="required-field" ng-repeat='field in required' ng-if="(!relation[field.id]) ">{{field.text}}</span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.save()" ng-disabled="!editRelationFormValid || waiting">
+                {{submitText}}
+            </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+</form>

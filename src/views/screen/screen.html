@@ -1,0 +1,55 @@
+<div  du-spy-context class="media-item-container">
+
+    <div class="breadcrumb-container breadcrumb-edit"></div>
+
+    <div class="media-item">
+
+        <ul class="media-item-navigation" id="sidebar" ng-class="{'media-item-navigation-fixed': sidebarFixed } ">
+
+            <li class='media-item-navigation-link' ng-click="screenController.goTo('general')" offset="100" du-scrollspy="{{::screenController.sectionId('general')}}">
+                <span title="Algemeen" >Algemeen</span>
+            </li>
+
+            <li class='media-item-navigation-link' ng-click="screenController.goTo('images')" offset="100" du-scrollspy="{{::screenController.sectionId('images')}}">
+                <span class='media-item-navigation-text' title="Afbeeldingen" ng-class="{'media-item-navigation-text-waiting' : imagesWaiting }">
+                    <span title="Afbeeldingen"> Afbeeldingen  </span>
+                </span>
+            </li>
+
+            <li class='media-item-navigation-link' ng-click="screenController.goTo('members')" offset="100" du-scrollspy="{{::screenController.sectionId('members')}}">
+                <span class='media-item-navigation-text' title="Onderdelen" ng-class="{'media-item-navigation-text-waiting' : membersWaiting }">
+                    <span title="Onderdelen"> Onderdelen </span>
+                </span>
+            </li>
+
+        </ul>
+
+        <div class="media-data-container" >
+
+            <div class="media-data media-text">
+
+                <div class="media-text-left">
+
+                    <poms-editable type="screen" media='screen' class="media-field" fieldtype="title" field="title" help-field="editor.screen.title"></poms-editable>
+
+                    <poms-editable type="screen" media='screen' class="media-field" fieldtype="title" field="url" help-field="editor.screen.url"></poms-editable>
+
+                    <poms-editable type="screen" media='screen' class="media-field" fieldtype="description" field="description" help-field="editor.screen.description"></poms-editable>
+
+                </div>
+
+                <div class="media-text-right"></div>
+
+            </div>
+
+            <poms-images type='screen' media="screen" section="{{::screenController.sectionId('images')}}"></poms-images>
+
+            <screen-member header="Onderdeel van" screen="screen" section="{{::screenController.sectionId('members')}}"></screen-member>
+
+        </div>
+    </div>
+
+    <div class="footer-container media-footer-container" >
+        <div class="footer {{screen.workflow.id}}" ng-class="{'no-edit': !mayWrite, 'footer-one-button': !mayWrite || (mayWrite && mayRemove) }"></div>
+    </div>
+</div>

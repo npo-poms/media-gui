@@ -1,0 +1,13 @@
+.modal-error .modal-body {
+    color: $white;
+    background-color: $rood;
+
+    height: 180px;
+    min-height: inherit;
+
+}
+
+.modal-error {
+    z-index: $z-index-error;
+
+}

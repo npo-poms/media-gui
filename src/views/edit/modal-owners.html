@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::ownersController.title }}</div>
+    <div class="modal-close-button" ng-click="ownersController.close()"> sluit</div>
+</div>
+
+<div class="modal-body">
+
+    <div class="modal-message">
+
+        <table>
+
+            <tr class="owner-field">
+                <th>&nbsp;</th>
+                <th ng-repeat="(key, value) in ownersController.ownersData.owner track by $index">
+                    <h2 class="small-header">{{key}}</h2>
+                </th>
+            </tr>
+
+            <tr class="owner-field" ng-if="key !== 'owner'" ng-repeat="(key, value) in ownersController.ownersData track by $index" >
+
+                <td>{{ownersController.fieldNames[key]}}</td>
+
+                <td ng-repeat="(key, value) in value track by $index">
+                    {{value}}
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect" ng-click="ownersController.close()">Sluit</button>
+    </div>
+</div>

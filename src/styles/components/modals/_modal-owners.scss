@@ -1,0 +1,57 @@
+
+.modal-owners {
+
+    .modal-body {
+        //background-color: #fff;
+    }
+
+    .modal-message {
+        margin-bottom: 20px;
+    }
+    
+    td {
+        vertical-align: top;
+        padding: 4px;
+        //border: 1px solid $lichtgrijs;
+
+        .small-header {
+            color: $lichtgrijs;
+        }
+    }
+    th {
+        vertical-align: top;
+        padding: 4px;
+        width: 30%;
+        &:first-child {
+            width: 10%;
+        }
+    }
+
+    tr {
+
+        &:nth-child(odd) {
+
+        }
+
+        &:nth-child(even) {
+            background: #eee;
+        }
+
+        &:first-child {
+            background: none;
+            td {
+                border: none;
+            }
+        }
+
+        td {
+            border: 1px solid #bbb;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            color: #888;
+        }
+
+    }
+}

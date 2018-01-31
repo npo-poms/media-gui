@@ -1,0 +1,114 @@
+<html>
+<head>
+    <title>POMS Media selector</title>
+    <script src="../media.js"> </script>
+    <link rel="stylesheet" href="../../css/poms-0.2.0.css"  />
+    <style type="text/css">
+
+        body {
+            padding: 20px;
+        }
+
+        #type {
+            height: 65px;
+        }
+
+        #return {
+            appearance: menulist;
+            -webkit-appearance: menulist;
+            -moz-appearance: menulist;
+        }
+
+        #select {
+            margin: 8px 0 20px;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="poms-form">
+    <div class="form-fields">
+
+        <div class="col-8">
+
+            <div class="row">
+                <h1>CMSSelector - example</h1>
+                <p>
+                    Check out the <a href="http://wiki.publiekeomroep.nl/display/poms/CMS+integration">wiki</a> page for usage information.
+                    <br /><br />
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="type">Optional media type filter:</label>
+                    <select id="type" multiple="multiple">
+
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="return">Return data:</label>
+                    <select id="return">
+                        <option value="mid">MID</option>
+                        <option value="data">All (JSON) data</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <button id="select" class="btn-rect">Select</button>
+            </div>
+
+            <div class="row">
+                <label for="value">Result:</label>
+                <input id="value" type="text"/>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+    var mediaTypes = [{"id":"MEDIA","text":"Alle media"},{"id":"PROGRAM","text":"Programma"},{"id":"BROADCAST","text":"Uitzending"},{"id":"CLIP","text":"Clip"},{"id":"STRAND","text":"Koepelprogramma"},{"id":"TRAILER","text":"Trailer"},{"id":"MOVIE","text":"Film"},{"id":"GROUP","text":"Groep"},{"id":"SERIES","text":"Serie"},{"id":"SEASON","text":"Seizoen"},{"id":"UMBRELLA","text":"Paraplu"},{"id":"ARCHIVE","text":"Archief"},{"id":"COLLECTION","text":"Collectie"},{"id":"PLAYLIST","text":"Speellijst"},{"id":"ALBUM","text":"Album"},{"id":"SEGMENT","text":"Segment"},{"id":"TRACK","text":"Track"},{"id":"VISUALRADIO","text":"Visual radio"},{"id":"RECORDING","text":"Opname"},{"id":"PROMO","text":"Promo"}];
+    var mediaTypeSelector = document.getElementById('type');
+
+    mediaTypes.forEach( function ( mediaType ) {
+        var option = document.createElement('option');
+        option.value = mediaType.id;
+        option.innerHTML = mediaType.text;
+
+        mediaTypeSelector.appendChild( option );
+    });
+
+    document.getElementById( 'select' ).onclick = function () {
+        var multipleType = document.getElementById( 'type' );
+        var types = [];
+        for ( var i = 0; i < multipleType.options.length; i ++ ) {
+            if ( multipleType.options[i].selected ) {
+                types.push( multipleType.options[i].value );
+            }
+        }
+        media.select(
+            function ( value ) {
+                if ( typeof value === "object" ) {
+                    value = value.mid + ":" + value.title;
+                }
+                document.getElementById( 'value' ).value = value;
+            }, {
+                mediaType: types.join(),
+                returnValue: document.getElementById( 'return' ).value
+            }
+        );
+    };
+</script>
+
+</body>
+</html>

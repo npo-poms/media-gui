@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::title }}</div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message" ng-bind-html="message"></div>
+</div>
+
+<form role="form" class="confirmForm" name="confirmForm">
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+            <div class="footer-message">&nbsp;</div>
+            <button class="btn-rect btn-rect-warning" ng-click="controller.submit()">{{submit}}</button>
+            <button class="btn-rect btn-rect-warning" ng-click="controller.cancel()">{{cancel}}</button>
+        </div>
+    </div>
+</form>

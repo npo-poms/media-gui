@@ -1,0 +1,24 @@
+.gtaa-suggest-knownas {
+    font-style: italic;
+    color: $lichtgrijs;
+}
+
+.gtaa-suggest-preferred {
+    font-weight: bold;
+    color: $grijs;
+}
+
+.modal-person-gtaa{
+    width: 24px;
+    height: 20px;
+    text-indent: -9999px;
+
+    float:right;
+}
+
+.modal-person-gtaa-suggestion {
+    width: 24px;
+    height: 20px;
+    text-indent: -9999px;
+    display: inline-block;
+}

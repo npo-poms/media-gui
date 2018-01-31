@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <div class="modal-title"> Zoeken </div>
+    <div class="modal-close-button" ng-click="modalSearchController.cancel($event)"> close</div>
+</div>
+
+<div class="modal-body">
+    <poms-search submit-choices="modalSearchController.select(mids)" search="search"></poms-search>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer" ng-class="{'footer-two-buttons':search.selection.length > 0, 'footer-one-button': !search.selection.length || search.selection.length == 0 }">
+
+        <div class="footer-message" >
+            &nbsp;
+        </div>
+
+        <button class="btn-rect" ng-if="search.selection.length >= 1" ng-click="modalSearchController.select()">Kies</button>
+        <button class="btn-rect btn-rect-cancel" ng-click="modalSearchController.cancel()">Annuleer</button>
+
+    </div>
+</div>

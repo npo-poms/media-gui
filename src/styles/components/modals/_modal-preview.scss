@@ -1,0 +1,57 @@
+.modal-preview {
+    min-height: 500px;
+    padding-bottom: 50px;
+}
+
+.modal-preview .preview-field {
+    margin-bottom: 8px;
+}
+
+.modal-preview .preview-title-field,
+.modal-preview .preview-subtitle-field {
+    color: $grijs;
+}
+
+.modal-preview .player {
+    width: 425px;
+    height: 320px;
+}
+
+.modal-preview .modal-previous-button {
+    position: absolute;
+    top: 45%;
+    right: -160px;
+
+    color: white;
+    font-size: $fontsizemedium;
+    line-height: 34px;
+
+    width: 140px;
+    height: 34px;
+
+    cursor: pointer;
+
+    padding-left: 40px;
+
+    @include icon('modal-up', 35px, 'left center');
+
+}
+
+.modal-preview .modal-next-button {
+    position: absolute;
+    top: 55%;
+    right: -160px;
+    color: white;
+    font-size: $fontsizemedium;
+    line-height: 34px;
+
+    width: 140px;
+    height: 34px;
+
+    cursor: pointer;
+
+    padding-left: 40px;
+
+    @include icon('modal-down', 35px, 'left center');
+
+}

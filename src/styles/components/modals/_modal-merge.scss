@@ -1,0 +1,12 @@
+.modal-merge .modal-body {
+    background-color:#fff;
+}
+
+.modal-merge .poms-table > thead > tr > th,
+.modal-merge .poms-table > tbody > tr > .merge-field {
+    padding: 8px;
+}
+
+.merge-field-title.empty {
+    color: $lichtgrijs;
+}

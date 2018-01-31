@@ -1,0 +1,99 @@
+.breadcrumb-container {
+    height: 50px;
+    padding: 16px;
+    border-bottom: 1px solid $extralichtgrijs;
+    position: relative;
+}
+
+.breadcrumb-icon-topology {
+
+    @include icon('topology');
+
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+}
+
+.breadcrumb-type {
+    padding-right: 15px;
+    position: absolute;
+}
+
+.breadcrumb-list {
+    position: absolute;
+    left:0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    padding-left: 45px;
+    text-overflow: ellipsis;
+}
+
+.breadcrumb {
+
+    display: inline;
+    max-width: 320px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 30px;
+    padding-right: 15px;
+    line-height: 24px;
+
+    font-size: $fontsizemedium;
+
+    &:after {
+        content: '';
+
+        width: 16px;
+        height: 12px;
+        display: inline-block;
+
+        position: absolute;
+        top: 6px;
+
+        @include icon('arrow-right', 8px);
+    }
+
+    &:last-child:after {
+        display: none;
+    }
+}
+
+.breadcrumb-link {
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+
+    &:last-child:after {
+        cursor: default;
+    }
+}
+
+
+.breadcrumb-link-number,
+.breadcrumb-link-type,
+.breadcrumb-link-title {
+    line-height: 16px;
+    font-size: $fontsizebig;
+}
+
+.breadcrumb-link-number,
+.breadcrumb-link-type {
+    text-transform: uppercase;
+    font-size: $fontsizesmall;
+    color: $lichtgrijs;
+}
+
+.breadcrumb-link-subtitle {
+    color: $highlightcolor;
+}

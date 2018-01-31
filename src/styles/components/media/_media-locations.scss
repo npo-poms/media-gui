@@ -1,0 +1,40 @@
+.uploading-location{
+  width: 100%;
+  background-color: $extralichtgroen;
+  line-height: 36px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+  position:relative;
+  padding-left: 8px;
+}
+
+.uploading-location.no-locations{
+  margin-top: 16px;
+}
+
+.uploading-location-title{
+  position: relative;
+}
+
+.uploading-location-progress{
+  background-color: $groen;
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+}
+
+
+.transcoding-location{
+  width: 100%;
+  background-color: $extralichtgrijs;
+  line-height: 36px;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  position:relative;
+  padding-left: 8px;
+}
+
+.transcoding-location-title{
+  position: relative;
+}

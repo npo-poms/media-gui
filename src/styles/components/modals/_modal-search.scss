@@ -1,0 +1,35 @@
+
+.modal-search .modal-dialog {
+    @include media($largedesktop) {
+        width: 1150px;
+    }
+
+    @include media($extralargedesktop) {
+        width: 1300px;
+    }
+}
+
+.modal-search .modal-body {
+    padding: 0;
+    padding-bottom: 48px;
+    position: relative;
+}
+
+.modal-search .modal-content {
+    @include outer-container();
+    @include span-columns(12);
+}
+
+.modal-search .search {
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-search .search .footer-container {
+    display: none;
+}
+
+.modal-search .footer-container .footer {
+    background-color: $white;
+}
+

@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <div class="modal-title">Circulaire koppelingen</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+        <div class="modal-message">
+            De koppeling dit je probeert te leggen is circulair. Dit is de keten die al bestaat:
+        </div>
+
+        <div>
+            <ul class="breadcrumb-list" >
+                <li ng-repeat="breadCrumb in alertController.breadCrumbs" class="breadcrumb">
+
+                    <a class="breadcrumb-link" ng-click="alertController.editMid(breadCrumb.mid)">
+                        <span class="media breadcrumb-link-type">
+                            {{::breadCrumb.type}}
+                        </span>
+                        <span class="media breadcrumb-link-number" ng-if="::breadCrumb.number">({{::breadCrumb.number}})</span>
+                        <span class="media breadcrumb-link-title">
+                            {{::breadCrumb.title | truncate:50}}
+                        </span>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect btn-rect-error" ng-click="alertController.cancel()">sluit</button>
+    </div>
+</div>

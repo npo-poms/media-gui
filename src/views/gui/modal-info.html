@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <div class="modal-title"> Poms - info</div>
+    <div class="modal-close-button" ng-click="infoController.cancel()"> close</div>
+</div>
+
+<div class="modal-body modal-info">
+
+    <div class="modal-message">
+        <div class="modal-column">
+            <h3> Updates (uur/dag)</h3>
+            <ul>
+                <li><span class="list-label">Gebruikers:</span>{{::info.userUpdates}}</li>
+                <li ng-repeat="(key, value) in info.ownerUpdates">
+                    <span class="list-label">{{::key}}</span>{{::value}}
+                </li>
+            </ul>
+
+            <h3> Topgebruikers </h3>
+
+            <span ng-if="!info.topUsers.length">
+                Er is momenteel geen informatie beschikbaar over topgebruikers
+            </span>
+
+            <table class="modal-column-table" ng-if="info.topUsers.length">
+                <thead>
+                <tr class="poms-table-head-row">
+                    <th class="modal-column-table-header" >
+                        Gebruiker
+                    </th>
+                    <th class="modal-column-table-header" >
+                        Uur
+                    </th>
+                    <th class="modal-column-table-header" >
+                        Dag
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="poms-table-row" ng-repeat="user in info.topUsers">
+                    <td class="modal-column-table-data" ><a href="javascript:void(0)" ng-click="infoController.showUserUpdates(user[0])">{{ ::user[0] }}</a></td>
+                    <td class="modal-column-table-data" ><a href="javascript:void(0)" ng-click="infoController.showUserUpdatesLastHour(user[0])">{{ ::user[1] }}</a></td>
+                    <td class="modal-column-table-data" ><a href="javascript:void(0)" ng-click="infoController.showUserUpdatesLastDay(user[0])">{{ ::user[2] }}</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="modal-column">
+
+            <h3> Omroep-imports </h3>
+
+            <span ng-if="!info.imports.length">
+                Er is momenteel geen informatie beschikbaar over omroep-imports
+            </span>
+
+            <table class="modal-column-table" ng-if="info.imports.length">
+                <thead>
+                <tr class="poms-table-head-row">
+                    <th class="modal-column-table-header" >
+                        Omroep
+                    </th>
+                    <th class="modal-column-table-header">
+                        Uur
+                    </th>
+                    <th class="modal-column-table-header">
+                        Dag
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="poms-table-row" ng-repeat="import in info.imports">
+                    <td class="modal-column-table-data">{{ ::import[0] }}</td>
+                    <td class="modal-column-table-data">{{ ::import[1] }}</td>
+                    <td class="modal-column-table-data">{{ ::import[2] }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <h3> Versie</h3>
+            <ul>
+                <li><span class="list-label">Branch:</span>{{::info.buildVcsBranch}}</li>
+                <li><span class="list-label">Revisie:</span>{{::info.buildVcsNumber}}</li>
+                <li><span class="list-label"> Build-datum:</span>{{::info.buildTimestamp}}</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button ">
+        <div class="footer-message">
+            &nbsp;
+        </div>
+        <button class="btn-rect btn-rect-cancel" ng-click="infoController.cancel($event)">Annuleer</button>
+
+    </div>
+</div>

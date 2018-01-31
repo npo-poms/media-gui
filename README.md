@@ -1,0 +1,61 @@
+# Hello POMS
+
+# install
+Install the [Node Version Manager](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps)
+
+By running `curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash`
+
+Install Node JS by running `nvm install 0.12` and `nvm use 0.12`
+Install the latest NPM by running `npm install -g npm`
+
+Run `npm install` to install all prerequisites.
+
+
+# development
+
+## coding guidelines (TEMP)
+
+-   Group Angular modules by functionality
+-   A module for each feature
+-   A module for each reusable component (especially directives and filters)
+-   And an application level module which depends on the above modules and contains any initialization code.
+
+-  Filenames start with uppercase for controllers, directives etc
+-  Unit test filenames end in ...Spec
+
+-  Directives are prefixed with poms, e.g. pomsGreeter equals poms-greeter (in file Greeter.js)
+
+
+## check the current development
+Run `npm run dev && npm run serve` to build and run the current development version on `http://localhost:port` ( port defaults to 4000 )
+
+## live reloading
+Run `npm run watch:dev` and navigate to `http://localhost:port` ( port defaults to 4000 )
+Any changes to the code are automatically reflected in your browser.
+
+## API and signon hosts
+If you want the server to run with different API and signon hosts you can override the
+package config settings by setting environment variables as follows:
+
+`NPM_CONFIG_APIHOST=http://poms-dev.omroep.nl NPM_CONFIG_SIGNONHOST=http://sso-dev.omroep.nl npm run watch:dev`
+
+## https
+The POMS gui can also run on https locally. To do so follow these steps
+Use a secure API host when starting the server. For instance,  `NPM_CONFIG_APIHOST=https://poms-dev.omroep.nl`
+Specifiy the paths to your local `server.key` and `server.crt` files as the following environment variables:
+`SERVER_KEY_PATH`
+`SERVER_CRT_PATH`
+Use `npm run serve:dev-secure` with the above mentioned environment variables to start the gui and view in the browser over port `8448`
+
+Example:
+`NPM_CONFIG_APIHOST=https://poms-dev.omroep.nl NPM_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl SERVER_KEY_PATH=~/.secure/server.key SERVER_CRT_PATH=~/.secure/server.crt npm run serve:dev-secure`
+
+## debug statements in your console
+
+To show POMSUI debugging messages in the console we use a [debugging](https://www.npmjs.org/package/debug)
+utility which can be initialised by running commandline commands like `DEBUG=pomsui your_command`.
+This will allow all 'pomsui' namespaced debug messages to be output to the console.
+
+# deployment
+
+For now, run `npm run deploy:gulp` to generate just a hand full of files in the build/deploy folder.

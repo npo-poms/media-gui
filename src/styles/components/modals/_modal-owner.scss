@@ -1,0 +1,16 @@
+
+.modal-owner .owner-field{
+    margin-bottom: 12px;
+    @include span-columns(7);
+
+}
+.modal-owner h2{
+    font-size: $fontsizemedium;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.modal-owner p{
+    margin: 0;
+    padding: 0;
+}

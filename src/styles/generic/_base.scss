@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+
+    margin:0;
+    padding:0;
+
+    overflow:hidden;
+}
+
+body{
+    background-color: $bgcolor;
+    color: $textcolor;
+    font-family: $basefont;
+    font-size: $fontsizemedium;
+    min-width: 960px;
+
+    &.modal-open{
+      overflow: hidden;
+    }
+
+    &.poms-selector {
+        overflow: auto;
+    }
+}
+
+p{
+    margin:0;
+    padding:0;
+    @include clearfix;
+}
+
+ul, li{
+    list-style: none;
+    padding: 0;
+    margin:0;
+    line-height: 1.5em;
+}
+
+
+*:focus {
+    outline: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+
+#app {
+    height: 100%;
+}
+
+.poms-loader{
+    width: 100%;
+    height: 100%;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:1000;
+}
+
+.poms-loader .loading-text{
+    width: 180px;
+    height: 100px;
+
+    top: 50%;
+    left: 50%;
+
+    margin-left: -90px;
+    margin-top: -50px;
+
+    text-align: center;
+
+    position:absolute;
+
+}
+
+.bullet-list {
+    margin-left: 16px;
+}
+
+.bullet-list li{
+    list-style: disc;
+}
+
+.disable-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+li .list-label{
+    display: inline-block;
+    width: 150px;
+}
+
+

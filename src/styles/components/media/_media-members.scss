@@ -1,0 +1,67 @@
+.media-segment-of-link,
+.media-episode-of-link,
+.media-member-of-link {
+
+    overflow: hidden;
+    max-width: calc(100% - 32px);
+
+    line-height: 24px;
+    margin: 4px 0;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    height: 20px;
+    float: left;
+
+    a {
+        cursor: pointer;
+    }
+
+    &:last-child:after {
+        display: none;
+    }
+}
+
+.media-segment-of-link .link-type,
+.media-episode-of-link .link-type,
+.media-member-of-link .link-type {
+    line-height: 16px;
+    font-size: $fontsizesmall;
+    text-transform: uppercase;
+    color: $lichtgrijs;
+}
+
+.media-segment-of-link .link-title,
+.media-episode-of-link .link-title,
+.media-member-of-link .link-title {
+    line-height: 16px;
+    font-size: $fontsizebig;
+}
+
+.media-segment-of-link .link-number,
+.media-episode-of-link .link-number,
+.media-member-of-link .link-number {
+    line-height: 16px;
+    font-size: $fontsizebig;
+}
+
+.media-member-remove {
+    margin-top: 3px;
+    width: 24px;
+    height: 24px;
+
+    background-color: transparent;
+
+    border: 0;
+
+    cursor: pointer;
+    text-indent: -9999px;
+
+    @include icon('remove-disabled', 24px);
+
+    &:hover {
+        @include icon('remove_hover', 24px);
+    }
+}
+

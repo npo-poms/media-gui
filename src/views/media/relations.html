@@ -1,0 +1,53 @@
+<div id="{{section}}" class="media-data media-relations media-section" ng-controller="RelationsController as relationsController">
+
+    <h1 class="media-section-title" ng-class="{ 'waiting': relationsController.waiting }">
+        Relaties ({{relationsController.relations.length}})
+        <poms-help field="editor.relations"></poms-help>
+    </h1>
+
+    <button class="btn-text-icon btn-text-icon-add" ng-if="relationsController.mayWrite" ng-click="relationsController.addRelation()">
+        Relatie toevoegen
+    </button>
+
+    <table class="poms-table" ng-show="relationsController.relations.length > 0"
+           ng-class="{ 'updating': relationsController.waiting }">
+
+        <thead>
+        <tr class="poms-table-head-row">
+            <th title="type" class="poms-table-header relation-type"> type</th>
+            <th title="tekst" class="poms-table-header relation-text"> tekst</th>
+            <th title="uri" class="poms-table-header relation-uriref"> uri</th>
+            <th ng-show="relationsController.mayWrite"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="poms-table-row" ng-repeat="relation in relationsController.relations"
+            ng-class="{'waiting': relationsController.waiting, 'may-write': relationsController.mayWrite }"
+           >
+
+            <td class="relation-type" >
+               {{relation.type.text}}
+            </td>
+
+            <td class="relation-text">
+                {{relation.text}}
+            </td>
+
+            <td class="relation-uriRef" >
+                {{relation.uriRef}}
+            </td>
+
+            <td class="relations-tools tools-cell" ng-show="relationsController.mayWrite">
+                <div class="tools">
+                    <button class="poms-icon icon-edit" ng-click="relationsController.editRelation(relation)">bewerk</button>
+                    <button class="poms-icon icon-remove" poms-confirm="Bron" poms-submit="relationsController.remove($index)">
+                        verwijder
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

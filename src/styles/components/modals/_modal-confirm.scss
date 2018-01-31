@@ -1,0 +1,27 @@
+
+.modal-confirm .modal-body{
+    background-color: $oranje;
+    color: $white;
+    height:180px;
+    min-height:inherit;
+}
+
+.modal-confirm .modal-body a {
+    color: $white;
+    text-decoration: underline;
+}
+
+.modal-confirm-save .modal-body{
+    background-color: $oranje;
+    color: $white;
+    height:180px;
+    min-height:inherit;
+}
+
+.modal-confirm-save .btn-rect-warning{
+    background-color: $oranje;
+
+    &:hover{
+        border-color: $oranje;
+    }
+}

@@ -1,0 +1,71 @@
+.tooltip-wrapper {
+
+    width: 18px;
+    height: 18px;
+
+    display: block;
+    position: relative;
+
+    overflow: hidden;
+    right: 0;
+    top: 0;
+
+    &:hover {
+
+        overflow: visible;
+
+        .tooltip {
+            opacity: 1;
+        }
+
+    }
+}
+
+.tooltip-icon {
+    @include icon('help', 18px);
+    display: block;
+    width: 18px;
+    height: 18px;
+    position: relative;
+
+    z-index: $z-index-tooltip;
+    cursor: pointer;
+}
+
+.tooltip {
+
+    opacity: 0;
+
+    position: absolute;
+    right: -4px;
+
+    width: 300px;
+
+    font-size: $fontsizemedium;
+    line-height: 16px;
+    font-weight: normal;
+
+    padding: 8px;
+    background-color: $lichtgrijs;
+    color: white;
+
+    top: 9px;
+    z-index: $z-index-tooltip-icon;
+}
+
+.tooltip-wrapper.tooltip-right .tooltip{
+    left: -4px;
+}
+
+.poms-table-header:first-child .tooltip-wrapper .tooltip{
+    left: -4px;
+}
+
+.tooltip-link {
+    color: $white;
+    margin-top: 16px;
+    display: block;
+    float: right;
+    text-transform: uppercase;
+
+}

@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <div class="modal-title"> Poms - Uploads </div>
+    <div class="modal-close-button" ng-click="transcodingsController.cancel()"> close</div>
+</div>
+
+<div class="modal-body">
+
+    <div ng-if="!junctionError">
+        <p>
+            Een overzicht van alle lopende uploads aangemaakt door deze gebruiker.
+        </p>
+
+        <p ng-if="!transcodings">
+            Je hebt geen lopende uploads.
+        </p>
+    </div>
+
+    <div ng-if="junctionError" class="inline-error">
+        De transcodeerdienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
+    </div>
+
+
+    <table class="poms-table" ng-if="transcodings">
+        <thead>
+        <tr class="poms-table-head-row">
+            <th title="MID" class="poms-table-header"> MID </th>
+            <th title="Title" class="poms-table-header"> Titel </th>
+            <th title="Status" class="poms-table-header"> Status </th>
+            <th title="Encoder" class="poms-table-header"> Encoder </th>
+            <th title="Gestart op" class="poms-table-header"> Gestart op </th>
+            <th title="Gewijzigd op" class="poms-table-header"> Gewijzigd op </th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index" ng-click="transcodingsController.openMid(transcoding.mid)">
+            <td> {{ transcoding.mid }} </td>
+            <td> {{ transcoding.title }}  </td>
+            <td> {{ transcoding.state }} </td>
+            <td> {{ transcoding.encoder }} </td>
+            <td>
+                <span ng-if="transcoding.creationDate">
+                    {{ transcoding | searchColumnFilter:"creationDate"}}
+                </span>
+            </td>
+            <td>
+                <span ng-if="transcoding.lastModifiedDate">
+                    {{ transcoding | searchColumnFilter:"lastModifiedDate" }}
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button ">
+        <div class="footer-message">
+            &nbsp;
+        </div>
+        <button class="btn-rect btn-rect-cancel" ng-click="transcodingsController.cancel($event)">Sluit</button>
+
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <div class="modal-title"> Wijzigingen bewaren</div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+        Door dit veld te verlaten slaat u automatisch de wijzigingen op!
+
+        <br />
+        <br />
+        <label>
+            <input type="checkbox" ng-model="saveconfirm.selected">
+            Geef deze waarschuwing niet nogmaals
+        </label>
+
+    </div>
+</div>
+
+<form role="form" class="confirmForm" name="confirmForm">
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+            <div class="footer-message">&nbsp;</div>
+            <button class="btn-rect btn-rect-warning" ng-click="controller.save()">Sla op</button>
+            <button class="btn-rect btn-rect-warning" ng-click="controller.cancel()">Annuleer</button>
+        </div>
+    </div>
+</form>

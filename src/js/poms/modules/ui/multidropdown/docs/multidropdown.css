@@ -1,0 +1,26 @@
+.poms-multidropdown {
+    display:inline-block;
+    position:relative;
+}
+.poms-multidropdown.open .poms-multidropdown-items {
+    display:block;
+}
+.poms-multidropdown-items {
+    display:none;
+
+    position: absolute;
+    top:20px;
+    left:0;
+
+    background: #fff;
+    border:1px solid #eee;
+}
+
+.poms-multidropdown-item {
+    display:block;
+    white-space: nowrap;
+}
+
+.poms-multidropdown-item.selected {
+    color:#f00;
+}

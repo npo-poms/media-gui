@@ -1,0 +1,73 @@
+.editable-empty, .editable-empty:hover,
+.editable-empty:focus, a.editable-empty,
+a.editable-empty:hover, a.editable-empty:focus {
+    font-style: normal;
+    color: $lichtoranje;
+}
+
+
+.editable-wrap .editable-controls > select {
+    background-color: transparent;
+    position: relative;
+    z-index: 1002;
+    width: 100%;
+}
+
+.editable-select .editable-controls {
+    background-color: $white;
+
+    height: 100%;
+    display: inline-block;
+    width: 100%;
+
+    &:after {
+        vertical-align: middle;
+        z-index: 1000;
+        display: inline-block;
+        position: relative;
+
+        right: 34px;
+        width: 34px;
+        height: 34px;
+
+        content: '';
+        @include icon('pulldown-background', 34px, 'right center');
+    }
+
+}
+
+.editable-wrap select {
+    background-color: $white;
+
+    padding: 5px 25px 5px 5px;
+    font-size: $fontsizebig;
+    border: 1px solid $lichtgrijs;
+    height: 34px;
+
+    border-radius: 0;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    vertical-align: middle;
+
+}
+
+.editable-wrap {
+    width: 100%;
+}
+
+
+.editable-checklist label {
+    display: block;
+}
+
+
+.editfield-area p.editable{
+    white-space: pre-line;
+
+}
+
+
+

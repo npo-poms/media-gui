@@ -1,0 +1,109 @@
+.poms-multidropdown {
+    position: relative;
+    color: $grijs;
+    line-height: 16px;
+}
+
+.poms-multidropdown.open .poms-multidropdown-items {
+    display: block;
+}
+
+.poms-multidropdown-items {
+    display: none;
+
+    position: absolute;
+    top: 20px;
+    left: 0;
+
+    padding-top: 5px;
+
+    background: #fff;
+    border: 1px solid $lichtgrijs;
+
+    max-height: 450px;
+    overflow: auto;
+
+    z-index: $z-index-edit;
+}
+
+.poms-multidropdown-item {
+
+    display: block;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: $extralichtoranje;
+    }
+
+    input {
+        position: absolute;
+        right: 12px;
+        height: 19px;
+    }
+
+    .label {
+        position: relative;
+        width: 100%;
+        padding: 6px 50px 6px 16px;
+        box-sizing: border-box;
+        display: inline-block;
+
+        white-space: nowrap;
+        text-overflow: clip;
+    }
+
+}
+
+.poms-multidropdown-label {
+    cursor: pointer;
+
+    position: relative;
+    width: 100%;
+    padding: 0 40px 6px 0;
+    box-sizing: border-box;
+    display: inline-block;
+
+    white-space: nowrap;
+    text-overflow: clip;
+
+}
+
+.poms-multidropdown-set-default {
+    width: 100%;
+    padding: 8px 18px;
+    display: inherit;
+
+    border-top: 1px solid $extralichtgrijs;
+    background-color: $superultralichtgrijs;
+
+    color: $oranje;
+    font-weight: normal;
+
+    &:active {
+        color: $grijs;
+    }
+}
+
+.dropdown-wrapper .poms-multidropdown-label {
+
+    &:after {
+
+        width: 8px;
+        height: 8px;
+
+        display: inline-block;
+
+        @include icon('pulldown', 8px);
+
+        content: '';
+        margin-left: 8px;
+    }
+
+    &:hover {
+        color: $oranje;
+    }
+}
+
+

@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <div class="modal-title"> Nieuw Tweede scherm</div>
+    <div class="modal-close-button" ng-click="addScreenController.cancel()"> close</div>
+</div>
+
+<form role="form" class="poms-form screenForm" ng-class="{'waiting': waiting}" name="screenForm">
+
+    <div class="modal-body">
+
+        <div class="row">
+
+            <div class="field col-6" ng-class="{'has-error' : screenForm.inputTitle.$invalid}">
+
+                <label for="inputTitle">Titel &#42; </label>
+                <input type="text" name="inputTitle" id="inputTitle" required
+                       placeholder="Titel (verplicht)"
+                       ng-model="screen.title"/>
+                <poms-invalid violation="addScreenController.violations.title"></poms-invalid>
+                <poms-help field="editor.screen.title"></poms-help>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="field col-6" ng-class="{'has-error' : screenForm.inputDescription.$invalid}">
+
+                <label for="inputUrl">Url&#42;</label>
+                <input type="text" name="inputUrl" id="inputUrl"
+                       required
+                       placeholder="Url (verplicht)"
+                       ng-model="screen.url"/>
+                <poms-invalid violation="addScreenController.violations.url"></poms-invalid>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="field col-6" ng-class="{'has-error' : screenForm.inputDescription.$invalid}">
+                <label for="inputDescription">Beschrijving &#42;</label>
+                <textarea type="text" name="inputDescription" id="inputDescription" required
+                          placeholder="Beschrijving (verplicht)"
+                          ng-model="screen.description"/>
+                <poms-invalid violation="addScreenController.violations.description"></poms-invalid>
+                <poms-help field="editor.screen.description"></poms-help>
+            </div>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message">
+                <span class="required-feedback-message" ng-if="!screenFormValid">Nog in te vullen:</span>
+                <span class="required-field" ng-repeat='field in required'  ng-if="!screen[field.id]" >{{field.text}}</span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="addScreenController.save()" ng-disabled="!screenFormValid || waiting">
+                Bewaar
+            </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="addScreenController.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>
+
+

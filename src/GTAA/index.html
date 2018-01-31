@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>GTAA</title>
+
+    <link rel="stylesheet" href="../css/angular-xeditable/xeditable.css"/>
+    <link rel="stylesheet" href="../css/ng-toast/ngToast.min.css"/>
+    <link rel="stylesheet" href="../css/ng-toast/ngToast-animations.min.css"/>
+    <link rel="stylesheet" href="../css/angular-ui-tab-scroll/angular-ui-tab-scroll.css" />
+
+    <link rel="stylesheet" href="../css/poms-{version}.css"  />
+
+    <!-- build:vendor js/vendor-selector-{version}.js -->
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+
+    <script src="../../node_modules/stompjs/lib/stomp.min.js"></script>
+    <script src="../js/vendor/angular-ui/jquery-ui.min.js"></script>
+    <script src="../../node_modules/lodash/index.js"></script>
+    <script src="../../node_modules/angular/angular.js"></script>
+    <script src="../../node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="../../node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="../../node_modules/angular-i18n/angular-locale_nl-nl.js"></script>
+    <script src="../../node_modules/ng-file-upload/dist/angular-file-upload.min.js"></script>
+    <script src="../../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="../../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="../../node_modules/angular-scroll/angular-scroll.min.js"></script>
+    <script src="../../node_modules/angular-clipboard/angular-clipboard.js"></script>
+    <script src="../../node_modules/angular-ui-tab-scroll/angular-ui-tab-scroll.js"></script>
+    <script src="../js/vendor/ng-toast/ngToast.min.js"></script>
+    <script src="../js/vendor/angular-ui/angular-ui.min.js"></script>
+    <!-- we use ui-bootstrap-custom-0.12.0.js instead of a npm installed version, because we modified the source (view the file's history)-->
+    <script src="../js/vendor/angular-ui/ui-bootstrap-custom-0.12.0.js"></script>
+    <script src="../js/vendor/angular-xeditable/xeditable.min.js"></script>
+    <script src="../js/vendor/angular-xeditable/checklist-model.js"></script>
+    <script src="../js/vendor/ui-select/select.min.js"></script>
+    <script src="../js/vendor/angular.rangeSlider.js"></script>
+
+    <!-- endbuild -->
+
+    <script src="//cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+
+    <script src="//npoplayer.omroep.nl/js/npoplayer.min.js" type="text/javascript"></script>
+
+
+
+</head>
+
+<body id="scroll-spy-top" class="poms-gtaa-connect" ng-app="poms" poms-alert
+      ng-controller="GtaaConnectorController as gtaaConnectorController">
+
+
+<div class="poms-loader" ng-if="!loaded">
+    <div class="loading-text">
+        <img src="../resources/images/poms-loader.gif"/>
+        Loading...
+
+    </div>
+</div>
+
+<div ng-if="loaded" class="modal modal-person">
+    <gtaa-connector-edit linked-person="linkedPerson" gtaa-id="gtaaId" origin="origin"></gtaa-connector-edit>
+</div>
+
+
+<poms-notifications>
+    <toast></toast>
+</poms-notifications>
+
+
+<!-- build:poms js/poms-{version}.js -->
+
+<script src="../js/poms/modules/editor/editor.js"></script>
+<script src="../js/poms/modules/editor/services/EditorService.js"></script>
+
+<script src="../js/poms/modules/list/list.js"></script>
+<script src="../js/poms/modules/list/services/ListService.js"></script>
+
+<script src="../js/poms/modules/gtaa/gtaa.js"></script>
+<script src="../js/poms/modules/gtaa/services/GtaaService.js"></script>
+<script src="../js/poms/modules/gtaa/controllers/GtaaPersonEditController.js"></script>
+<script src="../js/poms/modules/gtaa/controllers/GtaaConnectorController.js"></script>
+<script src="../js/poms/modules/gtaa/controllers/GtaaConnectorEditController.js"></script>
+<script src="../js/poms/modules/gtaa/directives/GtaaConnector.js"></script>
+
+
+<script src="../js/poms/modules/ui/ui.js"></script>
+<script src="../js/poms/modules/ui/multidropdown/multidropdown.js"></script>
+
+<script src="../js/poms/modules/messages/messages.js"></script>
+<script src="../js/poms/modules/messages/services/MessageService.js"></script>
+<script src="../js/poms/modules/messages/services/NotificationService.js"></script>
+<script src="../js/poms/modules/messages/controllers/MessageController.js"></script>
+
+<script src="../js/poms/modules/search/search.js"></script>
+<script src="../js/poms/modules/search/controllers/ModalSearchController.js"></script>
+<script src="../js/poms/modules/search/controllers/SearchFormController.js"></script>
+<script src="../js/poms/modules/search/controllers/SearchResultController.js"></script>
+<script src="../js/poms/modules/search/controllers/SearchTabController.js"></script>
+<script src="../js/poms/modules/search/controllers/PreviewController.js"></script>
+
+<script src="../js/poms/modules/search/directives/PomsPager.js"></script>
+<script src="../js/poms/modules/search/directives/PomsSearchColumns.js"></script>
+<script src="../js/poms/modules/search/directives/PomsSearch.js"></script>
+
+<script src="../js/poms/modules/search/services/SearchService.js"></script>
+<script src="../js/poms/modules/search/services/SearchFactory.js"></script>
+
+<script src="../js/poms/modules/media/media.js"></script>
+<script src="../js/poms/modules/media/controllers/ConfirmController.js"></script>
+<script src="../js/poms/modules/media/controllers/CreateController.js"></script>
+<script src="../js/poms/modules/media/controllers/BulkUpdateController.js"></script>
+<script src="../js/poms/modules/media/controllers/EditController.js"></script>
+<script src="../js/poms/modules/media/controllers/EditHistoryController.js"></script>
+<script src="../js/poms/modules/media/controllers/ImagesController.js"></script>
+<script src="../js/poms/modules/media/controllers/ImageEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/ItemizerController.js"></script>
+<script src="../js/poms/modules/media/controllers/LocationsController.js"></script>
+<script src="../js/poms/modules/media/controllers/LocationEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/LocationUploadController.js"></script>
+<script src="../js/poms/modules/media/controllers/LocationPlayController.js"></script>
+<script src="../js/poms/modules/media/controllers/MediaController.js"></script>
+<script src="../js/poms/modules/media/controllers/MembersController.js"></script>
+<script src="../js/poms/modules/media/controllers/ModalMergeController.js"></script>
+<script src="../js/poms/modules/media/controllers/ModalTableEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/OwnerController.js"></script>
+<script src="../js/poms/modules/media/controllers/OwnersController.js"></script>
+<script src="../js/poms/modules/media/controllers/PersonsController.js"></script>
+<script src="../js/poms/modules/media/controllers/MultiEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/RelationsController.js"></script>
+<script src="../js/poms/modules/media/controllers/RelationEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/SegmentsController.js"></script>
+<script src="../js/poms/modules/media/controllers/ScheduleEventsOverviewController.js"></script>
+<script src="../js/poms/modules/media/controllers/SubtitlesController.js"></script>
+<script src="../js/poms/modules/media/controllers/ScheduleEventEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/PersonEditController.js"></script>
+<script src="../js/poms/modules/media/controllers/SaveConfirmController.js"></script>
+<script src="../js/poms/modules/media/controllers/ScheduleEventsController.js"></script>
+<script src="../js/poms/modules/media/controllers/TooManyDescendantsController.js"></script>
+
+<script src="../js/poms/modules/media/directives/PomsEdit.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditCheckbox.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditDaterange.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditFields.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditGenres.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditMulti.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditModal.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditPersons.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditBroadcastersPortals.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditDropdown.js"></script>
+<script src="../js/poms/modules/media/directives/showFeedback.js"></script>
+<script src="../js/poms/modules/media/directives/PomsEditTools.js"></script>
+<script src="../js/poms/modules/media/directives/PomsOwner.js"></script>
+
+<script src="../js/poms/modules/media/directives/PomsMemberColumns.js"></script>
+<script src="../js/poms/modules/media/directives/PomsImagesColumns.js"></script>
+<script src="../js/poms/modules/media/directives/PomsSegmentColumns.js"></script>
+<script src="../js/poms/modules/media/directives/PomsLocationColumns.js"></script>
+<script src="../js/poms/modules/media/directives/PomsScheduleEventsColumns.js"></script>
+
+<script src="../js/poms/modules/media/services/EditFieldService.js"></script>
+<script src="../js/poms/modules/media/services/BulkUpdateService.js"></script>
+<script src="../js/poms/modules/media/services/EditService.js"></script>
+<script src="../js/poms/modules/media/services/MediaService.js"></script>
+<script src="../js/poms/modules/media/services/MergeService.js"></script>
+<script src="../js/poms/modules/media/services/LocationService.js"></script>
+<script src="../js/poms/modules/media/services/SubtitlesService.js"></script>
+<script src="../js/poms/modules/media/services/AuthenticationService.js"></script>
+<script src="../js/poms/modules/media/services/swfObject.js"></script>
+<script src="../js/poms/modules/media/services/UploadService.js"></script>
+
+<script src="../js/poms/modules/screen/screen.js"></script>
+<script src="../js/poms/modules/screen/controllers/AllScreensController.js"></script>
+<script src="../js/poms/modules/screen/controllers/ScreenController.js"></script>
+<script src="../js/poms/modules/screen/controllers/AddScreenController.js"></script>
+<script src="../js/poms/modules/screen/controllers/ScreenMemberOfController.js"></script>
+
+<script src="../js/poms/modules/screen/services/ScreenService.js"></script>
+<script src="../js/poms/modules/screen/services/ScreenEditService.js"></script>
+
+<script src="../js/poms/modules/screen/directives/SecondScreens.js"></script>
+<script src="../js/poms/modules/screen/directives/ScreenMember.js"></script>
+<script src="../js/poms/modules/screen/directives/ScreenMemberColumns.js"></script>
+
+<script src="../js/poms/modules/util/util.js"></script>
+<script src="../js/poms/modules/util/directives/PomsFavortieFeedback.js"></script>
+<script src="../js/poms/modules/util/directives/PomsAlert.js"></script>
+<script src="../js/poms/modules/util/directives/PomsConfirm.js"></script>
+<script src="../js/poms/modules/util/directives/PomsClipboard.js"></script>
+<script src="../js/poms/modules/util/directives/PomsEvents.js"></script>
+<script src="../js/poms/modules/util/directives/PomsUiFadeToggle.js"></script>
+<script src="../js/poms/modules/util/directives/PomsInvalid.js"></script>
+<script src="../js/poms/modules/util/directives/PomsDateRange.js"></script>
+<script src="../js/poms/modules/util/directives/PomsHelp.js"></script>
+<script src="../js/poms/modules/util/directives/PomsUiSelect.js"></script>
+<script src="../js/poms/modules/util/directives/PomsViewer.js"></script>
+<script src="../js/poms/modules/util/directives/PomsWorkflow.js"></script>
+<script src="../js/poms/modules/util/controllers/AlertController.js"></script>
+<script src="../js/poms/modules/util/services/ServiceSelector.js"></script>
+
+<script src="../js/poms/modules/util/filters/Filter.js"></script>
+
+<script src="../js/poms/modules/admin/admin.js"></script>
+<script src="../js/poms/modules/admin/controllers/AdminController.js"></script>
+<script src="../js/poms/modules/admin/controllers/BroadcastersController.js"></script>
+<script src="../js/poms/modules/admin/controllers/RepublishController.js"></script>
+<script src="../js/poms/modules/admin/services/AdminService.js"></script>
+
+<script src="../js/poms/constants.js"></script>
+
+<script src="../js/poms/app.js"></script>
+
+<script src="../js/poms/services/GuiService.js"></script>
+<script src="../js/poms/services/HelpService.js"></script>
+<script src="../js/poms/services/FavoritesService.js"></script>
+<script src="../js/poms/services/InfoService.js"></script>
+
+<script src="../js/poms/controllers/AccountController.js"></script>
+<script src="../js/poms/controllers/GuiController.js"></script>
+<script src="../js/poms/controllers/FavoritesController.js"></script>
+<script src="../js/poms/controllers/InfoController.js"></script>
+<script src="../js/poms/controllers/OwnerInfoController.js"></script>
+<script src="../js/poms/controllers/TranscodingsController.js"></script>
+
+<script src="../views/templates.js" charset="UTF-8"></script>
+<!-- endbuild -->
+
+
+
+<!-- build:remove -->
+<!-- live reload server -->
+<script>
+  document.write('<script src="'+ location.protocol +'//' + (location.host || 'localhost').split(':')[0] +
+  ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>
+<!-- enbuild -->
+
+</body>
+</html>

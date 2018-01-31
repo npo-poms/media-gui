@@ -1,0 +1,28 @@
+.modal-favorites .modal-message {
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-favorites h3 {
+    margin-top: 0;
+}
+
+.modal-favorites a {
+    color: $grijs;
+}
+
+.modal-favorites .remove-favorite {
+
+    @include icon('remove-disabled', 24px);
+    text-indent: -9999px;
+    border: 0;
+    background-color: transparent;
+    width: 12px;
+    height: 16px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 4px;
+    &:hover {
+        @include icon('remove_hover', 24px);
+    }
+}

@@ -1,0 +1,76 @@
+.pager {
+
+    display: block;
+
+    height: 60px;
+
+    border-top: 2px solid $ultralichtgrijs;
+    border-bottom: 2px solid $ultralichtgrijs;
+
+    width: 100%;
+
+    text-align: center;
+    line-height: 46px;
+}
+
+.pager-pagenumber{
+
+    color: $grijs;
+
+    display: inline-block;
+
+    cursor: pointer;
+    font-size: $fontsizemedium;
+
+    height: 60px;
+    position: relative;
+    top: -26px;
+}
+
+
+.pager-pagenumber-input{
+    max-width: 45px;
+    text-align: center;
+    padding: 5px;
+}
+
+
+.pager-button{
+
+    color: $grijs;
+
+    display: inline-block;
+
+    cursor: pointer;
+    font-size: $fontsizemedium;
+
+    &.disabled, &.disabled:hover{
+        opacity:0.5;
+        background-color: transparent;
+        cursor: default;
+    }
+
+
+    width: 42px;
+    height: 60px;
+
+
+    &.next{
+        @include icon('arrow-right', 14px);
+    }
+
+    &.prev{
+        @include icon('arrow-left', 14px);
+    }
+
+    &.first{
+        @include icon('double-arrow-left', 14px);
+    }
+
+    &.last{
+        @include icon('double-arrow-right', 14px);
+    }
+}
+
+
+

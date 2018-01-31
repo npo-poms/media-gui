@@ -1,0 +1,246 @@
+.btn-rect {
+
+    font-size: $fontsizemedium;
+    text-transform: uppercase;
+
+    @include span-columns(2);
+
+    height: 32px;
+
+    border: 0;
+
+    background-color: $oranje;
+    color: $white;
+
+    &:hover:enabled {
+        background-color: $white;
+        color: $oranje;
+        border: 1px solid $oranje;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    &:enabled {
+        cursor: pointer;
+    }
+
+    @include transition(all 0.3s);
+
+}
+
+.btn-rect-large {
+    @include span-columns(4);
+    margin-bottom: 10px;
+}
+
+.btn-rect-secondary {
+    background-color: $lichtgrijs;
+    color: $white;
+
+    &:hover:enabled {
+        background-color: $grijs;
+        color: $white;
+        border: 1px solid $lichtgrijs;
+    }
+}
+
+.btn-rect-create {
+    background-color: $white;
+    color: $oranje;
+}
+
+.btn-rect-cancel {
+    background-color: $oranje;
+    color: $white;
+
+    &:hover:enabled {
+        background-color: $white;
+        color: $oranje;
+        border: 1px solid $oranje;
+    }
+}
+
+.btn-rect-cancel-inverse {
+    background-color: transparent;
+    color: $oranje;
+    border: 1px solid $oranje;
+
+    &:hover {
+        border: 0;
+        background-color: $oranje;
+        color: white;
+    }
+}
+
+.btn-rect-remove {
+    background-color: transparent;
+    color: $rood;
+    border: 1px solid $rood;
+
+    &:hover:enabled {
+        background-color: $rood;
+        color: $white;
+        border: 1px solid white;
+    }
+
+}
+
+.btn-rect-warning {
+    background-color: $oranje;
+    color: $white;
+    border: 1px solid $oranje;
+
+    &:hover:enabled {
+        border: 1px solid $oranje;
+        background-color: $white;
+        color: $oranje;
+    }
+}
+
+.btn-rect-error {
+    background-color: $rood;
+    color: $white;
+    border: 1px solid white;
+
+    &:hover:enabled {
+        border: 1px solid $rood;
+        background-color: $white;
+        color: $rood;
+    }
+}
+
+.btn-rect-forbidden {
+    border: 0;
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    background-color: transparent;
+    color: $grijs;
+    border: none;
+
+    cursor: default;
+}
+
+/* start buttons with icon and text */
+
+.btn-text-icon {
+    padding-left: 18px;
+    display: inline-block;
+
+    box-sizing: content-box;
+
+    background-color: transparent;
+    border: none;
+
+    font-size: $fontsizemedium;
+
+    cursor: pointer;
+}
+
+.btn-text-icon-add {
+    padding-left: 19px;
+
+    color: $lichtgrijs;
+
+    @include icon('add', 14px, 'left center');
+
+    &:hover:enabled {
+        color: $groen;
+    }
+}
+
+.btn-text-icon-add-member-of {
+    padding-left: 16px;
+
+    text-transform: uppercase;
+    font-size: $fontsizesmall;
+    color: $lichtgrijs;
+
+    @include icon('add', 11px, 'left center');
+
+    &:hover:enabled {
+        color: $groen;
+    }
+
+}
+
+.btn-text-icon-remove {
+
+    @include icon('remove', 28px, '0 center');
+
+    &:hover:enabled {
+        color: $rood;
+    }
+}
+
+.btn-text-icon-help {
+    @include icon('help', 14px, '0 center');
+
+    &:hover {
+        @include icon('help-orange', 14px, '0 center');
+    }
+
+}
+
+.btn-text-icon-favorite {
+
+    @include icon('favorite', 14px, '0 center');
+    &:hover {
+        background-image: url('../resources/icons/favorite_hover.svg');
+    }
+}
+
+.btn-text-icon-favorite-highlight {
+    @include icon('favorite_hover', 14px, '0 center');
+}
+
+.btn-text-icon-uploads {
+
+    @include icon('uploads', 14px, '0 center');
+    &:hover {
+        background-image: url('../resources/icons/uploads_hover.svg');
+    }
+}
+
+.btn-text-icon-makestill {
+
+    @include icon('image', 14px, '0 center');
+    &:hover {
+        color: $groen;
+    }
+}
+
+.btn-text-icon-admin {
+
+    @include icon('config', 14px, 'left  center');
+
+    &:hover {
+        @include icon('config_hover', 14px, 'left  center');
+    }
+
+}
+
+
+.clipboard-input-button {
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    font-size: inherit;
+    font: inherit;
+    outline: none;
+    padding: 0;
+    margin: 0;
+
+    color: inherit;
+    outline: 0;
+    border: none;
+    width: 100%;
+
+    background-color: transparent;
+}

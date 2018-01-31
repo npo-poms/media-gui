@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <div class="modal-title">Er is iets mis gegaan</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+        {{alertController.error.message}}
+    </div>
+
+    <div class="modal-stacktrace" ng-repeat="method in alertController.error.stackTrace" >
+        <div>{{method}}</div>
+    </div>
+</div>
+
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect btn-rect-error" ng-click="alertController.cancel()">ga door</button>
+        <button class="btn-rect btn-rect-error" ng-click="alertController.reloadPage()">herlaad</button>
+    </div>
+</div>

@@ -1,0 +1,213 @@
+.search-container {
+    padding-bottom: 50px;
+    background-color: $white;
+    min-height: 200px;
+}
+
+.search-form {
+    @include span-columns(10);
+    @include shift(1);
+
+    padding: 0;
+    margin-top: 50px;
+
+}
+
+.search-query-wrapper {
+    position: relative;
+    @include span-columns(8);
+
+    box-sizing: border-box;
+
+    border: 1px solid $bordercolor;
+    background-color: $white;
+}
+
+.search-query-text {
+    height: 32px;
+    width: 100%;
+    padding-left: 8px;
+
+    border: none;
+    box-sizing: border-box;
+}
+
+.search-filtering {
+    @include pad();
+    @include clearfix;
+}
+
+.search-filtering-row {
+    @include clearfix;
+}
+
+.search-dropdown-wrapper {
+
+    position: relative;
+    @include span-columns(1 of 6);
+
+    margin-top: 16px;
+}
+
+.search-query-wrapper .tooltip-wrapper {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+}
+
+
+.search-selected-facet-label {
+    color: $lichtgrijs;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.search-special-dates {
+    height: 34px;
+    margin-top: 16px;
+}
+
+.search-special-date,
+.search-daterange-submit {
+    padding: 4px;
+
+    background-color: transparent;
+    border: 1px solid $grijs;
+
+    line-height: 16px;
+    color: $grijs;
+
+    &:hover {
+        border-color: $oranje;
+    }
+}
+.search-preset-date{
+    padding: 3px;
+    background-color: transparent;
+    border: 1px solid #b3b3b3;
+    color: #666;
+    font-size: 10px;
+    line-height: 30px;
+}
+
+
+.search-datetype-label,
+.search-usertype-label {
+    width: 100%;
+    display: block;
+}
+
+
+
+/*
+    search-favorites
+*/
+.search-favorites-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 8px;
+    padding-left: 28px;
+
+    border-left: 1px solid $extralichtgrijs;
+    border-bottom: 1px solid $extralichtgrijs;
+
+    font-size: $fontsizemedium;
+}
+
+.search-favorites-overlay {
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: relative;
+    background-color: $ultralichtgrijs;
+    padding: 36px;
+    overflow: hidden;
+
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+
+.search-favorites-overlay:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.search-favorites-overlay.animate-show {
+    height: auto;
+    padding: 36px;
+}
+
+.search-favorites-overlay.animate-show.ng-hide {
+    height: 0;
+    padding: 0 36px;
+}
+
+/*
+    end search-favorites
+*/
+
+
+
+
+
+.open .descendant-select {
+    display: block;
+}
+.descendant-select {
+    display: none;
+    width: 350px;
+    padding: 8px;
+    border: 1px solid #b3b3b3;
+    position: absolute;
+    z-index: 1000;
+    background-color: #fff;
+    line-height: 24px;
+}
+
+
+input[type="text"]:not(.clipboard-input-button).descendant-select-input{
+
+    display:inline-block;
+    width: 200px;
+    height: 30px;
+}
+
+.descendant-select h2{
+    cursor:pointer;
+}
+
+.descendant-select .btn-rect {
+    width: auto;
+    font-size: 10px;
+    height: 24px;
+    float: none;
+    display:inline-block;
+
+    padding: 4px;
+    background-color: transparent;
+    border: 1px solid #666;
+    color: #666;
+}
+
+.descendant-select .addDescendant {
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
+    position: absolute;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(../resources/icons/add-white.svg);
+    background-size: 14px 14px;
+}
+
+.descendant-select .descendant-select-label {
+    display:inline-block;
+    width:30px;
+}

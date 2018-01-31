@@ -1,0 +1,92 @@
+<div class="modal-header">
+    <div class="modal-title"> Preview <span ng-if="items.length">({{step+1}}/{{items.length}})</span>:
+        {{currentItem.title}}
+    </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+
+    <div ng-if="controller.hasPrevious()" class="modal-previous-button" ng-click="controller.previous()">
+        Vorige in lijst
+    </div>
+    <div ng-if="controller.hasNext()" class="modal-next-button" ng-click="controller.next()">
+        Volgende in lijst
+    </div>
+</div>
+
+
+<div class="modal-body" >
+    <div class="modal-message" ui-fade-toggle="visible">
+
+        <div class="row">
+            <poms-viewer media="currentItem" size="medium"></poms-viewer>
+        </div>
+
+        <div class="modal-column">
+
+            <div class="preview-field">
+                <h2 class="small-header"> Status </h2>
+                <poms-workflow mid="::currentItem.mid" workflow="currentItem.workflow"></poms-workflow>
+            </div>
+
+            <div class="preview-field">
+                <h2 class="small-header"> MID </h2>
+                <span>{{currentItem.mid}}</span>
+            </div>
+
+            <div class="preview-field">
+                <h2 class="small-header"> Type </h2>
+                <span>{{ currentItem.type.text }} - {{currentItem.avType.text}}</span>
+            </div>
+
+            <div class="preview-field">
+                <h2 class="small-header"> Omroep(en) </h2>
+                <span ng-repeat="i in currentItem.broadcasters" >{{i.text}}{{$last?'':', '}}</span>
+            </div>
+
+        </div>
+
+        <div class="modal-column">
+
+            <div class="preview-field">
+                <h2 class="small-header"> Laatst gewijzigd </h2>
+                <span>{{currentItem.lastModified | mediaDateTime}} door {{currentItem.lastModifiedBy.text}}</span>
+            </div>
+
+            <div class="preview-field">
+                <h2 class="small-header"> Aangemaakt door </h2>
+                <span>{{::currentItem.creationDate | mediaDateTime}} door {{::currentItem.createdBy.text}}</span>
+            </div>
+
+            <div class="preview-field">
+                <h2 class="small-header">Sorteerdatum</h2>
+                <span>{{currentItem.sortDate | mediaDateTime}}</span>
+            </div>
+
+            <div class="preview-field">
+                <h2 class="small-header">PublicatieDatum</h2>
+                <span>{{currentItem.publishDate | mediaDateTime}}</span>
+            </div>
+
+            <div class="preview-field" ng-if=" currentItem.publishStart || currentItem.publishStop ">
+                <h2 class="small-header">Online / Offline</h2>
+                <span ng-if="currentItem.publishStart"> van: {{currentItem.publishStart | mediaDateTime}}</span> <br>
+                <span ng-if="currentItem.publishStop"> tot: {{currentItem.publishStart | mediaDateTime}}</span>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons">
+
+        <div class="footer-message">
+            &nbsp;
+        </div>
+
+        <button class="btn-rect btn-rect-cancel" ng-click="controller.openInEditor(currentItem.mid)">Bewerk dit item
+        </button>
+        <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Sluit</button>
+
+    </div>
+</div>

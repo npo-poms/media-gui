@@ -1,0 +1,82 @@
+//* Color values */
+
+$white: #fff;
+$black: #000;
+
+$donkergrijs: #4d4d4d;
+$grijs: #666;
+$lichtgrijs: #b3b3b3;
+$extralichtgrijs: #e6e6e6;
+$ultralichtgrijs: #f2f2f2;
+$superultralichtgrijs: #f8f8f8;
+
+$rood: #f33;
+$lichtrood: #ff8e92;
+
+$groen: #6c3;
+$lichtgroen: #bce4a1;
+$extralichtgroen: #E4F4D9;
+
+$oranje: #ed6d1c;
+$lichtoranje: #f6b68d;
+$extralichtoranje: #ffefe3;
+
+
+//* Color types */
+
+$bgcolor: $ultralichtgrijs;
+$bgcolordark: $extralichtgrijs;
+$bgcolorhighlight: $extralichtoranje;
+
+$bordercolor: $ultralichtgrijs;
+$bordercolorsignal: $rood;
+$bordercolorhighlight: $oranje;
+$bordercolorfaded: $lichtoranje;
+
+
+$textcolor: $grijs;
+$textcolordark: $donkergrijs;
+$textcolorlight: $lichtgrijs;
+
+$highlightcolor: $oranje;
+$succescolor: $groen;
+$signalcolor: $rood;
+
+
+//* Typography */
+
+$basefont: ".HelveticaNeueDeskInterface-Regular", "Helvetica","Arial", sans-serif;
+$titlefont: "Helvetica", "Arial", sans-serif;
+
+
+$fontsizesmall: 10px;
+$fontsizemedium: 12px;
+$fontsizebig: 14px;
+
+//* Grid and Neat config */
+$grid-columns: 12 !global;
+$max-width: 960px !global;
+$column:9em !global;
+$gutter:1em !global;
+$mobile: new-breakpoint(max-width 500px);
+
+
+$largedesktop-size : 1250px;
+$largedesktop : new-breakpoint( min-width $largedesktop-size 12);
+
+$extralargedesktop-size : 1400px;
+$extralargedesktop : new-breakpoint( min-width $extralargedesktop-size 12 );
+
+
+$z-index-edit: 1000;
+$z-index-edit-backdrop: ($z-index-edit - 1);
+$z-index-edit-controls: ($z-index-edit + 1);
+
+$z-index-tooltip: 500;
+$z-index-tooltip-icon: ($z-index-tooltip - 1);
+
+
+$z-index-error: 3000;
+
+$disabled-color: $lichtgrijs;
+

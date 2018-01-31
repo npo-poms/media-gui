@@ -1,0 +1,30 @@
+<div class="editfield-wrapper editfield-area"
+     ng-keydown="keyEvent($event, editElement, $data)"
+     ng-click="showEditElement($event, editElement)"
+     ng-class="{'empty' : isEmpty(), 'may-write' : mayWrite, 'opened' : isOpen,  'forbidden': !mayWrite, 'waiting': waiting  }"
+     ng-show="mayRead" save-feedback
+        >
+
+    <h2 class="small-header">{{TextfieldNames[field]}}
+        <poms-owner ng-if="showOwner( media, field )" owner="{{media[field].owner}}" media="media"></poms-owner>
+    </h2>
+
+    <p class="editfield" editable-textarea="media[field].text"
+       onbeforesave="save($data)"
+       e-form="editElement"
+       e-name="editvalue"
+       onshow="onShow()"
+       onhide="onHide()"
+       blur="ignore"
+       ng-show="mayWrite">{{media[field].text}}</p>
+
+    <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
+
+
+    <p class="editfield" ng-hide="mayWrite">{{media[field].text}} </p>
+
+    <poms-edit-tools may-write="mayWrite" help-field="editor.general.{{field}}"></poms-edit-tools>
+
+
+</div>
+

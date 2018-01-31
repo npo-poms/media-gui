@@ -1,0 +1,398 @@
+<div class="search">
+
+  <div class="search-container">
+
+    <!--
+        <div class="search-favorites-overlay animate-show" ng-show="favoritesOpen">
+
+            <div class="col-6">
+                <h3> Favoriete Zoekopdrachten </h3>
+                <ul >
+                    <li ng-repeat="search in favoriteSearches">
+                        <a class="btn-text-icon btn-text-icon-favorite-highlight" title='voer deze zoekopdracht uit' ng-click="searchFormController.submitFavoriteSearch( search )">
+                            Zoek: {{ search.summary }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <h3> Favoriete Media-items </h3>
+                <ul>
+                    <li ng-repeat="item in favoriteItems">
+                        <a class="btn-text-icon btn-text-icon-favorite-highlight" title="kies dit media-item" ng-click="searchFormController.selectFavoriteItem( [item.mid] )">
+                            Kies: {{item.type.text}} - {{item.mainTitle.text}} - {{item.mid}}
+                        </a>
+                    </li>
+                </ul>
+                <span ng-if="!favoriteItems.length">Je hebt geen favorite media Items die van toepassing zijn voor deze actie.</span>
+            </div>
+
+
+        </div>
+
+        <span ng-if="searchModal" class="btn-text-icon btn-text-icon-favorite search-favorites-toggle" ng-click="searchFormController.toggleFavorites()" >
+            <span ng-if="!favoritesOpen"> open favorieten</span>
+            <span ng-if="favoritesOpen"> sluit favorieten</span>
+        </span>
+    -->
+
+
+    <form class="search-form" ng-submit="searchFormController.submit()">
+
+        <div class="search-query-wrapper poms-typeahead">
+            <input class="search-query-text" id="query" type="text"
+                   ng-model="formData.text"
+                   typeahead="suggestion as suggestion.text for suggestion in searchFormController.suggest($viewValue)"
+                   typeahead-focus-first="false"
+                   typeahead-on-select="searchFormController.suggestClicked( $item )"
+                   typeahead-template-url="searchTypeaheadTpl.html"
+                   autocomplete="off"
+                   ng-class="{'waiting': searchFormController.suggestionsWaiting}"
+                   typeahead-focus
+                    />
+
+            <!--https://stackoverflow.com/questions/26428577/close-twitter-typeahead-on-enter-key-in-angularjs-->
+            <input type="submit" value="Submit" style="display: none">
+
+            <script type="text/ng-template" id="searchTypeaheadTpl.html">
+                <a tabindex="-1" >
+                    <span ng-switch on="match.model.type">
+                        <span ng-switch-when="searchSuggestion">
+                            {{match.model.text}}
+                        </span>
+
+                        <span ng-switch-when="mediaSuggestion">
+                          <span class="btn-text-icon btn-text-icon-favorite-highlight">
+                              {{match.model.text}}
+                          </span>
+                        </span>
+                    </span>
+
+                </a>
+            </script>
+
+            <poms-help field="search.form.text"></poms-help>
+
+        </div>
+        <button class="btn-rect" id="submit" type="button" ng-click="searchFormController.submit()">Zoeken</button>
+        <button class="btn-rect" type="button" ng-click="searchFormController.reset(  )">Wissen</button>
+    </form>
+
+    <div class="search-filtering">
+
+    <div class="search-filtering-row">
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select-multi class="poms-uiselect"
+                                  options="mediaTypes.data"
+                                  name="MediaType"
+                                  selection="formData.types.value"
+                                  option-selected="searchFormController.submit()"
+                    > </poms-ui-select-multi>
+
+            <a class="dropdown-selected animate-fade" title="verwijder dit criterium"
+               ng-repeat="type in formData.types.value"
+               ng-click="searchFormController.removeOption(formData.types, type)">
+                {{type.text}}
+            </a>
+        </div>
+
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select class="poms-uiselect"
+                            options="avTypes.data"
+                            name="avType"
+                            selection="formData.avType"
+                            option-selected="searchFormController.submit()"
+                    > </poms-ui-select>
+
+            <a title="verwijder dit criteria" ng-model='formData.avType' ng-click="searchFormController.deleteOption(formData , 'avType')">
+                <span ng-if="formData.avType.text" class="dropdown-selected"> {{formData.avType.text}} </span>
+            </a>
+        </div>
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select-multi class="poms-uiselect"
+                                  options="broadcasters.data"
+                                  name="Omroepen"
+                                  selection="formData.broadcasters"
+                                  option-selected="searchFormController.submit()"
+                    > </poms-ui-select-multi>
+
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-repeat="broadcaster in formData.broadcasters"
+               ng-click="searchFormController.removeOption(formData.broadcasters, broadcaster)">
+                {{broadcaster.text}}
+            </a>
+        </div>
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <div dropdown on-toggle="searchFormController.dateSelected()" is-open="searchDate.isOpen">
+                <span class="dropdown-toggle" dropdown-toggle > Datum & Persoon </span>
+
+                <div dropdown-menu class="daterange-select" daterangepicker ng-click="$event.stopPropagation();">
+
+                    <div class="search-datetype" ng-init="searchDate.dateType='sortDate'" >
+
+                        <label class="search-datetype-label" for="search-datetype-sortdate">
+                            <input id="search-datetype-sortdate" type="radio"
+                                   ng-click="$event.stopPropagation()"
+                                   class='date-type-select'
+                                   ng-model="searchDate.dateType"
+                                   name="dateType"
+                                   value="sortDate">
+                            Sorteerdatum / Uitzenddatum
+                        </label>
+                      <label class="search-datetype-label" for="search-datetype-sortdate">
+                        <input id="search-datetype-scheduleEventDate" type="radio"
+                               ng-click="$event.stopPropagation()"
+                               class='date-type-select'
+                               ng-model="searchDate.dateType"
+                               name="dateType"
+                               value="scheduleEventDate">
+                        Uitzenddatum
+                      </label>
+
+                        <label class="search-datetype-label" for="search-datetype-modified">
+                            <input id="search-datetype-modified" type="radio"
+                                   ng-click="$event.stopPropagation()"
+                                   class='date-type-select'
+                                   ng-model="searchDate.dateType"
+                                   name="dateType"
+                                   value="lastModifiedDate">
+                            Gewijzigd
+                        </label>
+
+
+                        <label class="search-datetype-label" for="search-datetype-created">
+                            <input id="search-datetype-created"
+                                   ng-click="$event.stopPropagation()"
+                                   class='date-type-select'
+                                   type="radio"
+                                   ng-model="searchDate.dateType"
+                                   name="dateType"
+                                   value="createdDate">
+                            Aangemaakt
+                        </label>
+
+                    </div>
+
+
+                    <div class="input-group datepicker-dropdown">
+                        <label class='date-input-label' label-for="fromdate" >van:</label>
+                        <input name='fromdate' type="text" class="form-control"
+                               datepicker-popup="dd-MM-yyyy"
+                               max-date='maxStart'
+                               ng-model="searchDate.start"
+                               is-open="startdate.open"
+                               close-text="sluit"
+                               ng-click="$event.preventDefault(); $event.stopPropagation();"
+                               ng-change="setMinStop(searchDate.start);"/>
+
+                        <button class="open-calendar" ng-click="openStartDate($event)">
+                        </button>
+                    </div>
+
+
+                    <div class="input-group datepicker-dropdown">
+                        <label class="date-input-label" for="todate" >t/m</label>
+
+                        <input name='todate' type="text" class="form-control"
+                               datepicker-popup="dd-MM-yyyy"
+                               min-date='minStop'
+                               ng-model="searchDate.stop"
+                               is-open="stopdate.open"
+                               close-text="sluit"
+                               ng-click="$event.preventDefault(); $event.stopPropagation();"
+                               ng-change="setMaxStart(searchDate.stop);"/>
+
+                        <button class="open-calendar" ng-click="openStopDate($event)">
+                        </button>
+                    </div>
+
+                    <a class="search-preset-date" ng-click="searchFormController.setDays( 1 )"> Laatste 24 uur </a><br/>
+                    <a class="search-preset-date" ng-click="searchFormController.setDays( 7 )"> Afgelopen week </a><br/>
+                    <a class="search-preset-date" ng-click="searchFormController.setDays( 30 )"> Afgelopen maand </a><br/>
+
+                    <hr>
+
+                    <div class="search-usertype"  ng-init="searchUserType='lastModifiedBy'" >
+
+                        <label class="search-usertype-label" for="search-last-modified-by">
+                            <input id='search-last-modified-by' type="radio"
+                                   class='date-type-select'
+                                   ng-model="searchUserType"
+                                   name="personType"
+                                   value="lastModifiedBy"
+                                   ng-click="$event.stopPropagation();"
+                                    />
+                            Gewijzigd door
+                        </label>
+
+                        <label class="search-usertype-label" for="search-created-by">
+                            <input id='search-created-by'  type="radio"
+                                   class='date-type-select'
+                                   ng-model="searchUserType"
+                                   name="personType"
+                                   value="createdBy"
+                                   ng-click="$event.stopPropagation();"
+                                    />
+                            Aangemaakt door
+                        </label>
+
+                        <label class="poms-typeahead" for="search-person-filter">
+                            naam:
+                            <input id="search-person-filter" type="text" class="search-user-typeahead"
+                                   ng-model="searchUser.text"
+                                   autocomplete="off"
+                                   ng-keyup="searchFormController.getUsers($event)"
+                                   typeahead="suggestion.text for suggestion in userSuggestions"
+                                   typeahead-focus-first="false"
+                                   typeahead-on-select="userSelected()"
+                                   ng-class="{'waiting': searchFormController.userSuggestionsWaiting}"/>
+                        </label>
+
+                    </div>
+                    <br/>
+
+                    <a class="search-daterange-submit" ng-click=" searchFormController.toggleDateDropdown($event);"> Zoek </a>
+                </div>
+
+            </div>
+
+            <div ng-repeat="(type, label) in formData.dateConstraintTypes" ng-if="formData.hasDateConstraint(type)">
+                <span class="search-selected-facet-label animate-fade">
+                    {{ label }}
+                </span>
+
+                <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+                   ng-if="formData.getStartDateConstraint(type)"
+                   ng-click="searchFormController.clearStartDateConstraint(type)">
+                    vanaf: <span> {{formData.getStartDateConstraint(type) | mediaDate}} </span>
+                </a>
+
+                <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+                   ng-if="formData.getStopDateConstraint(type)"
+                   ng-click="searchFormController.clearStopDateConstraint(type)">
+                    tot en met: <span> {{formData.getStopDateConstraint(type) | mediaDate}} </span>
+                </a>
+            </div>
+
+            <span class="search-selected-facet-label" ng-if="formData.createdBy">aangemaakt door: </span>
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-if="formData.createdBy"
+               ng-click="formData.createdBy='';searchUser.text='';searchFormController.submit()">
+                <span> {{formData.createdBy}} </span>
+            </a>
+
+            <span class="search-selected-facet-label" ng-if="formData.lastModifiedBy">gewijzigd door: </span>
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-if="formData.lastModifiedBy"
+               ng-click="formData.lastModifiedBy='';searchUser.text='';  searchFormController.submit()">
+                <span>  {{formData.lastModifiedBy}} </span>
+            </a>
+
+        </div>
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select-multi class="poms-uiselect"
+                                  options="portals.data"
+                                  name="Portals"
+                                  selection="formData.portals"
+                                  option-selected="searchFormController.submit()"
+                    > </poms-ui-select-multi>
+
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-repeat="portal in formData.portals"
+               ng-click="searchFormController.removeOption(formData.portals, portal)">
+                {{portal.text}}
+            </a>
+        </div>
+
+    </div>
+    <div class="search-filtering-row">
+
+      <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select-multi class="poms-uiselect"
+                                  options="channels.data"
+                                  name="Zenders"
+                                  selection="formData.channels"
+                                  option-selected="searchFormController.submit()"
+                    > </poms-ui-select-multi>
+
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-repeat="channel in formData.channels"
+               ng-click="searchFormController.removeOption(formData.channels, channel)">
+                {{channel.text}}
+            </a>
+        </div>
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select-multi class="poms-uiselect"
+                                  options="properties.data"
+                                  name="Criteria"
+                                  selection="formData.properties.value"
+                                  option-selected="searchFormController.submit()"
+                    > </poms-ui-select-multi>
+
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-repeat="property in formData.properties.value"
+               ng-click="searchFormController.removeOption(formData.properties, property)">
+                {{property.text}}
+            </a>
+        </div>
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <poms-ui-select-suggest class="poms-uiselect"
+                                    name="Tags"
+                                    selection="formData.tags"
+                                    update-options="searchFormController.getTags( tagsuggest )"
+                                    option-selected="searchFormController.submit()"
+                    > </poms-ui-select-suggest>
+
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-repeat="tag in formData.tags"
+               ng-click="searchFormController.removeOption(formData.tags, tag)">
+                {{tag}}
+            </a>
+        </div>
+
+        <div class="dropdown-wrapper search-dropdown-wrapper ">
+            <div dropdown is-open="onderdeel">
+                <span class="dropdown-toggle" dropdown-toggle > Onderdeel van </span>
+
+                <div dropdown-menu class="descendant-select" ng-click="$event.stopPropagation();">
+
+                    <div>
+                        <span class="descendant-select-label">Mid:</span>
+                        <input class="descendant-select-input" ng-model="descendantOfMid" placeholder="voer hier een mid in"  type="text" ng-keyup="$event.keyCode == 13 && searchFormController.addDescendantOf()"/>
+                        <button class="addDescendant" ng-click="searchFormController.addDescendantOf();"></button>
+                    </div>
+
+                    <hr>
+                    <div>
+                        <span class="descendant-select-label">Of </span>
+                        <button class="btn-rect " ng-click="searchFormController.searchDescendantOf();"> zoek een item </button>
+                    </div>
+                </div>
+            </div>
+
+            <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+               ng-repeat="descendantOf in formData.descendantOf"
+               ng-click="searchFormController.removeOption(formData.descendantOf, descendantOf)">
+                {{descendantOf}}
+            </a>
+
+            <style>
+
+            </style>
+        </div>
+    </div>
+
+  </div>
+
+  <div class="search-results">
+
+    <poms-search-result search="search" query="query"></poms-search-result>
+
+  </div>
+</div>

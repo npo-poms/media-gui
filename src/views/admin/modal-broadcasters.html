@@ -1,0 +1,113 @@
+<div class="modal-header">
+    <div class="modal-title">Omroepen</div>
+    <div class="modal-close-button" ng-click="broadcastersController.close()"> close</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-broadcasters">
+
+        <button class="btn-text-icon btn-text-icon-add modal-broadcasters-add" ng-click="broadcastersController.addBroadcaster()">
+            Omroep toevoegen
+        </button>
+
+        <table class="poms-table">
+            <thead>
+                <tr class="poms-table-head-row" >
+                    <th title="Id" class="poms-table-header">Id</th>
+                    <th title="Omroep" class="poms-table-header">Omroep</th>
+                    <th title="Won Id" class="poms-table-header">Won id</th>
+                    <th title="Nebo Id" class="poms-table-header">Nebo id</th>
+                    <th title="PD Id" class="poms-table-header">PD id</th>
+                    <th title="item" class="poms-table-header">items</th>
+                    <th class="poms-table-header"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="poms-table-row" ng-repeat="broadcaster in broadcasters" ng-class="{'editing': rowform.$visible}">
+                    <td>
+                        <span ng-if="broadcaster == inserted" editable-text="broadcaster.id" e-name="id" e-form="rowform"
+                            e-required>
+                            {{ broadcaster.id }}
+                        </span>
+
+                        <span ng-if="broadcaster != inserted">
+                            {{ broadcaster.id }}
+                        </span>
+                        <poms-invalid violation="broadcaster.violations.id"></poms-invalid>
+
+                    </td>
+
+                    <td>
+                        <span editable-text="broadcaster.text" e-name="text" e-form="rowform"
+                              e-required>
+                          {{ broadcaster.text }}
+                        </span>
+                        <poms-invalid violation="broadcaster.violations.text"></poms-invalid>
+
+                    </td>
+
+                    <td>
+                        <span editable-text="broadcaster.wonId" e-name="wonId" e-form="rowform"
+                              e-required>
+                          {{ broadcaster.wonId }}
+                        </span>
+                        <poms-invalid violation="broadcaster.violations.wonId"></poms-invalid>
+
+                    </td>
+
+                    <td>
+                        <span editable-text="broadcaster.neboId" e-name="neboId" e-form="rowform"
+                              e-required>
+                          {{ broadcaster.neboId }}
+                        </span>
+                        <poms-invalid violation="broadcaster.violations.neboId"></poms-invalid>
+
+                    </td>
+
+                    <td>
+                        <span editable-text="broadcaster.pdId" e-name="pdId" e-form="rowform"
+                              e-required>
+                          {{ broadcaster.pdId }}
+                        </span>
+                        <poms-invalid violation="broadcaster.violations.pdId"></poms-invalid>
+
+                    </td>
+
+                    <td>{{ broadcaster.count }}</td>
+
+                    <td class="broadcasters-tools tools-cell">
+                        <form editable-form name="rowform" onbeforesave="broadcastersController.submit($index, $data)"
+                              ng-show="rowform.$visible" shown="inserted == broadcaster" class="form-buttons form-inline">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                bewaar
+                            </button>
+                            <button type="button" ng-disabled="rowform.$waiting"
+                                    ng-click="broadcastersController.cancel($index, rowform)"
+                                    class="btn btn-default">
+                                annuleer
+                            </button>
+                        </form>
+                        <div class="tools" ng-show="!rowform.$visible">
+                            <button title="bewerk omroep" class="poms-icon icon-edit" ng-click="broadcastersController.edit(rowform)">bewerk
+                            </button>
+                            <button ng-if="broadcaster.count == 0" title='verwijder omroep' class="poms-icon icon-remove" poms-confirm="::broadcaster.text" poms-submit="broadcastersController.remove(broadcaster)">verwijder</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button ">
+        <div class="footer-message">
+            &nbsp;
+        </div>
+        <button class="btn-rect btn-rect-cancel" ng-click="broadcastersController.close($event)">Sluiten</button>
+
+    </div>
+</div>

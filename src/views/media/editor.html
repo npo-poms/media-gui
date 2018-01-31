@@ -1,0 +1,152 @@
+<div ng-controller="MediaController as mediaController" ng-init="mediaController.init()" du-spy-context class="media-item-container">
+
+    <div class="breadcrumb-container breadcrumb-edit">
+
+        <div class="breadcrumb-type"><span class="breadcrumb-icon-topology"></span></div>
+        <ul class="breadcrumb-list" >
+            <li ng-repeat="breadCrumb in breadCrumbs" class="breadcrumb">
+
+                <a class="breadcrumb-link" ng-if="!$last" href="{{::mediaController.editRef(breadCrumb.mid)}}" poms-deleted="mediaController.onDeleteAncestor()" mid="breadCrumb.mid">
+                    <span class="media breadcrumb-link-type">
+                        <span ng-if="::(breadCrumbs[$index - 1].type == 'Seizoen' && breadCrumb.type == 'Uitzending')" >  Aflevering </span>
+                        <span ng-if="::(breadCrumbs[$index - 1].type != 'Seizoen' || breadCrumb.type != 'Uitzending')" > {{::breadCrumb.type}} </span>
+                    </span>
+                    <span class="media breadcrumb-link-number" ng-if="::breadCrumb.number">({{::breadCrumb.number}})</span>
+                    <span class="media breadcrumb-link-title">
+                        {{::breadCrumb.title | truncate:50}}
+                    </span>
+                </a>
+
+                <span class="breadcrumb-link" ng-if="$last" href="{{::mediaController.editRef(breadCrumb.mid)}}">
+                    <span class="media breadcrumb-link-type">
+                        <span ng-if="::(breadCrumbs[$index - 1].type == 'Seizoen' && breadCrumb.type == 'Uitzending')" >  Aflevering </span>
+                        <span ng-if="::(breadCrumbs[$index - 1].type != 'Seizoen' || breadCrumb.type != 'Uitzending')" > {{::breadCrumb.type}} </span>
+                    </span>
+                    <span class="media breadcrumb-link-number" ng-if="::breadCrumb.number">({{::breadCrumb.number}})</span>
+                    <span class="media breadcrumb-link-title">
+                        {{::breadCrumb.title | truncate:50}}
+                    </span>
+                </span>
+
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="media-item">
+
+        <ul class="media-item-navigation" id="sidebar" ng-class="{'media-item-navigation-fixed': sidebarFixed } "  >
+            <li class='media-item-navigation-link'
+                ng-click="mediaController.goTo('general')"
+                ng-class="{'active' : mediaController.activeSection == 'general' }">
+
+                <span title="Algemeen" >Algemeen</span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-class="{'active' : mediaController.activeSection == 'scheduleevents' }"
+                ng-click="mediaController.goTo('scheduleevents')"
+                ng-if="::media.type.id == 'BROADCAST'">
+                <span class='media-item-navigation-text' title="Schedule Events" ng-class="{'media-item-navigation-text-waiting' : scheduleeventsWaiting }">
+                    <span title="Schedule Events"> Uitzendingen ({{media.scheduleEvents.length || 0}}) </span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-if="::media.hasSegments"
+                ng-click="mediaController.goTo('segments')"
+                ng-class="{'active' : mediaController.activeSection == 'segments' }">
+
+                <span class='media-item-navigation-text' title="Segmenten" ng-class="{'media-item-navigation-text-waiting' : segmentsWaiting }">
+                    <span title="Segmenten"> Segmenten ({{media.segments}}) </span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-class="{'active' : mediaController.activeSection == 'images' }"
+                ng-click="mediaController.goTo('images')">
+
+                <span class='media-item-navigation-text' title="Afbeeldingen" ng-class="{'media-item-navigation-text-waiting' : imagesWaiting }">
+                    <span title="Afbeeldingen"> Afbeeldingen ({{media.images}}) </span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-class="{'active' : mediaController.activeSection == 'locations' }"
+                ng-click="mediaController.goTo('locations')">
+
+                <span class='media-item-navigation-text' title="Bronnen" ng-class="{'media-item-navigation-text-waiting' : locationsWaiting }">
+                    <span title="Bronnen"> Bronnen ({{media.locations}}) </span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-if="::media.hasEpisodes"
+                ng-class="{'active' : mediaController.activeSection == 'episodes' }"
+                ng-click="mediaController.goTo('episodes')">
+
+                <span class='media-item-navigation-text' title="Afleveringen" ng-class="{'media-item-navigation-text-waiting' : episodesWaiting }">
+                    <span title="Afleveringen"> Afleveringen ({{media.episodes}}) </span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-if="::media.hasMembers"
+                ng-class="{'active' : mediaController.activeSection == 'members' }"
+                ng-click="mediaController.goTo('members')">
+
+                <span class='media-item-navigation-text' title="Onderdelen" ng-class="{'media-item-navigation-text-waiting' : membersWaiting }">
+                    <span title="Onderdelen"> Onderdelen ({{media.members}}) </span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-class="{'active' : mediaController.activeSection == 'relations' }"
+                ng-click="mediaController.goTo('relations')" >
+
+                <span class='media-item-navigation-text' title="Relaties" ng-class="{'media-item-navigation-text-waiting' : relationsWaiting }">
+                    <span title="Relaties"> Relaties ({{media.relations}}) </span>
+                </span>
+            </li>
+
+        </ul>
+
+        <div class="media-data-container">
+
+            <poms-edit media="media" section="{{::mediaController.sectionId('general')}}" editRef="mediaController.editRef"></poms-edit>
+
+            <poms-scheduleevents ng-if="::media.type.id == 'BROADCAST'" media="media" section="{{::mediaController.sectionId('scheduleevents')}}"></poms-scheduleevents>
+
+            <poms-segments media="media" section="{{::mediaController.sectionId('segments')}}" ng-if="::media.hasSegments"></poms-segments>
+
+            <poms-images type="media" media="media" section="{{::mediaController.sectionId('images')}}"></poms-images>
+
+            <poms-locations media="media" locations-waiting='locationsWaiting' section="{{::mediaController.sectionId('locations')}}"></poms-locations>
+
+            <poms-members  type="{{'episodes'}}" item="media" header="Afleveringen" media="media" section="{{::mediaController.sectionId('episodes')}}" ng-if="::media.hasEpisodes" help-field="editor.episodes"></poms-members>
+
+            <poms-members type="{{'members'}}" item="media"
+                          header="Onderdelen"
+                          media="media"
+                          section="{{::mediaController.sectionId('members')}}"
+                          ng-if="::media.hasMembers"
+                          help-field="editor.members"></poms-members>
+
+            <poms-relations media="media" section="{{::mediaController.sectionId('relations')}}"></poms-relations>
+
+        </div>
+    </div>
+
+    <div class="footer-container media-footer-container" >
+        <div class="footer {{media.workflow.id}}" ng-class="{'no-edit': !mayWrite, 'footer-one-button': numberOfButtons <= 1, 'footer-two-buttons': numberOfButtons > 1 }">
+            <div class="footer-message">
+                <p>
+                    Gemaakt op {{::media.creationDate | mediaDateTime}} door {{::media.createdBy.text}}  -
+                    Laatst gewijzigd op {{media.lastModified | mediaDateTime}} door {{media.lastModifiedBy.text}} -
+                    Laatst gepubliceerd op {{media.publishedDate | mediaDateTime}} -
+                    <a class='media-all-edits' ng-click="mediaController.editHistory()"> bekijk alle wijzigingen</a>
+                </p>
+            </div>
+
+            <button class="btn-rect btn-rect-merge" ng-if="mayMerge" ng-click="mediaController.merge()">{{::media.type.text}} samenvoegen</button>
+            <button class="btn-rect btn-rect-warning" ng-if="media.episodesLocked">Samenvoegen onmogelijk (op slot)</button>
+            <button class="btn-rect btn-rect-remove" ng-if="mayDelete" poms-confirm="::media.type.text" poms-submit="mediaController.delete()">{{::media.type.text}} verwijderen</button>
+            <button class="btn-rect btn-rect-forbidden" ng-if="!mayWrite"> Geen Edit Rechten</button>
+        </div>
+    </div>
+</div>
+
+

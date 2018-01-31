@@ -1,0 +1,104 @@
+.media-person {
+    height: 32px;
+    margin-left: -8px;
+
+    padding: 4px 8px;
+
+    line-height: 22px;
+
+    &:hover {
+        background-color: $extralichtoranje;
+
+        .media-person-remove {
+            display: inline-block;
+        }
+
+        .media-person-edit {
+            display: inline-block;
+        }
+
+        .media-person-gtaa {
+            display: inline-block;
+        }
+    }
+}
+
+.media-person-remove {
+    display: none;
+    width: 30px;
+    height: 30px;
+
+    float: right;
+
+    margin-top: -3px;
+
+    border: 0;
+
+    text-indent: -9999px;
+    cursor: pointer;
+
+    @include icon('remove-disabled', 30px);
+
+    &:hover {
+        @include icon('remove_hover', 30px);
+    }
+}
+
+.media-person-link {
+    width: 24px;
+    height: 24px;
+
+    border: 0;
+
+    cursor: pointer;
+
+    text-indent: -9999px;
+    @include icon('cogs', 16px, '0 center');
+}
+
+.media-person-edit {
+    display: none;
+    width: 24px;
+    height: 24px;
+
+    float: right;
+
+    margin-top: 3px;
+
+    border: 0;
+
+    text-indent: -9999px;
+    cursor: pointer;
+
+    @include icon('cogs', 16px);
+}
+
+.media-person-add {
+    margin-top: 8px;
+}
+
+.media-person-gtaa {
+    display: none;
+    width: 24px;
+    height: 20px;
+    float: right;
+
+    text-indent: -9999px;
+
+}
+
+.media-person-gtaa-candidate {
+    @include icon('person-unapproved', 16px, '0 4px');
+}
+
+.media-person-gtaa-approved {
+    @include icon('person-approved', 16px, '0 4px');
+}
+
+.media-person-gtaa-redirected,
+.media-person-gtaa-not_compliant,
+.media-person-gtaa-rejected,
+.media-person-gtaa-obsolete,
+.media-person-gtaa-deleted {
+    @include icon('person-unapproved', 16px, '0 4px');
+}

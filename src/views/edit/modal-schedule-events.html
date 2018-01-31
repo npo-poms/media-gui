@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::scheduleEventsController.title }}</div>
+    <div class="modal-close-button" ng-click="scheduleEventsController.close()"> sluit</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+
+        <table class="poms-table">
+
+            <thead>
+            <tr class="poms-table-head-row">
+                <th title="Zender" class="poms-table-header"> Zender </th>
+                <th title="Datum" class="poms-table-header"> Datum </th>
+                <th title="Teletekst Pagina" class="poms-table-header"> Teletekst Pagina </th>
+                <th title="Teletekst Ondertiteling" class="poms-table-header"> Teletekst Ondertiteling </th>
+                <th title="Herhaling" class="poms-table-header"> Herhaling </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="poms-table-row" ng-repeat="event in ::scheduleEventsController.media.scheduleEvents">
+                <td>
+                    <span> {{ ::event.channel.text}} </span>
+                </td>
+
+                <td>
+                    <span> {{ ::event.start | mediaDateTime }} </span>
+                </td>
+                <td>
+                    <span> {{ ::event.textPage }} </span>
+                </td>
+                <td>
+                    <span ng-if="::event.textSubtitles"> 888 </span>
+                </td>
+                <td>
+                    <span ng-if="::(event.repeat || event.rerun)"> HH </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect" ng-click="scheduleEventsController.close()">Sluit</button>
+    </div>
+</div>

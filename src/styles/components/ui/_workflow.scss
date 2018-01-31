@@ -1,0 +1,48 @@
+.workflow {
+
+    &:before {
+        display: block;
+        content: '';
+        width: 20px;
+        height: 20px;
+
+        float: left;
+    }
+}
+
+
+.poms-table .workflow{
+    text-indent: -9999px;
+}
+
+.workflow.MERGED:before {
+    @include icon('status-merged', 16px, '0 center');
+}
+
+.workflow.PUBLISHED:before {
+    @include icon('status-published', 16px, '0 center');
+}
+
+.workflow.REVOKED:before {
+    @include icon('status-revoked', 16px, '0 center');
+}
+
+.workflow.PARENT_REVOKED:before {
+    @include icon('status-parentrevoked', 16px, '0 center');
+}
+
+.workflow.FOR_PUBLICATION:before {
+    @include icon('status-forpublication', 16px, '0 center');
+}
+
+.workflow.FOR_REPUBLICATION:before {
+    @include icon('status-forrepublication', 16px, '0 center');
+}
+
+.workflow.DELETED:before {
+    @include icon('status-deleted', 16px, '0 center');
+}
+
+.workflow.FOR_DELETION:before {
+    @include icon('status-deleted', 16px, '0 center');
+}

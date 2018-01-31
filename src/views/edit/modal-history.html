@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::title }}</div>
+    <div class="modal-close-button" ng-click="EditHistoryController.close()"> sluit</div>
+</div>
+
+<div class="modal-body">
+    <div class="modal-message">
+
+        <table class="poms-table">
+
+            <thead>
+            <tr class="poms-table-head-row">
+                <th title="Aangepast door" class="poms-table-header"> Aangepast door</th>
+                <th title="Omroep" class="poms-table-header"> Omroep</th>
+                <th title="Datum" class="poms-table-header"> Datum</th>
+                <th title="Type" class="poms-table-header"> Type</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr class="poms-table-row" ng-repeat="edit in editHistory">
+                <td>
+                    {{edit.editor.text}}
+                </td>
+
+                <td>
+                    <span> {{edit.broadcaster.text}} </span>
+                </td>
+
+                <td>
+                    <span> {{edit.timestamp | mediaDateTime }} </span>
+                </td>
+                <td>
+                    <span> {{edit.type }} </span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div class="footer-container">
+    <div class="footer modal-footer footer-one-button">
+        <div class="footer-message">&nbsp;</div>
+        <button class="btn-rect" ng-click="EditHistoryController.close()">Sluit</button>
+    </div>
+</div>

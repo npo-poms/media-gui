@@ -1,0 +1,39 @@
+<div class="editfield-wrapper editfield-uiselect"
+     ng-click="showEditElement($event, mayWrite)"
+     ng-keyup="keyEvent($event)"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite, 'forbidden': !mayWrite, 'opened' : isOpen, 'waiting': waiting }"
+     save-feedback
+        >
+
+    <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
+
+    <h2 class="small-header">{{header}}</h2>
+
+    <div class="ui-select" style="max-height:400px;" ng-show="isOpen">
+
+        <ui-select multiple ng-model="selectedItems.selected" theme="bootstrap"  close-on-select="true" reset-search-input="true" ng-change="checkPortalsAndBroadcasters($select.selected, field)">
+            <ui-select-match placeholder="Kies een {{placeholderText}}..." ui-lock-choice="$item.disabled == true" >{{$item.text}}</ui-select-match>
+            <ui-select-choices repeat="option in options | filter: {text: $select.search}" ui-disable-choice="option.disabled == true">
+                <div ng-bind-html="trustAsHtml((option.text | highlight: $select.search))" ></div>
+            </ui-select-choices>
+        </ui-select>
+
+        <div class="editable-error" ng-if="errorText" >{{errorText}}</div>
+
+        <span class="editable-buttons">
+            <button class="button-save" type='button' ng-click="save(selectedItems.selected)">save</button>
+            <button class="button-cancel" type='button' ng-click="cancel()">cancel</button>
+        </span>
+
+    </div>
+
+    <div ng-show="!isOpen">
+        <span ng-repeat="item in media[field]">
+            {{item.text}}{{$last ? '' : ', '}}
+        </span>
+    </div>
+
+    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+
+
+</div>

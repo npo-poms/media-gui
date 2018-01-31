@@ -1,0 +1,110 @@
+.media-data .editfield-wrapper.editfield-daterangepicker.opened{
+    .editfield-wrapper{
+        display:none;
+    }
+}
+
+.daterangepicker-error{
+    color: #f33;
+    font-size: 12px;
+    position: relative;
+    padding-top: 4px;
+}
+
+.daterangepicker-form{
+    padding: 8px;
+    z-index: $z-index-edit;
+    position: relative;
+    top: 10px;
+}
+
+.daterangepicker-form .editable-datepicker{
+    display:inline-block;
+    margin-top:8px;
+}
+
+
+.daterangepicker-form .editable-datepicker.from-date:before {
+    display:inline-block;
+    float:left;
+    width:30px;
+    line-height:35px;
+    content:'van:';
+}
+
+
+.daterangepicker-form .editable-datepicker.to-date:before {
+    display:inline-block;
+    float:left;
+    width:30px;
+    line-height:35px;
+    content:'tot:';
+}
+.daterangepicker-form .editable-controls{
+    display: inline-block;
+    z-index: auto;
+}
+
+.editable-datepicker .editable-controls input[type='text']{
+    border: 1px solid $lichtgrijs;
+
+    &:active, &:focus{
+        border: 1px solid $oranje;
+    }
+}
+
+
+.editable-datepicker .editable-wrap{
+    width: 161px;
+
+    @include media( $largedesktop ){
+        width:auto;
+    }
+    float: left;
+}
+
+.editable-datepicker .open-calendar{
+
+    display:block;
+
+    width:31px;
+    height:31px;
+
+    float:left;
+
+    @include icon('calendar', 14px, 'center center');
+
+    border:0;
+    background-color: $lichtgrijs;
+
+    cursor:pointer;
+}
+
+.media-data .editfield-daterangepicker .form-buttons{
+    position:absolute;
+    right: -5px;
+    top: -20px;
+}
+
+.media-data .editfield-daterangepicker .cancel-edit,
+.media-data .editfield-daterangepicker .confirm-edit{
+
+    width: 18px;
+    height: 32px;
+    text-indent: -9999px;
+    border: 0;
+    margin-right: 5px;
+    background-color: transparent;
+
+    @include icon('edit-cancel', 18px, 'center center');
+
+    cursor: pointer;
+}
+
+.media-data .editfield-daterangepicker .confirm-edit {
+
+    @include icon('edit-confirm', 18px, 'center center');
+}
+
+
+

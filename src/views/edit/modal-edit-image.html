@@ -1,0 +1,279 @@
+<div class="modal-header">
+  <div class="modal-title"> {{ ::modalTitle }} </div>
+  <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
+</div>
+
+
+
+<form role="form" class="poms-form uploadImageForm" ng-class="{'waiting': waiting}" name="uploadImageForm" >
+  <div class="modal-body">
+    <div class="form-fields">
+
+      <div class="col-12" ng-if="!edit">
+        <div class="row" ng-if="! uploadImageForm.inputFile.$modelValue">
+          <div   class="field col-10" ng-class="{'has-error' : uploadImageForm.uploadurl.$invalid}">
+            <label for="uploadurl">Paste een URL</label>
+            <input
+                    type="text"
+                    id="uploadurl" name="uploadurl"
+                    placeholder="URL van een plaatje (bijvoorbeeld op flickr, pixabay of wikimedia)"
+                    ng-model="image.uploadurl"
+            />
+            <poms-help field="editor.image.uploadurl"></poms-help>
+            <span id="uploaderror" class="error"></span>
+            <span id="uploadinfo"></span>
+
+          </div>
+          <div class="field col-2" ng-if="uploadImageForm.uploadurl.$modelValue">
+            <label>&nbsp;</label>
+            <button class="btn-rect" ng-click="controller.clearForm();" style="width: 100%;">
+              Formulier overschrijven
+            </button>
+          </div>
+        </div>
+        <div class="row" ng-if="! uploadImageForm.uploadurl.$modelValue">
+          <div class="field col-6"
+                  ng-class="{'has-error' : uploadImageForm.inputFile.$invalid}">
+            <label for="inputFile"><em ng-if="! uploadImageForm.inputFile.$modelValue">Of</em> kies een bestand</label>
+            <br/>
+            <input type="file" id="inputFile" name="inputFile"
+                   ng-file-select="asdasdas"
+                   ng-model="image.file"
+                   accept="image/*">
+            <span class="image-name" ng-if="image.file">{{image.file[0].name}}</span>
+            <poms-help field="editor.image.file"></poms-help>
+            <button ng-if="uploadImageForm.inputFile.$modelValue" class="btn-rect" style="float:right;"
+                    ng-click="controller.clearUpload();">
+              Verwijder
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="col-8">
+        <div class="row">
+
+          <div class="field" ng-class="{'has-error' : uploadImageForm.inputTitle.$invalid}">
+            <label for="inputTitle">Titel &#42; </label>
+            <input  type="text" name="inputTitle" id="inputTitle" required="required"
+                    placeholder="Titel (verplicht)"
+                    ng-model="image.title"
+                    ng-maxlength="255"
+            />
+            <poms-invalid violation="controller.violations.title"></poms-invalid>
+            <poms-help field="editor.image.title"></poms-help>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="field" ng-class="{'has-error' : uploadImageForm.inputDescription.$invalid}">
+            <label for="inputDescription">Beschrijving &#42;</label>
+            <textarea type="text" name="inputDescription" id="inputDescription" required
+                      placeholder="Korte beschrijving (verplicht)"
+                      ng-model="image.description"/>
+            <poms-invalid violation="controller.violations.description"></poms-invalid>
+            <poms-help field="editor.image.description"></poms-help>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <p class="required-field-message">Let op! Bij uploaden van foto's moeten de rechten altijd verkregen zijn.
+            Daarnaast kan het niet correct invullen van onderstaande gegevens leiden tot claims van de rechthebbenden.
+            Lees <a href="http://wiki.publiekeomroep.nl/display/poms/Gebruikersdocumentatie#Gebruikersdocumentatie-4.3Afbeeldingen">hier</a>
+            meer over het correcte gebruik.</p>
+          <div class="field col-6" ng-class="{'has-error' : uploadImageForm.inputCredits.$invalid}">
+            <label for="inputCredits">Fotograaf/Rechthebbende</label>
+            <input type="text" name="inputCredits" id="inputCredits"
+                   placeholder="Copyrights eigenaar"
+                   ng-model="image.credits"/>
+            <poms-invalid violation="controller.violations.credits"></poms-invalid>
+            <poms-help class="tooltip-right" field="editor.image.credits"></poms-help>
+          </div>
+
+          <div class="field col-6" ng-class="{'has-error' : uploadImageForm.inputDate.$invalid}">
+            <label for="inputDate">Jaar</label>
+            <input type="text" name="inputDate" id="inputDate"
+                   placeholder="Copyrights jaar"
+                   ng-model="image.date"/>
+            <poms-invalid violation="controller.violations.date"></poms-invalid>
+            <poms-help field="editor.image.date"></poms-help>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="field col-6" ng-class="{'has-error' : uploadImageForm.copyrightSource.$invalid}">
+            <label for="copyrightSource">Bron</label>
+            <input type="text" name="copyrightSource" id="copyrightSource"
+                   placeholder="Copyrights bron"
+                   ng-model="image.sourceName"/>
+            <poms-invalid violation="controller.violations.sourceName"></poms-invalid>
+            <poms-help class="tooltip-right" field="editor.image.copyrightSource"></poms-help>
+          </div>
+
+          <div class="col-6 field" ng-class="{'has-error' : uploadImageForm.inputImageType.$invalid}" >
+
+            <label>Licentie</label>
+            <ui-select ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
+              <ui-select-choices repeat="item in licenses | filter: {text: $select.search}">
+                <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
+                </div>
+              </ui-select-choices>
+
+              <ui-select-match placeholder="Kies een licentie">{{$select.selected.text || image.license}}</ui-select-match>
+            </ui-select>
+
+            <poms-invalid violation="controller.violations.license"></poms-invalid>
+            <poms-help  field="editor.image.license"></poms-help>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="field" ng-class="{'has-error' : uploadImageForm.copyrightUrl.$invalid}" >
+            <label for="copyrightUrl">Bron URL</label>
+            <input  type="text" name="copyrightUrl" id="copyrightUrl"
+                    placeholder="Copyright bron URL"
+                    ng-model="image.source"/>
+            <poms-invalid violation="controller.violations.source"></poms-invalid>
+            <poms-help field="editor.image.copyrightUrl"></poms-help>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-6 field" ng-class="{'has-error' : uploadImageForm.inputImageType.$invalid}" >
+
+            <label>Abeeldingstype &#42;</label>
+            <ui-select ng-model="image.type" theme="selectize" close-on-select="true" reset-search-input="true" >
+              <ui-select-choices repeat="item in imageTypes | filter: {text: $select.search}">
+                <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
+                </div>
+              </ui-select-choices>
+
+              <ui-select-match placeholder="Kies een type">{{$select.selected.text || image.type}}</ui-select-match>
+            </ui-select>
+
+            <poms-invalid violation="controller.violations.imageType"></poms-invalid>
+            <poms-help class="tooltip-right" field="editor.image.type"></poms-help>
+          </div>
+
+          <div dropdown class="dropdown-wrapper col-6 field">
+            <span class="dropdown-toggle" dropdown-toggle > Publicatie </span>
+            <div dropdown-menu class="daterange-select" daterangepicker >
+              <div class="input-group datepicker-dropdown"  >
+                <label class='date-input-label' label-for="fromdate" >Start</label>
+
+                <input name='fromdate' type="text" class="form-control"
+                       datepicker-popup="dd-MM-yyyy HH:mm"
+                       max-date='maxStart'
+                       ng-model="image.publication.start"
+                       is-open="startdate.open"
+                       close-text="sluit"
+                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                       ng-change="setMinStop(image.publication.start)"/>
+
+                <button class="open-calendar" ng-click="openStartDate($event)">
+                </button>
+              </div>
+
+
+              <div class="input-group datepicker-dropdown"  >
+                <label class='date-input-label' label-for="todate" >Stop</label>
+
+                <input name='fromdate' type="text" class="form-control"
+                       datepicker-popup="dd-MM-yyyy HH:mm"
+                       min-date='minStop'
+                       ng-model="image.publication.stop"
+                       is-open="stopdate.open"
+                       close-text="sluit"
+                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                       ng-change="setMaxStart(image.publication.stop)"/>
+
+                <button class="open-calendar" ng-click="openStopDate($event)">
+                </button>
+              </div>
+
+            </div>
+
+
+            <a title="verwijder" class="dropdown-selected " ng-if="image.publication.start" ng-click="image.publication.start = undefined">
+              start: <span> {{image.publication.start | mediaDateTime}} </span>
+            </a>
+
+            <a title="verwijder" class="dropdown-selected " ng-if="image.publication.stop" ng-click="image.publication.stop = undefined">
+              stop: <span> {{image.publication.stop | mediaDateTime}} </span>
+            </a>
+
+            <span class='publication-placeholder' ng-if="!image.publication.start && !image.publication.stop">
+              geen publicatiedatum geselecteerd
+            </span>
+
+            <poms-help field="editor.image.publication"></poms-help>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="field col-6">
+            <label for="highlight">Uitgelicht</label>
+            <input name='highlight' id='highlight' type="checkbox" ng-model="image.highlighted" >
+            <poms-help class="tooltip-right" field="editor.image.highlighted"></poms-help>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="col-4">
+
+        <div class="row">
+          <div ng-if="edit">
+            <a class='preview-image' title='bekijk de volledige afbeelding' href="{{image | mediaFullImage }}" target="blank" >
+              <img ng-src="{{ image | mediaPreviewImage }}"/>
+            </a>
+            <a class='preview-image' title='Link naar afbeelding met vaste afmeting' href="{{image | mediaPreviewImage }}" target="blank" >
+              Link naar afbeelding met vaste afmeting
+            </a>
+          </div>
+          <div ng-if="!edit" class='preview-image'>
+            <img src="" id="previewimage"/>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="modal-disable-overlay"></div>
+  </div>
+
+  <div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons">
+
+      <div class="required-feedback footer-message" >
+        <span class="required-feedback-message" ng-if="!uploadImageFormValid">Nog in te vullen:</span>
+        <span class="required-field" ng-repeat='field in required'
+              ng-if="controller.isFieldMissing(field)">{{field.text}}</span>
+        &nbsp;
+      </div>
+
+      <button class="btn-rect" ng-click="controller.preSave()" ng-disabled="!uploadImageFormValid || waiting">
+        {{submitText}}
+      </button>
+
+      <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+    </div>
+  </div>
+</form>
