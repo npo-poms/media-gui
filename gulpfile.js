@@ -59,16 +59,3 @@ gulp.task('selector-deploy', function () {
         )
         .pipe( gulp.dest( __dirname + '/build/deploy/CMSSelector/' ) );
 });
-
-gulp.task('gtaa-deploy', function () {
-
-    return gulp.src( __dirname + '/src/GTAA/index.html' )
-        .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
-        .pipe( plugins.usemin({
-                vendor: [plugins.ngAnnotate(), plugins.uglify()],
-                poms: [plugins.ngAnnotate(), plugins.uglify()],
-                html: [plugins.minifyHtml({empty : true, spare : true, quotes : true})]
-            })
-        )
-        .pipe( gulp.dest( __dirname + '/build/deploy/GTAA/' ) );
-});
