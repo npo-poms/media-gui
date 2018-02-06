@@ -1,4 +1,5 @@
-angular.module( 'poms.gtaa.controllers' ).controller( 'GtaaPersonEditController', [
+angular.module( 'poms.gtaa.controllers' )
+    .controller( 'GtaaPersonEditController', [
     '$scope',
     '$q',
     '$modalInstance',
@@ -141,14 +142,14 @@ angular.module( 'poms.gtaa.controllers' ).controller( 'GtaaPersonEditController'
                 this.$scope.person.familyName = chosenFamilyName;
                 this.$scope.person.givenName = chosenGivenName;
                 if ( this.$scope.person.gtaaUri ) {
-                    this.$scope.person.knownAs = knownAs;
+                    this.$scope.person.gtaaKnownAs = knownAs;
                 }
             },
 
             setGtaa: function ( record ) {
                 this.$scope.person.gtaaUri = record && record.gtaaUri;
-                this.$scope.person.knownAs = record && record.knownAs;
-                this.$scope.person.status = record && record.status;
+                this.$scope.person.gtaaKnownAs = record && record.gtaaKnownAs;
+                this.$scope.person.gtaaStatus = record && record.gtaaStatus;
 
             },
 

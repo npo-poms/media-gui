@@ -20,12 +20,12 @@
 
             {{item.role.text}}: {{item.givenName}} {{item.familyName}}
 
-            <button title='koppel persoon aan GTAA record' ng-if="personsController.mayWrite && !item.gtaaRecord && gtaaPermission" class="media-person-link"
+            <button title='koppel persoon aan GTAA record' ng-if="personsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-person-link"
                     ng-click="personsController.editPerson( item )">
                 koppel
             </button>
 
-            <button title='edit persoon' ng-if="personsController.mayWrite && !item.gtaaRecord && !gtaaPermission" class="media-person-edit"
+            <button title='edit persoon' ng-if="personsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-person-edit"
                     ng-click="personsController.editPerson( item )" >
                 edit
             </button>
