@@ -24,8 +24,6 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             this.$scope = $scope;
             this.appConfig = appConfig;
 
-
-
             this.mayUpload = EditorService.currentEditorHasRoles( [ 'UPLOAD' ] );
 
             this.uploadInProgress = false;
@@ -127,9 +125,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
             load : function () {
                 this.$scope.waiting = true;
-                this.$scope.predictionsWaiting = true;
                 this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'locations', 'waiting' : true } );
-                this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'predictions', 'waiting' : true } );
 
                 this.mediaService.getLocations( this.$scope.media ).then(
                     function ( locations ) {
@@ -146,23 +142,6 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     function () {
                         this.$scope.waiting = false;
                         this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'locations', 'waiting' : false } );
-                    }.bind( this )
-                );
-
-                this.mediaService.getPredictions( this.$scope.media ).then(
-                    function ( predictions ) {
-                        this.predictions = $.map( predictions, function ( e ) {
-                            return e
-                        }.bind( this ) );
-
-                    }.bind( this ),
-                    function ( error ) {
-                        this.$scope.$emit( 'error', error )
-                    }.bind( this ) )
-                    .finally(
-                    function () {
-                        this.$scope.predictionsWaiting = false;
-                        this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'predictions', 'waiting' : false } );
                     }.bind( this )
                 );
 

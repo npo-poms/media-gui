@@ -1,0 +1,94 @@
+angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', [
+    '$scope',
+    '$filter',
+    '$http',
+    '$modal',
+    'EditorService',
+    'PomsEvents',
+    'MediaService',
+    'NotificationService',
+    'ListService',
+    'appConfig',
+    (function () {
+
+        function PredictionsController ( $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, appConfig) {
+            this.$http = $http;
+            this.$filter = $filter;
+            this.$modal = $modal;
+            this.pomsEvents = PomsEvents;
+            this.mediaService = MediaService;
+            this.notificationService = NotificationService;
+            this.listService = ListService;
+            this.$scope = $scope;
+            this.appConfig = appConfig;
+            this.load();
+        }
+
+        PredictionsController.prototype = {
+
+            editPrediction: function (pred, permission) {
+
+                if (permission === false) {
+                    return;
+                }
+                var editMode = true;
+                var modal = this.$modal.open({
+                    controller:  function($scope) {
+                        this.cancel =  function (e) {
+                            if (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }
+                            modal.dismiss();
+                        };
+                         this.save =  function (e, prediction) {
+                            if (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }
+                            modal.dismiss();
+                        }
+                    },
+                    controllerAs: 'controller',
+                    templateUrl: 'edit/modal-edit-prediction.html',
+                    windowClass: 'modal-form',
+                    resolve: {
+                        prediction: function () {
+                            return pred;
+                        }
+                    }
+                });
+                modal.result.then(
+                    function (media) {
+                        angular.copy(media, this.$scope.media);
+                        this.load();
+                    }.bind(this)
+                );
+            },
+
+            load: function () {
+                this.$scope.waiting = true;
+                this.$scope.$emit(this.pomsEvents.loaded, {'section': 'predictions', 'waiting': true});
+
+                this.mediaService.getPredictions(this.$scope.media).then(
+                    function (predictions) {
+                        this.predictions = $.map(predictions, function (e) {
+                            return e
+                        }.bind(this));
+
+                    }.bind(this),
+                    function (error) {
+                        this.$scope.$emit('error', error)
+                    }.bind(this))
+                    .finally(
+                        function () {
+                            this.$scope.predictionsWaiting = false;
+                            this.$scope.$emit(this.pomsEvents.loaded, {'section': 'predictions', 'waiting': false});
+                        }.bind(this)
+                    );
+            }
+        };
+
+        return PredictionsController;
+    }())
+] );

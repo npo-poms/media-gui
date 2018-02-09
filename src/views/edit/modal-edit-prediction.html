@@ -1,0 +1,102 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::modalTitle }} </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
+</div>
+
+<form role="form" class="poms-form editPredictionForm" ng-class="{'waiting': waiting}" name="editPredictionForm" >
+
+    <div class="modal-body">
+
+        <div class="form-fields ">
+
+            <div class="modal-column">
+                <h1>{{$scope.prediction.platform}}</h1>
+                <div class="row">
+                    <div class="field">
+                        <label for="available">Beschikbaarheid</label>
+                        <input type="checkbox" name="available" id="available" required
+                               ng-model="prediction.available"/>
+                        <poms-help field="editor.prediction.available"></poms-help>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-6 field">
+                        <span> Online / Offline </span>
+
+                        <div class="daterange-select" daterangepicker >
+
+                            <div class="input-group"  >
+                                <label class='date-input-label' label-for="fromdate" >Start</label>
+
+
+                                <input name='fromdate' type="text" class="form-control"
+                                       ng-disabled="!controller.mayWrite('publishStart')"
+                                       datepicker-popup="dd-MM-yyyy HH:mm"
+                                       max-date='maxStart'
+                                       ng-model="prediction.publication.start"
+                                       is-open="startdate.open"
+                                       close-text="sluit"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       ng-change="setMinStop(prediction.publication.start)"/>
+
+                                <button class="open-calendar" ng-click="openStartDate($event)">
+                                </button>
+                            </div>
+
+
+                            <div class="input-group"  >
+                                <label class='date-input-label' label-for="todate" >Stop</label>
+
+                                <input name='fromdate' type="text" class="form-control"
+                                       ng-disabled="!controller.mayWrite('publishStop')"
+                                       datepicker-popup="dd-MM-yyyy HH:mm"
+                                       min-date='minStop'
+                                       ng-model="prediction.publication.stop"
+                                       is-open="stopdate.open"
+                                       close-text="sluit"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       ng-change="setMaxStart(prediction.publication.stop)"/>
+
+                                <button class="open-calendar" ng-click="openStopDate($event)">
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <a title="verwijder" class="dropdown-selected " ng-if="prediction.publication.start" ng-click="prediction.publication.start = undefined">
+                            start: <span> {{prediction.publication.start | mediaDateTime}} </span>
+                        </a>
+
+                        <a title="verwijder" class="dropdown-selected " ng-if="prediction.publication.stop" ng-click="prediction.publication.stop = undefined">
+                            stop: <span> {{prediction.publication.stop | mediaDateTime}} </span>
+                        </a>
+
+                        <span class='publication-placeholder' ng-if="!prediction.publication.start && !prediction.publication.stop">
+                            geen publicatiedatum geselecteerd
+                        </span>
+
+                        <poms-help class="tooltip-right" field="editor.prediction.publication"></poms-help>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+            <button class="btn-rect" ng-click="controller.save($scope.prediction)" ng-disabled="waiting">Sla op</button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>

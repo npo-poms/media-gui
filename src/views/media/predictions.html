@@ -1,11 +1,11 @@
-<div id="{{section}}" class="media-data media-locations media-section" ng-controller="LocationsController as locationsController">
+<div id="{{section}}" class="media-data media-locations media-section" ng-controller="PredictionsController as predictionsController">
 
-    <h1 class="media-section-title" ng-class="{ 'waiting': locationsController.predictionsWaiting }">Platformen
+    <h1 class="media-section-title" ng-class="{ 'waiting': predictionsController.waiting }">Platformen
         <poms-help field="editor.predictions"></poms-help>
     </h1>
 
     <table class="poms-table poms-table-locations"
-           ng-show="locationsController.predictions.length > 0"
+           ng-show="predictionsController.predictions.length > 0"
            ng-class="{ 'updating': locationsController.predictionsWaiting }">
 
         <thead>
@@ -28,9 +28,9 @@
 
         <tbody>
         <tr class="poms-table-row"
-            ng-repeat="prediction in locationsController.predictions"
-            ng-class="{'waiting': locationsController.predictionsWaiting, 'may-write': locationsController.mayWrite(prediction)}"
-            ng-dblclick="locationsController.editPrediction(prediction, locationsController.mayWrite(prediction))"
+            ng-repeat="prediction in predictionsController.predictions"
+            ng-class="{'waiting': predictionsController.predictionsWaiting, 'may-write': predictionsController.mayWrite(prediction)}"
+            ng-dblclick="predictionsController.editPrediction(prediction, prediction.mayWrite)"
             >
             <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
                  <span title="{{::prediction.available}}" ng-switch-when="available" >
@@ -49,7 +49,7 @@
             <td class="column-tools">
                 <div ng-show="::prediction.mayWrite" >
                     <div class="tools" >
-                        <button ng-if="::prediction.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="locationsController.editPrediction(prediction)">bewerk</button>
+                        <button ng-if="::prediction.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="predictionsController.editPrediction(prediction)">bewerk</button>
                     </div>
                 </div>
             </td>
