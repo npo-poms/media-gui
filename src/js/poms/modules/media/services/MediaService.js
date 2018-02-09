@@ -34,6 +34,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 'isDubbed': 1 << 0,
                 'tags': 1 << 0,
                 'duration': 1 << 0,
+                'predictions': 1 << 0,
                 'locations': 1 << 0,
                 'segments': 1 << 0,
                 'episodes': 1 << 0,
@@ -77,6 +78,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 'isDubbed': 1 << 12,
                 'tags': 1 << 12,
                 'duration': 1 << 14,
+                'predictions': 1 <<15,
                 'locations': 1 << 15,
                 'segments': 1 << 12,
                 'episodes': 1 << 24,
@@ -403,6 +405,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return get( media, '/locations' );
             },
 
+
             saveLocation: function ( media, location ) {
                 return post( media, '/locations', location );
             },
@@ -410,6 +413,11 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             removeLocation: function ( media, location ) {
                 return del( media, '/locations/' + location.id );
             },
+
+            getPredictions: function ( media ) {
+                return get( media, '/predictions' );
+            },
+
 
             getSegments: function ( media ) {
                 return get( media, '/segments' );

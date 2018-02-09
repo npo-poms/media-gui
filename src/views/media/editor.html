@@ -56,7 +56,7 @@
                 ng-class="{'active' : mediaController.activeSection == 'segments' }">
 
                 <span class='media-item-navigation-text' title="Segmenten" ng-class="{'media-item-navigation-text-waiting' : segmentsWaiting }">
-                    <span title="Segmenten"> Segmenten ({{media.segments}}) </span>
+                    <span title="Segmenten"> Segmenten ({{media.segments}})</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
@@ -64,7 +64,14 @@
                 ng-click="mediaController.goTo('images')">
 
                 <span class='media-item-navigation-text' title="Afbeeldingen" ng-class="{'media-item-navigation-text-waiting' : imagesWaiting }">
-                    <span title="Afbeeldingen"> Afbeeldingen ({{media.images}}) </span>
+                    <span title="Afbeeldingen"> Afbeeldingen ({{media.images}})</span>
+                </span>
+            </li>
+            <li class='media-item-navigation-link'
+                ng-class="{'active' : mediaController.activeSection == 'predictions' }"
+                ng-click="mediaController.goTo('predictions')">
+                <span class='media-item-navigation-text' title="Platformen" ng-class="{'media-item-navigation-text-waiting' : predictionsWaiting }">
+                    <span title="Bronnen">Platformen</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
@@ -72,7 +79,7 @@
                 ng-click="mediaController.goTo('locations')">
 
                 <span class='media-item-navigation-text' title="Bronnen" ng-class="{'media-item-navigation-text-waiting' : locationsWaiting }">
-                    <span title="Bronnen"> Bronnen ({{media.locations}}) </span>
+                    <span title="Bronnen">Bronnen ({{media.locations}})</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
@@ -81,7 +88,7 @@
                 ng-click="mediaController.goTo('episodes')">
 
                 <span class='media-item-navigation-text' title="Afleveringen" ng-class="{'media-item-navigation-text-waiting' : episodesWaiting }">
-                    <span title="Afleveringen"> Afleveringen ({{media.episodes}}) </span>
+                    <span title="Afleveringen">Afleveringen ({{media.episodes}})</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
@@ -90,7 +97,7 @@
                 ng-click="mediaController.goTo('members')">
 
                 <span class='media-item-navigation-text' title="Onderdelen" ng-class="{'media-item-navigation-text-waiting' : membersWaiting }">
-                    <span title="Onderdelen"> Onderdelen ({{media.members}}) </span>
+                    <span title="Onderdelen">Onderdelen ({{media.members}})</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
@@ -98,7 +105,7 @@
                 ng-click="mediaController.goTo('relations')" >
 
                 <span class='media-item-navigation-text' title="Relaties" ng-class="{'media-item-navigation-text-waiting' : relationsWaiting }">
-                    <span title="Relaties"> Relaties ({{media.relations}}) </span>
+                    <span title="Relaties">Relaties ({{media.relations}})</span>
                 </span>
             </li>
 
@@ -113,6 +120,8 @@
             <poms-segments media="media" section="{{::mediaController.sectionId('segments')}}" ng-if="::media.hasSegments"></poms-segments>
 
             <poms-images type="media" media="media" section="{{::mediaController.sectionId('images')}}"></poms-images>
+
+            <poms-predictions  media="media" predictions-waiting='predictionsWaiting' section="{{::mediaController.sectionId('predictions')}}"></poms-predictions>
 
             <poms-locations media="media" locations-waiting='locationsWaiting' section="{{::mediaController.sectionId('locations')}}"></poms-locations>
 

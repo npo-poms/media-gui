@@ -40,17 +40,17 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
                 if ( upload.mid === $scope.media.mid ) {
 
-                    if ( upload.status == "uploadStart" ) {
+                    if ( upload.status === "uploadStart" ) {
                         this.uploadInProgress = true;
                         this.currentUpload = upload.fileName;
                     }
 
-                    if ( upload.status == "uploadFinished" ) {
+                    if ( upload.status === "uploadFinished" ) {
                         this.uploadInProgress = false;
                         this.currentUpload = undefined;
                     }
 
-                    if ( upload.status == "uploadError" ) {
+                    if ( upload.status === "uploadError" ) {
                         this.uploadInProgress = false;
                         this.currentUpload = undefined;
                     }
@@ -112,8 +112,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             },
 
             playLocation : function( location ) {
-
-                var modal = this.$modal.open( {
+                this.$modal.open( {
                     controller : 'LocationPlayController',
                     controllerAs : 'LocationPlayController',
                     templateUrl : 'edit/modal-play-location.html',
@@ -128,7 +127,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
             load : function () {
                 this.$scope.waiting = true;
+                this.$scope.predictionsWaiting = true;
                 this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'locations', 'waiting' : true } );
+                this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'predictions', 'waiting' : true } );
 
                 this.mediaService.getLocations( this.$scope.media ).then(
                     function ( locations ) {
@@ -145,6 +146,23 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     function () {
                         this.$scope.waiting = false;
                         this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'locations', 'waiting' : false } );
+                    }.bind( this )
+                );
+
+                this.mediaService.getPredictions( this.$scope.media ).then(
+                    function ( predictions ) {
+                        this.predictions = $.map( predictions, function ( e ) {
+                            return e
+                        }.bind( this ) );
+
+                    }.bind( this ),
+                    function ( error ) {
+                        this.$scope.$emit( 'error', error )
+                    }.bind( this ) )
+                    .finally(
+                    function () {
+                        this.$scope.predictionsWaiting = false;
+                        this.$scope.$emit( this.pomsEvents.loaded, { 'section' : 'predictions', 'waiting' : false } );
                     }.bind( this )
                 );
 

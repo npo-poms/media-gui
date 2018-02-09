@@ -1,0 +1,64 @@
+<div id="{{section}}" class="media-data media-locations media-section" ng-controller="LocationsController as locationsController">
+
+    <h1 class="media-section-title" ng-class="{ 'waiting': locationsController.predictionsWaiting }">Platformen
+        <poms-help field="editor.predictions"></poms-help>
+    </h1>
+
+    <table class="poms-table poms-table-locations"
+           ng-show="locationsController.predictions.length > 0"
+           ng-class="{ 'updating': locationsController.predictionsWaiting }">
+
+        <thead>
+
+        <tr class="poms-table-head-row">
+            <!--<th class="poms-table-header column-play" > </th>-->
+
+            <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
+                <span title="{{column.value}}">
+                     {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
+                </span>
+            </th>
+
+            <th class="poms-table-header column-tools" >
+                <poms-prediction-columns> </poms-prediction-columns>
+            </th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+        <tr class="poms-table-row"
+            ng-repeat="prediction in locationsController.predictions"
+            ng-class="{'waiting': locationsController.predictionsWaiting, 'may-write': locationsController.mayWrite(prediction)}"
+            ng-dblclick="locationsController.editPrediction(prediction, locationsController.mayWrite(prediction))"
+            >
+            <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+
+
+                 <span title="{{::prediction.available}}" ng-switch-when="format"  >
+                     {{::prediction.available}}
+                 </span>
+                 <span title="{{::prediction.platform}}" >
+                     {{::prediction.platform}}
+                 </span>
+
+                <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
+                    <span ng-if="::prediction.publication.start">van: </span> {{ ::prediction.publication.start |  mediaDateTime }}
+                    <span ng-if="::prediction.publication.stop"> tot: </span> {{ ::prediction.publication.stop |  mediaDateTime }}
+                </span>
+            </td>
+
+            <td class="column-tools">
+                <div ng-show="::prediction.mayWrite" >
+                    <div class="tools" >
+                        <button ng-if="::prediction.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="locationsController.editPrediction(prediction)">bewerk</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+</div>

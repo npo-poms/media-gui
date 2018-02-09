@@ -32,6 +32,17 @@ angular.module( 'poms.media.directives' )
             }
         };
     }] )
+    .directive( 'pomsPredictions', [function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'media/predictions.html',
+            transclude: true,
+            scope: {
+                section: '@section',
+                media: '='
+            }
+        };
+    }] )
     .directive( 'pomsLocations', [function () {
         return {
             restrict: 'E',

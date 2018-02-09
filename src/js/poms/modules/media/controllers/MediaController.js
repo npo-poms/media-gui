@@ -31,7 +31,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
             this.$modal = $modal;
             this.$element = $element;
             this.$scope.sidebarFixed = false;
-
+            this.$scope.predictionsWaiting = true;
             this.$scope.locationsWaiting = true;
             this.$scope.episodesWaiting = true;
             this.$scope.imagesWaiting = true;
@@ -89,6 +89,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     return
                 }
                 switch ( loading.section ) {
+                    case 'predictions':
+                        this.$scope.predictionsWaiting = loading.waiting;
+                        break;
                     case 'locations':
                         this.$scope.locationsWaiting = loading.waiting;
                         break;
