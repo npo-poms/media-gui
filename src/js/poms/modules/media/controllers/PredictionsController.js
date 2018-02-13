@@ -1,4 +1,4 @@
-angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', [
+angular.module('poms.media.controllers').controller('PredictionsController', [
     '$scope',
     '$filter',
     '$http',
@@ -11,7 +11,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', 
     'appConfig',
     (function () {
 
-        function PredictionsController ( $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, appConfig) {
+        function PredictionsController($scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, appConfig) {
             this.$http = $http;
             this.$filter = $filter;
             this.$modal = $modal;
@@ -30,30 +30,29 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', 
 
                 var editMode = true;
 
-                var modal = this.$modal.open( {
-                    controller : 'PredictionEditController',
-                    controllerAs : 'controller',
-                    templateUrl : 'edit/modal-edit-prediction.html',
-                    windowClass : 'modal-form',
-                    resolve : {
-                        media : function () {
+                var modal = this.$modal.open({
+                    controller: 'PredictionEditController',
+                    controllerAs: 'controller',
+                    templateUrl: 'edit/modal-edit-prediction.html',
+                    windowClass: 'modal-form modal-edit-prediction',
+                    resolve: {
+                        media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
-                        prediction : function () {
+                        }.bind(this),
+                        prediction: function () {
                             return prediction;
                         },
-                        edit : function () {
+                        edit: function () {
                             return editMode;
                         }
-
-            }
-                } );
+                    }
+                });
 
                 modal.result.then(
-                    function ( media ) {
-                        angular.copy( media, this.$scope.media );
+                    function (media) {
+                        angular.copy(media, this.$scope.media);
                         this.load();
-                    }.bind( this )
+                    }.bind(this)
                 );
 
             },
@@ -84,4 +83,4 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', 
 
         return PredictionsController;
     }())
-] );
+]);
