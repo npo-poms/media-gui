@@ -418,6 +418,9 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return get( media, '/predictions' );
             },
 
+            savePrediction: function ( media, prediction ) {
+                return post( media, '/prediction', prediction);
+            },
 
             getSegments: function ( media ) {
                 return get( media, '/segments' );

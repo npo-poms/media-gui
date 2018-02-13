@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <div class="modal-title"> {{ ::modalTitle }} </div>
+    <div class="modal-title"> {{ prediction.platform }} </div>
     <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
 </div>
 
@@ -10,7 +10,7 @@
         <div class="form-fields ">
 
             <div class="modal-column">
-                <h1>{{$scope.prediction.platform}}</h1>
+                <h1></h1>
                 <div class="row">
                     <div class="field">
                         <label for="available">Beschikbaarheid</label>
@@ -20,63 +20,61 @@
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <div class="col-6 field">
-                        <span> Online / Offline </span>
-
-                        <div class="daterange-select" daterangepicker >
-
-                            <div class="input-group"  >
-                                <label class='date-input-label' label-for="fromdate" >Start</label>
 
 
-                                <input name='fromdate' type="text" class="form-control"
-                                       ng-disabled="!controller.mayWrite('publishStart')"
-                                       datepicker-popup="dd-MM-yyyy HH:mm"
-                                       max-date='maxStart'
-                                       ng-model="prediction.publication.start"
-                                       is-open="startdate.open"
-                                       close-text="sluit"
-                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
-                                       ng-change="setMinStop(prediction.publication.start)"/>
+              <div dropdown class="dropdown-wrapper col-6 field">
+                <li class="dropdown open">
+                <span class="dropdown-toggle" dropdown-toggle > Publicatie start/stop </span>
+                <div dropdown-menu class="daterange-select" display="true" daterangepicker >
+                  <div class="input-group datepicker-dropdowßn"  >
+                    <label class='date-input-label' label-for="fromdate" >Start</label>
 
-                                <button class="open-calendar" ng-click="openStartDate($event)">
-                                </button>
-                            </div>
+                    <input name='fromdate' type="text" class="form-control"
+                           datepicker-popup="dd-MM-yyyy HH:mm"
+                           max-date='maxStart'
+                           ng-model="prediction.publication.start"
+                           is-open="startdate.open"
+                           close-text="sluit"
+                           ng-click="$event.preventDefault(); $event.stopPropagation();"
+                           ng-change="setMinStop(image.publication.start)"/>
 
-
-                            <div class="input-group"  >
-                                <label class='date-input-label' label-for="todate" >Stop</label>
-
-                                <input name='fromdate' type="text" class="form-control"
-                                       ng-disabled="!controller.mayWrite('publishStop')"
-                                       datepicker-popup="dd-MM-yyyy HH:mm"
-                                       min-date='minStop'
-                                       ng-model="prediction.publication.stop"
-                                       is-open="stopdate.open"
-                                       close-text="sluit"
-                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
-                                       ng-change="setMaxStart(prediction.publication.stop)"/>
-
-                                <button class="open-calendar" ng-click="openStopDate($event)">
-                                </button>
-                            </div>
-
-                        </div>
+                    <button class="open-calendar" ng-click="openStartDate($event)">
+                    </button>
+                  </div>
 
 
-                        <a title="verwijder" class="dropdown-selected " ng-if="prediction.publication.start" ng-click="prediction.publication.start = undefined">
-                            start: <span> {{prediction.publication.start | mediaDateTime}} </span>
-                        </a>
+                  <div class="input-group datepicker-dropdown"  >
+                    <label class='date-input-label' label-for="todate" >Stop</label>
 
-                        <a title="verwijder" class="dropdown-selected " ng-if="prediction.publication.stop" ng-click="prediction.publication.stop = undefined">
-                            stop: <span> {{prediction.publication.stop | mediaDateTime}} </span>
-                        </a>
+                    <input name='fromdate' type="text" class="form-control"
+                           datepicker-popup="dd-MM-yyyy HH:mm"
+                           min-date='minStop'
+                           ng-model="prediction.publication.stop"
+                           is-open="stopdate.open"
+                           close-text="sluit"
+                           ng-click="$event.preventDefault(); $event.stopPropagation();"
+                           ng-change="setMaxStart(image.publication.stop)"/>
 
-                        <span class='publication-placeholder' ng-if="!prediction.publication.start && !prediction.publication.stop">
-                            geen publicatiedatum geselecteerd
-                        </span>
+                    <button class="open-calendar" ng-click="openStopDate($event)">
+                    </button>
+                  </div>
+
+                </div>
+
+
+                <a title="verwijder" class="dropdown-selected " ng-if="image.publication.start" ng-click="image.publication.start = undefined">
+                  start: <span> {{image.publication.start | mediaDateTime}} </span>
+                </a>
+
+                <a title="verwijder" class="dropdown-selected " ng-if="image.publication.stop" ng-click="image.publication.stop = undefined">
+                  stop: <span> {{image.publication.stop | mediaDateTime}} </span>
+                </a>
+
+                <span class='publication-placeholder' ng-if="!image.publication.start && !image.publication.stop">
+              geen publicatiedatum geselecteerd
+                </span>
+
+
 
                         <poms-help class="tooltip-right" field="editor.prediction.publication"></poms-help>
 

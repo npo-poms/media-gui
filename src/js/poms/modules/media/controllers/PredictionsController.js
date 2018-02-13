@@ -26,44 +26,36 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', 
 
         PredictionsController.prototype = {
 
-            editPrediction: function (pred, permission) {
+            editPrediction: function (prediction) {
 
-                if (permission === false) {
-                    return;
-                }
                 var editMode = true;
-                var modal = this.$modal.open({
-                    controller:  function($scope) {
-                        this.cancel =  function (e) {
-                            if (e) {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }
-                            modal.dismiss();
-                        };
-                         this.save =  function (e, prediction) {
-                            if (e) {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }
-                            modal.dismiss();
+
+                var modal = this.$modal.open( {
+                    controller : 'PredictionEditController',
+                    controllerAs : 'controller',
+                    templateUrl : 'edit/modal-edit-prediction.html',
+                    windowClass : 'modal-form',
+                    resolve : {
+                        media : function () {
+                            return this.$scope.media;
+                        }.bind( this ),
+                        prediction : function () {
+                            return prediction;
+                        },
+                        edit : function () {
+                            return editMode;
                         }
-                    },
-                    controllerAs: 'controller',
-                    templateUrl: 'edit/modal-edit-prediction.html',
-                    windowClass: 'modal-form',
-                    resolve: {
-                        prediction: function () {
-                            return pred;
-                        }
-                    }
-                });
+
+            }
+                } );
+
                 modal.result.then(
-                    function (media) {
-                        angular.copy(media, this.$scope.media);
+                    function ( media ) {
+                        angular.copy( media, this.$scope.media );
                         this.load();
-                    }.bind(this)
+                    }.bind( this )
                 );
+
             },
 
             load: function () {
@@ -87,6 +79,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionsController', 
                         }.bind(this)
                     );
             }
+
         };
 
         return PredictionsController;
