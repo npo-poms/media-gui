@@ -56,6 +56,10 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
                 var data = this.$scope.prediction;
 
                 this.mediaService.savePrediction(this.$scope.media, data).then(
+                    function ( media ) {
+                        this.$modalInstance.close( media );
+                        this.$scope.waiting = false;
+                    }.bind( this ),
                     function (error) {
                         this.$scope.$emit('error', error)
                     }.bind(this))
