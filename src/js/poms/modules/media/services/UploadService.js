@@ -121,7 +121,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                 this.notify( newUpload );
 
                 this.$upload.upload( {
-                    url: this.host + '/ext-api/assets/upload',
+                    url: this.host + '/gui/upload',
                     method: 'POST',
                     fields: fields,
                     file: location.file[0],
