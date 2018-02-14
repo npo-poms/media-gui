@@ -118,20 +118,20 @@
 
           <div class="col-6 field" ng-class="{'has-error' : uploadImageForm.inputImageType.$invalid}" >
 
-            <label>Licentie</label>
-            <ui-select ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
-              <ui-select-choices repeat="item in licenses | filter: {text: $select.search}">
-                <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
-                </div>
-              </ui-select-choices>
+        <label>Licentie</label>
+        <ui-select ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
+          <ui-select-choices repeat="item in licenses | filter: {text: $select.search}">
+            <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
+            </div>
+          </ui-select-choices>
 
-              <ui-select-match placeholder="Kies een licentie">{{$select.selected.text || image.license}}</ui-select-match>
-            </ui-select>
+          <ui-select-match placeholder="Kies een licentie">{{$select.selected.text || image.license}}</ui-select-match>
+        </ui-select>
 
-            <poms-invalid violation="controller.violations.license"></poms-invalid>
-            <poms-help  field="editor.image.license"></poms-help>
-          </div>
-        </div>
+        <poms-invalid violation="controller.violations.license"></poms-invalid>
+        <poms-help  field="editor.image.license"></poms-help>
+      </div>
+      </div>
 
         <div class="row">
 

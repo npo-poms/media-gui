@@ -5,7 +5,10 @@
 
 <form role="form" class="form uploadLocationForm" ng-class="{'waiting': waiting}" name="uploadLocationForm">
     <div class="modal-body">
-        <div ng-if="isTranscoding">
+        <div class="form-fields ">
+            <div class="modal-column">
+
+            <div ng-if="isTranscoding">
 
             <p>Er wordt al een upload verwerkt voor dit media item.
                 Dit is de voortgang:
@@ -45,80 +48,51 @@
             Zodra de upload voltooid is zal deze als bron verschijnen bij het media-item.
             <hr style="margin-bottom: 20px;"/>
         </div>
-        <div class="form-fields ">
+
 
             <div class="row">
 
-                <div dropdown class="dropdown-wrapper col-3 field">
-                    <span class="dropdown-toggle" dropdown-toggle> Publicatie </span>
-
-                    <div dropdown-menu class="daterange-select" daterangepicker>
-
-                        <div class="input-group datepicker-dropdown">
-                            <label class='date-input-label' label-for="fromdate">Start</label>
-
-
-                            <input name='fromdate' type="text" class="form-control"
-                                   datepicker-popup="dd-MM-yyyy HH:mm"
-                                   max-date='maxStart'
-                                   ng-model="location.publication.start"
-                                   is-open="startdate.open"
-                                   close-text="sluit"
-                                   ng-click="$event.preventDefault(); $event.stopPropagation();"
-                                   ng-change="setMinStop(location.publication.start)"/>
-
-                            <button class="open-calendar" ng-click="openStartDate($event)">
-                            </button>
-                        </div>
-
-
-                        <div class="input-group datepicker-dropdown">
-                            <label class='date-input-label' label-for="todate">Stop</label>
-
-                            <input name='fromdate' type="text" class="form-control"
-                                   datepicker-popup="dd-MM-yyyy HH:mm"
-                                   min-date='minStop'
-                                   ng-model="location.publication.stop"
-                                   is-open="stopdate.open"
-                                   close-text="sluit"
-                                   ng-click="$event.preventDefault(); $event.stopPropagation();"
-                                   ng-change="setMaxStart(location.publication.stop)"/>
-
-                            <button class="open-calendar" ng-click="openStopDate($event)">
-                            </button>
-                        </div>
-
-                    </div>
-
-
-                    <div class="dropdown-selected " ng-if="location.publication.start"
-                         ng-click="location.publication.start = undefined">
-                        start: <span> {{location.publication.start | mediaDateTime}} </span>
-                    </div>
-
-                    <div class="dropdown-selected " ng-if="location.publication.stop"
-                         ng-click="location.publication.stop = undefined">
-                        stop: <span> {{location.publication.stop | mediaDateTime}} </span>
-                    </div>
-
+                <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
+                    <label>Priority type &#42;</label>
+                    <ui-select ng-model="location.priorityType" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+                        <ui-select-choices repeat="item in priorityTypes | filter: {text: $select.search}">
+                        <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+                        </ui-select-choices>
+                    <ui-select-match>{{$select.selected.text }}</ui-select-match>
+                    </ui-select>
+                <poms-invalid violation="controller.violations.priorityType"></poms-invalid>
                 </div>
-            </div>
+
+                <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
+                    <label>Encryption type &#42;</label>
+                    <ui-select ng-model="location.encryptionType" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+                        <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
+                            <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+                        </ui-select-choices>
+                            <ui-select-match>{{$select.selected.text }}</ui-select-match>
+                        </ui-select>
+                    <poms-invalid violation="controller.violations.priorityType"></poms-invalid>
+                </div>
+
+                <div class="field float-clear col-4" ng-class="{'has-error' : uploadLocationForm.inputFile.$invalid}">
+                    <label for="inputFile">Bestand</label>
+                        <input type="file" id="inputFile" name="inputFile"
+                         ng-file-select="uploadController.fileSelected()"
+                        ng-model="location.file"
+                        accept="audio/*,video/*,image/*,video/mp4,video/x-m4v">
+                </div>
 
 
-            <div class="field float-clear col-4" ng-class="{'has-error' : uploadLocationForm.inputFile.$invalid}">
-                <label for="inputFile">Bestand</label>
-
-                <input type="file" id="inputFile" name="inputFile"
-                       ng-file-select="uploadController.fileSelected()"
-                       ng-model="location.file"
-                       accept="audio/*,video/*,image/*,video/mp4,video/x-m4v">
             </div>
 
         </div>
 
+
         <div class="modal-disable-overlay"></div>
 
+
     </div>
+
 
 
     <div class="footer-container">
@@ -126,6 +100,8 @@
 
             <div class="required-feedback footer-message">
                 <span class="required-feedback-message" ng-if="!location.file">Nog in te vullen:</span>
+                <span class="required-field" ng-if="!location.priorityType">PriorityType</span>
+                <span class="required-field" ng-if="!location.priorityType">EncryptionType</span>
                 <span class="required-field" ng-if="!location.file">Bestand</span>
                 &nbsp;
             </div>
