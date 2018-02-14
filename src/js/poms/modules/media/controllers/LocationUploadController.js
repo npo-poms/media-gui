@@ -39,8 +39,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             $scope.priorityTypes = priorityTypes;
             $scope.encryptionTypes = encryptionTypes;
 
-            location.priorityType = $scope.priorityTypes[0];
-            location.encryptionType = $scope.encryptionTypes[0];
+            location.priority = $scope.priorityTypes[0];
+            location.encryption = $scope.encryptionTypes[1];
 
 
             this.init();
@@ -119,9 +119,12 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
                 var media = this.$scope.media;
                 var fields = {
-                        id: media.id,
-                        mediaId: media.mid,
-                        name: location.file[0].name
+                    id: media.id,
+                    mediaId: media.mid,
+                    name: location.file[0].name,
+                    priority: location.priority.id,
+                    encryption: location.encryption.id
+
                     };
                 if (location.publication.start) {
                     fields.publicationStart = location.publication.start;

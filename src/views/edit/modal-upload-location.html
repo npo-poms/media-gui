@@ -53,25 +53,25 @@
             <div class="row">
 
                 <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
-                    <label>Priority type &#42;</label>
-                    <ui-select ng-model="location.priorityType" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+                    <label>Priority&#42;</label>
+                    <ui-select ng-model="location.priority" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
                         <ui-select-choices repeat="item in priorityTypes | filter: {text: $select.search}">
                         <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
                         </ui-select-choices>
                     <ui-select-match>{{$select.selected.text }}</ui-select-match>
                     </ui-select>
-                <poms-invalid violation="controller.violations.priorityType"></poms-invalid>
+                <poms-invalid violation="controller.violations.priority"></poms-invalid>
                 </div>
 
                 <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
-                    <label>Encryption type &#42;</label>
-                    <ui-select ng-model="location.encryptionType" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+                    <label>Encryption&#42;</label>
+                    <ui-select ng-model="location.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
                         <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
                             <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
                         </ui-select-choices>
                             <ui-select-match>{{$select.selected.text }}</ui-select-match>
                         </ui-select>
-                    <poms-invalid violation="controller.violations.priorityType"></poms-invalid>
+                    <poms-invalid violation="controller.violations.encryption"></poms-invalid>
                 </div>
 
                 <div class="field float-clear col-4" ng-class="{'has-error' : uploadLocationForm.inputFile.$invalid}">
