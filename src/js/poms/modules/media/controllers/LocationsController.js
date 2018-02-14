@@ -67,6 +67,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             mayAddLocations: function (location) {
                 return this.mediaService.hasWritePermission(this.$scope.media, 'locations');
             },
+
             editLocation : function ( location, permission ) {
 
                 if ( permission === false ) {
@@ -85,8 +86,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     controllerAs : 'controller',
                     templateUrl : 'edit/modal-edit-location.html',
                     windowClass : 'modal-form',
-                    resolve : {
-                        media : function () {
+                    resolve: {
+                        media: function () {
                             return this.$scope.media;
                         }.bind( this ),
                         location : function () {
@@ -204,6 +205,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     templateUrl : 'edit/modal-upload-location.html',
                     windowClass : 'modal-location-upload',
                     resolve : {
+                        priorityTypes: this.listService.getPriorityTypes,
+                        encryptionTypes: this.listService.getEncryptionTypes,
                         media : function () {
                             return this.$scope.media;
                         }.bind( this ),

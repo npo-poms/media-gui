@@ -10,6 +10,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
     'AVFileFormats',
     'media',
     'location',
+    'priorityTypes',
     'edit',
     (function () {
 
@@ -20,7 +21,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 location.url !== ''
         }
 
-        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit ) {
+        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, priorityTypes, edit ) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -36,6 +37,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
             $scope.AVFileFormats = AVFileFormats;
 
             $scope.location = angular.copy( location );
+
+            $scope.priorityTypes = priorityTypes;
 
             $scope.media = media;
 
@@ -74,9 +77,18 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 this.$modalInstance.dismiss();
             },
 
+            fields: function() {
+                var location = this.$scope.location;
+                return  {
+                    priorityType: location.PriorityType ? location.priorityType.id : undefined,
+                };
+
+            },
+
             isFieldMissing : function(field){
                 return (! this.$scope.location[ field.id ] && field.id !== 'file') || (field.id === 'file' && ! this.$scope.location.uri && ! this.$scope.location[ field.id ]);
             },
+
             mayWrite: function(field) {
                 if (this.$scope.location.mayWrite) {
                     return this.$scope.location.mayWriteFields === undefined || this.$scope.location.mayWriteFields.indexOf(field) >= 0;

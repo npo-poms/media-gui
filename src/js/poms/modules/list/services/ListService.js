@@ -59,6 +59,10 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/countries', {cache : true});
             },
 
+            getEncryptionTypes : function() {
+                return get('/encryptionTypes', {cache : true});
+            },
+
             getGenres : function() {
                 return get('/genres', {cache : true});
             },
@@ -95,6 +99,10 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/platforms', {cache : true});
             },
 
+            getPriorityTypes : function() {
+                return get('/priorityTypes', {cache : true});
+            },
+
             getRegions : function() {
                 return get('/regions', {cache : true});
             },
@@ -106,7 +114,6 @@ angular.module('poms.list.services').factory('ListService', [
             getRoles : function() {
                 return get('/roles', {cache : true});
             },
-
 
             getTags : function(text, max) {
                 return get('/tags', {params : {text : text, max : max || 10}});

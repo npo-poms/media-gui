@@ -27,7 +27,6 @@ describe('EditController', function() {
         editorService.getAllowedPortals = function() {
             return deferredOptions.promise;
         };
-
         listService.getMediaTypes = function() {
             return deferredOptions.promise;
         };
@@ -68,6 +67,12 @@ describe('EditController', function() {
             return deferredOptions.promise;
         };
         listService.getPlatforms = function() {
+            return deferredOptions.promise;
+        };
+        listService.getPriorityTypes = function() {
+            return deferredOptions.promise;
+        };
+        listService.getEncryptionTypes = function() {
             return deferredOptions.promise;
         };
     }));

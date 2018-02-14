@@ -2,20 +2,24 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
     '$scope',
     '$modalInstance',
     '$upload',
+    '$sce',
     'appConfig',
     'PomsEvents',
     'MediaService',
     'UploadService',
     'media',
     'location',
+    'priorityTypes',
+    'encryptionTypes',
     (function () {
 
 
-        function LocationUploadController ( $scope, $modalInstance, $upload, appConfig, PomsEvents, MediaService, UploadService,  media, location ) {
+        function LocationUploadController ( $scope, $modalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
             this.$upload = $upload;
+            this.$sce = $sce;
             this.host = appConfig.apihost;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
@@ -31,6 +35,13 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             ];
 
             this.$scope.uploadLocationFormValid = false;
+
+            $scope.priorityTypes = priorityTypes;
+            $scope.encryptionTypes = encryptionTypes;
+
+            location.priorityType = $scope.priorityTypes[0];
+            location.encryptionType = $scope.encryptionTypes[0];
+
 
             this.init();
 
@@ -126,6 +137,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
                 this.$modalInstance.close( );
 
+            },
+
+            trustAsHtml: function ( value ) {
+                return this.$sce.trustAsHtml( value );
             }
         };
 

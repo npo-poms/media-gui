@@ -9,8 +9,8 @@ angular.module( 'poms.media.directives' )
                 editor = EditorService.getCurrentEditor() ;
 
                 $scope.allColumns = [
-                    {'id': 'available', 'value': 'Beschikbaarheid', 'width': 300},
                     {'id': 'platform', 'value': 'Platform'},
+                    {'id': 'available', 'value': 'Beschikbaarheid', 'width': 300},
                     {'id': 'dates', 'value': 'Online / Offline'}
 
                 ];
@@ -26,8 +26,8 @@ angular.module( 'poms.media.directives' )
 
                 if ( ! defaultColumns ) {
                     defaultColumns = [
-                        {'id': 'available', 'value': 'Beschikbaarheid'},
                         {'id': 'platform', 'value': 'Platform'},
+                        {'id': 'available', 'value': 'Beschikbaarheid'},
                         {'id': 'dates', 'value': 'Online / Offline'}
                     ];
 
