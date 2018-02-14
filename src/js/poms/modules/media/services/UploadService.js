@@ -91,15 +91,17 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                 var message = "";
                 var status;
 
-                if ( upload.status == 'uploadFinished' ) {
+                if ( upload.status === 'uploadFinished' ) {
                     message = '<span>' + upload.fileName + '  is ge&uuml;pload, transcodering is begonnen </span>';
-                } else if ( upload.status == 'uploadStart' ) {
+                } else if ( upload.status === 'uploadStart' ) {
                     message = '<span>' + upload.fileName + '  is nu aan het uploaden bij MID ' + upload.mid + ' </span>';
-                } else if ( upload.status == 'uploadError' ) {
-                    message = '<span>' + upload.fileName + ' is niet ge&uuml;pload </span>';
+                } else if ( upload.status === 'uploadError' ) {
+                    message = '<span>' + upload.fileName + ' is niet ge&uuml;pload (' + upload.message + ')</span>';
                     status = 'error';
-                } else if ( upload.status == 'transcodingPublication' ) {
-                    message = '<span> Het geüploade bestand bij' + upload.mid + ' is getranscodeerd </span>';
+                } else if ( upload.status === 'transcodingPublication' ) {
+                    message = '<span> Het ge&uuml;ploade bestand bij' + upload.mid + ' is getranscodeerd </span>';
+                } else {
+                    message = '<span>' + upload + '</span>';
                 }
 
                 this.notificationService.notify( message, status );
@@ -138,12 +140,12 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                         var newUpload = {
                             "mid": media.mid,
                             "fileName": location.file[0].name,
-                            "status": "uploadFinished"
+                            "status": "uploadFinished",
+                            "message": data.message
                         };
 
                         this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );
                         this.notify( newUpload );
-
                         this.removeUpload( media.mid );
 
                     }.bind( this ) )
@@ -154,7 +156,8 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                         var newUpload = {
                             "mid": media.mid,
                             "fileName": location.file[0].name,
-                            "status": "uploadError"
+                            "status": "uploadError",
+                            "message": data.message
                         };
 
                         this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );

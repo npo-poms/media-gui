@@ -119,8 +119,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
                 var media = this.$scope.media;
                 var fields = {
-                    id: media.id,
-                    mediaId: media.mid,
+                    mid: media.mid,
                     name: location.file[0].name,
                     priority: location.priority.id,
                     encryption: location.encryption.id
