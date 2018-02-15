@@ -13,7 +13,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
     (function () {
 
 
-        function PredictionEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, prediction, edit ) {
+        function PredictionEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, prediction, edit) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -31,7 +31,6 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
             $scope.media = media;
 
             $scope.edit = edit;
-
 
             if ( $scope.edit ) {
                 $scope.modalTitle = prediction.platform + "bewerken";
@@ -53,9 +52,14 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
 
             save: function () {
 
-                var data = this.$scope.prediction;
+                var prediction = this.$scope.prediction;
 
-                this.mediaService.savePrediction(this.$scope.media, data).then(
+
+                if ( prediction.publication.stop && prediction.publication.start && (prediction.publication.stop < prediction.publication.start) ){
+                    prediction.publication.stop = prediction.publication.start;
+                }
+
+                this.mediaService.savePrediction(this.$scope.media, prediction).then(
                     function ( media ) {
                         this.$modalInstance.close( media );
                         this.$scope.waiting = false;
@@ -70,6 +74,10 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
                         }.bind(this)
                     );
 
+            },
+
+            trustAsHtml: function ( value ) {
+                return this.$sce.trustAsHtml( value );
             }
         };
 
