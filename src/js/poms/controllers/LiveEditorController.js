@@ -140,8 +140,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
 
             },
-
-
             markStart : function () {
                 var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
                 if ( ! isNaN( currentPos ) && this.$scope.item.stop < currentPos ) {
@@ -297,6 +295,30 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if ( this.videoElement ) {
                     this.videoElement.currentTime = Math.floor( this.$scope.item.stop / 1000  );
                     this.videoElement.play();
+                }
+            },
+
+            setStartValueAsMs : function () {
+                this.$scope.item.start =  (this.$filter('dateTimeToMSeconds')( this.$scope.item.startastime)) - (this.TIMEOFFSET * 1000);
+                this.seekAndPause( this.$scope.item.start );
+                this.setDuration();
+            },
+
+            setStopValueAsMs : function () {
+                this.$scope.item.stop = (this.$filter('dateTimeToMSeconds')( this.$scope.item.stopastime)) - (this.TIMEOFFSET * 1000);
+                this.seekAndPause( this.$scope.item.stop );
+                this.setDuration();
+            },
+
+            seekAndPause : function ( time ) {
+                if ( this.videoElement ){
+                    this.videoElement.pause();
+                    this.seek( Math.floor( time / 1000 ) );
+                }
+            },
+            seek : function ( pos ) {
+                if ( this.videoElement ) {
+                    this.videoElement.currentTime = pos ;
                 }
             }
         };

@@ -74,7 +74,7 @@
                         <span class="itemizer-segment-play" ng-click="liveEditorController.playSegmentFromStart()"> (speel vanaf)</span>
                     </label>
                     <input id="inputStart" type="text" ng-model="item.startastime" placeholder="starttijd"
-                           ng-change="liveEditorController.setValuesAsMs()"/>
+                           ng-change="liveEditorController.setStartValueAsMs()"/>
 
                     <span class="error" ng-show="invalidTimes">De starttijd van een item mag niet later zijn dan  of gelijk zijn aan de stoptijd.</span>
 
@@ -85,7 +85,7 @@
                         <span class="itemizer-segment-play" ng-click="liveEditorController.playSegmentFromEnd()"> (speel vanaf)</span>
                     </label>
                     <input id="inputStop" type="text" ng-model="item.stopastime" placeholder="stoptijd"
-                           ng-change="liveEditorController.setValuesAsMs()"/>
+                           ng-change="liveEditorController.setStopValueAsMs()" />
                 </div>
 
             </div>

@@ -180,6 +180,13 @@ angular.module( 'poms.util.filters' )
             return (parseInt(res[ 0 ]) * 60 * 60 * 1000) + (parseInt(res[ 1 ]) * 60 * 1000) + (parseInt(res[ 2 ]) * 1000) + parseInt(res[ 3 ]);
         }
     } )
+    .filter( 'dateTimeToMSeconds', function ( $filter ) {
+        return function ( t ) {
+            var now = new Date();
+            var res = t.split(/[:.]+/) ;
+            return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), parseInt(res[ 0 ]), parseInt(res[ 1 ]), parseInt(res[ 2 ]), parseInt(res[ 3 ]))).getTime();
+        }
+    } )
     .filter( 'secondsToMsTime', function( $filter ) {
         return function ( v ) {
             if ( !v ) {
@@ -193,6 +200,7 @@ angular.module( 'poms.util.filters' )
             return $filter( 'toDigits')( h ) + ':' + $filter( 'toDigits')( m ) + ':' + $filter( 'toDigits')( s ) + '.' + $filter( 'toDigits')( ms, 3 );
         }
     } )
+
     .filter( 'secondsToTime', function( $filter ) {
         return function ( v ) {
             if ( !v ) {
