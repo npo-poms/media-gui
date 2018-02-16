@@ -71,6 +71,7 @@
 
                 <div class='field col-6 itemizer-start'>
                     <label for="inputStart">Starttijd &#42;
+                        <span class="itemizer-segment-play" ng-click="liveEditorController.playSegmentFromStart()"> (speel vanaf)</span>
                     </label>
                     <input id="inputStart" type="text" ng-model="item.startastime" placeholder="starttijd"
                            ng-change="liveEditorController.setValuesAsMs()"/>
@@ -80,7 +81,8 @@
                 </div>
 
                 <div class='field col-6 itemizer-stop'>
-                    <label for="inputStop">Eindtijd &#42;
+                    <label for="inputStart">Eindtijd &#42;
+                        <span class="itemizer-segment-play" ng-click="liveEditorController.playSegmentFromEnd()"> (speel vanaf)</span>
                     </label>
                     <input id="inputStop" type="text" ng-model="item.stopastime" placeholder="stoptijd"
                            ng-change="liveEditorController.setValuesAsMs()"/>
