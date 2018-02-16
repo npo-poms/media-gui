@@ -284,21 +284,8 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 } catch ( e ) {
                     console.log( 'Can\'t setup a /topic/publications websocket, see root cause: ', e );
                 }
-            },
-
-            playSegmentFromStart : function () {
-                if ( this.videoElement ) {
-                    this.videoElement.currentTime = Math.floor( this.$scope.item.start / 1000  );
-                    this.videoElement.play();
-                }
-            },
-
-            playSegmentFromEnd : function () {
-                if ( this.videoElement ) {
-                    this.videoElement.currentTime = Math.floor( this.$scope.item.stop / 1000  );
-                    this.videoElement.play();
-                }
             }
+
         };
 
         return LiveEditorController;
