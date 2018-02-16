@@ -215,7 +215,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 // Add generated drm tokens for the stream requested. Depends on the profile and drm type.
                 var protectionData = {
                     'com.microsoft.playready': {
-                        serverUrl: 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
+                        serverURL: 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
                         httpRequestHeaders: {
                             customdata: data.playReadyToken
                         }
