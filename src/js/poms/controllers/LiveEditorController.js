@@ -34,8 +34,9 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
         }
 
         LiveEditorController.prototype = {
-
             cancel : function() {
+                this.stopCustomPlayerTimeInterval();
+                this.videoElement.pause();
                 this.$modalInstance.dismiss();
             },
 
