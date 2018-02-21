@@ -11,7 +11,8 @@ angular.module( 'poms.media.directives' )
                 $scope.allColumns = [
                     {'id': 'platform', 'value': 'Platform'},
                     {'id': 'available', 'value': 'Beschikbaarheid', 'width': 300},
-                    {'id': 'dates', 'value': 'Online / Offline'}
+                    {'id': 'dates', 'value': 'Online / Offline'},
+                    {'id': 'authority', 'value': 'Authority'}
 
                 ];
                 if ( attrs.namespace ) {
@@ -39,7 +40,6 @@ angular.module( 'poms.media.directives' )
                 $scope.setDefault = function ( columns ) {
                     localStorageService.set( defaultKey, columns );
                     NotificationService.notify( 'Uw voorkeuren voor platform-kolommen zijn opgeslagen' );
-
                 }
             }
         }

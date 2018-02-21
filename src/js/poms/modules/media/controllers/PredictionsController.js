@@ -26,18 +26,36 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
 
         PredictionsController.prototype = {
 
+            isViewable: function () {
+                if (this.$scope.media.avType.id == 'VIDEO'){
+                    return true;
+                }
+                return false;
+            },
+
+            isEditable: function (prediction) {
+                if ( prediction.mayWrite === false || this.$scope.media.type.id === 'BROADCAST') {
+                    return false;
+                }
+                return true;
+            },
+
             editPrediction: function (prediction) {
+
+                if(!this.isEditable(prediction)){
+                    return;
+                }
 
                 var editMode = true;
 
                 var modal = this.$modal.open({
                     controller: 'PredictionEditController',
-                    controllerAs: 'controller',
-                    templateUrl: 'edit/modal-edit-prediction.html',
-                    windowClass: 'modal-form modal-edit-prediction',
-                    resolve: {
-                        media: function () {
-                            return this.$scope.media;
+                                controllerAs: 'controller',
+                                templateUrl: 'edit/modal-edit-prediction.html',
+                                windowClass: 'modal-form modal-edit-prediction',
+                                resolve: {
+                                media: function () {
+                                    return this.$scope.media;
                         }.bind(this),
                         prediction: function () {
                             return prediction;
@@ -78,7 +96,6 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                         }.bind(this)
                     );
             }
-
         };
 
         return PredictionsController;

@@ -1,4 +1,4 @@
-<div id="{{section}}" class="media-data media-locations media-section" ng-controller="PredictionsController as predictionsController">
+<div ng-if="media.avType.id == 'VIDEO'" id="{{section}}" ng-controller="PredictionsController as predictionsController" class="media-data media-locations media-section" >
 
     <h1 class="media-section-title" ng-class="{ 'waiting': predictionsController.waiting }">Platformen
         <poms-help field="editor.predictions"></poms-help>
@@ -6,7 +6,7 @@
 
     <table class="poms-table poms-table-locations"
            ng-show="predictionsController.predictions.length > 0"
-           ng-class="{ 'updating': locationsController.predictionsWaiting }">
+           ng-class="{ 'updating': predictionsController.predictionsWaiting }">
 
         <thead>
 
@@ -29,35 +29,36 @@
         <tbody>
         <tr class="poms-table-row"
             ng-repeat="prediction in predictionsController.predictions"
-            ng-class="{'waiting': predictionsController.predictionsWaiting, 'may-write': predictionsController.mayWrite(prediction)}"
-            ng-dblclick="predictionsController.editPrediction(prediction, prediction.mayWrite)"
-            >
+            ng-class="{'waiting': predictionsController.predictionsWaiting, 'may-write': predictionsController.isEditable(prediction)}"
+            ng-dblclick="predictionsController.editPrediction(prediction)"
+        >
             <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
-                 <span title="{{::prediction.platform}}" ng-switch-when="platform" >
-                     {{::prediction.platform}}
-                 </span>
+                   <span title="{{::prediction.platform}}" ng-switch-when="platform" >
+                       {{::prediction.platform}}
+                   </span>
 
                 <span title="{{::prediction.available}}" ng-switch-when="available" >
-                   {{::prediction.available ? 'beschikbaar' : 'niet beschikbaar'}}
-                 </span>
+                     {{::prediction.available ? 'beschikbaar' : 'niet beschikbaar'}}
+                   </span>
 
                 <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
-                    <span ng-if="::prediction.publication.start">van: </span> {{ ::prediction.publication.start |  mediaDateTime }}
-                    <span ng-if="::prediction.publication.stop"> tot: </span> {{ ::prediction.publication.stop |  mediaDateTime }}
-                </span>
+                      <span ng-if="::prediction.publication.start">van: </span> {{ ::prediction.publication.start |  mediaDateTime }}
+                      <span ng-if="::prediction.publication.stop"> tot: </span> {{ ::prediction.publication.stop |  mediaDateTime }}
+                  </span>
+
+                <span title="{{::prediction.authority}}" ng-switch-when="authority" >
+                       {{::prediction.authority}}
+                   </span>
             </td>
 
             <td class="column-tools">
-                <div ng-show="::prediction.mayWrite" >
+                <div>
                     <div class="tools" >
-                        <button ng-if="::prediction.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="predictionsController.editPrediction(prediction)">bewerk</button>
+                        <button ng-if="predictionsController.isEditable(prediction)" title='edit bron' class="poms-icon icon-edit" ng-click="predictionsController.editPrediction(prediction)">bewerk</button>
                     </div>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-
-
-
 </div>
