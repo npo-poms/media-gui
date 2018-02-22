@@ -9,27 +9,25 @@ angular.module( 'poms.media.directives' )
                 editor = EditorService.getCurrentEditor() ;
 
                 $scope.allColumns = [
-                    {'id': 'platform', 'value': 'Platform'},
-                    {'id': 'available', 'value': 'Beschikbaarheid', 'width': 300},
-                    {'id': 'dates', 'value': 'Online / Offline'},
-                    {'id': 'authority', 'value': 'Authority'}
-
+                    {'id': 'platform', 'value': 'Platform', 'tableValue': 'Platform'},
+                    {'id': 'available', 'value': 'Beschikbaarheid', 'tableValue': 'Beschikbaarheid'},
+                    {'id': 'dates', 'value': 'Online / Offline' , 'tableValue': 'Online / Offline'},
+                    {'id': 'authority', 'value': 'Authority', 'tableValue': 'Authority'}
                 ];
                 if ( attrs.namespace ) {
                     namespace = $parse( attrs.namespace )( $scope );
                 }
 
                 namespace = namespace || 'predictions';
-
                 defaultKey = editor.hashId + '.edit.' + namespace + '.grid.columns.default';
 
                 var defaultColumns = localStorageService.get( defaultKey );
 
                 if ( ! defaultColumns ) {
                     defaultColumns = [
-                        {'id': 'platform', 'value': 'Platform'},
-                        {'id': 'available', 'value': 'Beschikbaarheid'},
-                        {'id': 'dates', 'value': 'Online / Offline'}
+                        {'id': 'platform', 'value': 'Platform', 'tableValue': 'Platform'},
+                        {'id': 'available', 'value': 'Beschikbaarheid', 'tableValue': 'Beschikbaarheid'},
+                        {'id': 'dates', 'value': 'Online / Offline' , 'tableValue': 'Online / Offline'}
                     ];
 
                     localStorageService.set(defaultKey, defaultColumns);
