@@ -11,7 +11,6 @@ describe('EditController', function() {
         mediaService = {},
         searchFactory = {},
         searchService = {},
-        subtitlesService = {},
         deferredOptions,
         target;
 
@@ -95,8 +94,7 @@ describe('EditController', function() {
             'ListService' : listService,
             'MediaService' : mediaService,
             'SearchFactory' : searchFactory,
-            'SearchService' : searchService,
-            'SubtitlesService': subtitlesService
+            'SearchService' : searchService
         });
 
         deferredOptions.resolve([
