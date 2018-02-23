@@ -101,6 +101,7 @@ angular.module( 'poms.util.filters' )
         return function ( item, type ) {
             switch ( type ) {
                 case 'creationDate':
+                case 'endDate':
                 case 'publishDate':
                 case 'lastModified':
                 case 'lastModifiedDate':

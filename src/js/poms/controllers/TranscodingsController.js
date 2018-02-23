@@ -33,8 +33,6 @@ angular.module( 'poms.media.controllers' ).controller( 'TranscodingsController',
                     }
                 }.bind(this)
             );
-
-
         }
 
         TranscodingsController.prototype = {

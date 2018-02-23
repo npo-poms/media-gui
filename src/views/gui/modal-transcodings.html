@@ -24,31 +24,31 @@
         <thead>
         <tr class="poms-table-head-row">
             <th title="MID" class="poms-table-header"> MID </th>
+            <th title="Gestart op" class="poms-table-header"> Gestart op </th>
+            <th title="Gestopt op" class="poms-table-header"> Gestopt op </th>
             <th title="Title" class="poms-table-header"> Titel </th>
             <th title="Status" class="poms-table-header"> Status </th>
-            <th title="Encoder" class="poms-table-header"> Encoder </th>
-            <th title="Gestart op" class="poms-table-header"> Gestart op </th>
-            <th title="Gewijzigd op" class="poms-table-header"> Gewijzigd op </th>
-
+            <th title="GUID" class="poms-table-header"> Job Id </th>
         </tr>
         </thead>
 
         <tbody>
         <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index" ng-click="transcodingsController.openMid(transcoding.mid)">
             <td> {{ transcoding.mid }} </td>
-            <td> {{ transcoding.title }}  </td>
-            <td> {{ transcoding.state }} </td>
-            <td> {{ transcoding.encoder }} </td>
             <td>
                 <span ng-if="transcoding.creationDate">
                     {{ transcoding | searchColumnFilter:"creationDate"}}
                 </span>
             </td>
             <td>
-                <span ng-if="transcoding.lastModifiedDate">
-                    {{ transcoding | searchColumnFilter:"lastModifiedDate" }}
+                <span ng-if="transcoding.endDate">
+                    {{ transcoding | searchColumnFilter:"endDate" }}
                 </span>
             </td>
+            <td> {{ transcoding.title }}  </td>
+            <td> {{ transcoding.state }} </td>
+
+            <td> {{ transcoding.workflowId }} </td>
         </tr>
         </tbody>
     </table>
@@ -61,7 +61,6 @@
             &nbsp;
         </div>
         <button class="btn-rect btn-rect-cancel" ng-click="transcodingsController.cancel($event)">Sluit</button>
-
     </div>
 </div>
 
