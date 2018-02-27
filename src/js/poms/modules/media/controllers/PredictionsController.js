@@ -33,16 +33,9 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                 return false;
             },
 
-            isEditable: function (prediction) {
-                if ( prediction.mayWrite === false || this.$scope.media.type.id === 'BROADCAST') {
-                    return false;
-                }
-                return true;
-            },
-
             editPrediction: function (prediction) {
 
-                if(!this.isEditable(prediction)){
+                if(!prediction.mayWrite){
                     return;
                 }
 
@@ -72,7 +65,6 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                         this.load();
                     }.bind(this)
                 );
-
             },
 
             load: function () {

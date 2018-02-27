@@ -29,7 +29,7 @@
         <tbody>
         <tr class="poms-table-row"
             ng-repeat="prediction in predictionsController.predictions"
-            ng-class="{'waiting': predictionsController.predictionsWaiting, 'may-write': predictionsController.isEditable(prediction)}"
+            ng-class="{'waiting': predictionsController.predictionsWaiting, 'may-write': prediction.mayWrite}"
             ng-dblclick="predictionsController.editPrediction(prediction)"
         >
             <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
@@ -54,7 +54,7 @@
             <td class="column-tools">
                 <div>
                     <div class="tools" >
-                        <button ng-if="predictionsController.isEditable(prediction)" title='edit bron' class="poms-icon icon-edit" ng-click="predictionsController.editPrediction(prediction)">bewerk</button>
+                        <button ng-if="prediction.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="predictionsController.editPrediction(prediction)">bewerk</button>
                     </div>
                 </div>
             </td>
