@@ -300,15 +300,21 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             },
 
             setStartValueAsMs : function () {
-                this.$scope.item.start =  (this.$filter('dateTimeToMSeconds')( this.$scope.item.startastime)) - (this.TIMEOFFSET * 1000);
-                this.seekAndPause( this.$scope.item.start );
-                this.setDuration();
+                var starttimeInMs = (this.$filter('dateTimeToMSeconds')( this.$scope.item.startastime)) - (this.TIMEOFFSET * 1000);
+                if(!isNaN(starttimeInMs)){
+                    this.$scope.item.start = starttimeInMs;
+                    this.seekAndPause( this.$scope.item.start );
+                    this.setDuration();
+                }
             },
 
             setStopValueAsMs : function () {
-                this.$scope.item.stop = (this.$filter('dateTimeToMSeconds')( this.$scope.item.stopastime)) - (this.TIMEOFFSET * 1000);
-                this.seekAndPause( this.$scope.item.stop );
-                this.setDuration();
+                var stoptimeInMs = (this.$filter('dateTimeToMSeconds')( this.$scope.item.stopastime)) - (this.TIMEOFFSET * 1000);
+                if(!isNaN(stoptimeInMs)){
+                    this.$scope.item.stop = stoptimeInMs;
+                    this.seekAndPause( this.$scope.item.stop );
+                    this.setDuration();
+                }
             },
 
             seekAndPause : function ( time ) {
