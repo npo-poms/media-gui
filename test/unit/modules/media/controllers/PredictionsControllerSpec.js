@@ -65,22 +65,7 @@ describe('PredictionsController', function() {
             $scope.media = {avType: avType};
             expect(target.isViewable()).toEqual(true);
         });
-
-        it('is editable when mayWrite is false and type is not broadcast', function() {
-            $scope.prediction ={mayWrite: true};
-            var type = {id: "CLIP"};
-            $scope.media = {type: type};
-            expect(target.isEditable($scope.prediction)).toEqual(true);
-        });
-
-        it('is editable when type is broadcast', function() {
-            $scope.prediction ={mayWrite: true};
-            var type = {id: "BROADCAST"};
-            $scope.media = {type: type};
-            expect(target.isEditable($scope.prediction)).toEqual(false);
-        });
     });
-
 });
 
 
