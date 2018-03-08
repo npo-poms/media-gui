@@ -52,20 +52,6 @@ describe('PredictionsController', function() {
         ]);
 
     }));
-
-    describe('Platform list', function() {
-        it('is not viewable when AvType is audio', function() {
-            var avType = {id:"AUDIO"}
-            $scope.media = {avType: avType};
-            expect(target.isViewable()).toEqual(false);
-        });
-
-        it('is viewable when AvType is video', function() {
-            var avType = {id:"VIDEO"}
-            $scope.media = {avType: avType};
-            expect(target.isViewable()).toEqual(true);
-        });
-    });
 });
 
 

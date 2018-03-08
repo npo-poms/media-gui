@@ -26,13 +26,6 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
 
         PredictionsController.prototype = {
 
-            isViewable: function () {
-                if (this.$scope.media.avType.id == 'VIDEO'){
-                    return true;
-                }
-                return false;
-            },
-
             editPrediction: function (prediction) {
 
                 if(!prediction.mayWrite){
