@@ -1,4 +1,5 @@
 angular.module('poms.media.controllers').controller('PredictionsController', [
+    '$rootScope',
     '$scope',
     '$filter',
     '$http',
@@ -11,7 +12,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
     'appConfig',
     (function () {
 
-        function PredictionsController($scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, appConfig) {
+        function PredictionsController($rootScope, $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, appConfig) {
             this.$http = $http;
             this.$filter = $filter;
             this.$modal = $modal;
@@ -21,6 +22,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
             this.listService = ListService;
             this.$scope = $scope;
             this.appConfig = appConfig;
+            this.$rootScope = $rootScope;
             this.load();
         }
 
@@ -55,6 +57,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                 modal.result.then(
                     function (media) {
                         angular.copy(media, this.$scope.media);
+                        this.$rootScope.$broadcast('predictionUpdated');
                         this.load();
                     }.bind(this)
                 );

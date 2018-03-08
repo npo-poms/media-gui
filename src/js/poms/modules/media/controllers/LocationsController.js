@@ -56,6 +56,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 }
             }.bind( this ) );
 
+            // update locations when platforms are updated since new locations can be created as result.
+            $scope.$on('predictionUpdated', function(event) { this.load(); }.bind(this));
+
         }
 
         LocationsController.prototype = {
@@ -221,7 +224,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         this.load();
                     }.bind( this )
                 );
-            }
+            },
 
         };
 
