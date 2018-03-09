@@ -4,8 +4,6 @@
         <poms-help field="editor.locations"></poms-help>
     </h1>
 
-
-
     <button class="btn-text-icon btn-text-icon-add"
             ng-if="locationsController.mayAddLocations();"
             ng-click="locationsController.addLocation();">
@@ -57,7 +55,6 @@
                      {{::location.format}}
                  </span>
 
-
                  <span title="{{::location.url}}" ng-switch-when="url"  class="url-outer">
                      <span class="url-inner"> {{::location.url}} </span>
                  </span>
@@ -104,21 +101,19 @@
     </table>
 
     <div ng-if="locationsController.mayUpload">
-
         <div ng-if="locationsController.uploadInProgress" class="uploading-location" ng-class="{'no-locations' : (!locationsController.locations || locationsController.locations.length == 0)}">
             <div ng-style="{width: upService.uploadProgress[media.mid]}" class="uploading-location-progress"></div>
             <div class="uploading-location-title">Uploading {{locationsController.currentUpload}} ({{upService.uploadProgress[media.mid]}}) </div>
         </div>
 
         <div class="transcoding-location" ng-repeat="transcoding in locationsController.transcodings">
-            <div class="transcoding-location-title">Transcoding voor {{transcoding.title}} is {{transcoding.state}} (gestart op {{transcoding | searchColumnFilter:"creationDate" }}, klaar op {{transcoding | searchColumnFilter:"lastModifiedDate"}}) </div>
+            <div title="{{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title">
+                Transcoding gestart op {{transcoding | searchColumnFilter:"creationDate" }} heeft als status {{transcoding.state}} {{transcoding.title ? '(' + (transcoding.title | limitTo: 70) + (transcoding.title.length > 70 ? ' ...' : '') + ')' : ''}} en is beëindigd op {{transcoding | searchColumnFilter:"endDate" }}
+            </div>
         </div>
 
         <div ng-if="locationsController.junctionError" class="inline-error">
             De transcodeerdienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
         </div>
-
     </div>
-
-
 </div>
