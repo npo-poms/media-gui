@@ -9,12 +9,12 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
         var RECONNECT_TIMEOUT = appConfig.RECONNECT_TIMEOUT || 30000;
         var PUBLICATIONS_REQUEST = appConfig.PUBLICATIONS_REQUEST || BASE_URL + '/publications';
         var PUBLICATIONS_TOPIC = appConfig.PUBLICATIONS_TOPIC || "/topic/publications";
-
-        var ITEMIZER_TOPIC = appConfig.PUBLICATIONS_TOPIC || "/topic/itemizer";
-
-        var PUBLICATIONS_BROKER = appConfig.PUBLICATIONS_BROKER || "/poms/publications";
+        var ITEMIZER_TOPIC = "/topic/itemizer";
+        var MESSAGES_TOPIC = "/topic/messages";
         var publicationListener = $q.defer();
         var itemizerListener = $q.defer();
+        var messagesListener = $q.defer();
+
 
         var client;
         var stomp;
@@ -38,6 +38,9 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
             stomp.subscribe( ITEMIZER_TOPIC, function ( data ) {
                 itemizerListener.notify( getMessage( data.body ) );
+            } );
+            stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
+                messagesListener.notify(data);
             } );
 
         }
@@ -64,6 +67,9 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
             receiveItemizerMessage: function () {
                 return itemizerListener.promise;
+            },
+            receiveMessage: function () {
+                return messagesListener.promise;
             },
 
             send: function ( message ) {
