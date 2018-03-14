@@ -48,37 +48,26 @@
     border-top-color: $black;
 }
 
-.tab-media-FOR_REPUBLICATION .nav-link {
+.tab-media-FOR_REPUBLICATION .nav-link,
+.tab-media-FOR_PUBLICATION .nav-link  {
     border-top: 2px dashed $lichtoranje;
 }
 
-.tab-media-FOR_REPUBLICATION.active .nav-link {
-    border-top: 2px dashed $oranje;
-}
-
-.tab-media-FOR_REPUBLICATION.no-edit .nav-link {
-    border-top: 2px dashed $grijs;
-}
-
-.tab-media-FOR_REPUBLICATION.no-edit .nav-link {
-    border-top: 2px dashed $black;
-}
-
-.tab-media-FOR_PUBLICATION .nav-link {
-    border-top: 2px dashed $lichtoranje;
-}
-
+.tab-media-FOR_REPUBLICATION.active .nav-link,
 .tab-media-FOR_PUBLICATION.active .nav-link {
     border-top: 2px dashed $oranje;
 }
 
-.tab-media-FOR_PUBLICATION.no-edit .nav-link {
+.tab-media-FOR_REPUBLICATION.no-edit .nav-link,
+.tab-media-FOR_PUBLICATION.no-edit .nav-link{
     border-top: 2px dashed $grijs;
 }
 
+.tab-media-FOR_REPUBLICATION.no-edit .nav-link,
 .tab-media-FOR_PUBLICATION.no-edit .nav-link {
     border-top: 2px dashed $black;
 }
+
 
 .tab-heading {
     display: block;
