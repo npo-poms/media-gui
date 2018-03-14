@@ -22,15 +22,13 @@ angular.module( 'poms.media.controllers' ).controller( 'TranscodingsController',
             this.uploadService.getJobs( mock ).then(
                 function ( data ) {
                     this.$scope.transcodings = data;
-                    this.$scope.junctionError = false;
+                    this.$scope.transcodingServiceError = false;
+
                 }.bind(this),
                 function ( error ) {
-                    if ( error.code === 'nl.vpro.soap.timeout' ) {
-                        this.notificationService.notify( "De transcodeerdienst is op dit moment onbereikbaar" );
-                        this.$scope.junctionError = true;
-                    } else {
-                        this.$scope.$emit( 'error', error )
-                    }
+                    this.$scope.$emit( 'error', error );
+                    //this.$scope.transcodingServiceError = true;
+
                 }.bind(this)
             );
         }

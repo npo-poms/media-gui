@@ -11,7 +11,7 @@
     </button>
 
     <button ng-disabled="locationsController.uploadInProgress" class="btn-text-icon btn-text-icon-add"
-            ng-if="locationsController.mayUpload && locationsController.mayAddLocations() && !locationsController.junctionError"
+            ng-if="locationsController.mayUpload && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"
             ng-click="locationsController.uploadLocation();">
         Upload
     </button>
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div ng-if="locationsController.junctionError" class="inline-error">
+        <div ng-if="locationsController.transcodingServiceError" class="inline-error">
             De transcodeerdienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
         </div>
     </div>

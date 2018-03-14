@@ -5,9 +5,9 @@
 
 <div class="modal-body">
 
-    <div ng-if="!junctionError">
+    <div ng-if="!transcodingServiceError">
         <p>
-            Een overzicht van alle lopende uploads aangemaakt door deze gebruiker.
+            Een overzicht van alle lopende uploads aangemaakt door uw omroep(en).
         </p>
 
         <p ng-if="!transcodings">
@@ -15,7 +15,7 @@
         </p>
     </div>
 
-    <div ng-if="junctionError" class="inline-error">
+    <div ng-if="transcodingServiceError" class="inline-error">
         De transcodeerdienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
     </div>
 

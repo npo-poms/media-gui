@@ -153,12 +153,12 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     this.uploadService.getJobsForMid( this.$scope.media.mid ).then(
                         function ( transcodings ) {
                             this.transcodings = transcodings;
-                            this.junctionError = false;
+                            this.transcodingServiceError = false;
                         }.bind( this ),
                         function ( error ) {
-                            if ( error.code && error.code === 'nl.vpro.soap.timeout' ) {
+                            if ( error.code) {
                                 this.notificationService.notify( "De transcodeerdienst is op dit moment onbereikbaar" );
-                                this.junctionError = true;
+                                this.transcodingServiceError = true;
                             } else {
                                 //this.$scope.$emit( 'error', error )
                             }

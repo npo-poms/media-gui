@@ -87,7 +87,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
                 this.$scope.segment.start = this.$filter( 'noTimezone' )( this.$scope.segment.start ).getTime();
                 this.$scope.segment.stop = this.$filter( 'noTimezone' )( this.$scope.segment.stop ).getTime();
 
-                if ( this.$scope.segment.start == this.$scope.segment.stop ) {
+                if ( this.$scope.segment.start === this.$scope.segment.stop ) {
                     this.$scope.segment.stop += 1;
                 }
 
