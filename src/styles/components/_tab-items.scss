@@ -64,6 +64,22 @@
     border-top: 2px dashed $black;
 }
 
+.tab-media-FOR_PUBLICATION .nav-link {
+    border-top: 2px dashed $lichtoranje;
+}
+
+.tab-media-FOR_PUBLICATION.active .nav-link {
+    border-top: 2px dashed $oranje;
+}
+
+.tab-media-FOR_PUBLICATION.no-edit .nav-link {
+    border-top: 2px dashed $grijs;
+}
+
+.tab-media-FOR_PUBLICATION.no-edit .nav-link {
+    border-top: 2px dashed $black;
+}
+
 .tab-heading {
     display: block;
     position: relative;
