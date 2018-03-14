@@ -40,7 +40,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
                 itemizerListener.notify( getMessage( data.body ) );
             } );
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
-                messagesListener.notify(data);
+                messagesListener.notify( getMessage(data.body));
             } );
 
         }
