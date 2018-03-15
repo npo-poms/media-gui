@@ -52,10 +52,10 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
 
             changeAvailability: function () {
                 var prediction = this.$scope.prediction;
-                if(!prediction.available){
-                    prediction.publication.start = undefined;
-                    prediction.publication.stop = undefined;
-                }
+                // if(!prediction.available){
+                //     prediction.publication.start = undefined;
+                //     prediction.publication.stop = undefined;
+                // }
             },
 
             save: function () {
