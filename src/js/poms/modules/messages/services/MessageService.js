@@ -45,7 +45,14 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
                 var json = JSON.parse(data.body);
                 if (json.receiverId == null || json.receiverId === editorService.getCurrentEditor().id) {
-                    messagesListener.notify(json.text);
+                    messagesListener.notify(
+                        json.text,
+                        json.level === 'INFO' ? 'success' : 'error',
+                        {
+                            timeout: json.duration * 1000,
+                            id : json.id
+                        }
+                    );
                 }
             } );
 

@@ -3,17 +3,23 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
     function ( ngToast ) {
 
         function NotificationService () {
+           /* ngToast.configure({
+                combineDuplications: true
+            });*/
         }
 
         NotificationService.prototype = {
 
-            notify : function ( message, status, timeout) {
 
+            notify : function ( message, status, args) {
+                args = args || {};
+                args.timeout = args.timeout || 4000;
+                var id = args.id ? "notification_" + args.id : null;
+                var span = id ? "<span id='" + id + "'>" : "<span>";
                 ngToast.create( {
                     className: status || "success",
-                    timeout: timeout || 4000,
-                    combineDuplications: true,
-                    content: '<span>' + message + '</span>'
+                    timeout: args.timeout,
+                    content: span + message + '</pan>'
                 });
             }
 
