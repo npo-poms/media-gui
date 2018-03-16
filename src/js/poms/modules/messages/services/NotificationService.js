@@ -7,17 +7,14 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
 
         NotificationService.prototype = {
 
-            notify : function ( message, status ) {
+            notify : function ( message, status, timeout) {
 
-                var notification = {
-                    content : '<span>' + message + '</span>'
-                };
-
-                if ( status ){
-                    notification.className = status;
-                }
-
-                ngToast.create( notification );
+                ngToast.create( {
+                    className: status || "success",
+                    timeout: timeout || 4000,
+                    combineDuplications: true,
+                    content: '<span>' + message + '</span>'
+                });
             }
 
         };

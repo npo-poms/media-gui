@@ -3,7 +3,9 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
     '$timeout',
     '$http',
     'appConfig',
-    function ( $q, $timeout, $http, appConfig ) {
+    'NotificationService',
+    'EditorService',
+    function ( $q, $timeout, $http, appConfig, messagesListener, editorService) {
 
         var BASE_URL = appConfig.apihost + '/gui/messages';
         var RECONNECT_TIMEOUT = appConfig.RECONNECT_TIMEOUT || 30000;
@@ -13,7 +15,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
         var MESSAGES_TOPIC = "/topic/messages";
         var publicationListener = $q.defer();
         var itemizerListener = $q.defer();
-        var messagesListener = $q.defer();
+
 
 
         var client;
@@ -21,14 +23,15 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
         function initialize () {
             try {
-                client = new SockJS( PUBLICATIONS_REQUEST );
-                stomp = Stomp.over( client );
-                stomp.connect( {}, startListeners );
+                client = new SockJS(PUBLICATIONS_REQUEST);
+                stomp = Stomp.over(client);
+                stomp.connect({}, startListeners);
                 stomp.debug = null;
                 stomp.onclose = reconnect;
             } catch ( e ) {
                 console.log( e )
             }
+
         }
 
         function startListeners () {
@@ -40,7 +43,10 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
                 itemizerListener.notify( getMessage( data.body ) );
             } );
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
-                messagesListener.notify( getMessage(data.body));
+                var json = JSON.parse(data.body);
+                if (json.receiverId == null || json.receiverId === editorService.getCurrentEditor().id) {
+                    messagesListener.notify(json.text);
+                }
             } );
 
         }
@@ -68,9 +74,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
             receiveItemizerMessage: function () {
                 return itemizerListener.promise;
             },
-            receiveMessage: function () {
-                return messagesListener.promise;
-            },
+
 
             send: function ( message ) {
                 stomp.send( PUBLICATIONS_BROKER, {
