@@ -15,12 +15,17 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
                 args = args || {};
                 args.timeout = args.timeout || 4000;
                 var id = args.id ? "notification_" + args.id : null;
-                var span = id ? "<span id='" + id + "'>" : "<span>";
-                ngToast.create( {
-                    className: status || "success",
-                    timeout: args.timeout,
-                    content: span + message + '</pan>'
-                });
+                var existing = document.querySelector( '#' + id);
+                if (existing!= null) {
+                    existing.innerHTML = message;
+                } else {
+                    var span = id ? "<span id='" + id + "'>" : "<span>";
+                    ngToast.create({
+                        className: status || "success",
+                        timeout: args.timeout,
+                        content: span + message + '</pan>'
+                    });
+                }
             }
 
         };
