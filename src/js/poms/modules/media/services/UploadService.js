@@ -122,6 +122,9 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                 this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );
                 this.notify( newUpload );
 
+                // not set on individual part?
+                fields.fileSize = location.file[0].size;
+
                 this.$upload.upload( {
                     url: this.host + '/gui/upload',
                     method: 'POST',
