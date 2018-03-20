@@ -33,7 +33,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
             $scope.edit = edit;
 
             if ( $scope.edit ) {
-                $scope.modalTitle = prediction.platform + "bewerken";
+                $scope.modalTitle = prediction.platform.id + "bewerken";
                 $scope.submitText = "sla op";
             }
         }
