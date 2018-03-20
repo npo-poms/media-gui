@@ -35,7 +35,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             this.searchService = searchService;
             this.editorService = editorService;
             this.guiService = guiService;
-            
+
             editorService.getAllowedBroadcasters().then(
                 function ( data ) {
                     this.allowedBroadcasters = data;
@@ -62,7 +62,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     $scope.$emit( pomsEvents.error, error )
                 }.bind( this )
             );
-            
+
             listService.getPortals().then(
                 function ( data ) {
                     this.portals = data;
@@ -319,7 +319,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                         addEventMethod,
                         search;
 
-                if(memberType == 'episodeOf') {
+                if(memberType === 'episodeOf') {
                     addMethod = 'addEpisodeOf';
                     addEventMethod = 'addedEpisode';
                     search = this.searchFactory.newEpisodeOfSearch({parentMid : this.$scope.media.mid})

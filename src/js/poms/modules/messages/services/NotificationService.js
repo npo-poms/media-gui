@@ -23,7 +23,7 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
                     ngToast.create({
                         className: status || "success",
                         timeout: args.timeout,
-                        content: span + message + '</pan>'
+                        content: span + message + '</span>'
                     });
                 }
             }
