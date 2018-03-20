@@ -53,7 +53,7 @@
             <div class="row">
 
                 <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
-                    <label>Priority&#42;</label>
+                    <label>Prioriteit&#42;</label>
                     <ui-select ng-model="location.priority" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
                         <ui-select-choices repeat="item in priorityTypes | filter: {text: $select.search}">
                         <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
-                    <label>Encryption&#42;</label>
+                    <label>Encryptie&#42;</label>
                     <ui-select ng-model="location.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
                         <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
                             <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
