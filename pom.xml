@@ -14,9 +14,9 @@
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/branches/REL-5.6-SNAPSHOT</connection>
-    <developerConnection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/branches/REL-5.6-SNAPSHOT</developerConnection>
-    <url>https://subversion.vpro.nl/viewvc/nl/vpro/media-gui/branches/REL-5.6-SNAPSHOT</url>
+    <connection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</connection>
+    <developerConnection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</developerConnection>
+    <url>https://subversion.vpro.nl/viewvc/nl/vpro/media-gui/trunk</url>
   </scm>
   <profiles>
     <profile>
