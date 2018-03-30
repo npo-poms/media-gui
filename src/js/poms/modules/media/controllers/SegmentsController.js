@@ -70,7 +70,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 var itemizerController = undefined;
                 var itemizerTemplate = undefined;
 
-                if ( $.inArray( this.$scope.media.streamingPlatformStatus, ['AVAILABLE_WITH_DRM', 'AVAILABLE']) > -1 ) {
+                if ( $.inArray( this.$scope.media.streamingPlatformStatus.id, ['AVAILABLE_WITH_DRM', 'AVAILABLE']) > -1 ) {
                     itemizerController = 'ItemizerNEPController';
                     itemizerTemplate = 'media/itemizerNEP.html';
                 } else {
