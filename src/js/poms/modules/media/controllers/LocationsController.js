@@ -24,7 +24,6 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             this.$scope = $scope;
             this.appConfig = appConfig;
 
-            this.mayUpload = EditorService.currentEditorHasRoles( [ 'UPLOAD' ] );
 
             this.uploadInProgress = false;
             this.currentUpload = undefined;
@@ -69,6 +68,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
             mayAddLocations: function (location) {
                 return this.mediaService.hasWritePermission(this.$scope.media, 'locations');
+            },
+            mayUpload: function() {
+                return this.$scope.media.permissions['LOCATION_UPLOAD'];
             },
 
             editLocation : function ( location, permission ) {

@@ -11,7 +11,7 @@
     </button>
 
     <button ng-disabled="locationsController.uploadInProgress" class="btn-text-icon btn-text-icon-add"
-            ng-if="locationsController.mayUpload && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"
+            ng-if="locationsController.mayUpload() && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"
             ng-click="locationsController.uploadLocation();">
         Upload
     </button>
