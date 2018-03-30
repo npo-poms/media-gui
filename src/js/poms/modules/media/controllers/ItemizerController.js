@@ -24,7 +24,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
                 segment.mainTitle.text !== undefined &&
                 segment.mainTitle.text !== '' &&
                 segment.mainDescription &&
-                segment.mainDescription.text != undefined &&
+                segment.mainDescription.text !== undefined &&
                 segment.mainDescription.text !== '' &&
                 segment.start < segment.stop
         }
@@ -123,7 +123,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             setupWatchers : function () {
 
                 this.$scope.$watch( 'segment.start', _.debounce( function ( a, b ) {
-                    if ( a != b ) {
+                    if ( a !== b ) {
                         this.$timeout( function () {
                             this.setStartValueAsDate( a );
                             this.seekAndPause( a );
@@ -132,7 +132,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
                 }.bind( this ), 100 ) );
 
                 this.$scope.$watch( 'segment.stop', _.debounce( function ( a, b ) {
-                    if ( a != b ) {
+                    if ( a !== b ) {
                         this.$timeout( function () {
                             this.setStopValueAsDate( a );
                             this.seekAndPause( a );
@@ -346,7 +346,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
                             var isNew = true;
 
                             for ( var j = 0; j < this.$scope.segments.length; j ++ ) {
-                                if ( this.$scope.segments[ j ].mid && segments[ i ].mid == this.$scope.segments[ j ].mid ) {
+                                if ( this.$scope.segments[ j ].mid && segments[ i ].mid === this.$scope.segments[ j ].mid ) {
                                     isNew = false;
                                 }
                             }
@@ -420,7 +420,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
 
                     }.bind( this ),
                     function ( error ) {
-                        if ( error.status && error.status == 400 && error.violations ) {
+                        if ( error.status && error.status === 400 && error.violations ) {
                             source.violations = error.violations;
                             return 'Errors';
                         } else {
