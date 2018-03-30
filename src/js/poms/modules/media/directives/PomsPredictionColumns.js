@@ -10,7 +10,8 @@ angular.module( 'poms.media.directives' )
 
                 $scope.allColumns = [
                     {'id': 'platform', 'value': 'Platform', 'tableValue': 'Platform'},
-                    {'id': 'available', 'value': 'Beschikbaarheid', 'tableValue': 'Beschikbaarheid'},
+                    {'id': 'plannedAvailability', 'value': 'Geplande beschikbaarheid', 'tableValue': 'Geplande beschikbaarheid'},
+                    {'id': 'state', 'value': 'Status', 'tableValue': 'Status'},
                     {'id': 'dates', 'value': 'Online / Offline' , 'tableValue': 'Online / Offline'},
                     {'id': 'authority', 'value': 'Authority', 'tableValue': 'Authority'}
                 ];
@@ -26,7 +27,7 @@ angular.module( 'poms.media.directives' )
                 if ( ! defaultColumns ) {
                     defaultColumns = [
                         {'id': 'platform', 'value': 'Platform', 'tableValue': 'Platform'},
-                        {'id': 'available', 'value': 'Beschikbaarheid', 'tableValue': 'Beschikbaarheid'},
+                        {'id': 'plannedAvailability', 'value': 'Geplande beschikbaarheid', 'tableValue': 'Geplande beschikbaarheid'},
                         {'id': 'dates', 'value': 'Online / Offline' , 'tableValue': 'Online / Offline'}
                     ];
 

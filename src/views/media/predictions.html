@@ -37,8 +37,11 @@
                   {{::prediction.platform.id}}
                 </span>
 
-                <span title="{{::prediction.available}}" ng-switch-when="available" >
-                     {{::prediction.available ? 'beschikbaar' : 'niet beschikbaar'}}
+                <span title="{{::prediction.plannedAvailability}}" ng-switch-when="plannedAvailability" >
+                     {{::prediction.plannedAvailability ? 'beschikbaar' : 'niet beschikbaar'}}
+                   </span>
+               <span title="{{::prediction.state}}" ng-switch-when="state" >
+                     {{::prediction.state.text }}
                    </span>
 
                 <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
