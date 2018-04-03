@@ -39,9 +39,10 @@
 
                 <span title="{{::prediction.plannedAvailability}}" ng-switch-when="plannedAvailability" >
                      {{::prediction.plannedAvailability ? 'beschikbaar' : 'niet beschikbaar'}}
-                   </span>
+                     {{::prediction.encryption.id == 'DRM' ? ' (Met DRM)': ''}}
+                </span>
                <span title="{{::prediction.state}}" ng-switch-when="state" >
-                     {{::prediction.state.text }}  {{::prediction.encryption.id == 'DRM' ? '( Met DRM )': ''}}
+                     {{::prediction.state.text }}
                </span>
 
                 <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
