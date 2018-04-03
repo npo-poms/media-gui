@@ -41,8 +41,8 @@
                      {{::prediction.plannedAvailability ? 'beschikbaar' : 'niet beschikbaar'}}
                    </span>
                <span title="{{::prediction.state}}" ng-switch-when="state" >
-                     {{::prediction.state.text }}
-                   </span>
+                     {{::prediction.state.text }}  {{::prediction.encryption.id == 'DRM' ? '( Met DRM )': ''}}
+               </span>
 
                 <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
                       <span ng-if="::prediction.publication.start">van: </span> {{ ::prediction.publication.start |  mediaDateTime }}
