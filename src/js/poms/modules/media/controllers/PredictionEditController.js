@@ -10,10 +10,11 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
     'media',
     'prediction',
     'edit',
+    'ListService',
     (function () {
 
 
-        function PredictionEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, prediction, edit) {
+        function PredictionEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, prediction, edit, listService) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -36,6 +37,12 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
                 $scope.modalTitle = prediction.platform.id + "bewerken";
                 $scope.submitText = "sla op";
             }
+
+
+            listService.getEncryptionTypes().then(function (l) {
+                $scope.encryptionTypes = l;
+            });
+
         }
 
         PredictionEditController.prototype = {
@@ -50,9 +57,6 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
                 this.$modalInstance.dismiss();
             },
 
-            changeAvailability: function () {
-                var prediction = this.$scope.prediction;
-            },
 
             save: function () {
 
