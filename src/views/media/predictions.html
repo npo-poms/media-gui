@@ -46,9 +46,10 @@
                </span>
 
                 <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
+                  <span ng-if="::prediction.plannedAvailability">
                       <span ng-if="::prediction.publication.start">van: </span> {{ ::prediction.publication.start |  mediaDateTime }}
-                      <span ng-if="::prediction.publication.stop"> tot: </span> {{ ::prediction.publication.stop |  mediaDateTime }}
-                  </span>
+                    <span ng-if="::prediction.publication.stop"> tot: </span> {{ ::prediction.publication.stop |  mediaDateTime }}</span>
+                </span>
 
                 <span title="{{::prediction.authority}}" ng-switch-when="authority" >
                        {{::prediction.authority}}
