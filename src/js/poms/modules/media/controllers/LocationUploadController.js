@@ -60,10 +60,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                         if ( result.length ){
                             this.$scope.transcodings = result;
                             for (var i=0; i< result.length;i++){
-                                if ( result[i] && result[i].state == 'REQUEST'
-                                    || result[i].state == 'PENDING'
-                                    || result[i].state == 'ENCODED'
-                                    || result[i].state == 'DELIVERED' ){
+                                if ( result[i] && result[i].state === 'REQUEST'
+                                    || result[i].state === 'PENDING'
+                                    || result[i].state === 'ENCODED'
+                                    || result[i].state === 'DELIVERED' ){
 
                                     this.$scope.isTranscoding = true;
                                     break;

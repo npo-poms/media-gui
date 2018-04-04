@@ -15,8 +15,18 @@
             <label for="available">Beschikbaar</label>
             <input type="checkbox" name="plannedAvailability" id="available"
                    ng-model="prediction.plannedAvailability"
-                   ng-change="controller.changeAvailability()"/>
+            />
           </div>
+
+          <div class="col-6 field">
+            <label for="encryption">Encryptie</label>
+              <ui-select id="encryption" ng-model="prediction.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+                <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
+                  <div ng-bind-html="item.text | highlight: $select.search"></div>
+                </ui-select-choices>
+                <ui-select-match>{{$select.selected.text }}</ui-select-match>
+              </ui-select>
+            </div>
           <div dropdown class="dropdown-wrapper col-6 field">
                 <li class="dropdown open">
                   <span class="dropdown-toggle" dropdown-toggle > Publicatie start/stop </span>

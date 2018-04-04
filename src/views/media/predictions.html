@@ -39,15 +39,20 @@
 
                 <span title="{{::prediction.plannedAvailability}}" ng-switch-when="plannedAvailability" >
                      {{::prediction.plannedAvailability ? 'beschikbaar' : 'niet beschikbaar'}}
-                   </span>
+                  <span ng-if="::prediction.plannedAvailability">
+                     {{::prediction.encryption.id == 'DRM' ? ' (Met DRM)': ''}}
+                  </span>
+                </span>
                <span title="{{::prediction.state}}" ng-switch-when="state" >
                      {{::prediction.state.text }}
-                   </span>
+               </span>
 
-                <span title="{{ ::prediction.publication.start |  date:'dd/MM/yyyy' }} - {{ ::prediction.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
-                      <span ng-if="::prediction.publication.start">van: </span> {{ ::prediction.publication.start |  mediaDateTime }}
-                      <span ng-if="::prediction.publication.stop"> tot: </span> {{ ::prediction.publication.stop |  mediaDateTime }}
+                <span title="{{ ::prediction.publication.start |  mediaDate }} - {{ ::prediction.publication.stop |  mediaDate }}" ng-switch-when="dates" >
+                  <span ng-if="::prediction.plannedAvailability">
+                    <span ng-if="::prediction.publication.start">van:  {{ ::prediction.publication.start |  mediaDateTime }}</span>
+                    <span ng-if="::prediction.publication.stop"> tot:  {{ ::prediction.publication.stop |  mediaDateTime }}</span>
                   </span>
+                </span>
 
                 <span title="{{::prediction.authority}}" ng-switch-when="authority" >
                        {{::prediction.authority}}
