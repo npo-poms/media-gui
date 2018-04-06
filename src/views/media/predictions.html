@@ -39,8 +39,10 @@
 
                 <span title="{{::prediction.plannedAvailability}}" ng-switch-when="plannedAvailability" >
                      {{::prediction.plannedAvailability ? 'beschikbaar' : 'niet beschikbaar'}}
-                  <span ng-if="::prediction.plannedAvailability">
-                     {{::prediction.encryption.id == 'DRM' ? ' (Met DRM)': ''}}
+                  <span ng-if="::prediction.plannedAvailability" ng-switch="::prediction.encryption.id">
+                    <span ng-switch-when="DRM">met DRM</span>
+                    <span ng-switch-when="NONE">zonder DRM</span>
+                    <span ng-switch-default>met of zonder DRM</span>
                   </span>
                 </span>
                <span title="{{::prediction.state}}" ng-switch-when="state" >

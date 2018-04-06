@@ -81,6 +81,9 @@
             {{::$parent.item.lastScheduleEvent.start | searchColumnFilter:column.id}} ({{::$parent.item.lastScheduleEvent.channel.id}})
           </span>
         </span>
+        <span ng-switch-when="streamingPlatformStatus" ng-title="{{::$parent.item.streamingPlatformStatus.displayName | searchColumnFilter:column.id }}">
+            {{::$parent.item.streamingPlatformStatus.displayName}}
+        </span>
         <span ng-switch-when="mid">
           <poms-clipboard field="item.mid"></poms-clipboard>
         </span>

@@ -28,6 +28,7 @@ angular.module( 'poms.media.directives' )
                     defaultColumns = [
                         {'id': 'platform', 'value': 'Platform', 'tableValue': 'Platform'},
                         {'id': 'plannedAvailability', 'value': 'Geplande beschikbaarheid', 'tableValue': 'Geplande beschikbaarheid'},
+                        {'id': 'state', 'value': 'Status', 'tableValue': 'Status'},
                         {'id': 'dates', 'value': 'Online / Offline' , 'tableValue': 'Online / Offline'}
                     ];
 
