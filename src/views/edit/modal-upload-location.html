@@ -69,7 +69,7 @@
                         <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
                             <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
                         </ui-select-choices>
-                            <ui-select-match>{{$select.selected.text }}</ui-select-match>
+                        <ui-select-match>{{$select.selected.text }}</ui-select-match>
                         </ui-select>
                     <poms-invalid violation="controller.violations.encryption"></poms-invalid>
                 </div>

@@ -39,8 +39,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             $scope.priorityTypes = priorityTypes;
             $scope.encryptionTypes = encryptionTypes;
 
-            location.priority = $scope.priorityTypes[0];
-            location.encryption = $scope.encryptionTypes[1];
+            // Set defaults
+            location.priority = $scope.priorityTypes.find(function(priorty) { return priorty.id === 'LOW'});
+            location.encryption = $scope.encryptionTypes.find(function(encryption) { return encryption.id === 'NONE'});
 
 
             this.init();
