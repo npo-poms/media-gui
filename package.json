@@ -1,7 +1,7 @@
 {
   "name": "POMSUI",
   "description": "GUI of the POMS admin",
-  "version": "5.5.0",
+  "version": "5.6.0",
   "config": {
     "apihost": ""
   },
