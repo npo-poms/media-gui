@@ -553,9 +553,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.$scope.assetWaiting = true;
 
                 this.itemizeRequest = {
-                    "starttime": this.$scope.segment.startastime,
-                    "endtime" : this.$scope.segment.stopastime,
-                    "identifier" : this.$scope.media.mid
+                    "mid" : this.$scope.media.mid,
+                    "start": this.$scope.segment.start,
+                    "stop" : this.$scope.segment.stop
+
                 };
 
                 this.NEPService.itemize( this.itemizeRequest ).then( function ( data ) {
@@ -577,9 +578,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            if ( this.itemizeRequest.identifier == message.request.identifier &&
-                                this.itemizeRequest.starttime == message.request.starttime &&
-                                this.itemizeRequest.stoptime == message.request.stoptime
+                            if ( this.itemizeRequest.identifier === message.request.identifier &&
+                                this.itemizeRequest.starttime === message.request.starttime &&
+                                this.itemizeRequest.stoptime === message.request.stoptime
                             ) {
                                 this.$scope.assetWaiting = false;
                             }
