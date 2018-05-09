@@ -129,7 +129,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                         var x = currentPos / 1000 + (this.mediaPlayer.duration() - this.mediaPlayer.time() );
                         this.$scope.playerMax = this.$filter( 'secondsToTime' )( ( x ) + this.TIMEOFFSET );
-                        console.log( this.$scope.playerTime + "===" + this.$scope.playerMax );
+                        //console.log( this.$scope.playerTime + "===" + this.$scope.playerMax );
                     }.bind( this ), 1000 );
                 }
             },
