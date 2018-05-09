@@ -115,6 +115,29 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                     });
 
                 return deferred.promise;
+            },
+             itemizelive :  function( request ) {
+
+                var deferred = $q.defer();
+                var url = baseUrl + '/itemizelive';
+
+                $http({
+                        method: 'post',
+                        url: url,
+                        data: request,
+                        headers: {
+                            'Accept': "text/plain",
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .success(function (media) {
+                        deferred.resolve(media);
+                    })
+                    .error(function (error) {
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
             }
 
         };

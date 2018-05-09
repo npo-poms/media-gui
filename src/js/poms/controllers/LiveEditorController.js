@@ -180,16 +180,16 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                 this.$scope.itemizerWaiting = true;
 
-                var startttime = moment( this.$scope.item.start ).utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS');
-                var stopttime = moment( this.$scope.item.stop ).utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS' );
+                var startttime = this.$scope.item.start;
+                var stopttime = this.$scope.item.stop;
 
                 this.itemizeRequest = {
-                    "starttime": startttime,
-                    "endtime" : stopttime,
-                    "identifier" : this.$scope.item.currentStream.id
+                    "start": startttime,
+                    "stop" : stopttime,
+                    "stream" : this.$scope.item.currentStream.id
                 };
 
-                this.NEPService.itemize( this.itemizeRequest ).then( function ( data ) {
+                this.NEPService.itemizelive( this.itemizeRequest ).then( function ( data ) {
                     this.$scope.item.assetLink = this.appConfig.apihost + data;
 
                 }.bind(this), function ( error ) {
