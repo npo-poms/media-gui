@@ -578,9 +578,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            if ( this.itemizeRequest.identifier === message.request.identifier &&
-                                this.itemizeRequest.starttime === message.request.starttime &&
-                                this.itemizeRequest.stoptime === message.request.stoptime
+                            if ( this.itemizeRequest.mid === message.request.mid &&
+                                this.itemizeRequest.start === message.request.start &&
+                                this.itemizeRequest.stop === message.request.stop
                             ) {
                                 this.$scope.assetWaiting = false;
                             }
