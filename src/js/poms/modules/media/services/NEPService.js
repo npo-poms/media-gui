@@ -5,7 +5,8 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
     '$modal',
     'localStorageService',
     'appConfig',
-    function ( $rootScope, $q, $http, $modal, localStorageService, appConfig ) {
+    'NotificationService',
+    function ( $rootScope, $q, $http, $modal, localStorageService, appConfig, notificationService) {
 
         var baseUrl = appConfig.apihost + '/gui/player';
 
@@ -18,7 +19,8 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                     deferred.resolve( result );
                 } )
                 .error( function ( error ) {
-                        deferred.reject( error );
+                    deferred.reject( error );
+                    notificationService.notify(error.message, 'error', {timeout: -1, id: 'nep-service'});
                     }
                 );
 

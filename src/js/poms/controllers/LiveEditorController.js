@@ -36,7 +36,9 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
         LiveEditorController.prototype = {
             cancel : function() {
                 this.stopCustomPlayerTimeInterval();
-                this.videoElement.pause();
+                if (this.videoElement) {
+                    this.videoElement.pause();
+                }
                 this.$modalInstance.dismiss();
             },
 
@@ -54,12 +56,17 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                         this.NEPService.getStream( this.$scope.item.currentStream.id ).then( function ( data ) {
                             this.createMediaPlayer( data );
-                        }.bind( this ) );
+                        }.bind( this ),  function ( error ) {
+
+                            //alert("Cannot create player");
+
+                        });
 
                         this.setupWatchers();
 
                     }.bind( this ),
                     function ( error ) {
+
 
                     }.bind( this )
                 );
