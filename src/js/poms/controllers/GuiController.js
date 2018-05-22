@@ -323,22 +323,13 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             newEditTab: function ( mid ) {
-                this.mediaService.load( mid )
-                    .then( function ( media ) {
-
-                        this.addTab( {
-                            active: true,
-                            id: mid,
-                            item: media,
-                            mayWrite: this.mediaService.hasWritePermission( media, 'media' ) ? "" : "no-edit",
-                            type: 'edit'
-                        } );
-
+                this.mediaService.load( mid ).then(
+                    function ( media ) {
+                        this.editMedia(media);
                     }.bind( this ),
                     function ( error ) {
-                        this.$scope.$emit( this.pomsEvents.error, error );
-                    }.bind( this )
-                );
+                        $rootScope.$emit( pomsEvents.error, error );
+                    }.bind( this ));
             },
 
             newMedia: function () {
@@ -419,6 +410,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 modal.result.then(
                     function ( mid ) {
                         this.newEditTab( mid );
+
                     }.bind( this )
                 );
             },
