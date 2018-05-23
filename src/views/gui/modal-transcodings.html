@@ -33,7 +33,8 @@
         </thead>
 
         <tbody>
-        <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index" ng-click="transcodingsController.openMid(transcoding.mid)">
+        <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index"
+            ng-click="transcodingsController.openMid(transcoding)">
             <td > {{ transcoding.mid }} </td>
             <td >
                 <span ng-if="transcoding.creationDate">

@@ -70,13 +70,7 @@ angular.module('poms.services').factory('GuiService', [
             },
 
             editMid : function(mid) {
-                mediaService.load( mid ).then(
-                        function ( media ) {
-                            this.openMediaTab(media);
-                        }.bind( this ),
-                        function ( error ) {
-                            $rootScope.$emit( pomsEvents.error, error );
-                        }.bind( this ));
+                this.guiController.newEditTab(mid);
             },
 
             editSelection : function(selection) {

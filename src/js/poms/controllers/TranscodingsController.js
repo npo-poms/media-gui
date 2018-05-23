@@ -39,8 +39,12 @@ angular.module( 'poms.media.controllers' ).controller( 'TranscodingsController',
                 this.$modalInstance.dismiss();
             },
 
-            openMid: function( mid ){
-                this.$modalInstance.close( mid );
+            openMid: function( transcoding ){
+                if (transcoding.missingMedia) {
+                    alert("Er is geen object " + transcoding.mid);
+                } else {
+                    this.$modalInstance.close(transcoding.mid);
+                }
             }
         };
 
