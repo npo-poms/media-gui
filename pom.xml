@@ -4,7 +4,7 @@
   <parent>
     <groupId>nl.vpro.poms</groupId>
     <artifactId>poms-parent</artifactId>
-    <version>5.7.1</verrsion>
+    <version>5.7.1</version>
   </parent>
 
   <groupId>nl.vpro.media</groupId>
