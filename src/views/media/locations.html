@@ -108,7 +108,10 @@
 
         <div class="transcoding-location" ng-repeat="transcoding in locationsController.transcodings">
             <div title="{{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title">
-                Transcoding gestart op {{transcoding | searchColumnFilter:"creationDate" }} heeft als status {{transcoding.state}} {{transcoding.title ? '(' + (transcoding.title | limitTo: 70) + (transcoding.title.length > 70 ? ' ...' : '') + ')' : ''}} en is be&euml;indigd op {{transcoding | searchColumnFilter:"endDate" }}
+                Transcoding gestart op {{transcoding | searchColumnFilter:"creationDate" }} heeft als status {{transcoding.state}} {{transcoding.title ? '(' + (transcoding.title | limitTo: 70) + (transcoding.title.length > 70 ? ' ...' : '') + ')' : ''}}
+                <span ng-if="{{transcoding.endDate}}">
+                en is be&euml;indigd op {{transcoding | searchColumnFilter:"endDate" }}
+                </span>
             </div>
         </div>
 

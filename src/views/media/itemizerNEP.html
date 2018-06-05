@@ -110,7 +110,7 @@
 
                 <div ng-if="assetLink && !assetWaiting">
                     <button class="live-editor-button" ng-click="itemizerController.openAsset()">
-                        <a href="{{assetLink}}">download MP4</a>
+                        <a href="{{assetLink}}">download MP4</a> <span ng-if="{{assetSize}}">({{assetSize}})</span>
                     </button>
                 </div>
 

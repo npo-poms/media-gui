@@ -583,6 +583,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                                 this.itemizeRequest.stop === message.request.stop
                             ) {
                                 this.$scope.assetWaiting = false;
+                                this.$scope.assetSize = message.mibSize;
                             }
                         }.bind( this ) );
                 } catch ( e ) {
