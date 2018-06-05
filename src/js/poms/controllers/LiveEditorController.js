@@ -250,9 +250,9 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             grabFrame : function () {
 
                 this.$scope.stillLoading = true;
-                var time = moment( this.videoElement.currentTime * 1000 ).utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS');
+                var time = moment(this.videoElement.currentTime * 1000 );
 
-                this.NEPService.getScreengrab( this.$scope.item.currentStream.id , time ).then( function ( response ) {
+                this.NEPService.getLiveScreengrab( this.$scope.item.currentStream.id , time ).then( function ( response ) {
                     var blob = new Blob( [ response.data ], { type : 'image/jpeg' } );
                     this.$scope.still = window.URL.createObjectURL( blob );
 

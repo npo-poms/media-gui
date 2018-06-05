@@ -50,9 +50,9 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                 return get( url , {} );
             },
 
-            getScreengrab : function( channel, datetime){
+            getScreengrab : function(mid, offset){
 
-                var url = 'screengrab?channel=' + channel + '&datetime=' + datetime;
+                var url = 'screengrab/' + mid + '&offset=' + datetime;
 
                 return  $http({
                     method: 'GET',
@@ -67,6 +67,25 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
 
 
             },
+
+
+            getLiveScreengrab : function( channel, datetime){
+                var url = 'screengrab/channel/' + channel + '?dateTime=' + datetime.utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS');
+
+                return  $http({
+                    method: 'GET',
+                    url: baseUrl  + '/' + url,
+                    data: '',
+                    headers: {
+                        'Accept' : undefined,
+                        'Content-Type': 'application/octet-stream'
+                    },
+                    'responseType' : 'blob'
+                });
+
+
+            },
+
 
             getStream : function( mid ) {
 
