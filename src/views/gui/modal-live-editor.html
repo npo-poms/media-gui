@@ -139,6 +139,9 @@
 
             <div class="image-preview" ng-if="still" style="background-image:url('{{still}}')">
             </div>
+            <div class="error" ng-if="stillerror">
+                <pre>{{stillerror}}</pre>
+            </div>
 
             <a ng-if="still" href="{{still}}" download> download deze afbeelding </a>
             <span ng-if="!still && stillLoading"> afbeelding wordt gemaakt</span>

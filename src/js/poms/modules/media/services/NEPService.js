@@ -51,41 +51,23 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             },
 
             getScreengrab : function(mid, offset){
-
                 var url = 'screengrab/' + mid + '&offset=' + datetime;
-
-                return  $http({
-                    method: 'GET',
-                    url: baseUrl  + '/' + url,
-                    data: '',
-                    headers: {
-                        'Accept' : undefined,
-                        'Content-Type': 'application/octet-stream'
-                    },
-                    'responseType' : 'blob'
-                });
-
-
+                return this.getBlob(url);
             },
 
 
             getLiveScreengrab : function( channel, datetime){
                 var url = 'screengrablive/' + channel + '?dateTime=' + datetime.utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS');
+                return this.getBlob(url);
+            },
 
+            getBlob : function(url) {
                 return  $http({
                     method: 'GET',
                     url: baseUrl  + '/' + url,
-                    data: '',
-                    headers: {
-                        'Accept' : undefined,
-                        'Content-Type': 'application/octet-stream'
-                    },
-                    'responseType' : 'blob'
+                    responseType : 'blob'
                 });
-
-
             },
-
 
             getStream : function( mid ) {
 

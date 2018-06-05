@@ -250,30 +250,35 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             grabFrame : function () {
 
                 this.$scope.stillLoading = true;
+                this.$scope.stillerror = null;
                 var time = moment(this.videoElement.currentTime * 1000 );
 
                 this.NEPService.getLiveScreengrab( this.$scope.item.currentStream.id , time ).then( function ( response ) {
-                    var blob = new Blob( [ response.data ], { type : 'image/jpeg' } );
-                    this.$scope.still = window.URL.createObjectURL( blob );
+                    if (response && response.data) {
+                        var blob = new Blob([response.data], {type: 'image/jpeg'});
+                        this.$scope.still = window.URL.createObjectURL(blob);
 
-                    this.$scope.image = {
-                        'file' : [ blob ]
-                    };
+                        this.$scope.image = {
+                            'file': [blob]
+                        };
 
-                    var reader = new window.FileReader();
-                    reader.readAsDataURL(blob);
-                    reader.onloadend = function() {
-                        this.$scope.stillBase64 = reader.result;
-                    }.bind( this );
-
-
-                    this.$scope.stillLoading = false;
-
-                }.bind( this ), function ( error ) {
+                        var reader = new window.FileReader();
+                        reader.readAsDataURL(blob);
+                        reader.onloadend = function () {
+                            this.$scope.stillBase64 = reader.result;
+                        }.bind(this);
+                    }
 
                     this.$scope.stillLoading = false;
+                    }.bind(this),
+                    function ( error ) {
+                        var reader = new FileReader();
+                        reader.readAsText(error.data);
+                        this.$scope.stillerror = reader.result;
+                        this.$scope.stillLoading = false;
 
-                }.bind( this ) );
+                    }.bind(this)
+                );
             },
 
             subscribeToItemizerMessages: function () {
