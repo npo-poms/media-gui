@@ -76,10 +76,11 @@
 
                 <div class="field float-clear col-4" ng-class="{'has-error' : uploadLocationForm.inputFile.$invalid}">
                     <label for="inputFile">Bestand</label>
-                        <input type="file" id="inputFile" name="inputFile"
-                         ng-file-select="uploadController.fileSelected()"
-                        ng-model="location.file"
-                        accept="audio/*,video/*,image/*,video/mp4,video/x-m4v">
+                        <input type="file"
+                               id="inputFile" name="inputFile"
+                               ng-file-select="uploadController.fileSelected()"
+                               ng-model="location.file"
+                               accept="application/mxf,video/mp4,video/x-m4v">
                 </div>
 
 
