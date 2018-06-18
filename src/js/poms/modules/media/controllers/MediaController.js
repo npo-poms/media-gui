@@ -42,8 +42,21 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
             $scope.$on( PomsEvents.publication, function ( e, publication ) {
                 if ( publication.mid === $scope.media.mid ) {
+                    var message = '<span><a href="#/edit/' + $scope.media.mainTitle.text + '">' + $scope.media.mainTitle.text + '</a></span>';
+                    send = false;
+                    if (publication.workflow.id !== $scope.media.workflow.id) {
+                        message += '<span> is nu ' + publication.workflow.text + '</span>';
+                        send = true;
+                    }
+                    if (publication.editor.id !== editor.id) {
+                        message += '<span> is aangepast door ' +  publication.editor.text + '</span>';
+                        send = true;
+                        this.load()
+                    }
+                    if (send) {
+                        this.notificationService.notify(message);
+                    }
 
-                    this.notificationService.notify( '<span><a href="#/edit/' + $scope.media.mainTitle.text + '">' + $scope.media.mainTitle.text + '</a></span><span> is nu ' + publication.workflow.text + '</span>' )
                 }
             }.bind( this ) );
 
