@@ -42,7 +42,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
             $scope.$on( PomsEvents.publication, function ( e, publication ) {
                 if ( publication.mid === $scope.media.mid ) {
-                    var message = '<span><a href="#/edit/' + $scope.media.mainTitle.text + '">' + $scope.media.mainTitle.text + '</a></span>';
+                    var message = '<span><a href="#/edit/' + $scope.media.mid + '">' + $scope.media.mainTitle.text + '</a></span>';
                     send = false;
                     if (publication.workflow.id !== $scope.media.workflow.id) {
                         message += '<span> is nu ' + publication.workflow.text + '</span>';
