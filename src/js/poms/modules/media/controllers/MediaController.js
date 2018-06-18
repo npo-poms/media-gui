@@ -4,6 +4,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     '$element',
     '$modal',
     '$window',
+    '$filter',
     'EditorService',
     'GuiService',
     'MediaService',
@@ -13,7 +14,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     'PomsEvents',
     (function () {
 
-        function MediaController (  $scope, $document, $element, $modal, $window, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
+        function MediaController (  $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
 
             $scope.showMid = true;
 
@@ -44,6 +45,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 if ( publication.mid === $scope.media.mid ) {
                     var message = '<span><a href="#/edit/' + $scope.media.mid + '">' + $scope.media.mainTitle.text + '</a></span>';
                     send = false;
+                    args = {
+                        id: 'event_' + $scope.media.mid
+                    };
                     if (publication.workflow.id !== $scope.media.workflow.id) {
                         message += '<span> is nu ' + publication.workflow.text + '</span>';
                         send = true;
@@ -52,12 +56,13 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                         if (send) {
                             message += ' en '
                         }
-                        message += '<span> is aangepast door ' +  publication.editor.text + '</span>';
+                        message += '<span> is aangepast door ' +  publication.editor.text + ' (' + $filter('mediaDateTime')(new Date(publication.time))+ ')</span>';
                         send = true;
+                        args.timeout = 30000;
                         this.load()
                     }
                     if (send) {
-                        this.notificationService.notify(message);
+                        this.notificationService.notify(message, null, args);
                     }
 
                 }
