@@ -48,7 +48,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                         message += '<span> is nu ' + publication.workflow.text + '</span>';
                         send = true;
                     }
-                    if (publication.editor.id !== editor.id) {
+                    if (publication.editor.id !== editor.id && publication.hasChanges !== 'NO_CHANGES') {
                         message += '<span> is aangepast door ' +  publication.editor.text + '</span>';
                         send = true;
                         this.load()
