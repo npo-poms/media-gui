@@ -70,7 +70,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 return this.mediaService.hasWritePermission(this.$scope.media, 'locations');
             },
             mayUpload: function() {
-                return this.$scope.media.permissions['LOCATION_UPLOAD'];
+                return this.$scope.media.avType && this.$scope.media.avType.id === 'VIDEO' &&
+                    this.$scope.media.permissions['LOCATION_UPLOAD'];
             },
 
             editLocation : function ( location, permission ) {
