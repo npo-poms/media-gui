@@ -5,6 +5,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PersonsController', [
     'PomsEvents',
     'MediaService',
     'EditorService',
+    'PomsEvents',
     (function () {
 
         function load ( scope, pomsEvents, dest ) {
@@ -19,7 +20,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PersonsController', [
         }
 
 
-        function PersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService ) {
+        function PersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService,  PomsEvents) {
 
             this.items = [];
 
@@ -55,6 +56,12 @@ angular.module( 'poms.media.controllers' ).controller( 'PersonsController', [
                     $scope.$emit( this.pomsEvents.error, error )
                 }.bind( this )
             );
+
+            $scope.$on(PomsEvents.externalChange, function(e, mid) {
+                 if(mid === $scope.media.mid) {
+                    this.load();
+                }
+            }.bind(this));
 
         }
 

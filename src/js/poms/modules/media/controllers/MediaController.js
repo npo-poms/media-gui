@@ -1,4 +1,5 @@
 angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
+    '$rootScope',
     '$scope',
     '$document',
     '$element',
@@ -14,8 +15,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     'PomsEvents',
     (function () {
 
-        function MediaController (  $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
-
+        function MediaController (  $rootScope, $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
+            this.$rootScope = $rootScope;
             $scope.showMid = true;
 
             this.$scope = $scope;
@@ -59,6 +60,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                         message += '<span> is aangepast door ' +  publication.editor.text + ' (' + $filter('mediaDateTime')(new Date(publication.time))+ ')</span>';
                         send = true;
                         args.timeout = 30000;
+                        this.$rootScope.$broadcast(this.pomsEvents.externalChange, $scope.media.mid);
                         this.load()
                     }
                     if (send) {
@@ -99,7 +101,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
             } );
 
             angular.element( $window ).on( 'keydown', function ( e ) {
-                if ( this.editFieldOpen && e.keyCode == 27 ) {
+                if ( this.editFieldOpen && e.keyCode === 27 ) {
                     $scope.$broadcast( 'closeEditField', { 'field' : this.editField } );
                 }
             } );

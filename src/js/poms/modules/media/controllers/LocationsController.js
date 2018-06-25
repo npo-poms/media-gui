@@ -56,7 +56,17 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             }.bind( this ) );
 
             // update locations when platforms are updated since new locations can be created as result.
-            $scope.$on('predictionUpdated', function(event) { this.load(); }.bind(this));
+            $scope.$on(PomsEvents.predictionUpdated, function(event, mid) {
+                  if (mid === this.$scope.media.mid) {
+                      this.load();
+                  }
+            }.bind(this));
+            $scope.$on(PomsEvents.externalChange, function(event, mid) {
+                if (mid === this.$scope.media.mid) {
+                    this.load();
+                }
+            }.bind(this));
+
 
         }
 

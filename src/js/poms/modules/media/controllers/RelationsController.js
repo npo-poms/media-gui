@@ -26,6 +26,12 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
             );
 
             this.load();
+
+            $scope.$on(PomsEvents.externalChange, function(e, mid) {
+                 if(mid === $scope.media.mid) {
+                    this.load();
+                }
+            }.bind(this));
         }
 
         RelationsController.prototype = {

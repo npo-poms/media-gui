@@ -59,17 +59,24 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
             this.load();
 
-            $scope.$on( $scope.type == 'episodes' ? PomsEvents.episodeAdded : PomsEvents.memberAdded, function ( e, mid ) {
+            $scope.$on( $scope.type === 'episodes' ? PomsEvents.episodeAdded : PomsEvents.memberAdded, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
                     this.load();
                 }
             }.bind( this ) );
 
-            $scope.$on( $scope.type == 'episodes' ? PomsEvents.episodeRemoved : PomsEvents.memberRemoved, function ( e, mid ) {
+            $scope.$on( $scope.type === 'episodes' ? PomsEvents.episodeRemoved : PomsEvents.memberRemoved, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
                     this.load();
                 }
             }.bind( this ) );
+
+            $scope.$on(PomsEvents.externalChange, function(e, mid) {
+                 if(mid === $scope.media.mid) {
+                    this.load();
+                }
+            }.bind(this));
+
 
         }
 

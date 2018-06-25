@@ -117,7 +117,9 @@
         episodeAdded: 'episodeAdded',
         episodeRemoved: 'episodeRemoved',
         episodeOfAdded: 'episodeOfAdded',
-        episodeOfRemoved: 'episodeOfRemoved'
+        episodeOfRemoved: 'episodeOfRemoved',
+        externalChange: 'externalChange',
+        predictionUpdated: 'predictionUpdated'
     } );
 
     module.value( 'TextfieldNames', {

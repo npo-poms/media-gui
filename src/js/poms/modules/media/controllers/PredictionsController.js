@@ -57,7 +57,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                 modal.result.then(
                     function (media) {
                         angular.copy(media, this.$scope.media);
-                        this.$rootScope.$broadcast('predictionUpdated');
+                        this.$rootScope.$broadcast(this.pomsEvents.predictionUpdated, media.mid);
                         this.load();
                     }.bind(this)
                 );

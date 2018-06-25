@@ -54,6 +54,12 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                 }
             }.bind(this));
 
+            $scope.$on(PomsEvents.externalChange, function(e, mid) {
+                if(mid === $scope.media.mid) {
+                    this.load();
+                }
+            }.bind(this));
+
         }
 
         ImagesController.prototype = {
