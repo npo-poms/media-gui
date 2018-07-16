@@ -30,34 +30,24 @@ angular.module( 'poms.media.directives' )
                 switch ( attrs.fieldtype ) {
                     case 'title':
                         return 'edit/editables/poms-title.html';
-                        break;
                     case 'description':
                         return 'edit/editables/poms-description.html';
-                        break;
                     case 'time':
                         return 'edit/editables/poms-time.html';
-                        break;
                     case 'duration':
                         return 'edit/editables/poms-duration.html';
-                        break;
                     case 'number':
                         return 'edit/editables/poms-number.html';
-                        break;
                     case 'checklist':
                         return 'edit/editables/poms-checklist.html';
-                        break;
                     case 'checklist-icons':
                         return 'edit/editables/poms-checklist-icons.html';
-                        break;
                     case 'checkbox':
                         return 'edit/editables/poms-checkbox.html';
-                        break;
                     case 'radiolist':
                         return 'edit/editables/poms-radiolist.html';
-                        break;
                     case 'radiolist-icons':
                         return 'edit/editables/poms-radiolist-icons.html';
-                        break;
                 }
             },
             transclude: true,
