@@ -77,13 +77,10 @@ angular.module( 'poms.media.directives' )
 
                 $scope.mayRead = this.editService.hasReadPermission( $scope.media, $scope.field );
 
-                if (  $scope.field === 'kickerDescription' ) {
-                    $scope.mayWrite = ( this.editService.hasWritePermission($scope.media, $scope.field) && $scope.currentOwnerType === 'NPO' );
-                } else {
-                    $scope.mayWrite = this.editService.hasWritePermission( $scope.media, $scope.field );
-                }
+                $scope.mayWrite =
+                    this.editService.hasWritePermission($scope.media, $scope.field);
 
-
+                console.log($scope.field, $scope.mayWrite);
 
 
                 //TODO cleanup

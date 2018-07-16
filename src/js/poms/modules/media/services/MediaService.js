@@ -185,7 +185,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasWritePermission: function ( media, permission ) {
-                return (media.permission & writePermissions[permission]) > 0;
+                return (media[permission] && media[permission].mayWrite) || ((media.permission & writePermissions[permission]) > 0);
             },
 
             hasDeletePermission: function ( media ) {
