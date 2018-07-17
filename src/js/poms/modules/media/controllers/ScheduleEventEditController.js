@@ -58,6 +58,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                     $scope.$emit( pomsEvents.error, error )
                 }.bind( this )
             );
+             listService.getChannels().then(
+                function ( data ) {
+                    this.channels = data;
+                }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
         }
 
         ScheduleEventEditController.prototype = {
