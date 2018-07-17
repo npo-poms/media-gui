@@ -39,11 +39,13 @@ angular.module( 'poms.media.directives' )
                 $scope.mayRead = editService.hasReadPermission( media, $scope.field );
                 $scope.mayWrite = editService.hasWritePermission(media, $scope.field);
 
+                //console.log("may write", $scope.field, $scope.mayWrite);
+
                 $scope.selectedItems = {};
                 $scope.selectedItems.selected = [];
 
                 $scope.$on( 'closeEditField', function ( e, data ) {
-                    if ( data.field == $scope.field ) {
+                    if ( data.field === $scope.field ) {
                         $timeout( function () {
                             $scope.onHide();
                         }, 0 );

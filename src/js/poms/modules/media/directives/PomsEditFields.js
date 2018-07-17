@@ -80,7 +80,7 @@ angular.module( 'poms.media.directives' )
                 $scope.mayWrite =
                     this.editService.hasWritePermission($scope.media, $scope.field);
 
-                console.log($scope.field, $scope.mayWrite);
+                //console.log($scope.field, $scope.mayWrite);
 
 
                 //TODO cleanup

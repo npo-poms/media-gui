@@ -148,7 +148,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             $scope.$on( 'nextField', function( e ){
                 var nextElement = angular.element('.media-field[field="'+ e.targetScope.field +'"]').next('.media-field') ;
-                while ( nextElement.length !==0 && nextElement.find('.editfield-wrapper.may-write' ).length == 0 ){
+                while ( nextElement.length !==0 && nextElement.find('.editfield-wrapper.may-write' ).length === 0 ){
                     nextElement = nextElement.next('.media-field') ;
                 }
                 if ( nextElement.length !==0  ) {
@@ -158,7 +158,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             $scope.$on( 'prevField', function( e ){
                 var nextElement = angular.element('.media-field[field="'+ e.targetScope.field +'"]').prev('.media-field') ;
-                while ( nextElement.length !==0 && nextElement.find('.editfield-wrapper.may-write' ).length == 0 ){
+                while ( nextElement.length !==0 && nextElement.find('.editfield-wrapper.may-write' ).length === 0 ){
                     nextElement = nextElement.prev('.media-field') ;
                 }
                 if ( nextElement.length !==0  ){
