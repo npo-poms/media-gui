@@ -13,11 +13,69 @@
 
         <div class="row">
           <p>Kanaal: {{::event.channel.text}}</p>
-          <p>Tijd: {{::event.start | mediaDateTime}}</p>
+          <p>
+            <label for="net">Net:</label>
+            <span ng-if="!event.mayWrite">{{::event.net.text}}</span>
+            <span ng-if="event.mayWrite">
+              <select
+                      id="net"
+                      ng-model="event.net"
+                      ng-options="net.text for net in controller.nets  track by net.id">
+              </select>
+            </span>
+          </p>
+          <p>
+            <label>Starttijd:</label>
+            <div class="input-group datepicker-dropdown"  >
+            <input
+                    name='fromdate'
+                    type="text"
+                    class="form-control"
+                    ng-disabled="!event.mayWrite"
+                    datepicker-popup="dd-MM-yyyy HH:mm"
+                    max-date='maxStart'
+                    ng-model="event.start"
+                    is-open="startdate.open"
+                    close-text="sluit"
+                    ng-click="$event.preventDefault(); $event.stopPropagation();"
+            />
+            <button class="open-calendar" ng-click="openStartDate($event)" />
+          </div>
+          </p>
+          <p>
+            <label>Stoptijd:</label>
+            <span ng-if="!event.mayWrite">{{::event.stop | mediaDateTime}}</span>
+            <span ng-if="event.mayWrite">
+              <div class="editable-datepicker to-date datepicker-dropdown" >
+
+                <a href="#"
+                   e-name="event.start"
+                   editable-bsdate="event.start"
+                   e-datepicker-popup="dd-MM-yyyy HH:mm"
+                   e-close-on-date-selection="true"
+                   e-is-open="stopdate.open"
+                   e-min-date="minStop"
+                   e-close-text="sluit"
+                   e-ng-change="setMaxStart(this.$data)"
+                >
+                  {{ (event.stop | mediaDateTime) || 'empty' }}
+                </a>
+                <button class="open-calendar" ng-click="openStopDate($event)"></button>
+
+              </div>
+            </span>
+          </p>
           <p>Teletekstpagina: {{::event.textPage}}</p>
           <p>Ondertiteling: {{::event.textSubtitles}}</p>
-          <p>Herhaling: {{::event.repeat}}</p>
-          <p>Herhaling: {{::event.repeat}}</p>
+          <p>
+            <label for="repeatInput">Herhaling:</label>
+            <span ng-if="!event.mayWrite">{{::event.rerun}}</span>
+            <span ng-if="event.mayWrite">
+              <input id="repeatInput"
+                     type="checkbox"
+                     ng-model="event.rerun" />
+            </span>
+          </p>
 
         </div>
 

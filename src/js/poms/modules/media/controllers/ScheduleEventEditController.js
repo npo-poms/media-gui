@@ -7,13 +7,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
     'appConfig',
     'PomsEvents',
     'MediaService',
+    'ListService',
     'media',
     'event',
     'edit',
     'TextfieldNames',
     (function () {
 
-        function ScheduleEventEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, event, edit, textfieldNames ) {
+        function ScheduleEventEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, listService, media, event, edit, textfieldNames ) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -48,6 +49,15 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                 "shortDescription",
                 "kickerDescription"
             ];
+
+            listService.getNets().then(
+                function ( data ) {
+                    this.nets = [null].concat(data);
+                }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
         }
 
         ScheduleEventEditController.prototype = {

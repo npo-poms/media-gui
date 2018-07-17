@@ -63,6 +63,8 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 }.bind( this )
             );
 
+
+
             listService.getPortals().then(
                 function ( data ) {
                     this.portals = data;
@@ -146,6 +148,8 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                  }.bind( this )
             );
 
+
+
             $scope.$on( 'nextField', function( e ){
                 var nextElement = angular.element('.media-field[field="'+ e.targetScope.field +'"]').next('.media-field') ;
                 while ( nextElement.length !==0 && nextElement.find('.editfield-wrapper.may-write' ).length === 0 ){
@@ -184,6 +188,10 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             geoRestrictions: [],
 
             portalRestrictions: [],
+
+            nets:[] ,
+
+            languages: [],
 
             toggleShowMid: function () {
                 this.showMid = ! this.showMid;
@@ -314,6 +322,8 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 );
             },
 
+
+
             addMemberOf : function( memberType ){
                 var addMethod,
                         addEventMethod,
@@ -342,7 +352,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                             function ( error ) {
                                 if ( error.code === "nl.vpro.restriction.tooManyPublications" ) {
                                     var type, message;
-                                    if(memberType == 'episodeOf') {
+                                    if(memberType === 'episodeOf') {
                                         type = 'aflevering van';
                                         message = 'Ik probeer ' + this.$scope.media.mid + ' aflevering van [' + _.map(results, function(result) {
                                             return ' ' + result.mid + ' '
@@ -381,7 +391,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             },
 
             mayReadSubtitles: function ( media ) {
-
                 return this.mediaService.hasReadPermission( media, 'subtitles' );
             },
 
@@ -479,7 +488,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     templateUrl: 'media/modal-subtitles.html'
 
                 } );
-            },
+            }
         };
 
         return EditController;

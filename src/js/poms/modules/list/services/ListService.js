@@ -38,7 +38,7 @@ angular.module('poms.list.services').factory('ListService', [
             getAvTypes : function() {
                 return get('/avTypes', {cache : true});
             },
-            
+
             getOwnerTypes : function() {
                 return get('/ownerTypes', {cache : true});
             },
@@ -49,6 +49,9 @@ angular.module('poms.list.services').factory('ListService', [
 
             getChannels : function() {
                 return get('/channels', {cache : true});
+            },
+            getNets: function() {
+                return get('/nets', {cache : true});
             },
 
             getContentRatings : function() {
