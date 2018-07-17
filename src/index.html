@@ -97,7 +97,7 @@
             </div>
 
             <div class="header-account-link no-border " ng-if="guiController.showOwnerMis()">
-                <span class="header-account-owner" ng-click="guiController.openOwnerInfo()"> (NPO gebruiker!)</span>
+                <span class="header-account-owner" ng-click="guiController.openOwnerInfo()"> (NPO gebruiker {{guiController.currentOwnerTypeToShow()}})</span>
             </div>
 
             <div class="header-account-link">

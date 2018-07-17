@@ -271,9 +271,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                                 angular.copy( media, tab.item );
                             }.bind( this ),
                             function ( error ) {
-                                if(error.status == 404) {
+                                if(error.status === 404) {
                                     this.removeTab(_.findIndex(this.tabs, function(t) {
-                                        return t.id == tab.id;
+                                        return t.id === tab.id;
                                     }));
                                 }
                             }.bind( this )
@@ -547,7 +547,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             showOwnerMis: function () {
-                return this.editorService.currentEditorHasRoles( ['MIS'] );
+                return this.editorService.currentEditorHasRoles( ['MIS'] ) && this.editorService.getCurrentOwnerType() !== 'BROADCASTER';
+            },
+            currentOwnerTypeToShow: function() {
+                var currentOwnerType = this.editorService.getCurrentOwnerType();
+                return currentOwnerType === 'NPO' ? '' : currentOwnerType;
             },
 
             subscribeToPublicationMessages: function () {
