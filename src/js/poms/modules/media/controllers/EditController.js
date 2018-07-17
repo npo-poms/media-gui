@@ -147,6 +147,14 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                      $scope.$emit( pomsEvents.error, error )
                  }.bind( this )
             );
+            listService.getMediaTypes().then(
+                function ( data ) {
+                    this.mediaTypes = data;
+                }.bind( this ),
+                function () {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
 
 
 
@@ -466,6 +474,16 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     windowClass: "modal-owner"
 
                 });
+            },
+
+            targetTypes: function(media) {
+                var result = [];
+                for (i = 0; i < media.targetTypes.length; ++i) {
+                    //result.append(this.mediaTypes);
+                    //console.log(a[index]);
+                    // TODO
+                }
+                return this.mediaTypes;
             },
 
             showSubtitles: function () {

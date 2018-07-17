@@ -131,7 +131,14 @@
 
             <div class="media-static-field" >
                 <h2 class="small-header media-static-field-title" >Type</h2>
-                <p  class="media-static-field-content">{{::media.type.text}}</p>
+
+
+              <select
+                      ng-disable="!media.mayWrite"
+                      name="type"
+                      ng-model="media.type"
+                      ng-options="type.text for type in editController.targetTypes(media) track by type.id">
+              </select>
 
                 <div class="media-field-tools">
                     <poms-help field="editor.general.type"></poms-help>
