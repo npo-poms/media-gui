@@ -151,7 +151,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 function ( data ) {
                     this.mediaTypes = data;
                     this.targetTypesObjects = [];
-                    if (this.media === null) {
+                    if (this.media === undefined) { // happens in test cases....
                         $scope.$emit(pomsEvents.error, "No media object");
                         return;
                     }
