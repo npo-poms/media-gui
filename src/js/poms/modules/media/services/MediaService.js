@@ -53,6 +53,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
             writePermissions = {
                 'media': 1 << 12,
+                "type": 1 << 12,
                 'broadcasters': 1 << 12,
                 'portals': 1 << 12,
                 'languages': 1 << 12,
@@ -193,7 +194,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasMergePermission: function ( media ) {
-                return (media.permission & mergePermission) > 0 && media.mergedFrom.length == 0;
+                return (media.permission & mergePermission) > 0 && media.mergedFrom.length === 0;
             },
 
             create: function ( source ) {
@@ -250,6 +251,9 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setAvType: function ( media, avType ) {
                 return post( media, '/avType', avType );
             },
+            setType: function ( media, type ) {
+                return post( media, '/type', type );
+            },
 
             setTitle: function ( media, type, text ) {
                 if ( ! text || text === "" ) {
@@ -258,6 +262,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 var data = {'type': type, 'text': text};
                 return post( media, '/titles',  data);
             },
+
 
             setDescription: function ( media, type, text ) {
                 if ( ! text || text === "" ) {

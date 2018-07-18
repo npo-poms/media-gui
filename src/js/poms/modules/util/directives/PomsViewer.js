@@ -12,7 +12,7 @@ angular.module( 'poms.util.directives' )
 
                 var width, height;
 
-                if ( $scope.size == 'small' ) {
+                if ( $scope.size === 'small' ) {
                     width = 200;
                     height = 150
                 } else {
@@ -22,7 +22,7 @@ angular.module( 'poms.util.directives' )
 
                 $scope.isPlayable = ($scope.media.locations > 0
                                     || ($scope.media.locations && $scope.media.locations.length > 0)
-                                    || $scope.media.type.id == 'SEGMENT');
+                                    || $scope.media.type.id === 'SEGMENT');
 
                 $scope.play = function () {
 
@@ -30,7 +30,7 @@ angular.module( 'poms.util.directives' )
 
                     if ( mid && ( $scope.media.locations > 0 || ( $scope.media.locations && $scope.media.locations.length > 0) ) ) {
                          setupPlayer( mid, mid );
-                    }else if(  $scope.media.type.id == 'SEGMENT' ){
+                    }else if(  $scope.media.type.id === 'SEGMENT' ){
 
                         if ( !$scope.media.segmentOf ){
 
@@ -75,7 +75,7 @@ angular.module( 'poms.util.directives' )
                 };
 
                 $scope.isAflevering = function ( media ) {
-                    return (media.episodeOf[ 0 ].type == 'Seizoen' && media.type == 'Uitzending');
+                    return (media.episodeOf[ 0 ].type === 'Seizoen' && media.type === 'Uitzending');
                 };
 
                 getSegmentData = function ( parentMid, mid ) {
@@ -90,7 +90,7 @@ angular.module( 'poms.util.directives' )
                         function ( segments ) {
                             var deferred = $q.defer();
                             for ( var i = 0; i < segments.length; i ++ ) {
-                                if ( segments[i].mid == mid ) {
+                                if ( segments[i].mid === mid ) {
                                     deferred.resolve ( {
                                         start: segments[i].start / 1000,
                                         stop: segments[i].stop / 1000

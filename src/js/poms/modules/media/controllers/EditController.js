@@ -477,13 +477,18 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             },
 
             targetTypes: function(media) {
-                var result = [];
-                for (i = 0; i < media.targetTypes.length; ++i) {
-                    //result.append(this.mediaTypes);
-                    //console.log(a[index]);
-                    // TODO
+                if (! media.targetTypesObjects) {
+                    media.targetTypesObjects = [];
+                    if (this.mediaTypes) {
+                        angular.forEach(this.mediaTypes, function (value, key) {
+                            if (media.targetTypes.indexOf(value.id) !== -1) {
+                                media.targetTypesObjects.push(value);
+                            }
+                        });
+                    }
                 }
-                return this.mediaTypes;
+                //console.log(this.mediaTypes, media.targetTypesObjects);
+                return media.targetTypesObjects;
             },
 
             showSubtitles: function () {

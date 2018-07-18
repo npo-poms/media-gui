@@ -75,7 +75,7 @@ angular.module( 'poms.media.directives' )
                         if ( $scope.options.length > 0 && currentItems ) {
                             for ( var i = 0; i < currentItems.length; i ++ ) {
                                 for ( var j = 0; j < $scope.options.length; j ++ ) {
-                                    if ( $scope.options[j].id == currentItems[i].id ) {
+                                    if ( $scope.options[j].id === currentItems[i].id ) {
 
                                         $scope.selectedItems.selected.push( $scope.options[j] );
                                     }
@@ -154,7 +154,7 @@ angular.module( 'poms.media.directives' )
                 };
 
                 $scope.keyEvent = function ( event ) {
-                    if ( event.keyCode == 27 ) {
+                    if ( event.keyCode === 27 ) {
                         $scope.cancel();
                     }
                 };

@@ -6,7 +6,7 @@ angular.module( 'poms.util.directives' )
             controller : function ( $scope, PomsEvents ) {
                 $scope.$on( PomsEvents.publication, function ( e, publication ) {
                     if ( publication.mid === $scope.mid ) {
-                        if ( publication.workflow.id != 'DELETED' ) {
+                        if ( publication.workflow.id !== 'DELETED' ) {
                             $scope.workflow = publication.workflow;
                         } else {
                             if ( $scope.onDeleted ) {

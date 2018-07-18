@@ -20,6 +20,7 @@ angular.module( 'poms.media.directives' )
             }
         };
     }] )
+
     .directive( 'pomsImages', [function () {
         return {
             restrict: 'E',
@@ -101,5 +102,7 @@ angular.module( 'poms.media.directives' )
                 media: '='
             }
         };
-    }] );
+    }] )
+
+;
 

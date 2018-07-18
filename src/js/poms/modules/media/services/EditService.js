@@ -20,6 +20,7 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
                 return mediaService.setTitle( media, type, text );
             },
 
+
             setDescription: function ( media, type, text ) {
                 return mediaService.setDescription( media, type, text );
             },
@@ -43,6 +44,10 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
             avType: function ( media, avType ) {
                 return mediaService.setAvType( media, avType );
             },
+            type: function ( media, type ) {
+                return mediaService.setType( media, type );
+            },
+
 
             publication: function ( media, publication ) {
                 return mediaService.setPublication( media, publication );

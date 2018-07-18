@@ -1,370 +1,410 @@
-<div id="{{section}}" class="media-data media-section-general media-section" ng-controller="EditController as editController">
+<div id="{{section}}" class="media-data media-section-general media-section"
+     ng-controller="EditController as editController">
 
-    <div class="media-section-general-left">
+  <div class="media-section-general-left">
 
-        <poms-viewer media="media" size="small"></poms-viewer>
+    <poms-viewer media="media" size="small"></poms-viewer>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="mainTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="mainTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="subTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="subTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="shortTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="shortTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="abbreviationTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title"
+                   field="abbreviationTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="workTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="workTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="originalTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title"
+                   field="originalTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="lexicoTitle"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="lexicoTitle"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="description" field="mainDescription"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="description"
+                   field="mainDescription"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="description" field="shortDescription"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="description"
+                   field="shortDescription"></poms-editable>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="description" field="kickerDescription"></poms-editable>
+    <poms-editable type="media" media="media" class="media-field" fieldtype="description"
+                   field="kickerDescription"></poms-editable>
 
-        <poms-genres type="media" class="media-field" media="media" header="Genres" help-field="editor.general.genres"></poms-genres>
+    <poms-genres type="media" class="media-field" media="media" header="Genres"
+                 help-field="editor.general.genres"></poms-genres>
 
-        <poms-multi type="media" class="media-field" media="media" header="Tags" load="editController.getTags()" save="editController.setTags(data)" options="editController.tags(data)" permission="tags"  placeholder="Kies een tag..." help-field="editor.general.tags" ></poms-multi>
+    <poms-multi type="media" class="media-field" media="media" header="Tags" load="editController.getTags()"
+                save="editController.setTags(data)" options="editController.tags(data)" permission="tags"
+                placeholder="Kies een tag..." help-field="editor.general.tags"></poms-multi>
 
-        <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()" save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)" help-field="editor.general.websites"></poms-multi>
+    <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
+                save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
+                help-field="editor.general.websites"></poms-multi>
 
-        <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()" save="editController.setTwitterRefs(data)" permission="twitterRefs" placeholder="Twitteraccount of hashtag (@../#..)" help-field="editor.general.twitter"></poms-multi>
+    <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()"
+                save="editController.setTwitterRefs(data)" permission="twitterRefs"
+                placeholder="Twitteraccount of hashtag (@../#..)" help-field="editor.general.twitter"></poms-multi>
 
-        <poms-persons type="media" class="media-field" header="Personen" media="media"
-                      load="editController.getPersons()"
-                      options="editController.allowedRoles()"
-                      option-title="Rol" option-field="role"
-                      permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
+    <poms-persons type="media" class="media-field" header="Personen" media="media"
+                  load="editController.getPersons()"
+                  options="editController.allowedRoles()"
+                  option-title="Rol" option-field="role"
+                  permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
 
-    </div>
+  </div>
 
-    <div class="media-publication media-section-general-right">
+  <div class="media-publication media-section-general-right">
 
-        <div class="media-static-fields">
+    <div class="media-static-fields">
 
-            <div class="media-static-field">
-                    <h2 class="small-header media-static-field-title media-data-tab-switch" ng-class="{'active' : editController.showMid}" ng-click="editController.toggleShowMid()">
-                        <span ng-class="{'active' : editController.showMid}">Mid</span>
-                        <span ng-if="media.urn" ng-class="{'active' : !editController.showMid}">Urn</span>
-                    </h2>
+      <div class="media-static-field">
+        <h2 class="small-header media-static-field-title media-data-tab-switch"
+            ng-class="{'active' : editController.showMid}" ng-click="editController.toggleShowMid()">
+          <span ng-class="{'active' : editController.showMid}">Mid</span>
+          <span ng-if="media.urn" ng-class="{'active' : !editController.showMid}">Urn</span>
+        </h2>
 
-                    <p class="media-static-field-content" ng-if="editController.showMid">
-                        <poms-clipboard field="media.mid"></poms-clipboard>
-                    </p>
+        <p class="media-static-field-content" ng-if="editController.showMid">
+          <poms-clipboard field="media.mid"></poms-clipboard>
+        </p>
 
-                    <p class="media-static-field-content" ng-if="!editController.showMid">
-                        <poms-clipboard field="media.urn"></poms-clipboard>
-                    </p>
+        <p class="media-static-field-content" ng-if="!editController.showMid">
+          <poms-clipboard field="media.urn"></poms-clipboard>
+        </p>
 
-                    <div class="media-field-tools">
-                        <poms-help field="editor.general.mid"></poms-help>
-                    </div>
-            </div>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.mid"></poms-help>
+        </div>
+      </div>
 
-            <div class="media-static-field media-workflow" status-feedback status="{{media.workflow.id}}">
-                <h2 class="small-header media-static-field-title" >Status</h2>
-                <poms-workflow mid="::media.mid" workflow="media.workflow"></poms-workflow>
+      <div class="media-static-field media-workflow" status-feedback status="{{media.workflow.id}}">
+        <h2 class="small-header media-static-field-title">Status</h2>
+        <poms-workflow mid="::media.mid" workflow="media.workflow"></poms-workflow>
 
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.workflow"></poms-help>
-                </div>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.workflow"></poms-help>
+        </div>
 
-            </div>
+      </div>
 
-            <div class="media-static-field" ng-if="media.mergedTo">
-                <h2 class="small-header media-static-field-title" >Vervanger</h2>
-                <a title="Deze media is samengevoegd en vervangen door {{media.mergedTo}}" href="{{editController.editRef(media.mergedTo)}}"> {{media.mergedTo}}</a>
+      <div class="media-static-field" ng-if="media.mergedTo">
+        <h2 class="small-header media-static-field-title">Vervanger</h2>
+        <a title="Deze media is samengevoegd en vervangen door {{media.mergedTo}}"
+           href="{{editController.editRef(media.mergedTo)}}"> {{media.mergedTo}}</a>
 
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.mergedTo"></poms-help>
-                </div>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.mergedTo"></poms-help>
+        </div>
 
-            </div>
+      </div>
 
-          <div class="media-static-field" ng-if="media.mergedFrom.length > 0">
-            <h2 class="small-header media-static-field-title">Vervangt</h2>
+      <div class="media-static-field" ng-if="media.mergedFrom.length > 0">
+        <h2 class="small-header media-static-field-title">Vervangt</h2>
 
-            <span ng-repeat="mergedFrom in media.mergedFrom">
+        <span ng-repeat="mergedFrom in media.mergedFrom">
             <a title="Deze media vervangt {{mergedFrom}}"
                href="{{editController.editRef(mergedFrom)}}">{{mergedFrom}}</a><span ng-if="! $last">, </span>
             </span>
-          </div>
+      </div>
 
-            <div class="media-static-field" ng-if="::media.scheduleEvents[0]" >
+      <div class="media-static-field" ng-if="::media.scheduleEvents[0]">
 
-                <h2 class="small-header media-static-field-title"  >Uitzending ({{::media.scheduleEvents.length}})</h2>
+        <h2 class="small-header media-static-field-title">Uitzending ({{::media.scheduleEvents.length}})</h2>
 
-                <a class="media-schedule-events" title="bekijk alle uitzenddata" ng-click="editController.showAllEvents(media.scheduleEvents)">
-                    {{ ::media.scheduleEvents[0].start | mediaDateTime}} ({{ ::media.scheduleEvents[0].channel.text }})
-                </a>
+        <a class="media-schedule-events" title="bekijk alle uitzenddata"
+           ng-click="editController.showAllEvents(media.scheduleEvents)">
+          {{ ::media.scheduleEvents[0].start | mediaDateTime}} ({{ ::media.scheduleEvents[0].channel.text }})
+        </a>
 
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.scheduleEvents"></poms-help>
-                </div>
-
-            </div>
-
-            <div class="media-static-field" ng-if="::media.scheduleEvents[0].textPage" >
-
-                <h2 class="small-header media-static-field-title"  >Teletekst</h2>
-
-                <span style="display:block;" ng-if="::media.scheduleEvents[0].textPage">Informatie: {{::media.scheduleEvents[0].textPage}}</span>
-                <span style="display:block;" ng-if="::media.scheduleEvents[0].textSubtitles">Ondertiteling: 888</span>
-
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.scheduleEvents"></poms-help>
-                </div>
-
-            </div>
-
-            <div class="media-static-field" >
-                <h2 class="small-header media-static-field-title" >Sorteerdatum</h2>
-                <p  class="media-static-field-content"> {{media.sortDate | mediaDateTime}}</p>
-
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.sortDate"></poms-help>
-                </div>
-
-            </div>
-
-            <div class="media-static-field" >
-                <h2 class="small-header media-static-field-title" >Type</h2>
-
-
-              <select
-                      ng-disable="!media.mayWrite"
-                      name="type"
-                      ng-model="media.type"
-                      ng-options="type.text for type in editController.targetTypes(media) track by type.id">
-              </select>
-
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.type"></poms-help>
-                </div>
-
-            </div>
-
-
-            <div class="media-static-field" >
-                <h2 class="small-header media-static-field-title" >XML</h2>
-                <a title="open de xml voor dit item in een nieuw venster" target="blank" href="{{::(media.id | xmlLocationPrefix) }}">bekijk in xml formaat </a>
-
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.xml"></poms-help>
-                </div>
-            </div>
-
-            <div class="media-static-field" ng-if="media.owners">
-              <h2 class="small-header media-static-field-title">Tekstbronnen</h2>
-              <span ng-repeat="owner in media.owners"><a class="media-data-owners-link" ng-click="editController.showOwnerData(owner);" title="toon de data afkomstig van deze bron">{{owner.text}}</a><span ng-if="! $last">, </span></span>
-              <div class="media-field-tools">
-                <poms-help field="editor.general.owners"></poms-help>
-              </div>
-            </div>
-
-            <div class="media-static-field" ng-if="media.owners">
-                <h2 class="small-header media-static-field-title">&nbsp;</h2>
-                <a class="media-data-owners-link" ng-click="editController.showAllOwnerData(media.owners);" title="toont de data afkomstig van alle bronnen">
-                    Alle bronnen
-                </a>
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.owners"></poms-help>
-                </div>
-            </div>
-
-            <div ng-if="media.poSequenceInformation" class="media-static-field media-sequenceinfo">
-                <h2 class="small-header media-static-field-title" >Seizoensinformatie</h2>
-                <p  class="media-static-field-content">{{::media.poSequenceInformation}}</p>
-
-                <div class="media-field-tools">
-                    <poms-help field="editor.general.sequenceinformation"></poms-help>
-                </div>
-
-            </div>
-
-          <div class="media-static-field">
-            <h2 class="small-header media-static-field-title">Streaming platformstatus</h2>
-            <p class="media-static-field-content"> {{media.streamingPlatformStatus.text}}</p>
-            <div class="media-field-tools">
-              <poms-help field="editor.general.streamingPlatformStatus"></poms-help>
-            </div>
-
-          </div>
-
+        <div class="media-field-tools">
+          <poms-help field="editor.general.scheduleEvents"></poms-help>
         </div>
 
-        <div class="media-section-general-right-header media-header-publication">
-            Publicatie
+      </div>
+
+      <div class="media-static-field" ng-if="::media.scheduleEvents[0].textPage">
+
+        <h2 class="small-header media-static-field-title">Teletekst</h2>
+
+        <span style="display:block;" ng-if="::media.scheduleEvents[0].textPage">Informatie: {{::media.scheduleEvents[0].textPage}}</span>
+        <span style="display:block;" ng-if="::media.scheduleEvents[0].textSubtitles">Ondertiteling: 888</span>
+
+        <div class="media-field-tools">
+          <poms-help field="editor.general.scheduleEvents"></poms-help>
         </div>
 
-        <poms-daterangepicker type="media" media="media" class="media-field" header="Datum online / offline" field="publication" help-field="editor.general.publication"> </poms-daterangepicker>
+      </div>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="number" header="Jaar" field="year" help-field="editor.general.year"> </poms-editable>
+      <div class="media-static-field">
+        <h2 class="small-header media-static-field-title">Sorteerdatum</h2>
+        <p class="media-static-field-content"> {{media.sortDate | mediaDateTime}}</p>
 
-        <poms-editable type="media" media="media" class="media-field" fieldtype="duration" header="Speelduur" field="duration" format="mediaDuration" help-field="editor.general.duration"> </poms-editable>
-
-        <poms-editable type="media" media="media" class="media-field" fieldtype="radiolist" options='editController.avTypes' header="AV-Type" field="avType" help-field="editor.general.avType"></poms-editable>
-
-        <poms-broadcasters type="media" media="media" class="media-field" header="Omroepen" placeholdertext="omroep" field="broadcasters" options='editController.broadcasters' allowed-broadcasters='editController.allowedBroadcasters' allowed-portals='editController.allowedPortals' help-field="editor.general.broadcasters"></poms-broadcasters>
-
-        <poms-broadcasters type="media" media="media" class="media-field" header="Portals" placeholdertext="portal" field="portals" options='editController.portals' allowed-broadcasters='editController.allowedBroadcasters' allowed-portals='editController.allowedPortals' help-field="editor.general.portals"></poms-broadcasters>
-
-        <poms-dropdown type="media" media="media" class="media-field" header="Landen" placeholdertext="land" field="countries" options='editController.countries' help-field="editor.general.countries"></poms-dropdown>
-
-        <poms-dropdown type="media" media="media" class="media-field" header="Talen" placeholdertext="taal" field="languages" options='editController.languages' help-field="editor.general.languages"></poms-dropdown>
-
-         <poms-edit-checkbox
-              class="media-field" header="Nagesynchroniseerd" field="isDubbed"
-              help-field="editor.general.isDubbed"></poms-edit-checkbox>
-
-        <div class="media-field" ng-if="media.subtitles.length > 0 && editController.mayReadSubtitles( media )">
-            <!-- .may-write below is just for hover purposes-->
-            <div class="editfield-wrapper may-write" title="Toon alle ondertitels en hun eventuele offsets"
-                 ng-click="editController.showSubtitles()">
-                <h2 class="small-header">Ondertitels</h2>
-                    <span ng-repeat="subtitle in media.subtitles">
-                        <a title="open de ondertiels voor dit item in een nieuw venster" target="blank" ng-click="$event.stopPropagation();"
-                           href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
-                        ng-if="! $last">, </span></span>
-                <div class="media-field-tools">
-                    <div class="edit-icon" ng-if="editController.mayWriteSubtitles( media )"></div>
-                    <div class="preview-icon" ng-if=" ! editController.mayWriteSubtitles( media )"></div>
-                    <poms-help field="editor.general.subtitles"></poms-help>
-                </div>
-            </div>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.sortDate"></poms-help>
         </div>
 
-      <div class="media-section-general-right-header media-header-appears-in">
-            Hi&euml;rarchie
+      </div>
+
+
+      <poms-editable
+              type="media"
+              media="media"
+              class="media-field"
+              fieldtype="radiolist"
+              options='editController.targetTypes(media)'
+              header="Type" field="type" help-field="editor.general.type"></poms-editable>
+
+
+      <div class="media-static-field">
+        <h2 class="small-header media-static-field-title">XML</h2>
+        <a title="open de xml voor dit item in een nieuw venster" target="blank"
+           href="{{::(media.id | xmlLocationPrefix) }}">bekijk in xml formaat </a>
+
+        <div class="media-field-tools">
+          <poms-help field="editor.general.xml"></poms-help>
+        </div>
+      </div>
+
+      <div class="media-static-field" ng-if="media.owners">
+        <h2 class="small-header media-static-field-title">Tekstbronnen</h2>
+        <span ng-repeat="owner in media.owners"><a class="media-data-owners-link"
+                                                   ng-click="editController.showOwnerData(owner);"
+                                                   title="toon de data afkomstig van deze bron">{{owner.text}}</a><span
+                ng-if="! $last">, </span></span>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.owners"></poms-help>
+        </div>
+      </div>
+
+      <div class="media-static-field" ng-if="media.owners">
+        <h2 class="small-header media-static-field-title">&nbsp;</h2>
+        <a class="media-data-owners-link" ng-click="editController.showAllOwnerData(media.owners);"
+           title="toont de data afkomstig van alle bronnen">
+          Alle bronnen
+        </a>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.owners"></poms-help>
+        </div>
+      </div>
+
+      <div ng-if="media.poSequenceInformation" class="media-static-field media-sequenceinfo">
+        <h2 class="small-header media-static-field-title">Seizoensinformatie</h2>
+        <p class="media-static-field-content">{{::media.poSequenceInformation}}</p>
+
+        <div class="media-field-tools">
+          <poms-help field="editor.general.sequenceinformation"></poms-help>
         </div>
 
-        <div class="media-field not-editable" ng-if="media.segmentOf">
-            <h2 class="small-header" >Segment van</h2>
-            <p class="member-wrapper" >
-                <a class="media-segment-of-link" href="{{editController.editRef(media.segmentOf.id)}}">
-                    <span class="link-type">{{media.segmentOf.type.text}}</span>
-                    <span class="link-title">{{media.segmentOf.text}}</span>
-                </a>
-            </p>
+      </div>
 
-            <div class="media-field-tools">
-                <poms-help field="editor.general.segmentOf"></poms-help>
-            </div>
-
+      <div class="media-static-field">
+        <h2 class="small-header media-static-field-title">Streaming platformstatus</h2>
+        <p class="media-static-field-content"> {{media.streamingPlatformStatus.text}}</p>
+        <div class="media-field-tools">
+          <poms-help field="editor.general.streamingPlatformStatus"></poms-help>
         </div>
 
-        <div class="media-field not-editable" ng-if="media.type.id == 'BROADCAST' || media.type.id == 'STRAND'"> <!-- todo, this kind of logic should not be coded in frontend -->
-
-            <h2 class='small-header'>Aflevering {{item.number}} van</h2>
-
-            <p ng-repeat="item in media.episodeOf" class="member-wrapper" poms-deleted="mediaController.onDeleteAncestor()" mid="item.id">
-                <a class="media-episode-of-link" href="{{editController.editRef(item.id)}}">
-                    <span class="link-type">{{item.type.text}}</span>
-                    <span class="link-title">{{item.text}}</span>
-                </a>
-                <button title="koppeling verwijderen" ng-if="editController.mayWriteEpisodeOf( item )" class="media-member-remove" poms-confirm="'Koppeling'" poms-submit="editController.removeEpisodeOf( media,  item )">
-                    verwijder
-                </button>
-            </p>
-
-
-            <button class="btn-text-icon btn-text-icon-add-member-of" ng-if="editController.mayWriteEpisodeOf( media )" ng-click="editController.addMemberOf( 'episodeOf' )">
-                Maak aflevering van
-            </button>
-
-            <div class="media-field-tools">
-                <poms-help field="editor.general.episodeOf"></poms-help>
-            </div>
-
-        </div>
-
-        <div class="media-field not-editable" >
-            <h2 class="small-header">Onderdeel van</h2>
-
-            <p ng-repeat="item in media.memberOf" class="member-wrapper" >
-                <a class="media-member-of-link" href="{{editController.editRef(item.id)}}" poms-deleted="mediaController.onDeleteAncestor()" mid="item.id">
-                    <span class="link-type">{{item.type.text}}</span>
-                    <span class="link-title">{{item.text}}</span>
-                    <span class="link-number"ng-if="item.number">({{item.number}})</span>
-                </a>
-                <button title="koppeling verwijderen" ng-if="editController.mayWriteMemberOf( item )" class="media-member-remove" poms-confirm="'Koppeling'" poms-submit="editController.removeMemberOf( media,  item )">
-                    verwijder
-                </button>
-            </p>
-
-            <button class="btn-text-icon btn-text-icon-add-member-of" ng-if="editController.mayWriteMemberOf( media )" ng-click="editController.addMemberOf( 'memberOf' )">
-                Maak onderdeel van
-            </button>
-
-            <div class="media-field-tools">
-                <poms-help field="editor.general.memberOf"></poms-help>
-            </div>
-
-        </div>
-
-        <div class="media-section-general-right-header media-header-restrictions">
-            Beperkingen
-        </div>
-
-        <poms-editable
-                type="media"
-                media="media"
-                class="media-field"
-                fieldtype="radiolist-icons"
-                field="ageRating"
-                options='editController.ageRatings'
-                header="Kijkwijzer: leeftijd"
-                class="rating"
-                help-field="editor.general.ageRating"
-        ></poms-editable>
-
-        <poms-editable
-                type="media"
-                media="media"
-                class="media-field"
-                fieldtype="checklist-icons"
-                field="contentRatings"
-                options='editController.contentRatings'
-                header="Kijkwijzer: inhoud"
-                class="rating"
-                help-field="editor.general.contentRating"
-        ></poms-editable>
-
-        <poms-editable-modal
-                class="media-field" header="Georestricties" media="media"
-                load="editController.getGeoRestrictions()"
-                options="editController.allowedGeoRestrictions()"
-                platforms="editController.allowedPlatforms()"
-                option-title="Regio"
-                option-field="region"
-                permission="geoRestrictions"
-                single-name="Restrictie"
-                set-restriction="editController.setGeoRestriction(media,data)"
-                remove-restriction="editController.removeGeoRestriction(media,source)"
-                move-restriction="editController.moveGeoRestriction(media,from, to)"
-                help-field="editor.general.geoRestriction"
-        ></poms-editable-modal>
-
-        <poms-editable-modal
-                class="media-field" header="Portalrestricties" media="media"
-                load="editController.getPortalRestrictions()"
-                options="editController.allowedPortalRestrictions()"
-                option-title="Portal"
-                option-field="portal"
-                permission="portalRestrictions"
-                single-name="Restrictie"
-                set-restriction="editController.setPortalRestriction(media,data)"
-                remove-restriction="editController.removePortalRestriction(media,source)"
-                move-restriction="editController.movePortalRestriction(media,from, to)"
-                help-field="editor.general.portalRestriction"
-        ></poms-editable-modal>
-
-
-
-        <poms-edit-checkbox  class="media-field" header="Embedbaar" field="embeddable" help-field="editor.general.embeddable"> </poms-edit-checkbox>
+      </div>
 
     </div>
+
+    <div class="media-section-general-right-header media-header-publication">
+      Publicatie
+    </div>
+
+    <poms-daterangepicker type="media" media="media" class="media-field" header="Datum online / offline"
+                          field="publication" help-field="editor.general.publication"></poms-daterangepicker>
+
+    <poms-editable type="media" media="media" class="media-field" fieldtype="number" header="Jaar" field="year"
+                   help-field="editor.general.year"></poms-editable>
+
+    <poms-editable type="media" media="media" class="media-field" fieldtype="duration" header="Speelduur"
+                   field="duration" format="mediaDuration" help-field="editor.general.duration"></poms-editable>
+
+    <poms-editable type="media" media="media" class="media-field" fieldtype="radiolist" options='editController.avTypes'
+                   header="AV-Type" field="avType" help-field="editor.general.avType"></poms-editable>
+
+    <poms-broadcasters type="media" media="media" class="media-field" header="Omroepen" placeholdertext="omroep"
+                       field="broadcasters" options='editController.broadcasters'
+                       allowed-broadcasters='editController.allowedBroadcasters'
+                       allowed-portals='editController.allowedPortals'
+                       help-field="editor.general.broadcasters"></poms-broadcasters>
+
+    <poms-broadcasters type="media" media="media" class="media-field" header="Portals" placeholdertext="portal"
+                       field="portals" options='editController.portals'
+                       allowed-broadcasters='editController.allowedBroadcasters'
+                       allowed-portals='editController.allowedPortals'
+                       help-field="editor.general.portals"></poms-broadcasters>
+
+    <poms-dropdown type="media" media="media" class="media-field" header="Landen" placeholdertext="land"
+                   field="countries" options='editController.countries'
+                   help-field="editor.general.countries"></poms-dropdown>
+
+    <poms-dropdown type="media" media="media" class="media-field" header="Talen" placeholdertext="taal"
+                   field="languages" options='editController.languages'
+                   help-field="editor.general.languages"></poms-dropdown>
+
+    <poms-edit-checkbox
+            class="media-field" header="Nagesynchroniseerd" field="isDubbed"
+            help-field="editor.general.isDubbed"></poms-edit-checkbox>
+
+
+    <div class="media-field" ng-if="media.subtitles.length > 0 && editController.mayReadSubtitles( media )">
+      <!-- .may-write below is just for hover purposes-->
+      <div class="editfield-wrapper may-write" title="Toon alle ondertitels en hun eventuele offsets"
+           ng-click="editController.showSubtitles()">
+        <h2 class="small-header">Ondertitels</h2>
+        <span ng-repeat="subtitle in media.subtitles">
+                        <a title="open de ondertiels voor dit item in een nieuw venster" target="blank"
+                           ng-click="$event.stopPropagation();"
+                           href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
+                ng-if="! $last">, </span></span>
+        <div class="media-field-tools">
+          <div class="edit-icon" ng-if="editController.mayWriteSubtitles( media )"></div>
+          <div class="preview-icon" ng-if=" ! editController.mayWriteSubtitles( media )"></div>
+          <poms-help field="editor.general.subtitles"></poms-help>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-section-general-right-header media-header-appears-in">
+      Hi&euml;rarchie
+    </div>
+
+    <div class="media-field not-editable" ng-if="media.segmentOf">
+      <h2 class="small-header">Segment van</h2>
+      <p class="member-wrapper">
+        <a class="media-segment-of-link" href="{{editController.editRef(media.segmentOf.id)}}">
+          <span class="link-type">{{media.segmentOf.type.text}}</span>
+          <span class="link-title">{{media.segmentOf.text}}</span>
+        </a>
+      </p>
+
+      <div class="media-field-tools">
+        <poms-help field="editor.general.segmentOf"></poms-help>
+      </div>
+
+    </div>
+
+    <div class="media-field not-editable" ng-if="media.type.id == 'BROADCAST' || media.type.id == 'STRAND'">
+      <!-- todo, this kind of logic should not be coded in frontend -->
+
+      <h2 class='small-header'>Aflevering {{item.number}} van</h2>
+
+      <p ng-repeat="item in media.episodeOf" class="member-wrapper" poms-deleted="mediaController.onDeleteAncestor()"
+         mid="item.id">
+        <a class="media-episode-of-link" href="{{editController.editRef(item.id)}}">
+          <span class="link-type">{{item.type.text}}</span>
+          <span class="link-title">{{item.text}}</span>
+        </a>
+        <button title="koppeling verwijderen" ng-if="editController.mayWriteEpisodeOf( item )"
+                class="media-member-remove" poms-confirm="'Koppeling'"
+                poms-submit="editController.removeEpisodeOf( media,  item )">
+          verwijder
+        </button>
+      </p>
+
+
+      <button class="btn-text-icon btn-text-icon-add-member-of" ng-if="editController.mayWriteEpisodeOf( media )"
+              ng-click="editController.addMemberOf( 'episodeOf' )">
+        Maak aflevering van
+      </button>
+
+      <div class="media-field-tools">
+        <poms-help field="editor.general.episodeOf"></poms-help>
+      </div>
+
+    </div>
+
+    <div class="media-field not-editable">
+      <h2 class="small-header">Onderdeel van</h2>
+
+      <p ng-repeat="item in media.memberOf" class="member-wrapper">
+        <a class="media-member-of-link" href="{{editController.editRef(item.id)}}"
+           poms-deleted="mediaController.onDeleteAncestor()" mid="item.id">
+          <span class="link-type">{{item.type.text}}</span>
+          <span class="link-title">{{item.text}}</span>
+          <span class="link-number" ng-if="item.number">({{item.number}})</span>
+        </a>
+        <button title="koppeling verwijderen" ng-if="editController.mayWriteMemberOf( item )"
+                class="media-member-remove" poms-confirm="'Koppeling'"
+                poms-submit="editController.removeMemberOf( media,  item )">
+          verwijder
+        </button>
+      </p>
+
+      <button class="btn-text-icon btn-text-icon-add-member-of" ng-if="editController.mayWriteMemberOf( media )"
+              ng-click="editController.addMemberOf( 'memberOf' )">
+        Maak onderdeel van
+      </button>
+
+      <div class="media-field-tools">
+        <poms-help field="editor.general.memberOf"></poms-help>
+      </div>
+
+    </div>
+
+    <div class="media-section-general-right-header media-header-restrictions">
+      Beperkingen
+    </div>
+
+    <poms-editable
+            type="media"
+            media="media"
+            class="media-field"
+            fieldtype="radiolist-icons"
+            field="ageRating"
+            options='editController.ageRatings'
+            header="Kijkwijzer: leeftijd"
+            class="rating"
+            help-field="editor.general.ageRating"
+    ></poms-editable>
+
+    <poms-editable
+            type="media"
+            media="media"
+            class="media-field"
+            fieldtype="checklist-icons"
+            field="contentRatings"
+            options='editController.contentRatings'
+            header="Kijkwijzer: inhoud"
+            class="rating"
+            help-field="editor.general.contentRating"
+    ></poms-editable>
+
+    <poms-editable-modal
+            class="media-field" header="Georestricties" media="media"
+            load="editController.getGeoRestrictions()"
+            options="editController.allowedGeoRestrictions()"
+            platforms="editController.allowedPlatforms()"
+            option-title="Regio"
+            option-field="region"
+            permission="geoRestrictions"
+            single-name="Restrictie"
+            set-restriction="editController.setGeoRestriction(media,data)"
+            remove-restriction="editController.removeGeoRestriction(media,source)"
+            move-restriction="editController.moveGeoRestriction(media,from, to)"
+            help-field="editor.general.geoRestriction"
+    ></poms-editable-modal>
+
+    <poms-editable-modal
+            class="media-field" header="Portalrestricties" media="media"
+            load="editController.getPortalRestrictions()"
+            options="editController.allowedPortalRestrictions()"
+            option-title="Portal"
+            option-field="portal"
+            permission="portalRestrictions"
+            single-name="Restrictie"
+            set-restriction="editController.setPortalRestriction(media,data)"
+            remove-restriction="editController.removePortalRestriction(media,source)"
+            move-restriction="editController.movePortalRestriction(media,from, to)"
+            help-field="editor.general.portalRestriction"
+    ></poms-editable-modal>
+
+
+    <poms-edit-checkbox class="media-field" header="Embedbaar" field="embeddable"
+                        help-field="editor.general.embeddable"></poms-edit-checkbox>
+
+  </div>
 
 </div>
