@@ -1,77 +1,78 @@
 <div class="modal-header">
-   <div class="modal-title">Account</div>
-   <div class="modal-close-button" ng-click="accountController.cancel()">close</div>
+  <div class="modal-title">Account</div>
+  <div class="modal-close-button" ng-click="accountController.cancel()">close</div>
 </div>
 
 <form role="form" class="poms-form accountForm" name="accountForm">
-   <div class="modal-body">
-      <div class="form-fields ">
+  <div class="modal-body">
+    <div class="form-fields ">
 
-         <div class="row" id="content">
-            <div class="col-6" id="left">
-               <div class="row field ui-select dropdown-wrapper scrollable" ng-if="accountController.allowedBroadcasters.length > 0">
+      <div class="row" id="content">
 
-                  <poms-ui-select-multi class="poms-uiselect" options="accountController.allowedBroadcasters" name="Standaard-omroepen"
-                     selection="editor.broadcasters"></poms-ui-select-multi>
+        <div class="col-6" id="left">
+          <div class="row field ui-select dropdown-wrapper scrollable" ng-if="accountController.allowedBroadcasters.length > 0">
 
-                  <div>
-                     <div class="dropdown-selected" ng-if="editor.broadcasters" ng-repeat="broadcaster in editor.broadcasters"
-                        ng-click="accountController.remove( editor.broadcasters, broadcaster)">{{broadcaster.text}}</div>
-                  </div>
-               </div>
-               <div class="row" id="autosave">
-                  <div class="field">
-                     <label for="saveConfirm">Geef GEEN melding bij automatisch opslaan:</label> <input name='saveconfirm' id="saveConfirm"
-                        type="checkbox" ng-checked="saveconfirm.value" ng-model="saveconfirm.selected">
+            <poms-ui-select-multi class="poms-uiselect" options="accountController.allowedBroadcasters" name="Standaard-omroepen"
+                                  selection="editor.broadcasters"></poms-ui-select-multi>
 
-                  </div>
-               </div>
-               <div class="row" id="rollen">
-                  <div class="field">
-                     <h4>Dit zijn jouw rollen binnen poms, die bepalen waar je wel/geen toestemming voor hebt:</h4>
-
-                     <p class="modal-text-small">
-                        <span data-ng-repeat="role in editor.roles">{{role}}{{$last ? '' : ', '}}</span>
-                     </p>
-
-                  </div>
-               </div>
+            <div>
+              <div class="dropdown-selected" ng-if="editor.broadcasters" ng-repeat="broadcaster in editor.broadcasters"
+                   ng-click="accountController.remove( editor.broadcasters, broadcaster)">{{broadcaster.text}}</div>
+            </div>
+          </div>
+          <div class="row" id="autosave">
+            <div class="field">
+              <label for="saveConfirm">Geef GEEN melding bij automatisch opslaan:</label> <input name='saveconfirm' id="saveConfirm"
+                                                                                                 type="checkbox" ng-checked="saveconfirm.value" ng-model="saveconfirm.selected">
 
             </div>
+          </div>
+          <div class="row" id="rollen">
+            <div class="field">
+              <h4>Dit zijn jouw rollen binnen poms, die bepalen waar je wel/geen toestemming voor hebt:</h4>
 
-            <div class="col-6" id="right">
-               <div class="row" id="ownertype">
-                  <div class="field" ng-if="accountController.allowedOwnerTypes.length > 1">
-                     <h4>Kies de eigenaar om velden te zien/bewerken</h4>
-
-                     <ul>
-                           <ng-form name="radios">
-                        <li ng-repeat="type in accountController.allowedOwnerTypes">
-                           <label>
-                            <input name="ownertype"
-                              type="radio" ng-model="accountController.ownerType" ng-change="accountController.storeOwnerType()" value="{{type.id}}">
-                              {{type.text}}
-                        </label>
-                        </li>
-                        </ng-form>
-                     </ul>
-                  </div>
-               </div>
+              <p class="modal-text-small">
+                <span data-ng-repeat="role in editor.roles">{{role}}{{$last ? '' : ', '}}</span>
+              </p>
 
             </div>
-         </div>
+          </div>
+
+        </div>
+
+        <div class="col-6" id="right">
+          <div class="row" id="ownertype">
+            <div class="field" ng-if="accountController.allowedOwnerTypes.length > 1">
+              <h4>Kies de eigenaar om velden te zien/bewerken</h4>
+
+              <ul>
+                <ng-form name="radios">
+                  <li ng-repeat="type in accountController.allowedOwnerTypes">
+                    <label>
+                      <input name="ownertype"
+                             type="radio" ng-model="accountController.ownerType" ng-change="accountController.storeOwnerType()" value="{{type.id}}">
+                      {{type.text}}
+                    </label>
+                  </li>
+                </ng-form>
+              </ul>
+            </div>
+          </div>
+
+        </div>
       </div>
-   </div>
+    </div>
+  </div>
 
 
-   <div class="footer-container">
-      <div class="footer modal-footer footer-two-buttons ">
+  <div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons ">
 
-         <div class="footer-message">&nbsp;</div>
+      <div class="footer-message">&nbsp;</div>
 
-         <button class="btn-rect" ng-click="accountController.submit()">Opslaan</button>
-         <button class="btn-rect btn-rect-cancel" ng-click="accountController.cancel($event)">Annuleer</button>
+      <button class="btn-rect" ng-click="accountController.submit()">Opslaan</button>
+      <button class="btn-rect btn-rect-cancel" ng-click="accountController.cancel($event)">Annuleer</button>
 
-      </div>
-   </div>
+    </div>
+  </div>
 </form>
