@@ -150,12 +150,18 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             listService.getMediaTypes().then(
                 function ( data ) {
                     this.mediaTypes = data;
+                    this.targetTypesObjects = [];
+                    angular.forEach(this.mediaTypes, function (value, key) {
+                        if (this.media.targetTypes.indexOf(value.id) !== -1) {
+                            this.targetTypesObjects.push(value);
+                        }
+                    }.bind(this));
+                    console.log(this.targetTypesObjects);
                 }.bind( this ),
                 function () {
                     $scope.$emit( pomsEvents.error, error )
                 }.bind( this )
             );
-
 
 
             $scope.$on( 'nextField', function( e ){
@@ -476,19 +482,9 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 });
             },
 
-            targetTypes: function(media) {
-                if (! media.targetTypesObjects) {
-                    media.targetTypesObjects = [];
-                    if (this.mediaTypes) {
-                        angular.forEach(this.mediaTypes, function (value, key) {
-                            if (media.targetTypes.indexOf(value.id) !== -1) {
-                                media.targetTypesObjects.push(value);
-                            }
-                        });
-                    }
-                }
-                //console.log(this.mediaTypes, media.targetTypesObjects);
-                return media.targetTypesObjects;
+            targetTypes: function() {
+                return this.targetTypesObjects;
+
             },
 
             showSubtitles: function () {
