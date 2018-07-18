@@ -58,7 +58,8 @@ angular.module( 'poms.media.directives' )
                 formatFilter: '@format',
                 options: '=',
                 media: '=' ,
-                type: '@'
+                type: '@',
+                static: '@'
             },
             link: function ( $scope, element, attrs ) {
 
@@ -79,6 +80,13 @@ angular.module( 'poms.media.directives' )
 
                 $scope.mayWrite =
                     this.editService.hasWritePermission($scope.media, $scope.field);
+
+                $scope.classes = "";
+                $scope.titleclasses = "";
+                if (attrs.static) {
+                    $scope.classes = "media-static-field";
+                    $scope.titleclasses = "media-static-field-title";
+                }
 
                 //console.log($scope.field, $scope.mayWrite);
 
