@@ -186,7 +186,13 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasWritePermission: function ( media, permission ) {
-                return (media[permission] && media[permission].mayWrite) || ((media.permission & writePermissions[permission]) > 0);
+                if (media && media[permission] !== undefined) {
+                    // explicitely indicated in field
+                    return media[permission].mayWrite;
+                } else {
+                    // fall back to stuff with bitmap
+                    return writePermissions[permission] > 0;
+                }
             },
 
             hasDeletePermission: function ( media ) {
