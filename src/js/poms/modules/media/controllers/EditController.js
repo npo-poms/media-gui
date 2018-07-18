@@ -151,12 +151,16 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 function ( data ) {
                     this.mediaTypes = data;
                     this.targetTypesObjects = [];
+                    if (this.media === null) {
+                        $scope.$emit(pomsEvents.error, "No media object");
+                        return;
+                    }
                     angular.forEach(this.mediaTypes, function (value, key) {
                         if (this.media.targetTypes.indexOf(value.id) !== -1) {
                             this.targetTypesObjects.push(value);
                         }
                     }.bind(this));
-                    console.log(this.targetTypesObjects);
+                    //console.log(this.targetTypesObjects);
                 }.bind( this ),
                 function () {
                     $scope.$emit( pomsEvents.error, error )
