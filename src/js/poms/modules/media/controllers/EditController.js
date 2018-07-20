@@ -156,7 +156,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                         return;
                     }
                     angular.forEach(mediaTypes, function (value, key) {
-                        if (this.media.targetTypes.indexOf(value.id) !== -1) {
+                        if (this.media.targetTypes && this.media.targetTypes.indexOf(value.id) !== -1) {
                             $scope.targetTypesObjects.push(value);
                         }
                     }.bind(this));

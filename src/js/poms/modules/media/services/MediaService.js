@@ -186,7 +186,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasWritePermission: function ( media, permission ) {
-                if (media && media[permission] !== undefined && media[permission].mayWrite !== undefined) {
+                if (media && media[permission] !== undefined && media[permission] !== null && media[permission].mayWrite !== undefined) {
                     // explicitely indicated in field
                     return media[permission].mayWrite;
                 } else {
