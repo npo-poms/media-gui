@@ -334,7 +334,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                         this.guiService.removedMember(memberRef.id);
                     }.bind( this ),
                     function ( error ) {
-                        this.$scope.$emit( this.pomsEvents.error, error )
+                        this.$scope.$emit( this.pomsEvents.error, error );
                         return false;
                     }.bind( this )
                 );

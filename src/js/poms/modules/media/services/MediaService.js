@@ -127,8 +127,8 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 var url = baseUrl + '/' + media.mid + path;
 
                 $http.post( url, body )
-                    .success( function ( media ) {
-                        deferred.resolve( media );
+                    .success( function ( result ) {
+                        deferred.resolve( result );
                     } )
                     .error( function ( error ) {
                         deferred.reject( error );

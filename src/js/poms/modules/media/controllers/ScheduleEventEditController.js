@@ -85,13 +85,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                 var data = this.$scope.event;
 
                 return this.mediaService.saveScheduleEvent( this.$scope.media, data ).then(
-                    function ( media ) {
-                        this.$modalInstance.close( media );
+                    function (scheduleEvent) {
+                        this.$modalInstance.close(scheduleEvent);
                         this.$scope.waiting = false;
                     }.bind( this ),
                     function ( error ) {
                         this.$scope.waiting = false;
-                        if ( error.status == 400 && error.violations ) {
+                        if ( error.status === 400 && error.violations ) {
                             this.violations = error.violations;
                         } else {
                             this.$scope.$emit( this.pomsEvents.error, error )

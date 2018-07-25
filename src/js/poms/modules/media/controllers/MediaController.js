@@ -15,7 +15,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     'PomsEvents',
     (function () {
 
-        function MediaController (  $rootScope, $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
+        function MediaController ( $rootScope, $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
             this.$rootScope = $rootScope;
             $scope.showMid = true;
 
@@ -96,7 +96,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
 
             $scope.$on( 'editFieldOpen', function ( e, element ) {
-                this.editFieldOpen = ( element.isOpen ? true : false);
+                this.editFieldOpen = (element.isOpen ? true : false);
                 this.editField = element.field;
             } );
 
@@ -133,6 +133,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     case 'segments':
                         this.$scope.segmentsWaiting = loading.waiting;
                         break;
+                    case 'scheduleEvents':
+                        this.$scope.scheduleEventsWaiting= loading.waiting;
+                        break;
                 }
             }.bind( this ) );
 
@@ -154,13 +157,15 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 crumb = crumb.child;
             }
             if ( ! answer.length ) {
-                answer.push( {
-                    mid : media.id,
-                    type : media.type.text,
-                    title : media.mainTitle.text,
-                    number : media.number,
-                    sequenceInfo : media.sequenceInfo
-                } );
+                if (media.type) {
+                    answer.push({
+                        mid: media.id,
+                        type: media.type.text,
+                        title: media.mainTitle.text,
+                        number: media.number,
+                        sequenceInfo: media.sequenceInfo
+                    });
+                }
             }
             scope.breadCrumbs = answer;
         };

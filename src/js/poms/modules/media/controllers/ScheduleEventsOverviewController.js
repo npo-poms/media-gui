@@ -59,8 +59,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
                 } );
 
                 modal.result.then(
-                    function ( media ) {
-                        angular.copy( media, this.$scope.media );
+                    function ( scheduleEvent ) {
+                        //angular.copy( media, this.$scope.media );
                         this.load();
                     }.bind( this )
                 );
