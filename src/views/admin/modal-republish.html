@@ -16,13 +16,8 @@
                     <div class="field">
                         <label for="inputMids"> Mids </label>
 
-                        <ui-select id="inputMids" multiple tagging tagging-label="(nieuw)"
-                                   tagging-tokens=",|ENTER|SPACE" ng-model="republish.mids" theme="bootstrap"
-                                   search-enabled="false">
-                            <ui-select-match placeholder="Mids...">{{$item}}</ui-select-match>
-                            <ui-select-choices repeat="item in options"> {{item}}</ui-select-choices>
+                        <input id="inputMids" ng-model="republish.mids" type="text" />
 
-                        </ui-select>
 
                         <poms-invalid violation="republishController.violations.mids"></poms-invalid>
                     </div>

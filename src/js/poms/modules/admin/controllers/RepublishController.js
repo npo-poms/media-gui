@@ -17,7 +17,7 @@ angular.module( 'poms.admin.controllers' ).controller( 'RepublishController', [
             this.$modalInstance = $modalInstance;
 
             this.$scope.republish = {
-                mids: [],
+                mids: "",
                 types: [],
                 lastPublishedRange: undefined,
                 destinations: []
@@ -95,7 +95,7 @@ angular.module( 'poms.admin.controllers' ).controller( 'RepublishController', [
 
                     }.bind( this ),
                     function ( error ) {
-                        if ( error.status == 400 && error.violations ) {
+                        if ( error.status === 400 && error.violations ) {
                             source.violations = error.violations;
                             return 'Errors';
                         } else {
