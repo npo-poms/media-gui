@@ -12,6 +12,8 @@
     "prebuild:selector": "cp src/CMSSelector/index.html src/CMSSelector/index.tmpl && replace \"{version}\" \"$npm_package_version\" src/CMSSelector/index.tmpl && npm run copy:selector",
     "build:selector": "usemin src/CMSSelector/index.tmpl -d build/deploy -o build/deploy/CMSSelector/index.html --htmlmin false",
     "postbuild:selector": "rimraf src/CMSSelector/index.tmpl",
+
+
     "prebuild:app:dev": "npm run build:constants && npm run build:templatecache:gulp",
     "build:app:dev": "cp src/index.html build/work/index.html && replace \"{version}\" \"$npm_package_version\" build/work/index.html",
     "build:app:gulp": "gulp app-deploy",
@@ -35,6 +37,9 @@
     "postcopy:selector": "replace \"{domain}\" \"$npm_package_config_apihost\" build/deploy/CMSSelector/js/media.js",
     "copy:selector:dev": "cp -R src/CMSSelector build/work/CMSSelector",
     "postcopy:selector:dev": "replace \"{domain}\" \"$npm_package_config_apihost\" build/work/CMSSelector/js/media.js",
+
+
+
     "copy:resources": "cp -Rf ./src/resources ./build/deploy/resources",
     "copy:vendorstyles": "cp -a ./src/styles/vendor/. ./build/deploy/css",
     "copy:vendorstyles:dev": "cp -a ./src/styles/vendor/. ./build/work/css",
