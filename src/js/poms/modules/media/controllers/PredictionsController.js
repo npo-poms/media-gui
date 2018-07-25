@@ -30,7 +30,8 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
 
             editPrediction: function (prediction) {
 
-                if(!prediction.mayWrite){
+                if(!prediction.mayWrite && ! prediction.mayWriteEmbargo){
+                    console && console.log("You may not write", prediction);
                     return;
                 }
 

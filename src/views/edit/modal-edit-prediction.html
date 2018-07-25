@@ -13,14 +13,20 @@
         <div class="row">
           <div class="col-6 field">
             <label for="available">Beschikbaar</label>
-            <input type="checkbox" name="plannedAvailability" id="available"
+            <input type="checkbox"
+                   name="plannedAvailability" id="available"
+                   ng-disabled="! prediction.mayWrite"
                    ng-model="prediction.plannedAvailability"
             />
           </div>
 
           <div class="col-6 field">
             <label for="encryption">Encryptie</label>
-              <ui-select id="encryption" ng-model="prediction.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+              <ui-select id="encryption"
+                         ng-model="prediction.encryption"
+                         ng-disabled="! prediction.mayWrite"
+                         theme="selectize"
+                         close-on-select="true" reset-search-input="true" style="width: 200px;">
                 <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
                   <div ng-bind-html="item.text | highlight: $select.search"></div>
                 </ui-select-choices>
@@ -35,6 +41,7 @@
                     <div class="input-group datepicker-dropdown"  >
                       <label class='date-input-label' label-for="fromdate" >Start</label>
                       <input name='fromdate' type="text" class="form-control"
+                             ng-disabled="! prediction.mayWriteEmbargo"
                              datepicker-popup="dd-MM-yyyy HH:mm"
                              max-date='maxStart'
                              ng-model="prediction.publication.start"
@@ -50,6 +57,7 @@
                       <label class='date-input-label' label-for="todate" >Stop</label>
 
                       <input name='todate' type="text" class="form-control"
+                             ng-disabled="! prediction.mayWrite"
                              datepicker-popup="dd-MM-yyyy HH:mm"
                              min-date='minStop'
                              ng-model="prediction.publication.stop"
