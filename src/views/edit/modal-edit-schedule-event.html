@@ -50,6 +50,7 @@
             <button class="open-calendar" ng-click="openStartDate($event)" />
           </div>
           </p>
+          <p>Gidsdatum: {{event.guideDayString}}</p>
           <p>
             <label label-for="stop">Stoptijd:</label>
             <span ng-if="!event.mayWrite">{{::event.stop| mediaDateTime}}</span>

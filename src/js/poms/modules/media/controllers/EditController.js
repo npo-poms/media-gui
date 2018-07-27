@@ -162,7 +162,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     }.bind(this));
                     //console.log(this.targetTypesObjects);
                 }.bind( this ),
-                function () {
+                function (error) {
                     $scope.$emit( pomsEvents.error, error )
                 }.bind( this )
             );
