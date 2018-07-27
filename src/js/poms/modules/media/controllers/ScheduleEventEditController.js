@@ -55,7 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                     this.nets = [null].concat(data);
                 }.bind( this ),
                 function ( error ) {
-                    $scope.$emit( pomsEvents.error, error )
+                    $scope.$emit(  PomsEvents.error, error )
                 }.bind( this )
             );
              listService.getChannels().then(
@@ -63,7 +63,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                     this.channels = data;
                 }.bind( this ),
                 function ( error ) {
-                    $scope.$emit( pomsEvents.error, error )
+                    $scope.$emit(  PomsEvents.error, error )
                 }.bind( this )
             );
         }
