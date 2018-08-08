@@ -36,25 +36,25 @@
           <p>
             <label label-for="start">Starttijd:</label>
             <span ng-if="!event.mayWrite">{{::event.start | mediaDateTime}}</span>
-            <div class="input-group datepicker-dropdown" ng-if="event.mayWrite">
-            <input
-                    name='start'
-                    type="text"
-                    class="form-control"
-                    datepicker-popup="dd-MM-yyyy HH:mm"
-                    max-date='maxStart'
-                    ng-model="event.start"
-                    is-open="startdate.open"
-                    close-text="sluit"
-            />
-            <button class="open-calendar" ng-click="openStartDate($event)" />
-          </div>
+            <div class="input-group editable-datepicker" ng-if="event.mayWrite">
+              <input
+                      name='start'
+                      type="text"
+                      class="form-control"
+                      datepicker-popup="dd-MM-yyyy HH:mm"
+                      max-date='maxStart'
+                      ng-model="event.start"
+                      is-open="startdate.open"
+                      close-text="sluit"
+              />
+             <button class="open-calendar" ng-click="console.log('hoi', $event); openStartDate($event)"> </button>
+           </div>
           </p>
           <p>Gidsdatum: {{event.guideDayString}}</p>
           <p>
             <label label-for="stop">Stoptijd:</label>
             <span ng-if="!event.mayWrite">{{::event.stop| mediaDateTime}}</span>
-            <div class="input-group datepicker-dropdown" ng-if="event.mayWrite">
+            <div class="input-group editable-datepicker" ng-if="event.mayWrite">
             <input
                     name='stop'
                     type="text"
@@ -65,7 +65,7 @@
                     is-open="stopdate.open"
                     close-text="sluit"
             />
-            <button class="open-calendar" ng-click="openStopDate($event)" />
+          <button class="open-calendar" ng-click="openStopDate($event)"> </button>
           </div>
           </p>
 
