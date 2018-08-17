@@ -33,6 +33,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
 
             $scope.mayWrite = mayWrite;
             $scope.waiting = false;
+
         }
 
         SubtitlesController.prototype = {
@@ -54,6 +55,17 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
                 var urlSuffix = this.media.mid + '/' + subtitle.language + '/' + subtitle.type;
 
                 window.open( this.$filter( 'subtitlesLocationPrefix' )( urlSuffix ) );
+            },
+
+            deleteSubtitle: function ( subtitle ) {
+
+                return this.subtitlesService.delete( this.media.mid, subtitle.language, subtitle.type).then( function( response ){
+                    //TODO: This should be done by Frontend.
+                    this.subtitles.splice(this.subtitles.indexOf(subtitle) , 1);
+                    this.media.subtitles = response.subtitles;
+
+                }.bind(this))
+
             },
 
             submit: function ( subtitle, data ) {

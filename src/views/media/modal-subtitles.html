@@ -64,14 +64,28 @@
                     </button>
                 </form>
                 <div class="tools" ng-show="!rowform.$visible">
-                    <button title='bekijk de ondertiteling in een nieuw scherm' class="poms-icon icon-preview" ng-click="subtitlesController.showSubtitle( item )">bekijk</button>
-                    <button title='bewerk' class="poms-icon icon-edit" ng-show="mayWrite" ng-click="rowform.$show()">bewerk</button>
+                    <button title='bekijk de ondertiteling in een nieuw scherm'
+                            class="poms-icon icon-preview"
+                            ng-click="subtitlesController.showSubtitle( item )">
+                        bekijk
+                    </button>
+                    <button title='bewerk'
+                            class="poms-icon icon-edit"
+                            ng-show="mayWrite"
+                            ng-click="rowform.$show()">
+                        bewerk
+                    </button>
+                    <button title='delete'
+                            class="poms-icon icon-remove"
+                            ng-show="mayWrite"
+                            ng-click="subtitlesController.deleteSubtitle( item )">
+                        verwijder
+                    </button>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-
 </div>
 
 <div class="footer-container">

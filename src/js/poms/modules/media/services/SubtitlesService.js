@@ -35,6 +35,23 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
             return deferred.promise;
         }
 
+        function del ( mediaId, path ) {
+            // debugger;
+            var deferred = $q.defer();
+            var url = baseUrl + '/' + mediaId +'/'+ path;
+
+            $http.delete( url )
+                .success( function ( subtitles ) {
+                    deferred.resolve( subtitles );
+                } )
+                .error( function ( error ) {
+                    deferred.reject( error );
+                } );
+
+
+            return deferred.promise;
+        }
+
         function SubtitlesService () {}
 
         SubtitlesService.prototype = {
@@ -45,6 +62,10 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
 
             setOffset: function ( id, language, type, offset ) {
                 return post( id, [ language, type, 'offset' ].join('/'), { duration: offset } );
+            },
+
+            delete: function (id, language, type) {
+                return del(id, [ language, type ].join('/'));
             }
         };
 
