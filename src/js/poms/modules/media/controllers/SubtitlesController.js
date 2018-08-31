@@ -61,8 +61,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
 
                 return this.subtitlesService.delete( this.media.mid, subtitle.language, subtitle.type).then( function( response ){
                     //TODO: This should be done by Frontend.
-                    this.subtitles.splice(this.subtitles.indexOf(subtitle) , 1);
-                    this.media.subtitles = response.subtitles;
+                    this.subtitles = response;
+                    this.media.subtitles = response;
 
                 }.bind(this))
 

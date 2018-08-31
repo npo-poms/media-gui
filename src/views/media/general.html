@@ -249,25 +249,37 @@
             class="media-field" header="Nagesynchroniseerd" field="isDubbed"
             help-field="editor.general.isDubbed"></poms-edit-checkbox>
 
+    <div class="media-field">
 
-    <div class="media-field" ng-if="media.subtitles.length > 0 && editController.mayReadSubtitles( media )">
       <!-- .may-write below is just for hover purposes-->
-      <div class="editfield-wrapper may-write" title="Toon alle ondertitels en hun eventuele offsets"
-           ng-click="editController.showSubtitles()">
-        <h2 class="small-header">Ondertitels</h2>
-        <span ng-repeat="subtitle in media.subtitles">
-                        <a title="open de ondertiels voor dit item in een nieuw venster" target="blank"
-                           ng-click="$event.stopPropagation();"
-                           href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
-                ng-if="! $last">, </span></span>
-        <div class="media-field-tools">
-          <div class="edit-icon" ng-if="editController.mayWriteSubtitles( media )"></div>
-          <div class="preview-icon" ng-if=" ! editController.mayWriteSubtitles( media )"></div>
-          <poms-help field="editor.general.subtitles"></poms-help>
+      <div  ng-class="{ 'empty': media.subtitles.length == 0,
+              'may-write' : editController.mayWriteSubtitles( media ),
+              'forbidden' : !editController.mayReadSubtitles( media),
+              'waiting': waiting}"
+                class="editfield-wrapper" title="Toon alle ondertitels en hun eventuele offsets"
+      >
+        <div ng-click="editController.showSubtitles()">
+          <h2 class="small-header">Ondertitels</h2>
+          <span ng-repeat="subtitle in media.subtitles">
+                          <a title="open de ondertitels voor dit item in een nieuw venster" target="blank"
+                             ng-click="$event.stopPropagation();"
+                             href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
+                  ng-if="! $last">, </span></span>
+          <div class="media-field-tools">
+            <div class="edit-icon" ng-if="editController.mayWriteSubtitles( media )"></div>
+            <div class="preview-icon" ng-if=" ! editController.mayWriteSubtitles( media )"></div>
+            <poms-help field="editor.general.subtitles"></poms-help>
+          </div>
+        </div>
+        <div>
+          <button class="btn-text-icon btn-text-icon-add-member-of"
+                  ng-if="editController.mayWriteSubtitles( media )"
+                  ng-click="editController.uploadSubtitle()">
+            Ondertitel toevoegen
+          </button>
         </div>
       </div>
     </div>
-
     <div class="media-section-general-right-header media-header-appears-in">
       Hi&euml;rarchie
     </div>

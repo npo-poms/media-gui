@@ -124,6 +124,10 @@ angular.module('poms.list.services').factory('ListService', [
 
             getUsers : function(text, max) {
                 return get('/users', {params : {text : text, max : max || 10}});
+            },
+
+            getSubtitlesTypes : function(text, max) {
+                return get('/subtitlesTypes', {params : {text : text, max : max || 10}});
             }
         };
 

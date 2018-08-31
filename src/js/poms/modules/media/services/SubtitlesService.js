@@ -1,8 +1,9 @@
 angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
     '$q',
     '$http',
+    '$upload',
     'appConfig',
-    function ( $q, $http, appConfig ) {
+    function ( $q, $http, $upload, appConfig ) {
 
         var baseUrl = appConfig.apihost + '/gui/subtitles';
 
@@ -20,7 +21,6 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
         }
 
         function post ( mediaId, path, body ) {
-
             var deferred = $q.defer();
             var url = baseUrl + '/' + mediaId +'/'+ path;
 
@@ -35,8 +35,31 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
             return deferred.promise;
         }
 
+        function postData ( mediaId, path, fields, file ) {
+            var deferred = $q.defer();
+            var url = baseUrl + '/' + mediaId +'/'+ path;
+
+            $upload.upload( {
+                url: url,
+                method: 'POST',
+                fields: fields,
+                file: file,
+                fileFormDataName: 'file'
+                })
+                .success( function ( data, status, headers, config ) {
+
+                    deferred.resolve( data );
+                })
+                .error( function ( data, status, headers, config ) {
+
+                    deferred.reject( data )
+                });
+
+            return deferred.promise;
+
+        }
+
         function del ( mediaId, path ) {
-            // debugger;
             var deferred = $q.defer();
             var url = baseUrl + '/' + mediaId +'/'+ path;
 
@@ -56,16 +79,20 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
 
         SubtitlesService.prototype = {
 
-            list: function ( id ) {
-                return get( '/' + id, {params: {}} );
+            list: function ( mid ) {
+                return get( '/' + mid, {params: {}} );
             },
 
-            setOffset: function ( id, language, type, offset ) {
-                return post( id, [ language, type, 'offset' ].join('/'), { duration: offset } );
+            setOffset: function ( mid, language, type, offset ) {
+                return post( mid, [ language, type, 'offset' ].join('/'), { duration: offset } );
             },
 
-            delete: function (id, language, type) {
-                return del(id, [ language, type ].join('/'));
+            delete: function ( mid, language, type) {
+                return del( mid, [ language, type ].join('/'));
+            },
+
+            upload: function ( mid, language, type, fields, data ) {
+                return postData( mid, [language, type ].join('/'), fields, data);
             }
         };
 

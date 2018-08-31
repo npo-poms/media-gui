@@ -1,0 +1,100 @@
+<div class="modal-header">
+    <div class="modal-title"> {{ ::subtitleUploadController.title }}</div>
+    <div class="modal-close-button" ng-click="subtitleUploadController.close()"> close</div>
+</div>
+
+<form editable-form id="uploadSubtitlesForm" role="form" class="poms-form uploadSubtitleForm"
+      ng-class="{'waiting': waiting}" name="uploadSubtitleForm">
+    <div class="modal-body">
+        <div class="form-fields ">
+            <label>Taal&#42;</label>
+            <ui-select ng-model="uploadSubtitleForm.subtitleLanguage"
+                       theme="selectize"
+                       close-on-select="true"
+                       reset-search-input="true"
+                       style="width: 200px;"
+            >
+                <ui-select-choices repeat="item in languages">
+                    <div ng-bind-html="subtitleUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+                </ui-select-choices>
+                <ui-select-match>{{$select.selected.text }}</ui-select-match>
+            </ui-select>
+
+            <label>Type&#42;</label>
+            <ui-select ng-model="uploadSubtitleForm.subtitleType"
+                       theme="selectize"
+                       close-on-select="true"
+                       reset-search-input="true"
+                       style="width: 200px;"
+            >
+                <ui-select-choices repeat="item in subtitlesTypes">
+                    <div ng-bind-html="subtitleUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+                </ui-select-choices>
+                <ui-select-match>{{$select.selected.text }}</ui-select-match>
+            </ui-select>
+
+            <label for="inputOffset">Offset (hh:mm:ss)</label>
+            <p>
+            <input type="time" name="inputOffset"
+                   id="inputOffset"
+                   ng-disabled="!mayWrite"
+                   ng-init="uploadSubtitleForm.offset = epoch"
+                   ng-model="uploadSubtitleForm.offset"
+                   step="1"
+                   style="width: 200px;"
+            >
+            <poms-invalid violation="controller.violations.date"></poms-invalid>
+            <poms-help field="subtitle.offset"></poms-help>
+
+
+            <div class="field float-clear col-4"
+                 ng-class="{'has-error' : uploadSubtitleForm.subtitleFile.$invalid}">
+                <label for="inputFile">Bestand</label>
+                <input type="file"
+                       id="inputFile" name="inputFile"
+                       ng-file-select="subtitleUploadContoller.fileSelected()"
+                       ng-model="uploadSubtitleForm.subtitleFile"
+                       accept=".vtt,.srt,.tt888,.ebu-stl,.xml,text/vtt,text/srt,text/tt888,application/ebu-stl,application/xml">
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+
+    <div class="modal-disable-overlay"></div>
+
+
+    </div>
+
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message">
+                <span class="required-feedback-message"
+                      ng-if="!uploadSubtitleForm.subtitleFile || !uploadSubtitleForm.subtitlelanguage ||
+                            !uploadSubtitleForm.subtitleType">
+                    Nog in te vullen:
+                </span>
+                <span class="required-field" ng-if="!uploadSubtitleForm.subtitleFile">Bestand</span>
+                <span class="required-field" ng-if="!uploadSubtitleForm.subtitleLanguage">Taal</span>
+                <span class="required-field" ng-if="!uploadSubtitleForm.subtitleType">Type</span>
+
+                &nbsp;
+            </div>
+
+            <button class="btn-rect"
+                    ng-click="subtitleUploadController.addSubtitle()"
+                    ng-disabled="!uploadSubtitleForm.subtitleFile || !uploadSubtitleForm.subtitleLanguage ||
+                    !uploadSubtitleForm.subtitleType || waiting"
+            >
+                Start upload
+            </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="subtitleUploadController.close()">Annuleer</button>
+        </div>
+    </div>
+
+</form>

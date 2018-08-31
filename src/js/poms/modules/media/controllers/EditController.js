@@ -147,6 +147,15 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                      $scope.$emit( pomsEvents.error, error )
                  }.bind( this )
             );
+
+             listService.getSubtitlesTypes().then(
+                function ( data ) {
+                    this.subtitlesTypes = data;
+                }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
             listService.getMediaTypes().then(
                 function ( data ) {
                     var mediaTypes = data;
@@ -494,6 +503,12 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                         title: function () {
                             return 'Alle ondertitels';
                         },
+                        languages: function () {
+                            return this.languages;
+                        }.bind( this ),
+                        subtitlesTypes: function () {
+                            return this.subtitlesTypes;
+                        }.bind( this ),
                         media: function () {
                             return this.media;
                         }.bind( this ),
@@ -507,7 +522,40 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     templateUrl: 'media/modal-subtitles.html'
 
                 } );
-            }
+            },
+
+            uploadSubtitle: function () {
+                var modal = this.$modal.open( {
+                    resolve: {
+                        title: function () {
+                            return 'Upload ondertitel';
+                        },
+                        languages: function () {
+                            return this.languages;
+                        }.bind( this ),
+                        subtitlesTypes: function () {
+                            return this.subtitlesTypes;
+                        }.bind( this ),
+                        media: function () {
+                            return this.media;
+                        }.bind( this ),
+                        mayWrite: function () {
+                            return this.mayWriteSubtitles( this.media )
+                        }.bind( this )
+                    },
+                    controller : 'SubtitleUploadController',
+                    controllerAs : 'subtitleUploadController',
+                    templateUrl : 'edit/modal-upload-subtitle.html',
+                    windowClass : 'modal-subtitle-upload'
+                } );
+
+                //modal.result.then(
+                //    function () {
+                //        this.load();
+                //    }.bind( this )
+                //);
+            },
+
         };
 
         return EditController;
