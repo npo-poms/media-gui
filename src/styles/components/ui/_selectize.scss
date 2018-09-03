@@ -227,7 +227,7 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px !default;
 
 .selectize-dropdown {
     position: absolute;
-    z-index: 10;
+    z-index: 21;
     border: $selectize-border;
     background: $selectize-color-dropdown;
     margin: -1px 0 0 0;
@@ -269,6 +269,7 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px !default;
 .selectize-dropdown-content {
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: inherit;
     max-height: $selectize-max-height-dropdown;
 }
 
