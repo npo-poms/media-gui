@@ -74,6 +74,9 @@ describe('EditController', function() {
         listService.getEncryptionTypes = function() {
             return deferredOptions.promise;
         };
+        listService.getSubtitlesTypes = function () {
+            return deferredOptions.promise;
+        }
     }));
 
     beforeEach(inject(function(_$rootScope_, _$q_, _$sce_, $controller) {
