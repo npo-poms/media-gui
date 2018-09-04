@@ -40,7 +40,7 @@
 
 
 
-    "copy:resources": "cp -Rf ./src/resources ./build/deploy/resources",
+    "copy:resources": "cp -Rfa ./src/resources ./build/deploy/resources",
     "copy:vendorstyles": "cp -a ./src/styles/vendor/. ./build/deploy/css",
     "copy:vendorstyles:dev": "cp -a ./src/styles/vendor/. ./build/work/css",
     "create:deploybase": "mkdirp ./build/deploy",
