@@ -27,8 +27,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
             $scope.media = media;
             $scope.mayWrite = mayWrite;
             $scope.waiting = false;
-            $scope.epoch = new Date();
-            $scope.epoch.setHours(0,0,0,0)
+            $scope.epoch = new Date("Thu Jan 01 1970 00:00:00 GMT+0100 (Central European Standard Time)");
 
         }
 
@@ -43,7 +42,6 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
                 this.$scope.waiting = true;
 
                 var offset = this.$filter( 'noTimezone' )( this.$scope.uploadSubtitleForm.offset ).getTime();
-                console.log(this.$scope.uploadSubtitleForm.offset);
                 var fields = {
                     mid: this.media.mid,
                     name: this.$scope.uploadSubtitleForm.subtitleFile[0].name,

@@ -14,7 +14,7 @@
                        reset-search-input="true"
                        style="width: 200px;"
             >
-                <ui-select-choices repeat="item in languages">
+                <ui-select-choices repeat="item in languages | filter: {text: $select.search}">
                     <div ng-bind-html="subtitleUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
                 </ui-select-choices>
                 <ui-select-match>{{$select.selected.text }}</ui-select-match>
