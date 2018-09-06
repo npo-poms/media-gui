@@ -1,4 +1,5 @@
-angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
+angular.module( 'poms.media.controllers' ).controller(
+    'SubtitlesController', [
     '$scope',
     '$q',
     '$filter',
@@ -31,8 +32,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
                 this.subtitles.push( sub );
             }.bind( this ) );
 
-            $scope.mayWrite = mayWrite;
+            $scope.mayWriteMedia = mayWrite
             $scope.waiting = false;
+            $scope.errorMessage = null;
 
         }
 
@@ -42,8 +44,13 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
                 this.$modalInstance.dismiss();
             },
 
+            mayWriteSubtitle: function ( subtitle ) {
+                return this.$scope.mayWriteMedia && subtitle.owner === "BROADCASTER"
+            },
+
             editOrShowIfAllowed: function ( row, subtitle ) {
-                if ( this.$scope.mayWrite ) {
+
+                if ( this.mayWriteSubtitle( subtitle ) ) {
                     row.$show();
                 } else {
                     this.showSubtitle( subtitle );
@@ -51,7 +58,6 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesController', [
             },
 
             showSubtitle: function ( subtitle ) {
-
                 var urlSuffix = this.media.mid + '/' + subtitle.language + '/' + subtitle.type;
 
                 window.open( this.$filter( 'subtitlesLocationPrefix' )( urlSuffix ) );

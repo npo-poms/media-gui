@@ -75,10 +75,29 @@
 
             <div class="required-feedback footer-message">
                 <span class="required-feedback-message"
-                      ng-if="!uploadSubtitleForm.subtitleFile || !uploadSubtitleForm.subtitlelanguage ||
-                            !uploadSubtitleForm.subtitleType">
+                      ng-if="!(uploadSubtitleForm.subtitleLanguage &&
+                      uploadSubtitleForm.subtitleType &&
+                      uploadSubtitleForm.subtitleFile)">
                     Nog in te vullen:
                 </span>
+                <span class="required-feedback-message"
+                      ng-if="(uploadSubtitleForm.subtitleLanguage &&
+                      uploadSubtitleForm.subtitleType &&
+                      uploadSubtitleForm.subtitleFile) &&
+                      subtitleUploadController.isDuplicate() &&
+                      subtitleUploadController.mayWriteDuplicate()">
+                    Let op gaat overschrijven
+                </span>
+                <span class="required-feedback-message"
+                      ng-if="(uploadSubtitleForm.subtitleLanguage &&
+                      uploadSubtitleForm.subtitleType &&
+                      uploadSubtitleForm.subtitleFile) &&
+                      subtitleUploadController.isDuplicate() &&
+                      !subtitleUploadController.mayWriteDuplicate()">
+                   Je mag overschrijven
+                </span>
+
+                <span ng-if="uploadSubtitleForm.isDuplicate"></span>
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleFile">Bestand</span>
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleLanguage">Taal</span>
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleType">Type</span>

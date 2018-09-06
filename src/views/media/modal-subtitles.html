@@ -10,8 +10,15 @@
         <tr class="poms-table-head-row">
             <!--<poms-help field=""></poms-help>-->
             <th class="poms-table-header">Taal</th>
-            <th class="poms-table-header">Type<poms-help field="editor.general.subtitles.type"></poms-help></th>
-            <th class="poms-table-header">Offset (hh:mm:ss)<poms-help field="editor.general.subtitles.offset"></poms-help></th>
+            <th class="poms-table-header">Type
+                <poms-help field="editor.general.subtitles.type"></poms-help>
+            </th>
+            <th class="poms-table-header">Authority
+                <poms-help field="editor.general.subtitles.ownerType"></poms-help>
+            </th>
+            <th class="poms-table-header">Offset (hh:mm:ss)
+                <poms-help field="editor.general.subtitles.offset"></poms-help>
+            </th>
 
             <th class="poms-table-header column-tools"></th>
         </tr>
@@ -20,7 +27,7 @@
         <tbody ng-model="subtitlesController.subtitles">
 
         <tr ng-repeat="item in subtitlesController.subtitles" class="poms-table-row"
-            ng-class="{'editing': rowform.$visible, 'may-write': subtitlesController.mayWrite }">
+            ng-class="{'editing': rowform.$visible, 'may-write': subtitlesController.mayWriteMedia }">
 
             <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
                 <div>{{item.displayLanguage || item.language }}</div>
@@ -28,6 +35,10 @@
 
             <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
                 <div>{{item.type }}</div>
+            </td>
+
+            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+                <div>{{item.owner }}</div>
             </td>
 
             <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
@@ -41,12 +52,14 @@
                          e-close-text="sluit"
                          e-autocomplete="off"
                          e-placeholder="hh:mm:ss"
-                         ng-show="mayWrite"
+                         ng-show="mayWriteMedia"
                     >
                         {{ (item.offset | mediaDuration) || '' }}
                     </div>
 
-                    <div class="editfield" ng-hide="mayWrite">{{ item.offset | mediaDuration }} </div>
+                    <div class="editfield" ng-hide="mayWriteMedia">
+                        {{ item.offset | mediaDuration }}
+                    </div>
                 </div>
             </td>
 
@@ -71,13 +84,13 @@
                     </button>
                     <button title='bewerk'
                             class="poms-icon icon-edit"
-                            ng-show="mayWrite"
+                            ng-show="mayWriteMedia"
                             ng-click="rowform.$show()">
                         bewerk
                     </button>
                     <button title='delete'
                             class="poms-icon icon-remove"
-                            ng-show="mayWrite"
+                            ng-show="subtitlesController.mayWriteSubtitle( item )"
                             ng-click="subtitlesController.deleteSubtitle( item )">
                         verwijder
                     </button>
