@@ -257,23 +257,32 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
-                var offset = this.$filter('secondsToMsTime')( this.videoElement.currentTime );
+                var offset = this.videoElement.currentTime * 1000;
+                console.log(this.$scope);
+                this.NEPService.getScreengrab( this.$scope.media.mid , offset )
 
-                this.NEPService.getScreengrab( this.$scope.media.mid , offset ).then( function ( response ) {
-                    if (response && response.data) {
-                        var blob = new Blob([response.data], {type: 'image/jpeg'});
-                        this.$scope.still = window.URL.createObjectURL(blob);
-                        this.$scope.image = {
-                            'file': [blob]
-                        };
-                    }
-                    this.$scope.stillLoading = false;
+                    .then( function ( response ) {
+                            if (response && response.data) {
+                                var blob = new Blob([response.data], {type: 'image/jpeg'});
+                                this.$scope.still = window.URL.createObjectURL(blob);
 
-                }.bind( this ), function ( error ) {
-                    this.$scope.stillerror = error.data;
-                    this.$scope.stillLoading = false;
+                                this.$scope.image = {
+                                    'file': [blob]
+                                };
+                            }
+                            this.$scope.stillLoading = false;
 
-                }.bind( this ) );
+                        }.bind( this ),
+                        function ( error ) {
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                this.$scope.stillerror = reader.result;
+                                this.$scope.$apply();
+                            }.bind(this);
+                            reader.readAsText(error.data);
+                            this.$scope.stillLoading = false;
+                        }.bind( this )
+                    );
             },
 
 

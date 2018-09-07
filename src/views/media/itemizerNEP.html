@@ -143,7 +143,10 @@
                 <div ng-repeat="image in segmentImages"  class="segment-image" style="background-image: url('{{image | mediaGridImage }}')">
                 </div>
 
-                <p ng-show="!segmentImages.length && !still">Er zijn nog geen afbeelding gekoppeld aan dit segment.</p>
+                <p ng-show="!segmentImages.length && !still">Er zijn nog geen afbeeldingen gekoppeld aan dit segment.</p>
+                <div class="error" ng-if="stillerror">
+                    <pre>{{stillerror}}</pre>
+                </div>
 
 
             </div>

@@ -51,7 +51,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             },
 
             getScreengrab : function(mid, offset){
-                var url = 'screengrab/' + mid + '&offset=' + datetime;
+                var url = 'screengrab/' + mid + '?offset=' + offset;
                 return this.getBlob(url);
             },
 
