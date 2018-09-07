@@ -8,16 +8,18 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
     'NEPService',
     'ListService',
     'MessageService',
+    'NotificationService',
     'appConfig',
     (function() {
 
-        function LiveEditorController($scope, $modalInstance, $filter, $timeout, $interval,  PomsEvents, NEPService, ListService, MessageService, appConfig) {
+        function LiveEditorController($scope, $modalInstance, $filter, $timeout, $interval,  PomsEvents, NEPService, ListService, MessageService, notificationService, appConfig) {
 
             this.pomsEvents = PomsEvents;
             this.appConfig = appConfig;
 
             this.listService = ListService;
             this.messageService = MessageService;
+            this.notificationService = notificationService;
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -275,6 +277,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         var reader = new FileReader();
                         reader.onload = function() {
                             this.$scope.stillerror = reader.result;
+                            this.notificationService.notify(reader.result, "error");
                             this.$scope.$apply();
                         }.bind(this);
                         reader.readAsText(error.data);

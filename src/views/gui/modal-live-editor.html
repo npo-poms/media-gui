@@ -138,8 +138,9 @@
             <label> Afbeelding</label>
 
             <div class="image-preview" ng-if="still" style="background-image:url('{{still}}')">
-x            </div>
+            </div>
             <div class="error" ng-if="stillerror">
+                <label>Er is iets fout gegaan bij het maken van de afbeelding</label>
                 <pre>{{stillerror}}</pre>
             </div>
 

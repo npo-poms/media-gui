@@ -277,6 +277,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                             var reader = new FileReader();
                             reader.onload = function() {
                                 this.$scope.stillerror = reader.result;
+                                this.notificationService.notify(reader.result, "error");
                                 this.$scope.$apply();
                             }.bind(this);
                             reader.readAsText(error.data);
