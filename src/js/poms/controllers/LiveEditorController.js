@@ -273,8 +273,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     }.bind(this),
                     function ( error ) {
                         var reader = new FileReader();
+                        reader.onload = function() {
+                            this.$scope.stillerror = reader.result;
+                            this.$scope.$apply();
+                        }.bind(this);
                         reader.readAsText(error.data);
-                        this.$scope.stillerror = reader.result;
                         this.$scope.stillLoading = false;
 
                     }.bind(this)
