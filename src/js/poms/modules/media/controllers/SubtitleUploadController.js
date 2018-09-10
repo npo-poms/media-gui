@@ -32,21 +32,21 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
 
 
             getDuplicate = function () {
-                debugger;
                 var subtitleLanguage = $scope.uploadSubtitleForm.subtitleLanguage;
                 var subtitleType = $scope.uploadSubtitleForm.subtitleType;
 
+                var result = [];
+
                 if (!$scope.uploadSubtitleForm.subtitleLanguage.id || !$scope.uploadSubtitleForm.subtitleType.id) {
-                    console.log("false");
-                    return sub;
+                    return [];
                 }
                 media.subtitles.forEach(function (sub) {
                     if (sub.language === subtitleLanguage.id &&
                         sub.type === subtitleType.id) {
-                        return true;
+                        result.push(sub);
                     }
                 });
-                return false;
+                return result;
             }
 
         }
@@ -88,17 +88,23 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
             },
 
             isDuplicate: function () {
-                console.log(getDuplicate() instanceof Object)
-                return getDuplicate() instanceof Object;
+                var dups = getDuplicate();
+                return dups.length > 0
 
             },
             mayWriteDuplicate: function () {
-                var sub = getDuplicate()
-                if (sub instanceof Object) {
-                    console.log(sub.owner === "BROADCASTER")
-                    return sub.owner === "BROADCASTER";
+
+                var dups = getDuplicate();
+                if (dups.length > 0) {
+                    mayWrite = true;
+                    dups.for(function (duplicate) {
+                        if (duplicate.owner === "BROADCASTER") {
+                            mayWrite = duplicate.owner === "BROADCASTER"
+                        }
+                    });
+
+                    return mayWrite;
                 }
-                console.log("true, no dup")
                 return true;
 
             },

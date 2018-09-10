@@ -94,7 +94,7 @@
                       uploadSubtitleForm.subtitleFile) &&
                       subtitleUploadController.isDuplicate() &&
                       !subtitleUploadController.mayWriteDuplicate()">
-                   Je mag overschrijven
+                   Een authoritive subtitle mag niet overschreven worden.
                 </span>
 
                 <span ng-if="uploadSubtitleForm.isDuplicate"></span>
@@ -108,7 +108,7 @@
             <button class="btn-rect"
                     ng-click="subtitleUploadController.addSubtitle()"
                     ng-disabled="!uploadSubtitleForm.subtitleFile || !uploadSubtitleForm.subtitleLanguage ||
-                    !uploadSubtitleForm.subtitleType || waiting"
+                    !uploadSubtitleForm.subtitleType || !subtitleUploadController.mayWriteDuplicate() || waiting"
             >
                 Start upload
             </button>
