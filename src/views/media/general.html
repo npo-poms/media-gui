@@ -256,7 +256,7 @@
            ng-click="editController.showSubtitles()">
         <h2 class="small-header">Ondertitels</h2>
         <span ng-repeat="subtitle in media.subtitles">
-                        <a title="open de ondertiels voor dit item in een nieuw venster" target="blank"
+                        <a title="open de ondertitels voor dit item in een nieuw venster" target="blank"
                            ng-click="$event.stopPropagation();"
                            href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
                 ng-if="! $last">, </span></span>
