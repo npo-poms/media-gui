@@ -93,11 +93,10 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
 
             },
             mayWriteDuplicate: function () {
-
                 var dups = getDuplicate();
                 if (dups.length > 0) {
                     mayWrite = true;
-                    dups.for(function (duplicate) {
+                    dups.forEach(function (duplicate) {
                         if (duplicate.owner === "BROADCASTER") {
                             mayWrite = duplicate.owner === "BROADCASTER"
                         }
