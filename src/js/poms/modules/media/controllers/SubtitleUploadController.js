@@ -94,16 +94,15 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
             },
             mayWriteDuplicate: function () {
                 var dups = getDuplicate();
+                mayWrite = true;
                 if (dups.length > 0) {
-                    mayWrite = true;
                     dups.forEach(function (duplicate) {
                         if (duplicate.owner === "AUTHORITY") {
                             mayWrite = false;
                         }
                     });
-
-                    return mayWrite;
                 }
+                return mayWrite;
             },
             trustAsHtml: function ( value ) {
 
