@@ -97,14 +97,13 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitleUploadController
                 if (dups.length > 0) {
                     mayWrite = true;
                     dups.forEach(function (duplicate) {
-                            mayWrite &= duplicate.owner !== "AUTHORITIVE"
-
+                        if (duplicate.owner === "AUTHORITY") {
+                            mayWrite = false;
+                        }
                     });
 
-                    return mayWrite < 0;
+                    return mayWrite;
                 }
-                return true;
-
             },
             trustAsHtml: function ( value ) {
 
