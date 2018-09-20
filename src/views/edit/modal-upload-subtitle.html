@@ -97,7 +97,6 @@
                    Een authoritive subtitle mag niet overschreven worden.
                 </span>
 
-                <span ng-if="uploadSubtitleForm.isDuplicate"></span>
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleFile">Bestand</span>
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleLanguage">Taal</span>
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleType">Type</span>
@@ -107,8 +106,11 @@
 
             <button class="btn-rect"
                     ng-click="subtitleUploadController.addSubtitle()"
-                    ng-disabled="!uploadSubtitleForm.subtitleFile || !uploadSubtitleForm.subtitleLanguage ||
-                    !uploadSubtitleForm.subtitleType || !subtitleUploadController.mayWriteDuplicate() || waiting"
+                    ng-disabled="(!uploadSubtitleForm.subtitleFile ||
+                        !uploadSubtitleForm.subtitleLanguage ||
+                        !uploadSubtitleForm.subtitleType) ||
+                        !(!subtitleUploadController.isDuplicate() || subtitleUploadController.mayWriteDuplicate())
+                        || waiting"
             >
                 Start upload
             </button>
