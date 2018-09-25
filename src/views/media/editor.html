@@ -67,7 +67,8 @@
                     <span title="Afbeeldingen"> Afbeeldingen ({{media.images}})</span>
                 </span>
             </li>
-            <li ng-if="media.avType.id == 'VIDEO'" class='media-item-navigation-link'
+            <li
+                class='media-item-navigation-link'
                 ng-class="{'active' : mediaController.activeSection == 'predictions' }"
                 ng-click="mediaController.goTo('predictions')">
                 <span class='media-item-navigation-text' title="Platformen" ng-class="{'media-item-navigation-text-waiting' : predictionsWaiting }">
