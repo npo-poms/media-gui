@@ -257,8 +257,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
-                var offset = this.videoElement.currentTime * 1000;
-                console.log(this.$scope);
+                var offset = Math.floor( this.videoElement.currentTime * 1000) ;
+
                 this.NEPService.getScreengrab( this.$scope.media.mid , offset )
 
                     .then( function ( response ) {
