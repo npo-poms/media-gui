@@ -237,7 +237,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         this.load();
                     }.bind( this )
                 );
-            },
+            }
 
         };
 
