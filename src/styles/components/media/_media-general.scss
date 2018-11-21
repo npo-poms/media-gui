@@ -560,3 +560,19 @@
 
     }
 }
+
+.media-topic-gtaa-candidate {
+    @include icon('person-unapproved', 16px, '0 4px');
+}
+
+.media-topic-gtaa-approved {
+    @include icon('person-approved', 16px, '0 4px');
+}
+
+.media-topic-gtaa-redirected,
+.media-topic-gtaa-not_compliant,
+.media-topic-gtaa-rejected,
+.media-topic-gtaa-obsolete,
+.media-topic-gtaa-deleted {
+    @include icon('person-unapproved', 16px, '0 4px');
+}
