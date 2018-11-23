@@ -1,4 +1,4 @@
-<div id="{{section}}" class="media-data media-locations media-section" ng-controller="LocationsController as locationsController">
+<div id="{{section}}" ng-if="media.mayHaveLocations" class="media-data media-locations media-section" ng-controller="LocationsController as locationsController">
 
     <h1 class="media-section-title" ng-class="{ 'waiting': locationsController.waiting }">Bronnen ({{locationsController.locations.length}})
         <poms-help field="editor.locations"></poms-help>

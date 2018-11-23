@@ -67,7 +67,7 @@
                     <span title="Afbeeldingen"> Afbeeldingen ({{media.images}})</span>
                 </span>
             </li>
-            <li
+            <li ng-if="media.mayHaveLocations"
                 class='media-item-navigation-link'
                 ng-class="{'active' : mediaController.activeSection == 'predictions' }"
                 ng-click="mediaController.goTo('predictions')">
@@ -76,6 +76,7 @@
                 </span>
             </li>
             <li class='media-item-navigation-link'
+                ng-if="media.mayHaveLocations"
                 ng-class="{'active' : mediaController.activeSection == 'locations' }"
                 ng-click="mediaController.goTo('locations')">
 
