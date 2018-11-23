@@ -252,7 +252,9 @@
     <div class="media-field">
 
       <!-- .may-write below is just for hover purposes-->
-      <div  ng-class="{ 'empty': media.subtitles.length == 0,
+      <div
+              ng-if="media.mayHaveLocations"
+              ng-class="{ 'empty': media.subtitles.length == 0,
               'may-write' : editController.mayWriteSubtitles( media ),
               'forbidden' : !editController.mayReadSubtitles( media),
               'waiting': waiting}"
