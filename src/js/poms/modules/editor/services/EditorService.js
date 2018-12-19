@@ -77,7 +77,9 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                         // success
                         function (response) {
                             editor = response.data;
-                            localStorageService.set("currentUser", editor.id);
+                            if (editor.id) {
+                                localStorageService.set("currentUser", editor.id);
+                            }
                             editor.hashId = this.getHashId( editor.id, 'user' );
                             editorHolder = editor;
                             roleHolder = editor.role;

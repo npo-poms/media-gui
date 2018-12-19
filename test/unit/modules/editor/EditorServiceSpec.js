@@ -6,7 +6,15 @@ describe('EditorService', function() {
         $provide.value('$modal', {});
         $provide.value('appConfig', {'apihost' : 'api'});
         $provide.value('PomsEvents', {'error' : 'error'});
-        $provide.value('localStorageService', {});
+        $provide.value('localStorageService', {
+            "set": function(key, val) {
+
+            },
+            "get": function(key) {
+                return null;
+            }
+
+        });
     }));
 
     beforeEach(inject(function(_$httpBackend_, _$rootScope_, _appConfig_, _EditorService_) {
