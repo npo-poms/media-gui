@@ -134,7 +134,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                         this.$scope.segmentsWaiting = loading.waiting;
                         break;
                     case 'scheduleEvents':
-                        this.$scope.scheduleEventsWaiting= loading.waiting;
+                        // these are in $scope.media.scheduleEvents I think, why need they be loaded async?
+                        this.$scope.scheduleEventsWaiting = loading.waiting;
                         break;
                 }
             }.bind( this ) );
