@@ -554,7 +554,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 //        this.load();
                 //    }.bind( this )
                 //);
-            },
+            }
 
         };
 
