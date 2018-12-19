@@ -32,8 +32,7 @@
         'ui',
         "ui-rangeSlider",
         "angular-clipboard",
-        'ui.tab.scroll',
-        'poms.editor.services'
+        'ui.tab.scroll'
     ] );
 
 
