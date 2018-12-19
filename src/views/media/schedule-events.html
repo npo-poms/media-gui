@@ -21,8 +21,8 @@
 
         <tbody ui-sortable="sortableOptions" ng-model="events">
         <tr class="poms-table-row" ng-repeat="event in events"
-            ng-class="{'waiting': scheduleEventOverviewController.waiting, 'may-write': scheduleEventOverviewController.mayWrite}"
-            ng-dblclick="scheduleEventOverviewController.edit(event, scheduleEventOverviewController.mayWrite)">
+            ng-class="{'waiting': scheduleEventOverviewController.waiting, 'may-write': scheduleEventOverviewController.mayWrite(event)}"
+            ng-dblclick="scheduleEventOverviewController.edit(event)">
 
             <td class="column-events-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
 
@@ -58,7 +58,7 @@
 
 
 
-            <td class="column-tools" ng-show="::scheduleEventOverviewController.mayWrite">
+            <td class="column-tools" ng-show="::scheduleEventOverviewController.mayWrite(event)">
                 <div class="tools" >
                     <button title='edit uitzending gegevens' class="poms-icon icon-edit" ng-click="scheduleEventOverviewController.edit(event)">bewerk</button>
                 </div>

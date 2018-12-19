@@ -29,13 +29,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
 
 
             mayWrite: function(event) {
-                return MediaService.hasWritePermission( $scope.media, 'scheduleEvents');
+                return this.$scope.media.permissions.SCHEDULE_WRITE;
             },
 
 
-            edit : function ( event, permission ) {
+            edit : function ( event ) {
 
-                if ( permission === false ) {
+                if (! this.mayWrite(event)) {
                     return;
                 }
                 var editMode = true;
