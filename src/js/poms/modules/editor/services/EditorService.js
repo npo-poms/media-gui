@@ -6,7 +6,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     'appConfig',
     'PomsEvents',
     'localStorageService',
-    function ( $q, $rootScope, $http, $modal, appConfig, pomsEvents, LocalStorageService ) {
+    function ( $q, $rootScope, $http, $modal, appConfig, pomsEvents, localStorageService ) {
 
         var baseUrl = appConfig.apihost + '/gui/editor',
             roleHolder = 0,
@@ -77,6 +77,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                         // success
                         function (response) {
                             editor = response.data;
+                            localStorageService.set("currentUser", editor.id);
                             editor.hashId = this.getHashId( editor.id, 'user' );
                             editorHolder = editor;
                             roleHolder = editor.role;
@@ -123,7 +124,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             getCurrentOwnerType: function() {
-                var ownerType = LocalStorageService.get('ownerType');
+                var ownerType = localStorageService.get('ownerType');
                 if(ownerType && ownerType.length > 0) {
                     return ownerType;
                 }

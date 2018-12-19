@@ -41,7 +41,7 @@
         $httpProvider.defaults.withCredentials = true;
     } );
 
-    module.factory('httpOwnerTypeInterceptor', ['localStorageService', 'appConfig', function(localStorageService, appConfig) {
+    module.factory('httpOwnerTypeInterceptor', ['localStorageService', 'appConfig',  function(localStorageService, appConfig) {
       return {
         'request': function(config) {
             // add header for all request to POMS backend
@@ -53,11 +53,12 @@
             var isAbsolutePomsUrl =  ( isAbsolute && ( config.url.indexOf( appConfig.apihost ) !== -1 ) );
 
             var isPomsUrl = ( !isAbsolute || ( isAbsolute  && isAbsolutePomsUrl ) );
-
             var ownerType = localStorageService.get("ownerType");
+            var currentUser  = localStorageService.get("currentUser");
             if((config.method === 'GET' || config.method === 'POST') && ownerType && ownerType.length > 0 && isPomsUrl ) {
-                // This seems like a horrible hack.
-                config.headers['X-Poms-OwnerType'] = ownerType;
+                config.headers['X-Poms-OwnerType'] = ownerType; // This seems like a horrible hack.
+                config.headers['X-Poms-CurrentUser'] = currentUser;
+
             }
             return config;
         }
