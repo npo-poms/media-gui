@@ -53,7 +53,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                         message += '<span> is nu ' + publication.workflow.text + '</span>';
                         send = true;
                     }
-                    if (publication.editor.id !== editor.id && publication.hasChanges !== 'NO_CHANGES') {
+                    if (publication.editor /* MSE-4304 */ && publication.editor.id !== editor.id && publication.hasChanges !== 'NO_CHANGES') {
+                        /// TODO does this ever happen?
                         if (send) {
                             message += ' en '
                         }
