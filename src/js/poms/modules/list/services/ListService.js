@@ -4,6 +4,13 @@ angular.module('poms.list.services').factory('ListService', [
     'appConfig',
     function($q, $http, appConfig) {
 
+        var GET_CONFIG = {
+            cache: true,
+            headers: {
+                "X-Poms-CurrentUser": "bla"
+            }
+        };
+
         function get(path, config) {
             var deferred = $q.defer();
 
@@ -28,62 +35,62 @@ angular.module('poms.list.services').factory('ListService', [
         ListService.prototype = {
 
             getAgeRatings : function() {
-                return get('/ageRatings', {cache : true});
+                return get('/ageRatings', GET_CONFIG);
             },
 
             getAVFileFormats : function() {
-                return get('/avFileFormats', {cache : true});
+                return get('/avFileFormats', GET_CONFIG);
             },
 
             getAvTypes : function() {
-                return get('/avTypes', {cache : true});
+                return get('/avTypes', GET_CONFIG);
             },
 
             getOwnerTypes : function() {
-                return get('/ownerTypes', {cache : true});
+                return get('/ownerTypes', GET_CONFIG);
             },
 
             getBroadcasters : function() {
-                return get('/broadcasters', {cache : true});
+                return get('/broadcasters', GET_CONFIG);
             },
 
             getChannels : function() {
-                return get('/channels', {cache : true});
+                return get('/channels', GET_CONFIG);
             },
             getNets: function() {
-                return get('/nets', {cache : true});
+                return get('/nets', GET_CONFIG);
             },
 
             getContentRatings : function() {
-                return get('/contentRatings', {cache : true});
+                return get('/contentRatings', GET_CONFIG);
             },
 
             getCountries : function() {
-                return get('/countries', {cache : true});
+                return get('/countries', GET_CONFIG);
             },
 
             getEncryptionTypes : function() {
-                return get('/encryptionTypes', {cache : true});
+                return get('/encryptionTypes', GET_CONFIG);
             },
 
             getGenres : function() {
-                return get('/genres', {cache : true});
+                return get('/genres', GET_CONFIG);
             },
 
             getImagesTypes : function() {
-                return get('/images', {cache : true});
+                return get('/images', GET_CONFIG);
             },
 
             getLanguages : function() {
-                return get('/languages', {cache : true});
+                return get('/languages', GET_CONFIG);
             },
 
             getLicenses : function() {
-                return get('/licenses', {cache : true});
+                return get('/licenses', GET_CONFIG);
             },
 
             getLivestreams : function() {
-                return get('/livestreams', {cache : true});
+                return get('/livestreams', GET_CONFIG);
             },
 
             getMediaTypes : function() {
@@ -95,27 +102,27 @@ angular.module('poms.list.services').factory('ListService', [
             },
 
             getPortals : function() {
-                return get('/portals', {cache : true});
+                return get('/portals', GET_CONFIG);
             },
 
             getPlatforms : function() {
-                return get('/platforms', {cache : true});
+                return get('/platforms', GET_CONFIG);
             },
 
             getPriorityTypes : function() {
-                return get('/priorityTypes', {cache : true});
+                return get('/priorityTypes', GET_CONFIG);
             },
 
             getRegions : function() {
-                return get('/regions', {cache : true});
+                return get('/regions', GET_CONFIG);
             },
 
             getRelations : function() {
-                return get('/relations', {cache : true});
+                return get('/relations', GET_CONFIG);
             },
 
             getRoles : function() {
-                return get('/roles', {cache : true});
+                return get('/roles', GET_CONFIG);
             },
 
             getTags : function(text, max) {
