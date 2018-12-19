@@ -5,10 +5,7 @@ angular.module('poms.list.services').factory('ListService', [
     function($q, $http, appConfig) {
 
         var GET_CONFIG = {
-            cache: true,
-            headers: {
-                "X-Poms-CurrentUser": "bla"
-            }
+            cache: true
         };
 
         function get(path, config) {
