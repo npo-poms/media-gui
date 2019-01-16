@@ -110,7 +110,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             },
 
             remove: function ( member ) {
-                var removeMethod = this.$scope.type ==== 'episodes' ? 'removeEpisode' : 'removeMember';
+                var removeMethod = this.$scope.type === 'episodes' ? 'removeEpisode' : 'removeMember';
 
                 return this.mediaService[removeMethod]( this.$scope.media, member ).then(
                     function ( media ) {
