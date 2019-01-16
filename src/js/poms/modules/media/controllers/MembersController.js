@@ -6,10 +6,10 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
     'GuiService',
     'SearchFactory',
     'SearchService',
-    'ServiceSelector',
+    'MediaService',
     (function () {
 
-        function MembersController ( $scope, $modal, PomsEvents, EditorService, GuiService, SearchFactory, SearchService, ServiceSelector ) {
+        function MembersController ( $scope, $modal, PomsEvents, EditorService, GuiService, SearchFactory, SearchService, mediaService ) {
 
             this.$scope = $scope;
             this.$modal = $modal;
@@ -18,9 +18,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             this.guiService = GuiService;
             this.searchFactory = SearchFactory;
             this.searchService = SearchService;
-            this.mediaService = ServiceSelector.getService( this.$scope.item );
+            this.mediaService = mediaService;
 
-            this.mayWrite = this.mediaService.hasWritePermission( $scope.media, 'media' ) && this.$scope.type == 'episodes' ? this.mediaService.hasWritePermission( $scope.media, 'episodes' ) : this.mediaService.hasWritePermission( $scope.media, 'members' );
+            this.mayWrite = this.mediaService.hasWritePermission( $scope.media, 'media' ) && this.$scope.type === 'episodes' ? this.mediaService.hasWritePermission( $scope.media, 'episodes' ) : this.mediaService.hasWritePermission( $scope.media, 'members' );
 
 
             this.$scope.waiting = false;
@@ -29,7 +29,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             $scope.sortableOptions = {
                 handle: '.sort-handle',
                 update: function ( event, ui ) {
-                    var moveMethod = $scope.type == 'episodes' ? 'moveEpisode' : 'moveMember';
+                    var moveMethod = $scope.type === 'episodes' ? 'moveEpisode' : 'moveMember';
 
                     var to = ui.item.index();
                     if ( this.from >= 0 && to !== this.from ) {
@@ -85,7 +85,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             from: - 1,
 
             load: function () {
-                var loadMethod = this.$scope.type == 'episodes' ? 'getEpisodes' : 'getMembers';
+                var loadMethod = this.$scope.type === 'episodes' ? 'getEpisodes' : 'getMembers';
                 this.$scope.waiting = true;
                 this.$scope.$emit( this.pomsEvents.loaded, {'section': this.$scope.type, 'waiting': true} );
 
@@ -94,7 +94,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                         this.$scope.members = members;
 
                         // update counts
-                        if ( this.$scope.type == 'episodes' ) {
+                        if ( this.$scope.type === 'episodes' ) {
                             this.$scope.media.episodes = members.length;
                         } else {
                             this.$scope.media.members = members.length;
@@ -110,7 +110,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             },
 
             remove: function ( member ) {
-                var removeMethod = this.$scope.type == 'episodes' ? 'removeEpisode' : 'removeMember';
+                var removeMethod = this.$scope.type ==== 'episodes' ? 'removeEpisode' : 'removeMember';
 
                 return this.mediaService[removeMethod]( this.$scope.media, member ).then(
                     function ( media ) {
@@ -118,7 +118,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
                         angular.copy( media, this.$scope.media );
 
-                        if ( this.$scope.type == 'episodes' ) {
+                        if ( this.$scope.type === 'episodes' ) {
                             this.guiService.removedEpisodeOf( member.mid );
                         } else {
                             this.guiService.removedMemberOf( member.mid );
@@ -157,7 +157,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
                 data.id = member.id;
 
-                var updateMethod = this.$scope.type == 'episodes' ? 'updateEpisode' : 'updateMember';
+                var updateMethod = this.$scope.type === 'episodes' ? 'updateEpisode' : 'updateMember';
 
                 this.mediaService[updateMethod]( this.$scope.media, data ).then(
                     function ( media ) {
@@ -177,7 +177,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 return this.mediaService.hasDeletePermission( memberRef );
             },
             sortable: function(media) {
-                return this.mayWrite && (media.orderable || (this.$scope.type == 'episodes'));
+                return this.mayWrite && (media.orderable || (this.$scope.type === 'episodes'));
             },
 
             addMember: function () {
@@ -185,7 +185,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                         addEventMethod,
                         search;
 
-                if(this.$scope.type == 'episodes') {
+                if(this.$scope.type === 'episodes') {
                     addMethod = 'addEpisode';
                     addEventMethod = 'addedEpisodeOf';
                     search = this.searchFactory.newEpisodesSearch({parentMid : this.$scope.media.mid});
@@ -212,7 +212,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                             function ( error ) {
                                 if ( error.code === "nl.vpro.restriction.tooManyPublications" ) {
                                     var type, message;
-                                    if(this.$scope.type == 'episodes') {
+                                    if(this.$scope.type === 'episodes') {
                                         type = 'afleveringen';
                                         message = 'Ik probeer [' + _.map(results, function(result) {return ' ' + result.mid + ' '}).join()+ '] als aflevering toe te voegen bij ' + this.$scope.media.mid;
                                     } else {
@@ -247,7 +247,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             locationTypes : function( locations ){
                 var uniqueLocations = [];
                 for ( var i = 0; i < locations.length; i ++ ) {
-                    if ( uniqueLocations.indexOf( locations[i].format ) == -1 ){
+                    if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
                         uniqueLocations.push( locations[i].format );
                     }
 

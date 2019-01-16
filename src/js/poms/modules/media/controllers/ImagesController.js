@@ -3,16 +3,16 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
     '$modal',
     'PomsEvents',
     'ListService',
-    'ServiceSelector',
+    'MediaService',
     (function () {
-        function ImagesController ( $scope, $modal, PomsEvents, ListService, ServiceSelector ) {
+        function ImagesController ( $scope, $modal, PomsEvents, ListService, mediaService ) {
 
             this.$scope = $scope;
             this.$modal = $modal;
             this.pomsEvents = PomsEvents;
             this.listService = ListService;
 
-            this.mediaService = ServiceSelector.getService( this.$scope.type );
+            this.mediaService = mediaService;
 
             this.mayWrite = this.mediaService.hasWritePermission($scope.media, 'images');
             this.mayUpload = this.mediaService.hasWritePermission($scope.media, 'imagesUpload');
