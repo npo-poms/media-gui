@@ -72,7 +72,7 @@ angular.module( 'poms.media.directives' )
                 $scope.fieldType = attrs.fieldtype || undefined;
                 $scope.isTextField = ($scope.fieldType === "title" || $scope.fieldType === "description"  || $scope.fieldType === "url" );
 
-                this.editService = EditService;
+                this.editService = editService;
 
                 $scope.currentOwnerType = editorService.getCurrentOwnerType();
 
