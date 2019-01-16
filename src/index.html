@@ -182,29 +182,11 @@
                           ng-click="guiController.removeTab($index)">close</span>
                 </span>
 
-                <span ng-if="tab.type=='secondscreens'">
-                    <span class="tab-subtitle">Second Screens</span>
-                    <span class="tab-title"> Overzicht </span>
-                    <span class="tab-close" title="sluit deze tab"
-                          ng-click="guiController.removeTab($index)">close</span>
-                </span>
-
-                <span ng-if="tab.type=='screen'">
-                    <span class="tab-subtitle">Second Screen </span>
-                    <span class="tab-title" title="{{tab.screen.title.text}}"> {{ tab.screen.title.text }}</span>
-                    <span class="tab-close" title="sluit deze tab"
-                          ng-click="guiController.removeTab($index)">close</span>
-                </span>
-
             </tab-heading>
 
             <poms-editor ng-if="tab.type =='edit' && !tab.reload" media="tab.item"></poms-editor>
 
             <poms-search-tab ng-if="tab.type=='search'" id="search-{{tab.id}}" search="tab.item"></poms-search-tab>
-
-            <poms-second-screens ng-if="tab.type =='secondscreens'"></poms-second-screens>
-
-            <poms-screen ng-if="tab.type =='screen'" screen="tab.screen"></poms-screen>
 
         </tab>
 
@@ -332,18 +314,6 @@
 <script src="js/poms/modules/media/services/swfObject.js"></script>
 <script src="js/poms/modules/media/services/UploadService.js"></script>
 
-<script src="js/poms/modules/screen/screen.js"></script>
-<script src="js/poms/modules/screen/controllers/AllScreensController.js"></script>
-<script src="js/poms/modules/screen/controllers/ScreenController.js"></script>
-<script src="js/poms/modules/screen/controllers/AddScreenController.js"></script>
-<script src="js/poms/modules/screen/controllers/ScreenMemberOfController.js"></script>
-
-<script src="js/poms/modules/screen/services/ScreenService.js"></script>
-<script src="js/poms/modules/screen/services/ScreenEditService.js"></script>
-
-<script src="js/poms/modules/screen/directives/SecondScreens.js"></script>
-<script src="js/poms/modules/screen/directives/ScreenMember.js"></script>
-<script src="js/poms/modules/screen/directives/ScreenMemberColumns.js"></script>
 
 <script src="js/poms/modules/util/util.js"></script>
 <script src="js/poms/modules/util/directives/PomsFavoriteFeedback.js"></script>
