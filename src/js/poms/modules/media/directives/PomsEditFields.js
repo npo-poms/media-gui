@@ -1,7 +1,7 @@
 angular.module( 'poms.media.directives' )
     .directive( 'pomsEditable',
         [
-            'ServiceSelector',
+            'EditService',
             'FavoritesService',
             '$q',
             '$filter',
@@ -13,7 +13,7 @@ angular.module( 'poms.media.directives' )
             'EditorService',
             'TextfieldNames',
             function (
-                ServiceSelector,
+                editService,
                 favoritesService,
                 $q,
                 $filter,
@@ -72,7 +72,7 @@ angular.module( 'poms.media.directives' )
                 $scope.fieldType = attrs.fieldtype || undefined;
                 $scope.isTextField = ($scope.fieldType === "title" || $scope.fieldType === "description"  || $scope.fieldType === "url" );
 
-                this.editService = ServiceSelector.getEditService( $scope.type );
+                this.editService = EditService;
 
                 $scope.currentOwnerType = editorService.getCurrentOwnerType();
 
@@ -90,12 +90,6 @@ angular.module( 'poms.media.directives' )
 
                 //console.log($scope.field, $scope.mayWrite);
 
-
-                //TODO cleanup
-                if(  $scope.type === 'screen' && $scope.media[$scope.field] && !$scope.media[$scope.field].text ){
-                    var text =  $scope.media[$scope.field];
-                    $scope.media[$scope.field] = { 'text' : text};
-                }
 
                 if ( $scope.fieldType === 'duration' ) {
                     $scope.tempDuration = $filter( 'withTimezone' )( $scope.media[$scope.field] );
@@ -331,14 +325,6 @@ angular.module( 'poms.media.directives' )
                     this.editService[$scope.field]( media, data ).then(
                         function ( result ) {
 
-                            if ( $scope.type === 'screen' ){
-                                for (var key in result) {
-                                    if (result.hasOwnProperty(key) && ( key === 'title' || key ==='url' || key==='description')) {
-                                        var text =  result[key];
-                                        result[key] = { 'text' : text };
-                                    }
-                                }
-                            }
 
                             angular.copy( result, media );
 

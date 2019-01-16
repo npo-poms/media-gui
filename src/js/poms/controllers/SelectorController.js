@@ -19,7 +19,6 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
     'SearchFactory',
     'MessageService',
     'MediaService',
-    'ScreenService',
     'UploadService',
     (function () {
 
@@ -43,7 +42,6 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                                  searchFactory,
                                  messageService,
                                  mediaService,
-                                 screenService,
                                  UploadService ) {
 
             this.$rootScope = $rootScope;
@@ -62,7 +60,6 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             this.searchFactory = searchFactory;
             this.messageService = messageService;
             this.mediaService = mediaService;
-            this.screenService = screenService;
             this.uploadService = UploadService;
 
             this.$scope = $scope;

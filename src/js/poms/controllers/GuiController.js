@@ -16,7 +16,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
     'SearchService',
     'MessageService',
     'MediaService',
-    'ScreenService',
     'UploadService',
     (function () {
 
@@ -37,7 +36,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                                  searchService,
                                  messageService,
                                  mediaService,
-                                 screenService,
                                  UploadService ) {
 
             this.$rootScope = $rootScope;
@@ -53,7 +51,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             this.searchService = searchService;
             this.messageService = messageService;
             this.mediaService = mediaService;
-            this.screenService = screenService;
             this.uploadService = UploadService;
 
             this.$scope = $scope;
@@ -442,53 +439,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         this.newEditTab( mid );
                     }.bind( this )
                 );
-            },
-
-            openSecondScreens: function () {
-                var tabs = this.tabs;
-
-                for ( var i = 0; i < tabs.length; i ++ ) {
-                    var tab = tabs[i];
-                    if ( tab.type === 'secondscreens' ) {
-                        if ( ! tab.active ) {
-                            tab.active = true;
-                        }
-                        return true;
-                    }
-                }
-
-                this.addTab( {
-                    active: true,
-                    id: 'secondscreens',
-                    type: 'secondscreens'
-                } );
-
-            },
-
-            openSecondScreentab: function ( id ) {
-
-                var tabs = this.tabs;
-
-                for ( var i = 0; i < tabs.length; i ++ ) {
-                    var tab = tabs[i];
-                    if ( tab.id === id ) {
-                        if ( ! tab.active ) {
-                            tab.active = true;
-                        }
-                        return true;
-                    }
-                }
-
-                this.screenService.load( id )
-                    .then( function ( screen ) {
-                        this.addTab( {
-                            active: true,
-                            id: id,
-                            screen: screen,
-                            type: 'screen'
-                        } );
-                    }.bind( this ) );
-
             },
 
             removeSearchTab: function ( search ) {

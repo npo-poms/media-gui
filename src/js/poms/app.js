@@ -15,7 +15,6 @@
         'poms.media',
         'poms.admin',
         'poms.messages',
-        'poms.screen',
         'poms.ui',
         "poms.constants",
         'ui.bootstrap',
@@ -76,7 +75,6 @@
     module.config( function ( $routeProvider ) {
         $routeProvider
             .when( '/edit/:mid', {} )
-            .when( '/screen/:sid', {} )
             .when( '/search/:qid', {} )
             .otherwise( {
                 redirectTo: '/'
@@ -120,7 +118,8 @@
         episodeOfAdded: 'episodeOfAdded',
         episodeOfRemoved: 'episodeOfRemoved',
         externalChange: 'externalChange',
-        predictionUpdated: 'predictionUpdated'
+        predictionUpdated: 'predictionUpdated',
+        scheduleEventUpdated: 'scheduleEventUpdated'
     } );
 
     module.value( 'TextfieldNames', {
