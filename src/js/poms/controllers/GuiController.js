@@ -238,13 +238,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         }
                     }
 
-                    var sid = this.$route.current.params.sid;
-                    if ( sid ) {
-                        if ( ! this.setActive( this.tabs, sid ) ) {
-                            this.openSecondScreentab( sid );
-                        }
-                    }
-
                     var qid = this.$route.current.params.qid;
                     if ( qid ) {
                         if ( this.setActive( this.tabs, qid ) ) {
