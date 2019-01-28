@@ -1,4 +1,4 @@
-angular.module( 'poms.util.directives' )
+angular.module( 'poms.util.directives')
     .directive( 'pomsViewer', [function () {
         return {
             restrict: 'E',
@@ -8,7 +8,7 @@ angular.module( 'poms.util.directives' )
                 type: "@",
                 size: '@'
             },
-            controller: function ( $scope, FavoritesService, MediaService, PomsEvents, $q ) {
+            controller: function ( $scope, FavoritesService, MediaService, PomsEvents,NpoPlayerService, $q ) {
 
                 var width, height;
 
@@ -105,27 +105,9 @@ angular.module( 'poms.util.directives' )
                     );
                 };
 
-                setupPlayer = function ( target, mid, start, stop ) {
-
-                    var options = {
-                        autoPlay: true,
-                        showTitlebar: false
-                    };
-
-                    if ( start ) {
-                        options.startAt = start;
-                    }
-                    if ( stop ) {
-                        options.endAt = stop;
-                    }
-
-                    npoplayer( 'viewer-' + target ).setup(
-                        {
-                            prid: mid,
-                            width: width,
-                            height: height,
-                            options: options
-                        }
+                setupPlayer = function (target, mid, start, stop ) {
+                    NpoPlayerService.play(mid, "viewer-placeholder",
+                        {start: start, stop: stop}
                     );
                 }
             }
