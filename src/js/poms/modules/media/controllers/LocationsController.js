@@ -125,7 +125,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     }.bind( this )
                 );
             },
-
+/*
             playLocation : function( location ) {
                 this.$modal.open( {
                     controller : 'LocationPlayController',
@@ -138,7 +138,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         }
                     }
                 } );
-            },
+            },*/
 
             load : function () {
                 this.$scope.waiting = true;

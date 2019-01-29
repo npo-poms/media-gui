@@ -38,11 +38,6 @@
 
     <!-- endbuild -->
 
-    <script src="//cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-
-    <script src="//npoplayer.omroep.nl/js/npoplayer.min.js" type="text/javascript"></script>
-
-
 
 </head>
 
@@ -66,6 +61,8 @@
     <toast></toast>
 </poms-notifications>
 
+<!-- TODO: I don't quite see why we did so much effort to make things modularized, if we need to include every single module here
+while I'm pretty sure must of these are _not used_  -->
 
 <!-- build:poms js/poms-selector-{version}.js -->
 
@@ -114,7 +111,6 @@
 <script src="../js/poms/modules/media/controllers/LocationsController.js"></script>
 <script src="../js/poms/modules/media/controllers/LocationEditController.js"></script>
 <script src="../js/poms/modules/media/controllers/LocationUploadController.js"></script>
-<script src="../js/poms/modules/media/controllers/LocationPlayController.js"></script>
 <script src="../js/poms/modules/media/controllers/MediaController.js"></script>
 <script src="../js/poms/modules/media/controllers/MembersController.js"></script>
 <script src="../js/poms/modules/media/controllers/ModalMergeController.js"></script>
@@ -156,10 +152,8 @@
 <script src="../js/poms/modules/media/services/EditService.js"></script>
 <script src="../js/poms/modules/media/services/MediaService.js"></script>
 <script src="../js/poms/modules/media/services/MergeService.js"></script>
-<script src="../js/poms/modules/media/services/LocationService.js"></script>
 <script src="../js/poms/modules/media/services/SubtitlesService.js"></script>
-<script src="../js/poms/modules/media/services/AuthenticationService.js"></script>
-<script src="../js/poms/modules/media/services/swfObject.js"></script>
+
 <script src="../js/poms/modules/media/services/UploadService.js"></script>
 
 <script src="../js/poms/modules/util/util.js"></script>
