@@ -9,11 +9,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
     'appConfig',
     'PomsEvents',
     'MediaService',
-    'LocationService',
     'NotificationService',
     'NEPService',
     'MessageService',
-    'swfobject',
     'media',
     'segments',
     'segment',
@@ -33,7 +31,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
         }
 
 
-        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, LocationService, NotificationService, NEPService, MessageService, swfobject, media, segments, segment ) {
+        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment ) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -45,12 +43,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             this.$rootScope = $rootScope;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
-            this.locationService = LocationService;
             this.notificationService = NotificationService;
             this.NEPService = NEPService;
             this.messageService = MessageService;
 
-            this.swfobject = swfobject;
             this.appConfig = appConfig;
 
             this.imageshost = appConfig.imagesapihost;
