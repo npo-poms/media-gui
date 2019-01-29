@@ -34,10 +34,9 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                         atInternetSiteId: null
                     }
                 }).then(
-                    function(data){
-                        var embedCode = data.embedCode;
-                        $q(target).replaceWith(embedCode);
-
+                    function(resp){
+                        var embedCode = resp.data.embedCode;
+                        $("#viewer-" + mid + " div.viewer-placeholder").replaceWith(embedCode);
                     }
                 );
 
