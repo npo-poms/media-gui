@@ -77,7 +77,9 @@
 
             <td class="column-tools-xl" ng-show="segmentsController.mayWrite">
                 <div class="tools">
-                    <button title='itemize' class="poms-icon icon-itemizer" ng-click="segmentsController.itemize(segment)">itemize
+                    <button title='itemize' class="poms-icon icon-itemizer"
+                            ng-if="segmentsController.canItemize()"
+                            ng-click="segmentsController.itemize(segment)">itemize
                     </button>
                     <button title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
                     <button title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"

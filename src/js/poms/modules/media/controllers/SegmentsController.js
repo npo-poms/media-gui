@@ -54,7 +54,13 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 };
 
                 this.segments.push( this.$scope.inserted );
-                this.itemize( this.$scope.inserted );
+                if (this.canItemize()) {
+                    this.itemize(this.$scope.inserted);
+                }
+            },
+
+            canItemize: function() {
+                return this.$scope.media.streamingPlatformStatus.available;
             },
 
             editRef: function ( mid ) {
@@ -70,7 +76,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 var itemizerController = undefined;
                 var itemizerTemplate = undefined;
 
-                if ( this.$scope.media.streamingPlatformStatus.available ) {
+                if (this.canItemize()) {
                     itemizerController = 'ItemizerNEPController';
                     itemizerTemplate = 'media/itemizerNEP.html';
                 }
