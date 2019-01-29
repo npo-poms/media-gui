@@ -8,7 +8,7 @@ angular.module( 'poms.util.directives')
                 type: "@",
                 size: '@'
             },
-            controller: function ( $scope, FavoritesService, MediaService, PomsEvents,NpoPlayerService, $q ) {
+            controller: function ( $scope, FavoritesService, MediaService, PomsEvents, NpoPlayerService, $q ) {
 
                 var width, height;
 
@@ -106,9 +106,7 @@ angular.module( 'poms.util.directives')
                 };
 
                 setupPlayer = function (target, mid, start, stop ) {
-                    NpoPlayerService.play(mid, "viewer-placeholder",
-                        {start: start, stop: stop}
-                    );
+                    NpoPlayerService.play(mid, {start: start, stop: stop});
                 }
             }
         };

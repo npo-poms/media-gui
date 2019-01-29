@@ -9,7 +9,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
             */
 
 
-            play: function (mid, target, options) {
+            play: function (mid, options) {
                 options = options || {};
                 var deferred = $q.defer();
                 $http({
