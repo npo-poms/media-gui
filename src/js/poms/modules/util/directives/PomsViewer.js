@@ -106,7 +106,9 @@ angular.module( 'poms.util.directives')
                 };
 
                 setupPlayer = function (mid, midOrParent, start, stop ) {
-                    NpoPlayerService.play(mid, midOrParent,  {start: start, stop: stop});
+                    NpoPlayerService.play(mid, midOrParent,  {
+                        start: start, stop: stop
+                    });
                 }
             }
         };
