@@ -9,7 +9,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
             */
 
 
-            play: function (mid, options) {
+            play: function (mid, midOrParent, options) {
                 options = options || {};
                 var deferred = $q.defer();
                 $http({
@@ -19,7 +19,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                         "Accept": "application/json"
                     },
                     data: {
-                        mid: mid,
+                        mid: midOrParent,
                         id: "player-" + mid,
                         autoplay: true,
                         startAt: options.start,

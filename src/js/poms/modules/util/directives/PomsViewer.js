@@ -39,7 +39,7 @@ angular.module( 'poms.util.directives')
                                     if ( media.segmentOf ){
                                         getSegmentData( media.segmentOf.id, mid ).then(
                                             function ( data ) {
-                                                setupPlayer( mid, media.segmentOf.id, data.start, data.stop );
+                                                setupPlayer(mid, media.segmentOf.id, data.start, data.stop );
                                             }
                                         );
                                     }
@@ -105,8 +105,8 @@ angular.module( 'poms.util.directives')
                     );
                 };
 
-                setupPlayer = function (target, mid, start, stop ) {
-                    NpoPlayerService.play(mid, {start: start, stop: stop});
+                setupPlayer = function (mid, midOrParent, start, stop ) {
+                    NpoPlayerService.play(mid, midOrParent,  {start: start, stop: stop});
                 }
             }
         };
