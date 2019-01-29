@@ -20,7 +20,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                     },
                     data: {
                         mid: mid,
-                        id: null,
+                        id: "player-" + mid,
                         autoplay: true,
                         startAt: options.start,
                         endAt: options.end,
