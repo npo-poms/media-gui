@@ -73,9 +73,6 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 if ( this.$scope.media.streamingPlatformStatus.available ) {
                     itemizerController = 'ItemizerNEPController';
                     itemizerTemplate = 'media/itemizerNEP.html';
-                } else {
-                    itemizerController = 'ItemizerController';
-                    itemizerTemplate = 'media/itemizer.html';
                 }
 
                 var modal = this.$modal.open( {
