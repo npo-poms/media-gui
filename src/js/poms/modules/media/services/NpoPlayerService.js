@@ -36,7 +36,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                 }).then(
                     function(data){
                         var embedCode = data.embedCode;
-                        target.replaceItem()
+                        $q(target).replaceWith(embedCode);
 
                     }
                 );
