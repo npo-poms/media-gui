@@ -1,8 +1,7 @@
-@mixin icon($name, $size:'', $position: 'center center') {
+@mixin icon($name, $size:'', $position: "center center") {
 
     background-color: transparent;
-
-    background-position: if(type_of($position) == str, unquote($position), $position);
+    background-position: if(type_of($position) == string, unquote($position), $position);
     background-repeat: no-repeat;
     background-image: url('../resources/icons/' + $name + '.svg');
 
