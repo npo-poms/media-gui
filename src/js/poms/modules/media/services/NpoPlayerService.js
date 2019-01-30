@@ -32,7 +32,8 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                         hasAdConsent:  true,
                         pageUrl: null,
                         atInternetSiteId: null,
-                        share: false
+                        share: false,
+                        hasSettings: false
                     }
                 }).then(
                     function(resp){
