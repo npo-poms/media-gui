@@ -59,6 +59,10 @@
                   <arguments>run deploy:gulp</arguments>
                 </configuration>
               </execution>
+              <!-- It's broken and it has never found any bugs any ways
+              I thing the maintainance is not worth the trouble.
+              Selenium tests may be more usefull?
+              https://github.com/npo-poms/functional-tests/tree/master/poms-functional-tests-selenium
               <execution>
                 <id>karma tests</id>
                 <goals>
@@ -68,6 +72,7 @@
                   <karmaConfPath>karma.ci.conf.js</karmaConfPath>
                 </configuration>
               </execution>
+              -->
             </executions>
           </plugin>
         </plugins>
