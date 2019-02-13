@@ -84,11 +84,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 if ( segment ) {
                     this.$scope.duration = 1;
                     this.$scope.segment = angular.copy( segment );
-
-                    // at the moment we get start stop as datetime, so convert is first, and only 1 time
-                    this.$scope.segment.start = this.$filter( 'noTimezone' )( this.$scope.segment.start ).getTime();
-                    this.$scope.segment.stop = this.$filter( 'noTimezone' )( this.$scope.segment.stop ).getTime();
-
                 } else {
                     this.$scope.segment = {
                         start : 0 ,
@@ -102,8 +97,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                     this.$scope.segment.stop += 1;
                 }
 
-                this.$scope.segment.startastime = this.$filter('secondsToMsTime')( this.$scope.segment.start / 1000  );
-                this.$scope.segment.stopastime = this.$filter('secondsToMsTime')( this.$scope.segment.stop / 1000);
+                this.$scope.segment.formattedstart = this.formatDuration(this.$scope.segment.start);
+                this.$scope.segment.formattedstop = this.formatDuration(this.$scope.segment.stop);
 
                 this.setDuration();
 
@@ -114,11 +109,19 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.$scope.still = false;
 
             },
+            formatDuration: function(ms) {
+                var s = Math.floor(ms / 1000);
+                ms = ms % 1000;
+                var m = Math.floor(s / 60);
+                s %= 60;
+                var h = Math.floor(m / 60);
+                m %= 60;
+                return this.$filter("toDigits")(h, 2) + ":" + this.$filter("toDigits")(m, 2) + ":" + this.$filter("toDigits")(s, 2) + "." + this.$filter("toDigits")(ms, 3);
+            },
 
             setDuration : function() {
-                this.$scope.duration =  this.$scope.segment.stop - this.$scope.segment.start; // duration in ms?
-
-                this.$scope.durationAsTime = moment().startOf( 'day' ).add( moment.duration( this.$scope.duration, "ms" ) ).format( 'HH:mm:ss.SSS' );
+                this.$scope.duration =  this.$scope.segment.stop - this.$scope.segment.start;
+                this.$scope.durationAsTime = this.formatDuration(this.$scope.duration);
 
                 if ( !this.$scope.duration  || this.$scope.duration <= 0) {
                     this.$scope.durationInvalid = true;
@@ -309,7 +312,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                     this.$scope.segment.stop = currentPos;
                 }
                 this.$scope.segment.start = currentPos;
-                this.$scope.segment.startastime = this.$filter('secondsToMsTime')( currentPos / 1000 );
+                this.$scope.segment.formattedstart = this.formatDuration(currentPos);
                 this.setDuration();
 
             },
@@ -322,7 +325,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 }
 
                 this.$scope.segment.stop = currentPos;
-                this.$scope.segment.stopastime = this.$filter('secondsToMsTime')( currentPos / 1000 );
+                this.$scope.segment.formattedstop = this.formatDuration(currentPos);
                 this.setDuration();
 
             },
@@ -337,7 +340,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                             var isNew = true;
 
                             for ( var j = 0; j < this.$scope.segments.length; j++ ) {
-                                if ( this.$scope.segments[ j ].mid && segments[ i ].mid == this.$scope.segments[ j ].mid ) {
+                                if ( this.$scope.segments[ j ].mid && segments[ i ].mid === this.$scope.segments[ j ].mid ) {
                                     isNew = false;
                                 }
                             }

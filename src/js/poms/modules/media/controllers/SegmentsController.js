@@ -48,9 +48,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
             addSegment: function ( startTime ) {
                 this.$scope.inserted = {
-                    start:  this.$filter( 'withTimezone' )( new Date( startTime || 0 ) ),
-                    stop:  this.$filter( 'withTimezone' )( new Date( startTime || 0 ) ),
-                    duration: this.$filter( 'withTimezone' )( new Date( 0 ) )
+                    start:  startTime || 0,
+                    stop:  startTime || 0,
+                    duration: 0
                 };
 
                 this.segments.push( this.$scope.inserted );
@@ -115,9 +115,6 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 this.mediaService.getSegments( this.$scope.media )
                     .then( function ( segments ) {
                             this.segments = $.map( segments, function ( e ) {
-                                e.start = this.$filter( 'withTimezone' )( e.start );
-                                e.stop = this.$filter( 'withTimezone' )( e.stop );
-                                e.duration = this.$filter( 'withTimezone' )( e.duration );
                                 return e
                             }.bind( this ) );
 

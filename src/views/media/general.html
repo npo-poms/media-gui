@@ -291,9 +291,8 @@
       <p class="member-wrapper">
         <a class="media-segment-of-link" href="{{editController.editRef(media.segmentOf.id)}}">
           <span class="link-type">{{media.segmentOf.type.text}}</span>
-          <span class="link-title">{{media.segmentOf.text}}</span>
+          <span class="link-title">{{media.segmentOf.text}}</span> ({{ media.start  | mediaDuration }})
         </a>
-        start at : {{media.start}}
       </p>
 
       <div class="media-field-tools">

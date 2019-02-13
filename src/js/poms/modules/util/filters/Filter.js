@@ -1,7 +1,7 @@
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
         return function ( date ) {
-            if ( date == null || date == undefined ) {
+            if ( date == null) {
                 return date;
             }
 
@@ -14,7 +14,7 @@ angular.module( 'poms.util.filters' )
     } )
     .filter( 'noTimezone', function () {
         return function ( date ) {
-            if ( date == null || date == undefined ) {
+            if ( date == null) {
                 return date;
             }
 
@@ -41,8 +41,31 @@ angular.module( 'poms.util.filters' )
         }
     } )
     .filter( 'mediaDuration', function ( $filter ) {
-        return function ( date ) {
-            return $filter( 'date' )( date, "HH:mm:ss" );
+        return function ( ms ) {
+            if (ms instanceof Date) {
+                // Sad
+                ms = ms.getTime();
+
+            }
+            var s = Math.floor(ms / 1000);
+            ms = ms % 1000;
+            var m = Math.floor(s / 60);
+            s %= 60;
+            var h = Math.floor(m / 60);
+            m %= 60;
+            var d = Math.floor(h / 24);
+            h %= 24;
+            var result = "";
+            if (d === 1) {
+                result += "1 dag ";
+            } else if (d > 1 ) {
+                result += d + " dagen ";
+            }
+            if (h > 0) {
+                result += $filter( 'toDigits')(h, 2) + ":";
+            }
+            result += $filter( 'toDigits')(m, 2) + ":"  + $filter( 'toDigits')(s, 2);
+            return result;
         }
     } )
     .filter( 'mediaGridImage', function ( appConfig ) {

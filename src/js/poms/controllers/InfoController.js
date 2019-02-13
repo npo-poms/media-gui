@@ -42,8 +42,8 @@ angular.module('poms.media.controllers').controller('InfoController', [
             },
 
             showUserUpdatesLastHour : function( displayName ) {
-                var start = new Date(),
-                        stop = new Date();
+                var start = new Date();
+                var stop = new Date();
 
                 start.setHours(start.getHours() - 1);
 

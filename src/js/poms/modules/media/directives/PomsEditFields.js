@@ -211,6 +211,7 @@ angular.module( 'poms.media.directives' )
                         $scope.tempDuration = angular.copy( data );
                         data = $filter( 'noTimezone' )( data ).getTime();
                     }else if ( $scope.field === "duration" && data === undefined ) {
+                        // Using date object for duration _makes no sense whatsoever!!
                         $scope.editForm.$editables[0].scope.$data = new Date( $filter( 'withTimezone' )($scope.media['duration']) );
                         $scope.waiting = false;
                         $scope.nextField( element );

@@ -36,7 +36,7 @@
                         <label for="inputStart">Starttijd &#42;
                             <span class="itemizer-segment-play" ng-click="itemizerController.playSegment()"> (speel vanaf)</span>
                         </label>
-                        <input id="inputStart" type="text" ng-model="segment.startastime" placeholder="starttijd" ng-change="itemizerController.setStartValueAsMs()" />
+                        <input id="inputStart" type="text" ng-model="segment.formattedstart" placeholder="starttijd" ng-change="itemizerController.setStartValueAsMs()" />
 
                         <span class="error" ng-show="invalidTimes">De starttijd van een segment mag niet later zijn dan of gelijk zijn aan de stoptijd.</span>
 
@@ -46,7 +46,7 @@
                         <label for="inputStop">Eindtijd &#42;
                             <span class="itemizer-segment-play" ng-click="itemizerController.playEnd()">(speel vanaf) </span>
                         </label>
-                        <input id="inputStop" type="text" ng-model="segment.stopastime" placeholder="stoptijd" ng-change="itemizerController.setStopValueAsMs()" />
+                        <input id="inputStop" type="text" ng-model="segment.formattedstop" placeholder="stoptijd" ng-change="itemizerController.setStopValueAsMs()" />
                     </div>
 
                     <div class='field col-4 itemizer-stop'>
