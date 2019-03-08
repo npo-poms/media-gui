@@ -90,9 +90,17 @@ angular.module( 'poms.media.directives' )
 
                 //console.log($scope.field, $scope.mayWrite);
 
+                function formatDateForEdit(date) {
+                   return $filter("withTimezone")(date);
+                }
 
+                function formatDateForDisplay(date) {
+                   return $filter("mediaDuration")(date);
+                }
                 if ( $scope.fieldType === 'duration' ) {
-                    $scope.tempDuration = $filter( 'withTimezone' )( $scope.media[$scope.field] );
+                    // ridiculous hacks to reuse date editors for durations
+                    $scope.editableDuration =  formatDateForEdit($scope.media[$scope.field]);
+                    $scope.formattedDuration = formatDateForDisplay($scope.media[$scope.field]);
                 }
 
                 if ( $scope.field === 'year' ) {
@@ -207,17 +215,21 @@ angular.module( 'poms.media.directives' )
                         return; // no change
                     }
 
-                    if ( $scope.field === "duration" && data ) {
-                        $scope.tempDuration = angular.copy( data );
-                        data = $filter( 'noTimezone' )( data ).getTime();
-                    }else if ( $scope.field === "duration" && data === undefined ) {
-                        // Using date object for duration _makes no sense whatsoever!!
-                        $scope.editForm.$editables[0].scope.$data = new Date( $filter( 'withTimezone' )($scope.media['duration']) );
-                        $scope.waiting = false;
-                        $scope.nextField( element );
-                        return; // no valid data found
-                    } else if ( $scope.field === "duration" && !data ) {
-                        $scope.tempDuration = angular.copy( data );
+                    if ( $scope.field === "duration") {
+                        if (data) {
+                            data = $filter( 'noTimezone' )( data ).getTime();
+                            $scope.formattedDuration = formatDateForDisplay(data);
+                        } else if (data === undefined) {
+                            // Using date object for duration _makes no sense whatsoever!!
+                            $scope.editForm.$editables[0].scope.$data = $scope.media['duration'];
+                            $scope.waiting = false;
+                            $scope.nextField(element);
+                            return; // no valid data found
+                        } else if (!data) {
+                            $scope.formattedDuration = null;
+                             $scope.editForm.$editables[0].scope.$data = null;
+                        }
+
                     }
 
                     // returning a string instead of object sets an error message in the x-editable component
