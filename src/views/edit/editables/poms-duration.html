@@ -9,7 +9,7 @@
     <h2 class="small-header"> {{header}} (hh:mm:ss)</h2>
 
     <p class="editfield"
-       editable-time="tempDuration"
+       editable-time="editableDuration"
        e-step="1"
        e-show-meridian="false"
        onbeforesave="save($data)"
@@ -21,12 +21,12 @@
        ng-show="mayWrite"
        e-placeholder="hh:mm:ss"
        e-autocomplete="off">
-        {{ tempDuration |  mediaDuration }}
+        {{ formattedDuration }}
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite">{{ tempDuration | mediaDuration }} </p>
+    <p class="editfield" ng-hide="mayWrite">{{ formattedDuration }}  </p>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
 
