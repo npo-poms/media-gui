@@ -12,8 +12,6 @@
     "prebuild:selector": "cp src/CMSSelector/index.html src/CMSSelector/index.tmpl && replace \"{version}\" \"$npm_package_version\" src/CMSSelector/index.tmpl && npm run copy:selector",
     "build:selector": "usemin src/CMSSelector/index.tmpl -d build/deploy -o build/deploy/CMSSelector/index.html --htmlmin false",
     "postbuild:selector": "rimraf src/CMSSelector/index.tmpl",
-
-
     "prebuild:app:dev": "npm run build:constants && npm run build:templatecache:gulp",
     "build:app:dev": "cp src/index.html build/work/index.html && replace \"{version}\" \"$npm_package_version\" build/work/index.html",
     "build:app:gulp": "gulp app-deploy",
@@ -37,9 +35,6 @@
     "postcopy:selector": "replace \"{domain}\" \"$npm_package_config_apihost\" build/deploy/CMSSelector/js/media.js",
     "copy:selector:dev": "cp -R src/CMSSelector build/work/CMSSelector",
     "postcopy:selector:dev": "replace \"{domain}\" \"$npm_package_config_apihost\" build/work/CMSSelector/js/media.js",
-
-
-
     "copy:resources": "cp -Rfa ./src/resources ./build/deploy/resources",
     "copy:vendorstyles": "cp -a ./src/styles/vendor/. ./build/deploy/css",
     "copy:vendorstyles:dev": "cp -a ./src/styles/vendor/. ./build/work/css",
@@ -54,7 +49,7 @@
     "predev": "npm run clean:work && npm run create:workbase",
     "dev": "npm run build:styles:dev && npm run build:app:dev && npm run build:selector:dev",
     "livereload": "node ./livereload.js",
-	"serve:dev": "parallelshell \"npm run serve -s\" \"npm run watch:styles\" \"npm run watch:app\" \"npm run livereload\"",
+    "serve:dev": "parallelshell \"npm run serve -s\" \"npm run watch:styles\" \"npm run watch:app\" \"npm run livereload\"",
     "serve:dev-secure": "parallelshell \"npm run serve:secure -s\" \"npm run watch:styles\" \"npm run watch:app\" \"npm run livereload\"",
     "serve": "node server.dev.js",
     "serve:secure": "node server-secure.dev.js",
@@ -109,7 +104,7 @@
     "moment": "^2.18.1",
     "ng-config": "git+https://github.com/tlvince/ng-config.git#1.0.0",
     "ng-file-upload": "~3.0.7",
-    "node-sass": "^3.6.0",
+    "node-sass": "^3.13.1",
     "nodemon": "~1.8.1",
     "npm-html2js": "git+https://github.com/arnauddri/npm-html2js.git",
     "parallelshell": "~2.0.0",
@@ -120,5 +115,8 @@
     "rimraf": "~2.4.4",
     "stompjs": "~2.3.3",
     "usemin-cli": "~0.0.7"
+  },
+  "dependencies": {
+    "nvm": "0.0.4"
   }
 }
