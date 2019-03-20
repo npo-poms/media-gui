@@ -91,7 +91,7 @@
         <div class="header-account-buttons">
 
             <div class="header-account-link">
-                <span ng-class="{'open': (userDropdown.isopen)}"
+                <span id="currentUser" ng-class="{'open': (userDropdown.isopen)}"
                       ng-click="guiController.toggleUserDropdown($event)">
                     {{::guiController.editor.text}}</span>
             </div>
