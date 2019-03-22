@@ -74,10 +74,14 @@
     </a>
   </span>
 
-    <a title="Nieuw item toevoegen" class="header-link header-link-new" href="javascript:void(0)"
+    <a title="Nieuw item toevoegen"
+       id="newItem"
+       class="header-link header-link-new" href="javascript:void(0)"
        ng-click="guiController.newMedia()">NIEUW</a>
 
-    <a title="Nieuwe zoekopdracht" class="header-link header-link-new" href="javascript:void(0)"
+    <a title="Nieuwe zoekopdracht" class="header-link header-link-new"
+       id="newSearchTab"
+       href="javascript:void(0)"
        ng-click="guiController.newSearch()">ZOEKEN</a>
 
     <a class="header-link header-link-new" href="javascript:void(0)" ng-click="guiController.openLiveEditor()">LiveKnipper</a>
@@ -87,7 +91,7 @@
         <div class="header-account-buttons">
 
             <div class="header-account-link">
-                <span ng-class="{'open': (userDropdown.isopen)}"
+                <span id="currentUser" ng-class="{'open': (userDropdown.isopen)}"
                       ng-click="guiController.toggleUserDropdown($event)">
                     {{::guiController.editor.text}}</span>
             </div>

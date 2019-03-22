@@ -38,7 +38,7 @@
               <h4>Dit zijn jouw rollen binnen poms, die bepalen waar je wel/geen toestemming voor hebt:</h4>
 
               <p class="modal-text-small">
-                <span data-ng-repeat="role in editor.roles">{{role}}{{$last ? '' : ', '}}</span>
+                <span data-ng-repeat="role in editor.roles" id="{{role}}">{{role}}{{$last ? '' : ', '}}</span>
               </p>
 
             </div>
