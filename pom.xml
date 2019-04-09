@@ -12,48 +12,43 @@
     <developerConnection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</developerConnection>
     <url>https://subversion.vpro.nl/viewvc/nl/vpro/media-gui/trunk</url>
   </scm>
-  <profiles>
-    <profile>
-      <id>npm</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>install node and npm</id>
-                <goals>
-                  <goal>install-node-and-npm</goal>
-                </goals>
-                <configuration>
-                  <nodeVersion>v6.14.4</nodeVersion>
-                  <npmVersion>3.10.10</npmVersion>
-                </configuration>
-              </execution>
-              <execution>
-                <id>npm install</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <configuration>
-                  <arguments>install</arguments>
-                </configuration>
-              </execution>
-              <execution>
-                <id>npm build</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <configuration>
-                  <arguments>run deploy:gulp</arguments>
-                </configuration>
-              </execution>
-              <!-- It's broken and it has never found any bugs any ways
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <configuration>
+              <nodeVersion>v6.14.4</nodeVersion>
+              <npmVersion>3.10.10</npmVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run deploy:gulp</arguments>
+            </configuration>
+          </execution>
+          <!-- It's broken and it has never found any bugs any ways
               I thing the maintainance is not worth the trouble.
               Selenium tests may be more usefull?
               https://github.com/npo-poms/functional-tests/tree/master/poms-functional-tests-selenium
@@ -67,15 +62,8 @@
                 </configuration>
               </execution>
               -->
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-  <build>
-    <defaultGoal>install</defaultGoal>
-    <plugins>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.2</version>
