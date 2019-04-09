@@ -1,0 +1,44 @@
+
+
+BLA LAFSDJKLASD
+<div id="intentions-select"
+     class="editfield-wrapper editfield-uiselect"
+     ng-click="showEditElement($event, mayWrite)"
+     ng-keyup="keyEvent($event)"
+     ng-class="{'empty' : !intentions.length, 'may-write' : mayWrite,  'forbidden': !mayWrite, 'opened' : isOpen, 'waiting': waiting }"
+     save-feedback >
+
+    <h2 class="small-header">{{header}}</h2>
+
+    <div ng-show="isOpen" class="ui-select" style="max-height:400px;">
+
+        <div ng-show="isOpen" class="editfield-uiselect-backdrop" ng-click="blurredSave($event)"></div>
+
+        <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="selectedItems.selected" theme="bootstrap"  close-on-select="false" ng-disabled="disabled" >
+            <ui-select-match placeholder="Kies een intentie...">{{$item.text}}</ui-select-match>
+            <ui-select-choices repeat="intention in options | filter: {text: $select.search}">
+                <div ng-bind-html="trustAsHtml((intention.text | highlight: $select.search))" ></div>
+            </ui-select-choices>
+        </ui-select>
+
+        <div class="editable-error" ng-if="errorText" >{{errorText}}</div>
+
+        <span class="editable-buttons">
+            <button class="button-save" type='button' ng-click="submit($event)">save</button>
+            <button class="button-cancel" type='button'  ng-click="cancel($event)">cancel</button>
+        </span>
+
+
+    </div>
+
+    <div ng-show="!isOpen">
+        <span ng-repeat="item in intentions">
+            {{item.text}}{{$last ? '' : ', '}}
+        </span>
+    </div>
+
+    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+
+
+</div>
+
