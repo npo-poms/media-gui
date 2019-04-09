@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>nl.vpro.poms</groupId>
-    <artifactId>poms-parent</artifactId>
-    <version>5.11-SNAPSHOT</version>
-  </parent>
-
   <groupId>nl.vpro.media</groupId>
   <artifactId>media-gui</artifactId>
   <packaging>war</packaging>
@@ -84,6 +78,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
         <configuration>
           <warSourceDirectory>build/deploy</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -91,6 +86,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
         <configuration>
           <!-- the frontend plugin sucks horribly and installs all over the place in src dir.-->
           <filesets>
@@ -110,29 +106,18 @@
   </build>
 
 
-  <repositories>
+
+  <distributionManagement>
     <repository>
-      <id>vpro</id>
-      <url>https://nexus.vpro.nl/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <id>nexus</id>
+      <name>Nexus releases</name>
+      <url>http://nexus.vpro.nl/content/repositories/releases</url>
     </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>vpro</id>
-      <url>https://nexus.vpro.nl/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
+    <snapshotRepository>
+      <id>nexus</id>
+      <name>Nexus snapshots</name>
+      <url>http://nexus.vpro.nl/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
