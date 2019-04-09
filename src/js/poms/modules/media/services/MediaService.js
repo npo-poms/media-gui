@@ -6,102 +6,6 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
     'localStorageService',
     'appConfig',
     function ( $rootScope, $q, $http, $modal, localStorageService, appConfig ) {
-
-        var readPermissions = {
-                'media': 1 << 0,
-                'broadcasters': 1 << 0,
-                'portals': 1 << 0,
-                'languages': 1 << 0,
-                'countries': 1 << 0,
-                'avType': 1 << 0,
-                'mainTitle': 1 << 0,
-                'subTitle': 1 << 0,
-                'shortTitle': 1 << 0,
-                'abbreviationTitle': 1 << 0,
-                'workTitle': 1 << 0,
-                'originalTitle': 1 << 0,
-                'lexicoTitle': 1 << 0,
-                'mainDescription': 1 << 0,
-                'subDescription': 1 << 0,
-                'shortDescription': 1 << 0,
-                'kickerDescription': 1 << 0,
-                'persons': 1 << 0,
-                'relations': 1 << 0,
-                'websites': 1 << 0,
-                'publication': 1 << 0,
-                'year': 1 << 0,
-                'embeddable': 1 << 0,
-                'isDubbed': 1 << 0,
-                'tags': 1 << 0,
-                'duration': 1 << 0,
-                'predictions': 1 << 0,
-                'locations': 1 << 0,
-                'segments': 1 << 0,
-                'episodes': 1 << 0,
-                'episodeOf': 1 << 0,
-                'members': 1 << 0,
-                'memberOf': 1 << 0,
-                'images': 1 << 0,
-                'genres': 1 << 0,
-                'ageRating': 1 << 0,
-                'contentRatings': 1 << 0,
-                'geoRestrictions': 1 << 0,
-                'portalRestrictions': 1 << 0,
-                'twitterRefs': 1 << 0,
-                'scheduleEvents': 1 << 0,
-                'subtitles': 1 << 0
-            },
-            writePermissions = {
-                'media': 1 << 12,
-                "type": 1 << 12,
-                'broadcasters': 1 << 12,
-                'portals': 1 << 12,
-                'languages': 1 << 12,
-                'countries': 1 << 12,
-                'avType': 1 << 12,
-                'mainTitle': 1 << 12,
-                'subTitle': 1 << 12,
-                'shortTitle': 1 << 12,
-                'abbreviationTitle': 1 << 12,
-                'workTitle': 1 << 12,
-                'originalTitle': 1 << 12,
-                'lexicoTitle': 1 << 12,
-                'mainDescription': 1 << 12,
-                'subDescription': 1 << 12,
-                'shortDescription': 1 << 12,
-                'kickerDescription': 1 << 12,
-                'relations': 1 << 12,
-                'persons': 1 << 12,
-                'websites': 1 << 12,
-                'publication': 1 << 13,
-                'year': 1 << 12,
-                'embeddable': 1 << 12,
-                'isDubbed': 1 << 12,
-                'tags': 1 << 12,
-                'duration': 1 << 14,
-                'predictions': 1 <<15,
-                'locations': 1 << 15,
-                'segments': 1 << 12,
-                'episodes': 1 << 24,
-                'episodeOf': 1 << 16,
-                'members': 1 << 25,
-                'memberOf': 1 << 17,
-                'images': 1 << 18,
-                'imagesUpload': 1 << 3,
-                'genres': 1 << 19,
-                'ageRating': 1 << 20,
-                'contentRatings': 1 << 20,
-                'geoRestrictions': 1 << 21,
-                'portalRestrictions': 1 << 12,
-                'twitterRefs': 1 << 12,
-                'scheduleEvents': 1 << 12,
-                'subtitles': 1 << 12
-            },
-
-            deletePermission = 1 << 30,
-
-            mergePermission = 1 << 29,
-
             storageService = localStorageService,
 
             baseUrl = appConfig.apihost + '/gui/media',
@@ -182,7 +86,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasReadPermission: function ( media, permission ) {
-                return (media.permission & readPermissions[permission]) > 0;
+                return media.permissions['READ'];
             },
 
             hasWritePermission: function ( media, permission ) {
@@ -191,16 +95,17 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                     return media[permission].mayWrite;
                 } else {
                     // fall back to stuff with bitmap
-                    return (media.permission & writePermissions[permission]) > 0;
+                    return media.permissions['WRITE'];
                 }
             },
 
             hasDeletePermission: function ( media ) {
-                return (media.permission & deletePermission) > 0;
+                return media.permissions['DELETE'];
             },
 
             hasMergePermission: function ( media ) {
-                return (media.permission & mergePermission) > 0 && media.mergedFrom.length === 0;
+                return media.permissions['MERGE'] &&
+                    media.mergedFrom.length === 0; // TODO: This could have been checked in MediaPermissionEvaluator (check if it isn't yet)
             },
 
             create: function ( source ) {
@@ -386,6 +291,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             setGenres: function ( media, genres ) {
                 return post( media, '/genres', genres );
+            },
+
+            getIntentions: function ( media ) {
+                return get( media, '/intentions' );
+            },
+
+            setIntentions: function ( media, intentions ) {
+                return post( media, '/intentions', intentions );
             },
 
             getTags: function ( media ) {

@@ -80,6 +80,10 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
                 return mediaService.setGenres( media, genres );
             },
 
+            intentions: function ( media, intentions ) {
+                return mediaService.setIntentions( media, intentions );
+            },
+
             tags: function ( media, tags ) {
                 return mediaService.setTags( media, tags );
             },

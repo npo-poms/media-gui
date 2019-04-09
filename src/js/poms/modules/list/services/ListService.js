@@ -74,6 +74,10 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/genres', GET_CONFIG);
             },
 
+            getIntentions: function() {
+                return get('/intentions', GET_CONFIG);
+            },
+
             getImagesTypes : function() {
                 return get('/images', GET_CONFIG);
             },

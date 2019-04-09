@@ -41,7 +41,7 @@ angular.module( 'poms.media.directives' )
 
 
                 $scope.$on( 'closeEditField', function ( e, data ) {
-                    if ( data.field == $scope.field ) {
+                    if ( data.field === $scope.field ) {
                         $timeout( function () {
                             $scope.cancel();
                         }, 0 );
@@ -61,7 +61,7 @@ angular.module( 'poms.media.directives' )
 
                                 for ( var i = 0; i < data.length; i ++ ) {
                                     for ( var j = 0; j < $scope.options.length; j ++ ) {
-                                        if ( $scope.options[j].id == data[i].id ) {
+                                        if ( $scope.options[j].id === data[i].id ) {
                                             $scope.selectedItems.selected.push( $scope.options[j] );
                                         }
                                     }
