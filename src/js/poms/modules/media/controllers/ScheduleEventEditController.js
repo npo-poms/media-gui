@@ -1,5 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditController', [
     '$scope',
+    '$timeout',
     '$modalInstance',
     '$upload',
     '$sce',
@@ -14,16 +15,17 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
     'TextfieldNames',
     (function () {
 
-        function ScheduleEventEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, listService, media, event, edit, textfieldNames ) {
+        function ScheduleEventEditController ( $scope, $timeout, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, mediaService, listService, media, event, edit, textfieldNames ) {
 
             this.$scope = $scope;
+            this.$timeout = $timeout;
             this.$modalInstance = $modalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.$filter = $filter;
             this.host = appConfig.apihost;
             this.pomsEvents = PomsEvents;
-            this.mediaService = MediaService;
+            this.mediaService = mediaService;
 
             $scope.event = angular.copy( event );
 
@@ -88,6 +90,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                     function (scheduleEvent) {
                         this.$modalInstance.close(scheduleEvent);
                         this.$scope.waiting = false;
+                        this.$scope.events = [scheduleEvent];
+                        this.$timeout(function() {
+                            this.$scope.$root.$digest();
+                        }.bind(this));
+
                     }.bind( this ),
                     function ( error ) {
                         this.$scope.waiting = false;
