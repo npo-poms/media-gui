@@ -10,6 +10,12 @@ Install the latest NPM by running `npm install -g npm`
 
 Run `npm install` to install all prerequisites.
 
+NOTE (for Mac): there's now a dependency on xcode application (xcode-select seems not to be enough)
+
+#Current versions:
+nvm: 0.34.0
+node: v6.14.4
+npm: 3.10.10
 
 # development
 

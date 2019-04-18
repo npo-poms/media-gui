@@ -5,7 +5,8 @@ angular.module( 'poms.media.directives' )
             templateUrl: 'edit/editables/poms-intentions.html',
             scope: {
                 media: '=',
-                helpField : '@'
+                helpField : '@',
+                header: '@'
             },
             controller: function ( $scope ) {
 
