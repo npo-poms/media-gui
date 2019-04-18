@@ -132,7 +132,6 @@ angular.module( 'poms.media.directives' )
 
                     editService.intentions( media, data ).then(
                         function ( result ) {
-                            angular.copy( result, media );
 
                             load( media, $scope.intentions );
                             deferred.resolve( false );
