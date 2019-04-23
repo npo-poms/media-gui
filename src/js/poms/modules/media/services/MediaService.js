@@ -301,6 +301,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return post( media, '/intentions', intentions );
             },
 
+            getTargetGroups: function ( media ) {
+                return get( media, '/targetGroups' );
+            },
+
+            setTargetGroups: function ( media, targetGroups ) {
+                return post( media, '/targetGroups', targetGroups );
+            },
+
             getTags: function ( media ) {
                 return get( media, '/tags' );
             },

@@ -78,6 +78,10 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/intentions', GET_CONFIG);
             },
 
+            getTargetGroups: function() {
+                return get('/targetGroups', GET_CONFIG);
+            },
+
             getImagesTypes : function() {
                 return get('/images', GET_CONFIG);
             },

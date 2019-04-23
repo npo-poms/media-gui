@@ -1,7 +1,7 @@
 .idea
 *.iml
-target
 .settings
+target/
 node
 build
 etc
@@ -9,8 +9,6 @@ node_modules
 
 constants.js*
 
-/src/
-/src/js/poms/
 /src/styles/.sass-cache
 /src/styles/style.css
 /src/styles/style.css.map
