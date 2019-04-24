@@ -82,8 +82,7 @@ angular.module( 'poms.util.filters' )
     } )
     .filter( 'mediaFullImage', function ( appConfig ) {
         return function ( image ) {
-            var id = image.uri.substring( image.uri.lastIndexOf( ":" ) + 1 );
-            return appConfig.apihost + '/images/api/images/' + id + '.jpg'
+            return image.originalURL;
         }
     } )
     .filter( 'xmlLocationPrefix', function ( appConfig ) {
