@@ -60,6 +60,7 @@
     "pretest": "npm run build:templatecache:gulp",
     "test": "karma start karma.conf.js",
     "watch:dev": "npm run dev && npm run serve:dev",
+    "watch:dev-secure": "npm run dev && npm run serve:dev-secure",
     "watch:app": "nodemon --watch src --ext js,html --ignore src/views/templates.js --ignore src/js/poms/constants.js --exec npm run build:app:dev",
     "watch:styles": "nodemon --watch src/styles --ext scss --exec npm run build:styles:dev"
   },
