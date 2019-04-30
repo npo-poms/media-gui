@@ -56,6 +56,7 @@ Use `npm run serve:dev-secure` with the above mentioned environment variables to
 
 Example:
 `NPM_CONFIG_APIHOST=https://poms-dev.omroep.nl NPM_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl SERVER_KEY_PATH=~/.secure/server.key SERVER_CRT_PATH=~/.secure/server.crt npm run serve:dev-secure`
+(Note: running node scripts directly from the console like `npm run serve:dev-secure` wont work without defining `NPM_CONFIG_APIHOST` & `NPM_CONFIG_SIGNONHOST` )
 
 ## debug statements in your console
 
