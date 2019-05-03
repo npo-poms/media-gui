@@ -54,7 +54,7 @@
             var isPomsUrl = ( !isAbsolute || ( isAbsolute  && isAbsolutePomsUrl ) );
             var ownerType = localStorageService.get("ownerType");
             var currentUser  = localStorageService.get("currentUser");
-            if((config.method === 'GET' || config.method === 'POST') && ownerType && ownerType.length > 0 && isPomsUrl ) {
+            if((config.method === 'GET' || config.method === 'POST' || config.method === 'DELETE') && ownerType && ownerType.length > 0 && isPomsUrl ) {
                 config.headers['X-Poms-OwnerType'] = ownerType; // This seems like a horrible hack.
                 config.headers['X-Poms-CurrentUser'] = currentUser;
 
