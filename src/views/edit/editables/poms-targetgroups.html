@@ -13,7 +13,7 @@
         <div ng-show="isOpen" class="editfield-uiselect-backdrop" ng-click="blurredSave($event)"></div>
 
         <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="selectedItems.selected" theme="bootstrap"  close-on-select="false" ng-disabled="disabled" >
-            <ui-select-match placeholder="Kies een doel group...">{{$item.text}}</ui-select-match>
+            <ui-select-match placeholder="Kies een doelgroep...">{{$item.text}}</ui-select-match>
             <ui-select-choices repeat="targetgroup in options | filter: {text: $select.search}">
                 <div ng-bind-html="trustAsHtml((targetgroup.text | highlight: $select.search))" ></div>
             </ui-select-choices>
