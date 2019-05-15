@@ -3,7 +3,7 @@
      class="editfield-wrapper editfield-uiselect"
      ng-click="showEditElement($event, mayWrite)"
      ng-keyup="keyEvent($event)"
-     ng-class="{'empty' : !targetgroups.length, 'may-write' : mayWrite,  'forbidden': !mayWrite, 'opened' : isOpen, 'waiting': waiting }"
+     ng-class="{'empty' : !targetGroups.length, 'may-write' : mayWrite,  'forbidden': !mayWrite, 'opened' : isOpen, 'waiting': waiting }"
      save-feedback >
 
     <h2 class="small-header">{{header}}</h2>
@@ -14,8 +14,8 @@
 
         <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="selectedItems.selected" theme="bootstrap"  close-on-select="false" ng-disabled="disabled" >
             <ui-select-match placeholder="Kies een doelgroep...">{{$item.text}}</ui-select-match>
-            <ui-select-choices repeat="targetgroup in options | filter: {text: $select.search}">
-                <div ng-bind-html="trustAsHtml((targetgroup.text | highlight: $select.search))" ></div>
+            <ui-select-choices repeat="targetGroup in options | filter: {text: $select.search}">
+                <div ng-bind-html="trustAsHtml((targetGroup.text | highlight: $select.search))" ></div>
             </ui-select-choices>
         </ui-select>
 
