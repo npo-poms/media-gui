@@ -117,7 +117,7 @@
 
             <poms-edit media="media" section="{{::mediaController.sectionId('general')}}" editRef="mediaController.editRef"></poms-edit>
 
-            <poms-scheduleevents ng-if="::media.type.id == 'BROADCAST'" media="media" section="{{::mediaController.sectionId('scheduleevents')}}"></poms-scheduleevents>
+            <poms-scheduleevents ng-if="::media.hasScheduleEvents" media="media" section="{{::mediaController.sectionId('scheduleevents')}}"></poms-scheduleevents>
 
             <poms-segments media="media" section="{{::mediaController.sectionId('segments')}}" ng-if="::media.hasSegments"></poms-segments>
 

@@ -22,9 +22,6 @@ angular.module('poms.list.services').factory('ListService', [
             return deferred.promise;
         }
 
-        function getMediaTypes(create) {
-            return get('/types', {params : {create : create}, cache : true});
-        }
 
         function ListService() {
         }
@@ -99,11 +96,22 @@ angular.module('poms.list.services').factory('ListService', [
             },
 
             getMediaTypes : function() {
-                return getMediaTypes(false);
+                return get("/types", GET_CONFIG);
             },
 
             getMediaCreateTypes : function() {
-                return getMediaTypes(true);
+                var mt = get("/types", GET_CONFIG);
+                return mt.then(function(data) {
+                    var i = 0;
+                    while (i < data.length) {
+                        if (! data[i].mayCreate) {
+                            data.splice(i, 1);
+                        } else {
+                            ++i;
+                        }
+                    }
+                });
+
             },
 
             getPortals : function() {

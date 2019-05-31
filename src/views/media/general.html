@@ -309,8 +309,7 @@
 
     </div>
 
-    <div class="media-field not-editable" ng-if="media.type.id == 'BROADCAST' || media.type.id == 'STRAND'">
-      <!-- todo, this kind of logic should not be coded in frontend -->
+    <div class="media-field not-editable" ng-if="media.hasScheduleEvents">
 
       <h2 class='small-header'>Aflevering {{item.number}} van</h2>
 
