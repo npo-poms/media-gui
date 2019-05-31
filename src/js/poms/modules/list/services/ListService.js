@@ -100,8 +100,8 @@ angular.module('poms.list.services').factory('ListService', [
             },
 
             getMediaCreateTypes : function() {
-                var mt = get("/types", GET_CONFIG);
-                return mt.then(function(data) {
+                var promise = get("/types", GET_CONFIG);
+                return promise.then(function(data) {
                     var i = 0;
                     while (i < data.length) {
                         if (data[i].mayCreate !== undefined && ! data[i].mayCreate) {
@@ -110,6 +110,7 @@ angular.module('poms.list.services').factory('ListService', [
                             ++i;
                         }
                     }
+                    return data;
                 });
 
             },
