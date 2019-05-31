@@ -104,7 +104,7 @@ angular.module('poms.list.services').factory('ListService', [
                 return mt.then(function(data) {
                     var i = 0;
                     while (i < data.length) {
-                        if (! data[i].mayCreate) {
+                        if (data[i].mayCreate !== undefined && ! data[i].mayCreate) {
                             data.splice(i, 1);
                         } else {
                             ++i;
