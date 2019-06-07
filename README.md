@@ -5,7 +5,7 @@ Install the [Node Version Manager](https://www.digitalocean.com/community/tutori
 
 By running `curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash`
 
-Install Node JS by running `nvm install 0.12` and `nvm use 0.12`
+Install Node JS by running `nvm install 6` and `nvm use 6`
 Install the latest NPM by running `npm install -g npm`
 
 Run `npm install` to install all prerequisites.
