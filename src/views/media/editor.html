@@ -45,7 +45,7 @@
             <li class='media-item-navigation-link'
                 ng-class="{'active' : mediaController.activeSection == 'scheduleevents' }"
                 ng-click="mediaController.goTo('scheduleevents')"
-                ng-if="::media.type.id == 'BROADCAST'">
+                ng-if="::media.hasScheduleEvents">
                 <span class='media-item-navigation-text' title="Schedule Events" ng-class="{'media-item-navigation-text-waiting' : scheduleeventsWaiting }">
                     <span title="Schedule Events"> Uitzendingen ({{media.scheduleEvents.length || 0}}) </span>
                 </span>
