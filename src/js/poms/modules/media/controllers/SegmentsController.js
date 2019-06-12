@@ -56,6 +56,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 this.segments.push( this.$scope.inserted );
                 if (this.canItemize()) {
                     this.itemize(this.$scope.inserted);
+                } else {
+
                 }
             },
 
