@@ -268,6 +268,13 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return put( media, '/persons', {from: from, to: to} );
             },
 
+            getGeoLocations: function ( media ) {
+                return get( media, '/geoLocations' );
+            },
+
+            addGeoLocation: function ( media, geoLocation ) {
+                return post( media, '/geoLocations', person );
+            },
 
             getWebsites: function ( media ) {
                 return get( media, '/websites' );

@@ -59,6 +59,11 @@
                   option-title="Rol" option-field="role"
                   permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
 
+    <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
+                  load="editController.getGeoLocations()"
+                  options="editController.allowedRoles()"
+                  option-title="Rol" option-field="role"
+                  permission="geoLocation" single-name="GeoLocation" help-field="editor.general.geoLocations"></poms-geolocations>
   </div>
 
   <div class="media-publication media-section-general-right">

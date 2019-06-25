@@ -324,12 +324,21 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 return this.mediaService.setPerson( media, data );
             },
 
+
             removePerson: function ( media, data ) {
                 return this.mediaService.removePerson( media, data );
             },
 
             movePerson: function ( media, from, to ) {
                 return this.mediaService.movePerson( media, from, to );
+            },
+
+            getGeoLocations: function () {
+                return this.mediaService.getGeoLocations( this.media );
+            },
+
+            setGeoLocation: function ( media, data ) {
+                return this.mediaService.setGeoLocation( media, data );
             },
 
             mayWriteMemberOf: function ( memberRef ) {

@@ -1,0 +1,50 @@
+<div class="editfield-wrapper editfield-geoLocations"
+     ng-class="{
+     'empty': geoLocationController.items.length == 0,
+     'may-write' : geoLocationsController.mayWrite ,
+     'forbidden' : !geoLocationsController.mayWrite ,
+     'waiting': waiting}"
+     ng-show="geoLocationsController.mayRead" save-feedback>
+
+    <h2 class="small-header"> {{header}} </h2>
+
+    <div class="editfield">
+
+        <div ng-repeat="item in geoLocationsController.items" class="media-geoLocation">
+
+            {{item.relationType.text}}: {{item.name}} {{item.description}}
+
+            <button title='koppel locatie aan GTAA record' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-geoLocation-link"
+                    ng-click="geoLocationsController.editGeoLocation( item )">
+                koppel
+            </button>
+
+            <button title='edit locatie' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-geoLocation-edit"
+                    ng-click="geoLocationsController.editGeoLocation( item )" >
+                edit
+            </button>
+
+            <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-geoLocation-gtaa media-geoLocation-gtaa-{{item.gtaaRecord.status}}'>
+            </span>
+
+            <button ng-if="geoLocationsController.mayWrite" class="media-geoLocation-remove"
+                    poms-confirm="'locatie'"
+                    poms-submit="geoLocationsController.removeGeoLocation( item )"
+                    >
+                verwijder
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="media-field-tools">
+        <div ng-if="!geoLocationsController.mayWrite" class="forbidden-icon"></div>
+        <poms-help field="{{helpField}}"></poms-help>
+    </div>
+
+    <button class="btn-text-icon btn-text-icon-add media-geoLocation-add" ng-if="geoLocationsController.mayWrite" ng-click="geoLocationsController.addGeoLocation()">
+        locatie toevoegen
+    </button>
+
+</div>
