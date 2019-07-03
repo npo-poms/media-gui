@@ -273,7 +273,11 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             addGeoLocation: function ( media, geoLocation ) {
-                return post( media, '/geoLocations', person );
+                return post( media, '/geoLocations', geoLocation );
+            },
+
+            removeGeoLocation: function ( media, geoLocation ) {
+                return del( media, '/geoLocations', geoLocation );
             },
 
             getWebsites: function ( media ) {

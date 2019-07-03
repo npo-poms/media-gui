@@ -72,7 +72,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 var geoLocationController;
                 var geoLocationTemplate;
                 geoLocationController = 'GtaaGeoLocationEditController';
-                geoLocationTemplate = 'edit/modal-gtaa-geolocation.html';
+                geoLocationTemplate = 'edit/modal-gtaa-geolocation2.html';
 
                 this.$scope.modalNew = this.$modal.open( {
                     controllerAs: 'controller',

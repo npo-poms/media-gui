@@ -1,0 +1,216 @@
+<div class="modal-header">
+    <div class="modal-title"> Geographical Location </div>
+    <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+<form relationType="form" class="poms-form geoLocationForm"  name="geoLocationForm"  ng-class="{'waiting': waiting}">
+
+    <div class="modal-body">
+        <div class="form-fields">
+
+            <div class="row">
+                <div class="col-12 geoLocationfields">
+
+                    <div ng-show="!registerNewGeoLocation && !linkedGeoLocation" class="poms-typeahead field col-8">
+
+                        <label label-for="suggestions">Zoek een locatie in GTAA:</label>
+                        <input ng-class="{'waiting': suggestionsWaiting }" ng-disabled="waiting" id="suggestions" name='suggestions' type="text"
+                               ng-model="suggestData"
+                               typeahead="suggestion as suggestion.displayValue for suggestion in controller.suggest($viewValue, 50)"
+                               typeahead-editable="false"
+                               typeahead-on-select="controller.suggestionSelected( suggestData )"
+                               typeahead-template-url="itemTpl.html"
+                               autocomplete="off"
+                                />
+
+                        <script type="text/ng-template" id="itemTpl.html">
+                            <a tabindex="-1" >
+                                <span ng-if="!match.model.new">
+                                    <span title='{{match.model.gtaaRecord.status }}' class='modal-geoLocation-gtaa media-geoLocation-gtaa-{{match.model.gtaaRecord.status}}'></span>
+                                    <span ng-bind-html="match.model.name || '' | typeaheadHighlight:query"></span>
+                                    <span ng-bind-html="match.model.description || '' | typeaheadHighlight:query"></span>
+                                    <span class='gtaa-suggest-knownas' ng-if="match.model.knownAs.length > 0">
+                                        "<span ng-repeat='altLabel in match.model.knownAs' ><span ng-bind-html="altLabel.name || '' | typeaheadHighlight:query"></span>
+                                        <span ng-bind-html="altLabel.description || '' | typeaheadHighlight:query"></span>{{$last?'':', '}}</span>"
+                                    </span>
+                                    <span ng-if="match.model.notes.length > 0">
+                                        <br/>
+                                        <span ng-repeat='note in match.model.notes' >
+                                            <span ng-bind-html="note.value || '' | typeaheadHighlight:query"></span>
+                                            {{$last?'':', '}}
+                                        </span>
+                                    </span>
+                                </span>
+
+                                <span class="new" ng-if="match.model.new">
+                                   <span ng-bind-html="match.model.displayValue | typeaheadHighlight:query"></span>
+                                </span>
+                            </a>
+                        </script>
+
+                        <p ng-if="geoLocationForm.suggestions.$invalid || geoLocationForm.suggestions.$pristine">
+                            U moet een locatie uit de GTAA kiezen <br />
+                            &oacute;f de optie selecteren om een nieuw locatie aan te maken
+                        </p>
+
+                        <poms-help field="editor.general.geoLocations.gtaa"></poms-help>
+
+                    </div>
+                </div>
+
+                <div class="row" ng-if="linkedGeoLocation  && !registerNewGeoLocation">
+                    <label>Registreren</label>
+
+                        <div class="col-6" ng-if="suggestions.length">
+                            <p>U kunt de naam {{linkedGeoLocation.name}} {{linkedGeoLocation.description}} aan de volgende bestaande records koppelen:</p>
+
+                            <div class="suggestions">
+                                <span ng-repeat="sug in suggestions">
+                                    <label class="geoLocation-label"  ng-class="(linksuggestion==$index) ? 'checked' : ''">
+                                    <input ng-model="$parent.linksuggestion"
+                                           ng-disabled="waiting"
+                                           type="radio"
+                                           ng-value="$index"
+                                           name="linksuggestion"
+                                           ng-click="controller.recordSelected( sug )">
+                                        {{sug.displayValue}}
+                                        <div title='{{sug.gtaaRecord.status }}' class='modal-geoLocation-gtaa-suggestion media-geoLocation-gtaa-{{sug.gtaaRecord.status}}'></div>
+
+                                    </label>
+                                    </span>
+                            </div>
+                            <button class="btn-rect btn-rect-large" ng-click="controller.submit()" ng-disabled="!geoLocationFormValid || geoLocationForm.suggestions.$invalid || waiting" > Koppelen </button>
+
+                        </div>
+
+                        <div class="col-5">
+                            <p ng-if="suggestions.length">
+                                Of wilt u de huidige locatie "{{linkedGeoLocation.name}} {{linkedGeoLocation.description}}" nieuw registreren bij GTAA?
+                            </p>
+
+                            <p ng-if="!suggestions.length">
+                                De locatie "{{linkedGeoLocation.name}} {{linkedGeoLocation.description}}" is niet bekend in GTAA. U kunt deze als nieuw registreren.
+                            </p>
+
+                            <div class="suggestions">
+                                <button class="btn-rect btn-rect-secondary btn-rect-large" ng-click="controller.submitNewGeoLocation( linkedGeoLocation )">registreer</button>
+                            </div>
+                        </div>
+
+
+                        <poms-help field="editor.general.geoLocations.gtaa.match"></poms-help>
+
+                </div>
+
+                <div class="row">
+                    <div class='field col-12' ng-if="selectedGeoLocation.knownAs.length > 0">
+                        <span> Deze locatie heeft meerdere bekende namen. <br /> Welke naam wilt u gebruiken om te tonen? </span>
+
+                        <div class="suggestions">
+
+                            <span>
+                                <label class="gtaa-suggest-preferred geoLocation-label" ng-class="(displayname=='-1') ? 'checked' : ''" >
+                                    <input ng-checked="true"
+                                           ng-disabled="waiting"
+                                           type="radio"
+                                           name="displayname"
+                                           ng-value="-1"
+                                           ng-click="controller.setGeoLocationName( selectedGeoLocation.name, selectedGeoLocation.description, false)" />
+                                    {{selectedGeoLocation.name}} {{selectedGeoLocation.description}} (aangeraden)
+                                </label>
+                            </span>
+
+                            <span class="gtaa-suggest-knownas" ng-repeat="knownAs in selectedGeoLocation.knownAs">
+                                <label class="geoLocation-label"  ng-class="($parent.displayname==$index) ? 'checked' : ''" >
+                                    <input
+                                           type="radio"
+                                           ng-disabled="waiting"
+                                           name="displayname"
+                                           ng-value="$index"
+                                           ng-click="controller.setGeoLocationName( knownAs.name, knownAs.description, true )" />
+                                    {{knownAs.name}} {{knownAs.description}}
+                                </label>
+                            </span>
+
+
+                        </div>
+                        <poms-help  field="editor.general.geoLocations.gtaa.knownAs"></poms-help>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class='field' ng-if="registerNewGeoLocation">
+                        U gaat een nieuw locatie registreren bij de GTAA. <br />
+                        ContrelationTypeer de voor- en achternaam van deze locatie.
+                    </div>
+                    <poms-help  field="editor.general.geoLocations.gtaa.register"></poms-help>
+                </div>
+
+
+                <hr >
+
+
+                <div class="row" >
+                    <div class="col-4 field">
+                        <label label-for="name">Voornaam: </label>
+                        <input ng-disabled="!registerNewGeoLocation || waiting" id="name" type="text" ng-model="geoLocation.name"/>
+                        <poms-help  field="editor.general.geoLocations.name"></poms-help>
+                    </div>
+
+                    <div class="col-4 field">
+                        <label label-for="description">Achternaam: </label>
+                        <input  ng-disabled="!registerNewGeoLocation || waiting" id="description" type="text" ng-model="geoLocation.description"/>
+                        <poms-help  field="editor.general.geoLocations.description"></poms-help>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class='col-4 field' ng-if="create">
+                        <label label-for="relationType">
+                            Rol:
+                        </label>
+
+                        <select class="poms-select" ng-required id='relationType' ng-model="geoLocation.relationType" ng-options="relationType.text for relationType in relationTypes">
+                            <option value=""> -- kies Rol -- </option>
+                        </select>
+
+                        <div class="editable-error" ng-if="errorText" >{{errorText}}</div>
+                        <poms-help  field="editor.general.geoLocations.relationType"></poms-help>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="registerNewGeoLocation">
+                    <div class="col-8 field">
+                        <label label-for="note">Opmerking: </label>
+                        <input ng-disabled="waiting" id="note" type="text" ng-model="geoLocation.note"/>
+                        <poms-help  field="editor.general.geoLocations.gtaa.note"></poms-help>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-disable-overlay"></div>
+
+    </div>
+
+    <div class="footer-container">
+        <div class="footer modal-footer footer-two-buttons">
+
+            <div class="required-feedback footer-message" >
+                <span class="required-feedback-message" ng-if="!geoLocation.description || !geoLocation.name || !geoLocation.relationType">Nog in te vullen:</span>
+                <span class="required-field" ng-if="!geoLocation.name"> Naam  </span>
+                <span class="required-field" ng-if="!geoLocation.relationType"> Relatie  </span>
+                <span ng-if="!geoLocation.description"> Opmerking  </span>
+                &nbsp;
+            </div>
+
+            <button class="btn-rect" ng-click="controller.submit()" > Sla op </button>
+            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)" ng-disabled="waiting">Annuleer</button>
+
+        </div>
+    </div>
+
+</form>

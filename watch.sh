@@ -8,7 +8,7 @@
 # API_HOST=https://poms-dev.omroep.nl ./watch.sh
 
 localhost=`hostname`
-: ${API_PORT:=8071}
+: ${API_PORT:=80}
 : ${API_SERVER:=$localhost}
 : ${API_SCHEME:=http}
 : ${API_HOST:=$API_SCHEME://$API_SERVER:$API_PORT}

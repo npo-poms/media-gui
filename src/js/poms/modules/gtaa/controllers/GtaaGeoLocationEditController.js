@@ -186,7 +186,7 @@ angular.module( 'poms.gtaa.controllers' )
             save: function () {
                 this.$scope.waiting = true;
 
-                return this.mediaService.setGeoLocation( this.media, this.$scope.geoLocation ).then(
+                return this.mediaService.addGeoLocation( this.media, this.$scope.geoLocation ).then(
                     function () {
                         this.$modalInstance.close();
                     }.bind( this ),
@@ -234,10 +234,16 @@ angular.module( 'poms.gtaa.controllers' )
 
             submit: function () {
                 this.$scope.waiting = true;
+              // TEst
+                this.$scope.geoLocation.gtaaUri="http://gtaa/123"
+                this.$scope.geoLocation.name="Amsterdam Test"
+                this.$scope.geoLocation.description="Capital of Netherlands"
+                this.$scope.geoLocation.relationType={id: "SUBJECT"}
+
 
                 if ( this.$scope.geoLocation.gtaaUri ) {
                     this.save();
-                } else if ( this.$scope.geoLocation.familyName ) {
+                } else if ( this.$scope.geoLocation.name ) {
 
                     this.submitNewGeoLocation( this.$scope.geoLocation ).then(
                         function ( result ) {
