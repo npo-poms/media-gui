@@ -1,4 +1,4 @@
-<div class="editfield-wrapper editfield-geoLocations"
+<div class="editfield-wrapper editfield-persons"
      ng-class="{
      'empty': geoLocationController.items.length == 0,
      'may-write' : geoLocationsController.mayWrite ,
@@ -10,24 +10,24 @@
 
     <div class="editfield">
 
-        <div ng-repeat="item in geoLocationsController.items" class="media-geoLocation">
+        <div ng-repeat="item in geoLocationsController.items" class="media-person">
 
             {{item.relationType.text}}: {{item.name}} {{item.description}}
 
-            <button title='koppel locatie aan GTAA record' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-geoLocation-link"
+            <button title='koppel locatie aan GTAA record' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-person-link"
                     ng-click="geoLocationsController.editGeoLocation( item )">
                 koppel
             </button>
 
-            <button title='edit locatie' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-geoLocation-edit"
+            <button title='edit locatie' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-person-edit"
                     ng-click="geoLocationsController.editGeoLocation( item )" >
                 edit
             </button>
 
-            <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-geoLocation-gtaa media-geoLocation-gtaa-{{item.gtaaRecord.status}}'>
+            <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-person-gtaa media-person-gtaa-{{item.gtaaRecord.status}}'>
             </span>
 
-            <button ng-if="geoLocationsController.mayWrite" class="media-geoLocation-remove"
+            <button ng-if="geoLocationsController.mayWrite" class="media-person-remove"
                     poms-confirm="'locatie'"
                     poms-submit="geoLocationsController.removeGeoLocation( item )"
                     >
@@ -43,7 +43,7 @@
         <poms-help field="{{helpField}}"></poms-help>
     </div>
 
-    <button class="btn-text-icon btn-text-icon-add media-geoLocation-add" ng-if="geoLocationsController.mayWrite" ng-click="geoLocationsController.addGeoLocation()">
+    <button class="btn-text-icon btn-text-icon-add media-person-add" ng-if="geoLocationsController.mayWrite" ng-click="geoLocationsController.addGeoLocation()">
         locatie toevoegen
     </button>
 

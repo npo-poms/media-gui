@@ -6,21 +6,21 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
     'MediaService',
     'EditorService',
     'PomsEvents',
-    (function () {
+    ( function () {
 
-        function load ( scope, pomsEvents, dest ) {
-            scope.load().then(
+        function load ( scope, pomsEvents, mediaService, media, dest ) {
+            mediaService.getGeoLocations( media ).then(
                 function ( data ) {
                     angular.copy( data, dest );
                 },
                 function ( error ) {
-                    scope.$emit( pomsEvents.error, error )
+                    $scope.$emit( pomsEvents.error, error )
                 }
             )
         }
 
 
-        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService,  PomsEvents) {
+        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, PomsEvents ) {
 
             this.items = [];
 
@@ -39,10 +39,10 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
 
-            this.maySkipGtaa = this.editorService.currentEditorHasRoles(['SUPERADMIN', 'ADMIN']);
+            this.maySkipGtaa = this.editorService.currentEditorHasRoles( [ 'SUPERADMIN', 'ADMIN' ] );
             this.useGtaa = true;
 
-            load( $scope, this.pomsEvents, this.items );
+            load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
 
             $scope.options().then(
                 function ( data ) {
@@ -57,78 +57,90 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 }.bind( this )
             );
 
-            $scope.$on(PomsEvents.externalChange, function(e, mid) {
-                 if(mid === $scope.media.mid) {
+            $scope.$on( PomsEvents.externalChange, function ( e, mid ) {
+                if ( mid === $scope.media.mid ) {
                     this.load();
                 }
-            }.bind(this));
+            }.bind( this ) );
 
         }
 
         GeoLocationsController.prototype = {
 
-            addGeoLocation: function(item){
+            addGeoLocation: function () {
 
-                var geoLocationController;
-                var geoLocationTemplate;
-                geoLocationController = 'GtaaGeoLocationEditController';
-                geoLocationTemplate = 'edit/modal-gtaa-geolocation2.html';
+                gtaa.open(
+                    function ( concept ) {
 
-                this.$scope.modalNew = this.$modal.open( {
-                    controllerAs: 'controller',
-                    controller:  geoLocationController,
-                    templateUrl: geoLocationTemplate,
-                    windowClass: 'modal-geolocation',
-                    resolve:{
-                        roles: function () {
-                            return this.options;
-                        }.bind( this ),
-                        media: function () {
-                            return this.media;
-                        }.bind( this ),
-                        linkedGeoLocation: function(){
-                            return angular.copy( item );
-                        },
-                        create: function(){
-                            return ( item ? false : true)
+                        if ( typeof concept === 'object' ) {
+                            if ( concept.objectType === "geographicname" ) {
+
+                                this.mediaService.addGeoLocation( this.media, this.parseGeoLocation( concept ) ).then(
+                                    function () {
+                                        load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
+                                    }.bind( this ),
+                                    function ( error ) {
+                                        if ( error.violations ) {
+                                            for ( var violation in  error.violations ) {
+                                                this.$scope.errorText = error.violations[ violation ];
+                                                break;
+                                            }
+                                        } else {
+                                            this.$scope.$emit( this.pomsEvents.error, error );
+                                        }
+                                    }.bind( this )
+                                )
+                            }
                         }
-                    }
-                } );
 
-                this.$scope.modalNew.result.then(
-                    function ( result ) {
-                        load( this.$scope, this.pomsEvents, this.items );
-                    }.bind( this ),
-                    function ( ) {
-                        load( this.$scope, this.pomsEvents, this.items );
-                    }.bind( this ) );
+                    }.bind( this ), {
+                        // TODO: Set correct options parameters
+                        value: '',
+                        //id: $( '#id' ).val(),
+                        origin: 'https://rs-dev.poms.omroep.nl/',
+                        axes: 'GeografischeNamen',
+                        //updateService: "${requestScope.properties['publisher.url']}",
+                        //jwt: '${requestScope.jws}'
+                    }, 'https://rs-dev.poms.omroep.nl/v1'
+                );
 
             },
 
-            editGeoLocation: function( item ){
-                this.addGeoLocation( item);
+            editGeoLocation: function ( item ) {
+                this.addGeoLocation( item );
+            },
+
+            // TODO: Make a more robust mapping
+            parseGeoLocation: function ( item ) {
+                return {
+                    name: item.value || '',
+                    description: item.notes ? item.notes[ 0 ].value || '' : '',
+                    status: item.status || '',
+                    gtaaUri: item.id || '',
+                    relationType: { id: 'SUBJECT' }
+                };
             },
 
             removeGeoLocation: function ( geoLocation ) {
 
-                return this.mediaService.removeGeoLocation(  this.$scope.media, geoLocation ).then(
-                    function (  ) {
-                        load( this.$scope, this.pomsEvents, this.items );
+                return this.mediaService.removeGeoLocation( this.$scope.media, geoLocation ).then(
+                    function () {
+                        load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
                         return true
                     }.bind( this ),
                     function ( error ) {
                         this.$scope.$emit( this.pomsEvents.error, error );
                         return false;
                     }.bind( this ) ).finally(
-                    function(){
-                        load( this.$scope, this.pomsEvents, this.items );
+                    function () {
+                        load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
                         return true;
-                    }.bind(this)
+                    }.bind( this )
                 );
             }
 
         };
 
         return GeoLocationsController;
-    }())
+    }() )
 ] );

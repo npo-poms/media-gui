@@ -277,7 +277,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             removeGeoLocation: function ( media, geoLocation ) {
-                return del( media, '/geoLocations', geoLocation );
+                return del( media, '/geoLocations/' + geoLocation.id );
             },
 
             getWebsites: function ( media ) {
