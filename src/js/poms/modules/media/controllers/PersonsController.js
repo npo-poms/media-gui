@@ -85,7 +85,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PersonsController', [
                     templateUrl: personTemplate,
                     windowClass: 'modal-person',
                     resolve:{
-                        roles: function () {
+                        personRoles: function () {
                             return this.options;
                         }.bind( this ),
                         media: function () {

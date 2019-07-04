@@ -5,12 +5,12 @@ angular.module( 'poms.media.controllers' ).controller( 'PersonEditController', [
     '$sce',
     'PomsEvents',
     'MediaService',
-    'roles',
+    'personRoles',
     'media',
     'linkedPerson',
     (function () {
 
-        function PersonEditController ( $scope, $q, $modalInstance, $sce, pomsEvents, mediaService, roles, media, linkedPerson ) {
+        function PersonEditController ( $scope, $q, $modalInstance, $sce, pomsEvents, mediaService, personRoles, media, linkedPerson ) {
 
             this.$scope = $scope;
 
@@ -23,7 +23,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PersonEditController', [
             this.pomsEvents = pomsEvents;
             this.mediaService = mediaService;
 
-            this.$scope.roles = roles;
+            this.$scope.personRoles = personRoles;
             this.$scope.linkedPerson = linkedPerson;
             this.$scope.person = {};
 

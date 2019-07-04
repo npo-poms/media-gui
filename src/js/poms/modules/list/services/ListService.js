@@ -127,8 +127,12 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/relations', GET_CONFIG);
             },
 
-            getRoles : function() {
-                return get('/roles', GET_CONFIG);
+            getPersonRoles : function() {
+                return get('/personRoles', GET_CONFIG);
+            },
+
+            getGeoRelations : function() {
+                return get('/geoRelations', GET_CONFIG);
             },
 
             getTags : function(text, max) {

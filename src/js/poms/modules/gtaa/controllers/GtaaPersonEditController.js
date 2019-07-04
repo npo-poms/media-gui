@@ -8,13 +8,13 @@ angular.module( 'poms.gtaa.controllers' )
     'MediaService',
     'EditorService',
     'GtaaService',
-    'roles',
+    'personRoles',
     'media',
     'linkedPerson',
     'create',
     (function () {
 
-        function GtaaPersonEditController ( $scope, $q, $modalInstance, $sce, pomsEvents, mediaService, editorService, gtaaService, roles, media, linkedPerson, create ) {
+        function GtaaPersonEditController ( $scope, $q, $modalInstance, $sce, pomsEvents, mediaService, editorService, gtaaService, personRoles, media, linkedPerson, create ) {
 
             this.$scope = $scope;
 
@@ -31,7 +31,7 @@ angular.module( 'poms.gtaa.controllers' )
 
             this.$scope.waiting = false;
             this.$scope.create = create;
-            this.$scope.roles = roles;
+            this.$scope.personRoles = personRoles;
             this.$scope.linkedPerson = linkedPerson;
             this.$scope.person = {};
 

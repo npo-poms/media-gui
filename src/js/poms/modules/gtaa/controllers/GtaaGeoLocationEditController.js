@@ -8,13 +8,13 @@ angular.module( 'poms.gtaa.controllers' )
     'MediaService',
     'EditorService',
     'GtaaService',
-    'roles',
+    'rolesPerson',
     'media',
     'linkedGeoLocation',
     'create',
     (function () {
 
-        function GtaaGeoLocationEditController ( $scope, $q, $modalInstance, $sce, pomsEvents, mediaService, editorService, gtaaService, roles, media, linkedGeoLocation, create ) {
+        function GtaaGeoLocationEditController ( $scope, $q, $modalInstance, $sce, pomsEvents, mediaService, editorService, gtaaService, rolesPerson, media, linkedGeoLocation, create ) {
 
             this.$scope = $scope;
 
@@ -31,7 +31,7 @@ angular.module( 'poms.gtaa.controllers' )
 
             this.$scope.waiting = false;
             this.$scope.create = create;
-            this.$scope.roles = roles;
+            this.$scope.rolesPerson = rolesPerson;
             this.$scope.linkedGeoLocation = linkedGeoLocation;
             this.$scope.geoLocation = {};
 

@@ -53,7 +53,7 @@ describe('EditController', function() {
         listService.getUsers = function() {
             return deferredOptions.promise;
         };
-        listService.getRoles = function() {
+        listService.getPersonRoles = function() {
             return deferredOptions.promise;
         };
         listService.getRegions = function() {
@@ -150,9 +150,9 @@ describe('EditController', function() {
             expect(target.contentRatings.length).toEqual(3);
         });
 
-        it('should contain the roles', function() {
-            expect(target.roles).toBeDefined();
-            expect(target.roles.length).toEqual(3);
+        it('should contain the personRoles', function() {
+            expect(target.personRoles).toBeDefined();
+            expect(target.personRoles.length).toEqual(3);
         });
 
         it('should contain the regions', function() {

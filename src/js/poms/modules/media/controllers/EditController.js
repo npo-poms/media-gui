@@ -102,9 +102,9 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 }.bind( this )
             );
 
-            listService.getRoles().then(
+            listService.getPersonRoles().then(
                 function ( data ) {
-                    this.roles = data;
+                    this.personRoles = data;
                 }.bind( this ),
                 function ( error ) {
                     $scope.$emit( pomsEvents.error, error )
