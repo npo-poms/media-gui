@@ -21,7 +21,7 @@ CONSTANTS=$DIR/src/js/poms/constants.js
 ARGS=
 RUN="watch:dev"
 
-if [ $API_SCHEME eq 'https' ] ; then
+if [ $API_SCHEME = 'https' ] ; then
   if [ -e "$D/server.key" ] ; then
     echo "creating key"
   fi
@@ -33,7 +33,7 @@ echo "Using Media Backend API host $API_HOST"
 
 PUBLISHER_HOST='https://rs-dev.poms.omroep.nl'
 
-echo "Find frontend at $API-SCHEME://$localhost:4000"
+echo "Find frontend at $API_SCHEME://$localhost:4000"
 echo "Making backup of $CONSTANTS"
 cp $CONSTANTS $DIR/constants.js.bu
 (cd $DIR ; NPM_CONFIG_PUBLISHERHOST=$PUBLISHER_HOST NPM_CONFIG_APIHOST=$API_HOST NPM_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl $ARGS npm run $RUN)
