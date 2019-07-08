@@ -147,8 +147,8 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/subtitlesTypes', {params : {text : text, max : max || 10}});
             },
 
-            getVariables : function() {
-                return get('/variables', GET_CONFIG);
+            getGuiVariables : function() {
+                return get('/guiVariables', GET_CONFIG);
             }
         };
 

@@ -6,7 +6,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
     'MediaService',
     'EditorService',
     'PomsEvents',
-    'appConfig',
+    'ListService',
     ( function () {
 
         function load ( scope, pomsEvents, mediaService, media, dest ) {
@@ -21,7 +21,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
         }
 
 
-        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, PomsEvents ) {
+        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, pomsEvents, listService ) {
 
             this.items = [];
 
@@ -43,6 +43,15 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             this.maySkipGtaa = this.editorService.currentEditorHasRoles( [ 'SUPERADMIN', 'ADMIN' ] );
             this.useGtaa = true;
 
+            listService.getGuiVariables().then(
+                function ( data ) {
+                    this.guiVariables = data;
+                }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
+
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
 
             $scope.options().then(
@@ -58,7 +67,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 }.bind( this )
             );
 
-            $scope.$on( PomsEvents.externalChange, function ( e, mid ) {
+            $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
                     this.load();
                 }
@@ -98,11 +107,11 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         // TODO: Set correct options parameters
                         value: '',
                         //id: $( '#id' ).val(),
-                        origin: this.appConfig.publisherhost, //'https://rs-dev.poms.omroep.nl/',
+                        origin: this.guiVariables.publisherUrl, //'https://rs-dev.poms.omroep.nl/',
                         axes: 'GeografischeNamen',
                         //updateService: "${requestScope.properties['publisher.url']}",
                         //jwt: '${requestScope.jws}'
-                    }, this.appConfig.publisherhost + '/v1' //https://rs-dev.poms.omroep.nl/v1'
+                    },  this.guiVariables.publisherUrl + '/v1' //https://rs-dev.poms.omroep.nl/v1'
                 );
 
             },
