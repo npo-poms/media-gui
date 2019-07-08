@@ -313,7 +313,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             },
 
             allowedRoles: function () {
-                return this.listService.getRoles();
+                return this.listService.getPersonRoles();
             },
 
             getPersons: function () {
