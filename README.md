@@ -31,6 +31,17 @@ npm: 3.10.10
 
 -  Directives are prefixed with poms, e.g. pomsGreeter equals poms-greeter (in file Greeter.js)
 
+## Run backend and frontend together
+Checkout poms and follow the instruction to run it on your local machine
+
+1. Run backend server on port 8071
+2. Run frontend
+`./watch-proxy`
+3. Install ha-proxy 
+`brew install haproxy`
+4. Run proxy
+`proxy/start.sh`
+
 
 ## check the current development
 Run `./ watch-dev.sh` to build and run the current development version on `http://localhost:port` ( port defaults to 4000 )
