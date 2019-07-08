@@ -3,7 +3,8 @@
   "description": "GUI of the POMS admin",
   "version": "5.10.0",
   "config": {
-    "apihost": ""
+    "apihost": "",
+    "version": "5.10.0"
   },
   "scripts": {
     "prebuild:app": "cp src/index.html src/index.tmpl && replace \"{version}\" \"$npm_package_version\" src/index.tmpl",

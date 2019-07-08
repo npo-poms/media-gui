@@ -31,9 +31,12 @@ fi
 
 echo "Using Media Backend API host $API_HOST"
 
+PUBLISHER_HOST='https://rs-dev.poms.omroep.nl'
+
 echo "Find frontend at $API-SCHEME://$localhost:4000"
 echo "Making backup of $CONSTANTS"
 cp $CONSTANTS $DIR/constants.js.bu
-(cd $DIR ; NPM_CONFIG_APIHOST=$API_HOST NPM_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl $ARGS npm run $RUN)
+(cd $DIR ; NPM_CONFIG_PUBLISHERHOST=$PUBLISHER_HOST NPM_CONFIG_APIHOST=$API_HOST NPM_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl $ARGS npm run $RUN)
 echo "Restoring $CONSTANTS"
+echo
 mv -f $DIR/constants.js.bu $CONSTANTS

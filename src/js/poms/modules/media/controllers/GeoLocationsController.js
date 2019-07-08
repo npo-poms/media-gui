@@ -6,6 +6,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
     'MediaService',
     'EditorService',
     'PomsEvents',
+    'appConfig',
     ( function () {
 
         function load ( scope, pomsEvents, mediaService, media, dest ) {
@@ -97,11 +98,11 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         // TODO: Set correct options parameters
                         value: '',
                         //id: $( '#id' ).val(),
-                        origin: 'https://rs-dev.poms.omroep.nl/',
+                        origin: this.appConfig.publisherhost, //'https://rs-dev.poms.omroep.nl/',
                         axes: 'GeografischeNamen',
                         //updateService: "${requestScope.properties['publisher.url']}",
                         //jwt: '${requestScope.jws}'
-                    }, 'https://rs-dev.poms.omroep.nl/v1'
+                    }, this.appConfig.publisherhost + '/v1' //https://rs-dev.poms.omroep.nl/v1'
                 );
 
             },
