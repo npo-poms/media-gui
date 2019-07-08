@@ -65,13 +65,14 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
 
-                    if ( newValue.type && ( newValue.type.id == 'BROADCAST' || newValue.type.id == 'CLIP' || newValue.type.id == 'TRAILER' )){
-                        this.$scope.createFormValid =  !( !newValue.genres || newValue.genres.length == 0 || newValue.title == undefined || newValue.type == undefined || newValue.avType == undefined || !newValue.broadcasters || newValue.broadcasters.length == 0 );
+                    // ridiculous amounts of logic
+                    if ( newValue.type && ( newValue.type.id === 'BROADCAST' || newValue.type.id === 'CLIP' || newValue.type.id === 'TRAILER' )){
+                        this.$scope.createFormValid =  !( !newValue.genres || newValue.genres.length === 0 || newValue.title === undefined || newValue.avType === undefined || !newValue.broadcasters || newValue.broadcasters.length === 0 );
 
                         this.$scope.genreRequired = true;
                         this.$scope.genresHeader = 'Genre *';
                     }else{
-                        this.$scope.createFormValid =  !( newValue.title == undefined || newValue.type == undefined || newValue.avType == undefined || newValue.broadcasters.length == 0 );
+                        this.$scope.createFormValid =  !( newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 );
 
                         this.$scope.genreRequired = false;
                         this.$scope.genresHeader = 'Genre';
