@@ -99,8 +99,8 @@ angular.module( 'poms.media.directives' )
                 }
                 if ( $scope.fieldType === 'duration' ) {
                     // ridiculous hacks to reuse date editors for durations
-                    $scope.editableDuration =  formatDateForEdit($scope.media[$scope.field]);
-                    $scope.formattedDuration = formatDateForDisplay($scope.media[$scope.field]);
+                    $scope.editableDuration =  formatDateForEdit($scope.media[$scope.field].inMillis);
+                    $scope.formattedDuration = formatDateForDisplay($scope.media[$scope.field].inMillis);
                 }
 
                 if ( $scope.field === 'year' ) {
