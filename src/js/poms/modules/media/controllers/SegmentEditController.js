@@ -4,13 +4,17 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
     '$sce',
     'segment',
     'media',
+    'MediaService',
     (function () {
-        function SegmentEditController( $scope, $modalInstance, $sce, segment, media) {
+        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, mediaService) {
 
             this.$scope = $scope;
+            this.$scope.segment = segment;
+            this.$scope.media = media;
             this.$modalInstance = $modalInstance;
             this.$scope.modalTitle = 'Nieuw segment voor ' + media.mainTitle.text + " (" + media.mid + ")";
             this.$scope.createFormValid = true;
+            this.mediaService = mediaService;
         }
 
         SegmentEditController.prototype = {
@@ -26,13 +30,21 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             },
 
 
-            save: function () {
-
-                var data = this.$scope.media;
-                console.log(data);
-
-
-                return this.mediaService.saveSegment( this.$scope.media, data ).then(
+            submit: function () {
+                return this.mediaService.saveSegment(this.$scope.media, {
+                    mainTitle: this.$scope.segment.mainTitle,
+                    mainDescription: this.$scope.segment.mainDescription,
+                    start: {
+                        string: this.$scope.segment.start
+                    },
+                    stop: {
+                        string: this.$scope.segment.stop
+                    },
+                    duration: {
+                        string: this.$scope.segment.duration
+                    }
+                    }
+                ).then(
                     function ( media ) {
                         this.$modalInstance.close( media );
                         this.$scope.waiting = false;
@@ -46,10 +58,6 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                         }
                     }.bind( this )
                 )
-
-            },
-            trustAsHtml: function ( value ) {
-                return this.$sce.trustAsHtml( value );
             }
 
 

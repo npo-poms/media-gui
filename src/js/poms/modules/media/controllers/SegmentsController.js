@@ -75,10 +75,18 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return media;
                         }.bind( this ),
                         segment : function () {
+                            start = "0 s";
+                            startInMillis = 0;
+                            for (var i = 0; i < this.segments.length; i++) {
+                                if (this.segments[i].stop.inMillis > startInMillis) {
+                                    start = this.segments[i].stop.string;
+                                    startInMillis = this.segments[i].stop.inMillis;
+                                }
+                            }
                             return {
-                              permissions: this.$scope.media.permissions,
-                              start:0,
-                              duration: 0
+                                "mainTitle": null,//"nieuw segment",
+                                "start": start,
+                                "duration": "2 m"
                             };
                             //return this.$scope.insertedSegment;
                         }.bind( this )

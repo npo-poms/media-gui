@@ -12,6 +12,7 @@
 
       <div class="modal-column">
 
+
         <div class="row">
 
           <div class="field" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
@@ -39,14 +40,18 @@
 
         </div>
         <div class="row">
-
-          <input type="text" name="start" ng-model='segment.start' />
-          <poms-editable type="media"
-                         media="segment"
-                         class="media-field" fieldtype="duration" header="start"
-                         field="start" help-field="editor.general.duration"></poms-editable>
-     <!--     <poms-editable type="media" media="segment" class="media-field" fieldtype="duration" header="duration"
-                         field="duration" help-field="editor.general.duration"></poms-editable>-->
+          <label for="inputStart">Start &#42;</label>
+          <input type="text" id="inputStart" ng-model="segment.start" />
+          <label for="inputStop">Stop</label>
+          <input type="text" id="inputStop" ng-model="segment.stop"
+                 ng-required="! segment.duration.length"
+                 ng-disabled="segment.duration.length"
+          />
+          <label for="inputDuration">Duur</label>
+          <input type="text" id="inputDuration" ng-model="segment.duration"
+                 ng-required="! segment.stop.length"
+                 ng-disabled="segment.stop.length"
+          />
 
         </div>
       </div>
@@ -58,7 +63,7 @@
 
   <div class="footer-container">
     <div class="footer modal-footer footer-two-buttons">
-      <button class="btn-rect" ng-click="controller.submit()" ng-disabled="!createFormValid || waiting"> Maak aan</button>
+      <button class="btn-rect" ng-click="controller.submit()" ng-disabled="! createForm.$valid || waiting"> Maak aan</button>
       <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
 
 
