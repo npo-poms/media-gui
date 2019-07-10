@@ -1,18 +1,12 @@
-
 <div class="modal-header">
   <div class="modal-title"> {{ ::modalTitle }}</div>
   <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
 </div>
-
-
 <form role="form" class="poms-form modal-form" name="createForm" ng-class="{'waiting': waiting}">
   <div class="modal-body">
 
     <div class="form-fields">
-
       <div class="modal-column">
-
-
         <div class="row">
 
           <div class="field" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
@@ -22,15 +16,11 @@
                    placeholder="Titel (verplicht)"
                    ng-model="segment.mainTitle"/>
             <poms-invalid violation="violations.title"></poms-invalid>
-
           </div>
-
-
           <div class="field" ng-class="{'has-error' : segmentForm.inputDescription.$invalid}">
-            <label for="inputDescription">Beschrijving &#42;</label>
+            <label for="inputDescription">Beschrijving</label>
             <textarea type="text" name="inputDescription" id="inputDescription"
-                      required
-                      placeholder="Korte beschrijving (verplicht)"
+                      placeholder="Beschrijving"
                       ng-model="segment.mainDescription"
                       ng-disabled="waiting"/>
             <poms-invalid violation="controller.violations.description"></poms-invalid>
