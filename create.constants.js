@@ -12,7 +12,6 @@ var publisherHost = process.env.npm_config_publisherhost;
 var constants = {
     appConfig: {
         version: version,
-        publisherhost: publisherHost,
         apihost: apiHost,
         imagesapihost: imageApiHost
     }
