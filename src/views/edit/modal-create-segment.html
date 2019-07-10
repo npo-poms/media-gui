@@ -1,0 +1,73 @@
+
+<div class="modal-header">
+  <div class="modal-title"> {{ ::modalTitle }}</div>
+  <div class="modal-close-button" ng-click="controller.cancel()"> close</div>
+</div>
+
+
+<form role="form" class="poms-form modal-form" name="createForm" ng-class="{'waiting': waiting}">
+  <div class="modal-body">
+
+    <div class="form-fields">
+
+      <div class="modal-column">
+
+
+        <div class="row">
+
+          <div class="field" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
+            <label for="inputTitle">Hoofdtitel &#42;</label>
+
+            <input type="text" name="inputTitle" id='inputTitle' class="input-title" required
+                   placeholder="Titel (verplicht)"
+                   ng-model="segment.mainTitle"/>
+            <poms-invalid violation="violations.title"></poms-invalid>
+
+          </div>
+
+
+          <div class="field" ng-class="{'has-error' : segmentForm.inputDescription.$invalid}">
+            <label for="inputDescription">Beschrijving &#42;</label>
+            <textarea type="text" name="inputDescription" id="inputDescription"
+                      required
+                      placeholder="Korte beschrijving (verplicht)"
+                      ng-model="segment.mainDescription"
+                      ng-disabled="waiting"/>
+            <poms-invalid violation="controller.violations.description"></poms-invalid>
+            <poms-help field="editor.segment.description"></poms-help>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <label for="inputStart">Start &#42;</label>
+          <input type="text" id="inputStart" ng-model="segment.start" />
+          <label for="inputStop">Stop</label>
+          <input type="text" id="inputStop" ng-model="segment.stop"
+                 ng-required="! segment.duration.length"
+                 ng-disabled="segment.duration.length"
+          />
+          <label for="inputDuration">Duur</label>
+          <input type="text" id="inputDuration" ng-model="segment.duration"
+                 ng-required="! segment.stop.length"
+                 ng-disabled="segment.stop.length"
+          />
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-disable-overlay"></div>
+
+  </div>
+
+  <div class="footer-container">
+    <div class="footer modal-footer footer-two-buttons">
+      <button class="btn-rect" ng-click="controller.submit()" ng-disabled="! createForm.$valid || waiting"> Maak aan</button>
+      <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+
+
+    </div>
+  </div>
+
+</form>

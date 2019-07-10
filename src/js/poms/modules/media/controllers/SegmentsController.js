@@ -47,16 +47,59 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
         SegmentsController.prototype = {
 
             addSegment: function ( startTime ) {
-                this.$scope.inserted = {
+                this.$scope.insertedSegment = {
                     start:  startTime || 0,
                     stop:  startTime || 0,
-                    duration: 0
+                    duration: 0,
+                    mainTitle: "nieuw segment"
                 };
 
-                this.segments.push( this.$scope.inserted );
                 if (this.canItemize()) {
-                    this.itemize(this.$scope.inserted);
+                    this.segments.push( this.$scope.insertedSegment );
+                    this.itemize(this.$scope.insertedSegment);
+                } else {
+                    if (this.modalSegment(this.$scope.media)) {
+                        this.segments.push( this.$scope.insertedSegment);
+                    }
+
                 }
+            },
+            modalSegment: function(media){
+                var modal = this.$modal.open( {
+                    controller: 'SegmentEditController',
+                    controllerAs: 'controller',
+                    templateUrl: 'edit/modal-create-segment.html',
+                    windowClass: 'modal-form modal-segment',
+                    resolve: {
+                        media: function () {
+                            return media;
+                        }.bind( this ),
+                        segment : function () {
+                            start = "0 s";
+                            startInMillis = 0;
+                            for (var i = 0; i < this.segments.length; i++) {
+                                if (this.segments[i].stop.inMillis > startInMillis) {
+                                    start = this.segments[i].stop.string;
+                                    startInMillis = this.segments[i].stop.inMillis;
+                                }
+                            }
+                            return {
+                                "mainTitle": null,//"nieuw segment",
+                                "start": start,
+                                "duration": "2 m"
+                            };
+                            //return this.$scope.insertedSegment;
+                        }.bind( this )
+                    }
+                } );
+
+                modal.result.then(
+                    function ( media ) {
+
+                        this.load();
+                    }.bind( this )
+                );
+
             },
 
             canItemize: function() {
