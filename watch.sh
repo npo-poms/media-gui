@@ -31,7 +31,7 @@ fi
 
 echo "Using Media Backend API host $API_HOST"
 
-PUBLISHER_HOST='https://rs-dev.poms.omroep.nl'
+PUBLISHER_HOST=${PUBLISHER_HOST:='https://rs-dev.poms.omroep.nl'}
 
 echo "Find frontend at $API_SCHEME://$localhost:4000"
 echo "Making backup of $CONSTANTS"
