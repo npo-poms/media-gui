@@ -75,7 +75,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return media;
                         }.bind( this ),
                         segment : function () {
-                            start = "0 s";
+                            start = "00:00:00.000";
                             startInMillis = 0;
                             for (var i = 0; i < this.segments.length; i++) {
                                 if (this.segments[i].stop.inMillis > startInMillis) {
@@ -86,7 +86,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return {
                                 "mainTitle": null,//"nieuw segment",
                                 "start": start,
-                                "duration": "2 m"
+                                "duration": "00:02:00.000"
                             };
                             //return this.$scope.insertedSegment;
                         }.bind( this )

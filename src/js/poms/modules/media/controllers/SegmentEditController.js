@@ -15,14 +15,19 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             this.$scope.modalTitle = 'Nieuw segment voor ' + media.mainTitle.text + " (" + media.mid + ")";
             this.$scope.createFormValid = true;
             this.mediaService = mediaService;
+
+            $scope.$watch( 'segment', function ( newValue ) {
+                console.log(newValue);
+            });
+
         }
 
         SegmentEditController.prototype = {
 
             violations: {},
 
-            cancel: function ( e ) {
-                if ( e ) {
+            cancel: function (e) {
+                if (e) {
                     e.preventDefault();
                     e.stopPropagation();
                 }
@@ -30,39 +35,47 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             },
 
 
-            submit: function () {
+            save: function (keepopen) {
                 return this.mediaService.saveSegment(this.$scope.media, {
-                    mainTitle: this.$scope.segment.mainTitle,
-                    mainDescription: this.$scope.segment.mainDescription,
-                    start: {
-                        string: this.$scope.segment.start
-                    },
-                    stop: {
-                        string: this.$scope.segment.stop
-                    },
-                    duration: {
-                        string: this.$scope.segment.duration
-                    }
+                        mainTitle: this.$scope.segment.mainTitle,
+                        mainDescription: this.$scope.segment.mainDescription,
+                        start: {
+                            string: this.$scope.segment.start
+                        },
+                        stop: {
+                            string: this.$scope.segment.stop
+                        },
+                        duration: {
+                            string: this.$scope.segment.duration
+                        }
                     }
                 ).then(
-                    function ( media ) {
-                        this.$modalInstance.close( media );
+                    function (media) {
+                        if (!keepopen) {
+                            this.$modalInstance.close(media);
+                            this.$scope.waiting = false;
+                        }
+                    }.bind(this),
+                    function (error) {
                         this.$scope.waiting = false;
-                    }.bind( this ),
-                    function ( error ) {
-                        this.$scope.waiting = false;
-                        if ( error.status === 400 && error.violations ) {
+                        if (error.status === 400 && error.violations) {
                             this.violations = error.violations;
                         } else {
-                            this.$scope.$emit( this.pomsEvents.error, error )
+                            this.$scope.$emit(this.pomsEvents.error, error)
                         }
-                    }.bind( this )
+                    }.bind(this)
                 )
+            },
+
+            saveAndNew: function () {
+                this.save(true).then(function () {
+                    if (this.$scope.segment.mainTitle.text) {
+                        this.notificationService.notify('Segment "' + this.$scope.segment.mainTitle.text + '" opgeslagen.');
+                    }
+                    this.newSegment();
+                })
             }
-
-
         };
-
         return SegmentEditController;
     }())
 ] );
