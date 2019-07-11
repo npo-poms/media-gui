@@ -107,11 +107,11 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         // TODO: Set correct options parameters
                         value: '',
                         //id: $( '#id' ).val(),
-                        origin: this.guiVariables.publisherUrl + '/', //'https://rs-dev.poms.omroep.nl/',
+                        origin: this.guiVariables.publisherUrl, //'https://rs-dev.poms.omroep.nl/',
                         axes: 'GeografischeNamen',
                         //updateService: "${requestScope.properties['publisher.url']}",
                         //jwt: '${requestScope.jws}'
-                    },  this.guiVariables.publisherUrl + '/v1' //https://rs-dev.poms.omroep.nl/v1'
+                    },  this.guiVariables.publisherUrl + 'v1' //https://rs-dev.poms.omroep.nl/v1'
                 );
 
             },
