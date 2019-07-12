@@ -52,7 +52,9 @@
                     <div class='field col-4 itemizer-stop'>
                         <label for="inputDuration">Speelduur
                         </label>
-                        <input id="inputDuration" ng-disabled='true' type="text" ng-model="durationAsTime" placeholder="selecteer eerst een start- & stoptijd" />
+                        <input id="inputDuration" ng-disabled='true' type="text"
+                               ng-model="segment.formattedduration"
+                               placeholder="selecteer eerst een start- & stoptijd" />
                         <span class="error" ng-if="durationInvalid">De starttijd van een segment mag niet later zijn dan of gelijk zijn aan de stoptijd.</span>
 
                     </div>
@@ -163,7 +165,7 @@
 
             <div class="required-feedback footer-message" >
                 <span class="required-feedback-message" ng-if="!segmentFormValid">Nog in te vullen:</span>
-                <span class="required-field" ng-repeat='field in required' ng-if="(!segment[field.id].text)">{{field.text}}</span>
+                <span class="required-field" ng-repeat='field in required' ng-if="(!segment[field.id])">{{field.text}}</span>
                 <span class="required-field" ng-if='invalidTimes'> starttijd-stoptijd </span>
                 &nbsp;
             </div>

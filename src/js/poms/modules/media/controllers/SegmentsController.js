@@ -51,7 +51,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     start:  startTime || 0,
                     stop:  startTime || 0,
                     duration: 0,
-                    mainTitle: "nieuw segment"
+                    mainTitle: null
                 };
 
                 if (this.canItemize()) {
@@ -140,7 +140,14 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return this.segments;
                         }.bind( this ),
                         segment : function () {
-                            return segment;
+                            return {
+                                id: segment.id,
+                                mid: segment.mid,
+                                start:  segment.start ? segment.start.inMillis : 0,
+                                stop: segment.stop ? segment.stop.inMillis : 0,
+                                mainTitle: segment.mainTitle ? segment.mainTitle.text : null,
+                                mainDescription: segment.mainDescription ? segment.mainDescription.text : null
+                            };
                         }
                     }
                 } );
