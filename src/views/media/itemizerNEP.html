@@ -67,7 +67,7 @@
                             <label for="inputTitle">Titel &#42; </label>
                             <input  type="text" name="inputTitle" id="inputTitle" required
                                     placeholder="Titel (verplicht)"
-                                    ng-model="segment.mainTitle.text"
+                                    ng-model="segment.mainTitle"
                                     ng-disabled="waiting"/>
                             <poms-invalid violation="controller.violations.title"></poms-invalid>
                             <poms-help field="editor.segment.title"></poms-help>
@@ -84,7 +84,7 @@
                             <label for="inputDescription">Beschrijving &#42;</label>
                             <textarea type="text" name="inputDescription" id="inputDescription" required
                                       placeholder="Korte beschrijving (verplicht)"
-                                      ng-model="segment.mainDescription.text"
+                                      ng-model="segment.mainDescription"
                                       ng-disabled="waiting"/>
                             <poms-invalid violation="controller.violations.description"></poms-invalid>
                             <poms-help field="editor.segment.description"></poms-help>

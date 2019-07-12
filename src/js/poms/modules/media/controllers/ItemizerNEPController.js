@@ -393,13 +393,17 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
 
             setStartValueAsMs : function () {
-                this.$scope.segment.start = this.$filter('timeToMSeconds')( this.$scope.segment.startastime) ;
+                if (this.$scope.segment.startastime) {
+                    this.$scope.segment.start = this.$filter('timeToMSeconds')(this.$scope.segment.startastime);
+                }
                 this.seekAndPause( this.$scope.segment.start );
                 this.setDuration();
             },
 
             setStopValueAsMs : function () {
-                this.$scope.segment.stop = this.$filter('timeToMSeconds')( this.$scope.segment.stopastime) ;
+                if (this.$scope.segment.stopastime) {
+                    this.$scope.segment.stop = this.$filter('timeToMSeconds')(this.$scope.segment.stopastime);
+                }
                 this.seekAndPause( this.$scope.segment.stop );
                 this.setDuration();
             },
@@ -489,7 +493,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                     }.bind( this ),
                     function ( error ) {
-                        if ( error.status && error.status == 400 && error.violations ) {
+                        if ( error.status && error.status === 400 && error.violations ) {
                             source.violations = error.violations;
                             return 'Errors';
                         } else {
