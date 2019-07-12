@@ -58,11 +58,12 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     this.segments.push( this.$scope.insertedSegment );
                     this.itemize(this.$scope.insertedSegment);
                 } else {
-                    if (this.modalSegment(this.$scope.media)) {
-                        this.segments.push( this.$scope.insertedSegment);
-                    }
-
+                    this.modalSegment(this.$scope.media)
                 }
+            },
+            pushSegment: function(insertedSegment) {
+                this.segments.push( insertedSegment);
+
             },
             modalSegment: function(media){
                 var modal = this.$modal.open( {
@@ -89,13 +90,15 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                                 "duration": "00:02:00.000"
                             };
                             //return this.$scope.insertedSegment;
-                        }.bind( this )
+                        }.bind( this ),
+                        segmentscontroller: function() {
+                            return this;
+                        }.bind(this)
                     }
                 } );
 
                 modal.result.then(
                     function ( media ) {
-
                         this.load();
                     }.bind( this )
                 );

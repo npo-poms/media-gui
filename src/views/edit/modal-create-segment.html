@@ -11,39 +11,48 @@
 
         <div class="row">
 
-          <div class='field col-3 itemizer-start'>
+          <div class='field col-4 itemizer-start' ng-class="{'has-error' : createForm.inputStart.$invalid}">
             <label for="inputStart">Starttijd &#42;</label>
-            <input ng-disabled="waiting" id="inputStart" type="text"
+            <input ng-disabled="waiting" id="inputStart" name="starttijd" type="text"
                    ng-required="true"
+                   placeholder="{{durationPlaceholder}}"
+                   ng-pattern="durationRegexp"
                    ng-model="segment.start" />
             <span class="error" ng-show="invalidTimes">De starttijd van een segment mag niet later zijn dan  of gelijk zijn aan de stoptijd.</span>
+            <poms-invalid violation="controller.violations.start"></poms-invalid>
           </div>
 
-          <div class='field col-3 itemizer-stop'>
+          <div class='field col-4 itemizer-stop'  ng-class="{'has-error' : createForm.inputStop.$invalid}">
             <label for="inputStop">Eindtijd</label>
-            <input ng-disabled="waiting" id="inputStop" type="text"
+            <input ng-disabled="waiting" id="inputStop" name="eindtijd" type="text"
                    ng-model="segment.stop"
-                   ng-pattern="/^\d+:\d{2}:\d{2}\.\d{3}$/"
+                   ng-pattern="durationRegexp"
+                   placeholder="{{durationPlaceholder}}"
                    ng-required="! segment.duration.length"
                    ng-disabled="segment.duration.length"
             />
+            <poms-invalid violation="controller.violations.stop"></poms-invalid>
           </div>
-           <div class='field col-3 itemizer-duration'>
+           <div class='field col-4 itemizer-duration' ng-class="{'has-error' : createForm.inputDuration.$invalid}">
             <label for="inputDuration">Duur</label>
-            <input id="inputDuration" type="text"
+            <input id="inputDuration" name="duur"  type="text"
                    ng-model="segment.duration"
+                   ng-pattern="durationRegexp"
+                   placeholder="{{durationPlaceholder}}"
                    ng-required="! segment.stop.length"
                    ng-disabled="segment.stop.length"
             />
+             <poms-invalid violation="controller.violations.duration"></poms-invalid>
+
           </div>
 
         </div>
           <div class="row">
             <div class="col-12">
 
-              <div class="field " ng-class="{'has-error' : segmentForm.inputTitle.$invalid}">
+              <div class="field " ng-class="{'has-error' : ! createForm.inputTitle.$valid}">
                 <label for="inputTitle">Titel &#42; </label>
-                <input  type="text" name="inputTitle" id="inputTitle" required
+                <input  type="text" name="titel" id="inputTitle" required
                         placeholder="Titel (verplicht)"
                         ng-model="segment.mainTitle"
                         ng-disabled="waiting"/>
@@ -58,10 +67,9 @@
         <div class="row">
           <div class="col-12">
 
-            {{controller.violations}}c
-            <div class="field" ng-class="{'has-error' : segmentForm.inputDescription.$invalid}">
+            <div class="field" ng-class="{'has-error' : createForm.inputDescription.$invalid}">
               <label for="inputDescription">Beschrijving &#42;</label>
-              <textarea type="text" name="inputDescription" id="inputDescription" required
+              <textarea type="text" name="beschrijving" id="inputDescription" required
                         placeholder="Korte beschrijving (verplicht)"
                         ng-model="segment.mainDescription"
                         ng-disabled="waiting"/>
@@ -86,7 +94,7 @@
 
           <div class="required-feedback footer-message" >
             <span class="required-feedback-message" ng-if="! createForm.$valid">Nog in te vullen:</span>
-            <span class="required-field" ng-repeat='field in required' ng-if="(!segment[field.id].text)">{{field.text}}</span>
+            <span class="required-field" ng-repeat='field in createForm' ng-if="!field.$valid">{{field.$name}}</span>
             <span class="required-field" ng-if='invalidTimes'> starttijd-stoptijd </span>
             &nbsp;
           </div>
