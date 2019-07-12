@@ -52,7 +52,9 @@
                     <div class='field col-4 itemizer-stop'>
                         <label for="inputDuration">Speelduur
                         </label>
-                        <input id="inputDuration" ng-disabled='true' type="text" ng-model="durationAsTime" placeholder="selecteer eerst een start- & stoptijd" />
+                        <input id="inputDuration" ng-disabled='true' type="text"
+                               ng-model="segment.formattedduration"
+                               placeholder="selecteer eerst een start- & stoptijd" />
                         <span class="error" ng-if="durationInvalid">De starttijd van een segment mag niet later zijn dan of gelijk zijn aan de stoptijd.</span>
 
                     </div>
@@ -67,7 +69,7 @@
                             <label for="inputTitle">Titel &#42; </label>
                             <input  type="text" name="inputTitle" id="inputTitle" required
                                     placeholder="Titel (verplicht)"
-                                    ng-model="segment.mainTitle.text"
+                                    ng-model="segment.mainTitle"
                                     ng-disabled="waiting"/>
                             <poms-invalid violation="controller.violations.title"></poms-invalid>
                             <poms-help field="editor.segment.title"></poms-help>
@@ -84,7 +86,7 @@
                             <label for="inputDescription">Beschrijving &#42;</label>
                             <textarea type="text" name="inputDescription" id="inputDescription" required
                                       placeholder="Korte beschrijving (verplicht)"
-                                      ng-model="segment.mainDescription.text"
+                                      ng-model="segment.mainDescription"
                                       ng-disabled="waiting"/>
                             <poms-invalid violation="controller.violations.description"></poms-invalid>
                             <poms-help field="editor.segment.description"></poms-help>
@@ -163,7 +165,7 @@
 
             <div class="required-feedback footer-message" >
                 <span class="required-feedback-message" ng-if="!segmentFormValid">Nog in te vullen:</span>
-                <span class="required-field" ng-repeat='field in required' ng-if="(!segment[field.id].text)">{{field.text}}</span>
+                <span class="required-field" ng-repeat='field in required' ng-if="(!segment[field.id])">{{field.text}}</span>
                 <span class="required-field" ng-if='invalidTimes'> starttijd-stoptijd </span>
                 &nbsp;
             </div>

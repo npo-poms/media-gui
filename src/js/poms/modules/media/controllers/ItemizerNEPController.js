@@ -22,11 +22,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
         function isValid ( segment ) {
 
             return segment.mainTitle &&
-                segment.mainTitle.text !== undefined &&
-                segment.mainTitle.text !== '' &&
+                segment.mainTitle !== '' &&
                 segment.mainDescription &&
-                segment.mainDescription.text !== undefined &&
-                segment.mainDescription.text !== '' &&
+                segment.mainDescription !== '' &&
                 segment.start < segment.stop
         }
 
@@ -60,8 +58,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             this.$scope.segments = segments;
 
             this.$scope.required = [
-                { 'id' : 'mainTitle', 'text' : 'Titel' },
-                { 'id' : 'mainDescription', 'text' : 'Beschrijving' }
+                {
+                    'id' : 'mainTitle',
+                    'text' : 'Titel'
+                },
+                {
+                    'id' : 'mainDescription',
+                    'text' : 'Beschrijving'
+                }
             ];
 
             this.$modalInstance.opened.then( function () {
@@ -118,12 +122,21 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 m %= 60;
                 return this.$filter("toDigits")(h, 2) + ":" + this.$filter("toDigits")(m, 2) + ":" + this.$filter("toDigits")(s, 2) + "." + this.$filter("toDigits")(ms, 3);
             },
+            parseDuration: function(string) {
+                var split = string.replace(',', '.').split(':');
+                var hours = parseInt(split[0]);
+                var minutes = parseInt(split[1]);
+                var millis  = 1000 * parseFloat(split[2]);
+
+                return (hours * 60 + minutes) * 60 * 1000 + millis;
+
+            },
 
             setDuration : function() {
-                this.$scope.duration =  this.$scope.segment.stop - this.$scope.segment.start;
-                this.$scope.durationAsTime = this.formatDuration(this.$scope.duration);
+                this.$scope.segment.duration =  this.$scope.segment.stop - this.$scope.segment.start;
+                this.$scope.segment.formattedduration = this.formatDuration(this.$scope.segment.duration);
 
-                if ( !this.$scope.duration  || this.$scope.duration <= 0) {
+                if ( !this.$scope.segment.duration  || this.$scope.segment.duration <= 0) {
                     this.$scope.durationInvalid = true;
                 } else {
                     this.$scope.durationInvalid = false;
@@ -204,7 +217,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.mediaPlayer = dashjs.MediaPlayer().create();
                 this.mediaPlayer.initialize();
                 this.mediaPlayer.setAutoPlay( true );
-                this.mediaPlayer.getDebug().setLogToBrowserConsole( false );
+                this.mediaPlayer.getDebug().setLogToBrowserConsole( true );
                 this.mediaPlayer.attachView( this.videoElement );
 
                 // Initialize controlbar
@@ -393,13 +406,20 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
 
             setStartValueAsMs : function () {
-                this.$scope.segment.start = this.$filter('timeToMSeconds')( this.$scope.segment.startastime) ;
+                if (this.$scope.segment.startastime) {
+                    this.$scope.segment.start = this.$filter('timeToMSeconds')(this.$scope.segment.startastime);
+                    this.$scope.segment.formattedstart = this.formatDuration(this.$scope.segment.start);
+
+                }
                 this.seekAndPause( this.$scope.segment.start );
                 this.setDuration();
             },
 
             setStopValueAsMs : function () {
-                this.$scope.segment.stop = this.$filter('timeToMSeconds')( this.$scope.segment.stopastime) ;
+                if (this.$scope.segment.stopastime) {
+                    this.$scope.segment.stop = this.$filter('timeToMSeconds')(this.$scope.segment.stopastime);
+                    this.$scope.segment.formattedstop = this.formatDuration(this.$scope.segment.stop);
+                }
                 this.seekAndPause( this.$scope.segment.stop );
                 this.setDuration();
             },
@@ -434,6 +454,24 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.$scope.$watch( 'segment.stopastime', function ( newValue ) {
                     if ( newValue ) {
                         this.$scope.assetLink = "";
+                    }
+
+                }.bind( this ) );
+                this.$scope.$watch( 'segment.formattedstart', function ( newValue ) {
+                    if ( newValue ) {
+                        this.$scope.assetLink = "";
+                        this.$scope.segment.start = this.parseDuration(newValue);
+                        this.setDuration()
+
+                    }
+                }.bind( this ) );
+
+                this.$scope.$watch( 'segment.formattedstop', function ( newValue ) {
+                    if ( newValue ) {
+                        this.$scope.assetLink = "";
+                        this.$scope.segment.stop = this.parseDuration(newValue);
+                        this.setDuration()
+
                     }
                 }.bind( this ) );
             },
@@ -471,12 +509,16 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 var data = angular.copy( this.$scope.segment );
 
-                data.start = this.$scope.segment.start;
-                data.duration = this.$scope.segment.stop - data.start;
+                data.start = {
+                    string:  this.$scope.segment.formattedstart
+                };
+                data.duration =  {
+                    string: this.$scope.segment.formattedduration
+                };
 
                 this.mediaService.saveSegment( this.$scope.media, data ).then(
-                    function ( media ) {
-                        angular.copy( media, this.$scope.media );
+                    function ( segment ) {
+                        angular.copy(segment.media, this.$scope.media );
 
                         if ( !this.$scope.segment.mid ) {
                             // Saving a new segment return the parent media object with all it's segments,
@@ -489,7 +531,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                     }.bind( this ),
                     function ( error ) {
-                        if ( error.status && error.status == 400 && error.violations ) {
+                        if ( error.status && error.status === 400 && error.violations ) {
                             source.violations = error.violations;
                             return 'Errors';
                         } else {
