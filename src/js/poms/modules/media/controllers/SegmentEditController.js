@@ -4,25 +4,36 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
     '$sce',
     'segment',
     'media',
+    'segmentscontroller',
     'MediaService',
     (function () {
-        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, mediaService) {
+        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, segmentscontroller, mediaService) {
 
             this.$scope = $scope;
             this.$scope.segment = segment;
             this.$scope.media = media;
+            this.segmentscontroller = segmentscontroller;
             this.$modalInstance = $modalInstance;
             this.$scope.modalTitle = 'Nieuw segment voor ' + media.mainTitle.text + " (" + media.mid + ")";
             this.$scope.createFormValid = true;
             this.mediaService = mediaService;
+
+            // allow
+            // 00:00:00.000
+            // <h> H <m> M <s> S
+            // <ms>
+            this.$scope.durationRegexp = /^(\d+:\d{2}:\d{2}[\\.,]\d{3}|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
+            this.$scope.durationPlaceholder = "00:00:00,000 of 0 H 4 M 1.2 S of 123123";
+
+
         }
 
         SegmentEditController.prototype = {
 
             violations: {},
 
-            cancel: function ( e ) {
-                if ( e ) {
+            cancel: function (e) {
+                if (e) {
                     e.preventDefault();
                     e.stopPropagation();
                 }
@@ -30,39 +41,52 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             },
 
 
-            submit: function () {
+            save: function () {
                 return this.mediaService.saveSegment(this.$scope.media, {
-                    mainTitle: this.$scope.segment.mainTitle,
-                    mainDescription: this.$scope.segment.mainDescription,
-                    start: {
-                        string: this.$scope.segment.start
-                    },
-                    stop: {
-                        string: this.$scope.segment.stop
-                    },
-                    duration: {
-                        string: this.$scope.segment.duration
-                    }
+                        mainTitle: this.$scope.segment.mainTitle,
+                        mainDescription: this.$scope.segment.mainDescription,
+                        start: {
+                            string: this.$scope.segment.start
+                        },
+                        stop: {
+                            string: this.$scope.segment.stop
+                        },
+                        duration: {
+                            string: this.$scope.segment.duration
+                        }
                     }
                 ).then(
-                    function ( media ) {
-                        this.$modalInstance.close( media );
+                    function (segment) {
+                        this.segmentscontroller.pushSegment({
+                            start:  segment.start,
+                            stop:  segment.stop,
+                            duration: segment.duration,
+                            mainTitle: segment.mainTitle
+
+                        });
+                        this.$modalInstance.close(segment);
                         this.$scope.waiting = false;
-                    }.bind( this ),
-                    function ( error ) {
+                    }.bind(this),
+                    function (error) {
                         this.$scope.waiting = false;
-                        if ( error.status === 400 && error.violations ) {
+                        if (error.status === 400 && error.violations) {
                             this.violations = error.violations;
                         } else {
-                            this.$scope.$emit( this.pomsEvents.error, error )
+                            this.$scope.$emit(this.pomsEvents.error, error)
                         }
-                    }.bind( this )
+                    }.bind(this)
                 )
+            },
+
+            saveAndNew: function () {
+                this.save().then(function () {
+                    if (this.$scope.segment.mainTitle.text) {
+                        this.notificationService.notify('Segment "' + this.$scope.segment.mainTitle.text + '" opgeslagen.');
+                    }
+                    this.segmentscontroller.addSegment();
+                }.bind(this))
             }
-
-
         };
-
         return SegmentEditController;
     }())
 ] );

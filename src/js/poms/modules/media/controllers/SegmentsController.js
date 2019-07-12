@@ -58,11 +58,12 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     this.segments.push( this.$scope.insertedSegment );
                     this.itemize(this.$scope.insertedSegment);
                 } else {
-                    if (this.modalSegment(this.$scope.media)) {
-                        this.segments.push( this.$scope.insertedSegment);
-                    }
-
+                    this.modalSegment(this.$scope.media)
                 }
+            },
+            pushSegment: function(insertedSegment) {
+                this.segments.push( insertedSegment);
+
             },
             modalSegment: function(media){
                 var modal = this.$modal.open( {
@@ -75,7 +76,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return media;
                         }.bind( this ),
                         segment : function () {
-                            start = "0 s";
+                            start = "00:00:00.000";
                             startInMillis = 0;
                             for (var i = 0; i < this.segments.length; i++) {
                                 if (this.segments[i].stop.inMillis > startInMillis) {
@@ -86,16 +87,18 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return {
                                 "mainTitle": null,//"nieuw segment",
                                 "start": start,
-                                "duration": "2 m"
+                                "duration": "00:02:00.000"
                             };
                             //return this.$scope.insertedSegment;
-                        }.bind( this )
+                        }.bind( this ),
+                        segmentscontroller: function() {
+                            return this;
+                        }.bind(this)
                     }
                 } );
 
                 modal.result.then(
                     function ( media ) {
-
                         this.load();
                     }.bind( this )
                 );
