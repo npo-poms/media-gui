@@ -11,9 +11,10 @@
 
         <div class="row">
 
-          <div class='field col-4 itemizer-start' ng-class="{'has-error' : createForm.inputStart.$invalid}">
-            <label for="inputStart">Starttijd &#42;</label>
-            <input ng-disabled="waiting" id="inputStart" name="starttijd" type="text"
+          <div class="field col-4"  ng-class="{'has-error' : createForm.inputStart.$invalid}">
+            <label for="inputStart">{{fieldNames.inputStart}} &#42;</label>
+            <input ng-disabled="waiting" id="inputStart"
+                   name="inputStart" type="text"
                    ng-required="true"
                    placeholder="{{durationPlaceholder}}"
                    ng-pattern="durationRegexp"
@@ -22,23 +23,30 @@
             <poms-invalid violation="controller.violations.start"></poms-invalid>
           </div>
 
-          <div class='field col-4 itemizer-stop'  ng-class="{'has-error' : createForm.inputStop.$invalid}">
-            <label for="inputStop">Eindtijd</label>
-            <input ng-disabled="waiting" id="inputStop" name="eindtijd" type="text"
-                   ng-model="segment.stop"
-                   ng-pattern="durationRegexp"
-                   placeholder="{{durationPlaceholder}}"
-                   ng-required="! segment.duration.length"
-                   ng-disabled="segment.duration.length"
+          <div class='field col-4'  ng-class="{'has-error' : createForm.inputStop.$invalid}">
+            <label for="inputStop">{{fieldNames.inputStop}}</label>
+            <input
+                    id="inputStop"
+                    name="inputStop"
+                    type="text"
+                    ng-model="segment.stop"
+                    ng-pattern="durationRegexp"
+                    placeholder="{{durationPlaceholder}}"
+                    ng-required="! segment.duration.length"
             />
             <poms-invalid violation="controller.violations.stop"></poms-invalid>
           </div>
-           <div class='field col-4 itemizer-duration' ng-class="{'has-error' : createForm.inputDuration.$invalid}">
-            <label for="inputDuration">Duur</label>
-            <input id="inputDuration" name="duur"  type="text"
+           <div class='field col-4'
+                ng-class="{'has-error' : createForm.inputDuration.$invalid}">
+            <label for="inputDuration">{{fieldNames.inputDuration}}</label>
+            <input
+                    id="inputDuration"
+                   name="inputDuration"
+                   data-naam="duration"
+                   type="text"
                    ng-model="segment.duration"
                    ng-pattern="durationRegexp"
-                   placeholder="{{durationPlaceholder}}"
+                   placeholder="{{segment.stop.length ? '': durationPlaceholder}}"
                    ng-required="! segment.stop.length"
                    ng-disabled="segment.stop.length"
             />
@@ -51,8 +59,8 @@
             <div class="col-12">
 
               <div class="field " ng-class="{'has-error' : ! createForm.inputTitle.$valid}">
-                <label for="inputTitle">Titel &#42; </label>
-                <input  type="text" name="titel" id="inputTitle" required
+                <label for="inputTitle">{{fieldNames.inputTitle}} &#42;</label>
+                <input  type="text" name="inputTitle" id="inputTitle" required
                         placeholder="Titel (verplicht)"
                         ng-model="segment.mainTitle"
                         ng-disabled="waiting"/>
@@ -68,8 +76,8 @@
           <div class="col-12">
 
             <div class="field" ng-class="{'has-error' : createForm.inputDescription.$invalid}">
-              <label for="inputDescription">Beschrijving &#42;</label>
-              <textarea type="text" name="beschrijving" id="inputDescription" required
+              <label for="inputDescription">{{fieldNames.inputDescription}} &#42;</label>
+              <textarea type="text" name="inputDescription" id="inputDescription" required
                         placeholder="Korte beschrijving (verplicht)"
                         ng-model="segment.mainDescription"
                         ng-disabled="waiting"/>
@@ -94,7 +102,7 @@
 
           <div class="required-feedback footer-message" >
             <span class="required-feedback-message" ng-if="! createForm.$valid">Nog in te vullen:</span>
-            <span class="required-field" ng-repeat='field in createForm' ng-if="!field.$valid">{{field.$name}}</span>
+            <span class="required-field" ng-repeat='field in createForm' ng-if="!field.$valid">{{fieldNames[field.$name].toLowerCase()}}</span>
             <span class="required-field" ng-if='invalidTimes'> starttijd-stoptijd </span>
             &nbsp;
           </div>

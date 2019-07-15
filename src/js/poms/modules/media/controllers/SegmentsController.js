@@ -87,6 +87,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                             return {
                                 "mainTitle": null,//"nieuw segment",
                                 "start": start,
+                                "stop": undefined,
                                 "duration": "00:02:00.000"
                             };
                             //return this.$scope.insertedSegment;
