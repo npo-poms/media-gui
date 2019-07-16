@@ -107,7 +107,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
             },
 
             canItemize: function() {
-                return this.$scope.media.streamingPlatformStatus.available;
+                return this.$scope.media.playable;
             },
 
             editRef: function ( mid ) {
