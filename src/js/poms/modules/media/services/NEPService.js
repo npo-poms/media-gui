@@ -47,7 +47,16 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                 if ( duration ) {
                     url = url + '&duration=' + duration;
                 }
-                return get( url , {} );
+                return get(url , {} );
+            },
+
+
+            getLiveStreamUrl: function (channel, duration ) {
+                var url = 'streamurllive?channel=' + channel;
+                if ( duration ) {
+                    url = url + '&duration=' + duration;
+                }
+                return get(url , {} );
             },
 
             getScreengrab : function(mid, offset){
@@ -56,7 +65,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             },
 
 
-            getLiveScreengrab : function( channel, datetime){
+            getLiveScreengrab : function(channel, datetime){
                 var url = 'screengrablive/' + channel + '?dateTime=' + datetime.utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS');
                 return this.getBlob(url);
             },
@@ -69,7 +78,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                 });
             },
 
-            getStream : function( mid ) {
+            getStream : function( midOrChannel, live) {
 
                 var deferred = $q.defer();
                 this.getPlayReadyToken().then( function ( playReady ) {
@@ -78,7 +87,10 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                     this.getWideVineToken().then( function ( widevine ) {
                         var widevineToken = widevine.token;
 
-                        this.getStreamUrl(mid).then( function ( result ) {
+
+                        var getUrl = live ? this.getLiveStreamUrl : this.getStreamUrl;
+
+                        getUrl(midOrChannel).then( function ( result ) {
                             deferred.resolve( {stream: result, widevineToken: widevineToken, playReadyToken: playReadyToken } );
                         }.bind( this ), function ( error ) {
                             deferred.reject( error );

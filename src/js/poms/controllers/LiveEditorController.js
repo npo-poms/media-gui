@@ -56,7 +56,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                             currentStream : this.$scope.availableStreams[ 0 ]
                         };
 
-                        this.NEPService.getStream( this.$scope.item.currentStream.id ).then( function ( data ) {
+                        this.NEPService.getStream( this.$scope.item.currentStream.id, true).then( function ( data ) {
                             this.createMediaPlayer( data );
                         }.bind( this ),  function ( error ) {
 
@@ -208,7 +208,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
 
             changeStream : function( newStream ) {
-                this.NEPService.getStream( newStream ).then( function ( data ) {
+                this.NEPService.getStream( newStream, true).then( function ( data ) {
                     this.setStream( data );
                 }.bind(this) );
             },
