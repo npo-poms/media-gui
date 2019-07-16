@@ -57,7 +57,8 @@
 
               <div class="field " ng-class="{'has-error' : ! createForm.inputTitle.$valid}">
                 <label for="inputTitle">{{fieldNames.inputTitle}} &#42;</label>
-                <input  type="text" name="inputTitle" id="inputTitle" required
+                <input  type="text" name="inputTitle"
+                        id="inputTitle" required
                         placeholder="Titel (verplicht)"
                         ng-model="segment.mainTitle"
                         ng-disabled="waiting"/>
@@ -73,9 +74,11 @@
           <div class="col-12">
 
             <div class="field" ng-class="{'has-error' : createForm.inputDescription.$invalid}">
-              <label for="inputDescription">{{fieldNames.inputDescription}} &#42;</label>
-              <textarea type="text" name="inputDescription" id="inputDescription" required
-                        placeholder="Korte beschrijving (verplicht)"
+              <label for="inputDescription">{{fieldNames.inputDescription}}</label>
+              <textarea type="text"
+                        name="inputDescription"
+                        id="inputDescription"
+                        placeholder="Korte beschrijving"
                         ng-model="segment.mainDescription"
                         ng-disabled="waiting"/>
               <poms-invalid violation="controller.violations.description"></poms-invalid>
