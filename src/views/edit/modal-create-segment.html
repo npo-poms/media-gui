@@ -78,7 +78,7 @@
             <div class="field" ng-class="{'has-error' : createForm.inputDescription.$invalid}">
               <label for="inputDescription">{{fieldNames.inputDescription}} &#42;</label>
               <textarea type="text" name="inputDescription" id="inputDescription" required
-                        placeholder="Korte beschrijving (verplicht)"
+                        placeholder="Korte beschrijving"
                         ng-model="segment.mainDescription"
                         ng-disabled="waiting"/>
               <poms-invalid violation="controller.violations.description"></poms-invalid>
