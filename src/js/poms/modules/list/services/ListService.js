@@ -131,8 +131,8 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/personRoles', GET_CONFIG);
             },
 
-            getGeoRelations : function() {
-                return get('/geoRelations', GET_CONFIG);
+            getGeoRoles : function() {
+                return get('/geoRoles', GET_CONFIG);
             },
 
             getTags : function(text, max) {
