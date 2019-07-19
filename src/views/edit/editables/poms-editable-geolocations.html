@@ -12,7 +12,7 @@
 
         <div ng-repeat="item in geoLocationsController.items" class="media-person">
 
-            {{item.relationType.text}}: {{item.name}} {{item.description}}
+            {{item.role}}: {{item.name}} {{item.description}}
 
             <button title='koppel locatie aan GTAA record' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-person-link"
                     ng-click="geoLocationsController.editGeoLocation( item )">

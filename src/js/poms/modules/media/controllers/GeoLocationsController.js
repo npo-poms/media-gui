@@ -120,14 +120,13 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 this.addGeoLocation( item );
             },
 
-            // TODO: Make a more robust mapping
             parseGeoLocation: function ( item ) {
                 return {
                     name: item.value || '',
                     description: item.notes ? item.notes[ 0 ].value || '' : '',
                     status: item.status || '',
                     gtaaUri: item.id || '',
-                    relationType: { id: 'SUBJECT' }
+                    role: item.role ? item.role.text : '' || ''
                 };
             },
 
