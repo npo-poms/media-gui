@@ -6,72 +6,72 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
     'localStorageService',
     'appConfig',
     function ( $rootScope, $q, $http, $modal, localStorageService, appConfig ) {
-            storageService = localStorageService,
+        storageService = localStorageService;
 
-            baseUrl = appConfig.apihost + '/gui/media',
+        baseUrl = appConfig.apihost + '/gui/media';
 
-            get = function ( media, path, config ) {
-                var deferred = $q.defer();
-                var url = baseUrl + '/' + media.mid + path;
-                $http.get(url, config )
-                    .success( function ( result ) {
-                        deferred.resolve( result );
-                    } )
-                    .error( function ( error ) {
+        get = function ( media, path, config ) {
+            var deferred = $q.defer();
+            var url = baseUrl + '/' + media.mid + path;
+            $http.get(url, config )
+                .success( function ( result ) {
+                    deferred.resolve( result );
+                } )
+                .error( function ( error ) {
                         deferred.reject( error );
                     }
-                    );
+                );
 
-                return deferred.promise;
-            },
+            return deferred.promise;
+        };
 
-            post = function ( media, path, body ) {
+        post = function ( media, path, body ) {
 
-                var deferred = $q.defer();
-                var url = baseUrl + '/' + media.mid + path;
+            var deferred = $q.defer();
+            var url = baseUrl + '/' + media.mid + path;
 
-                $http.post( url, body )
-                    .success( function ( result ) {
-                        deferred.resolve( result );
-                    } )
-                    .error( function ( error ) {
-                        deferred.reject( error );
-                    } );
+            $http.post( url, body )
+                .success( function ( result ) {
+                    deferred.resolve( result );
+                } )
+                .error( function ( error ) {
+                    deferred.reject( error );
+                } );
 
-                return deferred.promise;
-            },
+            return deferred.promise;
+        };
 
-            put = function ( media, path, body ) {
+        put = function ( media, path, body ) {
 
-                var deferred = $q.defer();
-                var url = baseUrl + '/' + media.mid + path;
+            var deferred = $q.defer();
+            var url = baseUrl + '/' + media.mid + path;
 
-                $http.put( url, body )
-                    .success( function ( media ) {
-                        deferred.resolve( media );
-                    } )
-                    .error( function ( error ) {
-                        deferred.reject( error );
-                    } );
+            $http.put( url, body )
+                .success( function ( media ) {
+                    deferred.resolve( media );
+                } )
+                .error( function ( error ) {
+                    deferred.reject( error );
+                } );
 
-                return deferred.promise;
-            },
+            return deferred.promise;
+        };
 
-            del = function ( media, path ) {
+        del = function ( media, path ) {
 
-                var deferred = $q.defer();
-                var url = baseUrl + '/' + media.mid + path;
+            var deferred = $q.defer();
+            var url = baseUrl + '/' + media.mid + path;
 
-                $http.delete( url )
-                    .success( function ( media ) {
-                        deferred.resolve( media );
-                    } )
-                    .error( function ( error ) {
-                        deferred.reject( error );
-                    } );
+            $http.delete( url )
+                .success( function ( media ) {
+                    deferred.resolve( media );
+                } )
+                .error( function ( error ) {
+                    deferred.reject( error );
+                } );
 
-                return deferred.promise;
-            };
+            return deferred.promise;
+        };
 
         function MediaService () {
         }
@@ -273,7 +273,12 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             addGeoLocation: function ( media, geoLocation ) {
-                return post( media, '/geoLocations', geoLocation );
+                if (geoLocation.role) {
+                    console.log("Posting", geoLocation);
+                    return post(media, '/geoLocations', geoLocation);
+                } else {
+
+                }
             },
 
             removeGeoLocation: function ( media, geoLocation ) {
