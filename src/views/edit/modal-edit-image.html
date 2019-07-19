@@ -118,8 +118,8 @@
 
           <div class="col-6 field" ng-class="{'has-error' : uploadImageForm.inputImageType.$invalid}" >
 
-        <label>Licentie</label>
-        <ui-select ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
+        <label label-for="image_license">Licentie</label>
+        <ui-select input-id="image_license" ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
           <ui-select-choices repeat="item in licenses | filter: {text: $select.search}">
             <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
             </div>
@@ -149,8 +149,8 @@
 
           <div class="col-6 field" ng-class="{'has-error' : uploadImageForm.inputImageType.$invalid}" >
 
-            <label>Afbeeldingstype &#42;</label>
-            <ui-select ng-model="image.type" theme="selectize" close-on-select="true" reset-search-input="true" >
+            <label label-for="image_type">Afbeeldingstype &#42;</label>
+            <ui-select input-id="image_type" ng-model="image.type" theme="selectize" close-on-select="true" reset-search-input="true" >
               <ui-select-choices repeat="item in imageTypes | filter: {text: $select.search}">
                 <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
                 </div>
