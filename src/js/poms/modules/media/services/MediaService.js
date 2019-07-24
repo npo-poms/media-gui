@@ -273,12 +273,8 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             addGeoLocation: function ( media, geoLocation ) {
-                if (geoLocation.role) {
-                    console.log("Posting", geoLocation);
-                    return post(media, '/geoLocations', geoLocation);
-                } else {
-
-                }
+                 console.log("Posting", geoLocation);
+                 return post(media, '/geoLocations', geoLocation);
             },
 
             removeGeoLocation: function ( media, geoLocation ) {

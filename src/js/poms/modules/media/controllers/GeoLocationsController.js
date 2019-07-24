@@ -85,21 +85,25 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         if ( typeof concept === 'object' ) {
                             if ( concept.objectType === "geographicname" ) {
 
-                                this.mediaService.addGeoLocation( this.media, this.parseGeoLocation( concept ) ).then(
-                                    function () {
-                                        load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
-                                    }.bind( this ),
-                                    function ( error ) {
-                                        if ( error.violations ) {
-                                            for ( var violation in  error.violations ) {
-                                                this.$scope.errorText = error.violations[ violation ];
-                                                break;
+                                var parsedGeoLocation = this.parseGeoLocation( concept ) ;
+                                if ( parsedGeoLocation.role ) {
+
+                                    this.mediaService.addGeoLocation( this.media, parsedGeoLocation ).then(
+                                        function () {
+                                            load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
+                                        }.bind( this ),
+                                        function ( error ) {
+                                            if ( error.violations ) {
+                                                for ( var violation in  error.violations ) {
+                                                    this.$scope.errorText = error.violations[ violation ];
+                                                    break;
+                                                }
+                                            } else {
+                                                this.$scope.$emit( this.pomsEvents.error, error );
                                             }
-                                        } else {
-                                            this.$scope.$emit( this.pomsEvents.error, error );
-                                        }
-                                    }.bind( this )
-                                )
+                                        }.bind( this )
+                                    )
+                                }
                             }
                         }
 
@@ -126,7 +130,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                     description: item.notes ? item.notes[ 0 ].value || '' : '',
                     status: item.status || '',
                     gtaaUri: item.id || '',
-                    role: item.role ? item.role.text : '' || ''
+                    role: item.role ? item.role.name : '' || ''
                 };
             },
 
