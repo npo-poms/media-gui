@@ -108,7 +108,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         value: '',
                         //id: $( '#id' ).val(),
                         origin: this.guiVariables.publisherUrl, //'https://rs-dev.poms.omroep.nl/',
-                        axes: 'GeografischeNamen',
+                        axes: 'geographicname',
                         //updateService: "${requestScope.properties['publisher.url']}",
                         //jwt: '${requestScope.jws}'
                     },  this.guiVariables.publisherUrl + 'v1' //https://rs-dev.poms.omroep.nl/v1'
