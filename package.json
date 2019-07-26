@@ -7,7 +7,7 @@
     "version": "5.11.0"
   },
   "scripts": {
-    "prebuild:app": "cp src/index.html src/index.tmpl && replace \"{version}\" \"$npm_package_version\" src/index.tmpl",
+    "prebuild:app": "cp src/index.html src/index.tmpl && replace \"{version}\" \"$npm_package_version\" && replace \"{apihost}\"  \"$npm_package_config_apihost\" src/index.tmpl",
     "build:app": "usemin src/index.tmpl -d build/deploy -o build/deploy/index.html --htmlmin false",
     "postbuild:app": "rimraf src/index.tmpl",
     "prebuild:selector": "cp src/CMSSelector/index.html src/CMSSelector/index.tmpl && replace \"{version}\" \"$npm_package_version\" src/CMSSelector/index.tmpl && npm run copy:selector",

@@ -5,7 +5,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
     'PomsEvents',
     'MediaService',
     'EditorService',
-    'PomsEvents',
     'ListService',
     ( function () {
 
@@ -19,9 +18,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 }
             )
         }
-
-
-        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, pomsEvents, listService ) {
+        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, listService ) {
 
             this.items = [];
 
@@ -41,7 +38,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
 
             this.maySkipGtaa = this.editorService.currentEditorHasRoles( [ 'SUPERADMIN', 'ADMIN' ] );
-            this.useGtaa = true;
 
             listService.getGuiVariables().then(
                 function ( data ) {
@@ -81,14 +77,13 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
                 gtaa.open(
                     function ( concept ) {
-
                         if ( typeof concept === 'object' ) {
                             if ( concept.objectType === "geographicname" ) {
 
-                                var parsedGeoLocation = this.parseGeoLocation( concept ) ;
+                                var parsedGeoLocation = this.parseGeoLocation(concept) ;
                                 if ( parsedGeoLocation.role ) {
 
-                                    this.mediaService.addGeoLocation( this.media, parsedGeoLocation ).then(
+                                    this.mediaService.addGeoLocation( this.media, parsedGeoLocation).then(
                                         function () {
                                             load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
                                         }.bind( this ),
@@ -105,17 +100,17 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                                     )
                                 }
                             }
+                        } else {
+                            throw "unrecognized type";
                         }
 
                     }.bind( this ), {
-                        // TODO: Set correct options parameters
                         value: '',
                         //id: $( '#id' ).val(),
-                        origin: this.guiVariables.publisherUrl, //'https://rs-dev.poms.omroep.nl/',
-                        axes: 'geographicname',
-                        //updateService: "${requestScope.properties['publisher.url']}",
-                        //jwt: '${requestScope.jws}'
-                    },  this.guiVariables.publisherUrl + 'v1' //https://rs-dev.poms.omroep.nl/v1'
+                        //origin: this.guiVariables.npoApiBaseUrl,
+                        schemes: 'geographicname',
+                        jwt: this.guiVariables.gtaaPopupJws
+                    },  this.guiVariables['npo-api.baseUrl']
                 );
 
             },
