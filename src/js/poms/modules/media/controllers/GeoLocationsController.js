@@ -107,10 +107,9 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                     }.bind( this ), {
                         value: '',
                         //id: $( '#id' ).val(),
-                        //origin: this.guiVariables.npoApiBaseUrl,
                         schemes: 'geographicname',
                         jwt: this.guiVariables.gtaaPopupJws
-                    },  this.guiVariables['npo-api.baseUrl']
+                    }
                 );
 
             },
