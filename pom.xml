@@ -18,10 +18,10 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.6</version>
+        <version>1.7.6</version>
         <configuration>
           <environmentVariables>
-            <NPM_CONFIG_VERSION>${pom.version}</NPM_CONFIG_VERSION>
+            <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
           </environmentVariables>
         </configuration>
         <executions>
