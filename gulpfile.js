@@ -16,6 +16,11 @@ function getCurrentVersion ( prefix ) {
     return ( typeof prefix === 'string' ? prefix : '-' )+ packageInfo.version;
 }
 
+
+function getApiHost(prefix) {
+    return process.env.NPM_CONFIG_APIHOST || "";
+}
+
 /******************************
  * TASKS
  ******************************/
@@ -37,7 +42,10 @@ gulp.task( 'templates', function () {
 gulp.task('app-deploy', function () {
 
     return gulp.src( __dirname + '/src/index.html' )
+        // WTF, this is overriding stuff also in package.json???
+        // This is very confusing
         .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
+        .pipe( plugins.replace( /\{domain\}/g, getApiHost()) )
         .pipe( plugins.usemin({
                 vendor: [plugins.ngAnnotate(), plugins.uglify()],
                 poms: [plugins.ngAnnotate(), plugins.uglify()],
