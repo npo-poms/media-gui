@@ -76,32 +76,33 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             addGeoLocation: function () {
 
                 gtaa.open(
-                    function ( concept ) {
-                        if ( typeof concept === 'object' ) {
-                            if ( concept.objectType === "geographicname" ) {
-
-                                var parsedGeoLocation = this.parseGeoLocation(concept) ;
-                                if ( parsedGeoLocation.role ) {
-
-                                    this.mediaService.addGeoLocation( this.media, parsedGeoLocation).then(
+                    function ( message ) {
+                        if (message.action === 'selected') {
+                            concept = message.concept;
+                            if (concept.objectType === "geographicname") {
+                                var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
+                                if (parsedGeoLocation.role) {
+                                    this.mediaService.addGeoLocation(this.media, parsedGeoLocation).then(
                                         function () {
-                                            load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
-                                        }.bind( this ),
-                                        function ( error ) {
-                                            if ( error.violations ) {
-                                                for ( var violation in  error.violations ) {
-                                                    this.$scope.errorText = error.violations[ violation ];
+                                            load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
+                                        }.bind(this),
+                                        function (error) {
+                                            if (error.violations) {
+                                                for (var violation in  error.violations) {
+                                                    this.$scope.errorText = error.violations[violation];
                                                     break;
                                                 }
                                             } else {
-                                                this.$scope.$emit( this.pomsEvents.error, error );
+                                                this.$scope.$emit(this.pomsEvents.error, error);
                                             }
-                                        }.bind( this )
+                                        }.bind(this)
                                     )
                                 }
+                            } else {
+                                throw "unrecognized type";
                             }
                         } else {
-                            throw "unrecognized type";
+                            console && console.log("ignored because of action", message);
                         }
 
                     }.bind( this ), {
@@ -118,13 +119,13 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 this.addGeoLocation( item );
             },
 
-            parseGeoLocation: function ( item ) {
+            parseGeoLocation: function (concept, role) {
                 return {
-                    name: item.value || '',
-                    description: item.notes ? item.notes[ 0 ].value || '' : '',
-                    status: item.status || '',
-                    gtaaUri: item.id || '',
-                    role: item.role ? item.role.name : '' || ''
+                    name: concept.value || '',
+                    description: concept.notes ? concept.notes[ 0 ].value || '' : '',
+                    status: concept.status || '',
+                    gtaaUri: concept.id || '',
+                    role: role ? role.name : null
                 };
             },
 
