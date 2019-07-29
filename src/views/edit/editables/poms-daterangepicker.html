@@ -1,11 +1,11 @@
 <div class="editfield-wrapper editfield-daterangepicker "
      ng-keyup="keyEvent($event)"
-     ng-class="{'opened' : editableForm.$visible , 'may-write' : mayWrite, 'empty': !media[field].start && !media[field].stop ,  'forbidden': !mayWrite, 'waiting': waiting }" save-feedback
+     ng-class="{'opened' : editableForm.$visible , 'may-write' : mayWriteEmbargo, 'empty': !media[field].start && !media[field].stop ,  'forbidden': !mayWriteEmbargo, 'waiting': waiting }" save-feedback
         >
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <div class="pickers" ng-if="!mayWrite">
+    <div class="pickers" ng-if="!mayWriteEmbargo">
 
         <h2 class="small-header"> {{header}} </h2>
         {{media[field].start | mediaDateTime }} <span ng-if="media[field].start && media[field].stop"> / </span>
@@ -13,7 +13,7 @@
 
     </div>
 
-    <div ng-click="editableForm.$show()"  ng-if="mayWrite && !editableForm.$visible">
+    <div ng-click="editableForm.$show()"  ng-if="mayWriteEmbargo && !editableForm.$visible">
 
         <h2 class="small-header"> {{header}} </h2>
         {{media[field].start | mediaDateTime }} <span ng-if="media[field].start && media[field].stop"> / </span>
@@ -85,8 +85,8 @@
     </form>
 
     <div class="media-field-tools">
-        <div ng-if="mayWrite" ng-click="editableForm.$show()" class="edit-icon"></div>
-        <div ng-if="!mayWrite" class="forbidden-icon"></div>
+        <div ng-if="mayWriteEmbargo" ng-click="editableForm.$show()" class="edit-icon"></div>
+        <div ng-if="!mayWriteEmbargo" class="forbidden-icon"></div>
         <poms-help field="{{helpField}}"></poms-help>
     </div>
 
