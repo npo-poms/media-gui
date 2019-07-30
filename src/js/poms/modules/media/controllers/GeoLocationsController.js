@@ -109,7 +109,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'geographicname',
-                        jwt: this.editorService.getCurrentEditor().gtaaJws
+                        jwt: this.editorService.getCurrentEditor().gtaaJws,
+                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration
                     }
                 );
 
