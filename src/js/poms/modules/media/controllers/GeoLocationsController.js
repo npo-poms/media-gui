@@ -39,14 +39,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             this.maySkipGtaa = this.editorService.currentEditorHasRoles( [ 'SUPERADMIN', 'ADMIN' ] );
 
-            listService.getGuiVariables().then(
-                function ( data ) {
-                    this.guiVariables = data;
-                }.bind( this ),
-                function ( error ) {
-                    $scope.$emit( pomsEvents.error, error )
-                }.bind( this )
-            );
 
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
 
@@ -106,7 +98,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         }
 
                     }.bind( this ), {
-                        value: '',
+                        //value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'geographicname',
                         jwt: this.editorService.getCurrentEditor().gtaaJws,
