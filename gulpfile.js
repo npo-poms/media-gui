@@ -1,9 +1,12 @@
-
+/**
+ * Gulp is only used for tasks that are currently easily done with NPM scripts,
+ * or are done incorrectly
+ */
 
 var gulp = require( 'gulp' );
 var packageInfo = require('./package.json');
 var plugins = require( 'gulp-load-plugins' )();
-
+var es = require('event-stream');
 
 /******************************
  * HELPERS
@@ -39,8 +42,6 @@ gulp.task( 'templates', function () {
 gulp.task('app-deploy', function () {
 
     return gulp.src( __dirname + '/src/index.html' )
-        // WTF, this is overriding stuff also in package.json???
-        // This is very confusing
         .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
         .pipe( plugins.replace( /\{domain\}/g, getApiHost()) )
         .pipe( plugins.usemin({
@@ -50,17 +51,39 @@ gulp.task('app-deploy', function () {
             })
         )
         .pipe( gulp.dest( __dirname + '/build/deploy/' ) );
+
+});
+
+gulp.task('app-deploy-dev', function () {
+
+    return gulp.src( __dirname + '/src/index.html' )
+        .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
+        .pipe( plugins.replace( /\{domain\}/g, getApiHost()) )
+        .pipe( gulp.dest( __dirname + '/build/work/' ) );
 });
 
 gulp.task('selector-deploy', function () {
 
-    return gulp.src( __dirname + '/src/CMSSelector/index.html' )
+    return es.merge(
+      gulp.src( __dirname + '/src/CMSSelector/**/*' )
+      .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
+      .pipe( gulp.dest( __dirname + '/build/deploy/CMSSelector/' ) )
+    ,
+      gulp.src( __dirname + '/src/CMSSelector/index.html' )
+      .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
+      .pipe( plugins.usemin({
+              vendor: [plugins.ngAnnotate(), plugins.uglify()],
+              poms: [plugins.ngAnnotate(), plugins.uglify()],
+              html: [plugins.minifyHtml({empty : true, spare : true, quotes : true})]
+          })
+      )
+      .pipe( gulp.dest( __dirname + '/build/deploy/CMSSelector/' ) )
+    );
+});
+
+gulp.task('selector-deploy-dev', function () {
+
+    return gulp.src( __dirname + '/src/CMSSelector/**/*' )
         .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
-        .pipe( plugins.usemin({
-                vendor: [plugins.ngAnnotate(), plugins.uglify()],
-                poms: [plugins.ngAnnotate(), plugins.uglify()],
-                html: [plugins.minifyHtml({empty : true, spare : true, quotes : true})]
-            })
-        )
-        .pipe( gulp.dest( __dirname + '/build/deploy/CMSSelector/' ) );
+        .pipe( gulp.dest( __dirname + '/build/work/CMSSelector/' ) );
 });
