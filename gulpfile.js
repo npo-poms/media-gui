@@ -1,7 +1,4 @@
-/**
- * Gulp is only used for tasks that are currently easily done with NPM scripts,
- * or are done incorrectly
- */
+
 
 var gulp = require( 'gulp' );
 var packageInfo = require('./package.json');
