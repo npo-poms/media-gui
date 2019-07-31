@@ -18,7 +18,7 @@ function getCurrentVersion ( prefix ) {
 
 
 function getApiHost(prefix) {
-    return process.env.NPM_CONFIG_APIHOST || "";
+    return process.env.npm_config_apihost || "";
 }
 
 /******************************
