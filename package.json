@@ -98,10 +98,8 @@
     "phantomjs": "^2.1.7",
     "postcss-cli": "~2.3.2",
     "rename": "~1.0.3",
-    "replace": "~0.3.0",
     "rimraf": "~2.4.4",
-    "stompjs": "~2.3.3",
-    "usemin-cli": "~0.0.7"
+    "stompjs": "~2.3.3"
   },
   "dependencies": {
     "nvm": "0.0.4"

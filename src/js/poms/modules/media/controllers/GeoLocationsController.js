@@ -116,7 +116,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 return {
                     name: concept.value || '',
                     description: concept.notes ? concept.notes[ 0 ].value || '' : '',
-                    status: concept.status || '',
+                    gtaaStatus: concept.status || '',
                     gtaaUri: concept.id || '',
                     role: role ? role.name : null
                 };
