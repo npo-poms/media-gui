@@ -1,0 +1,107 @@
+.media-concept {
+    height: 47px;
+    margin-left: -8px;
+
+    padding: 4px 8px;
+
+    line-height: 22px;
+
+    &:hover {
+        background-color: $extralichtoranje;
+
+        .media-concept-remove {
+            display: inline-block;
+        }
+
+        .media-concept-edit {
+            display: inline-block;
+        }
+
+        .media-concept-gtaa {
+            display: inline-block;
+        }
+    }
+}
+
+.media-concept-remove {
+    display: none;
+    width: 30px;
+    height: 30px;
+
+    float: right;
+
+    margin-top: -3px;
+
+    border: 0;
+
+    text-indent: -9999px;
+    cursor: pointer;
+
+    @include icon('remove-disabled', 30px);
+
+    &:hover {
+        @include icon('remove_hover', 30px);
+    }
+}
+
+.media-concept-link {
+    width: 24px;
+    height: 24px;
+
+    border: 0;
+
+    cursor: pointer;
+
+    text-indent: -9999px;
+    @include icon('cogs', 16px, '0 center');
+}
+
+.media-concept-edit {
+    display: none;
+    width: 24px;
+    height: 24px;
+
+    float: right;
+
+    margin-top: 3px;
+
+    border: 0;
+
+    text-indent: -9999px;
+    cursor: pointer;
+
+    @include icon('cogs', 16px);
+}
+
+.media-concept-add {
+    margin-top: 8px;
+}
+
+.media-concept-gtaa {
+    display: none;
+    width: 24px;
+    height: 20px;
+    float: right;
+
+    text-indent: -9999px;
+}
+
+.media-concept-description {
+    display: block;
+}
+
+.media-concept-gtaa-candidate {
+    @include icon('person-unapproved', 16px, '0 4px');
+}
+
+.media-concept-gtaa-approved {
+    @include icon('person-approved', 16px, '0 4px');
+}
+
+.media-concept-gtaa-redirected,
+.media-concept-gtaa-not_compliant,
+.media-concept-gtaa-rejected,
+.media-concept-gtaa-obsolete,
+.media-concept-gtaa-deleted {
+    @include icon('person-unapproved', 16px, '0 4px');
+}
