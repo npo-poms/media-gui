@@ -43,6 +43,12 @@
                 <span title="Algemeen" >Algemeen</span>
             </li>
             <li class='media-item-navigation-link'
+                ng-click="mediaController.goTo('labels')"
+                ng-class="{'active' : mediaController.activeSection == 'labels' }">
+
+                <span title="Labels" >Labels</span>
+            </li>
+            <li class='media-item-navigation-link'
                 ng-class="{'active' : mediaController.activeSection == 'scheduleevents' }"
                 ng-click="mediaController.goTo('scheduleevents')"
                 ng-if="::media.hasScheduleEvents">
@@ -115,7 +121,7 @@
 
         <div class="media-data-container">
 
-            <poms-edit media="media" section="{{::mediaController.sectionId('general')}}" editRef="mediaController.editRef"></poms-edit>
+            <poms-edit media="media" generalsection="{{::mediaController.sectionId('general')}}" labelssection="{{::mediaController.sectionId('labels')}}" editRef="mediaController.editRef"></poms-edit>
 
             <poms-scheduleevents ng-if="::media.hasScheduleEvents" media="media" section="{{::mediaController.sectionId('scheduleevents')}}"></poms-scheduleevents>
 

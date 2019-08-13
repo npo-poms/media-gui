@@ -15,7 +15,8 @@ angular.module( 'poms.media.directives' )
             templateUrl: 'media/general.html',
             transclude: true,
             scope: {
-                section: '@section',
+                generalsection: '@generalsection',
+                labelssection: '@labelssection',
                 media: '='
             }
         };

@@ -134,9 +134,17 @@
 /* end section general */
 
 
+/* subsection */
 
+.media-sub-section {
+    border-bottom: 1px solid $extralichtgrijs;
 
+    &:last-child {
+        border-bottom: 0;
+    }
+}
 
+/* end subsection */
 
 
 .media-field .empty .small-header {

@@ -1,69 +1,78 @@
-<div id="{{section}}" class="media-data media-section-general media-section"
-     ng-controller="EditController as editController">
+<div class="media-data media-section-general" ng-controller="EditController as editController">
 
   <div class="media-section-general-left">
 
-    <poms-viewer media="media" size="small"></poms-viewer>
+    <div id="{{generalsection}}" class="media-section media-sub-section">
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="mainTitle"></poms-editable>
+      <poms-viewer media="media" size="small"></poms-viewer>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="subTitle"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="mainTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="shortTitle"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="subTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title"
-                   field="abbreviationTitle"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="shortTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="workTitle"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title"
+                     field="abbreviationTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title"
-                   field="originalTitle"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="workTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="lexicoTitle"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title"
+                     field="originalTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="description"
-                   field="mainDescription"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="title" field="lexicoTitle"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="description"
-                   field="shortDescription"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="description"
+                     field="mainDescription"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="description"
-                   field="kickerDescription"></poms-editable>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="description"
+                     field="shortDescription"></poms-editable>
 
-    <poms-genres type="media" class="media-field" media="media" header="Genres"
-                 help-field="editor.general.genres"></poms-genres>
+      <poms-editable type="media" media="media" class="media-field" fieldtype="description"
+                     field="kickerDescription"></poms-editable>
+    </div>
 
-    <poms-multi type="media" class="media-field" media="media" header="Tags" load="editController.getTags()"
-                save="editController.setTags(data)" options="editController.tags(data)" permission="tags"
-                placeholder="Kies een tag..." help-field="editor.general.tags"></poms-multi>
+    <div id="{{labelssection}}" class="media-section media-sub-section">
+
+        <h1 class="editfield-wrapper media-section-title">Labels</h1>
+
+        <poms-genres type="media" class="media-field" media="media" header="Genres"
+                     help-field="editor.general.genres"></poms-genres>
+
+        <poms-multi type="media" class="media-field" media="media" header="Tags" load="editController.getTags()"
+                    save="editController.setTags(data)" options="editController.tags(data)" permission="tags"
+                    placeholder="Kies een tag..." help-field="editor.general.tags"></poms-multi>
 
 
-    <poms-intentions type="media" class="media-field" media="media" header="Intenties"
-                     help-field="editor.general.intentions"></poms-intentions>
+        <poms-intentions type="media" class="media-field" media="media" header="Intenties"
+                         help-field="editor.general.intentions"></poms-intentions>
 
-    <poms-targetgroups type="media" class="media-field" media="media" header="Doelgroep"
-                     help-field="editor.general.targetGroups"></poms-targetgroups>
+        <poms-targetgroups type="media" class="media-field" media="media" header="Doelgroep"
+                           help-field="editor.general.targetGroups"></poms-targetgroups>
 
 
-    <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
-                save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
-                help-field="editor.general.websites"></poms-multi>
+        <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
+                    save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
+                    help-field="editor.general.websites"></poms-multi>
 
-    <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()"
-                save="editController.setTwitterRefs(data)" permission="twitterRefs"
-                placeholder="Twitteraccount of hashtag (@../#..)" help-field="editor.general.twitter"></poms-multi>
+        <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()"
+                    save="editController.setTwitterRefs(data)" permission="twitterRefs"
+                    placeholder="Twitteraccount of hashtag (@../#..)" help-field="editor.general.twitter"></poms-multi>
 
-    <poms-persons type="media" class="media-field" header="Personen" media="media"
-                  load="editController.getPersons()"
-                  options="editController.allowedRoles()"
-                  option-title="Rol" option-field="role"
-                  permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
+        <poms-persons type="media" class="media-field" header="Personen" media="media"
+                      load="editController.getPersons()"
+                      options="editController.allowedRoles()"
+                      option-title="Rol" option-field="role"
+                      permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
 
-    <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
-                  load="editController.getGeoLocations()"
-                  options="editController.allowedRoles()"
-                  option-title="Rol" option-field="role"
-                  permission="geoLocation" single-name="GeoLocation" help-field="editor.general.geoLocations"></poms-geolocations>
+        <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
+                           load="editController.getGeoLocations()"
+                           options="editController.allowedRoles()"
+                           option-title="Rol" option-field="role"
+                           permission="geoLocation" single-name="GeoLocation" help-field="editor.general.geoLocations"></poms-geolocations>
+
+    </div>
+
   </div>
 
   <div class="media-publication media-section-general-right">
