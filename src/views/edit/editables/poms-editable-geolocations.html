@@ -13,8 +13,8 @@
         <div ng-repeat="item in geoLocationsController.items" class="media-concept">
 
             {{item.role.text}}: {{item.name}}
-            <span class="media-concept-description">
-                {{item.description}}
+            <span class="media-concept-scopeNote" ng-repeat="note in item.scopeNotes">
+                {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
             </span>
 
 

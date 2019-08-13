@@ -37,8 +37,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
 
-            this.maySkipGtaa = this.editorService.currentEditorHasRoles( [ 'SUPERADMIN', 'ADMIN' ] );
-
 
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
 
@@ -115,7 +113,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             parseGeoLocation: function (concept, role) {
                 return {
                     name: concept.value || '',
-                    description: concept.notes ? concept.notes[ 0 ].value || '' : '',
+                    scopeNotes: concept.scopeNotes,
                     gtaaStatus: concept.status || '',
                     gtaaUri: concept.id || '',
                     role: role ? role.name : null
