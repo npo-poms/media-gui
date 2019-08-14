@@ -1,4 +1,4 @@
-<div class="editfield-wrapper editfield-concepts"
+<div class="editfield-wrapper editfield-concepts disable-hover"
      ng-class="{
      'empty': geoLocationController.items.length == 0,
      'may-write' : geoLocationsController.mayWrite ,
@@ -13,7 +13,7 @@
         <div ng-repeat="item in geoLocationsController.items" class="media-concept">
 
             {{item.role.text}}: {{item.name}}
-            <span class="media-concept-scopeNote" ng-repeat="note in item.scopeNotes">
+            <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
                 {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
             </span>
 

@@ -187,6 +187,15 @@
         cursor: pointer;
     }
 
+    &.disable-hover {
+
+        &:hover {
+            background-color: transparent;
+            cursor: default;
+        }
+
+    }
+
     &.opened {
         padding: 16px;
         background-color: $extralichtoranje;
@@ -473,16 +482,6 @@
         }
     }
 }
-
-
-
-
-
-.media-field .editfield-wrapper.editfield-persons.may-write:hover{
-    background-color: transparent;
-    cursor: default;
-}
-
 
 .media-schedule-events {
     float: left;

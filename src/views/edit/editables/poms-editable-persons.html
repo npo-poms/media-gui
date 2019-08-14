@@ -1,4 +1,4 @@
-<div class="editfield-wrapper editfield-persons"
+<div class="editfield-wrapper editfield-persons disable-hover"
      ng-class="{
      'empty': personsController.items.length == 0,
      'may-write' : personsController.mayWrite ,
@@ -8,11 +8,9 @@
 
     <h2 class="small-header"> {{header}} </h2>
 
-  <span ng-if="personsController.maySkipGtaa">
-    <input ng-model="personsController.useGtaa"
-           type="checkbox"
-           > Gebruik GTAA
-  </span>
+    <span ng-if="personsController.maySkipGtaa">
+        <input ng-model="personsController.useGtaa" type="checkbox"> Gebruik GTAA
+    </span>
 
     <div class="editfield">
 
