@@ -1,4 +1,4 @@
-angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
+angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
     '$scope',
     '$q',
     '$sce',
@@ -6,11 +6,12 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
     '$timeout',
     'PomsEvents',
     'MediaService',
+    'ListService',
     'EditFieldService',
     (function () {
 
-        function load ( scope, pomsEvents, dest ) {
-            scope.load().then(
+        function doLoad ( scope, media, dest, pomsEvents ) {
+            return scope.load( media ).then(
                 function ( data ) {
                     angular.copy( data, dest );
                 },
@@ -20,14 +21,23 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             )
         }
 
-        function MultiEditController (
-          $scope, $q, $sce, $modal, $timeout,
-          pomsEvents, mediaService, editFieldService ) {
+        function doLoadOptions (scope, options, pomsEvents ) {
+            return scope.options().then(
+            function ( data ) {
+                angular.copy( data, options );
+            },
+            function ( error ) {
+                scope.$emit( pomsEvents.error, error )
+            }
+          )
+        }
 
-            this.violation = undefined;
-            this.options = [];
-            this.selection = [];
-            this.tempValue = undefined;
+
+        function OwnedListsController (
+          $scope, $q, $sce, $modal, $timeout,
+          pomsEvents, mediaService, listService, editFieldService ) {
+
+            var uiSelect;
 
             this.$scope = $scope;
             this.$q = $q;
@@ -37,20 +47,18 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             this.media = $scope.media;
             this.values = [];
 
-            this.pomsEvents = pomsEvents;
-            this.mediaService = mediaService;
+            this.options = [];
+            this.preSelectedItems = [];
+            this.isOpen = false;
             this.editFieldService = editFieldService;
-            this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
+            this.mayWrite = mediaService.hasWritePermission( this.media, this.$scope.name );
 
-            load( $scope, this.pomsEvents, this.values );
+            doLoad( this.$scope, this.media, this.values, pomsEvents);
 
+            doLoadOptions ( this.$scope, this.options, pomsEvents );
         }
 
-        MultiEditController.prototype = {
-
-            isOpen: false,
-
-            mayWrite: false,
+        OwnedListsController.prototype = {
 
             trustAsHtml: function ( value ) {
                 return this.$sce.trustAsHtml( value );
@@ -59,19 +67,39 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             showEditElement: function ( event ) {
 
                 if ( this.mayWrite && !this.isOpen ) {
-                    load( this.$scope, this.pomsEvents, this.selection );
 
-                    this.isOpen = true;
-                    this.$scope.errorText = false;
+                    this.$scope.load( this.media ).then(
+                        function ( data ) {
 
-                    this.$timeout( function () {
-                        angular.element( event.currentTarget ).find( '.ui-select-container input' ).last().focus();
-                    }, 0 );
+                            this.$scope.selectedItems = {
+                                selected :[]
+                            };
+
+                            for ( var i = 0; i < data.length; i ++ ) {
+                                for ( var j = 0; j < this.options.length; j ++ ) {
+                                    if ( this.options[j].id === data[i].id ) {
+                                        this.$scope.selectedItems.selected.push( this.options[j] );
+                                    }
+                                }
+                            }
+
+                            this.isOpen = true;
+                            this.$scope.errorText = false;
+
+                            // We lookup the ui-select element via childscope because we can't acces it by name and dont want to alter its code
+                            uiSelect = this.$scope.$$childHead.$select;
+                            uiSelect.activate();
+
+                        }.bind( this ),
+                        function ( error ) {
+                            this.$scope.$emit( pomsEvents.error, error )
+                        }.bind( this )
+                    );
 
                     this.$scope.$emit( 'editFieldOpen', { 'field': this.$scope.field, 'isOpen': true} );
 
                     this.$scope.$on( 'closeEditField', function ( e, data ) {
-                        if ( data.field == this.$scope.field ) {
+                        if ( data.field === this.$scope.field ) {
                             this.$timeout( function () {
                                 this.close();
                             }.bind(this), 0 );
@@ -104,37 +132,11 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             },
 
 
-            updateOptions: function ( text ) {
-
-                if( !text ) {
-                    return;
-                }
-
-                this.tempValue = text;
-
-                var options = this.$scope.options( ({data: text}) );
-                if ( options && options.then ) {
-                    options.then(
-                        function ( response ) {
-                            this.options = response;
-                        }.bind( this ),
-                        function ( error ) {
-                            this.$scope.$emit( this.pomsEvents.error, error )
-                        }.bind( this )
-                    );
-                }
-            },
-
             submit: function ( e ) {
-
                 this.waiting = true;
 
-                this.pushTemp();
-                
-                var data = this.selection;
+                var data = uiSelect.selected;
                 var deferred = this.$q.defer();
-
-
 
                 if ( e ) {
                     e.preventDefault();
@@ -146,15 +148,14 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                     return; // no change
                 }
 
-                this.$scope.save( {data: data} ).then(
+                this.$scope.save( this.media, data ).then(
                     function ( result ) {
-                        angular.copy( result, this.media );
 
-                        load( this.$scope, this.pomsEvents, this.values );
-
+                        doLoad( this.media, this.values, pomsEvents );
                         deferred.resolve( false );
-
-                        this.close();
+                        this.isOpen = false;
+                        this.$scope.waiting = false;
+                        this.$scope.errorText = false;
 
                         this.$scope.$emit( 'saved' );
                     }.bind( this ),
@@ -164,11 +165,11 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                         if ( error.violations ) {
                             for ( var violation in  error.violations ) {
                                 this.$scope.errorText = error.violations[violation];
-                                deferred.reject( this.$scope.errorText );
+                                deferred.reject( $scope.errorText );
                                 break;
                             }
                         } else {
-                            this.$scope.$emit( this.pomsEvents.error, error );
+                            this.$scope.$emit( pomsEvents.error, error );
                         }
 
                         this.waiting = false;
@@ -176,22 +177,11 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 );
             },
 
-            pushTemp: function() {
-                if (this.tempValue && this.selection.indexOf(this.tempValue) == -1) {
-                    this.selection.push(this.tempValue);
-                }
-                this.tempValue = undefined;
-            },
-
-            blurredSave : function( e , checkNewItems){
+            blurredSave: function( e ){
 
                 e.stopPropagation();
 
-                if( checkNewItems ){
-                    this.pushTemp();
-                }
-
-                var data = this.selection;
+                var data = uiSelect.selected;
 
                 if ( angular.equals( data, this.values ) || (data.length == 0 && !this.values) ) {
                     this.close();
@@ -212,6 +202,6 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             }
         };
 
-        return MultiEditController;
-    }  ())
+        return OwnedListsController;
+    }())
 ] );

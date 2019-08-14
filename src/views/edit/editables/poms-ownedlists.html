@@ -1,0 +1,47 @@
+<div id="{{name}}-select"
+     class="editfield-wrapper editfield-uiselect"
+     ng-click="ownedListsController.showEditElement($event, mayWrite)"
+     ng-keyup="keyEvent($event)"
+     ng-class="{ 'empty' : !ownedListsController.values.length,
+        'may-write' : ownedListsController.mayWrite,
+        'forbidden': !ownedListsController.mayWrite,
+        'opened' : ownedListsController.isOpen,
+        'waiting': ownedListsController.waiting }"
+     save-feedback >
+
+    <h2 class="small-header">{{header}}</h2>
+
+    <div ng-show="ownedListsController.isOpen" class="ui-select" style="max-height:400px;">
+
+        <div ng-show="ownedListsController.isOpen" class="editfield-uiselect-backdrop"
+             ng-click="ownedListsController.blurredSave($event)"></div>
+
+        <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="ownedListsController.selectedItems.selected"
+                   theme="bootstrap"  close-on-select="false" ng-disabled="disabled" >
+            <ui-select-match placeholder="Kies een {{label}}...">{{$item.text}}</ui-select-match>
+            <ui-select-choices repeat="value in ownedListsController.options | filter: {text: $select.search}">
+                <div ng-bind-html="trustAsHtml((value.text | highlight: $select.search))" ></div>
+            </ui-select-choices>
+        </ui-select>
+
+        <div class="editable-error" ng-if="ownedListsController.errorText" >{{errorText}}</div>
+
+        <span class="editable-buttons">
+            <button class="button-save" type='button' ng-click="ownedListsController.submit($event)">save</button>
+            <button class="button-cancel" type='button'  ng-click="ownedListsController.close($event)">cancel</button>
+        </span>
+
+
+    </div>
+
+    <div ng-show="!ownedListsController.isOpen">
+        <span ng-repeat="item in ownedListsController.values">
+            {{item.text}}{{$last ? '' : ', '}}
+        </span>
+    </div>
+
+    <poms-edit-tools may-write="ownedListsController.mayWrite" help-field="{{ownedListsController.helpField}}"></poms-edit-tools>
+
+
+</div>
+

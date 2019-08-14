@@ -17,7 +17,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             )
         }
 
-
         function ModalTableEditController ( $scope, $q, $modal, pomsEvents, mediaService ) {
 
             this.items = [];

@@ -83,7 +83,6 @@ angular.module( 'poms.media.directives' )
 
                         $scope.$emit( 'editFieldOpen', { 'field': $scope.field, 'isOpen': true} );
 
-
                     }
                 };
 
