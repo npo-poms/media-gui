@@ -7,8 +7,8 @@ angular.module( 'poms.media.directives' )
               media: '=',
               helpField : '@',
               header: '@',
-              options: '&',
-              load: '&',
+              options: '@',
+              load: '@',
               save: '@',
               name: '@',
               label: '@'

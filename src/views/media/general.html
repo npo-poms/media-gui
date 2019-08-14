@@ -43,11 +43,12 @@
                     save="editController.setTags(data)" options="editController.tags(data)" permission="tags"
                     placeholder="Kies een tag..." help-field="editor.general.tags"></poms-multi>
 
-        <poms-targetgroups type="media" class="media-field" media="media" header="Doelgroep"
-                         help-field="editor.general.targetGroups"></poms-targetgroups>
+        <poms-ownedlists name="targetGroups" type="media" class="media-field" media="media" header="Doelgroep" label="doelgroep"
+                       options="getTargetGroups" load="getTargetGroups"
+                       save="setTargetGroups" help-field="editor.general.targetGroups"></poms-ownedlists>
 
         <poms-ownedlists name="intentions" type="media" class="media-field" media="media" header="Intenties" label="intenties"
-                       options="editController.intentions()" load="editController.getIntentions()"
+                       options="getIntentions" load="getIntentions"
                        save="setIntentions" help-field="editor.general.intentions"></poms-ownedlists>
 
         <poms-persons type="media" class="media-field" header="Personen" media="media"

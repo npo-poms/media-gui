@@ -10,8 +10,8 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
     'EditFieldService',
     (function () {
 
-        function doLoad ( scope, media, dest, pomsEvents ) {
-            return scope.load( media ).then(
+        function doLoad ( mediaService, scope, media, dest, pomsEvents ) {
+            return mediaService[scope.load]( media ).then(
                 function ( data ) {
                     angular.copy( data, dest );
                 },
@@ -21,8 +21,8 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             )
         }
 
-        function doLoadOptions (scope, options, pomsEvents ) {
-            return scope.options().then(
+        function doLoadOptions (listService, scope, options, pomsEvents ) {
+            return listService[scope.options]().then(
             function ( data ) {
                 angular.copy( data, options );
             },
@@ -55,9 +55,9 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
 
-            doLoad( this.$scope, this.media, this.values, pomsEvents);
+            doLoad( this.mediaService , this.$scope, this.media, this.values, pomsEvents);
 
-            doLoadOptions ( this.$scope, this.options, pomsEvents );
+            doLoadOptions ( listService, this.$scope, this.options, pomsEvents );
         }
 
         OwnedListsController.prototype = {
@@ -70,7 +70,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                 if ( this.mayWrite && !this.isOpen ) {
 
-                    this.$scope.load( this.media ).then(
+                    this.mediaService[this.$scope.load]( this.media ).then(
                         function ( data ) {
 
                             this.$scope.selectedItems = {
@@ -153,7 +153,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                 this.mediaService[methodName]( this.media, data ).then(
                     function ( result ) {
 
-                        doLoad( this.$scope, this.media, this.values, this.pomsEvents );
+                        doLoad( this.mediaService, this.$scope, this.media, this.values, this.pomsEvents );
                         deferred.resolve( false );
                         this.isOpen = false;
                         this.$scope.waiting = false;

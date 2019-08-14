@@ -370,8 +370,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 );
             },
 
-
-
             addMemberOf : function( memberType ){
                 var addMethod,
                         addEventMethod,
