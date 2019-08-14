@@ -44,7 +44,7 @@ Checkout poms and follow the instruction to run it on your local machine
 
 
 ## check the current development
-Run `./ watch-dev.sh` to build and run the current development version on `http://localhost:port` ( port defaults to 4000 )
+Run `./watch-dev.sh` to build and run the current development version on `http://localhost:port` ( port defaults to 4000 )
 
 ## live reloading
 Run `npm run watch:dev` and navigate to `http://localhost:port` ( port defaults to 4000 )
