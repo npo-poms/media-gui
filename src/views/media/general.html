@@ -43,26 +43,18 @@
                     save="editController.setTags(data)" options="editController.tags(data)" permission="tags"
                     placeholder="Kies een tag..." help-field="editor.general.tags"></poms-multi>
 
-    <poms-targetgroups type="media" class="media-field" media="media" header="Doelgroep"
-                     help-field="editor.general.targetGroups"></poms-targetgroups>
+        <poms-targetgroups type="media" class="media-field" media="media" header="Doelgroep"
+                         help-field="editor.general.targetGroups"></poms-targetgroups>
 
-    <poms-ownedlists name="intentions" type="media" class="media-field" media="media" header="Intenties" label="intenties"
-                     options="editController.intentions()" load="editController.getIntentions()"
-                     save="editController.setIntentions(media, intentions)" help-field="editor.general.intentions"></poms-ownedlists>
+        <poms-ownedlists name="intentions" type="media" class="media-field" media="media" header="Intenties" label="intenties"
+                       options="editController.intentions()" load="editController.getIntentions()"
+                       save="setIntentions" help-field="editor.general.intentions"></poms-ownedlists>
 
-    <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
-                save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
-                help-field="editor.general.websites"></poms-multi>
-
-    <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()"
-                save="editController.setTwitterRefs(data)" permission="twitterRefs"
-                placeholder="Twitteraccount of hashtag (@../#..)" help-field="editor.general.twitter"></poms-multi>
-
-    <poms-persons type="media" class="media-field" header="Personen" media="media"
-                  load="editController.getPersons()"
-                  options="editController.allowedRoles()"
-                  option-title="Rol" option-field="role"
-                  permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
+        <poms-persons type="media" class="media-field" header="Personen" media="media"
+                      load="editController.getPersons()"
+                      options="editController.allowedRoles()"
+                      option-title="Rol" option-field="role"
+                      permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
 
         <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
                            load="editController.getGeoLocations()"
@@ -70,11 +62,11 @@
                            option-title="Rol" option-field="role"
                            permission="geoLocation" single-name="GeoLocation" help-field="editor.general.geoLocations"></poms-geolocations>
 
-      <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
+        <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
                   save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
                   help-field="editor.general.websites"></poms-multi>
 
-      <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()"
+        <poms-multi type="media" class="media-field" media="media" header="Twitter" load="editController.getTwitterRefs()"
                   save="editController.setTwitterRefs(data)" permission="twitterRefs"
                   placeholder="Twitteraccount of hashtag (@../#..)" help-field="editor.general.twitter"></poms-multi>
 

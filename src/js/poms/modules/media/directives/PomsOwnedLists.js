@@ -9,7 +9,7 @@ angular.module( 'poms.media.directives' )
               header: '@',
               options: '&',
               load: '&',
-              save: '&',
+              save: '@',
               name: '@',
               label: '@'
             },

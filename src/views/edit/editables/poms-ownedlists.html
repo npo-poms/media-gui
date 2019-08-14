@@ -16,11 +16,11 @@
         <div ng-show="ownedListsController.isOpen" class="editfield-uiselect-backdrop"
              ng-click="ownedListsController.blurredSave($event)"></div>
 
-        <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="ownedListsController.selectedItems.selected"
-                   theme="bootstrap"  close-on-select="false" ng-disabled="disabled" >
+        <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="selectedItems.selected"
+                   theme="bootstrap" close-on-select="false" ng-disabled="disabled" >
             <ui-select-match placeholder="Kies een {{label}}...">{{$item.text}}</ui-select-match>
             <ui-select-choices repeat="value in ownedListsController.options | filter: {text: $select.search}">
-                <div ng-bind-html="trustAsHtml((value.text | highlight: $select.search))" ></div>
+                <div ng-bind-html="ownedListsController.trustAsHtml((value.text | highlight: $select.search))" ></div>
             </ui-select-choices>
         </ui-select>
 

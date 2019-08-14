@@ -12,7 +12,8 @@
 
         <div ng-show="isOpen" class="editfield-uiselect-backdrop" ng-click="blurredSave($event)"></div>
 
-        <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="selectedItems.selected" theme="bootstrap"  close-on-select="false" ng-disabled="disabled" >
+        <ui-select multiple tagging-tokens=",|ENTER|SPACE"  ng-model="selectedItems.selected"
+                   theme="bootstrap" close-on-select="false" ng-disabled="disabled" >
             <ui-select-match placeholder="Kies een intentie...">{{$item.text}}</ui-select-match>
             <ui-select-choices repeat="intention in options | filter: {text: $select.search}">
                 <div ng-bind-html="trustAsHtml((intention.text | highlight: $select.search))" ></div>

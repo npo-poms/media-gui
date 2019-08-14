@@ -15,7 +15,6 @@ angular.module( 'poms.media.directives' )
 
                 $scope.targetGroups = [];
                 $scope.options = [];
-                $scope.preSelectedItems = [];
                 $scope.isOpen = false;
                 $scope.mayWrite = mediaService.hasWritePermission( media, 'targetGroups' );
 
