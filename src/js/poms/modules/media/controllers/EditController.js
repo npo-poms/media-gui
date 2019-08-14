@@ -333,18 +333,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 return this.mediaService.movePerson( media, from, to );
             },
 
-            intentions: function(){
-                return this.listService.getIntentions();
-            },
-
-            getIntentions: function () {
-                return this.mediaService.getIntentions( this.media );
-            },
-
-            setIntentions: function ( media, data ) {
-                return this.mediaService.setIntentions( media, data );
-            },
-
             getGeoLocations: function () {
                 return this.mediaService.getGeoLocations( this.media );
             },
