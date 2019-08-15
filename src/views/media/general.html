@@ -57,7 +57,14 @@
                       option-title="Rol" option-field="role"
                       permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-persons>
 
-        <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
+      <poms-gtaa-persons type="media" class="media-field" header="Gtaa Personen" media="media"
+                         load="editController.getPersons()"
+                         options="editController.allowedRoles()"
+                         option-title="Rol" option-field="role"
+                         permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-gtaa-persons>
+
+
+      <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
                            load="editController.getGeoLocations()"
                            options="editController.allowedRoles()"
                            option-title="Rol" option-field="role"

@@ -17,6 +17,9 @@
         <div ng-repeat="item in personsController.items" class="media-person">
 
             {{item.role.text}}: {{item.givenName}} {{item.familyName}}
+            <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
+                {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+            </span>
 
             <button title='koppel persoon aan GTAA record' ng-if="personsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-person-link"
                     ng-click="personsController.editPerson( item )">

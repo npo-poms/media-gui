@@ -1,0 +1,55 @@
+<div class="editfield-wrapper editfield-concepts disable-hover"
+     id="gtaaPersons"
+     ng-class="{
+     'empty': gtaaPersonsController.items.length == 0,
+     'may-write' : gtaaPersonsController.mayWrite ,
+     'forbidden' : !gtaaPersonsController.mayWrite ,
+     'waiting': waiting}"
+     ng-show="gtaaPersonsController.mayRead" save-feedback>
+
+    <h2 class="small-header"> {{header}} </h2>
+
+    <div class="editfield">
+
+        <div ng-repeat="item in gtaaPersonsController.items" class="media-concept">
+
+            {{item.role.text}}: {{item.givenName}} {{item.familyName}}
+            <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
+                {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+            </span>
+
+
+            <button title='koppel persoon aan GTAA record' ng-if="gtaaPersonsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-concept-link"
+                    ng-click="gtaaPersonsController.editPerson( item )">
+                koppel
+            </button>
+
+            <button title='edit persoon' ng-if="gtaaPersonsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-concept-edit"
+                    ng-click="gtaaPersonsController.editPerson( item )" >
+                edit
+            </button>
+
+            <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
+            </span>
+
+            <button ng-if="gtaaPersonsController.mayWrite" class="media-concept-remove"
+                    poms-confirm="'persoon'"
+                    poms-submit="gtaaPersonsController.removePerson( item )"
+                    >
+                verwijder
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="media-field-tools">
+        <div ng-if="!gtaaPersonsController.mayWrite" class="forbidden-icon"></div>
+        <poms-help field="{{helpField}}"></poms-help>
+    </div>
+
+    <button class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="gtaaPersonsController.mayWrite" ng-click="gtaaPersonsController.addPerson()">
+        persoon toevoegen
+    </button>
+
+</div>
