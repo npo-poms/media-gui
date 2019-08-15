@@ -96,8 +96,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
             parsePerson: function (person, role) {
                 return {
-                    firstName: person.givenName || '',
-                    lastName: person.familyName,
+                    givenName: person.givenName || '',
+                    familyName: person.familyName,
                     scopeNotes: person.scopeNotes,
                     gtaaStatus: person.status || '',
                     gtaaUri: person.id || '',

@@ -11,7 +11,6 @@
         'poms.util',
         'poms.list',
         'poms.search',
-        'poms.gtaa',
         'poms.media',
         'poms.admin',
         'poms.messages',
