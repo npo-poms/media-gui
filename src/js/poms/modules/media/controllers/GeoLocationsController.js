@@ -112,7 +112,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             parseGeoLocation: function (concept, role) {
                 return {
-                    name: concept.value || '',
+                    name: concept.name || '',
                     scopeNotes: concept.scopeNotes,
                     gtaaStatus: concept.status || '',
                     gtaaUri: concept.id || '',
