@@ -111,7 +111,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             },
 
             keyEvent: function ( event ) {
-                if ( event.keyCode == 27 ) {
+                if ( event.keyCode === 27 ) {
                     this.close();
                 }
             },
@@ -145,11 +145,11 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                     e.stopPropagation();
                 }
 
-                if ( angular.equals( data, this.values ) || (data.length == 0 && !this.values ) ){
+                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values ) ){
                     this.close();
                     return; // no change
                 }
-                const methodName = this.$scope.save;
+                var methodName = this.$scope.save;
                 this.mediaService[methodName]( this.media, data ).then(
                     function ( result ) {
 
@@ -185,7 +185,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                 var data = this.uiSelect.selected;
 
-                if ( angular.equals( data, this.values ) || (data.length == 0 && !this.values) ) {
+                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values) ) {
                     this.close();
 
                 }else{
