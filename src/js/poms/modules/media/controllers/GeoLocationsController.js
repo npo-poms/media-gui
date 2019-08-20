@@ -14,15 +14,13 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                     angular.copy( data, dest );
                 },
                 function ( error ) {
-                    $scope.$emit( pomsEvents.error, error )
+                    scope.$emit( pomsEvents.error, error )
                 }
             )
         }
         function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, listService ) {
 
             this.items = [];
-
-            this.options = [];
 
             this.$scope = $scope;
             this.$q = $q;
@@ -36,22 +34,9 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
-
+            this.currentOwnerType = editorService.getCurrentOwnerType();
 
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
-
-            $scope.options().then(
-                function ( data ) {
-                    if ( data.length < 1 ) {
-                        this.mayWrite = false;
-                    } else {
-                        angular.copy( data, this.options );
-                    }
-                }.bind( this ),
-                function ( error ) {
-                    $scope.$emit( this.pomsEvents.error, error )
-                }.bind( this )
-            );
 
             $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
@@ -71,22 +56,9 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                             concept = message.concept;
                             if (concept.objectType === "geographicname") {
                                 var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
-                                if (parsedGeoLocation.role) {
-                                    this.mediaService.addGeoLocation(this.media, parsedGeoLocation).then(
-                                        function () {
-                                            load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
-                                        }.bind(this),
-                                        function (error) {
-                                            if (error.violations) {
-                                                for (var violation in  error.violations) {
-                                                    this.$scope.errorText = error.violations[violation];
-                                                    break;
-                                                }
-                                            } else {
-                                                this.$scope.$emit(this.pomsEvents.error, error);
-                                            }
-                                        }.bind(this)
-                                    )
+                                this.saveGeoLocation(parsedGeoLocation);
+                                if(this.items.owner.text !== this.currentOwnerType ){
+                                 this.saveGeoLocationsCopy();
                                 }
                             } else {
                                 throw "unrecognized type";
@@ -106,8 +78,24 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             },
 
-            editGeoLocation: function ( item ) {
-                this.addGeoLocation( item );
+            saveGeoLocation: function (parsedGeoLocation) {
+                if (parsedGeoLocation.role) {
+                    this.mediaService.addGeoLocation(this.media, parsedGeoLocation).then(
+                        function () {
+                            load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
+                        }.bind(this),
+                        function (error) {
+                            if (error.violations) {
+                                for (var violation in  error.violations) {
+                                    this.$scope.errorText = error.violations[violation];
+                                    break;
+                                }
+                            } else {
+                                this.$scope.$emit(this.pomsEvents.error, error);
+                            }
+                        }.bind(this)
+                    )
+                }
             },
 
             parseGeoLocation: function (concept, role) {
@@ -121,7 +109,10 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             },
 
             removeGeoLocation: function ( geoLocation ) {
-
+                if(this.items.owner.text !== this.currentOwnerType ){
+                  _.remove(this.items.geoLocations, function (item) { return item.gtaaUri === geoLocation.gtaaUri })
+                  return this.saveGeoLocationsCopy();
+                }
                 return this.mediaService.removeGeoLocation( this.$scope.media, geoLocation ).then(
                     function () {
                         load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
@@ -136,6 +127,16 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         return true;
                     }.bind( this )
                 );
+            },
+
+            saveGeoLocationsCopy: function () {
+              var copyGeoLocations =
+                _.map(this.items.geoLocations,
+                  function(geoLocation) {
+                    delete geoLocation.id;
+                    return geoLocation;}
+                )
+              copyGeoLocations.map(this.saveGeoLocation.bind(this))
             }
 
         };

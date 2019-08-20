@@ -7,27 +7,20 @@
      'waiting': waiting}"
      ng-show="geoLocationsController.mayRead" save-feedback>
 
-    <h2 class="small-header"> {{header}} </h2>
+    <h2 class="small-header"> {{header}}
+        <span ng-if="geoLocationsController.items.owner.id !== geoLocationsController.currentOwnerType" class="media-field-owner">
+            bron: {{geoLocationsController.items.owner.id}}
+        </span>
+    </h2>
 
     <div class="editfield">
 
-        <div ng-repeat="item in geoLocationsController.items" class="media-concept">
+        <div ng-repeat="item in geoLocationsController.items.geoLocations" class="media-concept">
 
             {{item.role.text}}: {{item.name}}
             <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
                 {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
             </span>
-
-
-            <button title='koppel locatie aan GTAA record' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-concept-link"
-                    ng-click="geoLocationsController.editGeoLocation( item )">
-                koppel
-            </button>
-
-            <button title='edit locatie' ng-if="geoLocationsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-concept-edit"
-                    ng-click="geoLocationsController.editGeoLocation( item )" >
-                edit
-            </button>
 
             <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
             </span>
