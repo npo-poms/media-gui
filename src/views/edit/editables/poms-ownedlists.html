@@ -2,14 +2,18 @@
      class="editfield-wrapper editfield-uiselect"
      ng-click="ownedListsController.showEditElement($event, mayWrite)"
      ng-keyup="keyEvent($event)"
-     ng-class="{ 'empty' : !ownedListsController.values.length,
+     ng-class="{ 'empty' : !ownedListsController.items.length,
         'may-write' : ownedListsController.mayWrite,
         'forbidden': !ownedListsController.mayWrite,
         'opened' : ownedListsController.isOpen,
         'waiting': ownedListsController.waiting }"
      save-feedback >
 
-    <h2 class="small-header">{{header}}</h2>
+    <h2 class="small-header">{{header}}
+        <span ng-if="ownedListsController.items.owner.id !== ownedListsController.currentOwnerType" class="media-field-owner">
+            bron: {{ownedListsController.items.owner.id}}
+        </span>
+    </h2>
 
     <div ng-show="ownedListsController.isOpen" class="ui-select" style="max-height:400px;">
 
@@ -35,8 +39,8 @@
     </div>
 
     <div ng-show="!ownedListsController.isOpen">
-        <span ng-repeat="item in ownedListsController.values">
-            {{item.text}}{{$last ? '' : ', '}}
+        <span ng-repeat="value in ownedListsController.items.values">
+            {{value.text}}{{$last ? '' : ', '}}
         </span>
     </div>
 

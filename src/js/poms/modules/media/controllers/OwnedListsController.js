@@ -6,6 +6,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
     '$timeout',
     'PomsEvents',
     'MediaService',
+    'EditorService',
     'ListService',
     'EditFieldService',
     (function () {
@@ -35,7 +36,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
         function OwnedListsController (
           $scope, $q, $sce, $modal, $timeout,
-          pomsEvents, mediaService, listService, editFieldService ) {
+          pomsEvents, mediaService, editorService, listService, editFieldService ) {
 
             this.uiSelect = [];
 
@@ -45,17 +46,17 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             this.$modal = $modal;
             this.$timeout = $timeout;
             this.media = $scope.media;
-            this.values = [];
+            this.items = [];
 
             this.options = [];
-            this.preSelectedItems = [];
             this.isOpen = false;
             this.editFieldService = editFieldService;
             this.mayWrite = mediaService.hasWritePermission( this.media, this.$scope.name );
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
+            this.currentOwnerType = editorService.getCurrentOwnerType();
 
-            doLoad( this.mediaService , this.$scope, this.media, this.values, pomsEvents);
+            doLoad( this.mediaService , this.$scope, this.media, this.items, pomsEvents);
 
             doLoadOptions ( listService, this.$scope, this.options, pomsEvents );
         }
@@ -145,15 +146,15 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                     e.stopPropagation();
                 }
 
-                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values ) ){
+                if ( angular.equals( data, this.items ) || (data.length === 0 && !this.items ) ){
                     this.close();
                     return; // no change
                 }
-                var methodName = this.$scope.save;
-                this.mediaService[methodName]( this.media, data ).then(
+                var saveMethodName = this.$scope.save;
+                this.mediaService[saveMethodName]( this.media, data ).then(
                     function ( result ) {
 
-                        doLoad( this.mediaService, this.$scope, this.media, this.values, this.pomsEvents );
+                        doLoad( this.mediaService, this.$scope, this.media, this.items, this.pomsEvents );
                         deferred.resolve( false );
                         this.isOpen = false;
                         this.$scope.waiting = false;
@@ -185,7 +186,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                 var data = this.uiSelect.selected;
 
-                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values) ) {
+                if ( angular.equals( data, this.items ) || (data.length === 0 && !this.items) ) {
                     this.close();
 
                 }else{
