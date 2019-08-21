@@ -10,7 +10,7 @@
      save-feedback >
 
     <h2 class="small-header">{{header}}
-        <span ng-if="ownedListsController.items.owner.id !== ownedListsController.currentOwnerType" class="media-field-owner">
+        <span ng-if="ownedListsController.items.owner.id && ownedListsController.items.owner.id !== ownedListsController.currentOwnerType" class="media-field-owner">
             bron: {{ownedListsController.items.owner.id}}
         </span>
     </h2>

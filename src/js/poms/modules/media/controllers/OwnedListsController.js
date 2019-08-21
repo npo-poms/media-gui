@@ -38,6 +38,8 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
           $scope, $q, $sce, $modal, $timeout,
           pomsEvents, mediaService, editorService, listService, editFieldService ) {
 
+            this.options = [];
+            this.items = {};
             this.uiSelect = [];
 
             this.$scope = $scope;
@@ -46,9 +48,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             this.$modal = $modal;
             this.$timeout = $timeout;
             this.media = $scope.media;
-            this.items = [];
 
-            this.options = [];
             this.isOpen = false;
             this.editFieldService = editFieldService;
             this.mayWrite = mediaService.hasWritePermission( this.media, this.$scope.name );
@@ -73,14 +73,14 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                     this.mediaService[this.$scope.load]( this.media ).then(
                         function ( data ) {
-
+                            const values = data.values;
                             this.$scope.selectedItems = {
                                 selected :[]
                             };
 
-                            for ( var i = 0; i < data.length; i ++ ) {
+                            for ( var i = 0; i < values.length; i ++ ) {
                                 for ( var j = 0; j < this.options.length; j ++ ) {
-                                    if ( this.options[j].id === data[i].id ) {
+                                    if ( this.options[j].id === values[i].id ) {
                                         this.$scope.selectedItems.selected.push( this.options[j] );
                                     }
                                 }
@@ -146,7 +146,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                     e.stopPropagation();
                 }
 
-                if ( angular.equals( data, this.items ) || (data.length === 0 && !this.items ) ){
+                if ( angular.equals( data, this.items.values ) || (data.length === 0 && !this.items.values ) ){
                     this.close();
                     return; // no change
                 }
@@ -186,7 +186,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                 var data = this.uiSelect.selected;
 
-                if ( angular.equals( data, this.items ) || (data.length === 0 && !this.items) ) {
+                if ( angular.equals( data, this.items.values ) || (data.length === 0 && !this.items.values) ) {
                     this.close();
 
                 }else{
