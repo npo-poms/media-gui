@@ -110,7 +110,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             removeGeoLocation: function ( geoLocation ) {
                 if(this.items.owner.text !== this.currentOwnerType ){
-                  _.remove(this.items.geoLocations, function (item) { return item.gtaaUri === geoLocation.gtaaUri })
+                  _.remove(this.items.values, function (item) { return item.gtaaUri === geoLocation.gtaaUri })
                   return this.saveGeoLocationsCopy();
                 }
                 return this.mediaService.removeGeoLocation( this.$scope.media, geoLocation ).then(
@@ -131,11 +131,11 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             saveGeoLocationsCopy: function () {
               var copyGeoLocations =
-                _.map(this.items.geoLocations,
+                _.map(this.items.values,
                   function(geoLocation) {
                     delete geoLocation.id;
                     return geoLocation;}
-                )
+                );
               copyGeoLocations.map(this.saveGeoLocation.bind(this))
             }
 

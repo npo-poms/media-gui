@@ -15,7 +15,7 @@
 
     <div class="editfield">
 
-        <div ng-repeat="item in geoLocationsController.items.geoLocations" class="media-concept">
+        <div ng-repeat="item in geoLocationsController.items.values" class="media-concept">
 
             {{item.role.text}}: {{item.name}}
             <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
