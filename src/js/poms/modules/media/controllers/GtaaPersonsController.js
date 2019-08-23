@@ -47,7 +47,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
         GtaaPersonsController.prototype = {
 
-            addPerson: function () {
+            addPerson: function (item) {
 
                 gtaa.open(
                     function ( message ) {
@@ -83,6 +83,10 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                         //value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'person',
+                        id: item.gtaaUri,
+                        givenName: item.givenName,
+                        familyName: item.familyName,
+                        role: item.role.id,
                         jwt: this.editorService.getCurrentEditor().gtaaJws,
                         jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration
                     }

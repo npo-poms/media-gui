@@ -19,17 +19,13 @@
             </span>
 
 
-            <button title='koppel persoon aan GTAA record' ng-if="gtaaPersonsController.mayWrite && !item.gtaaUri && gtaaPermission" class="media-concept-link"
-                    ng-click="gtaaPersonsController.editPerson( item )">
-                koppel
-            </button>
-
-            <button title='edit persoon' ng-if="gtaaPersonsController.mayWrite && !item.gtaaUri && !gtaaPermission" class="media-concept-edit"
+            <button title='edit persoon' ng-if="gtaaPersonsController.mayWrite" class="media-concept-edit"
                     ng-click="gtaaPersonsController.editPerson( item )" >
                 edit
             </button>
 
-            <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
+            <span ng-if="item.gtaaUri" title='{{item.gtaaStatus }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaStatus}}'>
+                {{item.gtaaStatus}}
             </span>
 
             <button ng-if="gtaaPersonsController.mayWrite" class="media-concept-remove"

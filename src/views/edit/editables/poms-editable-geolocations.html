@@ -22,7 +22,7 @@
                 {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
             </span>
 
-            <span ng-if="gtaaPermission && item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
+            <span ng-if="item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
             </span>
 
             <button ng-if="geoLocationsController.mayWrite" class="media-concept-remove"
