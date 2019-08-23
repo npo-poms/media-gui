@@ -47,7 +47,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
         GtaaPersonsController.prototype = {
 
-            addPerson: function (item) {
+            editPerson: function (item) {
 
                 gtaa.open(
                     function ( message ) {
@@ -55,6 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                             concept = message.concept;
                             if (concept.objectType === "person") {
                                 var parsedPerson = this.parsePerson(concept, message.role);
+                                parsedPerson.id = item.id;
                                 if (parsedPerson.role) {
                                     this.mediaService.setPerson(this.media, parsedPerson).then(
                                         function () {
@@ -71,6 +72,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                                             }
                                         }.bind(this)
                                     )
+                                } else {
+                                    console.log("No role!");
                                 }
                             } else {
                                 throw "unrecognized type";
@@ -83,10 +86,10 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                         //value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'person',
-                        id: item.gtaaUri,
-                        givenName: item.givenName,
-                        familyName: item.familyName,
-                        role: item.role.id,
+                        id: item ? item.gtaaUri : null,
+                        givenName: item ? item.givenName : null,
+                        familyName: item ? item.familyName : null,
+                        role: item && item.role ? item.role.id : null,
                         jwt: this.editorService.getCurrentEditor().gtaaJws,
                         jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration
                     }
@@ -94,8 +97,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
             },
 
-            editPerson: function ( item ) {
-                this.addPerson( item );
+            addPerson: function ( item ) {
+                this.editPerson( item );
             },
 
             parsePerson: function (person, role) {
