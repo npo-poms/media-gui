@@ -9,11 +9,11 @@
         'waiting': ownedListsController.waiting }"
      save-feedback >
 
-    <h2 class="small-header">{{header}}
+    <h2 class="small-header">
+        {{header}}
         <span ng-if="ownedListsController.items.owner.id !== ownedListsController.currentOwnerType" class="media-field-owner">
             bron: {{ownedListsController.items.owner.id}}
         </span>
-        {{ ownedListsController.items}
         <span
                 ng-if="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType" class="media-field-owner">
             <a ng-click="ownedListsController.removeOverride()">verwijder overschrijving</a>

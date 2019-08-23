@@ -73,7 +73,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                     this.mediaService[this.$scope.load]( this.media ).then(
                         function ( data ) {
-                            const values = data.values;
+                            var values = data.values;
                             this.$scope.selectedItems = {
                                 selected :[]
                             };
