@@ -58,7 +58,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                                 var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
                                 this.saveGeoLocation(parsedGeoLocation);
                                 if(this.items.owner.text !== this.currentOwnerType ){
-                                 this.saveGeoLocationsCopy();
+                                    this.saveGeoLocationsCopy();
                                 }
                             } else {
                                 throw "unrecognized type";
