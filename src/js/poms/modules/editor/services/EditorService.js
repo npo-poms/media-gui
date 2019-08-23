@@ -177,7 +177,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
 
             getHashId: function ( userId, prefix ) {
                 var hash = 0;
-                if ( userId.length == 0 ) {
+                if ( userId.length === 0 ) {
                     return hash;
                 }
                 for ( var i = 0; i < userId.length; i ++ ) {
