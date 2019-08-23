@@ -81,20 +81,36 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             saveGeoLocation: function (parsedGeoLocation) {
                 if (parsedGeoLocation.role) {
                     this.mediaService.addGeoLocation(this.media, parsedGeoLocation).then(
-                        function () {
-                            load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
+                        function ( data ) {
+                            angular.copy( data, this.items);
                         }.bind(this),
-                        function (error) {
-                            if (error.violations) {
-                                for (var violation in  error.violations) {
-                                    this.$scope.errorText = error.violations[violation];
-                                    break;
-                                }
-                            } else {
-                                this.$scope.$emit(this.pomsEvents.error, error);
-                            }
+                        function( error) {
+                            this.errorHandler(error);
                         }.bind(this)
                     )
+                }
+            },
+
+            removeOverride: function () {
+                this.mediaService.removeGeoLocations(this.media).then(
+                    function (data) {
+                        angular.copy( data, this.items);
+                    }.bind(this),
+                    function( error) {
+                        this.errorHandler(error);
+                    }.bind(this)
+                )
+
+            },
+
+            errorHandler: function(error) {
+                if (error.violations) {
+                    for (var violation in  error.violations) {
+                        this.$scope.errorText = error.violations[violation];
+                        break;
+                    }
+                } else {
+                    this.$scope.$emit(this.pomsEvents.error, error);
                 }
             },
 
@@ -114,8 +130,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                   return this.saveGeoLocationsCopy();
                 }
                 return this.mediaService.removeGeoLocation( this.$scope.media, geoLocation ).then(
-                    function () {
-                        load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
+                    function (data) {
+                        angular.copy( data, this.items);
                         return true
                     }.bind( this ),
                     function ( error ) {
@@ -130,13 +146,13 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             },
 
             saveGeoLocationsCopy: function () {
-              var copyGeoLocations =
-                _.map(this.items.values,
-                  function(geoLocation) {
-                    delete geoLocation.id;
-                    return geoLocation;}
-                );
-              copyGeoLocations.map(this.saveGeoLocation.bind(this))
+                var copyGeoLocations =
+                    _.map(this.items.values,
+                        function(geoLocation) {
+                            delete geoLocation.id;
+                            return geoLocation;}
+                    );
+                copyGeoLocations.map(this.saveGeoLocation.bind(this))
             }
 
         };

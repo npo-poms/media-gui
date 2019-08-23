@@ -8,8 +8,12 @@
      ng-show="geoLocationsController.mayRead" save-feedback>
 
     <h2 class="small-header"> {{header}}
-        <span ng-if="geoLocationsController.items.owner.id && geoLocationsController.items.owner.id !== geoLocationsController.currentOwnerType" class="media-field-owner">
+        <span ng-if="geoLocationsController.items.owner.id !== geoLocationsController.currentOwnerType" class="media-field-owner">
             bron: {{geoLocationsController.items.owner.id}}
+        </span>
+        <span
+                ng-if="! geoLocationsController.items.virtual && geoLocationsController.items.owner.id === geoLocationsController.currentOwnerType" class="media-field-owner">
+            <a ng-click="geoLocationsController.removeOverride()">verwijder overschrijving</a>
         </span>
     </h2>
 

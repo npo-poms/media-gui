@@ -273,12 +273,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             addGeoLocation: function ( media, geoLocation ) {
-                 console.log("Posting", geoLocation);
-                 return post(media, '/geoLocations', geoLocation);
+                return post(media, '/geoLocations', geoLocation);
             },
 
             removeGeoLocation: function ( media, geoLocation ) {
                 return del( media, '/geoLocations/' + geoLocation.id );
+            },
+            removeGeoLocations: function ( media) {
+                return del(media, '/geoLocations');
             },
 
             getWebsites: function ( media ) {
@@ -312,6 +314,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setIntentions: function ( media, intentions ) {
                 return post( media, '/intentions', intentions );
             },
+            removeIntentions: function ( media) {
+                return del(media, '/intentions');
+            },
+
 
             getTargetGroups: function ( media ) {
                 return get( media, '/targetGroups' );
@@ -319,6 +325,9 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             setTargetGroups: function ( media, targetGroups ) {
                 return post( media, '/targetGroups', targetGroups );
+            },
+            removeTargetGroups: function ( media) {
+                return del(media, '/targetGroups');
             },
 
             getTags: function ( media ) {
