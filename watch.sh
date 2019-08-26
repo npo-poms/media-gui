@@ -13,7 +13,6 @@ localhost=`hostname`
 : ${API_SCHEME:=http}
 : ${API_HOST:=$API_SCHEME://$API_SERVER:$API_PORT}
 
-
 D=$(dirname $BASH_SOURCE)
 DIR=`(cd $D ; pwd)`
 PATH=$DIR/node:$PATH
@@ -30,7 +29,6 @@ if [ $API_SCHEME = 'https' ] ; then
 fi
 
 echo "Using Media Backend API host $API_HOST"
-
 
 echo "Find frontend at $API_SCHEME://$localhost:4000"
 echo "Making backup of $CONSTANTS"
