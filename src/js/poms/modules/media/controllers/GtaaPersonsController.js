@@ -55,7 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                             concept = message.concept;
                             if (concept.objectType === "person") {
                                 var parsedPerson = this.parsePerson(concept, message.role);
-                                parsedPerson.id = item.id;
+                                parsedPerson.id = item ? item.id : null;
                                 if (parsedPerson.role) {
                                     this.mediaService.setPerson(this.media, parsedPerson).then(
                                         function () {
@@ -103,11 +103,11 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
             parsePerson: function (person, role) {
                 return {
-                    givenName: person.givenName || '',
+                    givenName: person.givenName,
                     familyName: person.familyName,
                     scopeNotes: person.scopeNotes,
-                    gtaaStatus: person.status || '',
-                    gtaaUri: person.id || '',
+                    gtaaStatus: person.status,
+                    gtaaUri: person.id,
                     role: role ? role.name : null
                 };
             },

@@ -14,7 +14,12 @@
             <h4>Identiteit</h4>
               <p class="modal-text-small">
                 login: <span class="value">{{editor.id}}</span>, naam: <span class="value">{{editor.text}}</span>, werkgever: <span class="value">{{editor.employer.text}}</span>
+
               </p>
+            <p>
+              <a href="{{editor.accountUrl}}" target="keycloak">Bekijk in SSO</a>
+            </p>
+
            </div>
           <div class="row field ui-select dropdown-wrapper scrollable" ng-if="accountController.allowedBroadcasters.length > 0">
 
