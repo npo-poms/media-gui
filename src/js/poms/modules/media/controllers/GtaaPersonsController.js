@@ -33,7 +33,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
             this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
-
+            this.currentOwnerType = editorService.getCurrentOwnerType();
 
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
 

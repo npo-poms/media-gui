@@ -88,11 +88,11 @@
 }
 
 .media-person-gtaa-candidate {
-    @include icon('person-unapproved', 16px, '0 4px');
+    @include icon('person-unapproved', 16px, '7px 6px');
 }
 
 .media-person-gtaa-approved {
-    @include icon('person-approved', 16px, '0 4px');
+    @include icon('person-approved', 16px, '7px 6px');
 }
 
 .media-person-gtaa-redirected,
@@ -100,5 +100,5 @@
 .media-person-gtaa-rejected,
 .media-person-gtaa-obsolete,
 .media-person-gtaa-deleted {
-    @include icon('person-unapproved', 16px, '0 4px');
+    @include icon('person-unapproved', 16px, '7px 6px');
 }

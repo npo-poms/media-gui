@@ -19,20 +19,22 @@
             </span>
 
 
-            <button title='edit persoon' ng-if="gtaaPersonsController.mayWrite" class="media-concept-edit"
+
+
+            <button name="removePerson" ng-if="gtaaPersonsController.mayWrite" class="media-concept-remove"
+                    poms-confirm="'persoon'"
+                    poms-submit="gtaaPersonsController.removePerson( item )"
+            >
+                verwijder
+            </button>
+
+            <button name="editPerson" title='edit persoon' ng-if="gtaaPersonsController.mayWrite" class="media-concept-edit"
                     ng-click="gtaaPersonsController.editPerson( item )" >
                 edit
             </button>
 
-            <span ng-if="item.gtaaUri" title='{{item.gtaaStatus }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaStatus}}'>
+            <button name="statusPerson" ng-if="item.gtaaUri" title='{{item.gtaaStatus }}' class='media-concept-gtaa media-person-gtaa-{{item.gtaaStatus}}'>
                 {{item.gtaaStatus}}
-            </span>
-
-            <button ng-if="gtaaPersonsController.mayWrite" class="media-concept-remove"
-                    poms-confirm="'persoon'"
-                    poms-submit="gtaaPersonsController.removePerson( item )"
-                    >
-                verwijder
             </button>
 
         </div>

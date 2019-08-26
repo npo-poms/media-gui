@@ -24,14 +24,12 @@
 }
 
 .media-concept-remove {
-    display: none;
+ //   display: none;
     width: 30px;
     height: 30px;
 
     float: right;
-
     margin-top: -3px;
-
     border: 0;
 
     text-indent: -9999px;
@@ -47,9 +45,7 @@
 .media-concept-link {
     width: 24px;
     height: 24px;
-
     border: 0;
-
     cursor: pointer;
 
     text-indent: -9999px;
@@ -57,14 +53,11 @@
 }
 
 .media-concept-edit {
-    display: none;
-    width: 24px;
-    height: 24px;
-
+  //display: none;
+    width: 30px;
+    height: 30px;
     float: right;
-
-    margin-top: 3px;
-
+    margin-top: -3px;
     border: 0;
 
     text-indent: -9999px;
@@ -78,11 +71,12 @@
 }
 
 .media-concept-gtaa {
-    display: none;
-    width: 24px;
-    height: 20px;
+   // display: none;
+    width: 30px;
+    height: 30px;
     float: right;
-
+    margin-top: -3px;
+    border: 0;
     text-indent: -9999px;
 }
 
@@ -91,11 +85,11 @@
 }
 
 .media-concept-gtaa-candidate {
-    @include icon('person-unapproved', 16px, '0 4px');
+    @include icon('circle-unapproved', 16px, '6px 7px');
 }
 
 .media-concept-gtaa-approved {
-    @include icon('person-approved', 16px, '0 4px');
+    @include icon('circle-approved', 16px, '6px 7px');
 }
 
 .media-concept-gtaa-redirected,
@@ -103,5 +97,5 @@
 .media-concept-gtaa-rejected,
 .media-concept-gtaa-obsolete,
 .media-concept-gtaa-deleted {
-    @include icon('person-unapproved', 16px, '0 4px');
+    @include icon('circle-unapproved', 16px, '6px 7px');
 }

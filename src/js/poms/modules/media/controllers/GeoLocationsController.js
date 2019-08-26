@@ -21,7 +21,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
         function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, listService ) {
 
             this.items = [];
-
             this.$scope = $scope;
             this.$q = $q;
             this.$modal = $modal;
@@ -48,7 +47,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
         GeoLocationsController.prototype = {
 
-            addGeoLocation: function () {
+            editGeoLocation: function (item) {
 
                 gtaa.open(
                     function ( message ) {
@@ -56,6 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                             concept = message.concept;
                             if (concept.objectType === "geographicname") {
                                 var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
+                                parsedGeoLocation.id = item ? item.id : null;
                                 this.saveGeoLocation(parsedGeoLocation);
                                 if(this.items.owner.text !== this.currentOwnerType ){
                                     this.saveGeoLocationsCopy();
@@ -71,11 +71,18 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         //value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'geographicname',
+                        name: item ? item.name : null,
+                        scopeNotes: item ? item.scopeNotes : null,
+                        role: item && item.role ? item.role.id : null,
                         jwt: this.editorService.getCurrentEditor().gtaaJws,
                         jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration
                     }
                 );
 
+            },
+
+            addGeoLocation: function ( item ) {
+                this.editGeoLocation( item );
             },
 
             saveGeoLocation: function (parsedGeoLocation) {
