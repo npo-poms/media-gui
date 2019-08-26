@@ -29,7 +29,7 @@
             <span ng-if="item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
             </span>
 
-            <button ng-if="geoLocationsController.mayWrite" class="media-concept-remove"
+            <button name="removeGeoLocation" ng-if="geoLocationsController.mayWrite" class="media-concept-remove"
                     poms-confirm="'locatie'"
                     poms-submit="geoLocationsController.removeGeoLocation( item )"
                     >
@@ -45,7 +45,7 @@
         <poms-help field="{{helpField}}"></poms-help>
     </div>
 
-    <button class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="geoLocationsController.mayWrite" ng-click="geoLocationsController.addGeoLocation()">
+    <button id="addGeoLocation" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="geoLocationsController.mayWrite" ng-click="geoLocationsController.addGeoLocation()">
         locatie toevoegen
     </button>
 
