@@ -32,14 +32,14 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
             // we can only store a string in localStorage, no booleans
             this.$scope.saveconfirm.value = ( this.favoritesService.getSaveConfirm() === 'true' );
 
-            this.ownerType = this.localStorageService.get("ownerType") || "";
+            this.ownerType = this.localStorageService.get("currentOwner") || "";
             this.init();
         }
 
         AccountController.prototype = {
 
             storeOwnerType: function() {
-                this.localStorageService.set('ownerType', this.ownerType);
+                this.localStorageService.set('currentOwner', this.ownerType);
             },
 
             cancel: function () {

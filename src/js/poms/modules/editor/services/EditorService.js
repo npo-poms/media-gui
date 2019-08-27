@@ -80,6 +80,9 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                             if (editor.id) {
                                 localStorageService.set("currentUser", editor.id);
                             }
+                            if(editor.currentOwner) {
+                                localStorageService.set("currentOwner", editor.currentOwner.id);
+                            }
                             editor.hashId = this.getHashId( editor.id, 'user' );
                             editorHolder = editor;
                             roleHolder = editor.role;
@@ -125,13 +128,11 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 return editorHolder;
             },
 
-            getCurrentOwnerType: function () {
-                var ownerType = localStorageService.get( 'ownerType' );
-                if ( ownerType && ownerType.length > 0 ) {
+            getCurrentOwnerType: function() {
+                var ownerType = localStorageService.get('currentOwner');
+                if(ownerType && ownerType.length > 0) {
                     return ownerType;
-                } else if ( this.currentEditorHasRoles( [ 'MIS' ] ) ) {
-                    return 'NPO';
-                } else {
+                }else{
                     return 'BROADCASTER';
                 }
             },
