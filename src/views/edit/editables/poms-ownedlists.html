@@ -1,6 +1,7 @@
 <div id="{{name}}-select"
      class="editfield-wrapper editfield-uiselect"
      ng-keyup="keyEvent($event)"
+     ng-click="ownedListsController.showEditElement($event, mayWrite)"
      ng-class="{ 'empty' : !ownedListsController.items.values.length,
         'may-write' : ownedListsController.mayWrite,
         'forbidden': !ownedListsController.mayWrite,
@@ -14,7 +15,7 @@
             bron: {{ownedListsController.items.owner.id}}
         </span>
         <span ng-if="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType" class="media-field-owner">
-            <a ng-click="ownedListsController.removeOverride()">verwijder overschrijving</a>
+            <a ng-click="ownedListsController.removeOverride($event)">verwijder overschrijving</a>
         </span>
     </h2>
 
@@ -48,9 +49,5 @@
     </div>
 
     <poms-edit-tools may-write="ownedListsController.mayWrite" help-field="{{ownedListsController.helpField}}"></poms-edit-tools>
-
-    <button id="add{{label}}" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="ownedListsController.mayWrite" ng-click="ownedListsController.showEditElement($event, mayWrite)">
-        {{label}} toevoegen
-    </button>
 </div>
 
