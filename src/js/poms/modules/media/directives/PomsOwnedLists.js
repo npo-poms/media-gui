@@ -10,6 +10,7 @@ angular.module( 'poms.media.directives' )
               options: '@',
               load: '@',
               save: '@',
+              removeAll: '@',
               name: '@',
               label: '@'
             },

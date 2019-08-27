@@ -207,9 +207,9 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                 var removeMethodName = this.$scope.removeAll;
                 this.mediaService[removeMethodName](this.media).then(
                     function (data) {
-                        angular.copy( data, this.items);
+                        angular.copy(data, this.items);
                     }.bind(this),
-                    function( error) {
+                    function(error) {
                         this.errorHandler(error);
                     }.bind(this)
                 )

@@ -89,7 +89,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 if (parsedGeoLocation.role) {
                     this.mediaService.addGeoLocation(this.media, parsedGeoLocation).then(
                         function ( data ) {
-                            angular.copy( data, this.items);
+                            angular.copy(data, this.items);
                         }.bind(this),
                         function( error) {
                             this.errorHandler(error);
@@ -101,7 +101,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             removeOverride: function () {
                 this.mediaService.removeGeoLocations(this.media).then(
                     function (data) {
-                        angular.copy( data, this.items);
+                        angular.copy(data, this.items);
                     }.bind(this),
                     function( error) {
                         this.errorHandler(error);
