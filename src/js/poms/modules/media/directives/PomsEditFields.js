@@ -109,7 +109,6 @@ angular.module( 'poms.media.directives' )
                     $scope.minYearValue = 1900;
                 }
 
-
                 // Events //
                 $scope.$on( 'openElement', function ( e, data ) {
                     if ( data.field === $scope.field ) {
@@ -350,6 +349,7 @@ angular.module( 'poms.media.directives' )
 
                             deferred.resolve( false );
                             $scope.waiting = false;
+                            $scope.mayDelete = $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
 
                             $scope.$emit( 'saved' );
                             $scope.nextField( element );
