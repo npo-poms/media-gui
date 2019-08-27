@@ -9,7 +9,7 @@
 
 localhost=`hostname`
 : ${API_PORT:=8071}
-: ${API_SERVER:=$localhost}
+: ${API_SERVER:=localhost}
 : ${API_SCHEME:=http}
 : ${API_HOST:=$API_SCHEME://$API_SERVER:$API_PORT}
 

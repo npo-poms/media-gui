@@ -107,7 +107,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         this.errorHandler(error);
                     }.bind(this)
                 )
-
             },
 
             errorHandler: function(error) {

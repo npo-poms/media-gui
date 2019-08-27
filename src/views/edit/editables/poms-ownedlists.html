@@ -2,7 +2,7 @@
      class="editfield-wrapper editfield-uiselect"
      ng-click="ownedListsController.showEditElement($event, mayWrite)"
      ng-keyup="keyEvent($event)"
-     ng-class="{ 'empty' : !ownedListsController.items.length,
+     ng-class="{ 'empty' : !ownedListsController.items.values.length,
         'may-write' : ownedListsController.mayWrite,
         'forbidden': !ownedListsController.mayWrite,
         'opened' : ownedListsController.isOpen,

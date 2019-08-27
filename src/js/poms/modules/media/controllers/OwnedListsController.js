@@ -202,6 +202,17 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                     ) ;
                 }
 
+            },
+            removeOverride: function () {
+                var removeMethodName = this.$scope.removeAll;
+                this.mediaService[removeMethodName](this.media).then(
+                    function (data) {
+                        angular.copy( data, this.items);
+                    }.bind(this),
+                    function( error) {
+                        this.errorHandler(error);
+                    }.bind(this)
+                )
             }
         };
 
