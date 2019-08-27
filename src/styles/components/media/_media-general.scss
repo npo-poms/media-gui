@@ -449,6 +449,22 @@
         @include icon('edit');
     }
 
+
+    .remove-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        position: relative;
+
+        @include icon('remove-disabled');
+
+        &:hover {
+            @include icon('remove_hover');
+        }
+
+    }
+
     .preview-icon {
         display: inline-block;
         width: 18px;

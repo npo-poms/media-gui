@@ -173,7 +173,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 )
             },
 
-            mayRemove: function ( memberRef, data ) {
+            mayDelete: function ( memberRef, data ) {
                 return this.mediaService.hasDeletePermission( memberRef );
             },
             sortable: function(media) {

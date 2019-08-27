@@ -77,9 +77,8 @@ angular.module( 'poms.media.directives' )
                 $scope.currentOwnerType = editorService.getCurrentOwnerType();
 
                 $scope.mayRead = this.editService.hasReadPermission( $scope.media, $scope.field );
-
-                $scope.mayWrite =
-                    this.editService.hasWritePermission($scope.media, $scope.field);
+                $scope.mayWrite = this.editService.hasWritePermission($scope.media, $scope.field);
+                $scope.mayDelete = $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
 
                 $scope.classes = "";
                 $scope.titleclasses = "";
@@ -88,8 +87,6 @@ angular.module( 'poms.media.directives' )
                     $scope.titleclasses = "media-static-field-title";
                 }
 
-                //console.log($scope.field, $scope.mayWrite);
-
                 function formatDateForEdit(date) {
                    return $filter("withTimezone")(date);
                 }
@@ -97,6 +94,11 @@ angular.module( 'poms.media.directives' )
                 function formatDateForDisplay(date) {
                    return $filter("mediaDuration")(date);
                 }
+
+                function isCurrentOwner( media, field ){
+                    return ( media[field] && media[field].owner && media[field].owner === $scope.currentOwnerType) ;
+                }
+
                 if ( $scope.fieldType === 'duration' ) {
                     // ridiculous hacks to reuse date editors for durations
                     $scope.editableDuration =  formatDateForEdit($scope.media[$scope.field].inMillis);
@@ -189,6 +191,11 @@ angular.module( 'poms.media.directives' )
                     }
 
                     $scope.goToField = false;
+                };
+
+                $scope.delete = function () {
+                    $scope.field.text = '';
+                    $scope.save();
                 };
 
                 $scope.save = function ( data ) {
@@ -367,8 +374,8 @@ angular.module( 'poms.media.directives' )
                 }.bind(this);
 
                 $scope.showOwner = function( media, field ){
-                    return ( media[field] && media[field].owner && media[field].owner !== $scope.currentOwnerType) ;
-                }
+                    return !isCurrentOwner( media, field );
+                };
 
             }
         };
