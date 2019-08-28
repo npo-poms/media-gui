@@ -124,23 +124,30 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 }
             },
 
+            /**
+             * Checks whether the current user has at least one of the given roles
+             */
             currentEditorHasRoles: function ( roles ) {
 
 //                console.log("check:" + roles);
 //                console.log(rolesHolder);
 
+                // I'd say: simply return false, because that is logical thing to do
                 if(_.isEmpty(roles) ){
                   throw new Error("We expect to check permission on at least one role");
                 }
                 if(_.isEmpty(rolesHolder)){
                   return false;
                 }
+
+                // I'd say that the code below contains a bug, if the above to cases will not come out of it naturally.
+
                 var result = _.find(rolesHolder, function(roleHolder) {
                     return _.some(roles, function(role) {
                         return 'MEDIA_' + role === roleHolder;
                     });
                 });
-
+                // I think 'result' is an array now? So we use javascript implicit interpreting stuff as booleans?
 //                console.log("res:" + result);
                 return result;
             },
