@@ -137,7 +137,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 }
                 var result = _.find(rolesHolder, function(roleHolder) {
                     return _.some(roles, function(role) {
-                        return role === roleHolder;
+                        return 'MEDIA_' + role === roleHolder;
                     });
                 });
 
