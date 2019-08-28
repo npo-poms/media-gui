@@ -9,21 +9,8 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     function ( $q, $rootScope, $http, $modal, appConfig, pomsEvents, localStorageService ) {
 
         var baseUrl = appConfig.apihost + '/gui/editor',
-            roleHolder = 0,
-            editorHolder = {},
-            permissions = {
-                'EXTERNAL': 1 << 0,
-                'SUPPORT': 1 << 1,
-                'USER': 1 << 2,
-                'SUPERUSER': 1 << 3,
-                'ADMIN': 1 << 4,
-                'SUPERADMIN': 1 << 5,
-                'GTAAUSER': 1 << 15,
-                'UPLOAD': 1 << 16,
-                'ENCODER': 1 << 17,
-                'MIS': 1 << 18,
-                'SCREENUSER': 1 << 24
-            };
+            rolesHolder = [],
+            editorHolder = {};
 
         function getOrganisations ( path ) {
             var deferred = $q.defer(),
@@ -85,7 +72,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                             }
                             editor.hashId = this.getHashId( editor.id, 'user' );
                             editorHolder = editor;
-                            roleHolder = editor.role;
+                            rolesHolder = editor.roles;
                             delete editor.role;
 
                             deferred.resolve(editor);
@@ -138,17 +125,24 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             currentEditorHasRoles: function ( roles ) {
-                var bits = 0;
 
-                for ( var i = 0; i < roles.length; i ++ ) {
-                    var role = roles[i];
-                    var permission = permissions[role];
-                    if ( permission ) {
-                        bits |= permission;
-                    }
+//                console.log("check:" + roles);
+//                console.log(rolesHolder);
+
+                if(_.isEmpty(roles) ){
+                  throw new Error("We expect to check permission on at least one role");
                 }
+                if(_.isEmpty(rolesHolder)){
+                  return false;
+                }
+                var result = _.find(rolesHolder, function(roleHolder) {
+                    return _.some(roles, function(role) {
+                        return role === roleHolder;
+                    });
+                });
 
-                return (roleHolder & bits) !== 0;
+//                console.log("res:" + result);
+                return result;
             },
 
             setAccount: function ( account ) {
@@ -186,9 +180,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     hash = hash & hash; // Convert to 32bit integer
                 }
                 return prefix + Math.abs(hash);
-
             }
-
         };
 
         return new EditorService();

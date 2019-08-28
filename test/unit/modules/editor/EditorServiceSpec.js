@@ -13,7 +13,6 @@ describe('EditorService', function() {
             "get": function(key) {
                 return null;
             }
-
         });
     }));
 
@@ -32,18 +31,14 @@ describe('EditorService', function() {
     describe('Current editor has roles', function() {
 
         it('should return false on a non existing role', function() {
-            var data = {"id" : "1", "role" : 1 << 0};
-
+            var data = {"id" : "1", "roles" : ['EXTERNAL']};
             mockBackend.expectGET('api/gui/editor').respond(data);
-
-            expect(target.currentEditorHasRoles(['FANTASY_ROLE'])).toBeFalsy();
-
             mockBackend.flush();
+            expect(target.currentEditorHasRoles(['FANTASY_ROLE'])).toBeFalsy();
         });
 
         it('should return false when the editor is not loaded', function() {
-            var data = {"id" : "1", "role" : 1 << 0};
-
+            var data = {"id" : "1", "roles" : ['EXTERNAL']};
             mockBackend.expectGET('api/gui/editor').respond(data);
 
             expect(target.currentEditorHasRoles(['EXTERNAL'])).toBeFalsy();
@@ -52,7 +47,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'EXTERNAL\'', function() {
-            var data = {"id" : "1", "role" : 1 << 0};
+            var data = {"id" : "1", "roles" : ['EXTERNAL']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -61,7 +56,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'SUPPORT\'', function() {
-            var data = {"id" : "1", "role" : 1 << 1};
+            var data = {"id" : "1", "roles" : ['SUPPORT']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -70,7 +65,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'USER\'', function() {
-            var data = {"id" : "1", "role" : 1 << 2};
+            var data = {"id" : "1", "roles" : ['USER']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -79,7 +74,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'SUPERUSER\'', function() {
-            var data = {"id" : "1", "role" : 1 << 3};
+            var data = {"id" : "1", "roles" : ['SUPERUSER']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -88,7 +83,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'ADMIN\'', function() {
-            var data = {"id" : "1", "role" : 1 << 4};
+            var data = {"id" : "1", "roles" : ['ADMIN']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -97,7 +92,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'SUPERADMIN\'', function() {
-            var data = {"id" : "1", "role" : 1 << 5};
+            var data = {"id" : "1", "roles" : ['SUPERADMIN']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -106,7 +101,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'UPLOAD\'', function() {
-            var data = {"id" : "1", "role" : 1 << 16};
+            var data = {"id" : "1", "roles" : ['UPLOAD']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -115,7 +110,7 @@ describe('EditorService', function() {
         });
 
         it('should return true on role: \'ENCODER\'', function() {
-            var data = {"id" : "1", "role" : 1 << 17};
+            var data = {"id" : "1", "roles" : ['ENCODER']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
@@ -124,12 +119,31 @@ describe('EditorService', function() {
         });
 
         it('should return true when only one role matches', function() {
-            var data = {"id" : "1", "role" : 1 << 2}; // USER
+            var data = {"id" : "1", "roles" : ['USER']};
 
             mockBackend.expectGET('api/gui/editor').respond(data);
             mockBackend.flush();
 
             expect(target.currentEditorHasRoles(['USER', 'ADMIN'])).toBeTruthy();
+        });
+
+        it('should return false when user has no roles', function() {
+            var data = {"id" : "1", "roles" : []};
+            console.log("Roles");
+            mockBackend.expectGET('api/gui/editor').respond(data);
+            mockBackend.flush();
+
+            expect(target.currentEditorHasRoles(['USER', 'ADMIN'])).toBeFalsy();
+        });
+
+        it('should return exception when checking on empty roles', function() {
+            var data = {"id" : "1", "roles" : ['USER']};
+            console.log("Roles");
+            mockBackend.expectGET('api/gui/editor').respond(data);
+            mockBackend.flush();
+
+            expect(function () {target.currentEditorHasRoles([]) })
+              .toThrow(new Error("We expect to check permission on at least one role"));
         });
     });
 
@@ -174,7 +188,6 @@ describe('EditorService', function() {
                     });
 
             mockBackend.flush();
-
             expect(result).toEqual(data);
         });
     });
