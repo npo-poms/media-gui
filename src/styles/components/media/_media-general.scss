@@ -465,6 +465,21 @@
 
     }
 
+    .remove-override-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        position: relative;
+
+        @include icon('remove-override-disabled');
+
+        &:hover {
+            @include icon('remove-override');
+        }
+
+    }
+
     .preview-icon {
         display: inline-block;
         width: 18px;
