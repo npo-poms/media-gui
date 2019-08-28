@@ -78,7 +78,7 @@ angular.module( 'poms.media.directives' )
 
                 $scope.mayRead = this.editService.hasReadPermission( $scope.media, $scope.field );
                 $scope.mayWrite = this.editService.hasWritePermission($scope.media, $scope.field);
-                $scope.mayDelete = mayDelete();
+                $scope.mayRemoveOverride = mayRemoveOverride();
                 $scope.isEmpty = isEmpty();
 
                 $scope.classes = "";
@@ -104,7 +104,7 @@ angular.module( 'poms.media.directives' )
                     return ( ! $scope.media[$scope.field] || angular.equals( {}, $scope.media[$scope.field] ) || ( $scope.media[$scope.field] && !$scope.media[$scope.field].text));
                 }
 
-                function mayDelete () {
+                function mayRemoveOverride () {
                     return !isEmpty() && $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
                 }
 
@@ -197,7 +197,7 @@ angular.module( 'poms.media.directives' )
                     $scope.goToField = false;
                 };
 
-                $scope.delete = function () {
+                $scope.removeOverride = function () {
                     $scope.media[$scope.field].text = '';
                     $scope.save();
                 };
@@ -354,7 +354,7 @@ angular.module( 'poms.media.directives' )
 
                             deferred.resolve( false );
                             $scope.waiting = false;
-                            $scope.mayDelete = mayDelete();
+                            $scope.mayRemoveOverride = mayRemoveOverride();
                             $scope.isEmpty = isEmpty();
 
                             $scope.$emit( 'saved' );

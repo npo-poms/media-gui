@@ -14,9 +14,6 @@
         <span ng-if="ownedListsController.items && ownedListsController.items.owner.id !== ownedListsController.currentOwnerType" class="media-field-owner">
             bron: {{ownedListsController.items.owner.id}}
         </span>
-        <span ng-if="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType" class="media-field-owner">
-            <a ng-click="ownedListsController.removeOverride($event)">verwijder overschrijving</a>
-        </span>
     </h2>
 
     <div ng-show="ownedListsController.isOpen" class="ui-select" style="max-height:400px;">
@@ -48,6 +45,6 @@
         </span>
     </div>
 
-    <poms-edit-tools may-write="ownedListsController.mayWrite" help-field="{{ownedListsController.helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="ownedListsController.mayWrite" may-remove-override="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType" delete-scope="ownedListsController" help-field="{{ownedListsController.helpField}}" ></poms-edit-tools>
 </div>
 

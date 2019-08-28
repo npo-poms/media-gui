@@ -4,6 +4,7 @@
     background-position: if(type_of($position) == string, unquote($position), $position);
     background-repeat: no-repeat;
     background-image: url('../resources/icons/' + $name + '.svg');
+    cursor: pointer;
 
     @if $size != '' {
         background-size: $size $size;

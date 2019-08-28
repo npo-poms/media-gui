@@ -13,7 +13,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
         get = function ( media, path, config ) {
             var deferred = $q.defer();
             var url = baseUrl + '/' + media.mid + path;
-            $http.get(url, config )
+            $http.get( url, config )
                 .success( function ( result ) {
                     deferred.resolve( result );
                 } )
@@ -86,25 +86,25 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasReadPermission: function ( media, permission ) {
-                return media.permissions['READ'];
+                return media.permissions[ 'READ' ];
             },
 
             hasWritePermission: function ( media, permission ) {
-                if (media && media[permission] && media[permission].mayWrite !== undefined) {
+                if ( media && media[ permission ] && media[ permission ].mayWrite !== undefined ) {
                     // explicitely indicated in field
-                    return media[permission].mayWrite;
+                    return media[ permission ].mayWrite;
                 } else {
                     // fall back to stuff with bitmap
-                    return media.permissions['WRITE'];
+                    return media.permissions[ 'WRITE' ];
                 }
             },
 
             hasDeletePermission: function ( media ) {
-                return media.permissions['DELETE'];
+                return media.permissions[ 'DELETE' ];
             },
 
             hasMergePermission: function ( media ) {
-                return media.permissions['MERGE'] &&
+                return media.permissions[ 'MERGE' ] &&
                     media.mergedFrom.length === 0; // TODO: This could have been checked in MediaPermissionEvaluator (check if it isn't yet)
             },
 
@@ -124,7 +124,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             load: function ( mid ) {
                 var deferred = $q.defer();
-                $http.get( baseUrl + '/' + mid)
+                $http.get( baseUrl + '/' + mid )
                     .success( function ( media ) {
                         deferred.resolve( media );
                     } )
@@ -139,7 +139,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return del( media, '' )
             },
 
-            getOwnerData: function ( media , owner) {
+            getOwnerData: function ( media, owner ) {
                 return get( media, '/ownerData/' + owner );
             },
 
@@ -167,62 +167,62 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             setTitle: function ( media, type, text ) {
-                if ( ! text || text === "" ) {
+                if ( !text || text === "" ) {
                     return del( media, '/titles/' + type );
                 }
-                var data = {'type': type, 'text': text};
-                return post( media, '/titles',  data);
+                var data = { 'type': type, 'text': text };
+                return post( media, '/titles', data );
             },
 
-
             setDescription: function ( media, type, text ) {
-                if ( ! text || text === "" ) {
+                if ( !text || text === "" ) {
                     return del( media, '/descriptions/' + type );
                 }
-                return post( media, '/descriptions', {'type': type, 'text': text} );
+                return post( media, '/descriptions', { 'type': type, 'text': text } );
             },
 
             setPublication: function ( media, data ) {
-                if ( ! data || ( ! data.start && ! data.stop ) ) {
+                if ( !data || ( !data.start && !data.stop ) ) {
                     return del( media, '/publication/' );
                 }
                 return post( media, '/publication', data );
             },
 
             setDuration: function ( media, data ) {
-                if ( ! data ) {
+                if ( !data ) {
                     return del( media, '/duration/' );
                 }
-                return post( media, '/duration', {'duration': data} );
+                return post( media, '/duration', { 'duration': data } );
             },
 
             setEmbeddable: function ( media, embeddable ) {
-                return post( media, '/embeddable', {'value': embeddable} );
+                return post( media, '/embeddable', { 'value': embeddable } );
             },
 
-            setIsDubbed: function (media, isDubbed) {
-                return post(media, '/isdubbed', {'value': isDubbed});
+            setIsDubbed: function ( media, isDubbed ) {
+                return post( media, '/isdubbed', { 'value': isDubbed } );
             },
+
             setOrdered: function ( media, ordered ) {
-                return post( media, '/ordered', {'value': ordered} );
+                return post( media, '/ordered', { 'value': ordered } );
             },
 
             setYear: function ( media, data ) {
-                if ( ! data ) {
+                if ( !data ) {
                     return del( media, '/year/' );
                 }
-                return post( media, '/year', {'year': data} );
+                return post( media, '/year', { 'year': data } );
             },
 
             setAgeRating: function ( media, ageRating ) {
-                if ( ! ageRating ) {
+                if ( !ageRating ) {
                     return del( media, '/ageRating/' );
                 }
                 return post( media, '/ageRating', ageRating );
             },
 
             setContentRatings: function ( media, contentRatings ) {
-                if ( ! contentRatings ) {
+                if ( !contentRatings ) {
                     return del( media, '/contentRatings/' );
                 }
                 return post( media, '/contentRatings', contentRatings );
@@ -265,7 +265,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             movePerson: function ( media, from, to ) {
-                return put( media, '/persons', {from: from, to: to} );
+                return put( media, '/persons', { from: from, to: to } );
             },
 
             getGeoLocations: function ( media ) {
@@ -273,14 +273,15 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             addGeoLocation: function ( media, geoLocation ) {
-                return post(media, '/geoLocations', geoLocation);
+                return post( media, '/geoLocations', geoLocation );
             },
 
             removeGeoLocation: function ( media, geoLocation ) {
                 return del( media, '/geoLocations/' + geoLocation.id );
             },
-            removeGeoLocations: function ( media) {
-                return del(media, '/geoLocations');
+
+            removeGeoLocations: function ( media ) {
+                return del( media, '/geoLocations' );
             },
 
             getWebsites: function ( media ) {
@@ -314,10 +315,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setIntentions: function ( media, intentions ) {
                 return post( media, '/intentions', intentions );
             },
-            removeIntentions: function ( media) {
-                return del(media, '/intentions');
-            },
 
+            removeIntentions: function ( media ) {
+                return del( media, '/intentions' );
+            },
 
             getTargetGroups: function ( media ) {
                 return get( media, '/targetGroups' );
@@ -326,8 +327,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setTargetGroups: function ( media, targetGroups ) {
                 return post( media, '/targetGroups', targetGroups );
             },
-            removeTargetGroups: function ( media) {
-                return del(media, '/targetGroups');
+
+            removeTargetGroups: function ( media ) {
+                console.log( 'remove' )
+                return del( media, '/targetGroups' );
             },
 
             getTags: function ( media ) {
@@ -347,7 +350,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             moveImage: function ( media, from, to ) {
-                return put( media, '/images', {from: from, to: to} );
+                return put( media, '/images', { from: from, to: to } );
             },
 
             removeImage: function ( media, image ) {
@@ -357,7 +360,6 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             getLocations: function ( media ) {
                 return get( media, '/locations' );
             },
-
 
             saveLocation: function ( media, location ) {
                 return post( media, '/locations', location );
@@ -372,7 +374,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             savePrediction: function ( media, prediction ) {
-                return post( media, '/prediction', prediction);
+                return post( media, '/prediction', prediction );
             },
 
             getSegments: function ( media ) {
@@ -392,7 +394,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             moveEpisode: function ( media, from, to ) {
-                return put( media, '/episodes', {from: from, to: to} );
+                return put( media, '/episodes', { from: from, to: to } );
             },
 
             updateEpisode: function ( media, episode ) {
@@ -420,7 +422,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             moveMember: function ( media, from, to ) {
-                return put( media, '/members', {from: from, to: to} );
+                return put( media, '/members', { from: from, to: to } );
             },
 
             updateMember: function ( media, member ) {
@@ -440,7 +442,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             addMemberOf: function ( media, mids ) {
-               return post( media, '/memberOf', mids );
+                return post( media, '/memberOf', mids );
             },
 
             getRelations: function ( media ) {
@@ -460,14 +462,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             saveScheduleEvent: function ( media, scheduleEvent ) {
-                return post( media, '/scheduleevents/'  + scheduleEvent.id  , scheduleEvent );
+                return post( media, '/scheduleevents/' + scheduleEvent.id, scheduleEvent );
             },
 
             getHistory: function ( media, offset, max ) {
-                return get( media, '/history', {params: {offset: offset || 0, max: max || 30}} );
+                return get( media, '/history', { params: { offset: offset || 0, max: max || 30 } } );
             },
 
-            tooManyDescendants : function ( type, error, message ) {
+            tooManyDescendants: function ( type, error, message ) {
 
                 return $modal.open( {
                     templateUrl: 'media/modal-too-many-descendants.html',

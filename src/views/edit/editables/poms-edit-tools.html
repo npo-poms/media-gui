@@ -1,6 +1,6 @@
 <div class="media-field-tools">
     <div ng-if="mayWrite" class="edit-icon"></div>
     <div ng-if="!mayWrite" class="forbidden-icon"></div>
-    <div ng-if="mayDelete" class="remove-icon" ng-click="delete($event)"></div>
+    <div ng-if="mayRemoveOverride" class="remove-icon" ng-click="delete($event)"></div>
     <poms-help field="{{helpField}}"></poms-help>
 </div>

@@ -7,13 +7,18 @@ angular.module( 'poms.media.directives' )
             scope: {
                 helpField: '@',
                 mayWrite: '=',
-                mayDelete: '='
+                mayRemoveOverride: '=',
+                deleteScope: '='
             },
             link: function ( $scope ) {
 
                 $scope.delete = function ( e ) {
                     e.stopPropagation();
-                    $scope.$parent.delete();
+                    if ( $scope.deleteScope ) {
+                        $scope.deleteScope.removeOverride();
+                    } else {
+                        $scope.$parent.removeOverride();
+                    }
                 }
 
             }

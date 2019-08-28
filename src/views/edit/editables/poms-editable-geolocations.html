@@ -11,9 +11,6 @@
         <span ng-if="geoLocationsController.items && geoLocationsController.items.owner.id !== geoLocationsController.currentOwnerType" class="media-field-owner">
             bron: {{geoLocationsController.items.owner.id}}
         </span>
-        <span ng-if="geoLocationsController.items && !geoLocationsController.items.virtual && geoLocationsController.items.owner.id === geoLocationsController.currentOwnerType" class="media-field-owner">
-            <a ng-click="geoLocationsController.removeOverride()">verwijder overschrijving</a>
-        </span>
     </h2>
 
     <div class="editfield">
@@ -50,6 +47,7 @@
 
     <div class="media-field-tools">
         <div ng-if="!geoLocationsController.mayWrite" class="forbidden-icon"></div>
+        <div ng-if="geoLocationsController.items && !geoLocationsController.items.virtual && geoLocationsController.items.owner.id === geoLocationsController.currentOwnerType" class="remove-icon" ng-click="geoLocationsController.removeOverride($event)"></div>
         <poms-help field="{{helpField}}"></poms-help>
     </div>
 
