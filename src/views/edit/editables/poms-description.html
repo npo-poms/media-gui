@@ -1,7 +1,7 @@
 <div class="editfield-wrapper editfield-area"
      ng-keydown="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : isEmpty(), 'may-write' : mayWrite, 'opened' : isOpen,  'forbidden': !mayWrite, 'waiting': waiting  }"
+     ng-class="{'empty' : isEmpty, 'may-write' : mayWrite, 'opened' : isOpen,  'forbidden': !mayWrite, 'waiting': waiting  }"
      ng-show="mayRead" save-feedback
         >
 

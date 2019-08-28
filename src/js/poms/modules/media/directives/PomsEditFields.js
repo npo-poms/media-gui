@@ -78,7 +78,8 @@ angular.module( 'poms.media.directives' )
 
                 $scope.mayRead = this.editService.hasReadPermission( $scope.media, $scope.field );
                 $scope.mayWrite = this.editService.hasWritePermission($scope.media, $scope.field);
-                $scope.mayDelete = $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
+                $scope.mayDelete = mayDelete();
+                $scope.isEmpty = isEmpty();
 
                 $scope.classes = "";
                 $scope.titleclasses = "";
@@ -97,6 +98,14 @@ angular.module( 'poms.media.directives' )
 
                 function isCurrentOwner( media, field ){
                     return ( media[field] && media[field].owner && media[field].owner === $scope.currentOwnerType) ;
+                }
+
+                function isEmpty () {
+                    return ( ! $scope.media[$scope.field] || angular.equals( {}, $scope.media[$scope.field] ) || ( $scope.media[$scope.field] && !$scope.media[$scope.field].text));
+                }
+
+                function mayDelete () {
+                    return !isEmpty() && $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
                 }
 
                 if ( $scope.fieldType === 'duration' ) {
@@ -155,10 +164,6 @@ angular.module( 'poms.media.directives' )
                      || ( oldValue && oldValue.id && angular.equals( oldValue.id, data ) ));
                 };
 
-                $scope.isEmpty = function () {
-                    return ( ! $scope.media[$scope.field] || angular.equals( {}, $scope.media[$scope.field] ) );
-                };
-
                 $scope.onShow = function () {
                     $scope.isOpen = true;
 
@@ -193,7 +198,7 @@ angular.module( 'poms.media.directives' )
                 };
 
                 $scope.delete = function () {
-                    $scope.field.text = '';
+                    $scope.media[$scope.field].text = '';
                     $scope.save();
                 };
 
@@ -349,7 +354,8 @@ angular.module( 'poms.media.directives' )
 
                             deferred.resolve( false );
                             $scope.waiting = false;
-                            $scope.mayDelete = $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
+                            $scope.mayDelete = mayDelete();
+                            $scope.isEmpty = isEmpty();
 
                             $scope.$emit( 'saved' );
                             $scope.nextField( element );
