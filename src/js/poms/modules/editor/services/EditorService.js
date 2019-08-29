@@ -147,9 +147,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                         return 'MEDIA_' + role === roleHolder;
                     });
                 });
-                // I think 'result' is an array now? So we use javascript implicit interpreting stuff as booleans?
-//                console.log("res:" + result);
-                return result;
+                return Boolean(result);
             },
 
             setAccount: function ( account ) {

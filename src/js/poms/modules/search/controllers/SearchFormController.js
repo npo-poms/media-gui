@@ -10,7 +10,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
     'SearchFactory',
     (function() {
 
-        function SearchFormController($scope, $q, $filter, listService, favoritesService, guiService, mediaService, searchService, SearchFactory) {
+        function SearchFormController($scope, $q, $filter, listService, favoritesService, guiService, mediaService, searchService, SearchFactory, editorService) {
 
             this.$scope = $scope;
             this.$q = $q;
@@ -39,6 +39,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             this.$scope.dateFormat = 'dd-MM-yyyy';
 
             this.$scope.formData = this.search.form;
+
 
             this.setFilterOptions();
 
@@ -176,9 +177,9 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             },
 
             setFilterOptions : function() {
-                var form = this.search.form,
-                        scope = this.$scope,
-                        properties = this.$q.defer();
+                var form = this.search.form;
+                var scope = this.$scope;
+                var properties = this.$q.defer();
 
                 var selectBindings = [
                     {
@@ -239,9 +240,9 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                 };
 
                 _.forEach(selectBindings, function(binding) {
-                    var field = form[binding.field],
-                            value = field && field.isRestrictedField ? field.value : field,
-                            restriction = field && field.restriction;
+                    var field = form[binding.field];
+                    var value = field && field.isRestrictedField ? field.value : field;
+                    var restriction = field && field.restriction;
 
                     if(restriction) {
                         scope[binding.options] = {
@@ -423,7 +424,6 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             },
 
             toggleDateDropdown : function($event) {
-                $event.preventDefault();
                 $event.stopPropagation();
                 this.$scope.searchDate.isOpen = !this.$scope.searchDate.isOpen;
                 this.dateSelected();

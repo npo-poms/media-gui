@@ -9,8 +9,6 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
         }
 
         NotificationService.prototype = {
-
-
             notify : function ( message, status, args) {
                 args = args || {};
                 args.timeout = args.timeout || 4000;

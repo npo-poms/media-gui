@@ -5,7 +5,8 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
     'appConfig',
     'NotificationService',
     'EditorService',
-    function ( $q, $timeout, $http, appConfig, messagesListener, editorService) {
+
+    function ( $q, $timeout, $http, appConfig, notificationService, editorService) {
 
         var BASE_URL = appConfig.apihost + '/gui/messages';
         var RECONNECT_TIMEOUT = appConfig.RECONNECT_TIMEOUT || 30000;
@@ -16,8 +17,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
         var publicationListener = $q.defer();
         var itemizerListener = $q.defer();
 
-
-
+        var callbacks = {};
         var client;
         var stomp;
 
@@ -44,8 +44,15 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
             } );
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
                 var json = JSON.parse(data.body);
+                var callback = callbacks[json.id];
+                if (callback) {
+                    delete callbacks[json.id];
+                    if (callback(json)) {
+                        return;
+                    }
+                }
                 if (json.receiverId == null || json.receiverId === editorService.getCurrentEditor().id) {
-                    messagesListener.notify(
+                    notificationService.notify(
                         json.text,
                         json.level === 'INFO' ? 'success' : 'error',
                         {
@@ -54,9 +61,11 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
                         }
                     );
                 }
-            } );
+            }.bind(this) );
 
         }
+
+
 
         function reconnect () {
             $timeout( function () {
@@ -70,6 +79,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
         function MessageService () {
             initialize();
+            this.callbacks = callbacks;
         }
 
         MessageService.prototype = {
@@ -81,14 +91,16 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
             receiveItemizerMessage: function () {
                 return itemizerListener.promise;
             },
-
+            callback: function(id, f) {
+                this.callbacks[id] = f;
+            },
 
             send: function ( message ) {
-                stomp.send( PUBLICATIONS_BROKER, {
+                stomp.send(MESSAGES_TOPIC, {
                     priority: 9
                 }, JSON.stringify( {
                     message: message
-                } ) );
+                }));
             }
 
         };

@@ -111,53 +111,36 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
 
 
         Form.prototype = {
-
-
             dateConstraintTypes: mediaService.dateConstraintTypes,
-
             text : '',
-
             summary : 'Geen beperking',
-
-            'types' : [],
-
-            'portals' : [],
-
-            'broadcasters' : [],
-
-            'channels' : [],
-
-            'avType' : undefined,
-
-            'tags' : [],
-
-            'properties' : [],
-
-            'sortDate' : {
+            types : [],
+            portals : [],
+            broadcasters : [],
+            channels : [],
+            avType : undefined,
+            tags : [],
+            properties : [],
+            sortDate : {
                 'start' : undefined,
                 'stop' : undefined
             },
-
-            'createdBy' : undefined,
-
-            'lastModifiedBy' : undefined,
-
-            'createdDate' : {
+            createdBy : undefined,
+            lastModifiedBy : undefined,
+            createdDate : {
                 'start' : undefined,
                 'stop' : undefined
             },
-
-            'lastModifiedDate' : {
+            lastModifiedDate : {
                 'start' : undefined,
                 'stop' : undefined
             },
-            'scheduleEventDate': {
+            scheduleEventDate: {
                 'start': undefined,
                 'stop': undefined
             },
 
-            'descendantOf' : [],
-
+            descendantOf : [],
             remove : function ( field, value ) {
                 if ( field.isRestrictedField ) {
                     return field.remove( value );
@@ -177,8 +160,8 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     throw new Error( 'Invalid dateConstraintType ' + type + ' valid are [sortDate, createdDate, lastModifiedDate,scheduleEventDate]' )
                 }
 
-                return type != undefined
-                    && (this[ type ].start != undefined || this[ type ].stop != undefined);
+                return type !== undefined
+                    && (this[ type ].start !== undefined || this[ type ].stop !== undefined);
             },
 
             getStartDateConstraint : function ( type ) {
@@ -288,7 +271,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     ignoreKeys = [ 'text', 'summary', 'dateType', '$$hashKey' ];
 
                 for ( var key in this ) {
-                    if ( ! this[ key ] || key.length && key.length == 0 ) {
+                    if ( ! this[ key ] || key.length && key.length === 0 ) {
                         continue;
                     }
 
@@ -304,15 +287,15 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                             }
                             queryTerms.push( dateDisplay );
                         }
-                    } else if ( key == 'createdBy' && this[ key ] ) {
+                    } else if ( key === 'createdBy' && this[ key ] ) {
                         queryTerms.push( 'gemaakt door: ' + this[ key ] );
-                    } else if ( key == 'descendantOf' && this[ key ].length > 1 ) {
+                    } else if ( key === 'descendantOf' && this[ key ].length > 1 ) {
                         queryTerms.push( 'onderdeel van: ' + this[ key ] );
-                    } else if ( key == 'lastModifiedBy' && this[ key ] ) {
+                    } else if ( key === 'lastModifiedBy' && this[ key ] ) {
                         queryTerms.push( 'gewijzigd door: ' + this[ key ] );
-                    } else if ( key == 'excludedMids' && this[ key ] ) {
+                    } else if ( key === 'excludedMids' && this[ key ] ) {
                         queryTerms.push( 'niet: ' + this[ key ] );
-                    } else if ( this.hasOwnProperty( key ) && ignoreKeys.indexOf( key ) == - 1 ) {
+                    } else if ( this.hasOwnProperty(key) && ignoreKeys.indexOf(key) === - 1 ) {
 
                         var value = this[ key ];
 
@@ -359,33 +342,23 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.favorite = config && config.favorite || false;
             this.scope = config && config.scope || undefined;
             this.parentMid = config && config.parentMid || undefined;
-            this.multiSelect = config && config.multiSelect != undefined ? config.multiSelect : true;
-            this.allowStore = config && config.allowStore != undefined ? config.multiSelect : true;
+            this.multiSelect = config && config.multiSelect !== undefined ? config.multiSelect : true;
+            this.allowStore = config && config.allowStore !== undefined ? config.multiSelect : true;
             this.selection = config && config.selection || [];
             this.form = new Form( config && config.form ? config.form : undefined );
             this._backup = new Form( config && config._backup ? config._backup : angular.copy( this.form ) );
         }
 
         Search.prototype = {
-
             id : undefined,
-
             favorite : false,
-
             scope : undefined,
-
             parentMid : undefined,
-
             multiSelect : true,
-
             allowStore : true,
-
             selection : [],
-
             form : undefined,
-
             _backup : undefined,
-
             clear: function () {
                 angular.copy( new Form(), this.form );
                 this.selection.length = 0;
@@ -411,7 +384,6 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             reset : function () {
-
                 angular.copy( this._backup, this.form );
                 this.selection.length = 0;
                 this.form.buildSummary();
@@ -429,15 +401,10 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
 
         SearchResult.prototype = {
             searchResults : [],
-
             hasResults : false,
-
             resultCount : 0,
-
             allFilters : [],
-
             searching : false,
-
             selection : []
         };
 

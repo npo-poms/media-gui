@@ -15,16 +15,16 @@ angular.module('poms.search.services').factory('SearchService', [
 
         function post(path, body, config) {
 
-            var deferred = $q.defer(),
-                    url = baseUrl + path;
+            var deferred = $q.defer();
+            var url = baseUrl + path;
 
             $http.post(url, body, config)
-                    .success(function(results) {
-                        deferred.resolve(results);
-                    })
-                    .error(function(error) {
-                        deferred.reject(error);
-                    });
+                .success(function(results) {
+                    deferred.resolve(results);
+                })
+                .error(function(error) {
+                    deferred.reject(error);
+                });
 
             return deferred.promise;
         }
@@ -49,6 +49,14 @@ angular.module('poms.search.services').factory('SearchService', [
                 };
 
                 return post('', queryData, config);
+            },
+
+            download : function(queryData, options) {
+                var config = {
+                    params : options
+                };
+
+                return post('/csv', queryData, config);
             },
 
             loadEpisodes : function(queryData, options) {

@@ -5,9 +5,12 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
     'MediaService',
     'PomsEvents',
     'SearchService',
+    'EditorService',
+    'MessageService',
+
     (function () {
 
-        function SearchResultController ( $scope, favoritesService, guiService, mediaService, pomsEvents, searchService ) {
+        function SearchResultController ( $scope, favoritesService, guiService, mediaService, pomsEvents, searchService, editorService, messageService) {
 
             this.$scope = $scope;
 
@@ -16,6 +19,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
             this.searchService = searchService;
+            this.messageService = messageService;
+
 
             this.$scope.searchResults = {};
 
@@ -30,6 +35,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             this.$scope.$watchCollection( 'query', function ( newValue ) {
                 this.submit();
             }.bind( this ));
+
+            this.$scope.mayDownload = editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER', 'SUPPORT'])
         }
 
         SearchResultController.prototype = {
@@ -87,7 +94,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                     if ( item.selected ) {
                         this.search.selection = [ item ];
                         angular.forEach( this.$scope.searchResults.items, function ( i ) {
-                            if ( i.mid != item.mid ){
+                            if ( i.mid !== item.mid ){
                                 i.selected = false;
                             }
                         });
@@ -125,7 +132,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
                 if ( toggledColumn.sortable === true ) {
 
-                    if ( toggledColumn.id != this.$scope.sort ) {
+                    if ( toggledColumn.id !== this.$scope.sort ) {
 
                         this.$scope.sort = toggledColumn.id;
                         this.$scope.order = 'DESC';
@@ -138,27 +145,31 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
             },
 
-            submit: function ( offset ) {
+            queryDataAndOptions: function(offset) {
                 var queryData = this.searchService.setStopDates(this.$scope.query);
-                var options;
-                var searchCount = ++this.searchCount;
-
-                this.$scope.searching = true;
 
                 this.$scope.dateFilter = queryData.sortDate || {};
 
-                options = {
+                var options = {
                     offset: offset || 0
                 };
-                if ( this.$scope.sort && this.$scope.sort != 'relevance' ) {
+                if ( this.$scope.sort && this.$scope.sort !== 'relevance' ) {
                     options.sort = this.$scope.sort;
                     options.order = this.$scope.order;
                 }
+                return [queryData, options];
 
+            },
+
+            submit: function ( offset ) {
+                this.$scope.searching = true;
+                var searchCount = ++this.searchCount;
+                var queryData, options;
+                [queryData, options] = this.queryDataAndOptions(offset);
                 var promise;
-                if ( this.search.scope == 'episodeOf' ) {
+                if ( this.search.scope === 'episodeOf' ) {
                     promise = this.searchService.loadEpisodeOfs( queryData, options );
-                } else if ( this.search.scope == 'episodes' ) {
+                } else if ( this.search.scope === 'episodes' ) {
                     promise = this.searchService.loadEpisodes( queryData, options );
                 } else {
                     promise = this.searchService.load( queryData, options );
@@ -166,7 +177,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
                 promise.then(
                     function ( data ) {
-                        if( searchCount == this.searchCount ) {
+                        if( searchCount === this.searchCount ) {
                             this.$scope.searchResults = data;
                             this.$scope.hasResults = data.items && data.items.length;
                             this.$scope.resultCount = data.total;
@@ -181,10 +192,29 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 );
             },
 
+            download: function (ev) {
+                ev.preventDefault();
+                var queryData, options;
+                [queryData, options] = this.queryDataAndOptions(0);
+                var promise = this.searchService.download(queryData, options);
+                promise.then(
+                    function ( data ) {
+                        this.messageService.callback(data.uuid, function(arg) {
+                            this.$scope.csvUrl = data.url;
+                            return false;
+                        }.bind(this));
+                    }.bind( this ),
+                    function (error) {
+                        console && console.log("ERROR", error);
+                    }.bind( this )
+                );
+
+            },
+
             locationTypes : function( locations ){
                 var uniqueLocations = [];
                 for ( var i = 0; i < locations.length; i ++ ) {
-                    if ( uniqueLocations.indexOf( locations[i].format ) == -1 ){
+                    if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
                         uniqueLocations.push( locations[i].format );
                     }
 
