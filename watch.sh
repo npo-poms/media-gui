@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#Default values
-#You can override by enviroment variables
+# Default values
+# You can override by enviroment variables
 # e.g.:
 # ~/npo/media/trunk/media-gui$ API_PORT=8080 ./watch.sh
 # API_HOST=https://poms.omroep.nl ./watch.sh
@@ -35,5 +35,5 @@ echo "Making backup of $CONSTANTS"
 cp $CONSTANTS $DIR/constants.js.bu
 (cd $DIR ; npm_config_apihost=$API_HOST NPM_PACKAGE_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl $ARGS npm run $RUN)
 echo "Restoring $CONSTANTS"
-echo
+
 mv -f $DIR/constants.js.bu $CONSTANTS

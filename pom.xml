@@ -31,8 +31,8 @@
               <goal>install-node-and-npm</goal>
             </goals>
             <configuration>
-              <nodeVersion>v6.14.4</nodeVersion>
-              <npmVersion>3.10.10</npmVersion>
+              <nodeVersion>v10.16.0</nodeVersion>
+              <npmVersion>6.10.1</npmVersion>
             </configuration>
           </execution>
           <execution>
@@ -53,20 +53,6 @@
               <arguments>run deploy:gulp</arguments>
             </configuration>
           </execution>
-          <!-- It's broken and it has never found any bugs any ways
-              I thing the maintainance is not worth the trouble.
-              Selenium tests may be more usefull?
-              https://github.com/npo-poms/functional-tests/tree/master/poms-functional-tests-selenium
-              <execution>
-                <id>karma tests</id>
-                <goals>
-                  <goal>karma</goal>
-                </goals>
-                <configuration>
-                  <karmaConfPath>karma.ci.conf.js</karmaConfPath>
-                </configuration>
-              </execution>
-              -->
         </executions>
       </plugin>
       <plugin>

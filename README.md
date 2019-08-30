@@ -5,7 +5,7 @@ Install the [Node Version Manager](https://www.digitalocean.com/community/tutori
 
 By running `curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash`
 
-Install Node JS by running `nvm install 6` and `nvm use 6`
+Install Node JS by running `nvm install 10.16.0` and `nvm use 10.16.0`
 Install the latest NPM by running `npm install -g npm`
 
 Run `npm install` to install all prerequisites.
@@ -14,8 +14,8 @@ NOTE (for Mac): there's now a dependency on xcode application (xcode-select seem
 
 #Current versions:
 nvm: 0.34.0
-node: v6.14.4
-npm: 3.10.10
+node: v10.16.0
+npm: 6.10.1
 
 # development
 
