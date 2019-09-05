@@ -71,6 +71,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 this.$scope.resultCount = 0;
                 this.$scope.searching = false;
                 this.search.selection = [];
+                this.$scope.downloading = false;
+                this.$scope.csvUrl = null;
             },
 
             mayWrite: function ( item ) {
@@ -163,6 +165,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
             submit: function ( offset ) {
                 this.$scope.searching = true;
+                this.$scope.csvUrl = null;
                 var searchCount = ++this.searchCount;
                 var queryData, options;
                 [queryData, options] = this.queryDataAndOptions(offset);
@@ -196,16 +199,19 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 ev.preventDefault();
                 var queryData, options;
                 [queryData, options] = this.queryDataAndOptions(0);
+                this.$scope.downloading = true;
                 var promise = this.searchService.download(queryData, options);
                 promise.then(
                     function ( data ) {
                         this.messageService.callback(data.uuid, function(arg) {
                             this.$scope.csvUrl = data.url;
+                            this.$scope.downloading = false;
                             return false;
                         }.bind(this));
                     }.bind( this ),
                     function (error) {
                         console && console.log("ERROR", error);
+                        this.$scope.downloading = false;
                     }.bind( this )
                 );
 

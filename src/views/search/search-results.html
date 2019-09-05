@@ -9,9 +9,12 @@
 
     <span title="Zoekopdracht opslaan als favoriet" ng-switch-when="true" class="query-favorite animate-fade" ng-click="searchResultController.addFavorite()"> {{searchResultController.isFavorite() ? 'bewaar' : 'maak'}} favoriet </span>
     <span title="Zoekopdracht opslaan als favoriet" ng-switch-default class="query-favorite animate-fade" ng-click="searchResultController.removeFavorite()"> verwijder favoriet </span>
-    <span ng-if="mayDownload">
-      <a  ng-click="searchResultController.download($event)">CSV</a>
-      <a ng-if="csvUrl" href="{{csvUrl}}" target="_blank">download</a>
+    <span ng-if="mayDownload" class="csvdownload">
+      <a  ng-if="!downloading && ! csvUrl" ng-click="searchResultController.download($event)">
+        CSV
+      </a>
+      <a ng-if="csvUrl" href="{{csvUrl}}" class="downloaded" target="_blank">download CSV</a>
+      <span ng-if="downloading" class="downloading">CSV wordt gemaakt</span>
     </span>
   </div>
 
