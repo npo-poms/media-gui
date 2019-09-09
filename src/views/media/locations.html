@@ -4,13 +4,13 @@
         <poms-help field="editor.locations"></poms-help>
     </h1>
 
-    <button class="btn-text-icon btn-text-icon-add"
+    <button id="addLocation" class="btn-text-icon btn-text-icon-add"
             ng-if="locationsController.mayAddLocations();"
             ng-click="locationsController.addLocation();">
         Bron toevoegen
     </button>
 
-    <button ng-disabled="locationsController.uploadInProgress" class="btn-text-icon btn-text-icon-add"
+    <button id="uploadLocation" ng-disabled="locationsController.uploadInProgress" class="btn-text-icon btn-text-icon-add"
             ng-if="locationsController.mayUpload() && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"
             ng-click="locationsController.uploadLocation();">
         Upload
@@ -89,8 +89,8 @@
             <td class="column-tools">
                 <div ng-show="::location.mayWrite || location.mayDelete" >
                     <div class="tools" >
-                        <button ng-if="::location.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="locationsController.editLocation(location)">bewerk</button>
-                        <button ng-if="::location.mayDelete" title='verwijder bron' class="poms-icon icon-remove" poms-confirm="'Bron'" poms-submit="locationsController.remove($index)">
+                        <button name="editLocation" ng-if="::location.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="locationsController.editLocation(location)">bewerk</button>
+                        <button name="deleteLocation" ng-if="::location.mayDelete" title='verwijder bron' class="poms-icon icon-remove" poms-confirm="'Bron'" poms-submit="locationsController.remove($index)">
                             verwijder
                         </button>
                     </div>

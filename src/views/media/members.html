@@ -6,7 +6,7 @@
         <poms-help field="{{helpField}}"></poms-help>
     </h1>
 
-    <button class="btn-text-icon btn-text-icon-add" ng-if="membersController.mayWrite" ng-click="membersController.addMember()">
+    <button id="addMember" class="btn-text-icon btn-text-icon-add" ng-if="membersController.mayWrite" ng-click="membersController.addMember()">
         Onderdeel toevoegen
     </button>
 
@@ -92,18 +92,18 @@
 
                 <form editable-form name="rowform" onbeforesave="membersController.updateMember(member, $data)"
                       ng-show="rowform.$visible" class="form-buttons form-inline">
-                    <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                    <button name="saveMember" title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                         bewaar
                     </button>
-                    <button title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="membersController.cancel($index, rowform)"
+                    <button name="cancel" title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="membersController.cancel($index, rowform)"
                             class="btn btn-default">
                         annuleer
                     </button>
                 </form>
 
                 <div class="tools" ng-show="!rowform.$visible">
-                    <button title='edit item' class="poms-icon icon-edit" ng-click="membersController.openInEditor( $event, member.mid, rowform )">bewerk</button>
-                    <button title='verwijder item' class="poms-icon icon-remove"
+                    <button name="editMember" title='edit item' class="poms-icon icon-edit" ng-click="membersController.openInEditor( $event, member.mid, rowform )">bewerk</button>
+                    <button name="deleteMember" title='verwijder item' class="poms-icon icon-remove"
                             poms-confirm="Onderdeel"
                             poms-submit="membersController.remove(member)"
                             ng-show="membersController.mayDelete(member)"

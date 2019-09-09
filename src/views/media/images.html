@@ -3,7 +3,7 @@
         <poms-help field="editor.images"></poms-help>
     </h1>
 
-    <button class="btn-text-icon btn-text-icon-add" ng-if="imagesController.mayWrite && imagesController.mayUpload" ng-click="imagesController.addImage()">
+    <button id="addImage" class="btn-text-icon btn-text-icon-add" ng-if="imagesController.mayWrite && imagesController.mayUpload" ng-click="imagesController.addImage()">
         Afbeelding toevoegen
     </button>
 
@@ -77,8 +77,8 @@
 
             <td class="column-tools" ng-show="::imagesController.mayWrite">
                 <div class="tools" >
-                    <button title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
-                    <button title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
+                    <button name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
+                    <button name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
                 </div>
             </td>
         </tr>

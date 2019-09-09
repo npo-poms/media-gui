@@ -6,7 +6,7 @@
         <poms-help field="editor.segments"></poms-help>
     </h1>
 
-    <button class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite"
+    <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite"
             ng-click="segmentsController.addSegment()">
         Segment toevoegen  {{::media.playable ? 'met speler' : 'zonder speler'}}
     </button>
@@ -77,12 +77,12 @@
 
             <td class="column-tools-xl" ng-show="segmentsController.mayWrite">
                 <div class="tools">
-                    <button title='itemize' class="poms-icon icon-itemizer"
+                    <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
                             ng-if="segmentsController.canItemize()"
                             ng-click="segmentsController.itemize(segment)">itemize
                     </button>
-                    <button title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
-                    <button title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"
+                    <button id='editSegment-{{segment.mid}}' name='editSegment' title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
+                    <button id='deleteSegment-{{segment.mid}}' name='deleteSegment' title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"
                             poms-submit="segmentsController.remove($index)">
                         verwijder
                     </button>

@@ -64,7 +64,7 @@
             <td class="column-tools">
                 <div>
                     <div class="tools" >
-                        <button ng-if="prediction.mayWrite || prediction.mayWriteEmbargo"
+                        <button name="editPrediction" ng-if="prediction.mayWrite || prediction.mayWriteEmbargo"
                                 title='edit bron' class="poms-icon icon-edit"
                                 ng-click="predictionsController.editPrediction(prediction)">bewerk</button>
                     </div>

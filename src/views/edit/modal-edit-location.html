@@ -183,10 +183,10 @@
                 &nbsp;
             </div>
 
-            <button class="btn-rect" ng-click="controller.save()" ng-disabled="!editLocationFormValid || waiting">
+            <button name="saveLocation" class="btn-rect" ng-click="controller.save()" ng-disabled="!editLocationFormValid || waiting">
                 {{submitText}}
             </button>
-            <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
+            <button name="cancelLocation" class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Annuleer</button>
 
         </div>
     </div>

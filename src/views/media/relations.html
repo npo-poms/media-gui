@@ -5,7 +5,7 @@
         <poms-help field="editor.relations"></poms-help>
     </h1>
 
-    <button class="btn-text-icon btn-text-icon-add" ng-if="relationsController.mayWrite" ng-click="relationsController.addRelation()">
+    <button id="addRelation" class="btn-text-icon btn-text-icon-add" ng-if="relationsController.mayWrite" ng-click="relationsController.addRelation()">
         Relatie toevoegen
     </button>
 
@@ -40,8 +40,8 @@
 
             <td class="relations-tools tools-cell" ng-show="relationsController.mayWrite">
                 <div class="tools">
-                    <button class="poms-icon icon-edit" ng-click="relationsController.editRelation(relation)">bewerk</button>
-                    <button class="poms-icon icon-remove" poms-confirm="Bron" poms-submit="relationsController.remove($index)">
+                    <button name="editRelation" class="poms-icon icon-edit" ng-click="relationsController.editRelation(relation)">bewerk</button>
+                    <button name="deleteRelation" class="poms-icon icon-remove" poms-confirm="Bron" poms-submit="relationsController.remove($index)">
                         verwijder
                     </button>
                 </div>
