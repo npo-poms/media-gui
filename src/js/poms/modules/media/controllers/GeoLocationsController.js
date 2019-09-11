@@ -131,7 +131,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             },
 
             removeGeoLocation: function ( geoLocation ) {
-                if(this.items.owner.text !== this.currentOwnerType ){
+                if(this.items.owner.id !== this.currentOwnerType ){
                   _.remove(this.items.values, function (item) { return item.gtaaUri === geoLocation.gtaaUri })
                   return this.saveGeoLocationsCopy();
                 }
