@@ -13,7 +13,9 @@ angular.module( 'poms.media.directives' )
             link: function ( $scope ) {
 
                 $scope.delete = function ( e ) {
-                    e.stopPropagation();
+                    if ( e ) {
+                        e.stopPropagation();
+                    }
                     if ( $scope.deleteScope ) {
                         $scope.deleteScope.removeOverride();
                     } else {
