@@ -62,6 +62,7 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
             return function ( scope, element ) {
                 element.on( 'click', function ( event ) {
                     event.preventDefault();
+                    event.stopPropagation();
                     scope.confirm();
                 } );
             };
