@@ -151,7 +151,7 @@ angular.module( 'poms.media.directives' )
                                     break;
                                 }
                             } else {
-                                this.$scope.$emit( pomsEvents.error, error );
+                                $scope.$emit( pomsEvents.error, error );
                             }
 
                             $scope.waiting = false;
