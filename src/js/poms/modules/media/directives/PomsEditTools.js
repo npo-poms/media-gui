@@ -8,9 +8,12 @@ angular.module( 'poms.media.directives' )
                 helpField: '@',
                 mayWrite: '=',
                 mayRemoveOverride: '=',
-                deleteScope: '='
+                deleteScope: '=',
+                showEdit: '=?'
             },
             link: function ( $scope ) {
+
+                $scope.showEdit = angular.isDefined( $scope.showEdit ) ? $scope.showEdit : true;
 
                 $scope.delete = function ( e ) {
                     if ( e ) {

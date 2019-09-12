@@ -268,6 +268,11 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return put( media, '/persons', { from: from, to: to } );
             },
 
+            // TODO doesnt exist yet
+            removePersons: function ( media ) {
+                return del( media, '/persons' );
+            },
+
             getGeoLocations: function ( media ) {
                 return get( media, '/geoLocations' );
             },

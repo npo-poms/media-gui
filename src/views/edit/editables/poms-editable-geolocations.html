@@ -17,14 +17,15 @@
 
         <div ng-repeat="item in geoLocationsController.items.values" class="media-concept">
 
-            {{item.role.text}}: {{item.name}}
-            <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
-                {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+            <span class="media-concept-scope" title="{{item.role.text}}: {{item.name}} - {{item.scopeNotes}}">
+                {{item.role.text}}: {{item.name}}
+                <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
+                    {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+                </span>
             </span>
 
             <span ng-if="item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
             </span>
-
 
             <button name="removeGeoLocation" ng-if="geoLocationsController.mayWrite" class="media-concept-remove"
                     poms-confirm="'locatie'"
@@ -45,11 +46,13 @@
 
     </div>
 
-    <div class="media-field-tools">
-        <div ng-if="!geoLocationsController.mayWrite" class="forbidden-icon"></div>
-        <div ng-if="geoLocationsController.items && !geoLocationsController.items.virtual && geoLocationsController.items.owner.id === geoLocationsController.currentOwnerType" class="remove-override-icon" ng-click="geoLocationsController.removeOverride($event)"></div>
-        <poms-help field="{{helpField}}"></poms-help>
-    </div>
+    <poms-edit-tools
+            may-write="geoLocationsController.mayWrite"
+            show-edit="false"
+            may-remove-override="geoLocationsController.items && !geoLocationsController.items.virtual && geoLocationsController.items.owner.id === geoLocationsController.currentOwnerType"
+            delete-scope="geoLocationsController"
+            help-field="{{geoLocationsController.helpField}}" >
+    </poms-edit-tools>
 
     <button id="addGeoLocation" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="geoLocationsController.mayWrite" ng-click="geoLocationsController.addGeoLocation()">
         locatie toevoegen

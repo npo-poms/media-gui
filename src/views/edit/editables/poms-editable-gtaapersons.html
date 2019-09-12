@@ -13,13 +13,13 @@
 
         <div ng-repeat="item in gtaaPersonsController.items" class="media-concept">
 
-            {{item.role.text}}: {{item.givenName}} {{item.familyName}}
-            <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
-                {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+            <span class="media-concept-scope" title="{{item.role.text}}: {{item.name}} - {{item.scopeNotes}}">
+
+                {{item.role.text}}: {{item.givenName}} {{item.familyName}}
+                <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
+                    {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+                </span>
             </span>
-
-
-
 
             <button name="removePerson" ng-if="gtaaPersonsController.mayWrite" class="media-concept-remove"
                     poms-confirm="'persoon'"
@@ -43,6 +43,10 @@
 
     <div class="media-field-tools">
         <div ng-if="!gtaaPersonsController.mayWrite" class="forbidden-icon"></div>
+
+        <!--   TODO: uncomment when backend 'delete' call is ready-->
+        <!-- <div ng-if="gtaaPersonsController.items" class="remove-override-icon" poms-confirm="'Alle personen'" poms-submit="gtaaPersonsController.removeOverride($event)"></div> -->
+
         <poms-help field="{{helpField}}"></poms-help>
     </div>
 

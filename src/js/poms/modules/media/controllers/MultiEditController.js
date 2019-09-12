@@ -104,6 +104,11 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             },
 
 
+            removeOverride :  function () {
+                this.selection = [];
+                this.submit();
+            },
+
             updateOptions: function ( text ) {
 
                 if( !text ) {
@@ -133,8 +138,6 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 
                 var data = this.selection;
                 var deferred = this.$q.defer();
-
-
 
                 if ( e ) {
                     e.preventDefault();

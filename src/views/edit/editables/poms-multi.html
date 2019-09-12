@@ -40,6 +40,11 @@
     </div>
 
 
-    <poms-edit-tools may-write="multiEditController.mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools
+        may-write="multiEditController.mayWrite"
+        help-field="{{helpField}}"
+        may-remove-override="multiEditController.mayWrite && multiEditController.values.length"
+        delete-scope="multiEditController">
+    </poms-edit-tools>
 
 </div>

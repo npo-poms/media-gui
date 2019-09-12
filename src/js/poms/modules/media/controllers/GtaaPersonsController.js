@@ -112,6 +112,28 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                 };
             },
 
+            removeOverride: function () {
+                this.mediaService.removePersons(this.media).then(
+                    function (data) {
+                        angular.copy(data, this.items);
+                    }.bind(this),
+                    function( error) {
+                        this.errorHandler(error);
+                    }.bind(this)
+                )
+            },
+
+            errorHandler: function(error) {
+                if (error.violations) {
+                    for (var violation in  error.violations) {
+                        this.$scope.errorText = error.violations[violation];
+                        break;
+                    }
+                } else {
+                    this.$scope.$emit(this.pomsEvents.error, error);
+                }
+            },
+
             removePerson: function ( person ) {
 
                 return this.mediaService.removePerson( this.$scope.media, person ).then(

@@ -40,11 +40,17 @@
     </div>
 
     <div ng-show="!ownedListsController.isOpen">
-        <span ng-repeat="value in ownedListsController.items.values">
-            {{value.text}}{{$last ? '' : ', '}}
-        </span>
+        <div ng-repeat="value in ownedListsController.items.values">
+            {{value.text}}
+        </div>
     </div>
 
-    <poms-edit-tools may-write="ownedListsController.mayWrite" may-remove-override="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType" delete-scope="ownedListsController" help-field="{{ownedListsController.helpField}}" ></poms-edit-tools>
+    <poms-edit-tools
+            may-write="ownedListsController.mayWrite"
+            may-remove-override="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType"
+            delete-scope="ownedListsController"
+            help-field="{{ownedListsController.helpField}}" >
+    </poms-edit-tools>
+
 </div>
 
