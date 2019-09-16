@@ -44,8 +44,7 @@
     <div class="media-field-tools">
         <div ng-if="!gtaaPersonsController.mayWrite" class="forbidden-icon"></div>
 
-        <!--   TODO: uncomment when backend 'delete' call is ready-->
-        <!-- <div ng-if="gtaaPersonsController.items" class="remove-override-icon" poms-confirm="'Alle personen'" poms-submit="gtaaPersonsController.removeOverride($event)"></div> -->
+        <div ng-if="gtaaPersonsController.items" class="remove-override-icon" poms-confirm="'Alle personen'" poms-submit="gtaaPersonsController.removeOverride($event)"></div>
 
         <poms-help field="{{helpField}}"></poms-help>
     </div>
