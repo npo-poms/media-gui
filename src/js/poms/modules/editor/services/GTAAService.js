@@ -38,7 +38,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                     controller: "ModalIFrameController",
                     controllerAs: "controller",
                     templateUrl: 'edit/modal-iframe.html',
-                    windowClass: 'modal-form modal-person',
+                    windowClass: 'modal-' + scheme,
                     resolve: {
                         "callback":  function() {
                             return gtaaPopup;
