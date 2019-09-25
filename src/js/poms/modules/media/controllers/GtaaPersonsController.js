@@ -5,7 +5,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
     'PomsEvents',
     'MediaService',
     'EditorService',
-    'ListService',
     ( function () {
 
         function load ( scope, pomsEvents, mediaService, media, dest ) {
@@ -18,7 +17,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                 }
             )
         }
-        function GtaaPersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, listService ) {
+        function GtaaPersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService) {
 
             this.items = [];
             this.$scope = $scope;
@@ -48,41 +47,42 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
         GtaaPersonsController.prototype = {
 
             editPerson: function (item) {
-
-                gtaa.open(
-                    function ( message ) {
-                        if (message.action === 'selected') {
-                            concept = message.concept;
-                            if (concept.objectType === "person") {
-                                var parsedPerson = this.parsePerson(concept, message.role);
-                                parsedPerson.id = item ? item.id : null;
-                                if (parsedPerson.role) {
-                                    this.mediaService.setPerson(this.media, parsedPerson).then(
-                                        function () {
-                                            load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
-                                        }.bind(this),
-                                        function (error) {
-                                            if (error.violations) {
-                                                for (var violation in  error.violations) {
-                                                    this.$scope.errorText = error.violations[violation];
-                                                    break;
-                                                }
-                                            } else {
-                                                this.$scope.$emit(this.pomsEvents.error, error);
+                var handleMessage = function ( message ) {
+                    if (message.action === 'selected') {
+                        concept = message.concept;
+                        if (concept.objectType === "person") {
+                            var parsedPerson = this.parsePerson(concept, message.role);
+                            parsedPerson.id = item ? item.id : null;
+                            if (parsedPerson.role) {
+                                this.mediaService.setPerson(this.media, parsedPerson).then(
+                                    function () {
+                                        load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
+                                    }.bind(this),
+                                    function (error) {
+                                        if (error.violations) {
+                                            for (var violation in  error.violations) {
+                                                this.$scope.errorText = error.violations[violation];
+                                                break;// what about the next error?
                                             }
-                                        }.bind(this)
-                                    )
-                                } else {
-                                    console.log("No role!");
-                                }
+                                        } else {
+                                            this.$scope.$emit(this.pomsEvents.error, error);
+                                        }
+                                    }.bind(this)
+                                )
                             } else {
-                                throw "unrecognized type";
+                                console.log("No role!");
                             }
                         } else {
-                            console && console.log("ignored because of action", message);
+                            throw "unrecognized type";
                         }
+                    } else {
+                        console && console.log("ignored because of action", message);
+                    }
+                     modal.close();
 
-                    }.bind( this ), {
+                 }.bind( this );
+                var gtaaPopup = function () {
+                    gtaa.open(handleMessage, {
                         //value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'person',
@@ -91,9 +91,25 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                         familyName: item ? item.familyName : null,
                         role: item && item.role ? item.role.id : null,
                         jwt: this.editorService.getCurrentEditor().gtaaJws,
-                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration
+                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration,
+                        iframe: "modal_iframe"
+                    });
+                }.bind(this);
+
+                var modal = this.$modal.open( {
+                    controller: "ModalIFrameController",
+                    controllerAs: "controller",
+                    templateUrl: 'edit/modal-iframe.html',
+                    windowClass: 'modal-form modal-person',
+                    resolve: {
+                        "callback":  function() {
+                            return gtaaPopup;
+                        },
+                        "title": function() {
+                            return "Zoek een persoon in GTAA";
+                        }
                     }
-                );
+                });
 
             },
 
