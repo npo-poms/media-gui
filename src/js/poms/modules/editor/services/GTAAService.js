@@ -16,7 +16,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
             init: function () {
             },
 
-            gtaaForCurrentEditor: function(handleMessage, scheme, item) {
+            openFunction: function(handleMessage, scheme, item) {
                 return function() {
                     gtaa.open(handleMessage, {
                         schemes: scheme,
@@ -32,7 +32,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                 }.bind(this);
             },
             modal: function(title, handleMessage, scheme, item) {
-                var gtaaPopup =  this.gtaaForCurrentEditor(handleMessage, scheme, item);
+                var gtaaPopup =  this.openFunction(handleMessage, scheme, item);
 
                 return $modal.open({
                     controller: "ModalIFrameController",

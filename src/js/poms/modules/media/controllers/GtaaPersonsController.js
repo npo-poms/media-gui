@@ -18,7 +18,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                 }
             )
         }
-        function GtaaPersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService) {
+        function GtaaPersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, gtaaService) {
 
             this.items = [];
             this.$scope = $scope;
@@ -30,6 +30,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
             this.mediaService = mediaService;
             this.editorService = editorService;
+            this.gtaaService = gtaaService;
+
 
             this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
