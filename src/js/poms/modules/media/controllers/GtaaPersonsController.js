@@ -5,6 +5,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
     'PomsEvents',
     'MediaService',
     'EditorService',
+    'GTAAService',
     ( function () {
 
         function load ( scope, pomsEvents, mediaService, media, dest ) {
@@ -81,7 +82,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                      modal.close();
 
                  }.bind( this );
-                var modal = this.gtaaModalForCurrentEditor("Zoek een persoon in GTAA", handleMessage, "person", item);
+                var modal = this.gtaaService.modal("Zoek een persoon in GTAA", handleMessage, "person", item);
             },
 
             addPerson: function ( item ) {

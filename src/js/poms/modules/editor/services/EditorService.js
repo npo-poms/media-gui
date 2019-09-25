@@ -114,39 +114,6 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             getCurrentEditor: function () {
                 return editorHolder;
             },
-            gtaaForCurrentEditor: function(handleMessage, scheme, item) {
-                return function() {
-                    gtaa.open(handleMessage, {
-                        schemes: scheme,
-                        id: item ? item.gtaaUri : null,
-                        givenName: item ? item.givenName : null,
-                        familyName: item ? item.familyName : null,
-                        name: item ? item.name : null,
-                        role: item && item.role ? item.role.id : null,
-                        jwt: this.getCurrentEditor().gtaaJws,
-                        jwtExpiration: this.getCurrentEditor().gtaaJwsExpiration,
-                        iframe: "modal_iframe"
-                    });
-                }.bind(this);
-            },
-            gtaaModalForCurrentEditor: function(title, handleMessage, scheme, item) {
-                var gtaaPopup =  this.gtaaForCurrentEditor(handleMessage, scheme, item);
-
-                return $modal.open({
-                    controller: "ModalIFrameController",
-                    controllerAs: "controller",
-                    templateUrl: 'edit/modal-iframe.html',
-                    windowClass: 'modal-form modal-person',
-                    resolve: {
-                        "callback":  function() {
-                            return gtaaPopup;
-                        },
-                        "title": function() {
-                            return title;
-                        }
-                    }
-                });
-            },
             getCurrentOwnerType: function() {
                 var ownerType = localStorageService.get('currentOwner');
                 if(ownerType && ownerType.length > 0) {

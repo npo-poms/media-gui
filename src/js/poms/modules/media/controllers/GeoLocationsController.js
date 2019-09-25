@@ -5,7 +5,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
     'PomsEvents',
     'MediaService',
     'EditorService',
-    'ListService',
+    'GTAAService',
     ( function () {
 
         function load ( scope, pomsEvents, mediaService, media, dest ) {
@@ -18,7 +18,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 }
             )
         }
-        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, listService ) {
+        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, gtaaService) {
 
             this.items = [];
             this.$scope = $scope;
@@ -30,6 +30,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             this.mediaService = mediaService;
             this.editorService = editorService;
+            this.gtaaService = gtaaService;
+
 
             this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
             this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
@@ -67,7 +69,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                     modal.close();
                     }.bind( this );
 
-                var modal =  this.editorService.gtaaModalForCurrentEditor("Zoek een geolocatie in GTAA", handleMessage, "geographicname", item);
+                var modal =  this.gtaaService.modal("Zoek een geolocatie in GTAA", handleMessage, "geographicname", item);
             },
 
             addGeoLocation: function ( item ) {
