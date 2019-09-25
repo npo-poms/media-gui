@@ -19,7 +19,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalIFrameController', 
         ModalIFrameController.prototype = {
             mayClose : true,
             init : function () {
-                console.log("Initiing with {}", this.callbacks);
+                //console.log("Initiing with {}", this.callbacks);
                 this.inited = true;
                 this.callbacks.forEach(function (cb) { cb() });
             },
@@ -28,7 +28,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalIFrameController', 
                 if (this.inited) {
                     callback();
                 } else {
-                    callbacks.push(callback);
+                    this.callbacks.push(callback);
                 }
             },
 

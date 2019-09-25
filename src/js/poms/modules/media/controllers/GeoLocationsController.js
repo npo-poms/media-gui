@@ -48,26 +48,27 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
         GeoLocationsController.prototype = {
 
             editGeoLocation: function (item) {
-
-                gtaa.open(
-                    function ( message ) {
-                        if (message.action === 'selected') {
-                            concept = message.concept;
-                            if (concept.objectType === "geographicname") {
-                                var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
-                                parsedGeoLocation.id = item ? item.id : null;
-                                this.saveGeoLocation(parsedGeoLocation);
-                                if(this.items.owner.text !== this.currentOwnerType ){
-                                    this.saveGeoLocationsCopy();
-                                }
-                            } else {
-                                throw "unrecognized type";
+                var handleMessage =  function ( message ) {
+                    if (message.action === 'selected') {
+                        concept = message.concept;
+                        if (concept.objectType === "geographicname") {
+                            var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
+                            parsedGeoLocation.id = item ? item.id : null;
+                            this.saveGeoLocation(parsedGeoLocation);
+                            if(this.items.owner.text !== this.currentOwnerType ){
+                                this.saveGeoLocationsCopy();
                             }
                         } else {
-                            console && console.log("ignored because of action", message);
+                            throw "unrecognized type";
                         }
+                    } else {
+                        console && console.log("ignored because of action", message);
+                    }
+                    modal.close();
+                    }.bind( this );
 
-                    }.bind( this ), {
+                var gtaaPopup = function() {
+                    gtaa.open(handleMessage, {
                         //value: '',
                         //id: $( '#id' ).val(),
                         schemes: 'geographicname',
@@ -75,9 +76,26 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         scopeNotes: item ? item.scopeNotes : null,
                         role: item && item.role ? item.role.id : null,
                         jwt: this.editorService.getCurrentEditor().gtaaJws,
-                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration
+                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration,
+                        iframe: "modal_iframe"
+                    });
+                }.bind(this);
+
+                 var modal = this.$modal.open( {
+                    controller: "ModalIFrameController",
+                    controllerAs: "controller",
+                    templateUrl: 'edit/modal-iframe.html',
+                    windowClass: 'modal-form modal-person',
+                    resolve: {
+                        "callback":  function() {
+                            return gtaaPopup;
+                        },
+                        "title": function() {
+                            return "Zoek een geolocatie in GTAA";
+                        }
                     }
-                );
+                });
+
 
             },
 
