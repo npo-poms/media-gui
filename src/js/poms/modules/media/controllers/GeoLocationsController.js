@@ -67,35 +67,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                     modal.close();
                     }.bind( this );
 
-                var gtaaPopup = function() {
-                    gtaa.open(handleMessage, {
-                        //value: '',
-                        //id: $( '#id' ).val(),
-                        schemes: 'geographicname',
-                        name: item ? item.name : null,
-                        role: item && item.role ? item.role.id : null,
-                        jwt: this.editorService.getCurrentEditor().gtaaJws,
-                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration,
-                        iframe: "modal_iframe"
-                    });
-                }.bind(this);
-
-                 var modal = this.$modal.open( {
-                    controller: "ModalIFrameController",
-                    controllerAs: "controller",
-                    templateUrl: 'edit/modal-iframe.html',
-                    windowClass: 'modal-form modal-person',
-                    resolve: {
-                        "callback":  function() {
-                            return gtaaPopup;
-                        },
-                        "title": function() {
-                            return "Zoek een geolocatie in GTAA";
-                        }
-                    }
-                });
-
-
+                var modal =  this.editorService.gtaaModalForCurrentEditor("Zoek een geolocatie in GTAA", handleMessage, "geographicname", item);
             },
 
             addGeoLocation: function ( item ) {

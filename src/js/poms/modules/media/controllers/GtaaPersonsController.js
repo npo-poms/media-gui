@@ -81,36 +81,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                      modal.close();
 
                  }.bind( this );
-                var gtaaPopup = function () {
-                    gtaa.open(handleMessage, {
-                        //value: '',
-                        //id: $( '#id' ).val(),
-                        schemes: 'person',
-                        id: item ? item.gtaaUri : null,
-                        givenName: item ? item.givenName : null,
-                        familyName: item ? item.familyName : null,
-                        role: item && item.role ? item.role.id : null,
-                        jwt: this.editorService.getCurrentEditor().gtaaJws,
-                        jwtExpiration: this.editorService.getCurrentEditor().gtaaJwsExpiration,
-                        iframe: "modal_iframe"
-                    });
-                }.bind(this);
-
-                var modal = this.$modal.open( {
-                    controller: "ModalIFrameController",
-                    controllerAs: "controller",
-                    templateUrl: 'edit/modal-iframe.html',
-                    windowClass: 'modal-form modal-person',
-                    resolve: {
-                        "callback":  function() {
-                            return gtaaPopup;
-                        },
-                        "title": function() {
-                            return "Zoek een persoon in GTAA";
-                        }
-                    }
-                });
-
+                var modal = this.gtaaModalForCurrentEditor("Zoek een persoon in GTAA", handleMessage, "person", item);
             },
 
             addPerson: function ( item ) {
