@@ -49,26 +49,31 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
         GtaaPersonsController.prototype = {
             editPerson: function (item) {
-                this.gtaaService.modal("Zoek een persoon in GTAA", "person", item,
+                this.gtaaService.modal(
+                    "Zoek een persoon in GTAA",
+                    "person",
+                    item,
                     function (concept, role ) {
                         var parsedPerson = this.parsePerson(concept, role);
                         parsedPerson.id = item ? item.id : null;
                         if (parsedPerson.role) {
-                            this.mediaService.setPerson(this.media, parsedPerson).then(
-                                function () {
-                                    load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
-                                }.bind(this),
-                                function (error) {
-                                    if (error.violations) {
-                                        for (var violation in  error.violations) {
-                                            this.$scope.errorText = error.violations[violation];
-                                            break;// what about the next error?
+                            this.mediaService.setPerson(this.media, parsedPerson)
+                                .then(
+                                    // TODO, I don't quite get why a load is needed, the call will return the new media object
+                                    function () {
+                                        load(this.$scope, this.pomsEvents, this.mediaService, this.media, this.items);
+                                    }.bind(this),
+                                    function (error) {
+                                        if (error.violations) {
+                                            for (var violation in  error.violations) {
+                                                this.$scope.errorText = error.violations[violation];
+                                                break;// what about the next error?
+                                            }
+                                        } else {
+                                            this.$scope.$emit(this.pomsEvents.error, error);
                                         }
-                                    } else {
-                                        this.$scope.$emit(this.pomsEvents.error, error);
-                                    }
-                                }.bind(this)
-                            )
+                                    }.bind(this)
+                                );
                         } else {
                             console && console.log("No role!");
                         }
