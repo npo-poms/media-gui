@@ -50,26 +50,16 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
         GeoLocationsController.prototype = {
 
             editGeoLocation: function (item) {
-                var handleMessage =  function ( message ) {
-                    if (message.action === 'selected') {
-                        concept = message.concept;
-                        if (concept.objectType === "geographicname") {
-                            var parsedGeoLocation = this.parseGeoLocation(concept, message.role);
-                            parsedGeoLocation.id = item ? item.id : null;
-                            this.saveGeoLocation(parsedGeoLocation);
-                            if(this.items.owner.text !== this.currentOwnerType ){
-                                this.saveGeoLocationsCopy();
-                            }
-                        } else {
-                            throw "unrecognized type";
-                        }
-                    } else {
-                        console && console.log("ignored because of action", message);
+                var handleConcept =  function ( concept, role ) {
+                    var parsedGeoLocation = this.parseGeoLocation(concept, role);
+                    parsedGeoLocation.id = item ? item.id : null;
+                    this.saveGeoLocation(parsedGeoLocation);
+                    if(this.items.owner.text !== this.currentOwnerType ){
+                        this.saveGeoLocationsCopy();
                     }
-                    modal.close();
-                    }.bind( this );
+                }.bind(this);
 
-                var modal =  this.gtaaService.modal("Zoek een geolocatie in GTAA", handleMessage, "geographicname", item);
+                var modal =  this.gtaaService.modal("Zoek een geolocatie in GTAA", handleConcept, "geographicname", item);
             },
 
             addGeoLocation: function ( item ) {

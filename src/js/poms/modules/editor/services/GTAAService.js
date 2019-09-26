@@ -31,10 +31,26 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                     });
                 }.bind(this);
             },
-            modal: function(title, handleMessage, scheme, item) {
-                var gtaaPopup =  this.openFunction(handleMessage, scheme, item);
+            handleMessage: function(modal, message, scheme, conceptHandler) {
+                if (message.action === 'selected') {
+                    concept = message.concept;
+                    if (concept.objectType === scheme) {
+                        conceptHandler(concept, message.role);
+                    } else {
+                        throw "unrecognized type (" + concept.objectType + " != " + scheme + ")";
+                    }
+                } else {
+                    console && console.log("ignored because of action", message);
+                }
+            },
+            modal: function(title, conceptHandler, scheme, item) {
+                var handle = function(message) {
+                    this.handleMessage(modal, message,  scheme, conceptHandler);
+                    modal.close();
+                }.bind(this);
+                var gtaaPopup =  this.openFunction(handle, scheme, item);
 
-                return $modal.open({
+                modal= $modal.open({
                     controller: "ModalIFrameController",
                     controllerAs: "controller",
                     templateUrl: 'edit/modal-iframe.html',
