@@ -43,7 +43,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                     console && console.log("ignored because of action", message);
                 }
             },
-            modal: function(title, conceptHandler, scheme, item) {
+            modal: function(title, scheme, item, conceptHandler) {
                 var handle = function(message) {
                     this.handleMessage(modal, message,  scheme, conceptHandler);
                     modal.close();

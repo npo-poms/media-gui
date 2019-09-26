@@ -50,16 +50,17 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
         GeoLocationsController.prototype = {
 
             editGeoLocation: function (item) {
-                var handleConcept =  function ( concept, role ) {
-                    var parsedGeoLocation = this.parseGeoLocation(concept, role);
-                    parsedGeoLocation.id = item ? item.id : null;
-                    this.saveGeoLocation(parsedGeoLocation);
-                    if(this.items.owner.text !== this.currentOwnerType ){
-                        this.saveGeoLocationsCopy();
-                    }
-                }.bind(this);
-
-                var modal =  this.gtaaService.modal("Zoek een geolocatie in GTAA", handleConcept, "geographicname", item);
+                this.gtaaService.modal(
+                    "Zoek een geolocatie in GTAA",
+                    "geographicname", item,
+                    function ( concept, role ) {
+                        var parsedGeoLocation = this.parseGeoLocation(concept, role);
+                        parsedGeoLocation.id = item ? item.id : null;
+                        this.saveGeoLocation(parsedGeoLocation);
+                        if(this.items.owner.text !== this.currentOwnerType ){
+                            this.saveGeoLocationsCopy();
+                        }
+                    }.bind(this));
             },
 
             addGeoLocation: function ( item ) {
