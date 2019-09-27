@@ -82,9 +82,9 @@
         float: right;
         margin-right: 0;
         margin-left: flex-gutter(12);
-    }
-    .btn-rect:last-child {
-        margin-left: 0;
+        &:last-child {
+            margin-left: 0;
+        }
     }
 
     .footer-message {
