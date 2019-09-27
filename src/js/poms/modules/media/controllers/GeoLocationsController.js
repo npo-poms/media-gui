@@ -58,9 +58,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         var parsedGeoLocation = this.parseGeoLocation(concept, role);
                         parsedGeoLocation.id = item ? item.id : null;
                         this.saveGeoLocation(parsedGeoLocation);
-                        if(this.items.owner.text !== this.currentOwnerType ){
-                            this.saveGeoLocationsCopy();
-                        }
                     }.bind(this));
             },
 
@@ -114,10 +111,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
             },
 
             removeGeoLocation: function ( geoLocation ) {
-                if(this.items.owner.id !== this.currentOwnerType ){
-                  _.remove(this.items.values, function (item) { return item.gtaaUri === geoLocation.gtaaUri })
-                  return this.saveGeoLocationsCopy();
-                }
                 return this.mediaService.removeGeoLocation( this.$scope.media, geoLocation ).then(
                     function (data) {
                         angular.copy( data, this.items);
@@ -132,17 +125,8 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                         return true;
                     }.bind( this )
                 );
-            },
-
-            saveGeoLocationsCopy: function () {
-                var copyGeoLocations =
-                    _.map(this.items.values,
-                        function(geoLocation) {
-                            delete geoLocation.id;
-                            return geoLocation;}
-                    );
-                copyGeoLocations.map(this.saveGeoLocation.bind(this))
             }
+
 
         };
 
