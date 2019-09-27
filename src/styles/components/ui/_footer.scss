@@ -75,6 +75,30 @@
     }
 }
 
+.footer-buttons {
+    // This is a different solution, where we float the buttons to the right and the message to the left
+    // It might be a solution to drop the (ugly)
+    .btn-rect {
+        float: right;
+        margin-right: 0;
+        margin-left: flex-gutter(12);
+    }
+    .btn-rect:last-child {
+        margin-left: 0;
+    }
+
+    .footer-message {
+        float: left;
+        width: auto;
+        @for $i from 1 through 4 {
+            &.with-#{$i}-buttons {
+                max-width: percentage((12 - $i *2) / 12 - 0.01);
+            }
+        }
+    }
+}
+
+
 .footer .required-feedback {
     font-size: $fontsizebig;
     line-height: 32px;
@@ -102,5 +126,6 @@
 }
 
 .media-footer-container .footer-message {
-    padding: 8px;
+        padding: 8px;
+
 }
