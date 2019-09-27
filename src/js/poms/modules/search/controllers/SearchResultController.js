@@ -168,7 +168,12 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 this.$scope.csvUrl = null;
                 var searchCount = ++this.searchCount;
                 var queryData, options;
-                [queryData, options] = this.queryDataAndOptions(offset);
+                // [queryData, options] = this.queryDataAndOptions(offset); doesn't work in IE 11
+                {
+                    var a = this.queryDataAndOptions(offset);
+                    queryData = a[0];
+                    options = a[1];
+                }
                 var promise;
                 if ( this.search.scope === 'episodeOf' ) {
                     promise = this.searchService.loadEpisodeOfs( queryData, options );
