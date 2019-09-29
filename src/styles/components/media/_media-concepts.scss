@@ -86,7 +86,12 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+
 }
+span.media-concept-gtaa {
+    cursor: default; // Override strange default of @include icon
+}
+
 
 .media-concept-scope-note {
     color: $lichtgrijs;

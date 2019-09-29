@@ -5,6 +5,7 @@
     background-repeat: no-repeat;
     background-image: url('../resources/icons/' + $name + '.svg');
     cursor: pointer;
+     /* MM How can we sure this icon is meant to be clickable ? */
 
     @if $size != '' {
         background-size: $size $size;
