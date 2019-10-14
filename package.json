@@ -23,7 +23,7 @@
     "clean:target": "rimraf target",
     "clean:deploy": "rimraf build/deploy",
     "clean:work": "rimraf build/work",
-    "copy:resources": "cp -Rfa ./src/resources ./build/deploy/resources",
+    "copy:resources": "cp -Rfa ./src/resources ./build/deploy/resources &&  cp -Rfa ./src/favicons ./build/deploy/favicons ",
     "copy:vendorstyles": "cp -a ./src/styles/vendor/. ./build/deploy/css",
     "copy:vendorstyles:dev": "cp -a ./src/styles/vendor/. ./build/work/css",
     "create:deploybase": "mkdirp ./build/deploy",
