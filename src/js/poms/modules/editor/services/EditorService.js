@@ -170,7 +170,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             logOut: function () {
-                window.location.href = baseUrl + '/logout';
+                window.location.href = baseUrl + '/logout?url=' + encodeURIComponent(window.location.href);
             },
 
             getHashId: function ( userId, prefix ) {
