@@ -16,7 +16,7 @@
             <th class="poms-table-header">Authority
                 <poms-help field="editor.general.subtitles.ownerType"></poms-help>
             </th>
-            <th class="poms-table-header">Offset (hh:mm:ss)
+            <th class="poms-table-header">Offset (mm:ss)
                 <poms-help field="editor.general.subtitles.offset"></poms-help>
             </th>
 
@@ -26,46 +26,46 @@
 
         <tbody ng-model="subtitlesController.subtitles">
 
-        <tr ng-repeat="item in subtitlesController.subtitles" class="poms-table-row"
-            ng-class="{'editing': rowform.$visible, 'may-write': subtitlesController.mayWriteMedia }">
+        <tr ng-repeat="item in subtitlesController.subtitles"
+            class="poms-table-row"
+            ng-class="{'editing': rowform.$visible, 'may-write': item.mayChange, 'disabledediting': ! rowform.$visible }">
 
-            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+            <td>
                 <div>{{item.displayLanguage || item.language }}</div>
             </td>
 
-            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+            <td>
                 <div>{{item.type }}</div>
             </td>
 
-            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+            <td>
                 <div>{{item.owner }}</div>
             </td>
-
-            <td ng-click="subtitlesController.editOrShowIfAllowed( rowform, item )">
+            <td>
 
                 <div class="editable-duration">
-                    <div e-name="offset"
-                         e-form="rowform"
-                         editable-time="item.offset"
-                         e-step="1"
-                         e-show-meridian="false"
-                         e-close-text="sluit"
-                         e-autocomplete="off"
-                         e-placeholder="hh:mm:ss"
-                         ng-show="mayWriteMedia"
-                    >
-                        {{ (item.offset | mediaDuration) || '' }}
-                    </div>
-
-                    <div class="editfield" ng-hide="mayWriteMedia">
-                        {{ item.offset | mediaDuration }}
-                    </div>
+                    <input
+                            id="offset"
+                            name="offset"
+                            type="text"
+                            class="editable"
+                            ng-model="item.offset.string"
+                            placeholder="{{durationPlaceholder}}"
+                            ng-pattern="durationRegexp"
+                            ng-show="item.mayChange"
+                            form="{{item.id}}"
+                    />
+                </div>
+                <div class="viewable">
+                    {{ item.offset.string }}
                 </div>
             </td>
 
 
             <td class="column-tools" ng-class="{'waiting': waiting}">
-                <form editable-form name="rowform" onbeforesave="subtitlesController.submit( item, $data)"
+                <form editable-form
+                      id="{{item.id}}"
+                      name="rowform" onbeforesave="subtitlesController.submit( item, $data)"
                       oncancel="subtitlesController.cancel($index)"
                       ng-show="rowform.$visible" class="form-buttons form-inline">
                     <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
@@ -84,13 +84,13 @@
                     </button>
                     <button title='bewerk'
                             class="poms-icon icon-edit"
-                            ng-show="mayWriteMedia"
+                            ng-show="item.mayChange"
                             ng-click="rowform.$show()">
                         bewerk
                     </button>
                     <button title='delete'
                             class="poms-icon icon-remove"
-                            ng-show="subtitlesController.mayWriteSubtitle( item )"
+                            ng-show="item.mayDelete"
                             ng-click="subtitlesController.deleteSubtitle( item )">
                         verwijder
                     </button>

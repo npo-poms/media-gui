@@ -535,7 +535,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 var modal = this.$modal.open( {
                     resolve: {
                         title: function () {
-                            return 'Upload ondertitel';
+                            return 'Upload ondertitels';
                         },
                         languages: function () {
                             return this.languages;
@@ -550,10 +550,10 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                             return this.mayWriteSubtitles( this.media )
                         }.bind( this )
                     },
-                    controller : 'SubtitleUploadController',
-                    controllerAs : 'subtitleUploadController',
-                    templateUrl : 'edit/modal-upload-subtitle.html',
-                    windowClass : 'modal-subtitle-upload'
+                    controller : 'SubtitlesUploadController',
+                    controllerAs : 'subtitlesUploadController',
+                    templateUrl : 'edit/modal-upload-subtitles.html',
+                    windowClass : 'modal-subtitles-upload'
                 } );
 
                 //modal.result.then(
