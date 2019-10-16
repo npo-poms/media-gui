@@ -30,7 +30,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                 "inputStart": "Starttijd",
                 "inputStop": "Eindtijd",
                 "inputDuration": "Duur",
-                "inputTitle": "Title",
+                "inputTitle": "Titel",
                 "inputDescription": "Beschrijving"
             };
           /*  for (el in $(document.createForm).find("label")) {
