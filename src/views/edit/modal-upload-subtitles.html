@@ -1,6 +1,6 @@
 <div class="modal-header">
-    <div class="modal-title"> {{ ::subtitleUploadController.title }}</div>
-    <div class="modal-close-button" ng-click="subtitleUploadController.close()"> close</div>
+    <div class="modal-title"> {{ ::subtitlesUploadController.title }}</div>
+    <div class="modal-close-button" ng-click="subtitlesUploadController.close()"> close</div>
 </div>
 
 <form editable-form id="uploadSubtitlesForm" role="form" class="poms-form uploadSubtitleForm"
@@ -15,7 +15,7 @@
                        style="width: 200px;"
             >
                 <ui-select-choices repeat="item in languages | filter: {text: $select.search}">
-                    <div ng-bind-html="subtitleUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+                    <div ng-bind-html="subtitlesUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
                 </ui-select-choices>
                 <ui-select-match>{{$select.selected.text }}</ui-select-match>
             </ui-select>
@@ -28,20 +28,20 @@
                        style="width: 200px;"
             >
                 <ui-select-choices repeat="item in subtitlesTypes">
-                    <div ng-bind-html="subtitleUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+                    <div ng-bind-html="subtitlesUploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
                 </ui-select-choices>
                 <ui-select-match>{{$select.selected.text }}</ui-select-match>
             </ui-select>
 
-            <label for="inputOffset">Offset (hh:mm:ss)</label>
+            <label for="inputOffset">Offset (mm:ss)</label>
             <p>
-            <input type="time" name="inputOffset"
+            <input type="text"
+                   name="inputOffset"
                    id="inputOffset"
-                   ng-disabled="!mayWrite"
-                   ng-init="uploadSubtitleForm.offset = epoch"
-                   ng-model="uploadSubtitleForm.offset"
-                   step="1"
-                   style="width: 200px;"
+                   placeholder="{{ durationPlaceholder}}"
+                   ng-init="uploadSubtitleForm.offset = { 'string': '' }"
+                   ng-model="uploadSubtitleForm.offset.string"
+                   style="width: 300px;"
             >
             <poms-invalid violation="controller.violations.date"></poms-invalid>
             <poms-help field="subtitle.offset"></poms-help>
@@ -52,9 +52,9 @@
                 <label for="inputFile">Bestand</label>
                 <input type="file"
                        id="inputFile" name="inputFile"
-                       ng-file-select="subtitleUploadContoller.fileSelected()"
+                       ng-file-select="subtitlesUploadContoller.fileSelected()"
                        ng-model="uploadSubtitleForm.subtitleFile"
-                       accept=".vtt,.srt,.tt888,.ebu-stl,.xml,text/vtt,text/srt,text/tt888,application/ebu-stl,application/xml">
+                       accept=".vtt,.srt,.tt888,.txt,.ebu-stl,.xml,text/vtt,text/srt,text/tt888,application/ebu-stl,application/xml">
             </div>
         </div>
 
@@ -84,16 +84,16 @@
                       ng-if="(uploadSubtitleForm.subtitleLanguage &&
                       uploadSubtitleForm.subtitleType &&
                       uploadSubtitleForm.subtitleFile) &&
-                      subtitleUploadController.isDuplicate() &&
-                      subtitleUploadController.mayWriteDuplicate()">
+                      subtitlesUploadController.isDuplicate() &&
+                      subtitlesUploadController.mayWriteDuplicate()">
                     Let op gaat overschrijven
                 </span>
                 <span class="required-feedback-message"
                       ng-if="(uploadSubtitleForm.subtitleLanguage &&
                       uploadSubtitleForm.subtitleType &&
                       uploadSubtitleForm.subtitleFile) &&
-                      subtitleUploadController.isDuplicate() &&
-                      !subtitleUploadController.mayWriteDuplicate()">
+                      subtitlesUploadController.isDuplicate() &&
+                      !subtitlesUploadController.mayWriteDuplicate()">
                    Een authoritive subtitle mag niet overschreven worden.
                 </span>
 
@@ -105,16 +105,16 @@
             </div>
 
             <button class="btn-rect"
-                    ng-click="subtitleUploadController.addSubtitle()"
+                    ng-click="subtitlesUploadController.addSubtitle()"
                     ng-disabled="(!uploadSubtitleForm.subtitleFile ||
                         !uploadSubtitleForm.subtitleLanguage ||
                         !uploadSubtitleForm.subtitleType) ||
-                        !(!subtitleUploadController.isDuplicate() || subtitleUploadController.mayWriteDuplicate())
+                        !(!subtitlesUploadController.isDuplicate() || subtitlesUploadController.mayWriteDuplicate())
                         || waiting"
             >
                 Start upload
             </button>
-            <button class="btn-rect btn-rect-cancel" ng-click="subtitleUploadController.close()">Annuleer</button>
+            <button class="btn-rect btn-rect-cancel" ng-click="subtitlesUploadController.close()">Annuleer</button>
         </div>
     </div>
 

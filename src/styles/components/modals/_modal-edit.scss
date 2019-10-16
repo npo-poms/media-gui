@@ -1,12 +1,22 @@
 .modal-edit{
     padding:16px;
+
+    .footer button{
+
+        &:hover{
+            color:white;
+            background-color: $oranje;
+        }
+    }
 }
-
-.modal-edit .footer button{
-
-    &:hover{
-        color:white;
-        background-color: $oranje;
+.disabledediting {
+    .editable {
+        display: none;
+    }
+}
+.editing {
+    .viewable {
+        display: none;
     }
 }
 

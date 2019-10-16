@@ -47,7 +47,6 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
                 fileFormDataName: 'file'
                 })
                 .success( function ( data, status, headers, config ) {
-
                     deferred.resolve( data );
                 })
                 .error( function ( data, status, headers, config ) {
@@ -84,7 +83,7 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
             },
 
             setOffset: function ( mid, language, type, offset ) {
-                return post( mid, [ language, type, 'offset' ].join('/'), { duration: offset } );
+                return post( mid, [ language, type, 'offset' ].join('/'), offset);
             },
 
             delete: function ( mid, language, type) {
