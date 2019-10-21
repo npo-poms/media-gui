@@ -19,6 +19,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
 
+
+            // TODO These constants could be stored somewhere centralized (or even server side?)
+            // It is also used in e.g. Subtitles Controller
             // allow
             // 00:00:00.000
             // <h> H <m> M <s> S
