@@ -31,9 +31,6 @@ app.use( '/resources', express.static( './src/resources' ) );
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(8080, function(){
-    debug( 'express server started on localhost:%d', 8080 );
-});
 
 httpsServer.listen(8448, function(){
     debug( 'express server started on localhost:%d', 8448 );
