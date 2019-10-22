@@ -141,19 +141,19 @@
 
 
                         <a title="verwijder" class="dropdown-selected "
-                           ng-if="location.publication.start and controller.mayWrite('publishStart')"
+                           ng-if="location.publication.start && controller.mayWrite('publishStart')"
                            ng-click="location.publication.start = undefined">
                             start: <span> {{location.publication.start | mediaDateTime}} </span>
                         </a>
-                        <div if="location.publication.start and ! controller.mayWrite('publishStart')">
+                        <div if="location.publication.start && ! controller.mayWrite('publishStart')">
                              start: <span> {{location.publication.start | mediaDateTime}} </span>
                         </div>
 
                         <a title="verwijder" class="dropdown-selected "
-                           ng-if="location.publication.stop and controller.mayWrite('publishStop')" ng-click="location.publication.stop = undefined">
+                           ng-if="location.publication.stop && controller.mayWrite('publishStop')" ng-click="location.publication.stop = undefined">
                             stop: <span> {{location.publication.stop | mediaDateTime}} </span>
                         </a>
-                         <div if="location.publication.stop and ! controller.mayWrite('publishStop')">
+                         <div if="location.publication.stop && ! controller.mayWrite('publishStop')">
                              stop: <span> {{location.publication.stop | mediaDateTime}} </span>
                         </div>
 
