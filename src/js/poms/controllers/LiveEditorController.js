@@ -31,6 +31,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             this.NEPService = NEPService;
 
+            // TODO: This is ridiculous!!
             this.TIMEOFFSET = 7200; //UTC
             this.init();
         }
@@ -253,9 +254,14 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
+
+                // wtf.
                 var time = moment(this.videoElement.currentTime * 1000 );
 
-                this.NEPService.getLiveScreengrab( this.$scope.item.currentStream.id , time ).then( function ( response ) {
+                //var time = new Date(this.videoElement.currentTime * 1000 );
+
+                this.NEPService.getLiveScreengrab( this.$scope.item.currentStream.id , time )
+                    .then( function ( response ) {
                     if (response && response.data) {
                         var blob = new Blob([response.data], {type: 'image/jpeg'});
                         this.$scope.still = window.URL.createObjectURL(blob);
