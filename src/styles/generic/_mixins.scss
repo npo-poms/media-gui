@@ -10,8 +10,20 @@
     @if $size != '' {
         background-size: $size $size;
     }
+}
 
+@mixin domainicon($name, $size:'', $position: "center center") {
 
+    background-color: transparent;
+    background-position: if(type_of($position) == string, unquote($position), $position);
+    background-repeat: no-repeat;
+    background-image: url('/resources/icons/' + $name);
+    cursor: pointer;
+     /* MM How can we sure this icon is meant to be clickable ? */
+
+    @if $size != '' {
+        background-size: $size $size;
+    }
 }
 
 

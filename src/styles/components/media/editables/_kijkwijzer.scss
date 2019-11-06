@@ -16,50 +16,60 @@
     background-color: transparent;
 }
 
+// This seems very cumbersome: Everything is completely predictable, so why do we have to do this?
+
 .editfield-radiolist-icons ._6 {
-    @include icon('agerating-6', 18px, 'left center');
+    @include domainicon('agerating/6.svg', 18px, 'left center');
 }
 
 .editfield-radiolist-icons ._9 {
-    @include icon('agerating-9', 18px, 'left center');
+    @include domainicon('agerating/9.svg', 18px, 'left center');
 }
 
 .editfield-radiolist-icons ._12 {
-    @include icon('agerating-12', 18px, 'left center');
+    @include domainicon('agerating/12.svg', 18px, 'left center');
+}
+
+.editfield-radiolist-icons ._14 {
+    @include domainicon('agerating/14.svg', 18px, 'left center');
 }
 
 .editfield-radiolist-icons ._16 {
-    @include icon('agerating-16', 18px, 'left center');
+    @include domainicon('agerating/16.svg', 18px, 'left center');
+}
+
+.editfield-radiolist-icons ._18 {
+    @include domainicon('agerating/18.svg', 18px, 'left center');
 }
 
 .editfield-radiolist-icons .ALL {
-    @include icon('agerating-all', 18px, 'left center');
+    @include icon('agerating/all.svg', 18px, 'left center');
 }
 
 .editfield-checklist-icons .discriminatie{
-    @include icon('contentrating-discriminatie', 18px, 'left center');
+    @include domainicon('contentrating/discriminatie.svg', 18px, 'left center');
 }
 
 .editfield-checklist-icons .grof {
-    @include icon('contentrating-grof', 18px, 'left center');
+    @include domainicon('contentrating/grof_taalgebruik.svg', 18px, 'left center');
 }
 
 .editfield-checklist-icons .seks {
-    @include icon('contentrating-seks', 18px, 'left center');
+    @include domainicon('contentrating/seks.svg', 18px, 'left center');
 }
 
 .editfield-checklist-icons .geweld {
-    @include icon('contentrating-geweld', 18px, 'left center');
+    @include domainicon('contentrating/geweld.svg', 18px, 'left center');
 
 }
 
 .editfield-checklist-icons .alcoholmisbruik {
-    @include icon('contentrating-drugs', 18px, 'left center');
+    @include domainicon('contentrating/drugs_en_alchohol.svg', 18px, 'left center');
 
 }
 
 .editfield-checklist-icons .angst {
-    @include icon('contentrating-angst', 18px, 'left center');
+    @include domainicon('contentrating/angst.svg', 18px, 'left center');
 }
 
 .editfield-radiolist-icons .list-icon,
