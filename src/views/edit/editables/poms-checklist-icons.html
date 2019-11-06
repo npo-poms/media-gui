@@ -1,4 +1,4 @@
-<div class="editfield-wrapper editfield-checklist-icons"
+<div class="editfield-wrapper editfield-checklist-icons {{field}}"
      ng-keyup="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
      ng-class="{'empty' : !media[field], 'may-write' : mayWrite, 'forbidden': !mayWrite, 'opened' : isOpen , 'waiting': waiting }"
@@ -10,20 +10,20 @@
        e-form="editElement"
        e-name="editvalue"
        editable-checklist-icons="media[field]"
-       e-ng-options="b as b.text.toLowerCase() for b in options"
+       e-ng-options="b.id as b.text for b in options"
        onshow="onShow()"
        onhide="onHide()"
        onbeforesave="save($data)"
        ng-show="mayWrite"
        blur="ignore"
             >
-        <span ng-repeat="item in media[field]" class="icon" ng-class="item.text | lowercase "></span>
+        <span ng-repeat="item in media[field]" class="icon" ng-class="field + '_' + item.id"></span>
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
     <p class="editfield" ng-hide="mayWrite">
-        <span ng-repeat="item in media[field]" class="icon" ng-class="item.text | lowercase "></span>
+        <span ng-repeat="item in media[field]" class="icon" ng-class="field + '_' + item.id"></span>
     </p>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>

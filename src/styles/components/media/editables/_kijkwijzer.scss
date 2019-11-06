@@ -16,74 +16,29 @@
     background-color: transparent;
 }
 
-@mixin kijkwijzer($name, $size:'', $position: "center center") {
-
+@mixin kijkwijzer($name) {
     background-color: transparent;
-    background-position: if(type_of($position) == string, unquote($position), $position);
+    background-position: left center;
     background-repeat: no-repeat;
     background-image: url('/kijkwijzer/icons/' + $name);
-    cursor: pointer;
-     /* MM How can we sure this icon is meant to be clickable ? */
+    background-size: 18px 18px;
 
-    @if $size != '' {
-        background-size: $size $size;
+}
+
+
+$ageratings: 6, 9, 12, 14, 16, 18, ALL;
+$contentratings: DISCRIMINATIE, GROF_TAALGEBRUIK, ANGST, GEWELD, SEKS, DRUGS_EN_ALCOHOL;
+
+@each $agerating in $ageratings {
+    .editfield-radiolist-icons .ageRating_#{$agerating} {
+      @include kijkwijzer('agerating/$agerating.svg');
     }
 }
 
-// This seems very cumbersome: Everything is completely predictable, so why do we have to do this?
-
-.editfield-radiolist-icons ._6 {
-    @include kijkwijzer('agerating/6.svg', 18px, 'left center');
-}
-
-.editfield-radiolist-icons ._9 {
-    @include kijkwijzer('agerating/9.svg', 18px, 'left center');
-}
-
-.editfield-radiolist-icons ._12 {
-    @include kijkwijzer('agerating/12.svg', 18px, 'left center');
-}
-
-.editfield-radiolist-icons ._14 {
-    @include kijkwijzer('agerating/14.svg', 18px, 'left center');
-}
-
-.editfield-radiolist-icons ._16 {
-    @include kijkwijzer('agerating/16.svg', 18px, 'left center');
-}
-
-.editfield-radiolist-icons ._18 {
-    @include kijkwijzer('agerating/18.svg', 18px, 'left center');
-}
-
-.editfield-radiolist-icons .ALL {
-    @include kijkwijzer('agerating/all.svg', 18px, 'left center');
-}
-
-.editfield-checklist-icons .discriminatie{
-    @include kijkwijzer('contentrating/discriminatie.svg', 18px, 'left center');
-}
-
-.editfield-checklist-icons .grof {
-    @include kijkwijzer('contentrating/grof_taalgebruik.svg', 18px, 'left center');
-}
-
-.editfield-checklist-icons .seks {
-    @include kijkwijzer('contentrating/seks.svg', 18px, 'left center');
-}
-
-.editfield-checklist-icons .geweld {
-    @include kijkwijzer('contentrating/geweld.svg', 18px, 'left center');
-
-}
-
-.editfield-checklist-icons .alcoholmisbruik {
-    @include kijkwijzer('contentrating/drugs_en_alchohol.svg', 18px, 'left center');
-
-}
-
-.editfield-checklist-icons .angst {
-    @include kijkwijzer('contentrating/angst.svg', 18px, 'left center');
+@each $contentrating in $contentratings {
+    .editfield-checklist-icons .contentRatings_#{$contentrating} {
+      @include kijkwijzer('contentrating/#{to-lower-case($contentrating)}.svg');
+    }
 }
 
 .editfield-radiolist-icons .list-icon,
