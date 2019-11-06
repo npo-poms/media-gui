@@ -28,9 +28,9 @@ div.ageRating {
     &.editfield-checklist-icons .editable-input {
         text-transform: lowercase;
     }
-    @each $agerating in 6, 9, 12, 14, 16, 18, ALL {
+    @each $agerating in '6', '9', '12', '14', '16', '18', 'ALL' {
         &.editfield-radiolist-icons .value_#{$agerating} {
-            @include kijkwijzer('agerating/#{to-lower_case($agerating)}.svg');
+            @include kijkwijzer('agerating/#{to-lower-case($agerating)}.svg');
         }
     }
 }
