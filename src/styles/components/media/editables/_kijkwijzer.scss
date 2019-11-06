@@ -30,7 +30,7 @@
 div.ageRating {
     @each $agerating in 6, 9, 12, 14, 16, 18, ALL {
         &.editfield-radiolist-icons .value_#{$agerating} {
-            @include kijkwijzer('agerating/$agerating.svg');
+            @include kijkwijzer('agerating/#{$agerating}.svg');
         }
     }
 }
