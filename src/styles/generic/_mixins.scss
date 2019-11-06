@@ -17,7 +17,7 @@
     background-color: transparent;
     background-position: if(type_of($position) == string, unquote($position), $position);
     background-repeat: no-repeat;
-    background-image: url('/resources/icons/' + $name);
+    background-image: url('/icons/' + $name);
     cursor: pointer;
      /* MM How can we sure this icon is meant to be clickable ? */
 
