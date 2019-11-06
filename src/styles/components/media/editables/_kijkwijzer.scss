@@ -26,18 +26,24 @@
 }
 
 
-$ageratings: 6, 9, 12, 14, 16, 18, ALL;
-$contentratings: DISCRIMINATIE, GROF_TAALGEBRUIK, ANGST, GEWELD, SEKS, DRUGS_EN_ALCOHOL;
-
-@each $agerating in $ageratings {
-    .editfield-radiolist-icons .ageRating_#{$agerating} {
-      @include kijkwijzer('agerating/$agerating.svg');
+div.ageRating {
+    $ageratings: 6, 9, 12, 14, 16, 18, ALL;
+    @each $agerating in $ageratings {
+        &.editfield-radiolist-icons .value_#{$agerating} {
+            @include kijkwijzer('agerating/$agerating.svg');
+        }
     }
 }
 
-@each $contentrating in $contentratings {
-    .editfield-checklist-icons .contentRatings_#{$contentrating} {
-      @include kijkwijzer('contentrating/#{to-lower-case($contentrating)}.svg');
+div.contentRatings {
+    $contentratings: DISCRIMINATIE, GROF_TAALGEBRUIK, ANGST, GEWELD, SEKS, DRUGS_EN_ALCOHOL;
+    &.editfield-checklist-icons {
+        text-transform: lowercase;
+    }
+    @each $contentrating in $contentratings {
+        &.editfield-checklist-icons .value_#{$contentrating} {
+            @include kijkwijzer('contentrating/#{to-lower-case($contentrating)}.svg');
+        }
     }
 }
 

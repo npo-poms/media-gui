@@ -187,7 +187,7 @@
                     var parsed = editableNgOptionsParser(this.attrs.eNgOptions);
                     var html = '<label ng-repeat="'+parsed.ngRepeat+'">'+
                         '<input  type="checkbox" checklist-model="$parent.$data" checklist-value="'+parsed.locals.valueFn+'">'+
-                        '<span class="list-icon" ng-class="value + \'_\'"' + parsed.locals.valueFn +'"  ng-bind="'+parsed.locals.displayFn+'"></span></label>';
+                        '<span class="list-icon" ng-class="\'value_\' + ' + parsed.locals.valueFn +'"  ng-bind="'+parsed.locals.displayFn+'"></span></label>';
 
                     this.inputEl.removeAttr('ng-model');
                     this.inputEl.removeAttr('ng-options');
@@ -209,7 +209,7 @@
                     var parsed = editableNgOptionsParser(this.attrs.eNgOptions);
                     var html = '<label ng-repeat="'+parsed.ngRepeat+'">'+
                         '<input type="radio" ng-disabled="' + this.attrs.eNgDisabled + '" ng-model="$parent.$data" value="{{'+parsed.locals.valueFn+'}}">'+
-                        '<span class="list-icon" ng-class="value + \'_\'"'+ parsed.locals.classFn +'"  ng-bind="'+parsed.locals.displayFn+'"></span></label>';
+                        '<span class="list-icon" ng-class="\'value_\' + '+ parsed.locals.valueFn +'"  ng-bind="'+parsed.locals.displayFn+'"></span></label>';
                     this.inputEl.removeAttr('ng-model');
                     this.inputEl.removeAttr('ng-options');
                     this.inputEl.html(html);
