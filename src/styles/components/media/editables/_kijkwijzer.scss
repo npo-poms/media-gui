@@ -7,12 +7,9 @@
 .media-data .editfield-radiolist-icons .editfield .icon,
 .media-data .editfield-checklist-icons .editfield .icon {
     position: relative;
-
     width: 24px;
     height: 24px;
-
     display: inline-block;
-
     background-color: transparent;
 }
 
@@ -36,7 +33,7 @@ div.ageRating {
 }
 
 div.contentRatings {
-    &.editfield-checklist-icons {
+    &.editfield-checklist-icons .editable-input {
         text-transform: lowercase;
     }
     @each $contentrating in DISCRIMINATIE, GROF_TAALGEBRUIK, ANGST, GEWELD, SEKS, DRUGS_EN_ALCOHOL {

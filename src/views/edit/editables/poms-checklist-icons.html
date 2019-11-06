@@ -17,13 +17,18 @@
        ng-show="mayWrite"
        blur="ignore"
             >
-        <span ng-repeat="item in media[field]" class="icon" ng-class="field + '_' + item.id"></span>
+        <span ng-repeat="item in media[field]" class="icon"
+              title="{{item.text}}"
+              ng-class="'value_' + item.id"></span>
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
     <p class="editfield" ng-hide="mayWrite">
-        <span ng-repeat="item in media[field]" class="icon" ng-class="field + '_' + item.id"></span>
+        <span ng-repeat="item in media[field]"
+              ng-title="item.text"
+              class="icon"
+              ng-class="'value_' + item.id"></span>
     </p>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
