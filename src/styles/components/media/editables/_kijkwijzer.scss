@@ -22,13 +22,10 @@
     background-repeat: no-repeat;
     background-image: url('/kijkwijzer/icons/' + $name);
     background-size: 18px 18px;
-
 }
 
-
 div.ageRating {
-    $ageratings: 6, 9, 12, 14, 16, 18, ALL;
-    @each $agerating in $ageratings {
+    @each $agerating in 6, 9, 12, 14, 16, 18, ALL {
         &.editfield-radiolist-icons .value_#{$agerating} {
             @include kijkwijzer('agerating/$agerating.svg');
         }
@@ -36,11 +33,10 @@ div.ageRating {
 }
 
 div.contentRatings {
-    $contentratings: DISCRIMINATIE, GROF_TAALGEBRUIK, ANGST, GEWELD, SEKS, DRUGS_EN_ALCOHOL;
     &.editfield-checklist-icons {
         text-transform: lowercase;
     }
-    @each $contentrating in $contentratings {
+    @each $contentrating in DISCRIMINATIE, GROF_TAALGEBRUIK, ANGST, GEWELD, SEKS, DRUGS_EN_ALCOHOL {
         &.editfield-checklist-icons .value_#{$contentrating} {
             @include kijkwijzer('contentrating/#{to-lower-case($contentrating)}.svg');
         }
