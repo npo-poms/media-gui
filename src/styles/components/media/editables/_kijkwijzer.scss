@@ -21,7 +21,7 @@
     background-color: transparent;
     background-position: if(type_of($position) == string, unquote($position), $position);
     background-repeat: no-repeat;
-    background-image: url('/kijkwijzer/' + $name);
+    background-image: url('/kijkwijzer/icons/' + $name);
     cursor: pointer;
      /* MM How can we sure this icon is meant to be clickable ? */
 
@@ -33,7 +33,7 @@
 // This seems very cumbersome: Everything is completely predictable, so why do we have to do this?
 
 .editfield-radiolist-icons ._6 {
-    @include kijkwijzer('kijkwijzer/agerating/6.svg', 18px, 'left center');
+    @include kijkwijzer('agerating/6.svg', 18px, 'left center');
 }
 
 .editfield-radiolist-icons ._9 {
