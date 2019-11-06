@@ -16,11 +16,14 @@
     background-color: transparent;
 }
 
+/* MM: So it works, but it still is unclear to me why icons must be placed by CSS. What's wrong with img-tags? Putting them in html would eliminate some more logic in the frontend
+
+ */
 @mixin kijkwijzer($name) {
     background-color: transparent;
     background-position: left center;
     background-repeat: no-repeat;
-    background-image: url('/kijkwijzer/icons/' + $name);
+    background-image: url('../kijkwijzer/icons/' + $name);
     background-size: 18px 18px;
 }
 
