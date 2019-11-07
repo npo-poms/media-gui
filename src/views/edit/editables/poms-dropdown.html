@@ -28,9 +28,9 @@
     </div>
 
     <div ng-show="!isOpen">
-        <span ng-repeat="item in media[field]">
-            {{item.text}}{{$last ? '' : ', '}}
-        </span>
+        <span ng-repeat="item in media[field]" class="field-value">
+            <span ng-if="item.iconClass != null" class="{{item.iconClass}}"
+            ></span>{{item.text}}{{$last ? '' : ', '}}</span>
     </div>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
