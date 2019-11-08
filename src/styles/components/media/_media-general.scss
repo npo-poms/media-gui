@@ -614,3 +614,7 @@
 .media-topic-gtaa-deleted {
     @include icon('person-unapproved', 16px, '0 4px');
 }
+
+.flag-icon:after {
+    content:"\00a0";
+}
