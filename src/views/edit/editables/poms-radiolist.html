@@ -17,6 +17,7 @@
        blur="ignore"
        e-form="editElement"
        e-name="editvalue" >
+        <span ng-if="media[field].iconClass != null" class="icon" title="{{media[field].text}}" ng-class="media[field].iconClass"></span>
         {{ media[field].text }}
     </p>
 

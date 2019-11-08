@@ -17,13 +17,13 @@
        blur="ignore"
        e-form="editElement"
        e-name="editvalue"  >
-        <span class="icon" title="{{media[field].text}}" ng-class="'value_' + media[field].id"></span>
+        <span ng-if="media[field].iconClass != null" class="icon" title="{{media[field].text}}" ng-class="media[field].iconClass"></span>
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
     <p class="editfield" ng-hide="mayWrite" >
-        <span class="icon" ng-title="media[field].text" ng-class="'value_' + media[field].id"></span>
+        <span ng-if="media[field].iconClass != null" class="icon" title="{{media[field].text}}" ng-class="media[field].iconClass"></span>
     </p>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
