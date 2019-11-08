@@ -615,6 +615,9 @@
     @include icon('person-unapproved', 16px, '0 4px');
 }
 
+.flag-icon {
+    margin-right: 0.5ex;
+}
 .flag-icon:after {
     content:"\00a0";
 }
