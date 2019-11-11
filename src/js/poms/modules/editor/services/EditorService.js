@@ -8,13 +8,13 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     'localStorageService',
     function ( $q, $rootScope, $http, $modal, appConfig, pomsEvents, localStorageService ) {
 
-        var baseUrl = appConfig.apihost + '/gui/editor',
-            rolesHolder = [],
-            editorHolder = {};
+        var baseUrl = appConfig.apihost + '/gui/editor';
+        var rolesHolder = [];
+        var editorHolder = {};
 
         function getOrganisations ( path ) {
-            var deferred = $q.defer(),
-                url = baseUrl + path;
+            var deferred = $q.defer();
+            var url = baseUrl + path;
 
             $http.get( url, {cache: true} )
                 .success( function ( organisations ) {
@@ -28,8 +28,8 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
         }
 
         function post ( path, body ) {
-            var deferred = $q.defer(),
-                url = baseUrl + path;
+            var deferred = $q.defer();
+            var url = baseUrl + path;
 
             $http.post( url, body )
                 .success( function ( editor ) {
@@ -63,19 +63,22 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     .then(
                         // success
                         function (response) {
-                            editor = response.data;
-                            if (editor.id) {
-                                localStorageService.set("currentUser", editor.id);
+                            if (! editorHolder.created || editorHolder.created < editor.created) {
+                                editor = response.data;
+                                if (editor.id) {
+                                    localStorageService.set("currentUser", editor.id);
+                                }
+                                if(editor.currentOwner) {
+                                    localStorageService.set("currentOwner", editor.currentOwner.id);
+                                }
+                                editor.hashId = this.getHashId( editor.id, 'user' );
+                                editorHolder = editor;
+                                rolesHolder = editor.roles;
+                                delete editor.role;
+                                deferred.resolve(editor);
+                            } else {
+                                console.log("Received editor is older then current one");
                             }
-                            if(editor.currentOwner) {
-                                localStorageService.set("currentOwner", editor.currentOwner.id);
-                            }
-                            editor.hashId = this.getHashId( editor.id, 'user' );
-                            editorHolder = editor;
-                            rolesHolder = editor.roles;
-                            delete editor.role;
-
-                            deferred.resolve(editor);
                             heartbeat();
                         }.bind(this),
                         // errors
