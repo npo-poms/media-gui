@@ -1,5 +1,4 @@
-if (typeof (window.poms_domain) === 'undefined' ) {
-    // filled by media.js.jspx (but not with .watch.sh)
+if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by media.js.jspx if running on actual deployment
     window.poms_domain = document.currentScript ? new URL(document.currentScript.src).origin : '';
     console && console.log("No window.poms_domain, taking it ", window.poms_domain);
 }
