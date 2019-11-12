@@ -1,7 +1,7 @@
-if (typeof (document.poms_domain) === 'undefined' ) {
+if (typeof (window.poms_domain) === 'undefined' ) {
     // filled by media.js.jspx (but not with .watch.sh)
     window.poms_domain = document.currentScript ? new URL(document.currentScript.src).origin : '';
-    console.log("No window.poms_domain, taking it ", window.poms_domain);
+    console && console.log("No window.poms_domain, taking it ", window.poms_domain);
 }
 
 var media = {
@@ -23,7 +23,7 @@ var media = {
         }
         function handleMessage ( e ) {
 
-            if ( e.origin === domain ) {
+            if ( e.origin === domain || domain === '') {
                 callback( e.data );
                 if ( popup ) {
                     popup.close();
@@ -31,6 +31,8 @@ var media = {
                 if ( iframe ) {
                     iframe.parentNode.removeChild( iframe );
                 }
+            } else {
+                console && console.log("Ignoring since", e.origin, "!=", domain)
             }
         }
 
