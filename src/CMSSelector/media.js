@@ -1,4 +1,4 @@
-if (typeof (document.poms_domain) === 'undefined' ) {
+if (typeof (window.poms_domain) === 'undefined' ) {
     // filled by media.js.jspx (but not with .watch.sh)
     window.poms_domain = document.currentScript ? new URL(document.currentScript.src).origin : '';
     console && console.log("No window.poms_domain, taking it ", window.poms_domain);
