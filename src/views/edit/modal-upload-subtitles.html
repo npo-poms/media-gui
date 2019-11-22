@@ -32,21 +32,25 @@
                 </ui-select-choices>
                 <ui-select-match>{{$select.selected.text }}</ui-select-match>
             </ui-select>
+            <poms-help field="editor.general.subtitles.type"></poms-help>
 
-            <label for="inputOffset">Offset (mm:ss)</label>
+
+            <label for="inputOffset">Offset (mm:ss)</span></label>
             <p>
             <input type="text"
                    name="inputOffset"
                    id="inputOffset"
                    placeholder="{{ durationPlaceholder}}"
+                   ng-pattern="durationRegexp"
                    ng-init="uploadSubtitleForm.offset = { 'string': '' }"
                    ng-model="uploadSubtitleForm.offset.string"
-                   style="width: 300px;"
-            >
-            <poms-invalid violation="controller.violations.date"></poms-invalid>
-            <poms-help field="subtitle.offset"></poms-help>
+                   style="width: 300px;" />
+
+                <poms-help field="editor.general.subtitles.offset"></poms-help> <!-- werkt niet, weet ik veel waarom niet-->
+                <poms-invalid violation="controller.violations.offset"></poms-invalid>
 
 
+            </p>
             <div class="field float-clear col-4"
                  ng-class="{'has-error' : uploadSubtitleForm.subtitleFile.$invalid}">
                 <label for="inputFile">Bestand</label>
