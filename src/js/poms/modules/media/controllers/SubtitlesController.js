@@ -44,13 +44,13 @@ angular.module( 'poms.media.controllers' ).controller(
             },
 
             showSubtitle: function ( subtitle ) {
-                var urlSuffix = this.media.mid + '/' + subtitle.language + '/' + subtitle.type;
+                var urlSuffix = this.media.mid + '/' + subtitle.language + '/' + subtitle.type.id;
                 window.open( this.$filter( 'subtitlesLocationPrefix' )( urlSuffix ) );
             },
 
             deleteSubtitle: function ( subtitle ) {
 
-                return this.subtitlesService.delete( this.media.mid, subtitle.language, subtitle.type).then(
+                return this.subtitlesService.delete( this.media.mid, subtitle.language, subtitle.type.id).then(
                     function( response ){
                         this.subtitles = response;
                         this.media.subtitles = response;
@@ -65,7 +65,7 @@ angular.module( 'poms.media.controllers' ).controller(
             },
 
             submit: function ( subtitle) {
-                return this.subtitlesService.setOffset( this.media.mid, subtitle.language, subtitle.type, subtitle.offset).then(
+                return this.subtitlesService.setOffset( this.media.mid, subtitle.language, subtitle.type.id, subtitle.offset).then(
                     function( response ){
                         this.media.subtitles.find(function(currentValue, index, arr){return currentValue.id === subtitle.id;}, this).offset = response.offset;
                         subtitle.offset = response.offset;
