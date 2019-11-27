@@ -32,7 +32,7 @@ angular.module( 'poms.media.controllers' ).controller(
 
             $scope.waiting = false;
             $scope.errorMessage = null;
-            this.$scope.durationRegexp = /^-?(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
+            this.$scope.durationRegexp = /^-?(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i
             this.$scope.durationPlaceholder = "00:00,000 of 4 M 1.2 S of 12123";
 
         }
@@ -67,7 +67,9 @@ angular.module( 'poms.media.controllers' ).controller(
             submit: function ( subtitle) {
                 return this.subtitlesService.setOffset( this.media.mid, subtitle.language, subtitle.type.id, subtitle.offset).then(
                     function( response ){
-                        this.media.subtitles.find(function(currentValue, index, arr){return currentValue.id === subtitle.id;}, this).offset = response.offset;
+                        this.media.subtitles.find(function(currentValue, index, arr){
+                            return currentValue.id === subtitle.id;
+                            }, this).offset = response.offset;
                         subtitle.offset = response.offset;
                     }.bind(this),
                     function(response) {

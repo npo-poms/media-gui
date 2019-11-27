@@ -44,6 +44,7 @@
             <td>
 
                 <div class="editable-duration">
+
                     <input
                             id="offset"
                             name="offset"
@@ -51,7 +52,7 @@
                             class="editable"
                             ng-model="item.offset.string"
                             placeholder="{{durationPlaceholder}}"
-                            ng-pattern="durationRegexp"
+                            ng-pattern="durationRegexp.source"
                             ng-show="item.mayChange"
                             form="{{item.id}}"
                     />
