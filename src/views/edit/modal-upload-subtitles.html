@@ -35,7 +35,7 @@
             <poms-help field="editor.general.subtitles.type"></poms-help>
 
 
-            <label for="inputOffset">Offset (mm:ss)</span></label>
+            <label for="inputOffset">Offset (mm:ss)</label>
             <p>
             <input type="text"
                    name="inputOffset"
@@ -47,7 +47,7 @@
                    style="width: 300px;" />
 
                 <poms-help field="editor.general.subtitles.offset"></poms-help> <!-- werkt niet, weet ik veel waarom niet-->
-                <poms-invalid violation="controller.violations.offset"></poms-invalid>
+                <span class="inline-error" ng-if="!uploadSubtitleForm.inputOffset.$valid">ongeldig</span>
 
 
             </p>
@@ -113,7 +113,9 @@
                     ng-disabled="(!uploadSubtitleForm.subtitleFile ||
                         !uploadSubtitleForm.subtitleLanguage ||
                         !uploadSubtitleForm.subtitleType) ||
-                        !(!subtitlesUploadController.isDuplicate() || subtitlesUploadController.mayWriteDuplicate())
+                        ! uploadSubtitleForm.inputOffset.$valid ||
+                        !(!subtitlesUploadController.isDuplicate() ||
+                        subtitlesUploadController.mayWriteDuplicate())
                         || waiting"
             >
                 Start upload
