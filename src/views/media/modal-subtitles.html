@@ -28,6 +28,8 @@
 
         <tr ng-repeat="item in subtitlesController.subtitles"
             ng-form="" editable-form name="rowform"
+            oncancel="subtitlesController.cancel($index)"
+            onbeforesave="subtitlesController.submit(item, $data)"
             class="poms-table-row"
             ng-class="{'editing': rowform.$visible, 'may-write': item.mayChange, 'disabledediting': ! rowform.$visible }">
 
@@ -53,7 +55,7 @@
                             class="editable"
                             ng-model="item.offset.string"
                             placeholder="{{durationPlaceholder}}"
-                            ng-pattern="durationRegexp.source"
+                            ng-pattern="durationRegexp"
                             ng-show="item.mayChange"
                             form="{{item.id}}"
                     />
@@ -67,14 +69,13 @@
             <td class="column-tools" ng-class="{'waiting': waiting}">
                 <form
                       id="{{item.id}}"
-                      onbeforesave="subtitlesController.submit( item, $data)"
-                      oncancel="subtitlesController.cancel($index)"
                       ng-show="rowform.$visible"
                       class="form-buttons form-inline">
                     <button title='bewaar' type="submit" ng-disabled="rowform.$waiting || !rowform.$valid" class="btn btn-primary">
                         bewaar
                     </button>
-                    <button title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"
+                    <button title='annuleer' type="button"
+                            ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"
                             class="btn btn-default">
                         annuleer
                     </button>

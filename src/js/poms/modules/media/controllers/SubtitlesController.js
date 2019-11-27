@@ -27,12 +27,15 @@ angular.module( 'poms.media.controllers' ).controller(
             this.media.subtitles.forEach( function ( subtitle ) {
                 var sub = {};
                 angular.copy( subtitle, sub );
+                sub.originalOffset  = {};
+                angular.copy( sub.offset, sub.originalOffset );
                 this.subtitles.push( sub );
+
             }.bind( this ) );
 
             $scope.waiting = false;
             $scope.errorMessage = null;
-            this.$scope.durationRegexp = /^(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
+            this.$scope.durationRegexp = /^-?(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|-?(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
             this.$scope.durationPlaceholder = "00:00,000 of 4 M 1.2 S of 12123";
 
         }
@@ -71,13 +74,19 @@ angular.module( 'poms.media.controllers' ).controller(
                             return currentValue.id === subtitle.id;
                             }, this).offset = response.offset;
                         subtitle.offset = response.offset;
+                        angular.copy( subtitle.offset, subtitle.originalOffset );
                     }.bind(this),
                     function(response) {
                         console.log(response);
                         this.$scope.$emit( this.pomsEvents.error, response )
                     }.bind(this)
                 );
+            },
+            cancel: function ( index) {
+                var sub = this.subtitles[index];
+                angular.copy( sub.originalOffset, sub.offset);
             }
+
         };
 
         return SubtitlesController;

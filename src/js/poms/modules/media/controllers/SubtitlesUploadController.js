@@ -31,7 +31,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
             $scope.waiting = false;
             $scope.errorMessage = null;
 
-            $scope.durationRegexp = /^(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
+            $scope.durationRegexp = /^(-?\d+:\d{2}(:\d{2})?([\\.,]\d+)?|-?(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
+
             $scope.durationPlaceholder = "00:00,000 of 4 M 1.2 S of 12123";
 
 

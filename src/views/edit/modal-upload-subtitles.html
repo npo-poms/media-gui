@@ -32,6 +32,8 @@
                 </ui-select-choices>
                 <ui-select-match>{{$select.selected.text }}</ui-select-match>
             </ui-select>
+            <poms-help field="editor.general.subtitles.type"></poms-help>
+
 
             <label for="inputOffset">Offset (mm:ss)</label>
             <p>
@@ -39,14 +41,16 @@
                    name="inputOffset"
                    id="inputOffset"
                    placeholder="{{ durationPlaceholder}}"
+                   ng-pattern="durationRegexp"
                    ng-init="uploadSubtitleForm.offset = { 'string': '' }"
                    ng-model="uploadSubtitleForm.offset.string"
-                   style="width: 300px;"
-            >
-            <poms-invalid violation="controller.violations.date"></poms-invalid>
-            <poms-help field="subtitle.offset"></poms-help>
+                   style="width: 300px;" />
+
+                <poms-help field="editor.general.subtitles.offset"></poms-help> <!-- werkt niet, weet ik veel waarom niet-->
+                <span class="inline-error" ng-if="!uploadSubtitleForm.inputOffset.$valid">ongeldig</span>
 
 
+            </p>
             <div class="field float-clear col-4"
                  ng-class="{'has-error' : uploadSubtitleForm.subtitleFile.$invalid}">
                 <label for="inputFile">Bestand</label>
@@ -94,7 +98,7 @@
                       uploadSubtitleForm.subtitleFile) &&
                       subtitlesUploadController.isDuplicate() &&
                       !subtitlesUploadController.mayWriteDuplicate()">
-                   Een authoritive subtitle mag niet overschreven worden.
+                   Authoritieve ondertitels mogen niet overschreven worden.
                 </span>
 
                 <span class="required-field" ng-if="!uploadSubtitleForm.subtitleFile">Bestand</span>
@@ -109,7 +113,9 @@
                     ng-disabled="(!uploadSubtitleForm.subtitleFile ||
                         !uploadSubtitleForm.subtitleLanguage ||
                         !uploadSubtitleForm.subtitleType) ||
-                        !(!subtitlesUploadController.isDuplicate() || subtitlesUploadController.mayWriteDuplicate())
+                        ! uploadSubtitleForm.inputOffset.$valid ||
+                        !(!subtitlesUploadController.isDuplicate() ||
+                        subtitlesUploadController.mayWriteDuplicate())
                         || waiting"
             >
                 Start upload
