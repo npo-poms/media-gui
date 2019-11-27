@@ -400,6 +400,12 @@
 .form-buttons .button-save {
     @include icon('edit-confirm', '', 'center center');
 }
+.editable-buttons button[type='submit']:disabled,
+.form-buttons button[type='submit']:disabled,
+.editable-buttons .button-save:disabled,
+.form-buttons .button-save:disabled {
+    @include icon('edit-confirm-disabled', '', 'center center');
+}
 
 .media-data .waiting .editable-buttons,
 .media-data .waiting .form-buttons {

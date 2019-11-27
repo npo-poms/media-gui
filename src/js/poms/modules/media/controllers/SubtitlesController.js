@@ -67,7 +67,9 @@ angular.module( 'poms.media.controllers' ).controller(
             submit: function ( subtitle) {
                 return this.subtitlesService.setOffset( this.media.mid, subtitle.language, subtitle.type.id, subtitle.offset).then(
                     function( response ){
-                        this.media.subtitles.find(function(currentValue, index, arr){return currentValue.id === subtitle.id;}, this).offset = response.offset;
+                        this.media.subtitles.find(function(currentValue, index, arr){
+                            return currentValue.id === subtitle.id;
+                            }, this).offset = response.offset;
                         subtitle.offset = response.offset;
                     }.bind(this),
                     function(response) {
