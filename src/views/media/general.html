@@ -288,10 +288,12 @@
         <div ng-click="editController.showSubtitles()">
           <h2 class="small-header">Ondertitels</h2>
           <span ng-repeat="subtitle in media.subtitles">
-                          <a title="open de ondertitels voor dit item in een nieuw venster" target="blank"
-                             ng-click="$event.stopPropagation();"
-                             href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
-                  ng-if="! $last">, </span></span>
+            <a title="open de ondertitels voor dit item in een nieuw venster"
+               target="blank"
+               ng-click="$event.stopPropagation();"
+               href="{{::(media.mid + '/' + subtitle.language + '/' + subtitle.type.id | subtitlesLocationPrefix)  + '/vtt?guessOffset=true'}}">{{subtitle.displayLanguage}}</a><span
+                  ng-if="! $last">, </span>
+          </span>
           <div class="media-field-tools">
             <div class="edit-icon" ng-if="editController.mayWriteSubtitles( media )"></div>
             <div class="preview-icon" ng-if=" ! editController.mayWriteSubtitles( media )"></div>
