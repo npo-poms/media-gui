@@ -59,7 +59,10 @@
                 </div>
                 <div class="viewable">
                     {{ item.offset.string }}
+
                 </div>
+                {{ form}}
+                VALID [{{item.offset.$valid}}]
             </td>
 
 
@@ -69,6 +72,7 @@
                       name="rowform" onbeforesave="subtitlesController.submit( item, $data)"
                       oncancel="subtitlesController.cancel($index)"
                       ng-show="rowform.$visible" class="form-buttons form-inline">
+                    VALID [{{rowform.$valid}}]
                     <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                         bewaar
                     </button>
