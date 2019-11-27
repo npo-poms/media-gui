@@ -27,6 +27,7 @@
         <tbody ng-model="subtitlesController.subtitles">
 
         <tr ng-repeat="item in subtitlesController.subtitles"
+            ng-form="" editable-form name="rowform"
             class="poms-table-row"
             ng-class="{'editing': rowform.$visible, 'may-write': item.mayChange, 'disabledediting': ! rowform.$visible }">
 
@@ -59,21 +60,18 @@
                 </div>
                 <div class="viewable">
                     {{ item.offset.string }}
-
                 </div>
-                {{ form}}
-                VALID [{{item.offset.$valid}}]
             </td>
 
 
             <td class="column-tools" ng-class="{'waiting': waiting}">
-                <form editable-form
+                <form
                       id="{{item.id}}"
-                      name="rowform" onbeforesave="subtitlesController.submit( item, $data)"
+                      onbeforesave="subtitlesController.submit( item, $data)"
                       oncancel="subtitlesController.cancel($index)"
-                      ng-show="rowform.$visible" class="form-buttons form-inline">
-                    VALID [{{rowform.$valid}}]
-                    <button title='bewaar' type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                      ng-show="rowform.$visible"
+                      class="form-buttons form-inline">
+                    <button title='bewaar' type="submit" ng-disabled="rowform.$waiting || !rowform.$valid" class="btn btn-primary">
                         bewaar
                     </button>
                     <button title='annuleer' type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()"

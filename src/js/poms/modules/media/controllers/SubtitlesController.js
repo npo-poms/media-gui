@@ -32,7 +32,7 @@ angular.module( 'poms.media.controllers' ).controller(
 
             $scope.waiting = false;
             $scope.errorMessage = null;
-            this.$scope.durationRegexp = /^-?(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i
+            this.$scope.durationRegexp = /^-?(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
             this.$scope.durationPlaceholder = "00:00,000 of 4 M 1.2 S of 12123";
 
         }
