@@ -138,6 +138,14 @@
         subDescription: 'Afleveringsbeschrijving'
     });
 
+    module.value( 'ValidationPatterns', {
+        duration: {
+            regexp: /^(-?\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(-?PT)?(-?\d+H)?(-?\d+\s*M)?\s*(-?\d+(\.\d+)?\s*S)?|-?\d+|)$/i,
+            placeholder: "04:01,2 of 4M 1.2S of 241200"
+        }
+    });
+
+
     // Toast provides us with notifications
     module.config(['ngToastProvider', function(ngToast) {
         ngToast.configure({

@@ -10,9 +10,10 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
     'subtitlesTypes',
     'mayWrite',
     'PomsEvents',
+    'ValidationPatterns',
     (function () {
 
-        function SubtitlesUploadController ( $scope, $sce, $filter, $modalInstance, subtitlesService, media, title, languages, subtitlesTypes, mayWrite,  pomsEvents ) {
+        function SubtitlesUploadController ( $scope, $sce, $filter, $modalInstance, subtitlesService, media, title, languages, subtitlesTypes, mayWrite,  pomsEvents, validationPatterns ) {
             this.$scope = $scope;
             this.$sce = $sce;
             this.$filter = $filter;
@@ -31,9 +32,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
             $scope.waiting = false;
             $scope.errorMessage = null;
 
-            $scope.durationRegexp = /^(-?\d+:\d{2}(:\d{2})?([\\.,]\d+)?|-?(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
-
-            $scope.durationPlaceholder = "00:00,000 of 4 M 1.2 S of 12123";
+            $scope.durationRegexp = validationPatterns.duration.regexp;
+            $scope.durationPlaceholder = validationPatterns.duration.placeholder;
 
 
             getDuplicate = function () {

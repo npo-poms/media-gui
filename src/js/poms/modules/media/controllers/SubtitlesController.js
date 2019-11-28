@@ -8,10 +8,11 @@ angular.module( 'poms.media.controllers' ).controller(
         'title',
         'media',
         'PomsEvents',
+        'ValidationPatterns',
 
         (function () {
 
-        function SubtitlesController ( $scope, $q, $filter, $modalInstance, subtitlesService, title, media, pomsEvents) {
+        function SubtitlesController ( $scope, $q, $filter, $modalInstance, subtitlesService, title, media, pomsEvents, validationPatterns) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -35,8 +36,9 @@ angular.module( 'poms.media.controllers' ).controller(
 
             $scope.waiting = false;
             $scope.errorMessage = null;
-            this.$scope.durationRegexp = /^-?(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|-?(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i;
-            this.$scope.durationPlaceholder = "00:00,000 of 4 M 1.2 S of 12123";
+
+            $scope.durationRegexp = validationPatterns.duration.regexp;
+            $scope.durationPlaceholder = validationPatterns.duration.placeholder;
 
         }
 
