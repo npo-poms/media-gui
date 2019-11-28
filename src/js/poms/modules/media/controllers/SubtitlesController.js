@@ -37,8 +37,8 @@ angular.module( 'poms.media.controllers' ).controller(
             $scope.waiting = false;
             $scope.errorMessage = null;
 
-            $scope.durationRegexp = validationPatterns.duration.regexp;
-            $scope.durationPlaceholder = validationPatterns.duration.placeholder;
+            $scope.durationRegexp = validationPatterns.offset.regexp;
+            $scope.durationPlaceholder = validationPatterns.offset.placeholder;
 
         }
 
