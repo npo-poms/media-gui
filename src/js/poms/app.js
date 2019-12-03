@@ -139,8 +139,13 @@
     });
 
     module.value( 'ValidationPatterns', {
-        duration: {
+        offset: {
+            // like a duration, but can also be negative
             regexp: /^(-?\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(-?PT)?(-?\d+H)?(-?\d+\s*M)?\s*(-?\d+(\.\d+)?\s*S)?|-?\d+|)$/i,
+            placeholder: "04:01,2 of 4M 1.2S of 241200"
+        },
+        duration: {
+            regexp: /^(\d+:\d{2}(:\d{2})?([\\.,]\d+)?|(PT)?(\d+H)?(\d+\s*M)?\s*(\d+(\.\d+)?\s*S)?|\d+|)$/i,
             placeholder: "04:01,2 of 4M 1.2S of 241200"
         }
     });

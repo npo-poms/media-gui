@@ -35,7 +35,7 @@
             <poms-help field="editor.general.subtitles.type"></poms-help>
 
 
-            <label for="inputOffset">Offset (mm:ss)</label>
+            <label for="inputOffset">Offset (mm:ss)</span></label>
             <p>
             <input type="text"
                    name="inputOffset"
@@ -47,7 +47,7 @@
                    style="width: 300px;" />
 
                 <poms-help field="editor.general.subtitles.offset"></poms-help> <!-- werkt niet, weet ik veel waarom niet-->
-                <span class="inline-error" ng-if="!uploadSubtitleForm.inputOffset.$valid">ongeldig</span>
+                <poms-invalid violation="controller.violations.offset"></poms-invalid>
 
 
             </p>
