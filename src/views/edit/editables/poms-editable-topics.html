@@ -1,0 +1,61 @@
+<div class="editfield-wrapper editfield-concepts disable-hover"
+     id="topics"
+     ng-class="{
+     'empty': !topicsController.items.values.length,
+     'may-write' : topicsController.mayWrite ,
+     'forbidden' : !topicsController.mayWrite ,
+     'waiting': waiting}"
+     ng-show="topicsController.mayRead" save-feedback>
+
+    <h2 class="small-header"> {{header}}
+        <span ng-if="topicsController.items && topicsController.items.owner.id !== topicsController.currentOwnerType" class="media-field-owner">
+            bron: {{topicsController.items.owner.id}}
+        </span>
+    </h2>
+
+    <div class="editfield">
+
+        <div ng-repeat="item in topicsController.items.values" class="media-concept">
+
+            <span class="media-concept-scope" title="{{item.role.text}}: {{item.name}} - {{item.scopeNotes}}">
+                {{item.role.text}}: {{item.name}}
+                <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
+                    {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+                </span>
+            </span>
+
+            <span ng-if="item.gtaaRecord" title='{{item.gtaaRecord.status }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaRecord.status}}'>
+            </span>
+
+            <button name="removeTopic" ng-if="topicsController.mayWrite" class="media-concept-remove"
+                    poms-confirm="'onderwerp'"
+                    poms-submit="topicsController.removeTopic( item )"
+            >
+                verwijder
+            </button>
+
+            <button name="editTopic" title='edit onderwerp' ng-if="topicsController.mayWrite" class="media-concept-edit"
+                    ng-click="topicsController.editTopic( item )" >
+                edit
+            </button>
+
+            <button name="statusTopic" ng-if="item.gtaaUri" title='{{item.gtaaStatus }}' class='media-concept-gtaa media-concept-gtaa-{{item.gtaaStatus}}'>
+                {{item.gtaaStatus}}
+            </button>
+        </div>
+
+    </div>
+
+    <poms-edit-tools
+            may-write="topicsController.mayWrite"
+            show-edit="false"
+            may-remove-override="topicsController.items && !topicsController.items.virtual && topicsController.items.owner.id === topicsController.currentOwnerType"
+            delete-scope="topicsController"
+            help-field="{{topicsController.helpField}}" >
+    </poms-edit-tools>
+
+    <button id="addTopic" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="topicsController.mayWrite" ng-click="topicsController.addTopic()">
+        onderwerp toevoegen
+    </button>
+
+</div>

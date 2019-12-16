@@ -341,6 +341,14 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 return this.mediaService.setGeoLocation( media, data );
             },
 
+            getTopics: function () {
+                return this.mediaService.getTopics( this.media );
+            },
+
+            setTopic: function ( media, data ) {
+                return this.mediaService.setTopic( media, data );
+            },
+
             mayWriteMemberOf: function ( memberRef ) {
                 return this.mediaService.hasWritePermission( memberRef, 'memberOf' );
             },

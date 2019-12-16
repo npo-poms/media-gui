@@ -289,6 +289,22 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return del( media, '/geoLocations' );
             },
 
+            getTopics: function ( media ) {
+                return get( media, '/topics' );
+            },
+
+            addTopic: function ( media, topic ) {
+                return post( media, '/topics', topic );
+            },
+
+            removeTopic: function ( media, topic ) {
+                return del( media, '/topics/' + topic.id );
+            },
+
+            removeTopics: function ( media ) {
+                return del( media, '/topics' );
+            },
+
             getWebsites: function ( media ) {
                 return get( media, '/websites' );
             },

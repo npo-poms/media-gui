@@ -59,12 +59,17 @@
                          option-title="Rol" option-field="role"
                          permission="persons" single-name="Persoon" help-field="editor.general.persons"></poms-gtaa-persons>
 
-
       <poms-geolocations type="media" class="media-field" header="Geografische locaties" media="media"
                            load="editController.getGeoLocations()"
                            options="editController.allowedRoles()"
                            option-title="Rol" option-field="role"
                            permission="geoLocation" single-name="GeoLocation" help-field="editor.general.geoLocations"></poms-geolocations>
+
+      <poms-topics type="media" class="media-field" header="Onderwerpen" media="media"
+                         load="editController.getTopics()"
+                         options="editController.allowedRoles()"
+                         option-title="Rol" option-field="role"
+                         permission="topic" single-name="Topic" help-field="editor.general.topics"></poms-topics>
 
       <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
                   save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
