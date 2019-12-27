@@ -1,0 +1,60 @@
+<div class="editfield-wrapper editfield-concepts disable-hover"
+     id="credits"
+     ng-class="{
+     'empty': creditsController.items.length == 0,
+     'may-write' : creditsController.mayWrite ,
+     'forbidden' : !creditsController.mayWrite ,
+     'waiting': waiting}"
+     ng-show="creditsController.mayRead" save-feedback>
+
+    <h2 class="small-header"> {{header}} </h2>
+
+    <div class="editfield">
+
+        <div ng-repeat="item in creditsController.items" class="media-concept">
+
+            <span class="media-concept-scope" title="{{item.role.text}}: {{item.name}} - {{item.scopeNotes}}">
+
+                {{item.role.text}}: {{item.givenName}} {{item.familyName}}
+                <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
+                    {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
+                </span>
+            </span>
+
+            <button name="removePerson" ng-if="creditsController.mayWrite"
+                    class="media-concept-remove"
+                    poms-confirm="'persoon'"
+                    poms-submit="creditsController.removePerson( item )"
+            >
+                verwijder
+            </button>
+
+
+
+            <button name="editPerson" title='edit persoon'
+                    ng-if="creditsController.mayWrite" class="media-concept-edit"
+                    ng-click="creditsController.editPerson( item )" >
+                edit
+            </button>
+
+            <span name="statusPerson" ng-if="item.gtaaUri" title='{{item.gtaaStatus }}' class='media-concept-gtaa media-person-gtaa-{{item.gtaaStatus}}'>
+                {{item.gtaaStatus}}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="media-field-tools">
+        <div ng-if="!creditsController.mayWrite" class="forbidden-icon"></div>
+
+        <div ng-if="creditsController.items" class="remove-override-icon" poms-confirm="'Alle personen'" poms-submit="creditsController.removeOverride($event)"></div>
+
+        <poms-help field="{{helpField}}"></poms-help>
+    </div>
+
+    <button id="addPerson" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="creditsController.mayWrite" ng-click="creditsController.addPerson()">
+        persoon of andere naamsvermelding toevoegen
+    </button>
+
+</div>

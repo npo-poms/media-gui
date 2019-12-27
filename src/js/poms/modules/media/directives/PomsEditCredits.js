@@ -1,8 +1,8 @@
 angular.module( 'poms.media.directives' )
-    .directive( 'pomsGtaaPersons', [function () {
+    .directive( 'pomsCredits', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'edit/editables/poms-editable-gtaapersons.html',
+            templateUrl: 'edit/editables/poms-editable-credits.html',
             scope: {
                 options: '&',
                 load: '&',
@@ -14,7 +14,7 @@ angular.module( 'poms.media.directives' )
                 singleName: '@',
                 helpField : '@'
             },
-            controller: 'GtaaPersonsController',
-            controllerAs: 'gtaaPersonsController'
+            controller: 'CreditsController',
+            controllerAs: 'creditsController'
         };
     }] );

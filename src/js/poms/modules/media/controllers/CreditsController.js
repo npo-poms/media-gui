@@ -1,4 +1,4 @@
-angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', [
+angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
     '$scope',
     '$q',
     '$modal',
@@ -18,7 +18,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
                 }
             )
         }
-        function GtaaPersonsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, gtaaService) {
+        function CreditsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, gtaaService) {
 
             this.items = [];
             this.$scope = $scope;
@@ -47,10 +47,11 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
         }
 
-        GtaaPersonsController.prototype = {
+        CreditsController.prototype = {
             editPerson: function (item) {
                 this.gtaaService.modal(
                     "Zoek een persoon in GTAA",
+                    //"person,name", // TODO
                     "person",
                     item,
                     function (concept, role ) {
@@ -144,6 +145,6 @@ angular.module( 'poms.media.controllers' ).controller( 'GtaaPersonsController', 
 
         };
 
-        return GtaaPersonsController;
+        return CreditsController;
     }() )
 ] );
