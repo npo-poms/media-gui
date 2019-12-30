@@ -252,25 +252,25 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return del( media, '/portalRestrictions/' + portalRestriction.id );
             },
 
-            getPersons: function ( media ) {
-                return get( media, '/persons' );
+            getCredits: function ( media ) {
+                return get( media, '/credits' );
             },
 
-            setPerson: function ( media, person ) {
-                return post( media, '/persons', person );
+            setCredits: function ( media, person ) {
+                return post( media, '/credits', person );
             },
 
-            removePerson: function ( media, person ) {
-                return del( media, '/persons/' + person.id );
+            removeCredits: function ( media, person ) {
+                return del( media, '/credits/' + person.id );
             },
 
-            movePerson: function ( media, from, to ) {
-                return put( media, '/persons', { from: from, to: to } );
+            moveCredits: function ( media, from, to ) {
+                return put( media, '/credits', { from: from, to: to } );
             },
 
             // TODO doesnt exist yet
-            removePersons: function ( media ) {
-                return del( media, '/persons' );
+            removeAllCredits: function ( media ) {
+                return del( media, '/credits' );
             },
 
             getGeoLocations: function ( media ) {

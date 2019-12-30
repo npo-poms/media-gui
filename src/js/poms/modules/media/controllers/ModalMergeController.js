@@ -41,7 +41,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
                 { "id" : "tags", "title" : "Tags", "type" : 'array' },
                 { "id" : "websites", "title" : "Websites", "type" : 'array' },
                 { "id" : "twitter", "title" : "Twitter", "type" : 'array' },
-                { "id" : "persons", "title" : "Personen", "type" : 'array' }
+                { "id" : "credits", "title" : "Naamsvermeldingen", "type" : 'array' }
             ];
 
             this.init();
@@ -107,18 +107,18 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
                     }
                 );
 
-                this.mediaService.getPersons( this.$scope.merge.source ).then(
+                this.mediaService.getCredits( this.$scope.merge.source ).then(
                     function ( data ) {
-                        this.$scope.merge.source.persons = data;
+                        this.$scope.merge.source.credits = data;
                     }.bind( this ),
                     function ( error ) {
                         console.log( error );
                     }
                 );
 
-                this.mediaService.getPersons( this.$scope.merge.destination ).then(
+                this.mediaService.getCredits( this.$scope.merge.destination ).then(
                     function ( data ) {
-                        this.$scope.merge.destination.persons = data;
+                        this.$scope.merge.destination.credits = data;
                     }.bind( this ),
                     function ( error ) {
                         console.log( error );

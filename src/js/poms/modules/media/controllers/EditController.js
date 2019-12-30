@@ -316,21 +316,21 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 return this.listService.getPersonRoles();
             },
 
-            getPersons: function () {
-                return this.mediaService.getPersons( this.media );
+            getCredits: function () {
+                return this.mediaService.getCredits( this.media );
             },
 
-            setPerson: function ( media, data ) {
-                return this.mediaService.setPerson( media, data );
+            setCredits: function ( media, data ) {
+                return this.mediaService.setCredits( media, data );
             },
 
 
-            removePerson: function ( media, data ) {
-                return this.mediaService.removePerson( media, data );
+            removeCredits: function ( media, data ) {
+                return this.mediaService.removeCredits( media, data );
             },
 
-            movePerson: function ( media, from, to ) {
-                return this.mediaService.movePerson( media, from, to );
+            moveCredits: function ( media, from, to ) {
+                return this.mediaService.moveCredits( media, from, to );
             },
 
             getGeoLocations: function () {

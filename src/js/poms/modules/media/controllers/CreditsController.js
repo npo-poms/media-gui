@@ -9,7 +9,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
     ( function () {
 
         function load ( scope, pomsEvents, mediaService, media, dest ) {
-            mediaService.getPersons( media ).then(
+            mediaService.getCredits( media ).then(
                 function ( data ) {
                     angular.copy( data, dest );
                 },
@@ -48,17 +48,16 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
         }
 
         CreditsController.prototype = {
-            editPerson: function (item) {
+            editCredits: function (item) {
                 this.gtaaService.modal(
-                    "Zoek een persoon in GTAA",
-                    //"person,name", // TODO
-                    "person",
+                    "Zoek een persoon of andere naam in GTAA",
+                    "person,name",
                     item,
                     function (concept, role ) {
-                        var parsedPerson = this.parsePerson(concept, role);
-                        parsedPerson.id = item ? item.id : null;
-                        if (parsedPerson.role) {
-                            this.mediaService.setPerson(this.media, parsedPerson)
+                        var parsedCredits = this.parseConcept(concept, role);
+                        parsedCredits.id = item ? item.id : null;
+                        if (parsedCredits.role) {
+                            this.mediaService.setCredits(this.media, parsedCredits)
                                 .then(
                                     // TODO, I don't quite get why a load is needed, the call will return the new media object
                                     function () {
@@ -83,28 +82,25 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
 
             },
 
-
-
-
-
-
-            addPerson: function ( item ) {
-                this.editPerson( item );
+            addCredits: function ( item ) {
+                this.editCredits( item );
             },
 
-            parsePerson: function (person, role) {
+            parseConcept: function (concept, role) {
                 return {
-                    givenName: person.givenName,
-                    familyName: person.familyName,
-                    scopeNotes: person.scopeNotes,
-                    gtaaStatus: person.status,
-                    gtaaUri: person.id,
-                    role: role ? role.name : null
+                    givenName: concept.givenName,
+                    familyName: concept.familyName,
+                    name: concept.name,
+                    scopeNotes: concept.scopeNotes,
+                    gtaaStatus: concept.status,
+                    gtaaUri: concept.id,
+                    role: role ? role.name : null,
+                    type: concept.objectType
                 };
             },
 
             removeOverride: function () {
-                this.mediaService.removePersons(this.media).then(
+                this.mediaService.removeCredits(this.media).then(
                     function (data) {
                         angular.copy(data, this.items);
                     }.bind(this),
@@ -125,9 +121,9 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
                 }
             },
 
-            removePerson: function ( person ) {
+            removeCredits: function ( credits ) {
 
-                return this.mediaService.removePerson( this.$scope.media, person ).then(
+                return this.mediaService.removeCredits( this.$scope.media, credits ).then(
                     function () {
                         load( this.$scope, this.pomsEvents, this.mediaService, this.media, this.items );
                         return true

@@ -47,8 +47,8 @@
                                         <span ng-repeat="item in merge.source[column.id]"> {{item}} {{$last?'':', '}}</span>
                                     </span>
 
-                                    <span ng-if="column.id=='persons'">
-                                        <span ng-repeat="person in merge.source.persons"> {{person.role.text}}: {{person.givenName}} {{person.familyName}} {{$last?'':', '}}</span>
+                                    <span ng-if="column.id=='credits'">
+                                        <span ng-repeat="credit in merge.source.credits"> {{credit.role.text}}: {{credit.givenName}} {{credit.familyName}} {{$last?'':', '}}</span>
                                     </span>
                                 </span>
 
@@ -86,8 +86,8 @@
                                         <span ng-repeat="item in merge.destination[column.id]"> {{item}} {{$last?'':', '}}</span>
                                     </span>
 
-                                    <span ng-if="column.id=='persons'">
-                                        <span ng-repeat="person in merge.destination.persons"> {{person.role.text}}: {{person.givenName}} {{person.familyName}} {{$last?'':', '}}</span>
+                                    <span ng-if="column.id=='credits'">
+                                        <span ng-repeat="credit in merge.destination.credits"> {{credit.role.text}}: {{credit.givenName}} {{credit.familyName}} {{$last?'':', '}}</span>
                                     </span>
                                 </span>
 

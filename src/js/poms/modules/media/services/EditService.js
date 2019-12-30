@@ -100,8 +100,8 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
                 return mediaService.setPortalRestrictions( media, portalRestrictions );
             },
 
-            persons: function ( media, persons ) {
-                return mediaService.setPersons( media, persons );
+            credits: function ( media, credits ) {
+                return mediaService.setCredits( media, credits );
             },
 
             websites: function ( media, websites ) {

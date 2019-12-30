@@ -34,11 +34,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
             handleMessage: function(modal, message, scheme, conceptHandler) {
                 if (message.action === 'selected') {
                     concept = message.concept;
-                    if (concept.objectType === scheme) {
-                        conceptHandler(concept, message.role);
-                    } else {
-                        throw "unrecognized type (" + concept.objectType + " != " + scheme + ")";
-                    }
+                    conceptHandler(concept, message.role);
                 } else {
                     console && console.log("ignored because of action", message);
                 }
