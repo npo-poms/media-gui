@@ -18,7 +18,7 @@
         <div ng-repeat="item in topicsController.items.values" class="media-concept">
 
             <span class="media-concept-scope" title="{{item.role.text}}: {{item.name}} - {{item.scopeNotes}}">
-                {{item.role.text}}: {{item.name}}
+                {{item.name}}
                 <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
                     {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
                 </span>
