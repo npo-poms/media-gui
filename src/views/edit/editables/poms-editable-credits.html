@@ -15,7 +15,7 @@
 
             <span class="media-concept-scope" title="{{item.role.text}}: {{item.name}} - {{item.scopeNotes}}">
 
-                {{item.role.text}}: {{item.givenName}} {{item.familyName}}
+                {{item.role.text}}: {{item.name}}
                 <span class="media-concept-scope-note" ng-repeat="note in item.scopeNotes">
                     {{$first ? ' (' : ', '}}{{note}}{{$last ? ')' : '' }}
                 </span>
@@ -24,7 +24,7 @@
             <button name="removePerson" ng-if="creditsController.mayWrite"
                     class="media-concept-remove"
                     poms-confirm="'persoon'"
-                    poms-submit="creditsController.removePerson( item )"
+                    poms-submit="creditsController.removeCredits( item )"
             >
                 verwijder
             </button>
@@ -33,7 +33,7 @@
 
             <button name="editPerson" title='edit persoon'
                     ng-if="creditsController.mayWrite" class="media-concept-edit"
-                    ng-click="creditsController.editPerson( item )" >
+                    ng-click="creditsController.editCredits( item )" >
                 edit
             </button>
 
