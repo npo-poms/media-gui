@@ -350,7 +350,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             },
 
             mayWriteMemberOf: function ( memberRef ) {
-                return this.mediaService.hasWritePermission( memberRef, 'memberOf' );
+                return true; // This is always allowed (MSE-4669)
             },
 
             removeMemberOf: function ( media, memberRef ) {
