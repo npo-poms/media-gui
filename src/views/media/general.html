@@ -361,14 +361,17 @@
       <h2 class="small-header">Onderdeel van</h2>
 
       <p ng-repeat="item in media.memberOf" class="member-wrapper">
-        <a class="media-member-of-link" href="{{editController.editRef(item.id)}}"
+        <a class="media-member-of-link"
+           href="{{editController.editRef(item.id)}}"
            poms-deleted="mediaController.onDeleteAncestor()" mid="item.id">
           <span class="link-type">{{item.type.text}}</span>
           <span class="link-title">{{item.text}}</span>
           <span class="link-number" ng-if="item.number">({{item.number}})</span>
         </a>
-        <button title="koppeling verwijderen" ng-if="editController.mayWriteMemberOf( item )"
-                class="media-member-remove" poms-confirm="'Koppeling'"
+        <button title="koppeling verwijderen"
+                ng-if="editController.mayWriteMemberOf( item )"
+                class="media-member-remove"
+                poms-confirm="'Koppeling'"
                 poms-submit="editController.removeMemberOf( media,  item )">
           verwijder
         </button>
