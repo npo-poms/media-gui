@@ -32,11 +32,7 @@ angular.module( 'poms.util.directives' )
                     } );
                 }
                 $scope.clickWorkflow = function(ev, media) {
-                    if (media.workflow.id !== 'PUBLISHED') {
-                        console.log($scope);
-                        mediaService.publish(media);
-                    }
-
+                    mediaService.publish(media);
                 };
 
             },
