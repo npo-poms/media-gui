@@ -159,7 +159,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 angular.forEach( selection, function ( item, index ) {
                     // Add a tab with a media placeholder to reload. Should reload on tab activation
                     if ( ! this.setActive( tabs, item.mid ) ) {
-                        if(!item.mid || !item.type || !item.permission || !item.title) {
+                        if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
 
