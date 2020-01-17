@@ -1,4 +1,4 @@
-<p title="{{workflow.text}}" class="workflow {{workflow.id}} {{media ? 'republishable': ''}}"
+<p title="{{workflow.text}}" class="workflow {{workflow.id}} {{media && media.permissions.WRITE ? 'republishable': ''}}"
    ng-click="clickWorkflow($event, media)">
   {{workflow.text}}
 </p>
