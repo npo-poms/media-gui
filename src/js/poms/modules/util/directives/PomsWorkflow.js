@@ -1,8 +1,9 @@
 angular.module( 'poms.util.directives' )
-    .directive( 'pomsWorkflow', [ function () {
+    .directive( 'pomsWorkflow', [ 'MediaService', function (mediaService) {
         return {
             restrict : 'E',
-            template : '<p title="{{workflow.text}}" class="workflow {{workflow.id}}" > {{workflow.text}} </p>',
+
+            templateUrl : 'template/poms-workflow.html',
             controller : function ( $scope, PomsEvents ) {
                 $scope.$on( PomsEvents.publication, function ( e, publication ) {
                     if ( publication.mid === $scope.mid ) {
@@ -15,7 +16,6 @@ angular.module( 'poms.util.directives' )
                         }
                     }
                 } );
-
                 if ( $scope.onUpdated ) {
                     $scope.$on( PomsEvents.updated, function ( e, mid ) {
                         if ( mid === $scope.mid ) {
@@ -31,11 +31,19 @@ angular.module( 'poms.util.directives' )
                         }
                     } );
                 }
+                $scope.clickWorkflow = function(ev, media) {
+                    if (media.workflow.id !== 'PUBLISHED') {
+                        console.log($scope);
+                        mediaService.publish(media);
+                    }
+
+                };
 
             },
             scope : {
                 workflow : '=',
                 mid : '=',
+                media: '=',
                 onUpdated : '&',
                 onDeleted : '&'
             }

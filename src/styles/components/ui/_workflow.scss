@@ -11,7 +11,7 @@
 }
 
 
-.poms-table .workflow{
+.poms-table.workflow {
     text-indent: -9999px;
 }
 
@@ -31,12 +31,23 @@
     @include icon('status-parentrevoked', 16px, '0 center');
 }
 
+.workflow.republishable {
+    &.FOR_PUBLICATION, &.FOR_REPUBLICATION {
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}
+
 .workflow.FOR_PUBLICATION:before {
     @include icon('status-forpublication', 16px, '0 center');
+
 }
 
 .workflow.FOR_REPUBLICATION:before {
     @include icon('status-forrepublication', 16px, '0 center');
+
 }
 
 .workflow.DELETED:before {

@@ -486,6 +486,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return post( media, '/scheduleevents/' + scheduleEvent.id, scheduleEvent );
             },
 
+            publish: function ( media) {
+                return post( media, '/publish' )
+            },
+
             getHistory: function ( media, offset, max ) {
                 return get( media, '/history', { params: { offset: offset || 0, max: max || 30 } } );
             },
