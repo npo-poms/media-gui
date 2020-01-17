@@ -487,7 +487,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             publish: function ( media) {
-                return post( media, '/publish' )
+                return post( media, '/publish', {} );
             },
 
             getHistory: function ( media, offset, max ) {
