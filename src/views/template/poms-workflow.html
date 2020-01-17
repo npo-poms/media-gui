@@ -1,4 +1,4 @@
-<p title="{{workflow.text}}" class="workflow {{workflow.id}} {{mayPublish(media, disablePublish) ? 'publishable': ''}}"
+<p title="{{workflow.text}}" class="workflow {{workflow.id}} {{mayPublish(media) && ! disablePublish ? 'publishable': ''}}"
    ng-click="clickWorkflow($event, media)">
   {{workflow.text}}
 </p>

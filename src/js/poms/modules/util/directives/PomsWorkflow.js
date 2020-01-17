@@ -44,8 +44,8 @@ angular.module( 'poms.util.directives' )
                         mediaService.publish(media);
                     }
                 };
-                $scope.mayPublish = function(media, disablePublish) {
-                    if (disablePublish) {
+                $scope.mayPublish = function(media) {
+                    if ($scope.disablePublish) {
                         return false;
                     }
                     var superUser = editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER']);
