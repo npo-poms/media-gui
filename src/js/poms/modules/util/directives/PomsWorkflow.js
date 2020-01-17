@@ -1,5 +1,5 @@
 angular.module( 'poms.util.directives' )
-    .directive( 'pomsWorkflow', [ 'MediaService', function (mediaService) {
+    .directive( 'pomsWorkflow', [ 'MediaService', 'EditorService', '$timeout', function (mediaService, editorService, $timeout) {
         return {
             restrict : 'E',
 
@@ -31,8 +31,26 @@ angular.module( 'poms.util.directives' )
                         }
                     } );
                 }
+                $scope.disablePublish = false;
                 $scope.clickWorkflow = function(ev, media) {
-                    mediaService.publish(media);
+                    if ($scope.mayPublish(media)) {
+                        $scope.disablePublish = true;
+                        $timeout(function() {
+                            $scope.disablePublish = false;
+                        }, 10000);
+                        if (media.workflow.id === 'PUBLISHED') {
+                            media.workflow.id =  'FOR_REPUBLICATION';
+                        }
+                        mediaService.publish(media);
+                    }
+                };
+                $scope.mayPublish = function(media, disablePublish) {
+                    if (disablePublish) {
+                        return false;
+                    }
+                    var superUser = editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER']);
+                    return media && media.permissions.WRITE &&
+                        (media.workflow.id !== 'PUBLISHED' || superUser);
                 };
 
             },

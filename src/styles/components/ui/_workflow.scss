@@ -31,12 +31,10 @@
     @include icon('status-parentrevoked', 16px, '0 center');
 }
 
-.workflow.republishable {
-    &.FOR_PUBLICATION, &.FOR_REPUBLICATION {
-        &:hover {
-            cursor: pointer;
-            text-decoration: underline;
-        }
+.workflow.publishable {
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 
