@@ -88,7 +88,7 @@ angular.module( 'poms.media.directives' )
                     $scope.titleclasses = "media-static-field-title";
                 }
 
-                function formatDateForEdit(date) {
+                function dateForEdit(date) {
                    return $filter("withTimezone")(date);
                 }
 
@@ -296,8 +296,12 @@ angular.module( 'poms.media.directives' )
                 };
                 $scope.formattedDuration = function (duration) {
                     if (duration) {
-                        if (!$scope.editableDuration) {
-                            $scope.editableDuration = formatDateForEdit(duration.inMillis);
+                        if (duration.inMillis) {
+
+                            var forEdit = dateForEdit(duration.inMillis);
+                            if ($scope.editableDuration == null || forEdit.getTime() !== $scope.editableDuration.getTime()) {
+                                $scope.editableDuration = forEdit;
+                            }
                         }
                         return formatDateForDisplay(duration.inMillis);
                     } else {
