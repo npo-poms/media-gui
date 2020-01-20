@@ -21,12 +21,12 @@
        ng-show="mayWrite"
        e-placeholder="hh:mm:ss"
        e-autocomplete="off">
-        {{ formattedDuration }}
+        {{ formattedDuration(media[field]) }}
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite">{{ formattedDuration }}  </p>
+    <p class="editfield" ng-hide="mayWrite">{{ formattedDuration(media[field]) }}</p>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
 

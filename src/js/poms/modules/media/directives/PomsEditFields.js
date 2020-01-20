@@ -93,7 +93,12 @@ angular.module( 'poms.media.directives' )
                 }
 
                 function formatDateForDisplay(date) {
-                   return $filter("mediaDuration")(date);
+                    if (date) {
+                        return $filter("mediaDuration")(date);
+                    } else {
+                        return null;
+
+                    }
                 }
 
                 function isCurrentOwner( media, field ){
@@ -108,11 +113,6 @@ angular.module( 'poms.media.directives' )
                     return !isEmpty() && $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
                 }
 
-                if ( $scope.fieldType === 'duration' ) {
-                    // ridiculous hacks to reuse date editors for durations
-                    $scope.editableDuration =  formatDateForEdit($scope.media[$scope.field].inMillis);
-                    $scope.formattedDuration = formatDateForDisplay($scope.media[$scope.field].inMillis);
-                }
 
                 if ( $scope.field === 'year' ) {
                     $scope.minYearValue = 1900;
@@ -167,8 +167,10 @@ angular.module( 'poms.media.directives' )
                 $scope.onShow = function () {
                     $scope.isOpen = true;
 
+
                     // our general MediaController listens for 'ESQ' key,
                     // to make sure the key works when user is in editmode but not focussed on the element
+
                     $scope.$emit( 'editFieldOpen', {'field': $scope.field, 'isOpen': true} );
 
                 };
@@ -229,7 +231,6 @@ angular.module( 'poms.media.directives' )
                     if ( $scope.field === "duration") {
                         if (data) {
                             data = $filter( 'noTimezone' )( data ).getTime();
-                            $scope.formattedDuration = formatDateForDisplay(data);
                         } else if (data === undefined) {
                             // Using date object for duration _makes no sense whatsoever!!
                             $scope.editForm.$editables[0].scope.$data = $scope.media['duration'];
@@ -237,8 +238,7 @@ angular.module( 'poms.media.directives' )
                             $scope.nextField(element);
                             return; // no valid data found
                         } else if (!data) {
-                            $scope.formattedDuration = null;
-                             $scope.editForm.$editables[0].scope.$data = null;
+                            $scope.editForm.$editables[0].scope.$data = null;
                         }
 
                     }
@@ -293,6 +293,17 @@ angular.module( 'poms.media.directives' )
                             $scope.editForm.$editables[0].scope.$data = $scope.getLexico($scope.media['mainTitle'].text);
                         }
                     }
+                };
+                $scope.formattedDuration = function (duration) {
+                    if (duration) {
+                        if (!$scope.editableDuration) {
+                            $scope.editableDuration = formatDateForEdit(duration.inMillis);
+                        }
+                        return formatDateForDisplay(duration.inMillis);
+                    } else {
+                        return "";
+                    }
+
                 };
 
                 $scope.blurredSave = function ( e ) {
