@@ -19,14 +19,6 @@ angular.module( 'poms.admin.controllers' ).controller( 'AdminController', [
 
         AdminController.prototype = {
 
-            editBroadcasters: function () {
-                var modal = this.$modal.open( {
-                    controller: 'BroadcastersController',
-                    controllerAs: 'broadcastersController',
-                    templateUrl: 'admin/modal-broadcasters.html',
-                    windowClass: 'modal-broadcasters'
-                } );
-            },
 
             indexMedia: function () {
                 this.adminService.index();

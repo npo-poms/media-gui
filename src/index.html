@@ -149,7 +149,6 @@
 
             <div class="header-dropdown" dropdown is-open="adminDropdown.isopen">
                 <ul class="header-dropdown-menu" role="menu" ng-controller="AdminController as adminController">
-                    <li><a href="javascript:void(0)" ng-click="adminController.editBroadcasters()">omroepen</a></li>
                     <li><a href="javascript:void(0)" poms-confirm="'Bestaande indexen'"
                            poms-submit="adminController.indexMedia()">herindexeer</a></li>
                     <li><a href="javascript:void(0)" ng-click="adminController.republishMedia()">herpubliceer</a></li>
@@ -335,7 +334,6 @@
 
 <script src="js/poms/modules/admin/admin.js"></script>
 <script src="js/poms/modules/admin/controllers/AdminController.js"></script>
-<script src="js/poms/modules/admin/controllers/BroadcastersController.js"></script>
 <script src="js/poms/modules/admin/controllers/RepublishController.js"></script>
 <script src="js/poms/modules/admin/services/AdminService.js"></script>
 
