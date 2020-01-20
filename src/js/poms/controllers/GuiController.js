@@ -162,7 +162,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
-
                         this.addTab( {
                             active: false,
                             reload: true,
@@ -170,7 +169,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             item: {
                                 mid: item.mid,
                                 type: item.type,
-                                permission: item.permission,
+                                permissions: item.permissions,
                                 mainTitle: {text: item.title}
                             },
                             type: 'edit'
