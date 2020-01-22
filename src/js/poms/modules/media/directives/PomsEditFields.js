@@ -136,6 +136,11 @@ angular.module( 'poms.media.directives' )
                 // end Events//
 
 
+                $scope.findDeep = function(media, field) {
+                    var current = media;
+                    field.split('.').forEach(function(p){ current = current[p]; });
+                    return current;
+                };
                 // Functions //
                 $scope.keyEvent = function ( e, form, data ) {
 
@@ -361,7 +366,8 @@ angular.module( 'poms.media.directives' )
 
                     var deferred = $q.defer();
 
-                    this.editService[$scope.field]( media, data ).then(
+                    var method = $scope.field.split('.')[0];
+                    this.editService[method] ( media, data ).then(
                         function ( result ) {
 
 

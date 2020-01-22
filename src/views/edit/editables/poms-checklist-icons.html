@@ -9,7 +9,7 @@
     <p class="editfield"
        e-form="editElement"
        e-name="editvalue"
-       editable-checklist-icons="media[field]"
+       editable-checklist-icons="findDeep(media, field)"
        e-ng-options="b as b.text.toLowerCase() for b in options"
        onshow="onShow()"
        onhide="onHide()"
@@ -17,13 +17,14 @@
        ng-show="mayWrite"
        blur="ignore"
             >
-        <span ng-repeat="item in media[field]" class="icon" ng-class="item.text | lowercase "></span>
+        <span ng-repeat="item in findDeep(media, field)" class="icon" ng-class="item.text | lowercase "></span>
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
     <p class="editfield" ng-hide="mayWrite">
-        <span ng-repeat="item in media[field]" class="icon" ng-class="item.text | lowercase "></span>
+        <!-- todo is is silly to use the text for the class, that's where id's are for -->
+        <span ng-repeat="item in findDeep(media, field)" class="icon" ng-class="item.text | lowercase"></span>
     </p>
 
     <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
