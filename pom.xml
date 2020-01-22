@@ -4,13 +4,13 @@
   <groupId>nl.vpro.media</groupId>
   <artifactId>media-gui</artifactId>
   <packaging>war</packaging>
-  <version>5.11.5</version>
+  <version>5.11.6-SNAPSHOT</version>
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/tags/REL-5.11.5</connection>
-    <developerConnection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/tags/REL-5.11.5</developerConnection>
-    <url>https://subversion.vpro.nl/viewvc/nl/vpro/media-gui/tags/REL-5.11.5</url>
+    <connection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</connection>
+    <developerConnection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</developerConnection>
+    <url>https://subversion.vpro.nl/viewvc/nl/vpro/media-gui/trunk</url>
   </scm>
   <build>
     <defaultGoal>install</defaultGoal>
