@@ -1,7 +1,7 @@
 <div class="editfield-wrapper editfield-checklist-icons"
      ng-keyup="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : !media[field], 'may-write' : mayWrite, 'forbidden': !mayWrite, 'opened' : isOpen , 'waiting': waiting }"
+     ng-class="{'empty' : ! findDeep(media, field), 'may-write' : mayWrite, 'forbidden': !mayWrite, 'opened' : isOpen , 'waiting': waiting }"
      save-feedback>
 
     <h2 class="small-header">{{header}}</h2>
