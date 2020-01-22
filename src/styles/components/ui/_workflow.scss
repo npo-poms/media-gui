@@ -8,7 +8,6 @@
     }
 }
 
-
 .poms-table {
     .workflow {
         font-size: 0;  // make the text invisible
@@ -44,7 +43,6 @@
 
 .workflow.FOR_REPUBLICATION:before {
     @include icon('status-forrepublication', 16px, '0 center');
-
 }
 
 .workflow.DELETED:before {
