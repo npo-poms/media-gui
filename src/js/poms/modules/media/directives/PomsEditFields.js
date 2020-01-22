@@ -137,9 +137,15 @@ angular.module( 'poms.media.directives' )
 
 
                 $scope.findDeep = function(media, field) {
-                    var current = media;
-                    field.split('.').forEach(function(p){ current = current[p]; });
-                    return current;
+                    var current = media[field];
+                    if (! current) {
+                        current = media;
+                        field.split('.').forEach(function (p) {
+                            current = current[p];
+                        });
+                        media[field] = current;
+                    }
+                    return media[field];
                 };
                 // Functions //
                 $scope.keyEvent = function ( e, form, data ) {
