@@ -1,18 +1,18 @@
 .workflow {
-
     &:before {
         display: block;
         content: '';
         width: 20px;
         height: 20px;
-
         float: left;
     }
 }
 
 
-.poms-table.workflow {
-    text-indent: -9999px;
+.poms-table {
+    .workflow {
+        font-size: 0;  // make the text invisible
+    }
 }
 
 .workflow.MERGED:before {
@@ -40,7 +40,6 @@
 
 .workflow.FOR_PUBLICATION:before {
     @include icon('status-forpublication', 16px, '0 center');
-
 }
 
 .workflow.FOR_REPUBLICATION:before {
