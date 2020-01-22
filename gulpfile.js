@@ -66,14 +66,12 @@ gulp.task('selector-deploy', function () {
 
     return es.merge(
       gulp.src( __dirname + '/src/CMSSelector/**/*' )
-        .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
-          .pipe( plugins.replace( /\{domain\}/g, getApiHost()) )
-          .pipe( gulp.dest( __dirname + '/build/deploy/CMSSelector/' ) )
+      .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
+      .pipe( gulp.dest( __dirname + '/build/deploy/CMSSelector/' ) )
     ,
       gulp.src( __dirname + '/src/CMSSelector/index.html' )
-          .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
-          .pipe( plugins.replace( /\{domain\}/g, getApiHost()) )
-          .pipe( plugins.usemin({
+      .pipe( plugins.replace( /\{version\}/g, getCurrentVersion('') ) )
+      .pipe( plugins.usemin({
               vendor: [plugins.ngAnnotate(), plugins.uglify()],
               poms: [plugins.ngAnnotate(), plugins.uglify()],
               html: [plugins.minifyHtml({empty : true, spare : true, quotes : true})]
