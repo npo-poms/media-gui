@@ -414,7 +414,8 @@
             media="media"
             class="media-field"
             fieldtype="checklist-icons"
-            field="contentRatings.entries"
+            path="contentRatings.entries"
+            field="contentRatings"
             options='editController.contentRatings'
             header="Kijkwijzer: inhoud"
             class="rating"
@@ -422,31 +423,35 @@
     ></poms-editable>
 
     <poms-editable-modal
-            class="media-field" header="Georestricties" media="media"
+            class="media-field"
+            header="Georestricties"
+            media="media"
             load="editController.getGeoRestrictions()"
             options="editController.allowedGeoRestrictions()"
             platforms="editController.allowedPlatforms()"
             option-title="Regio"
             option-field="region"
-            permission="geoRestrictions"
             single-name="Restrictie"
-            set-restriction="editController.setGeoRestriction(media,data)"
-            remove-restriction="editController.removeGeoRestriction(media,source)"
+            set-restriction="editController.setGeoRestriction(media, data)"
+            remove-restriction="editController.removeGeoRestriction(media, source)"
             move-restriction="editController.moveGeoRestriction(media,from, to)"
+            columns="editController.getGeoRestrictionColumns()"
             help-field="editor.general.geoRestriction"
     ></poms-editable-modal>
 
     <poms-editable-modal
-            class="media-field" header="Portalrestricties" media="media"
+            class="media-field"
+            header="Portalrestricties"
+            media="media"
             load="editController.getPortalRestrictions()"
             options="editController.allowedPortalRestrictions()"
             option-title="Portal"
             option-field="portal"
-            permission="portalRestrictions"
             single-name="Restrictie"
-            set-restriction="editController.setPortalRestriction(media,data)"
-            remove-restriction="editController.removePortalRestriction(media,source)"
-            move-restriction="editController.movePortalRestriction(media,from, to)"
+            set-restriction="editController.setPortalRestriction(media, data)"
+            remove-restriction="editController.removePortalRestriction(media, source)"
+            move-restriction="editController.movePortalRestriction(media, from, to)"
+            columns="editController.getPortalRestrictionColumns()"
             help-field="editor.general.portalRestriction"
     ></poms-editable-modal>
 

@@ -3,8 +3,7 @@
      ng-keyup="multiEditController.keyEvent($event)"
      ng-class="{'empty' : !multiEditController.values.length,  'forbidden': !multiEditController.mayWrite, 'may-write' : multiEditController.mayWrite, 'waiting': multiEditController.waiting, 'opened' : multiEditController.isOpen }"
      save-feedback>
-
-    <h2 class="small-header">{{header}}</h2>
+    <h2 class="small-header">GVD {{header}}</h2>
 
     <div ng-show="multiEditController.isOpen" class="ui-select" style="max-height:400px;">
 

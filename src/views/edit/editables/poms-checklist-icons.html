@@ -9,7 +9,7 @@
     <p class="editfield"
        e-form="editElement"
        e-name="editvalue"
-       editable-checklist-icons="findDeep(media, field)"
+       editable-checklist-icons="findDeep(media, path)"
        e-ng-options="b.id as b.text for b in options"
        onshow="onShow()"
        onhide="onHide()"
@@ -17,7 +17,7 @@
        ng-show="mayWrite"
        blur="ignore"
             >
-        <span ng-repeat="item in findDeep(media, field)" class="icon"
+        <span ng-repeat="item in findDeep(media, path)" class="icon"
               title="{{item.text}}"
               ng-class="item.iconClass"></span>
     </p>
@@ -25,7 +25,7 @@
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
     <p class="editfield" ng-hide="mayWrite">
-        <span ng-repeat="item in findDeep(media, field)"
+        <span ng-repeat="item in findDeep(media, path)"
               ng-title="item.text"
               class="icon"
               ng-class="item.iconClass"></span>

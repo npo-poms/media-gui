@@ -89,13 +89,13 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return media.permissions[ 'READ' ];
             },
 
-            hasWritePermission: function ( media, permission ) {
-                if ( media && media[ permission ] && media[ permission ].mayWrite !== undefined ) {
+            hasWritePermission: function ( media, field ) {
+                if ( media && media[field] && media[field].mayWrite !== undefined ) {
                     // explicitely indicated in field
-                    return media[ permission ].mayWrite;
+                    return media[field].mayWrite;
                 } else {
-                    // fall back to stuff with bitmap
-                    return media.permissions[ 'WRITE' ];
+                    // fall back to default write permissions on the entire object
+                    return media.permissions['WRITE'];
                 }
             },
 

@@ -7,7 +7,8 @@
      'waiting': waiting}"
      ng-show="geoLocationsController.mayRead" save-feedback>
 
-    <h2 class="small-header"> {{header}}
+    <h2 class="small-header">
+              {{header}}
         <span ng-if="geoLocationsController.items && geoLocationsController.items.owner.id !== geoLocationsController.currentOwnerType" class="media-field-owner">
             bron: {{geoLocationsController.items.owner.id}}
         </span>

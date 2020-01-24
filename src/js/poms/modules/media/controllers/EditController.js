@@ -271,6 +271,13 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             allowedPortalRestrictions: function () {
                 return this.editorService.getAllowedPortals();
             },
+            getPortalRestrictionColumns: function() {
+                return [
+                    {'text': 'Portal', 'id': 'portal', 'helpField': 'editor.general.portalRestriction.portal'},
+                    {'text': 'Online vanaf', 'id': 'start', 'helpField': 'editor.general.portalRestriction.start'},
+                    {'text': 'Online tot', 'id': 'stop', 'helpField': 'editor.general.portalRestriction.stop'}
+                ];
+            },
 
             getPortalRestrictions: function () {
                 return this.mediaService.getPortalRestrictions( this.media );
@@ -290,6 +297,14 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             allowedGeoRestrictions: function () {
                 return this.listService.getRegions();
+            },
+            getGeoRestrictionColumns: function() {
+                return [
+                    {'text': 'Regio', 'id': 'region', 'helpField': 'editor.general.geoRestriction.region'},
+                    {'text': 'Platform', 'id': 'platform', 'helpField': 'editor.general.geoRestriction.platform'},
+                    {'text': 'Online vanaf', 'id': 'start', 'helpField': 'editor.general.geoRestriction.start'},
+                    {'text': 'Online tot', 'id': 'stop', 'helpField': 'editor.general.geoRestriction.stop'}
+                ];
             },
 
             allowedPlatforms : function () {

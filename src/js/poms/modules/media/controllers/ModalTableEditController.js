@@ -9,7 +9,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
         function load ( scope, pomsEvents, dest ) {
             scope.load().then(
                 function ( data ) {
-                    angular.copy( data, dest );
+                    angular.copy( data.entries, dest.items );
+                    dest.mayWrite = data.mayWrite;
                 },
                 function ( error ) {
                     scope.$emit( pomsEvents.error, error )
@@ -30,37 +31,18 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
 
             this.media = $scope.media;
             this.pomsEvents = pomsEvents;
-
             this.mediaService = mediaService;
-
-            this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
-            this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
-
-            load( $scope, this.pomsEvents, this.items );
+            this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.field );
+            load( $scope, this.pomsEvents, this);
 
             $scope.options().then(
                 function ( data ) {
-                    if ( data.length < 1 ) {
-                        this.mayWrite = false;
-                    } else {
-                        angular.copy( data, this.options );
-                    }
+                    angular.copy( data, this.options );
                 }.bind( this ),
                 function ( error ) {
                     $scope.$emit( this.pomsEvents.error, error )
                 }.bind( this )
             );
-
-            if ( this.$scope.permission === 'geoRestrictions' ) {
-                $scope.platforms().then(
-                    function ( data ) {
-                        angular.copy( data, this.platforms );
-                    }.bind( this ),
-                    function ( error ) {
-                        $scope.$emit( this.pomsEvents.error, error )
-                    }.bind( this )
-                );
-            }
 
             this.$scope.sortableOptions = {
                 handle: '.sort-handle',
@@ -84,24 +66,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
                 }.bind( this )
             };
 
-            this.columns = [];
-
-            if ( this.$scope.permission === 'geoRestrictions' ) {
-                this.columns = [
-                    {'text': 'Regio', 'id': 'region', 'helpField': 'editor.general.geoRestriction.region'},
-                    {'text': 'Platform', 'id': 'platform', 'helpField': 'editor.general.geoRestriction.platform'},
-                    {'text': 'Online vanaf', 'id': 'start', 'helpField': 'editor.general.geoRestriction.start'},
-                    {'text': 'Online tot', 'id': 'stop', 'helpField': 'editor.general.geoRestriction.stop'}
-                ];
-            }
-            if ( this.$scope.permission === 'portalRestrictions' ) {
-                this.columns = [
-                    {'text': 'Portal', 'id': 'portal', 'helpField': 'editor.general.portalRestriction.portal'},
-                    {'text': 'Online vanaf', 'id': 'start', 'helpField': 'editor.general.portalRestriction.start'},
-                    {'text': 'Online tot', 'id': 'stop', 'helpField': 'editor.general.portalRestriction.stop'}
-                ];
-            }
-
+            this.columns = $scope.columns();
         }
 
         ModalTableEditController.prototype = {
@@ -113,7 +78,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
 
             close: function () {
                 this.$scope.modal.close();
-                load( this.$scope, this.pomsEvents, this.items );
+                load( this.$scope, this.pomsEvents, this );
             },
 
             submit: function ( index, data ) {
@@ -148,11 +113,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
 
                 return this.$scope.setRestriction( {media: this.$scope.media, data: data} ).then(
                     function ( data ) {
-                        load( this.$scope, this.pomsEvents, this.items );
+                        load( this.$scope, this.pomsEvents, this);
                         this.$scope.waiting = false;
                     }.bind( this ),
                     function ( error ) {
-                        if ( error.status == 400 && error.violations ) {
+                        if ( error.status === 400 && error.violations ) {
                             source.violations = error.violations;
                             return 'Errors';
                         } else {
@@ -173,7 +138,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
                 this.$scope.waiting = true;
                 return this.$scope.removeRestriction( {media: this.$scope.media, source: source} ).then(
                     function ( media ) {
-                        load( this.$scope, this.pomsEvents, this.items );
+                        load( this.$scope, this.pomsEvents, this);
                         this.$scope.waiting = false;
                     }.bind( this ),
                     function ( error ) {

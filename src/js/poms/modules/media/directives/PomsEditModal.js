@@ -13,6 +13,7 @@ angular.module( 'poms.media.directives' )
                 optionTitle: '@',
                 optionField: '@',
                 setRestriction: '&',
+                columns: '&',
                 removeRestriction: '&',
                 moveRestriction: '&',
                 singleName: '@',

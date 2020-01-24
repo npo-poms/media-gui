@@ -54,6 +54,7 @@ angular.module( 'poms.media.directives' )
             scope: {
                 header: '@header',
                 field: '@field',
+                path: '@path',
                 helpField: '@',
                 formatFilter: '@format',
                 options: '=',
@@ -78,6 +79,9 @@ angular.module( 'poms.media.directives' )
 
                 $scope.mayRead = this.editService.hasReadPermission( $scope.media, $scope.field );
                 $scope.mayWrite = this.editService.hasWritePermission($scope.media, $scope.field);
+                if (! $scope.path) {
+                    $scope.path = $scope.field;
+                }
                 $scope.mayRemoveOverride = mayRemoveOverride();
                 $scope.isEmpty = isEmpty();
 
@@ -165,7 +169,7 @@ angular.module( 'poms.media.directives' )
                     var oldValue = angular.copy( $scope.media[$scope.field] );
 
                     if ( $scope.field === "duration" && data ) {
-                        data = $filter( 'noTimezone' )( data ).getTime();
+                        data = $filter( 'noTimezone' )( data ).getTime(); // WTF?
                     }
 
                     return (
