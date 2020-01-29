@@ -67,6 +67,12 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                                 editor = response.data;
                                 if (editor.id) {
                                     localStorageService.set("currentUser", editor.id);
+                                } else {
+                                    if (EditorService.heartBeatCount > 0) {
+                                        console.log("Seem to be logged out. Forcing reload", editor);
+                                        document.location.reload();
+                                    }
+                                    return;
                                 }
                                 if(editor.currentOwner) {
                                     localStorageService.set("currentOwner", editor.currentOwner.id);
