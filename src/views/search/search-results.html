@@ -61,7 +61,7 @@
         </span>
 
         <span ng-switch-when="preview">
-          <a class="preview-image" title='bekijk de volledige afbeelding' href="{{::item.image | mediaFullImage }}" target="blank" ng-if="::item.image" style="background-image: url('{{::item.image | mediaGridImage }}')">
+          <a class="preview-image" title='bekijk de volledige afbeelding' href="{{item.image.originalUrl}}" target="blank" ng-if="::item.image" style="background-image: url('{{item.image.thumbUrl}}')">
           </a>
         </span>
 

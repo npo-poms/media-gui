@@ -36,7 +36,10 @@
             <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
 
                 <span ng-switch-when="preview">
-                    <a class="preview-image" title='bekijk de volledige afbeelding' href="{{::image | mediaFullImage }}" target="blank"  style="background-image: url('{{image | mediaGridImage }}')">
+                    <a class="preview-image"
+                       title='bekijk de volledige afbeelding'
+                       alt="{{image.title}}"
+                       href="{{image.originalURL}}" target="blank"  style="background-image: url('{{image.thumbUrl}}')"> <!-- unclear to me what's wrong with img-tag -->
                     </a>
                 </span>
 

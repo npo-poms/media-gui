@@ -68,23 +68,6 @@ angular.module( 'poms.util.filters' )
             return result;
         }
     } )
-    .filter( 'mediaGridImage', function ( appConfig ) {
-        return function ( image ) {
-            var id = image.uri.substring( image.uri.lastIndexOf( ":" ) + 1 );
-            return appConfig.apihost + '/images/api/images/s100/' + id + '.jpg'
-        }
-    } )
-    .filter( 'mediaPreviewImage', function ( appConfig ) {
-        return function ( image ) {
-            var id = image.uri.substring( image.uri.lastIndexOf( ":" ) + 1 );
-            return appConfig.apihost + '/images/api/images/s300/' + id + '.jpg'
-        }
-    } )
-    .filter( 'mediaFullImage', function ( appConfig ) {
-        return function ( image ) {
-            return image.originalURL;
-        }
-    } )
     .filter( 'xmlLocationPrefix', function ( appConfig ) {
         return function ( id ) {
             return appConfig.apihost + '/domain/media/' + id;

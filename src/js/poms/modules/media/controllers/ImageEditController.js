@@ -33,7 +33,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             );
         }
 
-        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, imageTypes, licenses, media, image, edit, service ) {
+        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, imageTypes, licenses, media, image, edit, service) {
 
             this.$scope = $scope;
             this.$modal = $modal;
@@ -245,7 +245,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 this.$upload.upload({
                     url: this.imagesapihost + "/images/metadata",
                     method: 'POST',
-                    fields: this.fields()
+                    fields: this.fields(),
+                    headers: {
+                        "authorization": "Bearer " + editor.keycloakToken
+                    }
                 }).then(
                     function (extResult) {
                         var metadata = extResult.data;
@@ -260,8 +263,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             sourceName: metadata.sourceName,
                             date: metadata.date,
                             credits: metadata.credits
-
-
                         });
                         this.setPreview(this.imagesapihost + "/images/thumb/" + metadata.uploadId);
                     }.bind(this),
@@ -279,7 +280,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
 
 
             save: function () {
-
                 this.$scope.waiting = true;
 
                 // Uploading is a two step process:
@@ -338,7 +338,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             method: 'POST',
                             fields: fields,
                             file: image.file && image.file.length > 0 ? image.file[0] : undefined,
-                            fileFormDataName: 'file'
+                            fileFormDataName: 'file',
+                            headers: {
+                                "authorization": "Bearer " + editor.keycloakToken
+                            }
                         }).then(
                             function (extResult) {
                                 var uploaded = extResult.data.list[0];

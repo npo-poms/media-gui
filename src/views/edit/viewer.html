@@ -1,7 +1,7 @@
 <div class="viewer">
     <div class="viewer-player" id="viewer-{{media.mid}}">
 
-        <div class='viewer-placeholder' ng-if="media.image" style="background-image: url('{{ media.image | mediaFullImage}}')" >
+        <div class='viewer-placeholder' ng-if="media.image" style="background-image: url('{{ media.image.originalUrl}}')" >
             <div class="viewer-play-button" title="speel dit item af in de NPO player"  ng-if="isPlayable" ng-click="play()"> </div>
         </div>
 
