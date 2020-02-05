@@ -5,12 +5,11 @@
      save-feedback>
 
     <h2 class="small-header">{{header}}</h2>
-
     <p class="editfield"
        e-form="editElement"
        e-name="editvalue"
        editable-checklist-icons="findDeep(media, path)"
-       e-ng-options="b.id as b.text for b in options"
+       e-ng-options="b  as b.text for b in options"
        onshow="onShow()"
        onhide="onHide()"
        onbeforesave="save($data)"
