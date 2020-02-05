@@ -10,7 +10,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
 
         var baseUrl = appConfig.apihost + '/gui/editor';
         var rolesHolder = [];
-        var editorHolder = {};
+        var editorHolder = null;
 
         function getOrganisations ( path ) {
             var deferred = $q.defer();
@@ -63,28 +63,26 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     .then(
                         // success
                         function (response) {
-                            if (! editorHolder.created || editorHolder.created < editor.created) {
-                                editor = response.data;
-                                if (editor.id) {
-                                    localStorageService.set("currentUser", editor.id);
-                                } else {
-                                    if (EditorService.heartBeatCount > 0) {
-                                        console.log("Seem to be logged out. Forcing reload", editor);
-                                        document.location.reload();
-                                    }
-                                    return;
-                                }
-                                if(editor.currentOwner) {
-                                    localStorageService.set("currentOwner", editor.currentOwner.id);
-                                }
-                                editor.hashId = this.getHashId( editor.id, 'user' );
-                                editorHolder = editor;
-                                rolesHolder = editor.roles;
-                                delete editor.role;
-                                deferred.resolve(editor);
-                            } else {
-                                console.log("Received editor is older then current one");
+                            editor = response.data;
+                            if (editorHolder && editor.created < editorHolder.created) {
+                                console.log("Received editor", editor, "is older then current one", editorHolder);
+                                return;
                             }
+                            editorHolder = editor;
+                            if (editor.id) {
+                                localStorageService.set("currentUser", editor.id);
+                            }
+                            if (editor.loginAsap) {
+                                console.log("Seem to be logged out. Forcing reload", editor);
+                                //document.location.reload();
+                                return;
+                            }
+                            if(editor.currentOwner) {
+                                localStorageService.set("currentOwner", editor.currentOwner.id);
+                            }
+                            editor.hashId = this.getHashId( editor.id, 'user' );
+                            rolesHolder = editor.roles;
+                            deferred.resolve(editor);
                             heartbeat();
                         }.bind(this),
                         // errors
