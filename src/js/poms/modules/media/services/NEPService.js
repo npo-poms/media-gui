@@ -66,7 +66,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
 
 
             getLiveScreengrab : function(channel, datetime){
-                var url = 'screengrablive/' + channel + '?dateTime=' + datetime.utc().format( 'YYYY-MM-DDTHH:mm:ss.SSS');
+                var url = 'screengrablive/' + channel + '?dateTime=' + datetime;
                 return this.getBlob(url);
             },
 

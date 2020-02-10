@@ -262,10 +262,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
 
-                // wtf.
-                var time = moment(this.videoElement.currentTime * 1000 );
-
-                //var time = new Date(this.videoElement.currentTime * 1000 );
+                var time = Math.floor(this.videoElement.currentTime * 1000);
 
                 this.NEPService.getLiveScreengrab( this.$scope.item.currentStream.id , time )
                     .then( function ( response ) {
