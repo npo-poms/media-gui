@@ -33,7 +33,7 @@ echo "Using Media Backend API host $API_HOST"
 echo "Find frontend at $API_SCHEME://$localhost:4000"
 echo "Making backup of $CONSTANTS"
 cp $CONSTANTS $DIR/constants.js.bu
-(cd $DIR ; npm_config_apihost=$API_HOST NPM_PACKAGE_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl $ARGS npm run $RUN)
+(cd $DIR ; npm_config_apihost=$API_HOST  $ARGS npm run $RUN)
 echo "Restoring $CONSTANTS"
 
 mv -f $DIR/constants.js.bu $CONSTANTS
