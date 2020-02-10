@@ -337,9 +337,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             "authorization": "Bearer " + editor.keycloakToken
                         }
                     }).then(
-                        function (extResult) {
-                            var uploaded = extResult.data.list[0];
-
+                        function (response) {
+                            var uploaded = response.data.list[0];
                             angular.extend(this.$scope.image, {
                                 uri: uploaded.urn,
                                 height: uploaded.height,
@@ -348,8 +347,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
 
                             saveUploadedImage();
                         }.bind(this),
-                        function (error) {
-                            this.$scope.$emit(this.pomsEvents.error, error);
+                        function (response) {
+                            console.log(response);
+                            this.$scope.$emit(this.pomsEvents.error, response);
                                 this.$scope.waiting = false;
 
                         }.bind(this)
