@@ -327,7 +327,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             playFrom: function(timeField) {
                 if ( this.videoElement ) {
-                    this.videoElement.currentTime = Math.floor( this.$scope.item[timeField] / 1000  );
+                    this.videoElement.currentTime = this.$scope.item[timeField] / 1000;
                     this.videoElement.play();
                 }
             },
