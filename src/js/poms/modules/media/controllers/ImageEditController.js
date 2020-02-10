@@ -326,41 +326,34 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     saveUploadedImage();
                 } else {
                     var fields = this.fields();
-
                     // Image not uploaded to image server yet
-                    // first get one image from the image server (see MSE-2920)
-                    var uploadFunction = function () {
+                    this.$upload.upload({
+                        url: this.imagesApiHost + "/images/upload",
+                        method: 'POST',
+                        fields: fields,
+                        file: image.file && image.file.length > 0 ? image.file[0] : undefined,
+                        fileFormDataName: 'file',
+                        headers: {
+                            "authorization": "Bearer " + editor.keycloakToken
+                        }
+                    }).then(
+                        function (extResult) {
+                            var uploaded = extResult.data.list[0];
 
-                        this.$upload.upload({
-                            url: this.imagesApiHost + "/images/upload",
-                            method: 'POST',
-                            fields: fields,
-                            file: image.file && image.file.length > 0 ? image.file[0] : undefined,
-                            fileFormDataName: 'file',
-                            headers: {
-                                "authorization": "Bearer " + editor.keycloakToken
-                            }
-                        }).then(
-                            function (extResult) {
-                                var uploaded = extResult.data.list[0];
+                            angular.extend(this.$scope.image, {
+                                uri: uploaded.urn,
+                                height: uploaded.height,
+                                width: uploaded.width
+                            });
 
-                                angular.extend(this.$scope.image, {
-                                    uri: uploaded.urn,
-                                    height: uploaded.height,
-                                    width: uploaded.width
-                                });
-
-                                saveUploadedImage();
-                            }.bind(this),
-                            function (error) {
-                                this.$scope.$emit(this.pomsEvents.error, error);
+                            saveUploadedImage();
+                        }.bind(this),
+                        function (error) {
+                            this.$scope.$emit(this.pomsEvents.error, error);
                                 this.$scope.waiting = false;
 
-                            }.bind(this)
-                        )
-
-                    }.bind(this);
-                    uploadFunction();
+                        }.bind(this)
+                    )
                 }
             },
 
