@@ -317,16 +317,17 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
             },
 
-            playSegmentFromStart : function () {
-                if ( this.videoElement ) {
-                    this.videoElement.currentTime = Math.floor( this.$scope.item.start / 1000  );
-                    this.videoElement.play();
-                }
+            playFromStart : function () {
+                this.playFrom("start");
             },
 
-            playSegmentFromEnd : function () {
+            playFromEnd : function () {
+                this.playFrom("stop");
+            },
+
+            playFrom: function(timeField) {
                 if ( this.videoElement ) {
-                    this.videoElement.currentTime = Math.floor( this.$scope.item.stop / 1000  );
+                    this.videoElement.currentTime = Math.floor( this.$scope.item[timeField] / 1000  );
                     this.videoElement.play();
                 }
             },
