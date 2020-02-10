@@ -4,7 +4,7 @@
   "version": "5.12.0",
   "config": {
     "version": "5.12.0",
-    "apihost": ""
+    "apiHost": ""
   },
   "scripts": {
     "prebuild:app:dev": "npm run build:constants && npm run build:templatecache:gulp",

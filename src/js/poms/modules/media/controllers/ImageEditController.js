@@ -42,7 +42,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             this.$sce = $sce;
             this.$timeout = $timeout;
             this.imagesApiHost = appConfig.imagesApiHost;
-            this.apihHost   = appConfig.apiHost;
+            this.apiHost   = appConfig.apiHost;
 
             this.pomsEvents = PomsEvents;
 
@@ -329,8 +329,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
 
                     // Image not uploaded to image server yet
                     // first get one image from the image server (see MSE-2920)
-
-
                     var uploadFunction = function () {
 
                         this.$upload.upload({
@@ -362,6 +360,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         )
 
                     }.bind(this);
+                    uploadFunction();
                 }
             },
 
