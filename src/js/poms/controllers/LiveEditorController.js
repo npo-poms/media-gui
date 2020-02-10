@@ -151,24 +151,25 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             },
             markStart : function () {
                 var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
+                //console.log(this.videoElement.currentTime, currentPos);
                 if ( ! isNaN( currentPos ) && this.$scope.item.stop < currentPos ) {
                     this.$scope.item.stop = currentPos;
                 }
-                this.$scope.item.start = currentPos;
-                this.$scope.item.startAsString = this.getTimeInAmsterdamAsString(currentPos);
-
-                this.setDuration();
+                this.mark("start", "startAsString", currentPos);
             },
 
             markStop : function () {
                 var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
+                //console.log(this.videoElement.currentTime, currentPos);
                 if ( ! isNaN( currentPos ) && this.$scope.item.start > currentPos ) {
                     this.$scope.item.start = currentPos;
                 }
-                this.$scope.item.stop = currentPos;
-                this.$scope.item.stopAsString = this.getTimeInAmsterdamAsString(currentPos);
+                this.mark("stop", "stopAsString", currentPos);
+            },
+            mark: function(timeField, stringField, currentPos) {
+                this.$scope.item[timeField] = currentPos;
+                this.$scope.item[stringField] = this.getTimeInAmsterdamAsString(currentPos);
                 this.setDuration();
-
             },
 
             getTimeInAmsterdamAsString: function(utcMillis) {
@@ -177,12 +178,13 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             parseTimeInAmsterdam: function(string) {
                 var split = string.split(":");
-                return 1000 * ( parseInt(split[2]) + 60 * (parseInt(split[1]) + 60 * parseInt(split[0])));
+                return 1000 * ( parseFloat(split[2]) + 60 * (parseInt(split[1]) + 60 * parseInt(split[0])));
             },
 
             setDuration : function() {
-                this.$scope.item.duration =   this.$scope.item.stop - this.$scope.item.start;
-                this.$scope.item.durationAsTime =  this.$filter('secondsToMsTime')( ( this.$scope.item.duration ) / 1000 );
+                this.$scope.item.duration =  this.$scope.item.stop - this.$scope.item.start;
+                //console.log("Duration in ms", this.$scope.item.duration)
+                this.$scope.item.durationAsString =  this.$filter('secondsToMsTime')( ( this.$scope.item.duration ) / 1000 );
                 if ( !this.$scope.item.duration  || this.$scope.item.duration <= 0) {
                     this.$scope.durationInvalid = true;
                 } else {
