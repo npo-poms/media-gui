@@ -5,10 +5,8 @@ angular.module( 'poms.messages.controllers' )
         (function () {
 
             function MessageController ( $scope, MessageService ) {
-
                 this.$scope = $scope;
                 this.messageService = MessageService;
-
             }
 
             MessageController.prototype = {

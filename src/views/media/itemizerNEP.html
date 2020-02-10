@@ -106,6 +106,7 @@
 
                 <p> Zodra het asset gemaakt is krijg je direct de link naar het geknipte videobestand. </p>
 
+
                 <button class="live-editor-button" ng-if='!invalidTimes && !assetWaiting'
                         ng-click="itemizerController.createAsset()"> Maak MP4
                 </button>
@@ -116,8 +117,9 @@
                     </button>
                 </div>
 
+
                 <span ng-if="assetWaiting">
-                    MP4 wordt gemaakt. Een moment geduld a.u.b.
+                    MP4 wordt gemaakt ({{workflowExecution.status}}). Een moment geduld a.u.b.
                 </span>
 
 

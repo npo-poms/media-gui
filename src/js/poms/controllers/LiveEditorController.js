@@ -31,8 +31,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             this.NEPService = NEPService;
 
-            // TODO: This is ridiculous!!
-            this.TIMEOFFSET = 7200; //UTC
             this.init();
         }
 
@@ -135,10 +133,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if ( !this.customPlayerTimeInterval ) {
                     this.customPlayerTimeInterval = this.$interval( function () {
                         var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
-                        this.$scope.playerTime = this.$filter( 'secondsToTime' )( (currentPos / 1000) + this.TIMEOFFSET );
+                        this.$scope.playerTime = this.$filter( 'secondsToTime' )( (currentPos / 1000));
 
                         var x = currentPos / 1000 + (this.mediaPlayer.duration() - this.mediaPlayer.time() );
-                        this.$scope.playerMax = this.$filter( 'secondsToTime' )( ( x ) + this.TIMEOFFSET );
+                        this.$scope.playerMax = this.$filter( 'secondsToTime' )(x);
                         //console.log( this.$scope.playerTime + "===" + this.$scope.playerMax );
                     }.bind( this ), 1000 );
                 }
@@ -157,7 +155,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     this.$scope.item.stop = currentPos;
                 }
                 this.$scope.item.start = currentPos;
-                this.$scope.item.startastime = this.$filter( 'secondsToMsTime' )( (currentPos / 1000) + this.TIMEOFFSET); //add 7200 to visual time, because NEP deals with UTC
+                this.$scope.item.startAsString = this.getTimeInAmsterdamAsString(currentPos);
 
                 this.setDuration();
             },
@@ -167,12 +165,19 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if ( ! isNaN( currentPos ) && this.$scope.item.start > currentPos ) {
                     this.$scope.item.start = currentPos;
                 }
-
                 this.$scope.item.stop = currentPos;
-                this.$scope.item.stopastime = this.$filter( 'secondsToMsTime' )( (currentPos / 1000) + this.TIMEOFFSET);
-
+                this.$scope.item.stopAsString = this.getTimeInAmsterdamAsString(currentPos);
                 this.setDuration();
 
+            },
+
+            getTimeInAmsterdamAsString: function(utcMillis) {
+                return this.$filter('date')(new Date(utcMillis), "HH:mm:ss.sss", "Europe/Amsterdam");
+            },
+
+            parseTimeInAmsterdam: function(string) {
+                var split = string.split(":");
+                return 1000 * ( parseInt(split[2]) + 60 * (parseInt(split[1]) + 60 * parseInt(split[0])));
             },
 
             setDuration : function() {
@@ -301,7 +306,8 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                 this.itemizeRequest.start === message.request.start &&
                                 this.itemizeRequest.stop === message.request.stop
                             ) {
-                                this.$scope.itemizerWaiting = false;
+                                this.$scope.workflowExecution = message.workflowExecution;
+                                this.$scope.itemizerWaiting = ! message.readyForDownload;
                             }
                         }.bind( this ) );
                 } catch ( e ) {
@@ -323,21 +329,24 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
             },
 
-            setStartValueAsMs : function () {
-                var starttimeInMs = (this.$filter('dateTimeToMSeconds')( this.$scope.item.startastime)) - (this.TIMEOFFSET * 1000);
-                if(!isNaN(starttimeInMs)){
-                    this.$scope.item.start = starttimeInMs;
-                    this.seekAndPause( this.$scope.item.start );
-                    this.setDuration();
-                }
+            setStartValueAsString : function () {
+                this.setTimeAsString("start", "startAsString");
             },
 
-            setStopValueAsMs : function () {
-                var stoptimeInMs = (this.$filter('dateTimeToMSeconds')( this.$scope.item.stopastime)) - (this.TIMEOFFSET * 1000);
-                if(!isNaN(stoptimeInMs)){
-                    this.$scope.item.stop = stoptimeInMs;
-                    this.seekAndPause( this.$scope.item.stop );
-                    this.setDuration();
+            setStopValueAsString : function () {
+                this.setTimeAsString("stop", "stopAsString");
+            },
+
+            setTimeAsString: function(timeField, stringField) {
+                var specified = this.parseTimeInAmsterdam(this.$scope.item[stringField]);
+                if(!isNaN(specified)){
+                    previous = this.parseTimeInAmsterdam(this.getTimeInAmsterdamAsString(this.$scope.item[timeField]));
+                    diff = specified - previous;
+                    if (diff != 0) {
+                        this.$scope.item[timeField] += diff;
+                        this.seekAndPause(this.$scope.item[timeField]);
+                        this.setDuration();
+                    }
                 }
             },
 
