@@ -74,7 +74,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                             }
                             if (editor.loginAsap) {
                                 console.log("Seem to be logged out. Forcing reload", editor);
-                                //document.location.reload();
+                                document.location.reload();
                                 return;
                             }
                             if(editor.currentOwner) {
