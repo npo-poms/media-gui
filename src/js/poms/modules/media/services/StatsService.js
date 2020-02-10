@@ -3,7 +3,7 @@ angular.module( 'poms.media.services' ).factory( 'StatsService', [
     '$http',
     'appConfig',
     function ($q, $http, appConfig ) {
-        var baseUrl = appConfig.apihost + '/gui/admin';
+        var baseUrl = appConfig.apiHost + '/gui/admin';
 
         function StatsService () {
         }

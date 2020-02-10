@@ -12,7 +12,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
     function ( $rootScope, $timeout, $upload, PomsEvents, editorService, localStorageService, notificationService, appConfig, $q, $http ) {
 
 
-        var baseUrl = appConfig.apihost + '/gui',
+        var baseUrl = appConfig.apiHost + '/gui',
 
             get = function ( path, config, params ) {
 
@@ -35,7 +35,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             this.$timeout = $timeout;
             this.$rootScope = $rootScope;
             this.pomsEvents = PomsEvents;
-            this.host = appConfig.apihost;
+            this.host = appConfig.apiHost;
 
             this.editorService = editorService;
 

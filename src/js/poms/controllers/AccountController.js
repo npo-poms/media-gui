@@ -20,7 +20,7 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
             this.$modalInstance = $modalInstance;
             this.$sce = $sce;
             this.$window = $window;
-            this.host = appConfig.apihost;
+            this.host = appConfig.apiHost;
             this.pomsEvents = PomsEvents;
             this.editorService = EditorService;
             this.localStorageService = LocalStorageService;

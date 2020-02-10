@@ -8,7 +8,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
     function ( $rootScope, $q, $http, $modal, localStorageService, appConfig ) {
         storageService = localStorageService;
 
-        baseUrl = appConfig.apihost + '/gui/media';
+        baseUrl = appConfig.apiHost + '/gui/media';
 
         get = function ( media, path, config ) {
             var deferred = $q.defer();

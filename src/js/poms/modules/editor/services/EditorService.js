@@ -8,7 +8,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     'localStorageService',
     function ( $q, $rootScope, $http, $modal, appConfig, pomsEvents, localStorageService ) {
 
-        var baseUrl = appConfig.apihost + '/gui/editor';
+        var baseUrl = appConfig.apiHost + '/gui/editor';
         var rolesHolder = [];
         var editorHolder = null;
 

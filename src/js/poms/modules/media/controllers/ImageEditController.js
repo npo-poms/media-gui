@@ -41,8 +41,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             this.$upload = $upload;
             this.$sce = $sce;
             this.$timeout = $timeout;
-            this.imagesapihost = appConfig.imagesapihost;
-            this.apihost   = appConfig.apihost;
+            this.imagesApiHost = appConfig.imagesApiHost;
+            this.apihHost   = appConfig.apiHost;
 
             this.pomsEvents = PomsEvents;
 
@@ -243,7 +243,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 $.find('#uploadinfo')[0].innerHTML = "";
                 this.setPreview('');
                 this.$upload.upload({
-                    url: this.imagesapihost + "/images/metadata",
+                    url: this.imagesApiHost + "/images/metadata",
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
@@ -264,7 +264,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             date: metadata.date,
                             credits: metadata.credits
                         });
-                        this.setPreview(this.imagesapihost + "/images/thumb/" + metadata.uploadId);
+                        this.setPreview(this.imagesApiHost + "/images/thumb/" + metadata.uploadId);
                     }.bind(this),
                     function (error) {
                         mes = error.statusText;
@@ -334,7 +334,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     var uploadFunction = function () {
 
                         this.$upload.upload({
-                            url: this.imagesapihost + "/images/upload",
+                            url: this.imagesApiHost + "/images/upload",
                             method: 'POST',
                             fields: fields,
                             file: image.file && image.file.length > 0 ? image.file[0] : undefined,
@@ -362,10 +362,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         )
 
                     }.bind(this);
-                    // eerst een plaatje voor de zekerheid, dat de sessie maar leeft! (MSE-2920)
-                    var imageObject = new Image();
-                    imageObject.onload = uploadFunction;
-                    imageObject.src = this.apihost + "/images/icons/arrow-up.gif";
                 }
             },
 

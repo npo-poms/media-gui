@@ -23,7 +23,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
             this.$upload = $upload;
             this.$sce = $sce;
             this.$filter = $filter;
-            this.host = appConfig.apihost;
+            this.host = appConfig.apiHost;
             this.pomsEvents = PomsEvents;
             this.mediaService = mediaService;
 

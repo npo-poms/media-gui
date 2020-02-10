@@ -8,7 +8,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
     function ( $q, $timeout, $http, appConfig, notificationService, editorService) {
 
-        var BASE_URL = appConfig.apihost + '/gui/messages';
+        var BASE_URL = appConfig.apiHost + '/gui/messages';
         var RECONNECT_TIMEOUT = appConfig.RECONNECT_TIMEOUT || 30000;
         var PUBLICATIONS_REQUEST = appConfig.PUBLICATIONS_REQUEST || BASE_URL + '/publications';
         var PUBLICATIONS_TOPIC = appConfig.PUBLICATIONS_TOPIC || "/topic/publications";

@@ -10,7 +10,7 @@ angular.module('poms.media.services').factory('MergeService', [
     'SearchService',
     function($rootScope, $http, $q, $modal, appConfig, guiService, pomsEvents, searchFactory, searchService) {
 
-        var baseUrl = appConfig.apihost + '/gui/merge',
+        var baseUrl = appConfig.apiHost + '/gui/merge',
                 url, source;
 
         function MergeService() {

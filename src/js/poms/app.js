@@ -48,7 +48,7 @@
             var isAbsolute = /^((https?:\/\/|\/\/))/.test( config.url );
 
             // Absolute URL could also be a POMS url, for instance when developing GUI locally against poms-dev
-            var isAbsolutePomsUrl =  ( isAbsolute && ( config.url.indexOf( appConfig.apihost ) !== -1 ) );
+            var isAbsolutePomsUrl =  ( isAbsolute && ( config.url.indexOf( appConfig.apiHost ) !== -1 ) );
 
             var isPomsUrl = ( !isAbsolute || ( isAbsolute  && isAbsolutePomsUrl ) );
             var currentOwner = localStorageService.get("currentOwner");

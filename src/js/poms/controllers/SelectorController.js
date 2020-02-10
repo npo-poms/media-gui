@@ -78,7 +78,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
 
             editMedia: function ( media ) {
 
-                this.$window.open( this.appConfig.apihost +'/#/edit/'+ media.mid );
+                this.$window.open( this.appConfig.apiHost +'/#/edit/'+ media.mid );
             },
 
             init: function () {
@@ -106,7 +106,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
 
                     var mid = this.$route.current.params.mid;
                     if ( mid ) {
-                        this.$window.open( this.appConfig.apihost +'/#/edit/'+ mid );
+                        this.$window.open( this.appConfig.apiHost +'/#/edit/'+ mid );
                     }
                 }.bind( this ) );
             },

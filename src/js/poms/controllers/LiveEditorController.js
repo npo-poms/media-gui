@@ -200,7 +200,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 };
 
                 this.NEPService.itemizelive( this.itemizeRequest ).then( function ( data ) {
-                    this.$scope.item.assetLink = this.appConfig.apihost + data;
+                    this.$scope.item.assetLink = this.appConfig.apiHost + data;
 
                 }.bind(this), function ( error ) {
                     this.$scope.$emit( this.pomsEvents.error, error );

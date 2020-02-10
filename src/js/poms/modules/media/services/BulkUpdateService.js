@@ -4,7 +4,7 @@ angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
     '$modal',
     'appConfig',
     function ($q, $http, $modal, appConfig ) {
-        var baseUrl = appConfig.apihost + '/gui/bulk';
+        var baseUrl = appConfig.apiHost + '/gui/bulk';
 
         function BulkUpdateService () {
         }

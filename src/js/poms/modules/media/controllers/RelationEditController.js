@@ -27,7 +27,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationEditController',
             this.$modalInstance = $modalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
-            this.host = appConfig.apihost;
+            this.host = appConfig.apiHost;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.resetValue = angular.copy( relation );

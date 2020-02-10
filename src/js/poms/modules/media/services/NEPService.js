@@ -8,7 +8,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
     'NotificationService',
     function ( $rootScope, $q, $http, $modal, localStorageService, appConfig, notificationService) {
 
-        var baseUrl = appConfig.apihost + '/gui/player';
+        var baseUrl = appConfig.apiHost + '/gui/player';
 
         var get = function ( path, config ) {
 

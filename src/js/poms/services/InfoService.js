@@ -3,7 +3,7 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
     '$http',
     'appConfig',
     function ( $q, $http, appConfig ) {
-        var baseUrl = appConfig.apihost + '/gui/info';
+        var baseUrl = appConfig.apiHost + '/gui/info';
         function InfoService () {
         }
         InfoService.prototype = {

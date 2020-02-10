@@ -11,7 +11,7 @@ angular.module('poms.search.services').factory('SearchService', [
     'SearchFactory',
     function($rootScope, $q, $http, $filter, $modal, appConfig, guiService, mediaService, pomsEvents, searchFactory) {
 
-        var baseUrl = appConfig.apihost + '/gui/search';
+        var baseUrl = appConfig.apiHost + '/gui/search';
 
         function post(path, body, config) {
 
@@ -77,7 +77,7 @@ angular.module('poms.search.services').factory('SearchService', [
 
             suggest : function(queryData) {
                 var queryDataCopy = this.setStopDates(queryData);
-                return $http.post(appConfig.apihost + '/gui/search/titles', queryDataCopy);
+                return $http.post(appConfig.apiHost + '/gui/search/titles', queryDataCopy);
             },
 
             setStopDates: function(queryData) {

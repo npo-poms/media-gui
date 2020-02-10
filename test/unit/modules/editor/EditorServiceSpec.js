@@ -4,7 +4,7 @@ describe('EditorService', function() {
 
     beforeEach(module('poms.editor.services', function($provide) {
         $provide.value('$modal', {});
-        $provide.value('appConfig', {'apihost' : 'api'});
+        $provide.value('appConfig', {'apiHost' : 'api'});
         $provide.value('PomsEvents', {'error' : 'error'});
         $provide.value('localStorageService', {
             "set": function(key, val) {

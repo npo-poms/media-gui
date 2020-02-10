@@ -8,12 +8,11 @@ var pkgConfig = require('./package.json' ).config;
 var apiHost = process.env.npm_config_apihost || pkgConfig.apihost;
 var imageApiHost = apiHost + '/images/api';
 var version = pkgConfig.version;
-var publisherHost = process.env.npm_config_publisherhost;
 var constants = {
     appConfig: {
         version: version,
-        apihost: apiHost,
-        imagesapihost: imageApiHost
+        apiHost: apiHost,
+        imagesApiHost: imageApiHost
     }
 };
 

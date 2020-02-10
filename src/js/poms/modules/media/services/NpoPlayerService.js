@@ -1,7 +1,7 @@
 angular.module( 'poms.media.services' ).factory('NpoPlayerService',
     function ( $http, $q, appConfig) {
 
-        var npoBaseUrl = appConfig.apihost + '/gui/npoplayer/request';
+        var npoBaseUrl = appConfig.apiHost + '/gui/npoplayer/request';
         var NpoPlayerService = function () {};
 
         NpoPlayerService.prototype = {

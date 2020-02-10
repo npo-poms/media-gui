@@ -5,7 +5,7 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
     'appConfig',
     function ( $q, $http, $upload, appConfig ) {
 
-        var baseUrl = appConfig.apihost + '/gui/subtitles';
+        var baseUrl = appConfig.apiHost + '/gui/subtitles';
 
         function get( path, config ) {
             var deferred = $q.defer();

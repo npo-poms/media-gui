@@ -70,12 +70,12 @@ angular.module( 'poms.util.filters' )
     } )
     .filter( 'xmlLocationPrefix', function ( appConfig ) {
         return function ( id ) {
-            return appConfig.apihost + '/domain/media/' + id;
+            return appConfig.apiHost + '/domain/media/' + id;
         }
     } )
     .filter('subtitlesLocationPrefix', function (appConfig) {
         return function (id) {
-            return appConfig.apihost + '/domain/subtitles/' + id;
+            return appConfig.apiHost + '/domain/subtitles/' + id;
         }
     })
     .filter( 'truncate', function () {

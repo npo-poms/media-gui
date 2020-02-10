@@ -47,7 +47,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
             this.appConfig = appConfig;
 
-            this.imageshost = appConfig.imagesapihost;
+            this.imageshost = appConfig.imagesApiHost;
 
             this.$scope.playerReady = false;
             this.$scope.isPlaying = false;
@@ -613,7 +613,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 this.NEPService.itemize( this.itemizeRequest ).then( function ( data ) {
 
-                    this.$scope.assetLink = this.appConfig.apihost + data;
+                    this.$scope.assetLink = this.appConfig.apiHost + data;
                 }.bind(this), function ( error ) {
                     this.$scope.$emit( this.pomsEvents.error, error );
                 }.bind(this) );

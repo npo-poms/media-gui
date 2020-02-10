@@ -3,7 +3,7 @@ angular.module( 'poms.admin.services' ).factory( 'AdminService', [
     '$http',
     'appConfig',
     function ( $q, $http, appConfig ) {
-        var baseUrl = appConfig.apihost + '/gui/admin';
+        var baseUrl = appConfig.apiHost + '/gui/admin';
 
         function get ( path, config ) {
             var deferred = $q.defer();
