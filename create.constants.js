@@ -5,7 +5,7 @@ var fs = require( 'fs' );
 var ngConfig = require( 'ng-config' );
 var pkgConfig = require('./package.json' ).config;
 
-var apiHost = process.env.npm_config_apihost || pkgConfig.apihost;
+var apiHost = process.env.npm_config_apihost || pkgConfig.apiHost;
 var imageApiHost = apiHost + '/images/api';
 var version = pkgConfig.version;
 var constants = {
