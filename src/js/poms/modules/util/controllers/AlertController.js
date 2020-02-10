@@ -12,6 +12,9 @@ angular.module('poms.util.controllers')
                     this.$modalInstance = $modalInstance;
                     this.guiService = GuiService;
                     this.error = error;
+                    if (! this.error.message) {
+                        this.error.message = JSON.stringify(error);
+                    }
 
                     if(error.familyTree) {
                         this.breadCrumbs = [];
