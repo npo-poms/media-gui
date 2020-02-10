@@ -340,9 +340,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             setTimeAsString: function(timeField, stringField) {
                 var specified = this.parseTimeInAmsterdam(this.$scope.item[stringField]);
                 if(!isNaN(specified)){
+                    // https://jira.vpro.nl/browse/MSE-4712
                     previous = this.parseTimeInAmsterdam(this.getTimeInAmsterdamAsString(this.$scope.item[timeField]));
                     diff = specified - previous;
-                    if (diff != 0) {
+                    if (diff !== 0) {
                         this.$scope.item[timeField] += diff;
                         this.seekAndPause(this.$scope.item[timeField]);
                         this.setDuration();
