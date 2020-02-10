@@ -28,37 +28,37 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
+var ControlBar = function(dashjsMediaPlayer) {
 
     var player = dashjsMediaPlayer,
         video,
         videoContainer,
+        currentCaptionMenuIdx = 0,
+        currentQualityMenuIdx = 0,
         captionMenu = null,
-        bitrateListMenu = null,
-        trackSwitchMenu = null,
-        menuHandlersList = [],
-        lastVolumeLevel = NaN,
+        qualityMenu = null,
+        lastValumeLevel = NaN,
         seeking = false,
         videoControllerVisibleTimeout = 0,
+        //TODO - CREATE ALL ELEMENTS INSIDE "videoController" AND JUST REQUIRE ONE DIV IN PLAYER TO BE CREATED BELOW VIDEO ELEMENT WITH ID "videoController"
         videoController = document.getElementById("videoController"),
         playPauseBtn = document.getElementById("playPauseBtn"),
-        bitrateListBtn = document.getElementById("bitrateListBtn"),
         captionBtn = document.getElementById("captionBtn"),
-        trackSwitchBtn = document.getElementById("trackSwitchBtn"),
         seekbar = document.getElementById("seekbar"),
         muteBtn = document.getElementById("muteBtn"),
         volumebar = document.getElementById("volumebar"),
         fullscreenBtn = document.getElementById("fullscreenBtn"),
         timeDisplay = document.getElementById("videoTime"),
         durationDisplay = document.getElementById("videoDuration"),
+        qualitybutton= document.getElementById("qualitybutton"),
 
 //************************************************************************************
 // PLAYBACK
 //************************************************************************************
 
-        togglePlayPauseBtnState = function () {
+        togglePlayPauseBtnState = function(){
             var span = document.getElementById('iconPlayPause');
-            if (player.isPaused()) {
+            if(player.isPaused()) {
                 span.classList.remove('icon-pause')
                 span.classList.add('icon-play');
             } else {
@@ -67,25 +67,25 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
             }
         },
 
-        onPlayPauseClick = function (e) {
+        onPlayPauseClick = function(e){
             togglePlayPauseBtnState.call(this);
             player.isPaused() ? player.play() : player.pause();
         },
 
-        onPlaybackPaused = function (e) {
+        onPlaybackPaused = function(e){
             togglePlayPauseBtnState();
         },
 
-        onPlayStart = function (e) {
-            setTime(displayUTCTimeCodes ? player.timeAsUTC() : player.time());
+        onPlayStart = function(e){
+            setTime(player.time());
             updateDuration();
             togglePlayPauseBtnState();
         },
 
-        onPlayTimeUpdate = function (e) {
+        onPlayTimeUpdate = function(e){
             updateDuration();
             if (!seeking) {
-                setTime(displayUTCTimeCodes ? player.timeAsUTC() : player.time());
+                setTime(player.time());
                 seekbar.value = player.time();
             }
         },
@@ -94,7 +94,7 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 // VOLUME
 //************************************************************************************
 
-        toggleMuteBtnState = function () {
+        toggleMuteBtnState = function(){
             var span = document.getElementById('iconMute');
             if (player.isMuted()) {
                 span.classList.remove('icon-mute-off');
@@ -105,25 +105,25 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
             }
         },
 
-        onMuteClick = function (e) {
-            if (player.isMuted() && !isNaN(lastVolumeLevel)) {
-                setVolume(lastVolumeLevel);
+        onMuteClick = function(e) {
+            if (player.isMuted() && !isNaN(lastValumeLevel)) {
+                setVolume(lastValumeLevel);
             } else {
-                lastVolumeLevel = parseFloat(volumebar.value);
+                lastValumeLevel = parseFloat(volumebar.value);
                 setVolume(0);
             }
             player.setMute(player.getVolume() === 0);
             toggleMuteBtnState();
         },
 
-        setVolume = function (value) {
+        setVolume = function(value){
             if (typeof value === "number") {
                 volumebar.value = value;
             }
             player.setVolume(volumebar.value);
             player.setMute(player.getVolume() === 0);
-            if (isNaN(lastVolumeLevel)) {
-                lastVolumeLevel = player.getVolume();
+            if (isNaN(lastValumeLevel)) {
+                lastValumeLevel = player.getVolume();
             }
             toggleMuteBtnState();
         },
@@ -132,19 +132,17 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 // SEEKING
 // ************************************************************************************
 
-        onSeekBarChange = function (e) {
+        onSeekBarChange = function(e){
             player.seek(parseFloat(seekbar.value));
         },
 
-        onSeeking = function (e) {
+        onSeeking = function(e){
             //TODO Add call to seek in trick-mode once implemented. Preview Frames.
             seeking = true;
-            var seekValue = parseFloat(seekbar.value);
-            var value = displayUTCTimeCodes ? (player.timeAsUTC() - player.duration()) + seekValue : seekValue;
-            setTime(value);
+            setTime(parseFloat(seekbar.value));
         },
 
-        onSeeked = function (e) {
+        onSeeked = function(e){
             seeking = false;
         },
 
@@ -152,22 +150,22 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 // TIME/DURATION
 //************************************************************************************
 
-        setDuration = function (value) {
+        setDuration = function(value){
             if (!isNaN(value)) {
-                durationDisplay.textContent = displayUTCTimeCodes ? player.formatUTC(value) : player.convertToTimeCode(value);
+                durationDisplay.textContent = player.convertToTimeCode(value);
             }
         },
 
-        setTime = function (value) {
+        setTime = function(value){
             if (!isNaN(value)) {
-                timeDisplay.textContent = displayUTCTimeCodes ? player.formatUTC(value) : player.convertToTimeCode(value);
+                timeDisplay.textContent = player.convertToTimeCode(value);
             }
         },
 
-        updateDuration = function () {
+        updateDuration = function(){
             var duration = player.duration();
             if (duration !== parseFloat(seekbar.max)) { //check if duration changes for live streams..
-                setDuration(displayUTCTimeCodes ? player.durationAsUTC() : duration);
+                setDuration(duration);
                 seekbar.max = duration;
             }
         },
@@ -177,20 +175,17 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 //************************************************************************************
 
         onFullScreenChange = function (e) {
-            if (isFullscreen()) {
+            if(isFullscreen()) {
                 enterFullscreen();
-                var icon = fullscreenBtn.querySelector(".icon-fullscreen-enter")
-                icon.classList.remove("icon-fullscreen-enter");
-                icon.classList.add("icon-fullscreen-exit");
             } else {
                 exitFullscreen();
-                var icon = fullscreenBtn.querySelector(".icon-fullscreen-exit")
-                icon.classList.remove("icon-fullscreen-exit");
-                icon.classList.add("icon-fullscreen-enter");
+            }
+            if (captionMenu) {
+                captionMenu.classList.add("hide");
             }
         },
 
-        isFullscreen = function () {
+        isFullscreen = function (){
             return document.fullscreenElement || document.msFullscreenElement || document.mozFullScreen || document.webkitIsFullScreen;
         },
 
@@ -213,7 +208,7 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 
         onFullScreenMouseMove = function () {
             clearFullscreenState();
-            videoControllerVisibleTimeout = setTimeout(function () {
+            videoControllerVisibleTimeout = setTimeout(function(){
                 videoController.classList.add("hide");
             }, 4000);
         },
@@ -229,7 +224,7 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 
             if (document.exitFullscreen) {
                 document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
+            } else if (document.mozCancelFullScreen){
                 document.mozCancelFullScreen();
             } else if (document.msExitFullscreen) {
                 document.msExitFullscreen();
@@ -239,8 +234,8 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
             videoController.classList.remove('video-controller-fullscreen');
         },
 
-        onFullscreenClick = function (e) {
-            if (!isFullscreen()) {
+        onFullscreenClick = function(e){
+            if(!isFullscreen()) {
                 enterFullscreen();
             } else {
                 exitFullscreen();
@@ -248,325 +243,259 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
             if (captionMenu) {
                 captionMenu.classList.add("hide");
             }
-            if (bitrateListMenu) {
-                bitrateListMenu.classList.add("hide");
-            }
-            if (trackSwitchMenu) {
-                trackSwitchMenu.classList.add("hide");
-            }
         },
 
 //************************************************************************************
-// Audio Video MENU
+// CAPTION MENU
 //************************************************************************************
 
-        onTracksAdded = function (e) {
-            // Subtitles/Captions Menu //XXX we need to add two layers for captions & subtitles if present.
+        onTracksAdded = function(e){
             if (!captionMenu) {
-                var contentFunc = function (element, index) {
-                    return isNaN(index) ? "OFF" : element.lang + " : " + element.kind;
-                }
-                captionMenu = createMenu({menuType: 'caption', arr: e.tracks}, contentFunc);
-
-                var func = function () {
-                    onMenuClick(captionMenu, captionBtn);
-                }
-                menuHandlersList.push(func);
-                captionBtn.addEventListener("click", func);
+                createCaptionMenu(e);
+                captionBtn.addEventListener("click", onCaptionClick);
                 captionBtn.classList.remove("hide");
             }
         },
 
-        onStreamInitialized = function (e) {
-
-            var contentFunc;
-            //Bitrate Menu
-            if (bitrateListBtn) {
-                destroyBitrateMenu();
-
-                var availableBitrates = {menuType: 'bitrate'};
-                availableBitrates.audio = player.getBitrateInfoListFor("audio") || [];
-                availableBitrates.video = player.getBitrateInfoListFor("video") || [];
-
-                if (availableBitrates.audio.length > 1 || availableBitrates.video.length > 1) {
-
-                    contentFunc = function (element, index) {
-                        return isNaN(index) ? " Auto Switch" : Math.floor(element.bitrate / 1000) + " kbps";
-                    }
-                    bitrateListMenu = createMenu(availableBitrates, contentFunc);
-                    var func = function () {
-                        onMenuClick(bitrateListMenu, bitrateListBtn);
-                    };
-                    menuHandlersList.push(func);
-                    bitrateListBtn.addEventListener("click", func);
-                    bitrateListBtn.classList.remove("hide");
-
-                } else {
-                    bitrateListBtn.classList.add("hide");
-                }
-            }
-
-            //Track Switch Menu
-            if (!trackSwitchMenu && trackSwitchBtn) {
-                var availableTracks = {menuType: "track"};
-                availableTracks.audio = player.getTracksFor("audio");
-                availableTracks.video = player.getTracksFor("video"); // these return empty arrays so no need to cehck for null
-
-                if (availableTracks.audio.length > 1 || availableTracks.video.length > 1) {
-                    contentFunc = function (element) {
-                        return 'Language: ' + element.lang + ' - Role: ' + element.roles[0];
-                    }
-                    trackSwitchMenu = createMenu(availableTracks, contentFunc);
-                    var func = function () {
-                        onMenuClick(trackSwitchMenu, trackSwitchBtn);
-                    };
-                    menuHandlersList.push(func);
-                    trackSwitchBtn.addEventListener("click", func);
-                    trackSwitchBtn.classList.remove("hide");
-                }
-            }
-
-        },
-
-        createMenu = function (info, contentFunc) {
-
-            var menuType = info.menuType;
-            var el = document.createElement("div");
-            el.id = menuType + "Menu";
-            el.classList.add("menu");
-            el.classList.add("hide");
-            el.classList.add("unselectable");
-            el.classList.add("menu-item-unselected");
-            videoController.appendChild(el);
-
-            switch (menuType) {
-                case 'caption' :
-                    el.appendChild(document.createElement("ul"));
-                    el = createMenuContent(el, getMenuContent(menuType, info.arr, contentFunc), 'caption', menuType + '-list');
-                    setMenuItemsState(getMenuInitialIndex(info, menuType), menuType + '-list');
-                    break;
-                case 'track' :
-                case 'bitrate' :
-                    if (info.video.length > 1) {
-                        el.appendChild(createMediaTypeMenu("video"));
-                        el = createMenuContent(el, getMenuContent(menuType, info.video, contentFunc), 'video', 'video-' + menuType + '-list');
-                        setMenuItemsState(getMenuInitialIndex(info.video, menuType, 'video'), 'video-' + menuType + '-list');
-                    }
-                    if (info.audio.length > 1) {
-                        el.appendChild(createMediaTypeMenu("audio"));
-                        el = createMenuContent(el, getMenuContent(menuType, info.audio, contentFunc), 'audio', 'audio-' + menuType + '-list');
-                        setMenuItemsState(getMenuInitialIndex(info.audio, menuType, 'audio'), 'audio-' + menuType + '-list');
-                    }
-                    break;
-            }
-
-            window.addEventListener("resize", handleMenuPositionOnResize, true);
-            return el;
-        },
-
-        getMenuInitialIndex = function(info, menuType, mediaType) {
-            if (menuType === 'track') {
-
-                var mediaInfo = player.getCurrentTrackFor(mediaType);
-                var idx = 0
-                info.some(function(element, index){
-                    if (isTracksEqual(element, mediaInfo)) {
-                        idx = index;
-                        return true;
-                    }
-                })
-                return idx;
-
-            } else if (menuType === "bitrate") {
-                return player.getAutoSwitchQualityFor(mediaType) ? 0 : player.getQualityFor(mediaType);
-            } else if (menuType === "caption") {
-                var idx = 0
-                info.arr.some(function(element, index){
-                    if (element.defaultTrack) {
-                        idx = index + 1;
-                        return true;
-                    }
-                })
-
-                return idx;
-            }
-        },
-
-        isTracksEqual = function (t1, t2) {
-            var sameId = t1.id === t2.id;
-            var sameViewpoint = t1.viewpoint === t2.viewpoint;
-            var sameLang = t1.lang === t2.lang;
-            var sameRoles = t1.roles.toString() === t2.roles.toString();
-            var sameAccessibility = t1.accessibility.toString() === t2.accessibility.toString();
-            var sameAudioChannelConfiguration = t1.audioChannelConfiguration.toString() === t2.audioChannelConfiguration.toString();
-
-            return (sameId && sameViewpoint && sameLang && sameRoles && sameAccessibility && sameAudioChannelConfiguration);
-        },
-
-        getMenuContent = function (type, arr, contentFunc) {
-
-            var content = [];
-            arr.forEach(function (element, index) {
-                content.push(contentFunc(element, index));
-            })
-            if (type !== 'track') {
-                content.unshift(contentFunc(null, NaN));
-            }
-            return content;
-        },
-
-        createMediaTypeMenu = function (type) {
-
-            var div = document.createElement("div");
-            var title = document.createElement("div");
-            var content = document.createElement("ul");
-
-            div.id = type;
-
-            title.textContent = type === 'video' ? 'Video' : 'Audio';
-            title.classList.add('menu-sub-menu-title');
-
-            content.id = type + "Content";
-            content.classList.add(type + "-menu-content");
-
-            div.appendChild(title);
-            div.appendChild(content);
-
-            return div;
-        },
-
-        createMenuContent = function (menu, arr, mediaType, name) {
-
-            for (var i = 0; i < arr.length; i++) {
-
-                var item = document.createElement("li");
-                item.id = name + "Item_" + i;
-                item.index = i;
-                item.mediaType = mediaType;
-                item.name = name;
-                item.selected = false;
-                item.textContent = arr[i];
-
-                item.onmouseover = function (e) {
-                    if (this.selected !== true) {
-                        this.classList.add("menu-item-over");
-                    }
-                };
-                item.onmouseout = function (e) {
-                    this.classList.remove("menu-item-over");
-                };
-                item.onclick = setMenuItemsState.bind(item);
-
-                var el;
-                if (mediaType === 'caption') {
-                    el = menu.querySelector("ul");
-                } else {
-                    el = menu.querySelector('.' + mediaType + "-menu-content");
-                }
-
-                el.appendChild(item);
-            }
-
-            return menu;
-        },
-
-
-        onMenuClick = function (menu, btn) {
-
-            if (menu.classList.contains("hide")) {
-                menu.classList.remove("hide");
-                menu.onmouseleave = function (e) {
+        onCaptionClick = function(e){
+            if (captionMenu.classList.contains("hide")){
+                captionMenu.classList.remove("hide");
+                captionMenu.onmouseleave = function(e){
                     this.classList.add("hide");
                 };
-            } else {
-                menu.classList.add("hide");
+            }else{
+                captionMenu.classList.add("hide");
             }
-            menu.style.position = isFullscreen() ? "fixed" : "absolute";
-            positionMenu(menu, btn);
+            captionMenu.style.position = isFullscreen() ? "fixed" : "absolute";
+            positionCaptionMenu();
         },
 
+        createCaptionMenu = function(info) {
+            captionMenu = document.createElement("div");
+            captionMenu.id = "captionMenu";
+            captionMenu.classList.add("caption-menu");
+            captionMenu.classList.add("hide");
+            captionMenu.classList.add("unselectable"); //IE did not like this as "one line CSV" Do not use classlist.add with CSV
+            captionMenu.appendChild(document.createElement("ul"));
+            videoController.appendChild(captionMenu);
 
-        setMenuItemsState = function (value, type) {
+            var tracks = info.tracks,
+                ln = tracks.length + 1; //add extra iteration for off button.;
 
-            var self = typeof value === 'number' ? document.getElementById(type + "Item_" + value) : this,
+            for(var i = 0; i < ln; i++) { //TODO refactor to not offset "i' all over the code. Maybe just build elements push array then build default off button and shift to front then add to DOM?
+                var captionItem = document.createElement("li");
+                captionItem.id = "captionItem_"+i
+                captionItem.index = i;
+                captionItem.selected = false;
+                captionItem.textContent = i === 0 ? tracks[i].kind +" off" : tracks[i-1].lang + " : " + tracks[i-1].kind; //subtract to offset for off button.
+                captionItem.onmouseover = function(e){
+                    if (this.selected !== true){
+                        this.classList.add("caption-item-over");
+                    }
+                };
+                captionItem.onmouseout = function(e){
+                    this.classList.remove("caption-item-over");
+                };
+                captionItem.onclick = setCaptionItemsState.bind(captionItem);
+                captionMenu.querySelector("ul").appendChild(captionItem);
+           /*     captionItem.onclick = setCaptionItemsState.bind();
+                captionMenu.querySelector("ul").appendChild(captionItem);*/
+            }
+
+            setCaptionItemsState(info.index + 1);
+            window.addEventListener("resize", positionCaptionMenu, true);
+        },
+
+        positionCaptionMenu = function () {
+            if (captionMenu) {
+                var menu_y = videoController.offsetTop - captionMenu.offsetHeight;
+                captionMenu.style.top = menu_y+"px";
+                captionMenu.style.left = captionBtn.offsetLeft+"px";
+            }
+        },
+
+        setCaptionItemsState = function (value) {
+            var self = typeof value === 'number' ? document.getElementById("captionItem_"+value) : this,
                 nodes = self.parentElement.children;
 
-            for (var i = 0; i < nodes.length; i++) {
+            for(i=0; i < nodes.length; i++)  {
                 nodes[i].selected = false;
-                nodes[i].classList.remove("menu-item-selected");
-                nodes[i].classList.add("menu-item-unselected");
+                nodes[i].classList.remove("caption-item-selected");
+                nodes[i].classList.add("caption-item-unselected");
             }
             self.selected = true;
-            self.classList.remove("menu-item-over");
-            self.classList.remove("menu-item-unselected");
-            self.classList.add("menu-item-selected");
+            self.classList.remove("caption-item-over");
+            self.classList.remove("caption-item-unselected");
+            self.classList.add("caption-item-selected");
+
+            currentCaptionMenuIdx = self.index;
+            player.setTextTrack(currentCaptionMenuIdx - 1);
+        },
+
+//************************************************************************************
+// QUALITY MENU
+//************************************************************************************
+       onQualitiesAdded = function(e){
+         /*  var bitrateList = e.qualityList,
+               ln = bitrateList.length;*/
+            if (!qualityMenu ) {
+                createQualityMenu(e);
+                qualitybutton.addEventListener("click", onQualityClick);
+                qualitybutton.classList.remove("hide");
+            }
+        },
+
+        onQualityClick = function(e){
+            if (qualityMenu.classList.contains("hide")){
+                qualityMenu.classList.remove("hide");
+                qualityMenu.onmouseleave = function(e){
+                    this.classList.add("hide");
+                };
+            }else{
+                qualityMenu.classList.add("hide");
+            }
+            qualityMenu.style.position = isFullscreen() ? "fixed" : "absolute";
+            positionQualityMenu();
+        },
+
+        createQualityMenu = function(info) {
+            qualityMenu = document.createElement("div");
+            qualityMenu.id = "qualityMenu";
+            qualityMenu.classList.add("caption-menu");
+            qualityMenu.classList.add("hide");
+            qualityMenu.classList.add("unselectable"); //IE did not like this as "one line CSV" Do not use classlist.add with CSV
+            qualityMenu.appendChild(document.createElement("ul"));
+            videoController.appendChild(qualityMenu);
+
+            var bitrateList = info.qualityList,
+                ln = bitrateList.length; //add extra iteration for off button.;
+            if(ln==1)
+            {
+              document.getElementById('qualitybutton').style.display = "none";
+            }
 
 
-            if (type === undefined) { // User clicked so type is part of item binding.
-                switch (self.name) {
-                    case 'video-bitrate-list':
-                    case 'audio-bitrate-list':
-                        if (self.index > 0) {
-                            if (player.getAutoSwitchQualityFor(self.mediaType)) {
-                                player.setAutoSwitchQualityFor(self.mediaType, false);
-                            }
-                            player.setQualityFor(self.mediaType, self.index - 1);
-                        } else {
-                            player.setAutoSwitchQualityFor(self.mediaType, true);
-                        }
-                        break;
-                    case 'caption-list' :
-                        player.setTextTrack(self.index - 1);
-                        break
-                    case 'video-track-list' :
-                    case 'audio-track-list' :
-                        player.setCurrentTrack(player.getTracksFor(self.mediaType)[self.index]);
-                        break;
+
+            // create sd button
+            var qualitySdItem = document.createElement("li");
+            qualitySdItem.id = "qualityItem_sd";
+            qualitySdItem.index = 0;
+            qualitySdItem.selected = false;
+            qualitySdItem.textContent = "SD";
+            qualitySdItem.value = bitrateList[0].bitrate;
+            qualitySdItem.onmouseover = function(e){
+                if (this.selected !== true){
+                    this.classList.add("caption-item-over"); // check if other class needed.. (for quality)
                 }
+            };
+            qualitySdItem.onmouseout = function(e){
+                this.classList.remove("caption-item-over");// check if other class needed.. (for quality)
+            };
+            qualitySdItem.onclick = setQualityItemsState.bind(qualitySdItem.id);
+            qualityMenu.querySelector("ul").appendChild(qualitySdItem);
+
+
+
+            var qualityHdItem = document.createElement("li");
+            qualityHdItem.id = "qualityItem_hd";
+            qualityHdItem.index = 1;
+            qualityHdItem.selected = false;
+            qualityHdItem.textContent = "HD";
+            qualityHdItem.value = bitrateList[ln-1].bitrate;
+            qualityHdItem.onmouseover = function(e){
+                if (this.selected !== true){
+                    this.classList.add("caption-item-over"); // check if other class needed.. (for quality)
+                }
+            };
+            qualityHdItem.onmouseout = function(e){
+                this.classList.remove("caption-item-over");// check if other class needed.. (for quality)
+            };
+            qualityHdItem.onclick = setQualityItemsState.bind(qualityHdItem.id);
+            qualityMenu.querySelector("ul").appendChild(qualityHdItem);
+
+
+
+            //for(var i = 0; i < ln; i++) { //TODO refactor to not offset "i' all over the code. Maybe just build elements push array then build default off button and shift to front then add to DOM?
+            //    var qualityItem = document.createElement("li");
+            //    var flag;
+            //    qualityItem.id = "qualityItem_"+i;
+            //    qualityItem.index = i;
+            //    qualityItem.selected = false;
+            //    flag=bitrateList[i].bitrate;
+            //    /*qualityItem.textContent = bitrateList[i].bitrate;*/
+            //    if(flag<400000)
+            //    {
+            //        flag="SD"
+            //     /*   qualityItem.textContent=" SD";*/
+            //    }
+            //    else
+            //    {
+            //        flag="HD"
+            //      /*  qualityItem.textContent=" HD";*/
+            //    }
+            //
+            //
+            //    /*qualityItem.textContent = i === 0 ? tracks[i].kind +" off" : tracks[i-1].lang + " : " + tracks[i-1].kind; //subtract to offset for off button.*/
+            //    qualityItem.onmouseover = function(e){
+            //        if (this.selected !== true){
+            //            this.classList.add("caption-item-over"); // check if other class needed.. (for quality)
+            //        }
+            //    };
+            //    qualityItem.onmouseout = function(e){
+            //        this.classList.remove("caption-item-over");// check if other class needed.. (for quality)
+            //    };
+            //
+            //    qualityItem.onclick = setQualityItemsState.bind(qualityItem);
+            //
+            //    qualityMenu.querySelector("ul").appendChild(qualityItem);
+            //    /*     captionItem.onclick = setCaptionItemsState.bind();
+            //     captionMenu.querySelector("ul").appendChild(captionItem);*/
+            //}
+
+            window.addEventListener("resize", positionQualityMenu, true);
+        },
+
+        positionQualityMenu = function () {
+            if (qualityMenu) {
+                var menu_y = videoController.offsetTop - qualityMenu.offsetHeight;
+                qualityMenu.style.top = menu_y+"px";
+                qualityMenu.style.left = qualitybutton.offsetLeft+"px";
             }
         },
 
-        handleMenuPositionOnResize = function (e) {
-            if (captionMenu) {
-                positionMenu(captionMenu, captionBtn);
+        setQualityItemsState = function (value) {
+            var self = document.getElementById(value.currentTarget.id);
+            var nodes = self.parentElement.children;
+
+            for(i=0; i < nodes.length; i++)  {
+                nodes[i].selected = false;
+                nodes[i].classList.remove("caption-item-selected");
+                nodes[i].classList.add("caption-item-unselected");
             }
-            if (bitrateListMenu) {
-                positionMenu(bitrateListMenu, bitrateListBtn);
-            }
-            if (trackSwitchMenu) {
-                positionMenu(trackSwitchMenu, trackSwitchBtn);
-            }
+            self.selected = true;
+            self.classList.remove("caption-item-over");
+            self.classList.remove("caption-item-unselected");
+            self.classList.add("caption-item-selected");
+
+            currentQualityMenuIdx = self.index;
+            newQuality = player.getQualityFor(self.value);
+            player.setQualityFor(self.value,newQuality);
         },
 
-        positionMenu = function (menu, btn) {
-            var menu_y = videoController.offsetTop - menu.offsetHeight;
-            menu.style.top = menu_y + "px";
-            menu.style.left = btn.offsetLeft + "px";
-        },
-
-        destroyBitrateMenu = function () {
-            if (bitrateListMenu) {
-                menuHandlersList.forEach(function (item) {
-                    bitrateListBtn.removeEventListener("click", item);
-                })
-                videoController.removeChild(bitrateListMenu);
-                bitrateListMenu = null;
-            }
-        },
 
 //************************************************************************************
 //IE FIX
 //************************************************************************************
 
-        coerceIEInputAndChangeEvents = function (slider, addChange) {
-            var fireChange = function (e) {
+        coerceIEInputAndChangeEvents = function(slider, addChange) {
+            var fireChange = function(e) {
                 var changeEvent = document.createEvent('Event');
                 changeEvent.initEvent('change', true, true);
                 changeEvent.forceChange = true;
                 slider.dispatchEvent(changeEvent);
             };
 
-            this.addEventListener('change', function (e) {
+            this.addEventListener('change', function(e) {
                 var inputEvent;
                 if (!e.forceChange && e.target.getAttribute('type') === 'range') {
                     e.stopPropagation();
@@ -582,7 +511,7 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
             }, true);
         },
 
-        isIE = function () {
+        isIE = function(){
             return !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)
         };
 
@@ -592,35 +521,28 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
 //************************************************************************************
 
     return {
-        setVolume: setVolume,
-        setDuration: setDuration,
-        setTime: setTime,
-
-        initialize: function () {
-
+        setVolume:setVolume,
+        setDuration:setDuration,
+        setTime:setTime,
+        initialize:function(){
             if (!player) {
                 throw new Error("Please pass an instance of MediaPlayer.js when instantiating the ControlBar Object");
             }
-            video = player.getVideoElement();
+            video  = player.getVideoModel().getElement();
             if (!video) {
                 throw new Error("Please call initialize after you have called attachView on MediaPlayer.js");
             }
 
-            displayUTCTimeCodes = displayUTCTimeCodes === undefined ? false : displayUTCTimeCodes;
-
             video.controls = false;
             videoContainer = player.getVideoContainer();
             captionBtn.classList.add("hide");
-            if (trackSwitchBtn) {
-                trackSwitchBtn.classList.add("hide");
-            }
 
-            player.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, onPlayStart, this);
-            player.on(dashjs.MediaPlayer.events.PLAYBACK_PAUSED, onPlaybackPaused, this);
-            player.on(dashjs.MediaPlayer.events.PLAYBACK_TIME_UPDATED, onPlayTimeUpdate, this);
-            player.on(dashjs.MediaPlayer.events.PLAYBACK_SEEKED, onSeeked, this);
-            player.on(dashjs.MediaPlayer.events.TEXT_TRACKS_ADDED, onTracksAdded, this);
-            player.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, onStreamInitialized, this);
+            player.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, onPlayStart);
+            player.on(dashjs.MediaPlayer.events.PLAYBACK_PAUSED, onPlaybackPaused);
+            player.on(dashjs.MediaPlayer.events.PLAYBACK_TIME_UPDATED, onPlayTimeUpdate);
+            player.on(dashjs.MediaPlayer.events.PLAYBACK_SEEKED, onSeeked);
+            player.on(dashjs.MediaPlayer.events.TEXT_TRACKS_ADDED, onTracksAdded);
+            player.on(dashjs.MediaPlayer.events.PLAYBACK_METADATA_LOADED, onQualitiesAdded);
 
             playPauseBtn.addEventListener("click", onPlayPauseClick);
             muteBtn.addEventListener("click", onMuteClick);
@@ -628,6 +550,7 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
             seekbar.addEventListener("change", onSeekBarChange, true);
             seekbar.addEventListener("input", onSeeking, true);
             volumebar.addEventListener("input", setVolume, true);
+            //qualitybutton.addEventListener("click",onQualitiesAdded);
             document.addEventListener("fullscreenchange", onFullScreenChange, false);
             document.addEventListener("MSFullscreenChange", onFullScreenChange, false);
             document.addEventListener("mozfullscreenchange", onFullScreenChange, false);
@@ -639,61 +562,54 @@ var ControlBar = function (dashjsMediaPlayer, displayUTCTimeCodes) {
                 coerceIEInputAndChangeEvents(volumebar, false);
             }
         },
-
-        show: function () {
+        show : function(){
             videoController.classList.remove("hide");
         },
-
-        hide: function () {
+        hide : function(){
             videoController.classList.add("hide");
         },
-
-        disable: function () {
+        disable : function(){
             videoController.classList.add("disable");
         },
-
-        enable: function () {
+        enable : function(){
             videoController.classList.remove("disable");
         },
-
-        reset: function () {
-            window.removeEventListener("resize", handleMenuPositionOnResize);
-            destroyBitrateMenu();
-            menuHandlersList.forEach(function (item) {
-                if (trackSwitchBtn) trackSwitchBtn.removeEventListener("click", item);
-                if (captionBtn) captionBtn.removeEventListener("click", item);
-            })
+        reset : function(){
             if (captionMenu) {
+                window.removeEventListener("resize", positionCaptionMenu);
                 videoController.removeChild(captionMenu);
                 captionMenu = null;
                 captionBtn.classList.add("hide");
             }
-            if (trackSwitchMenu) {
-                videoController.removeChild(trackSwitchMenu);
-                trackSwitchMenu = null;
-                trackSwitchBtn.classList.add("hide");
+
+            if (qualityMenu) {
+                window.removeEventListener("resize", positionQualityMenu);
+                videoController.removeChild(qualityMenu);
+                qualityMenu = null;
+                qualitybutton.classList.add("hide");
             }
-            menuHandlersList = [];
+            currentCaptionMenuIdx = 0;
+            currentQualityMenuIdx = 0;
             seeking = false;
         },
-
-        destroy: function () {
-
+        destroy : function(){
             reset();
-
+            window.removeEventListener("resize", positionCaptionMenu);
+            window.removeEventListener("resize", positionQualityMenu);
             playPauseBtn.removeEventListener("click", onPlayPauseClick);
+            captionBtn.removeEventListener("click", onCaptionClick);
+            qualitybutton.removeEventListener("click", onQualityClick);
             muteBtn.removeEventListener("click", onMuteClick);
             fullscreenBtn.removeEventListener("click", onFullscreenClick);
             seekbar.removeEventListener("change", onSeekBarChange);
             seekbar.removeEventListener("input", onSeeking);
             volumebar.removeEventListener("input", setVolume);
-
-            player.off(dashjs.MediaPlayer.events.PLAYBACK_STARTED, onPlayStart, this);
-            player.off(dashjs.MediaPlayer.events.PLAYBACK_PAUSED, onPlaybackPaused, this);
-            player.off(dashjs.MediaPlayer.events.PLAYBACK_TIME_UPDATED, onPlayTimeUpdate, this);
-            player.off(dashjs.MediaPlayer.events.PLAYBACK_SEEKED, onSeeked, this);
-            player.off(dashjs.MediaPlayer.events.TEXT_TRACKS_ADDED, onTracksAdded, this);
-            player.off(dashjs.MediaPlayer.events.STREAM_INITIALIZED, onStreamInitialized, this);
+            player.off(dashjs.MediaPlayer.events.PLAYBACK_STARTED, onPlayStart);
+            player.off(dashjs.MediaPlayer.events.PLAYBACK_PAUSED, onPlaybackPaused);
+            player.off(dashjs.MediaPlayer.events.PLAYBACK_TIME_UPDATED, onPlayTimeUpdate);
+            player.off(dashjs.MediaPlayer.events.PLAYBACK_SEEKED, onSeeked);
+            player.off(dashjs.MediaPlayer.events.TEXT_TRACKS_ADDED, onTracksAdded);
+            player.off(dashjs.MediaPlayer.events.PLAYBACK_METADATA_LOADED, onQualitiesAdded);
 
             document.removeEventListener("fullscreenchange", onFullScreenChange);
             document.removeEventListener("MSFullscreenChange", onFullScreenChange);
