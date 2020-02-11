@@ -127,7 +127,8 @@
             </div>
 
             <span ng-if="itemizerWaiting">
-                MP4 wordt gemaakt ({{workflowExecution.status}}). Een moment geduld a.u.b.
+                MP4 wordt gemaakt ({{workflowExecution.status}}).
+                <span ng-if="workflowExecution.status != 'FAILED'">Een moment geduld a.u.b.</span>
             </span>
 
             <div class="clear">
