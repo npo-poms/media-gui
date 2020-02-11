@@ -82,13 +82,13 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     }
                 }.bind( this ) );
 
-                this.$scope.$watch( 'item.startastime', function ( newValue ) {
+                this.$scope.$watch( 'item.startAsString', function ( newValue ) {
                     if ( newValue ) {
                         this.$scope.item.assetLink = "";
                     }
                 }.bind( this ) );
 
-                this.$scope.$watch( 'item.stopastime', function ( newValue ) {
+                this.$scope.$watch( 'item.stopAsString', function ( newValue ) {
                     if ( newValue ) {
                         this.$scope.item.assetLink = "";
                     }
