@@ -104,10 +104,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 this.mediaPlayer.setAutoPlay( true );
                 //mediaPlayer.setScheduleWhilePaused(true);
                 //this.mediaPlayer.updateSettings({ 'debug': { 'logLevel': dashjs.Debug.LOG_LEVEL_NONE }});
+                this.mediaPlayer.getDebug().setLogToBrowserConsole( false );
                 this.mediaPlayer.attachView( this.videoElement );
 
                 // Initialize controlbar
-                this.controlbar = new ControlBar( this.mediaPlayer ); //Player is instance of Dash.js MediaPlayer;
+                this.controlbar = new ControlBar( this.mediaPlayer , false); //Player is instance of Dash.js MediaPlayer;
                 this.controlbar.initialize();
 
 
