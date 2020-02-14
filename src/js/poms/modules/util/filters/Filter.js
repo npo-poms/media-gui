@@ -1,6 +1,9 @@
+TIMEZONE="Europe/Amsterdam";
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
         return function ( date ) {
+            // this presumes a date has not timezoneand adds it back.
+            // deprecated, I think this is hackery
             if ( date == null) {
                 return date;
             }
@@ -14,6 +17,8 @@ angular.module( 'poms.util.filters' )
     } )
     .filter( 'noTimezone', function () {
         return function ( date ) {
+            // this converts a date object to another date object stripping of timezone information
+            // deprecated, I think this is hackery
             if ( date == null) {
                 return date;
             }
@@ -26,24 +31,26 @@ angular.module( 'poms.util.filters' )
         }
     } )
     .filter( 'mediaDate', function ( $filter ) {
+        // formats a date
         return function ( date ) {
-            return $filter( 'date' )( date, "dd-MM-yyyy" );
+            return $filter( 'date' )(date, "dd-MM-yyyy", TIMEZONE );
         }
     } )
     .filter( 'mediaTime', function ( $filter ) {
         return function ( date ) {
-            return $filter( 'date' )( date, "HH:mm" );
+            return $filter( 'date' )( date, "HH:mm", TIMEZONE);
         }
     } )
     .filter( 'mediaDateTime', function ( $filter ) {
         return function ( date ) {
-            return $filter( 'date' )( date, "dd-MM-yyyy HH:mm" );
+            return $filter( 'date' )( date, "dd-MM-yyyy HH:mm", TIMEZONE);
         }
     } )
     .filter( 'mediaDuration', function ( $filter ) {
         return function ( ms ) {
             if (ms instanceof Date) {
-                // Sad
+                // Sad, hack hack
+                // deprecated usage _please_ don't do this kind of nonsense.
                 ms = ms.getTime();
 
             }
@@ -181,12 +188,14 @@ angular.module( 'poms.util.filters' )
         }
     } )
     .filter( 'timeToMSeconds', function ( $filter ) {
+        // I think this converts a formatted duration back to a number of milliseconds
         return function ( t ) {
             var res = t.split(/[:.]+/) ;
             return (parseInt(res[ 0 ]) * 60 * 60 * 1000) + (parseInt(res[ 1 ]) * 60 * 1000) + (parseInt(res[ 2 ]) * 1000) + parseInt(res[ 3 ]);
         }
     } )
     .filter( 'dateTimeToMSeconds', function ( $filter ) {
+        // deprecated, I would not see any use case for such hackery.
         return function ( t ) {
             var now = new Date();
             var res = t.split(/[:.]+/) ;
@@ -194,6 +203,7 @@ angular.module( 'poms.util.filters' )
         }
     } )
     .filter( 'secondsToMsTime', function( $filter ) {
+        // Formats a duration in seconds to a string of the format HH:mm:ss.ssss
         return function ( v ) {
             if ( !v ) {
                 v = 0;
@@ -208,6 +218,7 @@ angular.module( 'poms.util.filters' )
     } )
 
     .filter( 'secondsToTime', function( $filter ) {
+        // Formats a duration in seconds to a string of the format HH:mm:ss
         return function ( v ) {
             if ( !v ) {
                 v = 0;
@@ -226,6 +237,7 @@ angular.module( 'poms.util.filters' )
         }
     } )
     .filter( 'convertMS', function( $filter) {
+        // convert a duration in millis to a object with 4 fields, d, h, m, s
         return function(ms) {
                 var d, h, m, s;
                 s = Math.floor(ms / 1000);
