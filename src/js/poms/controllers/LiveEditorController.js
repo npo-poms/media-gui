@@ -134,11 +134,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if ( !this.customPlayerTimeInterval ) {
                     this.customPlayerTimeInterval = this.$interval( function () {
                         var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
-                        this.$scope.playerTime = this.$filter( 'secondsToTime' )( (currentPos / 1000));
+                        this.$scope.playerTime =  this.getTimeInAmsterdamAsString(currentPos);
 
-                        var x = currentPos / 1000 + (this.mediaPlayer.duration() - this.mediaPlayer.time() );
-                        this.$scope.playerMax = this.$filter( 'secondsToTime' )(x);
-                        //console.log( this.$scope.playerTime + "===" + this.$scope.playerMax );
+                        var lastPost = this.videoElement.currentTime + this.mediaPlayer.duration() - this.mediaPlayer.time();
+                        this.$scope.playerMax = this.getTimeInAmsterdamAsString(Math.floor(lastPost * 1000));
                     }.bind( this ), 1000 );
                 }
             },
