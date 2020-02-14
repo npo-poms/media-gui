@@ -1,4 +1,4 @@
-var TIMEZONE="Europe/Amsterdam";
+
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
         return function ( date ) {
@@ -33,16 +33,19 @@ angular.module( 'poms.util.filters' )
     .filter( 'mediaDate', function ( $filter ) {
         // formats a date
         return function ( date ) {
+            var TIMEZONE="Europe/Amsterdam";
             return $filter( 'date' )(date, "dd-MM-yyyy", TIMEZONE );
         }
     } )
     .filter( 'mediaTime', function ( $filter ) {
         return function ( date ) {
+            var TIMEZONE="Europe/Amsterdam";
             return $filter( 'date' )( date, "HH:mm", TIMEZONE);
         }
     } )
     .filter( 'mediaDateTime', function ( $filter ) {
         return function ( date ) {
+            var TIMEZONE="Europe/Amsterdam";
             return $filter( 'date' )( date, "dd-MM-yyyy HH:mm", TIMEZONE);
         }
     } )
