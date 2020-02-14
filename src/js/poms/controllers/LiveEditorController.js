@@ -136,8 +136,8 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
                         this.$scope.playerTime =  this.getTimeInAmsterdamAsString(currentPos, "HH:mm:ss");
 
-                        var lastPost = this.videoElement.currentTime + this.mediaPlayer.duration() - this.mediaPlayer.time();
-                        this.$scope.playerMax = this.getTimeInAmsterdamAsString(Math.floor(lastPost * 1000), "HH:mm:ss");
+                        var lastPos = this.videoElement.currentTime + this.mediaPlayer.duration() - this.mediaPlayer.time();
+                        this.$scope.playerMax = this.getTimeInAmsterdamAsString(Math.floor(lastPos * 1000), "HH:mm:ss");
                     }.bind( this ), 1000 );
                 }
             },
