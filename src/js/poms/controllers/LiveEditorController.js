@@ -134,10 +134,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if ( !this.customPlayerTimeInterval ) {
                     this.customPlayerTimeInterval = this.$interval( function () {
                         var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
-                        this.$scope.playerTime =  this.getTimeInAmsterdamAsString(currentPos);
+                        this.$scope.playerTime =  this.getTimeInAmsterdamAsString(currentPos, "HH:mm:ss");
 
                         var lastPost = this.videoElement.currentTime + this.mediaPlayer.duration() - this.mediaPlayer.time();
-                        this.$scope.playerMax = this.getTimeInAmsterdamAsString(Math.floor(lastPost * 1000));
+                        this.$scope.playerMax = this.getTimeInAmsterdamAsString(Math.floor(lastPost * 1000), "HH:mm:ss");
                     }.bind( this ), 1000 );
                 }
             },
@@ -172,7 +172,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 this.setDuration();
             },
 
-            getTimeInAmsterdamAsString: function(utcMillis) {
+            getTimeInAmsterdamAsString: function(utcMillis, format = "HH:mm:ss.sss") {
                 return this.$filter('date')(new Date(utcMillis), "HH:mm:ss.sss", "Europe/Amsterdam");
             },
 
