@@ -173,7 +173,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             },
 
             getTimeInAmsterdamAsString: function(utcMillis, format = "HH:mm:ss.sss") {
-                return this.$filter('date')(new Date(utcMillis), "HH:mm:ss.sss", "Europe/Amsterdam");
+                return this.$filter('date')(new Date(utcMillis), format, "Europe/Amsterdam");
             },
 
             parseTimeInAmsterdam: function(string) {

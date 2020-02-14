@@ -1,4 +1,4 @@
-TIMEZONE="Europe/Amsterdam";
+var TIMEZONE="Europe/Amsterdam";
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
         return function ( date ) {
