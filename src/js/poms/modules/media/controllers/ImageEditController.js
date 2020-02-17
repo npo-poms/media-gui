@@ -303,25 +303,24 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 }
 
                 var saveUploadedImage = function () {
-
-                    this.service.saveImage( this.$scope.media, this.$scope.image ).then(
-                        function ( media ) {
-                            this.$modalInstance.close( media );
+                    this.service.saveImage(this.$scope.media, this.$scope.image).then(
+                        function (media) {
+                            this.$modalInstance.close(media);
                             this.$scope.waiting = false;
-                        }.bind( this ),
-                        function ( error ) {
+                        }.bind(this),
+                        function (error) {
                             this.$scope.waiting = false;
                             if ( error.status === 400 && error.violations ) {
                                 this.violations = error.violations;
                             } else {
                                 this.$scope.$emit( this.pomsEvents.error, error )
                             }
-                        }.bind( this )
+                        }.bind(this)
                     )
-                }.bind( this );
+                }.bind(this);
 
                 // Prevent double uploads
-                if ( this.$scope.image.uri ) {
+                if (this.$scope.image.uri) {
                     // Image uploaded to image server already, but there probably were validation errors when submitting to Poms
                     saveUploadedImage();
                 } else {
