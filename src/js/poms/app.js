@@ -45,7 +45,7 @@
             // add header for all request to POMS backend
 
             // check for absolute URL (http://, https:// or //)
-            var isAbsolute = /^((https?:\/\/|\/\/))/.test( config.url );
+            var isAbsolute = /^(?:https?:\/\/|\/\/)/.test( config.url );
 
             // Absolute URL could also be a POMS url, for instance when developing GUI locally against poms-dev
             var isAbsolutePomsUrl =  ( isAbsolute && ( config.url.indexOf( appConfig.apiHost ) !== -1 ) );
