@@ -1,4 +1,4 @@
-var POMS_TIMEZONE="Europe/Amsterdam";
+const POMS_TIMEZONE="Europe/Amsterdam";
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
         return function ( date ) {
@@ -57,15 +57,14 @@ angular.module( 'poms.util.filters' )
                 ms = ms.getTime();
 
             }
-            var s = Math.floor(ms / 1000);
-            ms = ms % 1000;
-            var m = Math.floor(s / 60);
+            let s = Math.floor(ms / 1000);
+            let m = Math.floor(s / 60);
             s %= 60;
-            var h = Math.floor(m / 60);
+            let h = Math.floor(m / 60);
             m %= 60;
-            var d = Math.floor(h / 24);
+            let d = Math.floor(h / 24);
             h %= 24;
-            var result = "";
+            let result = "";
             if (d === 1) {
                 result += "1 dag ";
             } else if (d > 1 ) {
@@ -150,7 +149,7 @@ angular.module( 'poms.util.filters' )
 
         }
     } )
-    .filter( 'displayName', function ( $filter ) {
+    .filter( 'displayName', function () {
 
         return function ( item ) {
             switch ( item ) {
@@ -211,10 +210,12 @@ angular.module( 'poms.util.filters' )
             if ( !v ) {
                 v = 0;
             }
-            var h = Math.floor( v / 3600 ), m = Math.floor( (v - (h * 3600)) / 60 ), s = Math.floor( v % 60 ),
-                ms = Math.floor( (v % 1) * 1000 );
+            var h = Math.floor( v / 3600 );
+            var m = Math.floor( (v - (h * 3600)) / 60 );
+            var s = Math.floor( v % 60 );
+            var ms = Math.floor( (v % 1) * 1000 );
 
-            h = h % 24;
+            h %= 24;
 
             return $filter( 'toDigits')( h ) + ':' + $filter( 'toDigits')( m ) + ':' + $filter( 'toDigits')( s ) + '.' + $filter( 'toDigits')( ms, 3 );
         }
@@ -226,32 +227,31 @@ angular.module( 'poms.util.filters' )
             if ( !v ) {
                 v = 0;
             }
-            var h = Math.floor( v / 3600 );
-            var m = Math.floor( (v - (h * 3600)) / 60 );
-            var s = Math.floor( v % 60 );
+            let h = Math.floor( v / 3600 );
+            let m = Math.floor( (v - (h * 3600)) / 60 );
+            let s = Math.floor( v % 60 );
             //var ms = Math.floor( (v % 1) * 1000 );
 
-            h = h % 24;
+            h %= 24;
 
             return $filter( 'toDigits')( h ) + ':' + $filter( 'toDigits')( m ) + ':' + $filter( 'toDigits')( s );
         }
     } )
-    .filter( 'toDigits' , function( $filter ) {
+    .filter( 'toDigits' , function() {
         return function( v, digits ) {
             return ('0000' + v.toFixed( 0 )).substr( (digits || 2) * -1 );
         }
     } )
-    .filter( 'convertMS', function( $filter) {
+    .filter( 'convertMS', function() {
         // convert a duration in millis to a object with 4 fields, d, h, m, s
         return function(ms) {
-                var d, h, m, s;
-                s = Math.floor(ms / 1000);
-                m = Math.floor(s / 60);
-                s = s % 60;
-                h = Math.floor(m / 60);
-                m = m % 60;
-                d = Math.floor(h / 24);
-                h = h % 24;
-                return { d: d, h: h, m: m, s: s };
+            let s = Math.floor(ms / 1000);
+            let m = Math.floor(s / 60);
+            s %= 60;
+            let h = Math.floor(m / 60);
+            m %= 60;
+            let d = Math.floor(h / 24);
+            h %= 24;
+            return { d: d, h: h, m: m, s: s };
         }
     });
