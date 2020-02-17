@@ -1,3 +1,4 @@
+//var POMS_TIMEZONE="Europe/Amsterdam";
 const POMS_TIMEZONE="Europe/Amsterdam";
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
@@ -57,14 +58,14 @@ angular.module( 'poms.util.filters' )
                 ms = ms.getTime();
 
             }
-            let s = Math.floor(ms / 1000);
-            let m = Math.floor(s / 60);
+            var s = Math.floor(ms / 1000);
+            var m = Math.floor(s / 60);
             s %= 60;
-            let h = Math.floor(m / 60);
+            var h = Math.floor(m / 60);
             m %= 60;
-            let d = Math.floor(h / 24);
+            var d = Math.floor(h / 24);
             h %= 24;
-            let result = "";
+            var result = "";
             if (d === 1) {
                 result += "1 dag ";
             } else if (d > 1 ) {
@@ -227,9 +228,9 @@ angular.module( 'poms.util.filters' )
             if ( !v ) {
                 v = 0;
             }
-            let h = Math.floor( v / 3600 );
-            let m = Math.floor( (v - (h * 3600)) / 60 );
-            let s = Math.floor( v % 60 );
+            var h = Math.floor( v / 3600 );
+            var m = Math.floor( (v - (h * 3600)) / 60 );
+            var s = Math.floor( v % 60 );
             //var ms = Math.floor( (v % 1) * 1000 );
 
             h %= 24;
@@ -245,12 +246,12 @@ angular.module( 'poms.util.filters' )
     .filter( 'convertMS', function() {
         // convert a duration in millis to a object with 4 fields, d, h, m, s
         return function(ms) {
-            let s = Math.floor(ms / 1000);
-            let m = Math.floor(s / 60);
+            var s = Math.floor(ms / 1000);
+            var m = Math.floor(s / 60);
             s %= 60;
-            let h = Math.floor(m / 60);
+            var h = Math.floor(m / 60);
             m %= 60;
-            let d = Math.floor(h / 24);
+            var d = Math.floor(h / 24);
             h %= 24;
             return { d: d, h: h, m: m, s: s };
         }
