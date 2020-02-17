@@ -1,8 +1,8 @@
-
+var POMS_TIMEZONE="Europe/Amsterdam";
 angular.module( 'poms.util.filters' )
     .filter( 'withTimezone', function () {
         return function ( date ) {
-            // this presumes a date has not timezoneand adds it back.
+            // this presumes a date has no timezone and adds it back.
             // deprecated, I think this is hackery
             if ( date == null) {
                 return date;
@@ -31,22 +31,22 @@ angular.module( 'poms.util.filters' )
         }
     } )
     .filter( 'mediaDate', function ( $filter ) {
-        // formats a date
         return function ( date ) {
-            var TIMEZONE="Europe/Amsterdam";
-            return $filter( 'date' )(date, "dd-MM-yyyy", TIMEZONE );
+            // formats a date in poms way
+            return $filter( 'date' )(date, "dd-MM-yyyy", POMS_TIMEZONE );
         }
     } )
     .filter( 'mediaTime', function ( $filter ) {
         return function ( date ) {
-            var TIMEZONE="Europe/Amsterdam";
-            return $filter( 'date' )( date, "HH:mm", TIMEZONE);
+            // formats a time in poms way (no date information).
+            // Deprecated, I think this hardly ever could make sense.
+            return $filter( 'date' )( date, "HH:mm", POMS_TIMEZONE);
         }
     } )
     .filter( 'mediaDateTime', function ( $filter ) {
         return function ( date ) {
-            var TIMEZONE="Europe/Amsterdam";
-            return $filter( 'date' )( date, "dd-MM-yyyy HH:mm", TIMEZONE);
+            // formats a time stamp  in poms way
+            return $filter('date')(date, "dd-MM-yyyy HH:mm", POMS_TIMEZONE);
         }
     } )
     .filter( 'mediaDuration', function ( $filter ) {
@@ -190,14 +190,14 @@ angular.module( 'poms.util.filters' )
 
         }
     } )
-    .filter( 'timeToMSeconds', function ( $filter ) {
+    .filter( 'timeToMSeconds', function () {
         // I think this converts a formatted duration back to a number of milliseconds
         return function ( t ) {
             var res = t.split(/[:.]+/) ;
             return (parseInt(res[ 0 ]) * 60 * 60 * 1000) + (parseInt(res[ 1 ]) * 60 * 1000) + (parseInt(res[ 2 ]) * 1000) + parseInt(res[ 3 ]);
         }
     } )
-    .filter( 'dateTimeToMSeconds', function ( $filter ) {
+    .filter( 'dateTimeToMSeconds', function () {
         // deprecated, I would not see any use case for such hackery.
         return function ( t ) {
             var now = new Date();
@@ -226,8 +226,10 @@ angular.module( 'poms.util.filters' )
             if ( !v ) {
                 v = 0;
             }
-            var h = Math.floor( v / 3600 ), m = Math.floor( (v - (h * 3600)) / 60 ), s = Math.floor( v % 60 ),
-                ms = Math.floor( (v % 1) * 1000 );
+            var h = Math.floor( v / 3600 );
+            var m = Math.floor( (v - (h * 3600)) / 60 );
+            var s = Math.floor( v % 60 );
+            //var ms = Math.floor( (v % 1) * 1000 );
 
             h = h % 24;
 
