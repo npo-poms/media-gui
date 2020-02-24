@@ -90,12 +90,20 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasWritePermission: function ( media, field ) {
-                if ( media && media[field] && media[field].mayWrite !== undefined ) {
-                    // explicitely indicated in field
-                    return media[field].mayWrite;
+                if (media) {
+                    if (media[field] && media[field].mayWrite !== undefined) {
+                        // explicitely indicated in field
+                        return media[field].mayWrite;
+                    } else {
+                        if (! media.permissions) {
+                            console.log("No permissions in ", media);
+                        } else {
+                            // fall back to default write permissions on the entire object
+                            return media.permissions['WRITE'];
+                        }
+                    }
                 } else {
-                    // fall back to default write permissions on the entire object
-                    return media.permissions['WRITE'];
+                    console.log("No media object given");
                 }
             },
 
