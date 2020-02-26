@@ -51,19 +51,21 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
 
             init: function () {
                 var deferred = $q.defer();
+                this.hearbeatTimeout = 30000;
                 var heartbeat = function() { // heartbeat (MSE-2949)
                     if (EditorService.heartBeatCount++ > 0) {
                         console && console.log("Heartbeating ", new Date(), "count: " + EditorService.heartBeatCount, "errors: " + EditorService.heartBeatErrorCount);
                     }
                     setTimeout(function () {
                         this.init()
-                    }.bind(this), 30000);
+                    }.bind(this), this.hearbeatTimeout);
                 }.bind(this);
                 $http.get(baseUrl)
                     .then(
                         // success
                         function (response) {
                             editor = response.data;
+                            this.hearbeatTimeout = editor.hearbeat || this.hearbeatTimeout;
                             if (editorHolder && editor.created < editorHolder.created) {
                                 console.log("Received editor", editor, "is older then current one", editorHolder);
                                 return;
@@ -73,9 +75,16 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                                 localStorageService.set("currentUser", editor.id);
                             }
                             if (editor.loginAsap) {
-                                console.log("Seem to be logged out. Forcing reload", editor);
-                                document.location.reload();
+                                var lastReload = localStorageService.get("lastReload");
+                                console.log("Seem to be logged out. Forcing reload", editor, lastReload);
+                                var reloadAfter = lastReload == null ? 0 : 10000;
+                                localStorageService.set('lastReload', new Date());
+                                setTimeout(function() {
+                                    document.location.reload();
+                                }, reloadAfter);
                                 return;
+                            } else {
+                                localStorageService.set("lastReload", null);
                             }
                             if(editor.currentOwner) {
                                 localStorageService.set("currentOwner", editor.currentOwner.id);
