@@ -36,8 +36,8 @@
 
                 <span ng-switch-when="preview">
                     <a class="preview-image" title='bekijk de volledige afbeelding'
-                       href="{{segment.image.originalUrl}}" target="blank" ng-if="::segment.image"
-                       style="background-image: url('{{segment.image.thumbUrl}}')">
+                       href="{{segment.image.backend.original}}" target="blank" ng-if="::segment.image"
+                       style="background-image: url('{{segment.image.backend.thumb}}')">
                     </a>
                     <span class="preview-image" ng-if="::!segment.image"></span>
                 </span>
