@@ -144,7 +144,7 @@
 
                 <div class="clear"></div>
 
-                <div ng-repeat="image in segmentImages"  class="segment-image" style="background-image: url('{{image.thumbUrl}}')">
+                <div ng-repeat="image in segmentImages"  class="segment-image" style="background-image: url('{{image.backend.thumb}}')">
                 </div>
 
                 <p ng-show="!segmentImages.length && !still">Er zijn nog geen afbeeldingen gekoppeld aan dit segment.</p>
