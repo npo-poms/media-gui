@@ -112,8 +112,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             hasMergePermission: function ( media ) {
-                return media.permissions[ 'MERGE' ] &&
-                    media.mergedFrom.length === 0; // TODO: This could have been checked in MediaPermissionEvaluator (check if it isn't yet)
+                return media.permissions[ 'MERGE' ];
             },
 
             create: function ( source ) {
