@@ -13,9 +13,10 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     'ListService',
     'NotificationService',
     'PomsEvents',
+    'InfoService', // just to init it already
     (function () {
 
-        function MediaController ( $rootScope, $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents ) {
+        function MediaController ( $rootScope, $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents, InfoService ) {
             this.$rootScope = $rootScope;
             $scope.showMid = true;
 

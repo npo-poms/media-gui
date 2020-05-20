@@ -30,6 +30,7 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                         .success(function (info) {
                             deferred.resolve(info);
                             properties = info;
+                            //console.log(properties);
                         })
                         .error(function (error) {
                             deferred.reject(error);
@@ -39,7 +40,6 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                 }
             },
             getImageBackendUrl: function() {
-
                 return properties['image_backend.baseUrl']
             }
 
