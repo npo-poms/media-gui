@@ -25,7 +25,6 @@ angular.module('poms.media.controllers').controller('InfoController', [
             },
 
             init : function() {
-
                 this.infoService.getInfo().then(
                         function(info) {
                             this.$scope.info = info;

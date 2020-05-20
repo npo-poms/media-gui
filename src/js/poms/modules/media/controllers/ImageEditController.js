@@ -7,12 +7,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
     '$timeout',
     'appConfig',
     'PomsEvents',
+    'InfoService',
     'imageTypes',
     'licenses',
     'media',
     'image',
     'edit',
     'service',
+
     (function () {
 
         function isValid ( image ) {
@@ -33,7 +35,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             );
         }
 
-        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, imageTypes, licenses, media, image, edit, service) {
+        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, infoService, imageTypes, licenses, media, image, edit, service) {
 
             this.$scope = $scope;
             this.$modal = $modal;
@@ -41,8 +43,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             this.$upload = $upload;
             this.$sce = $sce;
             this.$timeout = $timeout;
-            this.imagesApiHost = appConfig.imagesApiHost;
+
             this.apiHost   = appConfig.apiHost;
+            this.infoService = infoService;
 
             this.pomsEvents = PomsEvents;
 
@@ -243,7 +246,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 $.find('#uploadinfo')[0].innerHTML = "";
                 this.setPreview('');
                 this.$upload.upload({
-                    url: this.imagesApiHost + "api/images/metadata",
+                    url: this.infoService.getImageBackendUrl() + "api/images/metadata",
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
@@ -264,7 +267,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             date: metadata.date,
                             credits: metadata.credits
                         });
-                        this.setPreview(this.imagesApiHost + "/images/thumb/" + metadata.uploadId);
+                        this.setPreview(this.infoService.getImageBackendUrl() + "/api/images/thumb/" + metadata.uploadId);
                     }.bind(this),
                     function (error) {
                         mes = error.statusText;
@@ -327,7 +330,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     var fields = this.fields();
                     // Image not uploaded to image server yet
                     this.$upload.upload({
-                        url: this.imagesApiHost + "/images/upload",
+                        url: this.infoService.getImageBackendUrl() + "/api/images/upload",
                         method: 'POST',
                         fields: fields,
                         file: image.file && image.file.length > 0 ? image.file[0] : undefined,
