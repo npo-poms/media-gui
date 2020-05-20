@@ -197,7 +197,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             message: function () {
                                 return ''.concat( 'Bij uploaden van foto\'s moeten de rechten altijd verkregen zijn. ',
                                                     'Daarnaast kan het niet correct invullen van onderstaande gegevens leiden tot claims van de rechthebbenden. ',
-                                                    'Lees <a href="http://wiki.publiekeomroep.nl/display/poms/Gebruikersdocumentatie#Gebruikersdocumentatie-4.3Afbeeldingen" target="_blank">hier</a> ',
+                                                    'Lees <a href="https://wiki.publiekeomroep.nl/display/poms/Gebruikersdocumentatie#Gebruikersdocumentatie-4.3Afbeeldingen" target="_blank">hier</a> ',
                                                     'meer over het correcte gebruik.');
                             },
                             cancel: function () {
@@ -243,7 +243,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 $.find('#uploadinfo')[0].innerHTML = "";
                 this.setPreview('');
                 this.$upload.upload({
-                    url: this.imagesApiHost + "/images/metadata",
+                    url: this.imagesApiHost + "api/images/metadata",
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
