@@ -603,7 +603,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             createAsset : function() {
 
                 this.$scope.assetWaiting = true;
-                console.log("WTF WTF WTF");
                 this.itemizeRequest = {
                     "mid" : this.$scope.media.mid,
                     "start": this.$scope.segment.start,
@@ -629,14 +628,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            console.log("GODVERDOMME", message);
                             if ( this.itemizeRequest.mid === message.request.mid &&
                                 this.itemizeRequest.start === message.request.start &&
                                 this.itemizeRequest.stop === message.request.stop
                             ) {
 
                                 this.$scope.workflowExecution = message.workflowExecution;
-                                this.$scope.assetWaiting = message.workflowExecution && message.workflowExecution.status === 'COMPLETED';
+                                this.$scope.assetWaiting = message.workflowExecution && message.workflowExecution.status !== 'COMPLETED';
                                 this.$scope.assetSize = message.mibSize;
                             }
                         }.bind( this ) );
