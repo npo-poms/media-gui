@@ -217,7 +217,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.mediaPlayer = dashjs.MediaPlayer().create();
                 this.mediaPlayer.initialize();
                 this.mediaPlayer.setAutoPlay( true );
-                this.mediaPlayer.updateSettings({ 'debug': { 'logLevel': dashjs.Debug.LOG_LEVEL_NONE }});
+                //this.mediaPlayer.updateSettings({ 'debug': { 'logLevel': dashjs.Debug.LOG_LEVEL_NONE }});
                 this.mediaPlayer.attachView( this.videoElement );
 
                 // Initialize controlbar
