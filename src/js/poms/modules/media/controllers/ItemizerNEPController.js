@@ -634,7 +634,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                             ) {
 
                                 this.$scope.workflowExecution = message.workflowExecution;
-                                this.$scope.assetWaiting = message.workflowExecution && message.workflowExecution.status !== 'COMPLETED';
+                                this.$scope.assetWaiting = ! message.readyForDownload;
                                 this.$scope.assetSize = message.mibSize;
                             }
                         }.bind( this ) );

@@ -123,7 +123,7 @@
             <button class="live-editor-button" ng-if="!durationInvalid && !itemizerWaiting && !item.assetLink" ng-click="liveEditorController.createAsset()"> Maak MP4</button>
 
             <div ng-if="item.assetLink && !itemizerWaiting" >
-                <button class="live-editor-button" ng-click="liveEditorController.openAsset()" > download MP4 </button>
+                <button class="live-editor-button" ng-click="liveEditorController.openAsset()" > download MP4 <span ng-if="assetSize">({{assetSize}})</span> </button>
             </div>
 
             <span ng-if="itemizerWaiting">

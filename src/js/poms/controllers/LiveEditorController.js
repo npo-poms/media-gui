@@ -310,6 +310,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                             ) {
                                 this.$scope.workflowExecution = message.workflowExecution;
                                 this.$scope.itemizerWaiting = ! message.readyForDownload;
+                                this.$scope.assetSize = message.mibSize;
                             }
                         }.bind( this ) );
                 } catch ( e ) {
