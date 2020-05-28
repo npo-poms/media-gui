@@ -49,7 +49,7 @@
 
                 <span ng-switch-when="preview">
                     <div class="preview-image-container">
-                        <a class="preview-image" title='bekijk de volledige afbeelding' href="{{member.image.backend.original}}" target="blank" ng-if="::member.image" style="background-image: url('{{member.image.backend.thumb}}')">
+                        <a class="preview-image" title='bekijk de volledige afbeelding' href="{{member.image.frontend.original}}" target="blank" ng-if="::member.image" style="background-image: url('{{member.image.frontend.thumb}}')">
                         </a>
                         <span class="preview-image" ng-if="!member.image"></span>
                     </div>
