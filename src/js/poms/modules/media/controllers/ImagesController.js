@@ -17,6 +17,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
             this.mayWrite = this.mediaService.hasWritePermission($scope.media, 'images');
             this.mayUpload = this.mediaService.hasWritePermission($scope.media, 'imagesUpload');
 
+            this.server = "backend";
+
             this.$scope.sortableOptions = {
                 handle: '.sort-handle',
                 update: function ( event, ui ) {
