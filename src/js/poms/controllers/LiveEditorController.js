@@ -34,14 +34,17 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             this.lastMouseDown = 0;
 
             var reference = this;
-            this.scrubberTask = setInterval(function() {
+            var scrubberTask = 0;
+            var updateScrubber = function() {
                 var scrubber = document.getElementById("scrubber");
                 if (scrubber == null) {
-                    clearInterval(this.scrubberTask);
+                    clearInterval(scrubberTask);
                     return;
                 }
                 if (new Date().getTime() - this.lastMouseDown > 1000) reference.tickScrubber();
-            }, 250);
+            }
+
+            scrubberTask = setInterval(updateScrubber, 250);
 
             this.init();
         }
