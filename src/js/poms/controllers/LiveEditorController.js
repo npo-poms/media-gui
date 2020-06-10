@@ -31,6 +31,16 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             this.NEPService = NEPService;
 
+            this.lastMouseDown = 0;
+            this.scrubberTask = setInterval(() => {
+                const scrubber = document.getElementById("scrubber");
+                if (scrubber == null) {
+                    clearInterval(this.scrubberTask);
+                    return;
+                }
+                if (new Date().getTime() - this.lastMouseDown > 1000) this.tickScrubber();
+            }, 250);
+
             this.init();
         }
 
@@ -330,6 +340,40 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if ( this.videoElement ) {
                     this.videoElement.currentTime = this.$scope.item[timeField] / 1000;
                     this.videoElement.play();
+                }
+            },
+
+            scrubberLetGo: function(element, element) {
+                document.getElementById("scrubber").value = 0;
+            },
+
+            scubberClick: function() {
+                this.lastMouseDown = new Date().getTime();
+                setTimeout(() => {
+                    this.tickScrubber();
+                }, 50)
+            },
+
+            tickScrubber: function() {
+                const scrubber = document.getElementById("scrubber");
+                let scrubberPosition = scrubber.value;
+                let frames = Math.abs(scrubberPosition * scrubberPosition);
+                let offset = frames * 40;
+
+                const display = document.getElementById("scrubber-timer");
+                if (scrubberPosition == 0) {
+                    display.style.display = "none";
+                    return;
+                }
+                display.innerText = frames + " frames per seconde"
+                display.style.display = "";
+
+                if (this.videoElement) {
+                    if (scrubberPosition > 0) {
+                        this.videoElement.currentTime += offset / 1000;
+                    } else {
+                        this.videoElement.currentTime -= offset / 1000;
+                    }
                 }
             },
 

@@ -45,7 +45,14 @@
                 </div>
             </div>
 
-            <div class="canvas-grab" ng-click="liveEditorController.grabFrame()" > </div>
+            <div class='field col-12' style="padding-top: 10px;">
+                <input type="range" min="-40" max="40" value="0" ng-mousedown="liveEditorController.scubberClick()" ng-mouseup="liveEditorController.scrubberLetGo()" class="slider" id="scrubber" style="width: 85%">
+                <div class="canvas-grab" ng-click="liveEditorController.grabFrame()" > </div>
+                <br />
+                <div style="text-align: center; width: 85%">
+                    <span id="scrubber-timer" style="display: none;">0</span>
+                </div>
+            </div>
 
             <div class="clear"></div>
 
@@ -68,7 +75,6 @@
 
 
             <div class="row">
-
                 <div class='field col-6 itemizer-start'>
                     <label for="inputStart">Starttijd &#42;
                         <span class="itemizer-segment-play" ng-click="liveEditorController.playFromStart()"> (speel vanaf)</span>
