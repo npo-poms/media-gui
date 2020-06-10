@@ -33,18 +33,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             this.lastMouseDown = 0;
 
-            var reference = this;
-            var scrubberTask = 0;
-            var updateScrubber = function() {
-                var scrubber = document.getElementById("scrubber");
-                if (scrubber == null) {
-                    clearInterval(scrubberTask);
-                    return;
-                }
-                if (new Date().getTime() - this.lastMouseDown > 1000) reference.tickScrubber();
-            }
-
-            scrubberTask = setInterval(updateScrubber, 250);
+            setTimeout(this.startScrubber, 100)
 
             this.init();
         }
@@ -87,6 +76,19 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     }.bind( this )
                 );
 
+            },
+
+            startScrubber: function() {
+                this.scrubberTask = setInterval(this.updateScrubber, 250);
+            },
+
+            updateScrubber: function() {
+                var scrubber = document.getElementById("scrubber");
+                if (scrubber == null) {
+                    clearInterval(this.scrubberTask);
+                    return;
+                }
+                if (new Date().getTime() - this.lastMouseDown > 1000) this.tickScrubber();
             },
 
             setupWatchers : function() {
