@@ -33,6 +33,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             this.lastMouseDown = 0;
 
+            console.log("scrubber start")
             setTimeout(this.startScrubber, 100)
 
             this.init();
@@ -79,10 +80,12 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             },
 
             startScrubber: function() {
+                console.log("scrubber start 2")
                 this.scrubberTask = setInterval(this.updateScrubber, 250);
             },
 
             updateScrubber: function() {
+                console.log("scrubber start 3")
                 var scrubber = document.getElementById("scrubber");
                 if (scrubber == null) {
                     clearInterval(this.scrubberTask);
