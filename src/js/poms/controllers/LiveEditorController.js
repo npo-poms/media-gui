@@ -86,6 +86,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 var scrubber = document.getElementById("scrubber");
                 if (scrubber == null) {
                     clearInterval(this.scrubberTask);
+                    console.log("canceling scrubber")
                     return;
                 }
                 if (new Date().getTime() - this.lastMouseDown > 1000) this.tickScrubber();
