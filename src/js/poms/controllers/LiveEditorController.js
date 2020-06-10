@@ -32,8 +32,8 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             this.NEPService = NEPService;
 
             this.lastMouseDown = 0;
-            this.scrubberTask = setInterval(() => {
-                const scrubber = document.getElementById("scrubber");
+            this.scrubberTask = setInterval(function() {
+                var scrubber = document.getElementById("scrubber");
                 if (scrubber == null) {
                     clearInterval(this.scrubberTask);
                     return;
@@ -349,18 +349,18 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             scubberClick: function() {
                 this.lastMouseDown = new Date().getTime();
-                setTimeout(() => {
+                setTimeout(function() {
                     this.tickScrubber();
                 }, 50)
             },
 
             tickScrubber: function() {
-                const scrubber = document.getElementById("scrubber");
-                let scrubberPosition = scrubber.value;
-                let frames = Math.abs(scrubberPosition * scrubberPosition);
-                let offset = frames * 40;
+                var scrubber = document.getElementById("scrubber");
+                var scrubberPosition = scrubber.value;
+                var frames = Math.abs(scrubberPosition * scrubberPosition);
+                var offset = frames * 40;
 
-                const display = document.getElementById("scrubber-timer");
+                var display = document.getElementById("scrubber-timer");
                 if (scrubberPosition == 0) {
                     display.style.display = "none";
                     return;
