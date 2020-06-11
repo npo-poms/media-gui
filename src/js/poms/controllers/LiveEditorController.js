@@ -360,7 +360,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             scubberClick: function() {
                 this.lastMouseDown = new Date().getTime();
-                setTimeout(this.tickScrubber, 50)
+                var instance = this;
+                setTimeout(function() {
+                    instance.tickScrubber(instance)
+                }, 50)
             },
 
             tickScrubber: function(instance) {
@@ -386,6 +389,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     } else {
                         instance.videoElement.currentTime -= offset / 1000;
                     }
+                    console.log(instance.videoElement.currentTime)
                 }
             },
 
