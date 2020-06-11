@@ -51,7 +51,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 console.log("scrubber start")
                 var mirror = this;
                 setTimeout(function () {
-                    mirror.startScrubber(instance);
+                    mirror.startScrubber(mirror);
                 }, 100)
 
                 this.listService.getLivestreams().then(
