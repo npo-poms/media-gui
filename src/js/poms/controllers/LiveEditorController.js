@@ -33,9 +33,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             this.lastMouseDown = 0;
 
-            console.log("scrubber start")
-            setTimeout(this.startScrubber, 100)
-
             this.init();
         }
 
@@ -51,6 +48,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             init : function () {
 
                 this.subscribeToItemizerMessages();
+                console.log("scrubber start")
+                var mirror = this;
+                setTimeout(function () {
+                    mirror.startScrubber(instance);
+                }, 100)
 
                 this.listService.getLivestreams().then(
                     function ( data ) {
@@ -79,9 +81,9 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             },
 
-            startScrubber: function() {
+            startScrubber: function(instance) {
                 console.log("scrubber start 2")
-                this.scrubberTask = setInterval(this.updateScrubber, 250);
+                instance.scrubberTask = setInterval(instance.updateScrubber, 250);
             },
 
             updateScrubber: function() {
