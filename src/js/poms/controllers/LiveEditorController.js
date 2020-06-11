@@ -48,7 +48,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             init : function () {
 
                 this.subscribeToItemizerMessages();
-                console.log("scrubber start")
                 var mirror = this;
                 setTimeout(function () {
                     mirror.startScrubber(mirror);
@@ -82,19 +81,18 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             },
 
             startScrubber: function(instance) {
-                console.log("scrubber start 2")
-                instance.scrubberTask = setInterval(instance.updateScrubber, 250);
+                instance.scrubberTask = setInterval(function () {
+                    instance.updateScrubber(instance)
+                }, 250);
             },
 
-            updateScrubber: function() {
-                console.log("scrubber start 3")
+            updateScrubber: function(instance) {
                 var scrubber = document.getElementById("scrubber");
                 if (scrubber == null) {
-                    clearInterval(this.scrubberTask);
-                    console.log("canceling scrubber")
+                    clearInterval(instance.scrubberTask);
                     return;
                 }
-                if (new Date().getTime() - this.lastMouseDown > 1000) this.tickScrubber();
+                if (new Date().getTime() - instance.lastMouseDown > 1000) instance.tickScrubber(instance);
             },
 
             setupWatchers : function() {
@@ -365,7 +363,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 setTimeout(this.tickScrubber, 50)
             },
 
-            tickScrubber: function() {
+            tickScrubber: function(instance) {
+                if (instance == null) {
+                    instance = this
+                }
                 var scrubber = document.getElementById("scrubber");
                 var scrubberPosition = scrubber.value;
                 var frames = Math.abs(scrubberPosition * scrubberPosition);
@@ -379,11 +380,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 display.innerText = frames + " frames per seconde"
                 display.style.display = "";
 
-                if (this.videoElement) {
+                if (instance.videoElement) {
                     if (scrubberPosition > 0) {
-                        this.videoElement.currentTime += offset / 1000;
+                        instance.videoElement.currentTime += offset / 1000;
                     } else {
-                        this.videoElement.currentTime -= offset / 1000;
+                        instance.videoElement.currentTime -= offset / 1000;
                     }
                 }
             },
