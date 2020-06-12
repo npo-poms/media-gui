@@ -90,6 +90,28 @@
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
+      <plugin>
+        <!-- The gulp build sometimes fails to minimize, I don't understand either
+        Fail complete build if wrong
+        -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>check-correctness.sh</executable>
+              <arguments>
+
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
