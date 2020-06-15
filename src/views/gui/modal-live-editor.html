@@ -77,7 +77,7 @@
             <div class="row">
                 <div class='field col-6 itemizer-start'>
                     <label for="inputStart">Starttijd &#42;
-                        <span class="itemizer-segment-play" ng-click="liveEditorController.playFromStart()"> (speel vanaf)</span>
+                        <span class="itemizer-segment-play" ng-click="liveEditorController.playFromStart()"> (spring naar)</span>
                     </label>
                     <input id="inputStart" type="text" ng-model="item.startAsString" placeholder="starttijd"
                            ng-change="liveEditorController.setStartValueAsString()"/>
@@ -88,7 +88,7 @@
 
                 <div class='field col-6 itemizer-stop'>
                     <label for="inputStart">Eindtijd &#42;
-                        <span class="itemizer-segment-play" ng-click="liveEditorController.playFromEnd()"> (speel vanaf)</span>
+                        <span class="itemizer-segment-play" ng-click="liveEditorController.playFromEnd()"> (spring naar)</span>
                     </label>
                     <input id="inputStop" type="text" ng-model="item.stopAsString" placeholder="stoptijd"
                            ng-change="liveEditorController.setStopValueAsString()" />
@@ -103,7 +103,6 @@
                     </label>
                     <input id="inputDuration" ng-disabled='true' type="text" ng-model="item.durationAsString" placeholder="selecteer eerst een start- & stoptijd" />
                     <span class="error" ng-if="durationInvalid">De starttijd van een segment mag niet later zijn dan  of gelijk zijn aan de stoptijd.</span>
-
                 </div>
 
                 <div class="field col-6" style="margin-bottom:100px">
