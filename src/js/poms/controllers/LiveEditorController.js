@@ -64,17 +64,13 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         this.NEPService.getStream( this.$scope.item.currentStream.id, true).then( function ( data ) {
                             this.createMediaPlayer( data );
                         }.bind( this ),  function ( error ) {
-
                             //alert("Cannot create player");
-
                         });
 
                         this.setupWatchers();
 
                     }.bind( this ),
                     function ( error ) {
-
-
                     }.bind( this )
                 );
 
@@ -385,8 +381,12 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                 if (instance.videoElement) {
                     if (scrubberPosition > 0) {
+                        var nextPoint = instance.videoElement.currentTime + offset / 1000;
+                        if (nextPoint > instance.videoElement.duration) return;
                         instance.videoElement.currentTime += offset / 1000;
                     } else {
+                        var nextPoint = instance.videoElement.currentTime - offset / 1000;
+                        if (nextPoint > instance.videoElement.duration) return;
                         instance.videoElement.currentTime -= offset / 1000;
                     }
                     console.log(instance.videoElement.currentTime)
