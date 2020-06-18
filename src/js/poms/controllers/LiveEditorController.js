@@ -231,6 +231,8 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 var id = startttime + "-" + stopttime;
                 // there you go, ugly and hacky innit? it's something, at least.
 
+                if (this.itemizerTasks[id] != null) return
+
                 // create the element and call it a day, we'll update this element from the subscriber task
                 var table = document.getElementById("itemizer-current-downloads")
 
@@ -335,7 +337,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                 if (message.readyForDownload) {
                                     // button! fancy, yes
                                     var link = this.itemizerTasks[id];
-                                    document.getElementById("itemizer-state-" + id).innerHTML = "<button class=\"live-editor-button\">Downloaden</button>"
+                                    document.getElementById("itemizer-state-" + id).innerHTML = "<button class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
                                     document.getElementById("itemizer-state-" + id).onclick = function() {
                                         window.open(
                                             link,
