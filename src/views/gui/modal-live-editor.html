@@ -2,24 +2,17 @@
     <div class="modal-title"> Poms - Live Knipper</div>
     <div class="modal-close-button" ng-click="liveEditorController.cancel()"> close</div>
 </div>
-
 <div class="modal-body modal-info">
-
     <div class="modal-message poms-form">
-
         <div class="col-8">
-
             <video ng-show='liveEditorController.videoElement' id="video-player" class="framegrabber-container"
                    style=""></video>
-
             <div id="videoController" class="video-controller unselectable" style="display:inline-block;width:100%;">
                 <div id="playPauseBtn" class="btn-play-pause" title="Play/Pause">
                     <span id="iconPlayPause" class="icon-play"></span>
                 </div>
-
-                <span style="display:none;" id="videoTime" class="time-display" ></span>
+                <span style="display:none;" id="videoTime" class="time-display"></span>
                 <span class="custom-time-display">{{playerTime}}</span>
-
                 <div id="fullscreenBtn" class="btn-fullscreen control-icon-layout" title="Fullscreen">
                     <span class="icon-fullscreen-enter"></span>
                 </div>
@@ -36,44 +29,35 @@
                 <div id="captionBtn" class="btn-caption control-icon-layout" title="Closed Caption">
                     <span class="icon-caption"></span>
                 </div>
-
-                <span style="display:none;"  id="videoDuration" class="duration-display">00:00:00</span>
+                <span style="display:none;" id="videoDuration" class="duration-display">00:00:00</span>
                 <span class="custom-duration-display">{{playerMax}}</span>
-
                 <div class="seekContainer">
                     <input type="range" id="seekbar" value="0" class="seekbar" min="0" step="0.01"/>
                 </div>
             </div>
-
             <div class='field col-12' style="padding-top: 10px;">
-                <input type="range" min="-40" max="40" value="0" ng-mousedown="liveEditorController.scubberClick()" ng-mouseup="liveEditorController.scrubberLetGo()" class="slider" id="scrubber" style="width: 85%">
-                <div class="canvas-grab" ng-click="liveEditorController.grabFrame()" > </div>
-                <br />
+                <input type="range" min="-40" max="40" value="0" ng-mousedown="liveEditorController.scubberClick()"
+                       ng-mouseup="liveEditorController.scrubberLetGo()" class="slider" id="scrubber"
+                       style="width: 85%">
+                <div class="canvas-grab" ng-click="liveEditorController.grabFrame()"></div>
+                <br/>
                 <div style="text-align: center; width: 85%">
                     <span id="scrubber-timer" style="display: none;">0</span>
                 </div>
             </div>
-
             <div class="clear"></div>
-
             <div class="row">
                 <div class="field"></div>
             </div>
-
             <div class="row">
                 <div class='field col-6 itemizer-start'>
                     <span class='itemizer-start-button' ng-click="liveEditorController.markStart()">Zet huidige positie als starttijd</span>
                 </div>
-
                 <div class='field col-6 itemizer-stop'>
                     <span class='itemizer-stop-button' ng-click="liveEditorController.markStop()">Zet huidige positie als stoptijd</span>
                 </div>
-
             </div>
-
             <div class="clear"></div>
-
-
             <div class="row">
                 <div class='field col-6 itemizer-start'>
                     <label for="inputStart">Starttijd &#42;
@@ -81,90 +65,87 @@
                     </label>
                     <input id="inputStart" type="text" ng-model="item.startAsString" placeholder="starttijd"
                            ng-change="liveEditorController.setStartValueAsString()"/>
-
                     <span class="error" ng-show="invalidTimes">De starttijd van een item mag niet later zijn dan  of gelijk zijn aan de stoptijd.</span>
-
                 </div>
-
                 <div class='field col-6 itemizer-stop'>
                     <label for="inputStart">Eindtijd &#42;
-                        <span class="itemizer-segment-play" ng-click="liveEditorController.playFromEnd()"> (spring naar)</span>
+                        <span class="itemizer-segment-play"
+                              ng-click="liveEditorController.playFromEnd()"> (spring naar)</span>
                     </label>
                     <input id="inputStop" type="text" ng-model="item.stopAsString" placeholder="stoptijd"
-                           ng-change="liveEditorController.setStopValueAsString()" />
+                           ng-change="liveEditorController.setStopValueAsString()"/>
                 </div>
-
             </div>
-
             <div class="row">
-
                 <div class='field col-6 itemizer-stop'>
-                    <label for="inputDuration">Speelduur
-                    </label>
-                    <input id="inputDuration" ng-disabled='true' type="text" ng-model="item.durationAsString" placeholder="selecteer eerst een start- & stoptijd" />
+                    <label for="inputDuration">Speelduur</label>
+                    <input id="inputDuration" ng-disabled='true' type="text" ng-model="item.durationAsString"
+                           placeholder="selecteer eerst een start- & stoptijd"/>
                     <span class="error" ng-if="durationInvalid">De starttijd van een segment mag niet later zijn dan  of gelijk zijn aan de stoptijd.</span>
                 </div>
-
                 <div class="field col-6" style="margin-bottom:100px">
                     <label>Stream &#42;</label>
-
-                    <ui-select   ng-model="item.currentStream" theme="selectize" close-on-select="true"  >
+                    <ui-select ng-model="item.currentStream" theme="selectize" close-on-select="true">
                         <ui-select-match placeholder="Kies een stream...">{{item.currentStream.text}}</ui-select-match>
                         <ui-select-choices repeat="stream in availableStreams">
-                            <div ng-bind-html="stream.text" ></div>
+                            <div ng-bind-html="stream.text"></div>
                         </ui-select-choices>
                     </ui-select>
-
                 </div>
-
             </div>
         </div>
-
-        <div class="col-4"  >
+        <div class="col-4">
             <label> Over de liveknipper</label>
-            <p> Gebruik de liveknipper om segmenten te knippen van de NPO livestreams. Zet een start- en eindpunt en klik vervolgens op "maak MP4". </p>
+            <p> Gebruik de liveknipper om segmenten te knippen van de NPO livestreams. Zet een start- en eindpunt en
+                klik vervolgens op "maak MP4".
+            </p>
             <p> Zodra de asset gemaakt is krijg je direct de link naar het geknipte videobestand.</p>
-
-            <button class="live-editor-button" ng-if="!durationInvalid && !itemizerWaiting && !item.assetLink" ng-click="liveEditorController.createAsset()"> Maak MP4</button>
-
-            <div ng-if="item.assetLink && !itemizerWaiting" >
-                <button class="live-editor-button" ng-click="liveEditorController.openAsset()" > download MP4 <span ng-if="assetSize">({{assetSize}})</span> </button>
-            </div>
-
-            <span ng-if="itemizerWaiting">
-                MP4 wordt gemaakt ({{workflowExecution.status}}).
-                <span ng-if="workflowExecution.status != 'FAILED'">Een moment geduld a.u.b.</span>
+            <button class="live-editor-button" ng-if="!durationInvalid"
+                    ng-click="liveEditorController.createAsset()"> Maak MP4
+            </button>
+            <style>
+                table {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+                td, th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+                tr:nth-child(even) {
+                    background-color: #dddddd;
+                }
+            </style>
+            <span style="width: 100%">
+                <table style="width: 100%" id="itemizer-current-downloads">
+                    <tr>
+                        <th>#</th>
+                        <th>Status</th>
+                    </tr>
+                </table>
             </span>
-
             <div class="clear">
             </div>
-
             <p></p>
-
             <label> Afbeelding</label>
-
             <div class="image-preview" ng-if="still" style="background-image:url('{{still}}')">
             </div>
             <div class="error" ng-if="stillerror">
                 <label>Er is iets fout gegaan bij het maken van de afbeelding</label>
                 <pre>{{stillerror}}</pre>
             </div>
-
             <a ng-if="still" href="{{still}}" download> download deze afbeelding </a>
             <span ng-if="!still && stillLoading"> afbeelding wordt gemaakt</span>
-
         </div>
-
-
     </div>
 </div>
-
 <div class="footer-container">
     <div class="footer modal-footer footer-one-button ">
         <div class="footer-message">
             &nbsp;
         </div>
         <button class="btn-rect btn-rect-cancel" ng-click="liveEditorController.cancel($event)">Annuleer</button>
-
     </div>
 </div>

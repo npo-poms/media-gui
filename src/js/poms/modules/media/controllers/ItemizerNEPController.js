@@ -68,6 +68,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 }
             ];
 
+            this.loadingAssets = []
+
             this.$modalInstance.opened.then( function () {
                 this.init( segment );
             }.bind( this ) );
@@ -601,7 +603,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             },
 
             createAsset : function() {
-
                 this.$scope.assetWaiting = true;
                 this.itemizeRequest = {
                     "mid" : this.$scope.media.mid,

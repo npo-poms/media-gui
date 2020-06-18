@@ -32,6 +32,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             this.NEPService = NEPService;
 
             this.lastMouseDown = 0;
+            this.itemizerTasks = {}
 
             this.init();
         }
@@ -226,8 +227,22 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     "stream" : this.$scope.item.currentStream.id
                 };
 
+                // since the workflow id's are stupid, we'll do our own
+                var id = startttime + "-" + stopttime;
+                // there you go, ugly and hacky innit? it's something, at least.
+
+                // create the element and call it a day, we'll update this element from the subscriber task
+                var table = document.getElementById("itemizer-current-downloads")
+
+                var size = 0, key;
+                for (key in this.itemizerTasks) {
+                    if (this.itemizerTasks.hasOwnProperty(key)) size++;
+                }
+                size++;
+                table.innerHTML += "<tr><td>" + size + "</td><td id='itemizer-state-"+id+"'>Starten...</td></tr>"
+
                 this.NEPService.itemizelive( this.itemizeRequest ).then( function ( data ) {
-                    this.$scope.item.assetLink = this.appConfig.apiHost + data;
+                    this.itemizerTasks[id] = this.appConfig.apiHost + data;
 
                 }.bind(this), function ( error ) {
                     this.$scope.$emit( this.pomsEvents.error, error );
@@ -265,15 +280,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 // Attach manifest to mediaplayer
                 this.mediaPlayer.attachSource( data.stream );
 
-
-            },
-
-            openAsset : function (){
-
-                window.open(
-                    this.$scope.item.assetLink,
-                    '_blank' // <- This is what makes it open in a new window.
-                );
 
             },
 
@@ -321,13 +327,29 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            if ( this.itemizeRequest.stream === message.request.stream &&
-                                this.itemizeRequest.start === message.request.start &&
-                                this.itemizeRequest.stop === message.request.stop
-                            ) {
-                                this.$scope.workflowExecution = message.workflowExecution;
-                                this.$scope.itemizerWaiting = ! message.readyForDownload;
-                                this.$scope.assetSize = message.mibSize;
+                            // check if we follow the current stream
+                            var id = message.request.start + "-" + message.request.stop;
+
+                            // check if we follow this id, because we might not (yet)
+                            if (this.itemizerTasks[id] != null) {
+                                if (message.readyForDownload) {
+                                    // button! fancy, yes
+                                    var link = this.itemizerTasks[id];
+                                    document.getElementById("itemizer-state-" + id).innerHTML = "<button class=\"live-editor-button\">Downloaden</button>"
+                                    document.getElementById("itemizer-state-" + id).onclick = function() {
+                                        window.open(
+                                            link,
+                                            '_blank' // <- This is what makes it open in a new window.
+                                        );
+                                    }
+                                } else {
+                                    // holdup chief
+                                    if (message.workflowExecution.status == "RUNNING") {
+                                        document.getElementById("itemizer-state-" + id).innerHTML = "Aan het verwerken.."
+                                    } else {
+                                        document.getElementById("itemizer-state-" + id).innerHTML = "Er is iets fout gegaan"
+                                    }
+                                }
                             }
                         }.bind( this ) );
                 } catch ( e ) {
