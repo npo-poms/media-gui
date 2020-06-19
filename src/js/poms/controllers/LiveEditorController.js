@@ -343,6 +343,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                             link,
                                             '_blank' // <- This is what makes it open in a new window.
                                         );
+
                                     }
                                 } else {
                                     // holdup chief
