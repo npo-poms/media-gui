@@ -359,6 +359,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
             },
 
+
             playFromStart : function () {
                 this.playFrom("start");
             },
