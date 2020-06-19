@@ -231,7 +231,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 var id = startttime + "-" + stopttime;
                 // there you go, ugly and hacky innit? it's something, at least.
 
-                if (this.itemizerTasks[id] != null) return
+                if (this.itemizerTasks.hasOwnProperty(id)) return
 
                 // create the element and call it a day, we'll update this element from the subscriber task
                 var table = document.getElementById("itemizer-current-downloads")
