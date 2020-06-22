@@ -51,10 +51,14 @@
             </div>
             <div class="row">
                 <div class='field col-6 itemizer-start'>
-                    <span class='itemizer-start-button' ng-click="liveEditorController.markStart()">Zet huidige positie als starttijd</span>
+                    <span class='itemizer-start-button'
+                          id="modal-itemizer-mark-start"
+                          ng-click="liveEditorController.markStart()">Zet huidige positie als starttijd</span>
                 </div>
                 <div class='field col-6 itemizer-stop'>
-                    <span class='itemizer-stop-button' ng-click="liveEditorController.markStop()">Zet huidige positie als stoptijd</span>
+                    <span class='itemizer-stop-button'
+                          id="modal-itemizer-mark-stop"
+                          ng-click="liveEditorController.markStop()">Zet huidige positie als stoptijd</span>
                 </div>
             </div>
             <div class="clear"></div>
