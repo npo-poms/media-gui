@@ -90,7 +90,11 @@
        href="javascript:void(0)"
        ng-click="guiController.newSearch()">ZOEKEN</a>
 
-    <a class="header-link header-link-new" href="javascript:void(0)" ng-click="guiController.openLiveEditor()">LiveKnipper</a>
+    <a  id="liveknipper"
+        title="Maak mp4's and screen shot van een live stream"
+        class="header-link header-link-new"
+        href="javascript:void(0)"
+        ng-click="guiController.openLiveEditor()">Liveknipper</a>
 
     <div class="header-account-details" ng-class="{'open': (adminDropdown.isopen || userDropdown.isopen)}">
 
