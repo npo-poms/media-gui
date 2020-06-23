@@ -334,17 +334,18 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                             // check if we follow this id, because we might not (yet)
                             if (this.itemizerTasks[id] != null) {
+                                console.log("updating subscribed item")
                                 if (message.readyForDownload) {
                                     // button! fancy, yes
                                     var link = this.itemizerTasks[id];
                                     document.getElementById("itemizer-state-" + id).innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
                                     document.getElementById("itemizer-state-" + id).innerHTML += "<button id='itemizer-delete-"+id+"' class=\"live-editor-button\">Verwijderen</button>"
+                                    function removeElement(elementId) {
+                                        var element = document.getElementById(elementId);
+                                        element.parentNode.removeChild(element);
+                                    }
+
                                     setTimeout(function () {
-                                        function removeElement(elementId) {
-                                            // Removes an element from the document
-                                            var element = document.getElementById(elementId);
-                                            element.parentNode.removeChild(element);
-                                        }
 
                                         document.getElementById("itemizer-download-" + id).onclick = function() {
                                             window.open(
