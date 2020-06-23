@@ -208,7 +208,9 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 this.$scope.item.durationAsString =  this.$filter('secondsToMsTime')( ( this.$scope.item.duration ) / 1000 );
                 if ( !this.$scope.item.duration  || this.$scope.item.duration <= 0) {
                     this.$scope.durationInvalid = true;
+                    document.getElementById("modal-create-asset").style.display = "none"
                 } else {
+                    document.getElementById("modal-create-asset").style.display = ""
                     this.$scope.durationInvalid = false;
                 }
 
@@ -426,7 +428,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         if (nextPoint > instance.videoElement.duration) return;
                         instance.videoElement.currentTime -= offset / 1000;
                     }
-                    console.log(instance.videoElement.currentTime)
                 }
 
                 var fakeEvent = new Event("timeupdate", {
