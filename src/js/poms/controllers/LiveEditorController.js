@@ -430,6 +430,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     }
                     console.log(instance.videoElement.currentTime)
                 }
+
+                var fakeEvent = new Event("timeupdate", {
+                    currentTime: instance.videoElement.currentTime
+                })
+                instance.videoElement.dispatchEvent(fakeEvent)
             },
 
             setStartValueAsString : function () {
