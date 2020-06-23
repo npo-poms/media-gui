@@ -65,8 +65,6 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
         }
 
-
-
         function reconnect () {
             $timeout( function () {
                 initialize();

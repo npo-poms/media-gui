@@ -241,7 +241,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     if (this.itemizerTasks.hasOwnProperty(key)) size++;
                 }
                 size++;
-                table.innerHTML += "<tr><td>" + size + "</td><td id='itemizer-state-"+id+"'>Starten...</td></tr>"
+                table.innerHTML += "<tr id='itemizer-row-"+id+"'><td>" + size + "</td><td id='itemizer-state-"+id+"'>Starten...</td></tr>"
 
                 this.NEPService.itemizelive( this.itemizeRequest ).then( function ( data ) {
                     this.itemizerTasks[id] = this.appConfig.apiHost + data;
@@ -337,14 +337,27 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                 if (message.readyForDownload) {
                                     // button! fancy, yes
                                     var link = this.itemizerTasks[id];
-                                    document.getElementById("itemizer-state-" + id).innerHTML = "<button class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
-                                    document.getElementById("itemizer-state-" + id).onclick = function() {
-                                        window.open(
-                                            link,
-                                            '_blank' // <- This is what makes it open in a new window.
-                                        );
+                                    document.getElementById("itemizer-state-" + id).innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
+                                    document.getElementById("itemizer-state-" + id).innerHTML += "<button id='itemizer-delete-"+id+"' class=\"live-editor-button\">Verwijderen</button>"
+                                    setTimeout(function () {
+                                        function removeElement(elementId) {
+                                            // Removes an element from the document
+                                            var element = document.getElementById(elementId);
+                                            element.parentNode.removeChild(element);
+                                        }
 
-                                    }
+                                        document.getElementById("itemizer-download-" + id).onclick = function() {
+                                            window.open(
+                                                link,
+                                                '_blank' // <- This is what makes it open in a new window.
+                                            );
+
+                                        }
+
+                                        document.getElementById("itemizer-delete-" + id).onclick = function() {
+                                            removeElement(document.getElementById("itemizer-row-" + id))
+                                        }
+                                    }, 10)
                                 } else {
                                     // holdup chief
                                     if (message.workflowExecution.status == "RUNNING") {
