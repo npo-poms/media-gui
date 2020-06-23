@@ -340,10 +340,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                     var link = this.itemizerTasks[id];
                                     document.getElementById("itemizer-state-" + id).innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
                                     document.getElementById("itemizer-state-" + id).innerHTML += "<button id='itemizer-delete-"+id+"' class=\"live-editor-button\">Verwijderen</button>"
-                                    function removeElement(elementId) {
-                                        var element = document.getElementById(elementId);
-                                        element.parentNode.removeChild(element);
-                                    }
 
                                     setTimeout(function () {
 
@@ -356,9 +352,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                         }
 
                                         document.getElementById("itemizer-delete-" + id).onclick = function() {
-                                            removeElement(document.getElementById("itemizer-row-" + id))
+                                            var element = document.getElementById("itemizer-row-" + id);
+                                            element.parentNode.removeChild(element);
                                         }
-                                    }, 10)
+                                    }, 6)
                                 } else {
                                     // holdup chief
                                     if (message.workflowExecution.status == "RUNNING") {
