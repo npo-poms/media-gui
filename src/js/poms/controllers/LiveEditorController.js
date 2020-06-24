@@ -243,6 +243,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     if (this.itemizerTasks.hasOwnProperty(key)) size++;
                 }
                 size++;
+                document.getElementById("itemizer-current-downloads").style.display = ""
                 table.innerHTML += "<tr id='itemizer-row-"+id+"'><td>" + size + "</td><td id='itemizer-state-"+id+"'>Starten...</td></tr>"
 
                 this.NEPService.itemizelive( this.itemizeRequest ).then( function ( data ) {
@@ -412,10 +413,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
                 var display = document.getElementById("scrubber-timer");
                 if (scrubberPosition == 0) {
-                    display.style.display = "none";
+                    display.innerText = "scrubber voor fine-tuning";
                     return;
                 }
-                display.innerText = frames + " frames per seconde"
+                display.innerText = "scrubbing " + frames + " frames per seconde"
                 display.style.display = "";
 
                 if (instance.videoElement) {
