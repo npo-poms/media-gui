@@ -8,9 +8,9 @@
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</connection>
-    <developerConnection>scm:svn:https://subversion.vpro.nl/repo/nl/vpro/media-gui/trunk</developerConnection>
-    <url>https://subversion.vpro.nl/viewvc/nl/vpro/media-gui/trunk</url>
+    <connection>scm:git@git.vpro.nl:poms/gui.git</connection>
+    <developerConnection>scm:git@git.vpro.nl:poms/gui.git</developerConnection>
+    <url>https://git.vpro.nl/poms/gui</url>
   </scm>
   <build>
     <defaultGoal>install</defaultGoal>
