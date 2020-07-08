@@ -58,7 +58,8 @@
 
 
                 <span title="volgnummer" ng-switch-when="number"  >
-                    <span ng-if="media.ordered" editable-number="::member.number" e-name="number" e-form="rowform" ng-click="membersController.edit(rowform, $event)">
+                    <span ng-if="media.ordered" editable-number="::member.number" e-name="number" e-form="rowform"
+                          ng-click="membersController.mayWrite && membersController.edit(rowform, $event)">
                         {{::member.number || '-'}}
                     </span>
                 </span>
