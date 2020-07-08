@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 # Default values
-# You can override by enviroment variables
+# You can override by environment variables
 # e.g.:
 # ~/npo/media/trunk/media-gui$ API_PORT=8080 ./watch.sh
 # API_HOST=https://poms.omroep.nl ./watch.sh
 # API_HOST=https://poms-dev.omroep.nl ./watch.sh
 
-localhost="localhost"
+localhost_fromsettings=$(awk 'FS="=" { if ($1 == "http.host") {print $2}}' $HOME/conf/poms-general.properties)
+localhost=${localhost_fromsettings:-localhost}
 : ${API_PORT:=8071}
 : ${API_SERVER:=$localhost}
 : ${API_SCHEME:=http}
