@@ -4,13 +4,14 @@
   <groupId>nl.vpro.media</groupId>
   <artifactId>media-gui</artifactId>
   <packaging>war</packaging>
-  <version>5.13.1-SNAPSHOT</version>
+  <version>5.13.1</version>
   <name>media-gui</name>
 
   <scm>
     <connection>scm:git:git@git.vpro.nl:npo/media-gui.git</connection>
     <developerConnection>scm:git:git@git.vpro.nl:npo/media-gui.git</developerConnection>
     <url>https://git.vpro.nl/npo/media-gui</url>
+    <tag>REL-5.13.1</tag>
   </scm>
 
   <build>
