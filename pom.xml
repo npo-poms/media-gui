@@ -8,8 +8,8 @@
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:git@git.vpro.nl:npo/media-gui.git</connection>
-    <developerConnection>scm:git@git.vpro.nl:npo/media-gui.git</developerConnection>
+    <connection>scm:git:git@git.vpro.nl:npo/media-gui.git</connection>
+    <developerConnection>scm:git:git@git.vpro.nl:npo/media-gui.git</developerConnection>
     <url>https://git.vpro.nl/npo/media-gui</url>
   </scm>
 
