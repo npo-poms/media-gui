@@ -560,7 +560,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 // Image not uploaded to image server yet
                 this.$upload.upload( {
-                    url : editorService.getCurrentEditor().imageUploadUrl,
+                    url : this.editorService.getCurrentEditor().imageUploadUrl,
                     method : 'POST',
                     fields : fields,
                     file : this.$scope.image.file[ 0 ],
