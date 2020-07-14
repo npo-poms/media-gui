@@ -15,6 +15,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
     'media',
     'segments',
     'segment',
+    'EditorService',
 
     (function () {
 
@@ -29,7 +30,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
         }
 
 
-        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment ) {
+        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment, editorService) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -44,10 +45,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             this.notificationService = NotificationService;
             this.NEPService = NEPService;
             this.messageService = MessageService;
+            this.editorService = editorService;
 
             this.appConfig = appConfig;
-
-            this.imageshost = appConfig.imagesApiHost;
 
             this.$scope.playerReady = false;
             this.$scope.isPlaying = false;
@@ -560,7 +560,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 // Image not uploaded to image server yet
                 this.$upload.upload( {
-                    url : this.imageshost  + "/images/upload",
+                    url : editorService.getCurrentEditor().imageUploadUrl,
                     method : 'POST',
                     fields : fields,
                     file : this.$scope.image.file[ 0 ],
