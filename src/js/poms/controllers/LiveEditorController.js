@@ -246,11 +246,13 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 document.getElementById("itemizer-current-downloads").style.display = ""
                 table.innerHTML += "<tr id='itemizer-row-"+id+"'><td>" + size + "</td><td id='itemizer-state-"+id+"'>Starten...</td></tr>"
 
+                this.$scope.durationInvalid = true;
+
                 this.NEPService.itemizelive( this.itemizeRequest ).then( function ( data ) {
                     this.itemizerTasks[id] = this.appConfig.apiHost + data;
-
                 }.bind(this), function ( error ) {
                     this.$scope.$emit( this.pomsEvents.error, error );
+                    this.$scope.durationInvalid = false;
                 }.bind(this) );
             },
 
