@@ -299,7 +299,7 @@
         $compileProvider.debugInfoEnabled(false);
 
         // Allow blob links in urls
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:image\//);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|file|blob|mailto):|data:image\//);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:image\//);
     }]);
 
