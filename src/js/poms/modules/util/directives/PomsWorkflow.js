@@ -49,8 +49,9 @@ angular.module( 'poms.util.directives' )
                         return false;
                     }
                     var superUser = editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER']);
+
                     return media && media.permissions.WRITE &&
-                        (media.workflow.id !== 'PUBLISHED' || superUser);
+                        ((media.workflow && media.workflow.id !== 'PUBLISHED') || superUser);
                 };
 
             },
