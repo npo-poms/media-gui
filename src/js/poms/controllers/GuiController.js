@@ -17,6 +17,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
     'MessageService',
     'MediaService',
     'UploadService',
+    'NotificationService',
     (function () {
 
         function GuiController ( $rootScope,
@@ -36,7 +37,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                                  searchService,
                                  messageService,
                                  mediaService,
-                                 UploadService ) {
+                                 UploadService,
+                                 NotificationService) {
 
             this.$rootScope = $rootScope;
             this.$route = $route;
@@ -52,6 +54,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             this.messageService = messageService;
             this.mediaService = mediaService;
             this.uploadService = UploadService;
+            this.notificationService = NotificationService;
 
             this.$scope = $scope;
             this.$document = $document;
@@ -155,7 +158,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             editSelection: function ( selection ) {
                 var tabs = this.tabs;
-
                 angular.forEach( selection, function ( item, index ) {
                     // Add a tab with a media placeholder to reload. Should reload on tab activation
                     if ( ! this.setActive( tabs, item.mid ) ) {
@@ -165,6 +167,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                         // Mock a media object because the response of the search endpoint
                         // is different from the real media object and may not contain all fields
+                        this.notificationService.notify( '<span>Even geduld!</span><span> ' + item.title + ' wordt ingeladen..</span>' );
                         this.mediaService.load( item.mid ).then(
                             function ( media ) {
                                 this.addTab( {
