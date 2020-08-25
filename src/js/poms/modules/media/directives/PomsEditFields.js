@@ -144,8 +144,8 @@ angular.module( 'poms.media.directives' )
                     var current = media[field];
                     if (! current) {
                         current = media;
-                        for (let i = 0; i < field.split('.').length; i++){
-                            let p = field.split('.')[i];
+                        for (var i = 0; i < field.split('.').length; i++){
+                            var p = field.split('.')[i];
                             current = current[p];
                             if (current == null) {
                                 break
