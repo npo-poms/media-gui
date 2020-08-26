@@ -164,10 +164,19 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
+                        this.addTab( {
+                            active: false,
+                            reload: true,
+                            id: item.mid,
+                            item: {
+                                mid: item.mid,
+                                type: item.type,
+                                permissions: item.permissions,
+                                mainTitle: {text: item.title}
+                            },
+                            type: 'edit'
+                        } );
 
-                        // Mock a media object because the response of the search endpoint
-                        // is different from the real media object and may not contain all fields
-                        this.notificationService.notify( '<span>Even geduld!</span><span> ' + item.title + ' wordt ingeladen..</span>' );
                         this.mediaService.load( item.mid ).then(
                             function ( media ) {
                                 this.addTab( {
