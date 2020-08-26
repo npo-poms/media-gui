@@ -26,6 +26,9 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
             this.search = $scope.search;
 
+            this.$scope.lastSelect = null;
+
+
             this.clearResults();
 
             this.searchCount = 0;
@@ -87,8 +90,11 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 this.$scope.$emit('selected', result)
             },
 
-            toggleSelect: function ( item ) {
-
+            toggleSelect: function ( item, event) {
+                var previous = this.$scope.lastSelect;
+                var range = event.shiftKey && previous;
+                console.log("Range matching", range, event.shiftKey, previous);
+                this.$scope.lastSelect = item;
                 var spliceIdx = - 1;
                 item.selected = !item.selected;
 
@@ -107,19 +113,38 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                         });
                     }
                 } else {
-                    if ( item.selected ) {
-                        this.search.selection.push( item );
-                    } else {
-                        angular.forEach( this.search.selection, function ( selection, idx ) {
-                            if ( selection.mid === item.mid ) {
-                                spliceIdx = idx;
+                    var matching = false;
+                    var selectionTarget = item.selected;
+                    angular.forEach( this.$scope.searchResults.items, function ( i ) {
+                        var matchCurrent = i.mid === item.mid;
+                        if (range) {
+                            var matchPrevious = i.mid === previous.mid;
+                            if (matchPrevious || matchCurrent) {
+                                matching = ! matching;
                             }
-                        } );
-                    }
+                        } else {
+                            matching = matchCurrent;
+                        }
 
-                    if ( spliceIdx > - 1 ) {
-                        this.search.selection.splice( spliceIdx, 1 );
-                    }
+                        if (matching || matchCurrent || matchPrevious) {
+                            i.selected = selectionTarget;
+                            if (i.selected) {
+                                this.search.selection.push(i);
+                            } else {
+                                angular.forEach(this.search.selection, function (selection, idx) {
+                                    if (selection.mid === i.mid) {
+                                        spliceIdx = idx;
+                                        this.search.selection.splice(spliceIdx, 1);
+                                    }
+                                }.bind(this));
+                            }
+
+                            if (spliceIdx > -1) {
+                                this.search.selection.splice(spliceIdx, 1);
+                            }
+
+                        }
+                    }.bind(this));
                 }
                 this.$scope.$emit( 'selectionChanged', this.search.selection );
             },
