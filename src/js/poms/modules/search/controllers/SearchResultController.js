@@ -93,7 +93,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             toggleSelect: function ( item, event) {
                 var previous = this.$scope.lastSelect;
                 var range = event.shiftKey && previous;
-                console.log("Range matching", range, event.shiftKey, previous);
+                //console.log("Range matching", range, event.shiftKey, previous);
                 this.$scope.lastSelect = item;
                 var spliceIdx = - 1;
                 item.selected = !item.selected;
