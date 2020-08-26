@@ -16,7 +16,9 @@ angular.module( 'poms.media.directives' )
                 $scope.options = [];
                 $scope.preSelectedItems = [];
                 $scope.isOpen = false;
-                $scope.mayWrite = mediaService.hasWritePermission( media, 'genres' );
+                $scope.mayWrite = function() {
+                    return mediaService.hasWritePermission( media, 'genres' );
+                }.bind(this);
 
                 function load ( media, dest ) {
                     mediaService.getGenres( media ).then(
@@ -50,7 +52,7 @@ angular.module( 'poms.media.directives' )
 
                 $scope.showEditElement = function ( ) {
 
-                    if ( $scope.mayWrite && !$scope.isOpen ) {
+                    if ( $scope.mayWrite() && !$scope.isOpen ) {
 
                         mediaService.getGenres( media ).then(
                             function ( data ) {

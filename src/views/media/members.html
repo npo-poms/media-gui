@@ -90,7 +90,7 @@
 
             </td>
 
-            <td class="column-tools" ng-show="membersController.mayWrite">
+            <td class="column-tools" ng-show="membersController.mayWrite()">
 
                 <form editable-form name="rowform" onbeforesave="membersController.updateMember(member, $data)"
                       ng-show="rowform.$visible" class="form-buttons form-inline">

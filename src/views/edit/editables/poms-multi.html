@@ -1,7 +1,7 @@
 <div class="editfield-wrapper editfield-uiselect"
      ng-click="multiEditController.showEditElement($event)"
      ng-keyup="multiEditController.keyEvent($event)"
-     ng-class="{'empty' : !multiEditController.values.length,  'forbidden': !multiEditController.mayWrite, 'may-write' : multiEditController.mayWrite, 'waiting': multiEditController.waiting, 'opened' : multiEditController.isOpen }"
+     ng-class="{'empty' : !multiEditController.values.length,  'forbidden': !multiEditController.mayWrite(), 'may-write' : multiEditController.mayWrite, 'waiting': multiEditController.waiting, 'opened' : multiEditController.isOpen }"
      save-feedback>
     <h2 class="small-header">{{header}}</h2>
 
@@ -40,9 +40,9 @@
 
 
     <poms-edit-tools
-        may-write="multiEditController.mayWrite"
+        may-write="multiEditController.mayWrite()"
         help-field="{{helpField}}"
-        may-remove-override="multiEditController.mayWrite && multiEditController.values.length"
+        may-remove-override="multiEditController.mayWrite() && multiEditController.values.length"
         delete-scope="multiEditController">
     </poms-edit-tools>
 

@@ -1,7 +1,7 @@
 <div class="editfield-wrapper editfield-uiselect"
-     ng-click="showEditElement($event, mayWrite)"
+     ng-click="showEditElement($event, mayWrite())"
      ng-keyup="keyEvent($event)"
-     ng-class="{'empty' : !media[field], 'may-write' : mayWrite, 'forbidden': !mayWrite, 'opened' : isOpen, 'waiting': waiting }"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite(), 'forbidden': !mayWrite(), 'opened' : isOpen, 'waiting': waiting }"
      save-feedback
         >
 
@@ -33,7 +33,7 @@
         </span>
     </div>
 
-    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 
 </div>

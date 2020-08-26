@@ -15,9 +15,13 @@ angular.module( 'poms.media.directives' )
 
                 $scope.media = media;
 
-                $scope.mayRead = editService.hasReadPermission( media, $scope.field );
+                $scope.mayRead = function() {
+                    return editService.hasReadPermission( media, $scope.field );
+                }.bind(this);
 
-                $scope.mayWrite = editService.hasWritePermission( media, $scope.field );
+                $scope.mayWrite = function() {
+                    return editService.hasWritePermission( media, $scope.field );
+                }.bind(this);
 
                 $scope.show = function (editableForm){
                   if (media.mayWriteEmbargo) {editableForm.$show()}

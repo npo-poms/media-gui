@@ -5,7 +5,7 @@
         <poms-help field="editor.relations"></poms-help>
     </h1>
 
-    <button id="addRelation" class="btn-text-icon btn-text-icon-add" ng-if="relationsController.mayWrite" ng-click="relationsController.addRelation()">
+    <button id="addRelation" class="btn-text-icon btn-text-icon-add" ng-if="relationsController.mayWrite()" ng-click="relationsController.addRelation()">
         Relatie toevoegen
     </button>
 
@@ -17,13 +17,13 @@
             <th title="type" class="poms-table-header relation-type"> type</th>
             <th title="tekst" class="poms-table-header relation-text"> tekst</th>
             <th title="uri" class="poms-table-header relation-uriref"> uri</th>
-            <th ng-show="relationsController.mayWrite"></th>
+            <th ng-show="relationsController.mayWrite()"></th>
         </tr>
         </thead>
 
         <tbody>
         <tr class="poms-table-row" ng-repeat="relation in relationsController.relations"
-            ng-class="{'waiting': relationsController.waiting, 'may-write': relationsController.mayWrite }"
+            ng-class="{'waiting': relationsController.waiting, 'may-write': relationsController.mayWrite() }"
            >
 
             <td class="relation-type" >
@@ -38,7 +38,7 @@
                 {{relation.uriRef}}
             </td>
 
-            <td class="relations-tools tools-cell" ng-show="relationsController.mayWrite">
+            <td class="relations-tools tools-cell" ng-show="relationsController.mayWrite()">
                 <div class="tools">
                     <button name="editRelation" class="poms-icon icon-edit" ng-click="relationsController.editRelation(relation)">bewerk</button>
                     <button name="deleteRelation" class="poms-icon icon-remove" poms-confirm="Bron" poms-submit="relationsController.remove($index)">

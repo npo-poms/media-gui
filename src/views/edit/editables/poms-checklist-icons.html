@@ -1,7 +1,7 @@
 <div class="editfield-wrapper editfield-checklist-icons {{field}}"
      ng-keyup="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : ! findDeep(media, field), 'may-write' : mayWrite, 'forbidden': !mayWrite, 'opened' : isOpen , 'waiting': waiting }"
+     ng-class="{'empty' : ! findDeep(media, field), 'may-write' : mayWrite(), 'forbidden': !mayWrite(), 'opened' : isOpen , 'waiting': waiting }"
      save-feedback>
 
     <h2 class="small-header">{{header}}</h2>
@@ -13,7 +13,7 @@
        onshow="onShow()"
        onhide="onHide()"
        onbeforesave="save($data)"
-       ng-show="mayWrite"
+       ng-show="mayWrite()"
        blur="ignore"
             >
         <span ng-repeat="item in findDeep(media, path)" class="icon"
@@ -23,14 +23,14 @@
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite">
+    <p class="editfield" ng-hide="mayWrite()">
         <span ng-repeat="item in findDeep(media, path)"
               ng-title="item.text"
               class="icon"
               ng-class="item.iconClass"></span>
     </p>
 
-    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 
 </div>

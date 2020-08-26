@@ -2,8 +2,8 @@
      id="credits"
      ng-class="{
      'empty': creditsController.items.length == 0,
-     'may-write' : creditsController.mayWrite ,
-     'forbidden' : !creditsController.mayWrite ,
+     'may-write' : creditsController.mayWrite() ,
+     'forbidden' : !creditsController.mayWrite() ,
      'waiting': waiting}"
      ng-show="creditsController.mayRead" save-feedback>
 
@@ -21,7 +21,7 @@
                 </span>
             </span>
 
-            <button name="removePerson" ng-if="creditsController.mayWrite"
+            <button name="removePerson" ng-if="creditsController.mayWrite()"
                     class="media-concept-remove"
                     poms-confirm="'persoon'"
                     poms-submit="creditsController.removeCredits( item )"
@@ -32,7 +32,7 @@
 
 
             <button name="editPerson" title='edit persoon'
-                    ng-if="creditsController.mayWrite" class="media-concept-edit"
+                    ng-if="creditsController.mayWrite()" class="media-concept-edit"
                     ng-click="creditsController.editCredits( item )" >
                 edit
             </button>
@@ -46,14 +46,14 @@
     </div>
 
     <div class="media-field-tools">
-        <div ng-if="!creditsController.mayWrite" class="forbidden-icon"></div>
+        <div ng-if="!creditsController.mayWrite()" class="forbidden-icon"></div>
 
         <div ng-if="creditsController.items" class="remove-override-icon" poms-confirm="'Alle personen'" poms-submit="creditsController.removeOverride($event)"></div>
 
         <poms-help field="{{helpField}}"></poms-help>
     </div>
 
-    <button id="addCredits" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="creditsController.mayWrite" ng-click="creditsController.addCredits()">
+    <button id="addCredits" class="btn-text-icon btn-text-icon-add media-concept-add" ng-if="creditsController.mayWrite()" ng-click="creditsController.addCredits()">
         persoon of andere naamsvermelding toevoegen
     </button>
 

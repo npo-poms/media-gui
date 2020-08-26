@@ -1,7 +1,7 @@
 <div class="editfield-wrapper"
      ng-click="modalTableEditController.showEditElement()"
-     ng-class="{ 'empty': modalTableEditController.items.length == 0,  'may-write' : modalTableEditController.mayWrite ,  'forbidden' : !modalTableEditController.mayWrite ,'waiting': waiting}"
-     ng-show="modalTableEditController.mayRead"
+     ng-class="{ 'empty': modalTableEditController.items.length == 0,  'may-write' : modalTableEditController.mayWrite(),  'forbidden' : !modalTableEditController.mayWrite() ,'waiting': waiting}"
+     ng-show="modalTableEditController.mayRead()"
      save-feedback
         >
 
@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <poms-edit-tools may-write="modalTableEditController.mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="modalTableEditController.mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 
 </div>

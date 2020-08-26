@@ -36,8 +36,12 @@ angular.module( 'poms.media.directives' )
                 $scope.errorType = attrs.errortype || '';
                 $scope.isOpen = false;
                 $scope.media = media;
-                $scope.mayRead = editService.hasReadPermission( media, $scope.field );
-                $scope.mayWrite = editService.hasWritePermission(media, $scope.field);
+                $scope.mayRead = function() {
+                    return editService.hasReadPermission( media, $scope.field );
+                }.bind(this);
+                $scope.mayWrite = function() {
+                    return editService.hasWritePermission(media, $scope.field);
+                }.bind(this);
 
                 //console.log("may write", $scope.field, $scope.mayWrite);
 
@@ -65,7 +69,7 @@ angular.module( 'poms.media.directives' )
                     event.preventDefault();
                     event.stopPropagation();
 
-                    if ( $scope.mayWrite && ! $scope.isOpen ) {
+                    if ( $scope.mayWrite() && ! $scope.isOpen ) {
 
                         var currentItems = angular.copy( $scope.media[$scope.field] );
 

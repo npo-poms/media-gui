@@ -13,7 +13,9 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.listService = ListService;
-            this.mayWrite = MediaService.hasWritePermission( $scope.media, 'relations' );
+            this.mayWrite = function() {
+                return MediaService.hasWritePermission( $scope.media, 'relations' );
+            }.bind(this);
 
             this.listService.getRelations().then(
                 function ( data ) {

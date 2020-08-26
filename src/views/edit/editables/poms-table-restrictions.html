@@ -21,7 +21,7 @@
         <tbody ui-sortable="sortableOptions" ng-model="modalTableEditController.items">
 
         <tr ng-repeat="item in modalTableEditController.items" class="poms-table-row" daterangepicker
-            ng-class="{'editing': rowform.$visible, 'may-write': modalTableEditController.mayWrite }">
+            ng-class="{'editing': rowform.$visible, 'may-write': modalTableEditController.mayWrite() }">
 
             <td ng-repeat="column in modalTableEditController.columns" ng-click="rowform.$show()" class="column-{{column.id}}">
 
@@ -114,7 +114,7 @@
     </table>
 
 
-    <button class="btn-text-icon btn-text-icon-add" ng-if="modalTableEditController.mayWrite" ng-click="modalTableEditController.addItem()">
+    <button class="btn-text-icon btn-text-icon-add" ng-if="modalTableEditController.mayWrite()" ng-click="modalTableEditController.addItem()">
         {{singleName}} toevoegen
     </button>
 </div>

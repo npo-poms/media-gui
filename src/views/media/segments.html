@@ -6,7 +6,7 @@
         <poms-help field="editor.segments"></poms-help>
     </h1>
 
-    <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite"
+    <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite()"
             ng-click="segmentsController.addSegment()">
         Segment toevoegen  {{::media.playable ? 'met speler' : 'zonder speler'}}
     </button>
@@ -28,7 +28,7 @@
 
         <tbody>
         <tr class="poms-table-row" ng-repeat="segment in segmentsController.segments"
-            ng-class="{'waiting': segmentsController.waiting, 'may-write': segmentsController.mayWrite, 'deleted-row': segment.workflow.id == ('FOR_DELETION' || 'DELETED') }"
+            ng-class="{'waiting': segmentsController.waiting, 'may-write': segmentsController.mayWrite(), 'deleted-row': segment.workflow.id == ('FOR_DELETION' || 'DELETED') }"
             ng-dblclick="segmentsController.view(segment)"
                 >
 
@@ -75,7 +75,7 @@
 
             </td>
 
-            <td class="column-tools-xl" ng-show="segmentsController.mayWrite">
+            <td class="column-tools-xl" ng-show="segmentsController.mayWrite()">
                 <div class="tools">
                     <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
                             ng-if="segmentsController.canItemize()"

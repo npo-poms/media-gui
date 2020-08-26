@@ -166,6 +166,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         }
                         var tab = {
                             active: false,
+                            reload: true,
                             id: item.mid,
                             item: {
                                 mid: item.mid,
@@ -176,17 +177,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             type: 'edit'
                         };
                         this.addTab( tab);
-                        this.mediaService.load( item.mid ).then(
-                            function ( media ) {
-                                tab.item = media;
-                            }.bind( this ),
-                            function ( error ) {
-                                if(error.status === 404) {
-                                    this.removeTab(_.findIndex(this.tabs, function(t) {
-                                        return t.id === tab.id;
-                                    }));
-                                }
-                            }.bind( this ))
                     }
                 }.bind( this ) );
 
@@ -260,32 +250,25 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             initTab: function ( tab ) {
                 this.$location.path( '/' + tab.type + '/' + tab.id );
-
                 if ( tab.type === 'edit' ) {
                     document.title = 'POMS - ' + (tab.item.mainTitle ? tab.item.mainTitle.text : "(no title)");
-
                     if ( tab.active && tab.reload ) {
+                        console.log("Reloading", tab);
                         tab.reload = false;
-
-                        this.mediaService.load( tab.id ).then(
-                            function ( media ) {
-
-                                angular.copy( media, tab.item );
-
-
-                            }.bind( this ),
-                            function ( error ) {
-                                if(error.status === 404) {
-                                    this.removeTab(_.findIndex(this.tabs, function(t) {
+                        this.mediaService.load(tab.id).then(
+                            function (media) {
+                                angular.copy(media, tab.item);
+                            }.bind(this),
+                            function (error) {
+                                if (error.status === 404) {
+                                    this.removeTab(_.findIndex(this.tabs, function (t) {
                                         return t.id === tab.id;
                                     }));
                                 }
-                            }.bind( this )
+                            }.bind(this)
                         );
-
                     }
-                }
-                else {
+                } else {
                     document.title = 'POMS - Zoek';
                 }
             },
@@ -385,7 +368,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openInfo: function () {
-                var modal = this.$modal.open( {
+                this.$modal.open( {
                     controller: 'InfoController',
                     controllerAs: 'infoController',
                     templateUrl: 'gui/modal-info.html',
@@ -394,8 +377,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openOwnerInfo: function(){
-
-                var modal = this.$modal.open( {
+                this.$modal.open( {
                     controller: 'OwnerInfoController',
                     controllerAs: 'controller',
                     templateUrl: 'gui/modal-owner-info.html',

@@ -19,7 +19,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
             this.guiService = GuiService;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
-            this.mayWrite = MediaService.hasWritePermission( $scope.media, 'segments' );
+            this.mayWrite = function() {
+                return MediaService.hasWritePermission( $scope.media, 'segments' );
+            }.bind(this);
 
             this.$scope.$on( this.pomsEvents.deleted, function ( e, mid ) {
                 if(mid === this.$scope.media.mid) {

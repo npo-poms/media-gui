@@ -1,10 +1,10 @@
 <div id="{{name}}-select"
      class="editfield-wrapper editfield-uiselect"
      ng-keyup="keyEvent($event)"
-     ng-click="ownedListsController.showEditElement($event, mayWrite)"
+     ng-click="ownedListsController.showEditElement($event, mayWrite())"
      ng-class="{ 'empty' : !ownedListsController.items.values.length,
-        'may-write' : ownedListsController.mayWrite,
-        'forbidden': !ownedListsController.mayWrite,
+        'may-write' : ownedListsController.mayWrite(),
+        'forbidden': !ownedListsController.mayWrite(),
         'opened' : ownedListsController.isOpen,
         'waiting': ownedListsController.waiting }"
      save-feedback >
@@ -46,7 +46,7 @@
     </div>
 
     <poms-edit-tools
-            may-write="ownedListsController.mayWrite"
+            may-write="ownedListsController.mayWrite()"
             may-remove-override="! ownedListsController.items.virtual && ownedListsController.items.owner.id === ownedListsController.currentOwnerType"
             delete-scope="ownedListsController"
             help-field="{{ownedListsController.helpField}}" >

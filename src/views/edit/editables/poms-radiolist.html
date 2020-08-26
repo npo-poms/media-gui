@@ -1,6 +1,6 @@
 <div class="editfield-wrapper editfield-checklist {{classes}}"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : !media[field], 'may-write' : mayWrite, 'opened' : isOpen  , 'forbidden': !mayWrite, 'waiting': waiting}"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite(), 'opened' : isOpen  , 'forbidden': !mayWrite(), 'waiting': waiting}"
      save-feedback
         >
 
@@ -13,7 +13,7 @@
        onshow="onShow()"
        onhide="onHide()"
        onbeforesave="save($data)"
-       ng-show="mayWrite"
+       ng-show="mayWrite()"
        blur="ignore"
        e-form="editElement"
        e-name="editvalue" >
@@ -23,11 +23,11 @@
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite">
+    <p class="editfield" ng-hide="mayWrite()">
         {{ media[field].text }}
     </p>
 
-    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 
 </div>

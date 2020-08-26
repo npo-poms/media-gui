@@ -51,7 +51,9 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
             this.isOpen = false;
             this.editFieldService = editFieldService;
-            this.mayWrite = mediaService.hasWritePermission( this.media, this.$scope.name );
+            this.mayWrite = function() {
+                return mediaService.hasWritePermission( this.media, this.$scope.name );
+            }.bind(this);
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
             this.currentOwnerType = editorService.getCurrentOwnerType();

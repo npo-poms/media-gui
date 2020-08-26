@@ -16,9 +16,13 @@ angular.module( 'poms.media.directives' )
                 $scope.media = media;
                 $scope.resetValue = angular.copy( $scope.media[$scope.field] );
 
-                $scope.mayRead = editService.hasReadPermission( media, $scope.field );
+                $scope.mayRead = function() {
+                    editService.hasReadPermission( media, $scope.field );
+                }.bind(this);
 
-                $scope.mayWrite = editService.hasWritePermission( media, $scope.field );
+                $scope.mayWrite = function() {
+                    return editService.hasWritePermission( media, $scope.field );
+                }.bind(this);
 
                 $scope.keyEvent = function ( event ) {
                     if ( event.keyCode === 27 ) {

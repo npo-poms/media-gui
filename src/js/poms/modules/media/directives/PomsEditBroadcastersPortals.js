@@ -21,8 +21,12 @@ angular.module( 'poms.media.directives' )
                 $scope.errorType = attrs.errortype || '';
                 $scope.isOpen = false;
                 $scope.media = media;
-                $scope.mayRead = editService.hasReadPermission( media, $scope.field );
-                $scope.mayWrite = editService.hasWritePermission( media, $scope.field );
+                $scope.mayRead = function() {
+                    editService.hasReadPermission( media, $scope.field );
+                }.bind(this);
+                $scope.mayWrite = function() {
+                    editService.hasWritePermission( media, $scope.field );
+                }.bind(this);
 
                 $scope.selectedItems = {};
                 $scope.selectedItems.selected = [];

@@ -14,8 +14,12 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
 
             this.mediaService = mediaService;
 
-            this.mayWrite = this.mediaService.hasWritePermission($scope.media, 'images');
-            this.mayUpload = this.mediaService.hasWritePermission($scope.media, 'imagesUpload');
+            this.mayWrite = function() {
+                return this.mediaService.hasWritePermission($scope.media, 'images');
+            }.bind(this);
+            this.mayUpload = function() {
+                return this.mediaService.hasWritePermission($scope.media, 'imagesUpload');
+            }.bind(this);
 
             this.server = "backend";
 

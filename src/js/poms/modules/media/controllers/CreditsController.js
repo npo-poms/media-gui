@@ -33,8 +33,12 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
             this.gtaaService = gtaaService;
 
 
-            this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
-            this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.permission );
+            this.mayWrite = function() {
+                return mediaService.hasWritePermission( $scope.media, $scope.permission );
+            }.bind(this);
+            this.mayRead = function() {
+                return mediaService.hasReadPermission( $scope.media, $scope.permission );
+            }.bind(this);
             this.currentOwnerType = editorService.getCurrentOwnerType();
 
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );

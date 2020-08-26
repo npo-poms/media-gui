@@ -1,7 +1,7 @@
 <div class="editfield-wrapper editfield-radiolist-icons {{field}}"
      ng-keyup="keyEvent($event, editElement)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : !media[field], 'may-write' : mayWrite, 'opened' : isOpen , 'forbidden': !mayWrite, 'waiting': waiting }"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite(), 'opened' : isOpen , 'forbidden': !mayWrite(), 'waiting': waiting }"
      save-feedback
         >
 
@@ -13,7 +13,7 @@
        onshow="onShow()"
        onhide="onHide()"
        onbeforesave="save($data)"
-       ng-show="mayWrite"
+       ng-show="mayWrite()"
        blur="ignore"
        e-form="editElement"
        e-name="editvalue"  >
@@ -22,10 +22,10 @@
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite" >
+    <p class="editfield" ng-hide="mayWrite()" >
         <span ng-if="media[field].iconClass != null" class="icon" title="{{media[field].text}}" ng-class="media[field].iconClass"></span>
     </p>
 
-    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 </div>

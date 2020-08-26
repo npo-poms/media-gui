@@ -3,14 +3,14 @@
         <poms-help field="editor.images"></poms-help>
     </h1>
 
-    <button id="addImage" class="btn-text-icon btn-text-icon-add" ng-if="imagesController.mayWrite && imagesController.mayUpload" ng-click="imagesController.addImage()">
+    <button id="addImage" class="btn-text-icon btn-text-icon-add" ng-if="imagesController.mayWrite() && imagesController.mayUpload()" ng-click="imagesController.addImage()">
         Afbeelding toevoegen
     </button>
 
     <table class="poms-table poms-table-images" ng-show="images.length > 0">
         <thead>
         <tr class="poms-table-head-row">
-            <th title="sorteer" class="poms-table-header column-sort" ng-if="imagesController.mayWrite &&  images.length > 1">&nbsp;</th>
+            <th title="sorteer" class="poms-table-header column-sort" ng-if="imagesController.mayWrite() &&  images.length > 1">&nbsp;</th>
 
             <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
                 <span title="{{column.value}}">
@@ -26,10 +26,10 @@
 
         <tbody ui-sortable="sortableOptions" ng-model="images">
         <tr class="poms-table-row" ng-repeat="image in images"
-            ng-class="{'waiting': imagesController.waiting, 'may-write': imagesController.mayWrite, 'deleted-row': image.workflow.id == ('FOR_DELETION' || 'DELETED')}"
-            ng-dblclick="imagesController.edit(image, imagesController.mayWrite)">
+            ng-class="{'waiting': imagesController.waiting, 'may-write': imagesController.mayWrite(), 'deleted-row': image.workflow.id == ('FOR_DELETION' || 'DELETED')}"
+            ng-dblclick="imagesController.edit(image, imagesController.mayWrite())">
 
-            <td class="column-sort" ng-if="::imagesController.mayWrite && images.length > 1">
+            <td class="column-sort" ng-if="::imagesController.mayWrite() && images.length > 1">
               <span class="sort-handle"></span>
             </td>
 
@@ -77,7 +77,7 @@
 
             </td>
 
-            <td class="column-tools" ng-show="::imagesController.mayWrite">
+            <td class="column-tools" ng-show="::imagesController.mayWrite()">
                 <div class="tools" >
                     <button name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
                     <button name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>

@@ -20,7 +20,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             this.searchService = SearchService;
             this.mediaService = mediaService;
 
-            this.mayWrite = this.mediaService.hasWritePermission( $scope.media, 'media' ) && this.$scope.type === 'episodes' ? this.mediaService.hasWritePermission( $scope.media, 'episodes' ) : this.mediaService.hasWritePermission( $scope.media, 'members' );
+            this.mayWrite = function() {
+                return this.mediaService.hasWritePermission( $scope.media, 'media' ) && this.$scope.type === 'episodes' ? this.mediaService.hasWritePermission( $scope.media, 'episodes' ) : this.mediaService.hasWritePermission( $scope.media, 'members' );
+            }.bind(this);
 
 
             this.$scope.waiting = false;
@@ -177,7 +179,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 return this.mediaService.hasDeletePermission( memberRef );
             },
             sortable: function(media) {
-                return this.mayWrite && (media.orderable || (this.$scope.type === 'episodes'));
+                return this.mayWrite() && (media.orderable || (this.$scope.type === 'episodes'));
             },
 
             addMember: function () {

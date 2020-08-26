@@ -1,21 +1,21 @@
 <div class="editfield-wrapper"
      ng-keyup="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : !media[field], 'may-write' : mayWrite,  'opened' : isOpen, 'forbidden': !mayWrite, 'waiting': waiting }"
-     ng-show="mayRead"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite(),  'opened' : isOpen, 'forbidden': !mayWrite(), 'waiting': waiting }"
+     ng-show="mayRead()"
      save-feedback
         >
 
     <h2 class="small-header"> {{header}} </h2>
 
     <p class="editfield" editable-bstime="media[field]" onbeforesave="save($data)" onshow="onShow()" onhide="onHide()"
-       blur="ignore" e-form="editElement" e-name="editvalue" ng-show="mayWrite">{{media[field] | date:'HH:mm:ss' }} </p>
+       blur="ignore" e-form="editElement" e-name="editvalue" ng-show="mayWrite()">{{media[field] | date:'HH:mm:ss' }} </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite">{{media[field] | date:'HH:mm:ss'}} </p>
+    <p class="editfield" ng-hide="mayWrite()">{{media[field] | date:'HH:mm:ss'}} </p>
 
-    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 
 </div>

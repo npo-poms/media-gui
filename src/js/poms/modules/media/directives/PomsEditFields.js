@@ -77,13 +77,17 @@ angular.module( 'poms.media.directives' )
 
                 $scope.currentOwnerType = editorService.getCurrentOwnerType();
 
-                $scope.mayRead = this.editService.hasReadPermission( $scope.media, $scope.field );
-                $scope.mayWrite = this.editService.hasWritePermission($scope.media, $scope.field);
+                $scope.mayRead = function() {
+                    this.editService.hasReadPermission( $scope.media, $scope.field );
+                }.bind(this);
+                $scope.mayWrite = function() {
+                    this.editService.hasWritePermission($scope.media, $scope.field);
+                }.bind(this);
                 if (! $scope.path) {
                     $scope.path = $scope.field;
                 }
-                $scope.mayRemoveOverride = mayRemoveOverride();
-                $scope.isEmpty = isEmpty();
+                $scope.mayRemoveOverride = mayRemoveOverride;
+                $scope.isEmpty = isEmpty;
 
                 $scope.classes = "";
                 $scope.titleclasses = "";
@@ -114,7 +118,7 @@ angular.module( 'poms.media.directives' )
                 }
 
                 function mayRemoveOverride () {
-                    return !isEmpty() && $scope.mayWrite && isCurrentOwner( $scope.media, $scope.field );
+                    return !isEmpty() && $scope.mayWrite() && isCurrentOwner( $scope.media, $scope.field );
                 }
 
 
@@ -299,7 +303,7 @@ angular.module( 'poms.media.directives' )
                         return;
                     }
 
-                    if ( $scope.mayWrite && ! $scope.editForm.$visible ) {
+                    if ( $scope.mayWrite() && ! $scope.editForm.$visible ) {
                         $scope.editForm.$show();
 
                         // prevent re-opening of element when clicked on save or cancel button
@@ -390,8 +394,6 @@ angular.module( 'poms.media.directives' )
                             deferred.resolve( false );
                             $scope.waiting = false;
                             $scope.mayRemoveOverride = mayRemoveOverride();
-                            $scope.isEmpty = isEmpty();
-
                             $scope.$emit( 'saved' );
                             $scope.nextField( element );
 

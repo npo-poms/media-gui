@@ -40,7 +40,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             this.pomsEvents = pomsEvents;
             this.mediaService = mediaService;
             this.editFieldService = editFieldService;
-            this.mayWrite = mediaService.hasWritePermission( $scope.media, $scope.permission );
+            this.mayWrite = function() {
+                return mediaService.hasWritePermission( $scope.media, $scope.permission );
+            }.bind(this);
 
             load( $scope, this.pomsEvents, this.values );
 
@@ -135,7 +137,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 this.waiting = true;
 
                 this.pushTemp();
-                
+
                 var data = this.selection;
                 var deferred = this.$q.defer();
 

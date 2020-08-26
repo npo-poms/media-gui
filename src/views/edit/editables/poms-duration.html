@@ -1,8 +1,8 @@
 <div class="editfield-wrapper editable-duration"
      ng-keyup="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : !media[field], 'may-write' : mayWrite,  'opened' : isOpen , 'forbidden': !mayWrite, 'waiting': waiting}"
-     ng-show="mayRead"
+     ng-class="{'empty' : !media[field], 'may-write' : mayWrite(),  'opened' : isOpen , 'forbidden': !mayWrite(), 'waiting': waiting}"
+     ng-show="mayRead()"
      save-feedback
         >
 
@@ -18,7 +18,7 @@
        blur="ignore"
        e-form="editElement"
        e-name="editvalue"
-       ng-show="mayWrite"
+       ng-show="mayWrite()"
        e-placeholder="hh:mm:ss"
        e-autocomplete="off">
         {{ formattedDuration(media[field]) }}
@@ -26,9 +26,9 @@
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite">{{ formattedDuration(media[field]) }}</p>
+    <p class="editfield" ng-hide="mayWrite()">{{ formattedDuration(media[field]) }}</p>
 
-    <poms-edit-tools may-write="mayWrite" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 
 </div>
