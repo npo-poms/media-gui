@@ -13,6 +13,7 @@ localhost=${localhost_fromsettings:-localhost}
 : ${API_SERVER:=$localhost}
 : ${API_SCHEME:=http}
 : ${API_HOST:=$API_SCHEME://$API_SERVER:$API_PORT}
+: ${PORT:=4000}
 
 D=$(dirname $BASH_SOURCE)
 DIR=`(cd $D ; pwd)`
@@ -31,7 +32,7 @@ fi
 
 echo "Using Media Backend API host $API_HOST"
 
-echo "Find frontend at $API_SCHEME://$localhost:4000"
+echo "Find frontend at $API_SCHEME://$localhost:${PORT}"
 echo "Making backup of $CONSTANTS"
 cp $CONSTANTS $DIR/constants.js.bu
 (cd $DIR ; npm_config_apihost=$API_HOST  $ARGS npm run $RUN)
