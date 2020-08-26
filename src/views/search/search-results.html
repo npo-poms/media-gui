@@ -51,7 +51,7 @@
         ng-class="{ selected: item.selected, disabled : !searchResultController.mayWrite(item),  'deleted-row': item.workflow.id == ('FOR_DELETION' || 'DELETED') }"
         ng-dblclick="searchResultController.selectResult(item)">
 
-      <td  class="checkbox-cell column-checkbox" ng-click="searchResultController.toggleSelect( item )">
+      <td  class="checkbox-cell column-checkbox" ng-click="searchResultController.toggleSelect( item , $event)">
         <input type="checkbox" ng-checked="item.selected" class="search-result-checkbox" >
       </td>
 

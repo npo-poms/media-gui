@@ -164,9 +164,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
-                        this.addTab( {
+                        var tab = {
                             active: false,
-                            reload: true,
                             id: item.mid,
                             item: {
                                 mid: item.mid,
@@ -175,16 +174,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                                 mainTitle: {text: item.title}
                             },
                             type: 'edit'
-                        } );
-
+                        };
+                        this.addTab( tab);
                         this.mediaService.load( item.mid ).then(
                             function ( media ) {
-                                this.addTab( {
-                                    active: true,
-                                    id: item.mid,
-                                    item: media,
-                                    type: 'edit'
-                                } );
+                                tab.item = media;
                             }.bind( this ),
                             function ( error ) {
                                 if(error.status === 404) {
@@ -196,7 +190,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }
                 }.bind( this ) );
 
-                tabs[tabs.length - 1].active = true;
             },
 
 
