@@ -101,7 +101,6 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 this.editFieldOpen = (element.isOpen ? true : false);
                 this.editField = element.field;
             } );
-
             angular.element( $window ).on( 'keydown', function ( e ) {
                 if ( this.editFieldOpen && e.keyCode === 27 ) {
                     $scope.$broadcast( 'closeEditField', { 'field' : this.editField } );
@@ -180,11 +179,23 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 MediaController.breadCrumbs( this.$scope, this.$scope.media );
 
                 this.initScrollSpy();
-                this.$scope.mayWrite = this.mediaService.hasWritePermission( this.$scope.media, 'media' );
-                this.$scope.mayDelete = this.mediaService.hasDeletePermission( this.$scope.media );
-                this.$scope.mayMerge = this.mediaService.hasMergePermission( this.$scope.media );
 
-                this.$scope.numberOfButtons = 0 + (! this.$scope.mayWrite) + this.$scope.mayDelete + this.$scope.mayMerge;
+                this.$scope.mayWrite = function() {
+                    return this.mediaService.hasWritePermission( this.$scope.media, 'media' );
+                }.bind(this);
+
+                console.log(this.$scope);
+                this.$scope.mayDelete = function () {
+                    return this.mediaService.hasDeletePermission( this.$scope.media );
+                }.bind(this);
+
+                this.$scope.mayMerge = function() {
+                    return this.mediaService.hasMergePermission( this.$scope.media );
+                }.bind(this);
+
+                this.$scope.numberOfButtons = function() {
+                    0 + (! this.$scope.mayWrite()) + this.$scope.mayDelete() + this.$scope.mayMerge();
+                }.bind(this)
                 //console.log("May write: ", this.$scope.mayWrite, "May delete:", this.$scope.mayDelete, "may Merge", this.$scope.mayMerge);
                 this.editorService.getAllowedBroadcasters().then(
                     function ( data ) {

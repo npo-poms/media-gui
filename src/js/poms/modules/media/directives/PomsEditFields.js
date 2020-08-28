@@ -78,11 +78,12 @@ angular.module( 'poms.media.directives' )
                 $scope.currentOwnerType = editorService.getCurrentOwnerType();
 
                 $scope.mayRead = function() {
-                    this.editService.hasReadPermission( $scope.media, $scope.field );
+                    return this.editService.hasReadPermission( $scope.media, $scope.field );
                 }.bind(this);
                 $scope.mayWrite = function() {
-                    this.editService.hasWritePermission($scope.media, $scope.field);
+                    return this.editService.hasWritePermission($scope.media, $scope.field);
                 }.bind(this);
+
                 if (! $scope.path) {
                     $scope.path = $scope.field;
                 }

@@ -148,7 +148,7 @@
     </div>
 
     <div class="footer-container media-footer-container" >
-        <div class="footer {{media.workflow.id}}" ng-class="{'no-edit': !mayWrite(), 'footer-one-button': numberOfButtons <= 1, 'footer-two-buttons': numberOfButtons > 1 }">
+        <div class="footer {{media.workflow.id}}" ng-class="{'no-edit': !mayWrite(), 'footer-one-button': numberOfButtons() <= 1, 'footer-two-buttons': numberOfButtons() > 1 }">
             <div class="footer-message">
                 <p>
                     Gemaakt op {{::media.creationDate | mediaDateTime}} door {{::media.createdBy.text}}  -
@@ -158,9 +158,9 @@
                 </p>
             </div>
 
-            <button class="btn-rect btn-rect-merge" ng-if="mayMerge" ng-click="mediaController.merge()">{{::media.type.text}} samenvoegen</button>
+            <button class="btn-rect btn-rect-merge" ng-if="mayMerge()" ng-click="mediaController.merge()">{{::media.type.text}} samenvoegen</button>
             <button class="btn-rect btn-rect-warning" ng-if="media.episodesLocked">Samenvoegen onmogelijk (op slot)</button>
-            <button class="btn-rect btn-rect-remove" ng-if="mayDelete" poms-confirm="::media.type.text" poms-submit="mediaController.delete()">{{::media.type.text}} verwijderen</button>
+            <button class="btn-rect btn-rect-remove" ng-if="mayDelete()" poms-confirm="::media.type.text" poms-submit="mediaController.delete()">{{::media.type.text}} verwijderen</button>
             <button class="btn-rect btn-rect-forbidden" ng-if="!mayWrite()"> Geen Edit Rechten</button>
         </div>
     </div>
