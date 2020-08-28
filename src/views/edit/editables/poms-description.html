@@ -1,8 +1,8 @@
 <div class="editfield-wrapper editfield-area"
      ng-keydown="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
-     ng-class="{'empty' : isEmpty, 'may-write' : mayWrite(), 'opened' : isOpen,  'forbidden': !mayWrite(), 'waiting': waiting  }"
-     ng-show="mayRead" save-feedback
+     ng-class="{'empty' : isEmpty(), 'may-write' : mayWrite(), 'opened' : isOpen,  'forbidden': !mayWrite(), 'waiting': waiting  }"
+     ng-show="mayRead()" save-feedback
         >
 
     <h2 class="small-header">{{TextfieldNames[field]}}
@@ -21,10 +21,12 @@
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
 
-    <p class="editfield" ng-hide="mayWrite()">{{media[field].text}} </p>
+   <p class="editfield" ng-hide="mayWrite()">{{media[field].text}} </p>
 
-    <poms-edit-tools may-write="mayWrite()" may-remove-override="mayRemoveOverride" help-field="editor.general.{{field}}"></poms-edit-tools>
 
+    <poms-edit-tools may-write="mayWrite()"
+                     may-remove-override="mayRemoveOverride()"
+                     help-field="editor.general.{{field}}"></poms-edit-tools>
 
 </div>
 

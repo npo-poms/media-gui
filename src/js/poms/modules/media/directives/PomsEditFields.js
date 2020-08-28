@@ -84,12 +84,17 @@ angular.module( 'poms.media.directives' )
                     return this.editService.hasWritePermission($scope.media, $scope.field);
                 }.bind(this);
 
+                $scope.isEmpty= function() {
+                    return  ! $scope.media[$scope.field] || angular.equals( {}, $scope.media[$scope.field] ) || ( $scope.media[$scope.field] && !$scope.media[$scope.field].text);
+                }.bind(this);
+
+                $scope.mayRemoveOverride = function() {
+                    return !$scope.isEmpty() && $scope.mayWrite() && isCurrentOwner( $scope.media, $scope.field );
+                }.bind(this);
+
                 if (! $scope.path) {
                     $scope.path = $scope.field;
                 }
-                $scope.mayRemoveOverride = mayRemoveOverride;
-                $scope.isEmpty = isEmpty;
-
                 $scope.classes = "";
                 $scope.titleclasses = "";
                 if (attrs.static) {
@@ -114,13 +119,6 @@ angular.module( 'poms.media.directives' )
                     return ( media[field] && media[field].owner && media[field].owner === $scope.currentOwnerType) ;
                 }
 
-                function isEmpty () {
-                    return ( ! $scope.media[$scope.field] || angular.equals( {}, $scope.media[$scope.field] ) || ( $scope.media[$scope.field] && !$scope.media[$scope.field].text));
-                }
-
-                function mayRemoveOverride () {
-                    return !isEmpty() && $scope.mayWrite() && isCurrentOwner( $scope.media, $scope.field );
-                }
 
 
                 if ( $scope.field === 'year' ) {
@@ -394,7 +392,6 @@ angular.module( 'poms.media.directives' )
 
                             deferred.resolve( false );
                             $scope.waiting = false;
-                            $scope.mayRemoveOverride = mayRemoveOverride();
                             $scope.$emit( 'saved' );
                             $scope.nextField( element );
 

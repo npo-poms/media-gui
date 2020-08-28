@@ -5,7 +5,7 @@
      'may-write' : creditsController.mayWrite() ,
      'forbidden' : !creditsController.mayWrite() ,
      'waiting': waiting}"
-     ng-show="creditsController.mayRead" save-feedback>
+     ng-show="creditsController.mayRead()" save-feedback>
 
     <h2 class="small-header"> {{header}} </h2>
 

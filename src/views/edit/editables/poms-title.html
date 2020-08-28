@@ -2,7 +2,7 @@
      ng-keydown="keyEvent($event, editElement, $form)"
      ng-click="showEditElement($event, editElement)"
      ng-class="{'empty' : isEmpty(), 'may-write' : mayWrite(), 'opened' : isOpen , 'forbidden': !mayWrite(), 'waiting': waiting}"
-     ng-show="mayRead"
+     ng-show="mayRead()"
      save-feedback
         >
     <h2 class="small-header">{{TextfieldNames[field]}}
@@ -24,7 +24,7 @@
 
     <p class="editfield" ng-hide="mayWrite()"> {{media[field].text}} </p>
 
-    <poms-edit-tools ng-if="helpField" may-write="mayWrite()" may-remove-override="mayRemoveOverride" help-field="{{helpField}}"></poms-edit-tools>
-    <poms-edit-tools ng-if="!helpField" may-write="mayWrite()" may-remove-override="mayRemoveOverride" help-field="editor.general.{{field}}"></poms-edit-tools>
+    <poms-edit-tools ng-if="helpField" may-write="mayWrite()" may-remove-override="mayRemoveOverride()" help-field="{{helpField}}"></poms-edit-tools>
+    <poms-edit-tools ng-if="!helpField" may-write="mayWrite()" may-remove-override="mayRemoveOverride()" help-field="editor.general.{{field}}"></poms-edit-tools>
 
 </div>

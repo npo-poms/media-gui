@@ -2,7 +2,7 @@
      ng-keyup="keyEvent($event, editElement, $data)"
      ng-click="showEditElement($event, editElement)"
      ng-class="{'empty' : !media[field], 'may-write' : mayWrite(),  'opened' : isOpen , 'forbidden': !mayWrite(), 'waiting': waiting} "
-     ng-show="mayRead"
+     ng-show="mayRead()"
      save-feedback>
 
     <h2 class="small-header"> {{header}} </h2>

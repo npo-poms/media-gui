@@ -10,7 +10,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             scope.load().then(
                 function ( data ) {
                     angular.copy( data.entries, dest.items );
-                    dest.mayWrite = data.mayWrite;
+                    // why is this?
+                    dest.mayWrite = function() {
+                        return data.mayWrite;
+                    };
                 },
                 function ( error ) {
                     scope.$emit( pomsEvents.error, error )
@@ -32,7 +35,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             this.media = $scope.media;
             this.pomsEvents = pomsEvents;
             this.mediaService = mediaService;
-            this.mayRead = mediaService.hasReadPermission( $scope.media, $scope.field );
+            this.mayRead = function() {
+                return mediaService.hasReadPermission( $scope.media, $scope.field );
+            }.bind(this);
+            this.mayWrite = function() {
+                return mediaService.hasWritePermission($scope.media, $scope.field );
+            }.bind(this);
+
             load( $scope, this.pomsEvents, this);
 
             $scope.options().then(
@@ -162,7 +171,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
 
             showEditElement: function () {
 
-                if ( this.mayWrite ) {
+                if ( this.mayWrite) {
                     this.$scope.modal = this.$modal.open( {
                         scope: this.$scope,
                         templateUrl: 'edit/editables/poms-table-restrictions.html',
