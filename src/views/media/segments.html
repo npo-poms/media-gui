@@ -58,15 +58,16 @@
                 </span>
 
                 <span ng-switch-when="start" class="segment-start">
-                   <span title="{{::segment.start | mediaDuration}}">{{::segment.start.inMillis | mediaDuration}}</span>
+                   <span title="{{::segment.start.isoString}}">{{::segment.start.string}}</span>
                 </span>
 
                 <span ng-switch-when="stop" class="segment-stop">
-                  <span title="{{::segment.stop | mediaDuration}}"> {{::segment.stop.inMillis | mediaDuration}}</span>
+
+                  <span title="{{::segment.stop.isoString}}"> {{::segment.stop.string}}</span>
                 </span>
 
                 <span ng-switch-when="duration" class="segment-duration">
-                   <span title="{{::segment.duration | mediaDuration}}"> {{::segment.duration.inMillis | mediaDuration}}</span>
+                   <span title="{{::segment.duration.isoString}}"> {{::segment.duration.string}}</span>
                 </span>
 
                 <span ng-switch-default>
