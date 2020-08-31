@@ -194,7 +194,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 }.bind(this);
 
                 this.$scope.numberOfButtons = function() {
-                    0 + (! this.$scope.mayWrite()) + this.$scope.mayDelete() + this.$scope.mayMerge();
+                    return 0 + (! this.$scope.mayWrite()) + this.$scope.mayDelete() + this.$scope.mayMerge();
                 }.bind(this)
                 //console.log("May write: ", this.$scope.mayWrite, "May delete:", this.$scope.mayDelete, "may Merge", this.$scope.mayMerge);
                 this.editorService.getAllowedBroadcasters().then(
