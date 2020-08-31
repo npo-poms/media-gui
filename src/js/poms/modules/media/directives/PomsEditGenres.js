@@ -17,7 +17,7 @@ angular.module( 'poms.media.directives' )
                 $scope.preSelectedItems = [];
                 $scope.isOpen = false;
                 $scope.mayWrite = function() {
-                    return mediaService.hasWritePermission( media, 'GENRE_WRITE' );
+                    return mediaService.hasGenrePermission( media);
                 }.bind(this);
 
                 function load ( media, dest ) {

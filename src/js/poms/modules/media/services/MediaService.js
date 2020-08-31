@@ -114,6 +114,9 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             hasMergePermission: function ( media ) {
                 return media.permissions[ 'MERGE' ];
             },
+            hasGenrePermission: function(media) {
+                return media.permissions['GENRE_WRITE'];
+            },
 
             create: function ( source ) {
                 var deferred = $q.defer();
