@@ -22,10 +22,10 @@ angular.module( 'poms.media.directives' )
                 $scope.isOpen = false;
                 $scope.media = media;
                 $scope.mayRead = function() {
-                    editService.hasReadPermission( media, $scope.field );
+                    return editService.hasReadPermission( media, $scope.field );
                 }.bind(this);
                 $scope.mayWrite = function() {
-                    editService.hasWritePermission( media, $scope.field );
+                    return editService.hasWritePermission( media, $scope.field );
                 }.bind(this);
 
                 $scope.selectedItems = {};

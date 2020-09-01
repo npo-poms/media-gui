@@ -17,7 +17,7 @@ angular.module( 'poms.media.directives' )
                 $scope.resetValue = angular.copy( $scope.media[$scope.field] );
 
                 $scope.mayRead = function() {
-                    editService.hasReadPermission( media, $scope.field );
+                    return editService.hasReadPermission( media, $scope.field );
                 }.bind(this);
 
                 $scope.mayWrite = function() {

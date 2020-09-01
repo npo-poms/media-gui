@@ -37,7 +37,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 return mediaService.hasWritePermission( $scope.media, $scope.permission );
             }.bind(this);
             this.mayRead = function() {
-                mediaService.hasReadPermission( $scope.media, $scope.permission );
+                return mediaService.hasReadPermission( $scope.media, $scope.permission );
             }.bind(this);
             this.currentOwnerType = editorService.getCurrentOwnerType();
 
