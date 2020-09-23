@@ -15,7 +15,7 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
                 status = status || "success";
                 var id = args.id ? "notification_" + status + "_" + args.id : null;
                 var existing = document.querySelector( '.' + id);
-                console.log(message, status, args, id);
+                //console.log(message, status, args, id);
                 if (existing != null) {
                     existing.innerHTML = message;
                 } else {
