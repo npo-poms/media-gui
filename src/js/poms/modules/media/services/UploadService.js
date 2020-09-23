@@ -144,7 +144,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                             "mid": media.mid,
                             "fileName": location.file[0].name,
                             "status": "uploadFinished",
-                            "message": data.message
+                            "message": data.message ? data.message : JSON.stringify(data)
                         };
 
                         this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );
