@@ -52,14 +52,18 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
                     }
                 }
                 if (json.receiverId == null || json.receiverId === editorService.getCurrentEditor().id) {
-                    notificationService.notify(
-                        json.text,
-                        json.level === 'INFO' ? 'success' : 'error',
-                        {
-                            timeout: json.duration * 1000,
-                            id : json.id
-                        }
-                    );
+                    var debug = json.levelInt < 20;
+                    console.log(json);
+                    if (! debug) {
+                        notificationService.notify(
+                            json.text,
+                            json.levelInt > 20 ? 'error' : 'success',
+                            {
+                                timeout: json.duration * 1000,
+                                id: json.id
+                            }
+                        );
+                    }
                 }
             }.bind(this) );
 
