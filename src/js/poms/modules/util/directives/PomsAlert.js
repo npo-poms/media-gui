@@ -10,22 +10,31 @@ angular.module( 'poms.util.directives' )
                     if (! error) {
                         return;
                     }
-                    switch (error.code) {
-                        case 'nl.vpro.exception.circularReference':
+
+                    switch (error.cause) {
+                        case 'CIRCULAR_REFERENCE':
                             template = 'util/modal-error/circular.html';
                             break;
-                        case 'nl.vpro.exception.constraintViolation':
+
+                        case 'CONSTRAINT_VIOLATION':
                             template = 'util/modal-error/violation.html';
                             break;
-                        case 'nl.vpro.notFound':
-                            // Because the status code will be 404, this code is never hit.
+
+                        case 'NOT_FOUND':
                             type = error.type;
                             console && console.log("Not found of type", type, error.message);
                             template = null;
                             break;
+
+                        case 'NEP_EXCEPTION':
+                            template = 'util/modal-error/nep.html';
+                            break;
+
                         default:
                             template = 'util/modal-error/default.html';
+                            break;
                     }
+
                     if (template) {
                         var modal = $modal.open({
                             controller: 'AlertController',

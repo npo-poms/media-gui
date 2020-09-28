@@ -169,7 +169,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                             $scope.targetTypesObjects.push(value);
                         }
                     }.bind(this));
-                    //console.log(this.targetTypesObjects);
+                    // console.log(this.targetTypesObjects);
                 }.bind( this ),
                 function (error) {
                     $scope.$emit( pomsEvents.error, error )
