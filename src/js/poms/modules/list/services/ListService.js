@@ -3,7 +3,6 @@ angular.module('poms.list.services').factory('ListService', [
     '$http',
     'appConfig',
     function($q, $http, appConfig) {
-
         var GET_CONFIG = {
             cache: true
         };
@@ -24,6 +23,7 @@ angular.module('poms.list.services').factory('ListService', [
 
 
         function ListService() {
+
         }
 
         ListService.prototype = {

@@ -175,7 +175,6 @@
 
       </div>
 
-
       <poms-editable
               type="media"
               media="media"
@@ -183,6 +182,7 @@
               fieldtype="radiolist"
               static="true"
               options="targetTypesObjects"
+              ng-click="editController.loadTargetTypes()"
               header="Type" field="type" help-field="editor.general.type"></poms-editable>
 
 
