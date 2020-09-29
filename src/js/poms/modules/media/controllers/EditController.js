@@ -63,8 +63,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 }.bind( this )
             );
 
-
-
             listService.getPortals().then(
                 function ( data ) {
                     this.portals = data;
@@ -156,26 +154,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     $scope.$emit( pomsEvents.error, error )
                 }.bind( this )
             );
-            listService.getMediaTypes().then(
-                function ( data ) {
-                    var mediaTypes = data;
-                    $scope.targetTypesObjects = [];
-                    if (this.media === undefined) { // happens in test cases....
-                        $scope.$emit(pomsEvents.error, "No media object");
-                        return;
-                    }
-                    angular.forEach(mediaTypes, function (value, key) {
-                        if (this.media.targetTypes && this.media.targetTypes.indexOf(value.id) !== -1) {
-                            $scope.targetTypesObjects.push(value);
-                        }
-                    }.bind(this));
-                    // console.log(this.targetTypesObjects);
-                }.bind( this ),
-                function (error) {
-                    $scope.$emit( pomsEvents.error, error )
-                }.bind( this )
-            );
-
 
             $scope.$on( 'nextField', function( e ){
                 var nextElement = angular.element('.media-field[field="'+ e.targetScope.field +'"]').next('.media-field') ;
@@ -196,11 +174,18 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     this.$scope.$broadcast('openElement', { field : nextElement.attr('field')} );
                 }
             }.bind(this) );
+
+            this.listService = listService;
+            this.scope = $scope;
         }
 
         EditController.prototype = {
 
             showMid: true,
+
+            listService: null,
+
+            scope: null,
 
             allowedBroadcasters: [],
 
@@ -219,6 +204,27 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             nets:[] ,
 
             languages: [],
+
+            loadTargetTypes: function () {
+                this.listService.getMediaTypes().then(
+                    function ( data ) {
+                        var mediaTypes = data;
+                        this.scope.targetTypesObjects = [];
+                        if (this.media === undefined) { // happens in test cases....
+                            this.scope.$emit(pomsEvents.error, "No media object");
+                            return;
+                        }
+                        angular.forEach(mediaTypes, function (value, key) {
+                            if (this.media.targetTypes && this.media.targetTypes.indexOf(value.id) !== -1) {
+                                this.scope.targetTypesObjects.push(value);
+                            }
+                        }.bind(this));
+                    }.bind( this ),
+                    function (error) {
+                        $scope.$emit( pomsEvents.error, error )
+                    }.bind( this )
+                )
+            },
 
             toggleShowMid: function () {
                 this.showMid = ! this.showMid;
