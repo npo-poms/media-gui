@@ -155,6 +155,9 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
 
                     .error( function ( data, status, headers, config ) {
+                        this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, {
+                            "cause": "NEP_EXCEPTION"
+                        } );
 
                         var newUpload = {
                             "mid": media.mid,
@@ -163,7 +166,6 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                             "message": data.message
                         };
 
-                        this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );
                         this.notify( newUpload );
 
                         this.removeUpload( media.mid );
