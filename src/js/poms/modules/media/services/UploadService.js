@@ -155,19 +155,18 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
 
                     .error( function ( data, status, headers, config ) {
-                        this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, {
-                            "cause": "NEP_EXCEPTION"
-                        } );
+                        if (data.cause === 'NEP_EXCEPTION') {
+                            this.$rootScope.$emit(this.pomsEvents.error, data);
+                        } else {
+                            var newUpload = {
+                                "mid": media.mid,
+                                "fileName": location.file[0].name,
+                                "status": "uploadError",
+                                "message": data.message
+                            };
 
-                        var newUpload = {
-                            "mid": media.mid,
-                            "fileName": location.file[0].name,
-                            "status": "uploadError",
-                            "message": data.message
-                        };
-
-                        this.notify( newUpload );
-
+                            this.notify(newUpload);
+                        }
                         this.removeUpload( media.mid );
                     }.bind( this ) );
 
