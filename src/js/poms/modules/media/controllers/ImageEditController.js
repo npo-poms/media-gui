@@ -267,7 +267,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             date: metadata.date,
                             credits: metadata.credits
                         });
-                        this.setPreview(this.infoService.getImageBackendUrl() + "api/images/thumb/" + metadata.uploadId);
+                        this.setPreview(this.infoService.getImageBackendUrl() + "api/images/thumb/" + metadata.uploadId + "?access_token=" + editor.keycloakToken);
                     }.bind(this),
                     function (error) {
                         mes = error.statusText;
