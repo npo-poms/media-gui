@@ -4,7 +4,7 @@
   <groupId>nl.vpro.media</groupId>
   <artifactId>media-gui</artifactId>
   <packaging>war</packaging>
-  <version>5.20-SNAPSHOT</version>
+  <version>5.21-SNAPSHOT</version>
   <name>media-gui</name>
 
   <scm>
