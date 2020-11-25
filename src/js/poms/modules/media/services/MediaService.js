@@ -202,7 +202,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 if ( !data ) {
                     return del( media, '/duration/' );
                 }
-                return post( media, '/duration', { 'duration': data } );
+                return post( media, '/duration', { 'string': data } );
             },
 
             setEmbeddable: function ( media, embeddable ) {
