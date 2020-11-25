@@ -250,21 +250,6 @@ angular.module( 'poms.media.directives' )
                         return; // no change
                     }
 
-                    if ( $scope.field === "duration") {
-                        if (data) {
-                            data = $filter( 'noTimezone' )( data ).getTime();
-                        } else if (data === undefined) {
-                            // Using date object for duration _makes no sense whatsoever!!
-                            $scope.editForm.$editables[0].scope.$data = $scope.media['duration'];
-                            $scope.waiting = false;
-                            $scope.nextField(element);
-                            return; // no valid data found
-                        } else if (!data) {
-                            $scope.editForm.$editables[0].scope.$data = null;
-                        }
-
-                    }
-
                     // returning a string instead of object sets an error message in the x-editable component
                     return this.process( $scope.media, data );
 
@@ -315,21 +300,6 @@ angular.module( 'poms.media.directives' )
                             $scope.editForm.$editables[0].scope.$data = $scope.getLexico($scope.media['mainTitle'].text);
                         }
                     }
-                };
-                $scope.formattedDuration = function (duration) {
-                    if (duration) {
-                        if (duration.inMillis) {
-
-                            var forEdit = dateForEdit(duration.inMillis);
-                            if ($scope.editableDuration == null || forEdit.getTime() !== $scope.editableDuration.getTime()) {
-                                $scope.editableDuration = forEdit;
-                            }
-                        }
-                        return formatDateForDisplay(duration.inMillis);
-                    } else {
-                        return "";
-                    }
-
                 };
 
                 $scope.blurredSave = function ( e ) {

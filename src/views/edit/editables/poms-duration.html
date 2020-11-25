@@ -9,7 +9,7 @@
     <h2 class="small-header"> {{header}} (hh:mm:ss)</h2>
 
     <p class="editfield"
-       editable-time="editableDuration"
+       editable-text="media[field].string"
        e-step="1"
        e-show-meridian="false"
        onbeforesave="save($data)"
@@ -19,14 +19,14 @@
        e-form="editElement"
        e-name="editvalue"
        ng-show="mayWrite()"
-       e-placeholder="hh:mm:ss"
+       e-placeholder="{{durationPlaceholder}}"
        e-autocomplete="off">
-        {{ formattedDuration(media[field]) }}
+        {{ media[field].string }}
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>
 
-    <p class="editfield" ng-hide="mayWrite()">{{ formattedDuration(media[field]) }}</p>
+    <p class="editfield" ng-hide="mayWrite()">{{ media[field].string }}</p>
 
     <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
