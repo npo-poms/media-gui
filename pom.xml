@@ -11,7 +11,7 @@
     <connection>scm:git:https://git.vpro.nl/npo/media-gui.git</connection>
     <developerConnection>scm:git:https://git.vpro.nl/npo/media-gui.git</developerConnection>
     <url>https://git.vpro.nl/npo/media-gui</url>
-    <tag>HEAD</tag>
+    <tag>REL-5.21-SNAPSHOT</tag>
   </scm>
 
   <build>
