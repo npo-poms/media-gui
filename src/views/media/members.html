@@ -6,7 +6,7 @@
         <poms-help field="{{helpField}}"></poms-help>
     </h1>
 
-    <button id="addMember" class="btn-text-icon btn-text-icon-add" ng-if="membersController.mayWrite" ng-click="membersController.addMember()">
+    <button id="addMember" class="btn-text-icon btn-text-icon-add" ng-if="membersController.mayWrite()" ng-click="membersController.addMember()">
         Onderdeel toevoegen
     </button>
 
@@ -31,7 +31,7 @@
 
         <tbody ui-sortable="sortableOptions" ng-model="members">
         <tr class="poms-table-row" ng-repeat="member in members  | limitTo: displayQuantity"
-            ng-class="{ 'editing': rowform.$visible, 'may-write': membersController.mayWrite, 'deleted-row': member.workflow.id == ('FOR_DELETION' || 'DELETED'), 'not-sortable': member.number == null }"
+            ng-class="{ 'editing': rowform.$visible, 'may-write': membersController.mayWrite(), 'deleted-row': member.workflow.id == ('FOR_DELETION' || 'DELETED'), 'not-sortable': member.number == null }"
             ng-dblclick="membersController.openInEditor( $event, member.mid, rowform )"
             >
 
@@ -59,7 +59,7 @@
 
                 <span title="volgnummer" ng-switch-when="number"  >
                     <span ng-if="media.ordered" editable-number="::member.number" e-name="number" e-form="rowform"
-                          ng-click="membersController.mayWrite && membersController.edit(rowform, $event)">
+                          ng-click="membersController.mayWrite() && membersController.edit(rowform, $event)">
                         {{::member.number || '-'}}
                     </span>
                 </span>
@@ -123,13 +123,11 @@
         <a> Toon alle {{members.length}} {{::header | lowercase}} </a>
     </div>
 
-   <span ng-if="type=='members' && media.orderable" >
+    <span ng-if="type=='members' && media.orderable">
         <label class='media-toggle-ordered'>
-            <input ng-disabled="!membersController.mayWrite" type="checkbox" ng-model="media.ordered" ng-change="membersController.toggleOrdered()"> Geordende lijst
+            <input ng-disabled="!membersController.mayWrite()" type="checkbox" ng-model="media.ordered" ng-change="membersController.toggleOrdered()"> Geordende lijst
             <poms-help field="editor.members.ordered"></poms-help>
-
         </label>
-
     </span>
 
 </div>
