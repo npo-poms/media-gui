@@ -91,7 +91,7 @@
                 </span>
             </li>
             <li class='media-item-navigation-link'
-                ng-if="::media.hasEpisodes"
+                ng-if="::media.episodes"
                 ng-class="{'active' : mediaController.activeSection == 'episodes' }"
                 ng-click="mediaController.goTo('episodes')">
 
@@ -100,7 +100,7 @@
                 </span>
             </li>
             <li class='media-item-navigation-link'
-                ng-if="::media.hasMembers"
+                ng-if="::media.members"
                 ng-class="{'active' : mediaController.activeSection == 'members' }"
                 ng-click="mediaController.goTo('members')">
 
@@ -133,13 +133,13 @@
 
             <poms-locations media="media" locations-waiting='locationsWaiting' section="{{::mediaController.sectionId('locations')}}"></poms-locations>
 
-            <poms-members  type="{{'episodes'}}" item="media" header="Afleveringen" media="media" section="{{::mediaController.sectionId('episodes')}}" ng-if="::media.hasEpisodes" help-field="editor.episodes"></poms-members>
+            <poms-members  type="{{'episodes'}}" item="media" header="Afleveringen" media="media" section="{{::mediaController.sectionId('episodes')}}" ng-if="::media.episodes" help-field="editor.episodes"></poms-members>
 
             <poms-members type="{{'members'}}" item="media"
                           header="Onderdelen"
                           media="media"
                           section="{{::mediaController.sectionId('members')}}"
-                          ng-if="::media.hasMembers"
+                          ng-if="::media.members"
                           help-field="editor.members"></poms-members>
 
             <poms-relations media="media" section="{{::mediaController.sectionId('relations')}}"></poms-relations>
