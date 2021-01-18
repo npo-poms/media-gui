@@ -32,7 +32,14 @@ npm: 6.10.1
 -  Directives are prefixed with poms, e.g. pomsGreeter equals poms-greeter (in file Greeter.js)
 
 ## Run backend and frontend together
-Checkout poms and follow the instruction to run it on your local machine
+Checkout poms and follow the instruction to run it on your local machine. Then:
+
+1. Run backend server on port 8071
+2. Run `NPM_CONFIG_APIHOST=http://localhost:8071 && npm run watch:dev`
+3. Go to `http://localhost:8071/` to trigger the login process via the backand server 
+3. Go to `http://localhost:port` to debug the frontend application 
+                                                                        
+Or a bit more fancy:
 
 1. Run backend server on port 8071
 2. Run frontend

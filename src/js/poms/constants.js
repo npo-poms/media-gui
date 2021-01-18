@@ -1,3 +1,3 @@
 'use strict';
 angular.module('poms.constants', [])
-    .constant('appConfig', {"apihost":"","imagesapihost":"/images/api"});
+  .constant('appConfig', {"apihost":"","imagesapihost":"/images/api"});
