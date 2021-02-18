@@ -363,10 +363,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                     }, 6)
                                 } else {
                                     // holdup chief
-                                    if (message.workflowExecution.status == "RUNNING") {
-                                        document.getElementById("itemizer-state-" + id).innerHTML = "Aan het verwerken.."
-                                    } else {
-                                        document.getElementById("itemizer-state-" + id).innerHTML = "Er is iets fout gegaan"
+                                    var messageHtml = document.getElementById("itemizer-state-" + id);
+                                    messageHtml.innerHTML =  message.status;
+                                    if (message.statusMessage) {
+                                        messageHtml.innerHTML += ": " + message.statusMessage;
                                     }
                                 }
                             }
