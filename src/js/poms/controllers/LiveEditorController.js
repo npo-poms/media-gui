@@ -340,11 +340,13 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                             // check if we follow this id, because we might not (yet)
                             if (this.itemizerTasks[id] != null) {
                                 console.log("updating subscribed item")
+                                var messageHtml = document.getElementById("itemizer-state-" + id);
+                                messageHtml.setAttribute("title", 'gestart op: ' + this.getTimeInAmsterdamAsString(message.issuedAt, "HH:mm:ss") + " gecheckt op "  + this.getTimeInAmsterdamAsString(message.checkedAt, "HH:mm:ss"));
                                 if (message.readyForDownload) {
                                     // button! fancy, yes
                                     var link = this.itemizerTasks[id];
-                                    document.getElementById("itemizer-state-" + id).innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
-                                    document.getElementById("itemizer-state-" + id).innerHTML += "<button id='itemizer-delete-"+id+"' class=\"live-editor-button\">Verwijderen</button>"
+                                    messageHtml.innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
+                                    messageHtml.innerHTML += "<button id='itemizer-delete-"+id+"' class=\"live-editor-button\">Verwijderen</button>"
 
                                     setTimeout(function () {
 
@@ -362,8 +364,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                         }
                                     }, 6)
                                 } else {
-                                    // holdup chief
-                                    var messageHtml = document.getElementById("itemizer-state-" + id);
                                     messageHtml.innerHTML =  message.status;
                                     if (message.statusMessage) {
                                         messageHtml.innerHTML += ": " + message.statusMessage;
