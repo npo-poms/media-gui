@@ -6,9 +6,10 @@
         <poms-help field="editor.segments"></poms-help>
     </h1>
 
-    <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite()"
+    <button id="addSegment" class="btn-text-icon btn-text-icon-add"
+            ng-if="segmentsController.mayWrite()"
             ng-click="segmentsController.addSegment()">
-        Segment toevoegen  {{::media.playable ? 'met speler' : 'zonder speler'}}
+        Segment toevoegen  {{::segmentsController.canItemize() ? 'met speler' : 'zonder speler'}}
     </button>
 
     <table class="poms-table" ng-show="segmentsController.segments.length > 0"
