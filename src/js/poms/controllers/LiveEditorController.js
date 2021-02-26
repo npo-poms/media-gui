@@ -391,7 +391,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
             },
 
-            scrubberLetGo: function(element, element) {
+            scrubberLetGo: function() {
                 document.getElementById("scrubber").value = 0;
             },
 
@@ -410,11 +410,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 var scrubber = document.getElementById("scrubber");
                 var scrubberPosition = scrubber.value;
                 var frames = Math.abs(scrubberPosition * Math.round(scrubberPosition / 2));
-                if (frames == 0) frames = 1;
+                if (frames === 0) frames = 1;
                 var offset = frames * 40;
 
                 var display = document.getElementById("scrubber-timer");
-                if (scrubberPosition == 0) {
+                if (scrubberPosition === 0) {
                     display.innerText = "scrubber voor fine-tuning";
                     return;
                 }
