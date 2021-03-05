@@ -109,7 +109,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
             },
 
             canItemize: function() {
-                return this.$scope.media.playable;
+                return this.$scope.media.itemizable;
             },
 
             editRef: function ( mid ) {
