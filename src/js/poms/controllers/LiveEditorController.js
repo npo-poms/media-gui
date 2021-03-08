@@ -408,7 +408,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     instance = this
                 }
                 var scrubber = document.getElementById("scrubber");
-                var scrubberPosition = scrubber.value;
+                var scrubberPosition = parseFloat(scrubber.value);
                 var frames = Math.abs(scrubberPosition * Math.round(scrubberPosition / 2));
                 if (frames === 0) frames = 1;
                 var offset = frames * 40;
