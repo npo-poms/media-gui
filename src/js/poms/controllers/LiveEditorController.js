@@ -280,12 +280,14 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         }
                     }
                 };
-
-                // Attach protection data to mediaplayer
-                this.mediaPlayer.setProtectionData( protectionData );
-
-                // Attach manifest to mediaplayer
-                this.mediaPlayer.attachSource( data.stream );
+                if (this.mediaPlayer) {
+                    // Attach protection data to mediaplayer
+                    this.mediaPlayer.setProtectionData(protectionData);
+                    // Attach manifest to mediaplayer
+                    this.mediaPlayer.attachSource(data.stream);
+                } else {
+                    console.log("No media player yet");
+                }
 
 
             },
@@ -425,11 +427,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                     if (scrubberPosition > 0) {
                         var nextPoint = instance.videoElement.currentTime + offset / 1000;
                         if (nextPoint > instance.videoElement.duration) return;
-                        instance.videoElement.currentTime += offset / 1000;
+                        instance.videoElement.currentTime = nextPoint;
                     } else {
-                        var nextPoint = instance.videoElement.currentTime - offset / 1000;
-                        if (nextPoint > instance.videoElement.duration) return;
-                        instance.videoElement.currentTime -= offset / 1000;
+                        var previousPoint = instance.videoElement.currentTime - offset / 1000;
+                        if (previousPoint > instance.videoElement.duration) return;
+                        instance.videoElement.currentTime = previousPoint;
                     }
                 }
 
