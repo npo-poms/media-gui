@@ -397,7 +397,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 document.getElementById("scrubber").value = 0;
             },
 
-            scubberClick: function() {
+            scrubberClick: function() {
                 this.lastMouseDown = new Date().getTime();
                 var instance = this;
                 setTimeout(function() {
@@ -411,8 +411,11 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
                 var scrubber = document.getElementById("scrubber");
                 var scrubberPosition =  parseFloat(scrubber.value);
+                // frames =
                 var frames = Math.abs(scrubberPosition * Math.round(scrubberPosition / 2));
-                if (frames === 0) frames = 1;
+                if (frames === 0.0) {
+                    frames = 1;
+                }
                 var offset = frames * 40;
 
                 var display = document.getElementById("scrubber-timer");
@@ -430,7 +433,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         instance.videoElement.currentTime = nextPoint;
                     } else {
                         var previousPoint = instance.videoElement.currentTime - offset / 1000;
-                        if (previousPoint > instance.videoElement.duration) return;
+                        if (previousPoint > instance.videoElement.duration) return; // this seems to be impossible?
                         instance.videoElement.currentTime = previousPoint;
                     }
                 }
