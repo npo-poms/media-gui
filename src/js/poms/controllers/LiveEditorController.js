@@ -49,10 +49,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             init : function () {
 
                 this.subscribeToItemizerMessages();
-                var mirror = this;
-                setTimeout(function () {
-                    mirror.startScrubber(mirror);
-                }, 100)
+                setTimeout(this.startScrubber.bind(this), 100);
 
                 this.listService.getLivestreams().then(
                     function ( data ) {
@@ -77,19 +74,21 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
 
             },
 
-            startScrubber: function(instance) {
-                instance.scrubberTask = setInterval(function () {
-                    instance.updateScrubber(instance)
-                }, 250);
+            startScrubber: function() {
+                // 4 times a second update scrubber
+                this.scrubberTask = setInterval(this.updateScrubber.bind(this), 250);
             },
 
-            updateScrubber: function(instance) {
+            updateScrubber: function() {
                 var scrubber = document.getElementById("scrubber");
                 if (scrubber == null) {
-                    clearInterval(instance.scrubberTask);
+                    clearInterval(this.scrubberTask);
                     return;
                 }
-                if (new Date().getTime() - instance.lastMouseDown > 1000) instance.tickScrubber(instance);
+                // at least a second passed
+                if (new Date().getTime() - this.lastMouseDown > 1000) {
+                    this.tickScrubber();
+                }
             },
 
             setupWatchers : function() {
@@ -280,12 +279,14 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                         }
                     }
                 };
-
-                // Attach protection data to mediaplayer
-                this.mediaPlayer.setProtectionData( protectionData );
-
-                // Attach manifest to mediaplayer
-                this.mediaPlayer.attachSource( data.stream );
+                if (this.mediaPlayer) {
+                    // Attach protection data to mediaplayer
+                    this.mediaPlayer.setProtectionData(protectionData);
+                    // Attach manifest to mediaplayer
+                    this.mediaPlayer.attachSource(data.stream);
+                } else {
+                    console.log("No media player yet");
+                }
 
 
             },
@@ -362,7 +363,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                             var element = document.getElementById("itemizer-row-" + id);
                                             element.parentNode.removeChild(element);
                                         }
-                                    }, 6)
+                                    }.bind(this), 6)
                                 } else {
                                     messageHtml.innerHTML =  message.status;
                                     if (message.statusMessage) {
@@ -395,48 +396,59 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 document.getElementById("scrubber").value = 0;
             },
 
-            scubberClick: function() {
+            scrubberClick: function() {
                 this.lastMouseDown = new Date().getTime();
-                var instance = this;
-                setTimeout(function() {
-                    instance.tickScrubber(instance)
-                }, 50)
+                setTimeout(this.tickScrubber.bind(this), 50);
             },
 
-            tickScrubber: function(instance) {
-                if (instance == null) {
-                    instance = this
+            positionToFramesPerSecond: function(scrubberPosition) {
+                var framesExponent = 2;
+                var framesFactor = 0.5;
+                // exponentially more frames if bigger slide on slider
+                var framesPerSecondToScrub = framesFactor * Math.pow(Math.abs(scrubberPosition), framesExponent);
+                if (framesPerSecondToScrub === 0.0) {
+                    framesPerSecondToScrub = 1; //  but at least one
                 }
+                return Math.sign(scrubberPosition) * Math.round(framesPerSecondToScrub);
+            },
+
+            /**
+             * This method is called every time a second passed since last click down on scrubber
+             */
+            tickScrubber: function() {
                 var scrubber = document.getElementById("scrubber");
-                var scrubberPosition = scrubber.value;
-                var frames = Math.abs(scrubberPosition * Math.round(scrubberPosition / 2));
-                if (frames === 0) frames = 1;
-                var offset = frames * 40;
+                var scrubberPosition =  parseFloat(scrubber.value);
+
+                var framesPerSecondToScrub = this.positionToFramesPerSecond(scrubberPosition);
 
                 var display = document.getElementById("scrubber-timer");
-                if (scrubberPosition === 0) {
+                if (scrubberPosition === 0.0) {
                     display.innerText = "scrubber voor fine-tuning";
                     return;
                 }
-                display.innerText = "scrubbing " + frames + " frames per seconde"
-                display.style.display = "";
+                if (this.videoElement) {
+                    var frameRate = 40; // frames/s  # TODO, how do we know the actual frame rate?
+                    var offset = (framesPerSecondToScrub / frameRate ) * 1000 // ms
 
-                if (instance.videoElement) {
-                    if (scrubberPosition > 0) {
-                        var nextPoint = instance.videoElement.currentTime + offset / 1000;
-                        if (nextPoint > instance.videoElement.duration) return;
-                        instance.videoElement.currentTime += offset / 1000;
-                    } else {
-                        var nextPoint = instance.videoElement.currentTime - offset / 1000;
-                        if (nextPoint > instance.videoElement.duration) return;
-                        instance.videoElement.currentTime -= offset / 1000;
+                    //display.innerText = "scrubbing " + framesPerSecondToScrub + " frames per seconde (" + offset + " ms/s)";
+                    display.innerText = "scrubbing " + framesPerSecondToScrub + " frames per seconde"
+                    display.style.display = "";
+
+
+                    console && console.log("ticking " + scrubberPosition + " -> " + framesPerSecondToScrub + " frames/s -> " + offset + " ms/s");
+                    var nextPoint = this.videoElement.currentTime + offset;
+                    if (nextPoint > this.videoElement.duration || nextPoint < 0) {
+                        return;
                     }
-                }
+                    this.videoElement.currentTime = nextPoint;
 
-                var fakeEvent = new Event("timeupdate", {
-                    currentTime: instance.videoElement.currentTime
-                })
-                instance.videoElement.dispatchEvent(fakeEvent)
+                    var fakeEvent = new Event("timeupdate", {
+                        currentTime: this.videoElement.currentTime
+                    })
+                    this.videoElement.dispatchEvent(fakeEvent)
+                } else {
+                    console.log("No videoelement found");
+                }
             },
 
             setStartValueAsString : function () {
