@@ -428,15 +428,15 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 }
                 if (this.videoElement) {
                     var frameRate = 40; // frames/s  # TODO, how do we know the actual frame rate?
-                    var offset = (framesPerSecondToScrub / frameRate ) * 1000 // ms
+                    var skipRate = (framesPerSecondToScrub / frameRate ); // s / s
 
                     //display.innerText = "scrubbing " + framesPerSecondToScrub + " frames per seconde (" + offset + " ms/s)";
                     display.innerText = "scrubbing " + framesPerSecondToScrub + " frames per seconde"
                     display.style.display = "";
 
 
-                    console && console.log("ticking " + scrubberPosition + " -> " + framesPerSecondToScrub + " frames/s -> " + offset + " ms/s");
-                    var nextPoint = this.videoElement.currentTime + offset;
+                    console && console.log("ticking " + scrubberPosition + " -> " + framesPerSecondToScrub + " frames/s -> " + (skipRate * 1000 )+ " ms/s");
+                    var nextPoint = this.videoElement.currentTime + skipRate;
                     if (nextPoint > this.videoElement.duration || nextPoint < 0) {
                         return;
                     }
