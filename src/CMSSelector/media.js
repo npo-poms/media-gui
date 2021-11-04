@@ -3,8 +3,8 @@ if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by
     console && console.log("No window.poms_domain, taking it ", window.poms_domain);
 }
 
-var media = {
-
+const media = {
+    popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
     select: function ( callback, options ) {
         var domain = window.poms_domain;
         var popup;
@@ -48,7 +48,7 @@ var media = {
             iframe = document.body.appendChild( iframe );
             iframe.src = domain + '/CMSSelector/IE.html' + query;
         } else {
-            popup = window.open( domain + '/CMSSelector/' + query, '', 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no' );
+            popup = window.open( domain + '/CMSSelector/' + query, '', media.popupFeatures);
         }
 
     }
