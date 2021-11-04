@@ -6,15 +6,15 @@ if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by
 const media = {
     popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
     select: function ( callback, options ) {
-        var domain = window.poms_domain;
-        var popup;
-        var iframe;
+        const domain = window.poms_domain;
+        let popup;
+        let iframe;
 
-        var query = '';
+        let query = '';
 
         if ( options ) {
-            for ( var i in options ) {
-                var value = options[ i ];
+            for (let i in options ) {
+                let value = options[ i ];
                 if ( value !== '' ) {
                     query += ( query.length ? '&' : '?') + i + '=' + value;
                 }
