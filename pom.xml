@@ -13,6 +13,9 @@
     <url>https://git.vpro.nl/npo/media-gui</url>
     <tag>HEAD</tag>
   </scm>
+  <properties>
+    <flag-icon-css.version>3.5.0</flag-icon-css.version>
+  </properties>
 
   <build>
     <defaultGoal>install</defaultGoal>
@@ -24,6 +27,7 @@
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
+            <FLAG_ICON_VERSION>${flag-icon-css.version}</FLAG_ICON_VERSION>
           </environmentVariables>
         </configuration>
         <executions>
@@ -59,7 +63,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.2</version>
+        <version>3.3.2</version>
         <configuration>
           <warSourceDirectory>build/deploy</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -116,19 +120,26 @@
       </plugin>
     </plugins>
   </build>
-
+  <dependencies>
+   <dependency>
+     <!-- alternatively just use https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css -->
+     <groupId>org.webjars.npm</groupId>
+     <artifactId>flag-icon-css</artifactId>
+     <version>${flag-icon-css.version}</version>
+   </dependency>
+  </dependencies>
 
 
   <distributionManagement>
     <repository>
       <id>nexus</id>
       <name>Nexus releases</name>
-      <url>http://nexus.vpro.nl/content/repositories/releases</url>
+      <url>https://nexus.vpro.nl/content/repositories/releases</url>
     </repository>
     <snapshotRepository>
       <id>nexus</id>
       <name>Nexus snapshots</name>
-      <url>http://nexus.vpro.nl/content/repositories/snapshots</url>
+      <url>https://nexus.vpro.nl/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
