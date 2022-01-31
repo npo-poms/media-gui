@@ -44,6 +44,8 @@ gulp.task('app-deploy', function () {
     return gulp.src(__dirname + '/src/index.html')
         .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
         .pipe(plugins.replace(/\{domain\}/g, getApiHost()))
+        .pipe(plugins.replace(/\{FLAG_ICON_VERSION\}/g, process.env.FLAG_ICON_VERSION ))
+
         .pipe(plugins.usemin({
                 vendor: [plugins.ngAnnotate(), plugins.uglify()],
                 poms: [plugins.ngAnnotate(), plugins.uglify()],
@@ -58,6 +60,7 @@ gulp.task('app-deploy-dev', function () {
     return gulp.src(__dirname + '/src/index.html')
         .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
         .pipe(plugins.replace(/\{domain\}/g, getApiHost()))
+        .pipe(plugins.replace(/\{FLAG_ICON_VERSION\}/g, process.env.FLAG_ICON_VERSION ))
         .pipe(gulp.dest(__dirname + '/build/work/'));
 });
 
