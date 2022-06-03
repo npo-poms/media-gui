@@ -27,7 +27,7 @@
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
-            <FLAG_ICON_VERSION>${flag-icon-css.version}</FLAG_ICON_VERSION>
+            <FLAG_ICON_VERSION>${flag-icons.version}</FLAG_ICON_VERSION>
           </environmentVariables>
         </configuration>
         <executions>
