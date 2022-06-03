@@ -129,6 +129,26 @@
   </dependencies>
 
 
+  <profiles>
+     <profile>
+      <id>validate</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+              <rules>
+                <requireReleaseDeps />
+              </rules>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+
   <distributionManagement>
     <repository>
       <id>nexus</id>
