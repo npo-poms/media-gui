@@ -14,7 +14,7 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <flag-icon-css.version>3.5.0</flag-icon-css.version>
+    <flag-icons.version>6.3.0</flag-icons.version>
   </properties>
 
   <build>
@@ -23,7 +23,7 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.7.6</version>
+        <version>1.12.1</version>
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
@@ -71,7 +71,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
           <!-- the frontend plugin sucks horribly and installs all over the place in src dir.-->
           <filesets>
@@ -88,9 +88,8 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
+        <version>3.0.0-M5</version>
         <configuration>
           <branchName>REL-${project.version}</branchName>
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
@@ -122,10 +121,10 @@
   </build>
   <dependencies>
    <dependency>
-     <!-- alternatively just use https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css -->
+     <!-- alternatively just use https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.3.0/css/flag-icons.min.css -->
      <groupId>org.webjars.npm</groupId>
-     <artifactId>flag-icon-css</artifactId>
-     <version>${flag-icon-css.version}</version>
+     <artifactId>flag-icons</artifactId>
+     <version>${flag-icons.version}</version>
    </dependency>
   </dependencies>
 
