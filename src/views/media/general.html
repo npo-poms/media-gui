@@ -247,7 +247,7 @@
                 <span ng-if="!link.img">{{link.text}}</span>
               </a>
               <span ng-if="link.method == 'POST' && media.permissions.WRITE">
-                <img ng-if="link.img" src="{{link.img}}" height=20 width=20 alt="{{link.text}}" ng-click="editController.postLink(media, link.href)" />
+                <img style="cursor: pointer" ng-if="link.img" src="{{link.img}}" height=20 width=20 alt="{{link.text}}" ng-click="editController.postLink(media, link.href)" />
                 <span ng-if="!link.img">{{link.text}}</span>
               </span>
             </span>
