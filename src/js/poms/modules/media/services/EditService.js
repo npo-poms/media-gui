@@ -150,7 +150,9 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
 
             kickerDescription: function ( media, text ) {
                 return this.setDescription( media, 'KICKER', text );
-            }
+            },
+
+
 
         };
 

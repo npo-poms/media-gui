@@ -28,7 +28,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
         post = function ( media, path, body ) {
 
             var deferred = $q.defer();
-            var url = baseUrl + '/' + media.mid + path;
+            var url = path.startsWith("http") ? path  : baseUrl + (media ? '/' + media.mid : '') + path;
 
             $http.post( url, body )
                 .success( function ( result ) {
@@ -498,6 +498,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             publish: function ( media) {
                 return post( media, '/publish', {} );
+            },
+
+            postLink: function ( media, link) {
+                return post( media, link, {} );
             },
 
             getHistory: function ( media, offset, max ) {
