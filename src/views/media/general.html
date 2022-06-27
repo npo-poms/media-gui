@@ -237,6 +237,25 @@
 
       </div>
 
+      <div ng-if="media.extraLinks" class="media-static-field">
+        <div ng-repeat="(key, value) in media.extraLinks">
+          <h2 class="small-header media-static-field-title">{{key}}</h2>
+          <p class="media-static-field-content">
+            <span ng-repeat="link in value">
+              <a href="{{link.href}}" ng-if="link.method == 'GET'" target="{{key}}">
+                <img ng-if="link.img" src="{{link.img}}" height=20 width=20 alt="{{link.text}}" />
+                <span ng-if="!link.img">{{link.text}}</span>
+              </a>
+              <span ng-if="link.method == 'POST' && media.permissions.WRITE">
+                <img ng-if="link.img" src="{{link.img}}" height=20 width=20 alt="{{link.text}}" ng-click="editController.postLink(media, link.href)" />
+                <span ng-if="!link.img">{{link.text}}</span>
+              </span>
+            </span>
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
     <div class="media-section-general-right-header media-header-publication">
@@ -285,8 +304,8 @@
       <div
               ng-if="media.mayHaveLocations"
               ng-class="{ 'empty': media.subtitles.length == 0,
-              'may-write' : editController.mayWriteSubtitles( media ),
-              'forbidden' : !editController.mayReadSubtitles( media),
+              'may-write' : editController.mayWriteSubtitles(media),
+              'forbidden' : !editController.mayReadSubtitles(media),
               'waiting': waiting}"
                 class="editfield-wrapper" title="Toon alle ondertitels en hun eventuele offsets"
       >

@@ -531,6 +531,9 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 });
             },
 
+            postLink: function ( media, link) {
+                return this.mediaService.postLink( media, link, {} );
+            },
 
             showSubtitles: function () {
 
