@@ -62,7 +62,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             this.currentTab = undefined;
 
-            this.$scope.adminDropdown = {isopen: false};
             this.$scope.userDropdown = {isopen: false};
 
             $scope.errors = [];
@@ -478,10 +477,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 return false;
             },
 
-            showAdmin: function () {
-                return this.editorService.currentEditorHasRoles( ['SUPERADMIN'] );
-            },
-
             showSecondScreens: function () {
                 return this.editorService.currentEditorHasRoles( ['SCREENUSER', 'SUPERADMIN'] );
             },
@@ -503,13 +498,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 } catch ( e ) {
                     console.log( 'Can\'t setup a /topic/publications websocket, see root cause: ', e );
                 }
-            },
-
-            toggleAdminDropdown: function ( $event ) {
-
-                $event.preventDefault();
-                $event.stopPropagation();
-                this.$scope.adminDropdown.isopen = ! this.$scope.adminDropdown.isopen;
             },
 
             toggleUserDropdown: function ( $event ) {
