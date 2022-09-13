@@ -12,7 +12,6 @@
         'poms.list',
         'poms.search',
         'poms.media',
-        'poms.admin',
         'poms.messages',
         'poms.ui',
         "poms.constants",
