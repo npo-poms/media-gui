@@ -1,6 +1,7 @@
 ---
 stages:
   - build
+  - publish
   - validate
   - release
 
@@ -12,5 +13,5 @@ trigger_media:
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/4.24'
+    ref: 'main'
     file: 'maven_release.yml'
