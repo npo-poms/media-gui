@@ -1,96 +1,96 @@
 <div id="{{section}}" class="media-data media-segments media-section"
      ng-controller="SegmentsController as segmentsController">
-
-    <h1 class="media-section-title" ng-class="{ 'waiting': segmentsController.waiting }">Segmenten
-        ({{segmentsController.segments.length}})
-        <poms-help field="editor.segments"></poms-help>
-    </h1>
-
-    <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite()"
-            ng-click="segmentsController.addSegment()">
-        Segment toevoegen {{::segmentsController.canItemize() ? 'met speler' : 'zonder speler'}}
-    </button>
-
-    <table class="poms-table" ng-show="segmentsController.segments.length > 0"
-           ng-class="{ 'updating': segmentsController.waiting }">
-
-        <thead>
-        <tr class="poms-table-head-row">
-            <th class="poms-table-header column-{{::column.id}}" -ng-repeat="column in selectedColumns">
-                <span title="{{column.value}}">  {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }} </span>
-            </th>
-
-            <th class="poms-table-header column-tools-xl">
-                <poms-segment-columns></poms-segment-columns>
-            </th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr class="poms-table-row" ng-repeat="segment in segmentsController.segments"
-            ng-class="{'waiting': segmentsController.waiting, 'may-write': segmentsController.mayWrite(), 'deleted-row': segment.workflow.id == ('FOR_DELETION' || 'DELETED') }"
-            ng-dblclick="segmentsController.view(segment)"
-                >
-
-            <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
-
-                <span ng-switch-when="preview">
-                    <a class="preview-image" title='bekijk de volledige afbeelding'
-                       href="{{segment.image.backend.original}}" target="blank" ng-if="::segment.image"
-                       style="background-image: url('{{segment.image.backend.thumb}}')">
-                    </a>
-                    <span class="preview-image" ng-if="::!segment.image"></span>
-                </span>
-
-                <span ng-switch-when="mainTitle">
-                    <span title="{{::segment.mainTitle.text}}">{{::segment.mainTitle.text}}</span>
-                </span>
-
-                <span ng-switch-when="mainDescription">
-                    <span title="{{::segment.mainDescription.text }}">{{::segment.mainDescription.text }}</span>
-                </span>
-
-                <span ng-switch-when="workflow">
-                      <poms-workflow
-                              mid="::segment.mid"
-                              workflow="::segment.workflow"
-                              on-deleted="segmentsController.onRemoveSegment()"></poms-workflow>
-                </span>
-
-                <span ng-switch-when="start" class="segment-start">
-                   <span title="{{::segment.start.isoString}}">{{::segment.start.string}}</span>
-                </span>
-
-                <span ng-switch-when="stop" class="segment-stop">
-
-                  <span title="{{::segment.stop.isoString}}"> {{::segment.stop.string}}</span>
-                </span>
-
-                <span ng-switch-when="duration" class="segment-duration">
-                   <span title="{{::segment.duration.isoString}}"> {{::segment.duration.string}}</span>
-                </span>
-
-                <span ng-switch-default>
-                   <span title="{{::segment | searchColumnFilter: column.id }}"> {{::segment | searchColumnFilter: column.id }}</span>
-                </span>
-
-            </td>
-
-            <td class="column-tools-xl" ng-show="segmentsController.mayWrite()">
-                <div class="tools">
-                    <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
-                            ng-if="segmentsController.canItemize()"
-                            ng-click="segmentsController.itemize(segment)">itemize
-                    </button>
-                    <button id='editSegment-{{segment.mid}}' name='editSegment' title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
-                    <button id='deleteSegment-{{segment.mid}}' name='deleteSegment' title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"
-                            poms-submit="segmentsController.remove($index)">
-                        verwijder
-                    </button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+  
+  <h1 class="media-section-title" ng-class="{ 'waiting': segmentsController.waiting }">Segmenten
+    ({{segmentsController.segments.length}})
+    <poms-help field="editor.segments"></poms-help>
+  </h1>
+  
+  <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite()"
+          ng-click="segmentsController.addSegment()">
+    Segment toevoegen {{::segmentsController.canItemize() ? 'met speler' : 'zonder speler'}}
+  </button>
+  
+  <table class="poms-table" ng-show="segmentsController.segments.length > 0"
+         ng-class="{ 'updating': segmentsController.waiting }">
+    
+    <thead>
+      <tr class="poms-table-head-row">
+        <th class="poms-table-header column-{{::column.id}}" -ng-repeat="column in selectedColumns">
+          <span title="{{column.value}}">  {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }} </span>
+        </th>
+        
+        <th class="poms-table-header column-tools-xl">
+          <poms-segment-columns></poms-segment-columns>
+        </th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr class="poms-table-row" ng-repeat="segment in segmentsController.segments"
+          ng-class="{'waiting': segmentsController.waiting, 'may-write': segmentsController.mayWrite(), 'deleted-row': segment.workflow.id == ('FOR_DELETION' || 'DELETED') }"
+          ng-dblclick="segmentsController.view(segment)"
+      >
+        
+        <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+          
+          <span ng-switch-when="preview">
+            <a class="preview-image" title='bekijk de volledige afbeelding'
+               href="{{segment.image.backend.original}}" target="blank" ng-if="::segment.image"
+               style="background-image: url('{{segment.image.backend.thumb}}')">
+            </a>
+            <span class="preview-image" ng-if="::!segment.image"></span>
+          </span>
+          
+          <span ng-switch-when="mainTitle">
+            <span title="{{::segment.mainTitle.text}}">{{::segment.mainTitle.text}}</span>
+          </span>
+          
+          <span ng-switch-when="mainDescription">
+            <span title="{{::segment.mainDescription.text }}">{{::segment.mainDescription.text }}</span>
+          </span>
+          
+          <span ng-switch-when="workflow">
+            <poms-workflow
+                    mid="::segment.mid"
+                    workflow="::segment.workflow"
+                    on-deleted="segmentsController.onRemoveSegment()"></poms-workflow>
+          </span>
+          
+          <span ng-switch-when="start" class="segment-start">
+            <span title="{{::segment.start.isoString}}">{{::segment.start.string}}</span>
+          </span>
+          
+          <span ng-switch-when="stop" class="segment-stop">
+            
+            <span title="{{::segment.stop.isoString}}"> {{::segment.stop.string}}</span>
+          </span>
+          
+          <span ng-switch-when="duration" class="segment-duration">
+            <span title="{{::segment.duration.isoString}}"> {{::segment.duration.string}}</span>
+          </span>
+          
+          <span ng-switch-default>
+            <span title="{{::segment | searchColumnFilter: column.id }}"> {{::segment | searchColumnFilter: column.id }}</span>
+          </span>
+          
+        </td>
+        
+        <td class="column-tools-xl" ng-show="segmentsController.mayWrite()">
+          <div class="tools">
+            <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
+                    ng-if="segmentsController.canItemize()"
+                    ng-click="segmentsController.itemize(segment)">itemize
+            </button>
+            <button id='editSegment-{{segment.mid}}' name='editSegment' title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
+            <button id='deleteSegment-{{segment.mid}}' name='deleteSegment' title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"
+                    poms-submit="segmentsController.remove($index)">
+              verwijder
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
 </div>
