@@ -14,7 +14,7 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <flag-icons.version>6.3.0</flag-icons.version>
+    <flag-icons.version>6.6.5</flag-icons.version>
   </properties>
 
   <build>
@@ -89,7 +89,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.0.0-M7</version>
         <configuration>
           <branchName>REL-${project.version}</branchName>
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
