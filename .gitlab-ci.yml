@@ -1,10 +1,4 @@
----
-stages:
-  - build
-  - publish
-  - validate
-  - release
-
+--- 
 trigger_media:
   extends: .trigger_down_stream
   trigger:
@@ -13,5 +7,5 @@ trigger_media:
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/5.6'
+    ref: 'tags/5.7'
     file: 'maven_release.yml'
