@@ -3,9 +3,9 @@ trigger_media:
   extends: .trigger_down_stream
   trigger:
     project: npo/media
-    branch: master
+    branch: main
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/5.7'
+    ref: 'tags/5.8'
     file: 'maven_release.yml'
