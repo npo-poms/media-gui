@@ -60,7 +60,8 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
                             json.levelInt > 20 ? 'error' : 'success',
                             {
                                 timeout: json.duration * 1000,
-                                id: json.id
+                                id: json.id,
+                                creation: new Date(json.creation)
                             }
                         );
                     }

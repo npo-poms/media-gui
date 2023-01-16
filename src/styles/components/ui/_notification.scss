@@ -3,10 +3,18 @@
     color: $white;
     font-size: $fontsizemedium;
     padding: 15px;
+    padding-left: 5px;
 
     margin: 8px;
 
     box-shadow: 0 0 3px rgba(0,0,0,0.4);
+    
+    .timestamp {
+        padding-right: 1em;
+        padding-left: 0;
+        font-size: $fontsizesmall;
+        color: $lichtgroen;
+    }
 }
 
 .ng-toast__message .alert.alert-error{
