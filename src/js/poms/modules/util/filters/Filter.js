@@ -89,26 +89,28 @@ angular.module( 'poms.util.filters' )
         }
     })
     .filter( 'truncate', function () {
-        return function ( text, length, end ) {
+        return function ( text, length, ellipsis, at_begin) {
             if ( !text ){
                 return;
             }
-
             if ( isNaN( length ) ) {
                 length = 70;
             }
 
-            if ( end === undefined ) {
-                end = "...";
+            if ( ellipsis === undefined || ellipsis === '') {
+                ellipsis = "…";
             }
 
-            if ( text.length <= length || text.length - end.length <= length ) {
+            if ( text.length <= length || text.length - ellipsis.length <= length ) {
                 return text;
+            } else {
+                const desired_length = text.length - ellipsis.length;
+                if (at_begin === undefined || ! at_begin) {
+                    return String(text).substring(0, desired_length) + ellipsis;
+                } else {
+                    return ellipsis + String(text).substring(text.length - desired_length, text.length);
+                }
             }
-            else {
-                return String( text ).substring( 0, length - end.length ) + end;
-            }
-
         };
     } )
     .filter( 'searchColumnFilter', function ( $filter ) {
