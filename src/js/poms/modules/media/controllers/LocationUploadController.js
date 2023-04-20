@@ -85,6 +85,30 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             },
 
             violations: {},
+            
+            needsPriorityField: function() {
+                return this.$scope.media.avType.id !== 'AUDIO';
+            },
+            
+            needsEncryptionField: function() {
+                return this.$scope.media.avType.id !== 'AUDIO';
+            },
+            
+            avType: function() {
+                return this.$scope.media.avType.text;
+            },
+            
+            accept: function() {
+                var avtype = this.$scope.media.avType.id;
+                var accept = "";
+                if (avtype === 'AUDIO' || avtype === 'MIXED') {
+                    accept = ".mp3,.wav,audio/mp3,audio/wav";
+                } 
+                if (avtype === 'VIDEO' || avtype === 'MIXED') {
+                    accept += ".mp4,.m4v,.mxf,application/mxf,video/mp4,video/x-m4v";
+                } 
+                return accept;
+            },
 
             cancel: function ( e ) {
                 if ( e ) {
@@ -122,6 +146,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                 var fields = {
                     mid: media.mid,
                     name: location.file[0].name,
+                    avType: media.avType.id,
                     priority: location.priority.id,
                     encryption: location.encryption.id
 
