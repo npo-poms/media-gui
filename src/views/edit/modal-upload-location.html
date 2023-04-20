@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <div class="modal-title"> Bron uploaden</div>
+    <div class="modal-title"> Bron uploaden ({{uploadController.avType()}})</div>
     <div class="modal-close-button" ng-click="uploadController.cancel()"> close</div>
 </div>
 
@@ -10,7 +10,7 @@
 
             <div ng-if="isTranscoding">
 
-            <p>Er wordt al een upload verwerkt voor dit media item.
+            <p>Er wordt al een upload verwerkt voor dit media-item.
                 Dit is de voortgang:
             </p>
 
@@ -52,7 +52,7 @@
 
             <div class="row">
 
-                <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
+                <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}"  ng-if="uploadController.needsPriorityField()" >
                     <label>Prioriteit&#42;</label>
                     <ui-select ng-model="location.priority" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
                         <ui-select-choices repeat="item in priorityTypes | filter: {text: $select.search}">
@@ -63,7 +63,7 @@
                 <poms-invalid violation="controller.violations.priority"></poms-invalid>
                 </div>
 
-                <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}" >
+                <div class="col-6 field"   ng-if="uploadController.needsEncryptionField()" >
                     <label>Encryptie&#42;</label>
                     <ui-select ng-model="location.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
                         <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
@@ -80,7 +80,7 @@
                                id="inputFile" name="inputFile"
                                ng-file-select="uploadController.fileSelected()"
                                ng-model="location.file"
-                               accept=".mp4,.m4v,.mxf,application/mxf,video/mp4,video/x-m4v">
+                               accept="{{uploadController.accept()}}" />
                 </div>
 
 
