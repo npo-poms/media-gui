@@ -92,7 +92,11 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                 var status;
 
                 if ( upload.status === 'uploadFinished' ) {
-                    message = '<span>' + upload.fileName + '  is ge&uuml;pload, transcodering is begonnen </span>';
+                    if (upload.passthrough) {
+                        message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afmelding</span>';
+                    } else {
+                        message = '<span>' + upload.fileName + '  is ge&uuml;pload, transcodering is begonnen </span>';
+                    }
                 } else if ( upload.status === 'uploadStart' ) {
                     message = '<span>' + upload.fileName + '  is nu aan het uploaden bij MID ' + upload.mid + ' </span>';
                 } else if ( upload.status === 'uploadError' ) {
@@ -109,18 +113,24 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
 
             upload: function ( media, location, fields ) {
-
-                var newUpload = {
+                
+                var avType = media.avType;
+                var passthrough = media.avType.id === "AUDIO";
+                
+                var uploadStatus = {
                     "mid": media.mid,
                     "fileName": location.file[0].name,
-                    "status": "uploadStart"
+                    "status": "uploadStart",
+                    "avType": avType,
+                    "passthrough": passthrough
+
                 };
 
 
                 this.addUpload( media.mid );
 
-                this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );
-                this.notify( newUpload );
+                this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, uploadStatus );
+                this.notify( uploadStatus );
 
                 // not set on individual part?
                 fields.fileSize = location.file[0].size;
@@ -140,15 +150,17 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
                     .success( function ( data, status, headers, config ) {
 
-                        var newUpload = {
+                        var uploadStatus = {
                             "mid": media.mid,
                             "fileName": location.file[0].name,
                             "status": "uploadFinished",
+                            "avType": avType,
+                            "passthrough": passthrough,
                             "message": data.message ? data.message : JSON.stringify(data)
                         };
 
-                        this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, newUpload );
-                        this.notify( newUpload );
+                        this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, uploadStatus);
+                        this.notify( uploadStatus );
                         this.removeUpload( media.mid );
 
                     }.bind( this ) )
