@@ -93,7 +93,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
                 if ( upload.status === 'uploadFinished' ) {
                     if (upload.passthrough) {
-                        message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afmelding</span>';
+                        message = '<span>' + upload.fileName + '  is ge&uuml;pload, we wachten op de afmelding</span>';
                     } else {
                         message = '<span>' + upload.fileName + '  is ge&uuml;pload, transcodering is begonnen </span>';
                     }
