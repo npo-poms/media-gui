@@ -1,10 +1,9 @@
-<html>
+<html lang="en">
 <head>
     <title>POMS Media selector</title>
     <script src="../js/media.js"> </script>
     <link rel="stylesheet" href="../../css/poms-{version}.css"  />
-    <style type="text/css">
-
+    <style>
         body {
             padding: 20px;
         }
@@ -81,7 +80,7 @@
     var mediaTypeSelector = document.getElementById('type');
 
     mediaTypes.forEach( function ( mediaType ) {
-        var option = document.createElement('option');
+        const option = document.createElement('option');
         option.value = mediaType.id;
         option.innerHTML = mediaType.text;
 
@@ -89,8 +88,8 @@
     });
 
     document.getElementById( 'select' ).onclick = function () {
-        var multipleType = document.getElementById( 'type' );
-        var types = [];
+        const multipleType = document.getElementById( 'type' );
+        const types = [];
         for ( var i = 0; i < multipleType.options.length; i ++ ) {
             if ( multipleType.options[i].selected ) {
                 types.push( multipleType.options[i].value );
