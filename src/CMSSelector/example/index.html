@@ -50,7 +50,15 @@
               <select id="type" multiple="multiple">
 
               </select>
-
+              <label for="writable">Writable:</label>
+              <input type="checkbox" id="writable" />
+              
+              <label for="avType">AVType:</label>
+              <select id="avType">
+                <option value="AUDIO">Audio</option>
+                <option value="VIDEO">Video</option>
+              </select>
+              
             </div>
             <div class="col-6">
               <label for="return">Return data:</label>
@@ -125,6 +133,8 @@
                   document.getElementById('value').value = value;
                 }, {
                   mediaType: types.join(),
+                  writable: document.getElementById('writable').value,
+                  avType: document.getElementById('avType').value,
                   returnValue: document.getElementById('return').value
                 }
         );

@@ -3,6 +3,7 @@
  */
 
 angular.module( 'poms.controllers' ).controller( 'SelectorController', [
+    '$q',
     '$rootScope',
     '$scope',
     '$route',
@@ -23,25 +24,28 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
     'MediaService',
     (function () {
 
-        function SelectorController ( $rootScope,
-                                 $scope,
-                                 $route,
-                                 $routeParams,
-                                 $location,
-                                 $modal,
-                                 $document,
-                                 $window,
-                                 $timeout,
-                                 localStorageService,
-                                 appConfig,
-                                 pomsEvents,
-                                 guiService,
-                                 listService,
-                                 editorService,
-                                 favoritesService,
-                                 searchService,
-                                 mediaService  ) {
-
+        function SelectorController (
+            $q,
+            $rootScope,
+            $scope,
+            $route,
+            $routeParams,
+            $location,
+            $modal,
+            $document,
+            $window,
+            $timeout,
+            localStorageService,
+            appConfig,
+            pomsEvents,
+            guiService,
+            listService,
+            editorService,
+            favoritesService,
+            searchService,
+            mediaService  ) {
+            
+            this.$q = $q;
             this.$rootScope = $rootScope;
             this.$route = $route;
             this.$routeParams = $routeParams;
@@ -73,7 +77,6 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             loaded: false,
 
             editMedia: function ( media ) {
-
                 this.$window.open( this.appConfig.apiHost +'/#/edit/'+ media.mid );
             },
 
@@ -82,9 +85,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                     function () {
 
                         this.initSearch();
-
                         this.handleRouteChange();
-
                         this.handleErrors();
 
                     }.bind( this )
@@ -130,53 +131,52 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                         }
                     );
                 }
+                var promises = [];
+                if (urlSearchParams.get('avType')) {
+                    promises.push(this.listService.getAvTypes().then(function(t) {
+                        searchConfig.form.avType = t.find(av => av.id === urlSearchParams.get('avType'));
+                    }.bind(this)));
+                }
                 var mediaTypeFilter = urlSearchParams.get('mediaType');
                 if ( mediaTypeFilter && mediaTypeFilter.length > 0 ) {
-
-                    this.listService.getMediaTypes().then(
+                    promises.push(this.listService.getMediaTypes().then(
                         function ( types ) {
-
+                            this.types = types;
                             var restrictedTypes = [];
                             searchConfig.form.types =  {
                                 restriction: mediaTypeFilter.split(',')
                             }
-
-
                             types.forEach( function ( type ) {
                                 if ( searchConfig.form.types.restriction.indexOf( type.id ) > -1 ) {
                                     restrictedTypes.push( type );
                                 }
                             } );
-
                             searchConfig.form.types.restriction = restrictedTypes;
-
-                            this.$scope.search = this.searchService.newSearch( searchConfig );
-                            this.loaded = true;
-
-                        }.bind( this )
-                    );
-                } else {
-                    this.$scope.search = this.searchService.newSearch( searchConfig );
-                    this.loaded = true;
+                        }.bind(this)
+                    ));
                 }
+                /// cant use Promise.all. Angularjs has its own promises!
+                this.$q.all(promises).then(function() {
+                    this.$scope.search = this.searchService.newSearch(searchConfig);
+                    this.loaded= true;
+                }.bind(this));
 
                 this.$scope.$on('selected', function( event, result ) {
-
                     var urlSearchParams = new URLSearchParams(window.location.search);
                     var returnKey = urlSearchParams.get("returnValue");
-
+                    
                     if ( returnKey && returnKey.length > 0 ) {
                         returnKey = returnKey[ 1 ];
                     } else {
                         returnKey = 'mid';
                     }
-
+                    
                     if ( returnKey !== 'data' ) {
                         result = result[ returnKey ];
                     }
-
+                    
                     if ( this.$window.opener ) {
-
+                            
                         if ( ! document.all ) {
                             this.$window.opener.postMessage( result, '*' );
                         } else {
