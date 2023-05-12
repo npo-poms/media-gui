@@ -4,7 +4,7 @@ if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by
 }
 
 
-const nl_poms_media_cmsselector = {
+const nl_vpro_media_CMSSelector = {
     popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
     select: function ( callback, options ) {
         const domain = window.poms_domain;
@@ -55,4 +55,4 @@ const nl_poms_media_cmsselector = {
     }
 };
 
-const media = nl_poms_media_cmsselector;
+const media = nl_vpro_media_CMSSelector;
