@@ -3,7 +3,8 @@ if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by
     console && console.log("No window.poms_domain, taking it ", window.poms_domain);
 }
 
-const media = {
+
+const nl_poms_media_cmsselector = {
     popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
     select: function ( callback, options ) {
         const domain = window.poms_domain;
@@ -15,7 +16,7 @@ const media = {
         if ( options ) {
             for (let i in options ) {
                 let value = options[ i ];
-                if ( value !== '' ) {
+                if (value !== undefined &&  value !== '' ) {
                     query += ( query.length ? '&' : '?') + i + '=' + value;
                 }
             }
@@ -54,3 +55,4 @@ const media = {
     }
 };
 
+const media = nl_poms_media_cmsselector;
