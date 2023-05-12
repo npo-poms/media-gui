@@ -1,3 +1,7 @@
+/**
+ * This is the implementation of the CMS Selector.
+ */
+
 angular.module( 'poms.controllers' ).controller( 'SelectorController', [
     '$rootScope',
     '$scope',
@@ -16,10 +20,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
     'EditorService',
     'FavoritesService',
     'SearchService',
-    'SearchFactory',
-    'MessageService',
     'MediaService',
-    'UploadService',
     (function () {
 
         function SelectorController ( $rootScope,
@@ -39,10 +40,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                                  editorService,
                                  favoritesService,
                                  searchService,
-                                 searchFactory,
-                                 messageService,
-                                 mediaService,
-                                 UploadService ) {
+                                 mediaService  ) {
 
             this.$rootScope = $rootScope;
             this.$route = $route;
@@ -57,10 +55,8 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             this.editorService = editorService;
             this.favoritesService = favoritesService;
             this.searchService = searchService;
-            this.searchFactory = searchFactory;
-            this.messageService = messageService;
             this.mediaService = mediaService;
-            this.uploadService = UploadService;
+           
 
             this.$scope = $scope;
             this.$document = $document;
@@ -114,23 +110,37 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             initSearch: function () {
 
                 var searchConfig = {
-                    multiSelect: false
+                    multiSelect: false,
+                    form: {
+                        properties: {
+                            strict: true,
+                            restriction: []
+                            
+                        }
+                    }
+                    
                 };
 
-                var mediaTypeFilter = /mediaType=([^&#]+)/.exec( this.$window.location.search );
+                var urlSearchParams = new URLSearchParams(window.location.search);
+                if (urlSearchParams.get('writable') === 'true') {
+                    searchConfig.form.properties.restriction.push(
+                        {
+                            id : 'writable',
+                            text : 'Mag schrijven'
+                        }
+                    );
+                }
+                var mediaTypeFilter = urlSearchParams.get('mediaType');
                 if ( mediaTypeFilter && mediaTypeFilter.length > 0 ) {
 
                     this.listService.getMediaTypes().then(
-
                         function ( types ) {
 
                             var restrictedTypes = [];
+                            searchConfig.form.types =  {
+                                restriction: mediaTypeFilter.split(',')
+                            }
 
-                            searchConfig.form = {
-                                types: {
-                                    restriction: mediaTypeFilter[ 1 ].split(',')
-                                }
-                            };
 
                             types.forEach( function ( type ) {
                                 if ( searchConfig.form.types.restriction.indexOf( type.id ) > -1 ) {
@@ -145,16 +155,15 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
 
                         }.bind( this )
                     );
-
                 } else {
-
                     this.$scope.search = this.searchService.newSearch( searchConfig );
                     this.loaded = true;
                 }
 
                 this.$scope.$on('selected', function( event, result ) {
 
-                    var returnKey = /returnValue=([^&#]+)/.exec( this.$window.location.search );
+                    var urlSearchParams = new URLSearchParams(window.location.search);
+                    var returnKey = urlSearchParams.get("returnValue");
 
                     if ( returnKey && returnKey.length > 0 ) {
                         returnKey = returnKey[ 1 ];
@@ -162,9 +171,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                         returnKey = 'mid';
                     }
 
-                    if ( returnKey === 'data' ) {
-                        result = result;
-                    } else {
+                    if ( returnKey !== 'data' ) {
                         result = result[ returnKey ];
                     }
 
