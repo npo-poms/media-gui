@@ -42,7 +42,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             value : undefined,
 
             remove : function ( value ) {
-                var allow = this.restriction == undefined;
+                var allow = this.restriction === undefined;
 
                 if ( this.value.constructor === Array ) {
                     if ( ! allow ) {
@@ -307,21 +307,21 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                         if ( value ) {
                             //check for objects & arrays ... and strings???
                             if (value.length) {
-                            }
-                            for (var term in value) {
-                                if (value.hasOwnProperty(term)) {
-                                    if (typeof value[term] === 'string') {
-                                        queryTerms.push(value[term]);
-                                    } else if (value[term].text) {
-                                        queryTerms.push(value[term].text);
-                                    } else {
-                                        queryTerms.push(value.value[term]);
+                                for (var term in value) {
+                                    if (value.hasOwnProperty(term)) {
+                                        if (typeof value[term] === 'string') {
+                                            queryTerms.push(value[term]);
+                                        } else if (value[term].text) {
+                                            queryTerms.push(value[term].text);
+                                        } else {
+                                            queryTerms.push(value.value[term]);
+                                        }
                                     }
                                 }
+                            } else if (value.text) {
+                                //check for strings
+                                queryTerms.push(value.text);
                             }
-                        } else if (value.text) {
-                            //check for strings
-                            queryTerms.push( value.text );
                         } else {
                             console.log("Unrecognized", key, value);
                         }
