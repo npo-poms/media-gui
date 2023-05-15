@@ -24,7 +24,9 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
         }
 
 
-
+        /**
+         * Some kind of documentation would be welcome here.
+         */
         function RestrictedValue ( config ) {
             this.strict = config && config.strict || false;
             this.restriction = config && config.restriction || undefined;
@@ -98,9 +100,10 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
 
             this.excludedMids = config && config.excludedMids;
 
+
             _.forEach( this, function ( field ) {
-                if ( field && field.isRestrictedField && field.restriction && (field.strict || ! field.value || field.value.length == 0) ) {
-                    if ( field.restriction.constructor == Array ) {
+                if ( field && field.isRestrictedField && field.restriction && (field.strict || ! field.value || field.value.length === 0) ) {
+                    if ( field.restriction.constructor === Array ) {
                         // For strict fields the value should at least contain all restrictions
                         field.value = _.unique( field.value ? field.value.concat( field.restriction ) : field.restriction );
                     }
@@ -120,7 +123,6 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             channels : [],
             avType : undefined,
             tags : [],
-            properties : [],
             sortDate : {
                 'start' : undefined,
                 'stop' : undefined

@@ -114,27 +114,27 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                     multiSelect: false,
                     form: {
                         properties: {
-                            strict: true,
-                            restriction: []
-                            
+                            value: []
                         }
                     }
-                    
                 };
 
                 var urlSearchParams = new URLSearchParams(window.location.search);
-                if (urlSearchParams.get('writable') === 'true') {
-                    searchConfig.form.properties.restriction.push(
-                        {
-                            id : 'writable',
-                            text : 'Mag schrijven'
-                        }
-                    );
+                
+                for (var [key, value] of urlSearchParams.entries()) {
+                    if (key.startsWith("properties.")) {
+                        var val  = {
+                            id: key.substring("properties.".length),
+                            text: key.substring("properties.".length)
+                        };
+                        searchConfig.form.properties.value.push(val);
+                    }
                 }
                 var promises = [];
                 if (urlSearchParams.get('avType')) {
                     promises.push(this.listService.getAvTypes().then(function(t) {
                         searchConfig.form.avType = t.find(av => av.id === urlSearchParams.get('avType'));
+                        return t;
                     }.bind(this)));
                 }
                 var mediaTypeFilter = urlSearchParams.get('mediaType');
@@ -152,6 +152,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                                 }
                             } );
                             searchConfig.form.types.restriction = restrictedTypes;
+                            return types;
                         }.bind(this)
                     ));
                 }
