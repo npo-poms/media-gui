@@ -123,11 +123,13 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                 
                 for (var [key, value] of urlSearchParams.entries()) {
                     if (key.startsWith("properties.")) {
-                        var val  = {
-                            id: key.substring("properties.".length),
-                            text: key.substring("properties.".length)
-                        };
-                        searchConfig.form.properties.value.push(val);
+                        if (value === 'true') {
+                            var val = {
+                                id: key.substring("properties.".length),
+                                text: key.substring("properties.".length)
+                            };
+                            searchConfig.form.properties.value.push(val);
+                        }
                     }
                 }
                 var promises = [];
