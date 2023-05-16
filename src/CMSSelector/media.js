@@ -1,12 +1,13 @@
 if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by media.js.jspx if running on actual deployment
-    window.poms_domain = document.currentScript ? new URL(document.currentScript.src).origin : '';
-    console && console.log("No window.poms_domain, taking it ", window.poms_domain);
+    window.nl_vpro_media_poms_domain = document.currentScript ? new URL(document.currentScript.src).origin : '';
+    console && console.log("No window.nl_vpro_media_poms_domain, taking it ", window.nl_vpro_media_poms_domain);
 }
 
-const media = {
+
+const nl_vpro_media_CMSSelector = {
     popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
     select: function ( callback, options ) {
-        const domain = window.poms_domain;
+        const domain = window.nl_vpro_media_poms_domain;
         let popup;
         let iframe;
 
@@ -15,7 +16,7 @@ const media = {
         if ( options ) {
             for (let i in options ) {
                 let value = options[ i ];
-                if ( value !== '' ) {
+                if (value !== undefined &&  value !== '' ) {
                     query += ( query.length ? '&' : '?') + i + '=' + value;
                 }
             }
@@ -54,3 +55,4 @@ const media = {
     }
 };
 
+const media = nl_vpro_media_CMSSelector;

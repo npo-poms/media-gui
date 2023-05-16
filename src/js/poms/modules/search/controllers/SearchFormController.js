@@ -10,7 +10,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
     'SearchFactory',
     (function() {
 
-        function SearchFormController($scope, $q, $filter, listService, favoritesService, guiService, mediaService, searchService, SearchFactory, editorService) {
+        function SearchFormController($scope, $q, $filter, listService, favoritesService, guiService, mediaService, searchService, SearchFactory) {
 
             this.$scope = $scope;
             this.$q = $q;
@@ -332,7 +332,6 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                         id: 'yesStreamingPlatformAvailable',
                         text: 'Beschikbaar op streaming platform'
                     }
-
                 ]);
             },
 
