@@ -1,113 +1,145 @@
 <html lang="en">
-<head>
+  <head>
     <title>POMS Media selector</title>
-    <script src="../js/media.js"> </script>
-    <link rel="stylesheet" href="../../css/poms-{version}.css"  />
+    <script src="../js/media.js"></script>
+    <link rel="stylesheet" href="../../css/poms-{version}.css"/>
     <style>
-        body {
-            padding: 20px;
-        }
+      body {
+        padding: 20px;
+      }
 
-        #type {
-            height: 65px;
-        }
+      #type {
+        height: 65px;
+      }
 
-        #return {
-            appearance: menulist;
-            -webkit-appearance: menulist;
-            -moz-appearance: menulist;
-        }
+      #return {
+        appearance: menulist;
+        -webkit-appearance: menulist;
+        -moz-appearance: menulist;
+      }
 
-        #select {
-            margin: 8px 0 20px;
-        }
+      #select {
+        margin: 8px 0 20px;
+      }
 
-        a {
-            text-decoration: underline;
-        }
+      a {
+        text-decoration: underline;
+      }
 
     </style>
-</head>
-<body>
+  </head>
+  <body>
 
-<div class="poms-form">
-    <div class="form-fields">
+    <div class="poms-form">
+      <div class="form-fields">
 
         <div class="col-8">
 
-            <div class="row">
-                <h1>CMSSelector - example</h1>
-                <p>
-                    Check out the <a href="https://wiki.vpro.nl/display/poms/CMS+integration">wiki</a> page for usage information.
-                    <br /><br />
-                </p>
-            </div>
+          <div class="row">
+            <h1>CMSSelector - example</h1>
+            <p>
+              Check out the <a href="https://wiki.vpro.nl/display/poms/CMS+integration">wiki</a> page for usage
+              information.
+              <br/><br/>
+            </p>
+          </div>
 
-            <div class="row">
-                <div class="col-6">
-                    <label for="type">Optional media type filter:</label>
-                    <select id="type" multiple="multiple">
+          <div class="row">
+            <div class="col-6">
+              <label for="type">Optional media type filter:</label>
+              <select id="type" multiple="multiple">
 
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label for="return">Return data:</label>
-                    <select id="return">
-                        <option value="mid">MID</option>
-                        <option value="data">All (JSON) data</option>
-                    </select>
-                </div>
+              </select>
+              <label for="properties.writable">Writable:</label>
+              <input type="checkbox" id="properties.writable" />
+              
+              <label for="avType">AVType:</label>
+              <select id="avType">
+                <option value="AUDIO">Audio</option>
+                <option value="VIDEO">Video</option>
+              </select>
+              
             </div>
+            <div class="col-6">
+              <label for="return">Return data:</label>
+              <select id="return">
+                <option value="mid">MID</option>
+                <option value="data">All (JSON) data</option>
+              </select>
+            </div>
+          </div>
 
-            <div class="row">
-                <button id="select" class="btn-rect">Select</button>
-            </div>
+          <div class="row">
+            <button id="select" class="btn-rect">Select</button>
+          </div>
 
-            <div class="row">
-                <label for="value">Result:</label>
-                <input id="value" type="text"/>
-            </div>
+          <div class="row">
+            <label for="value">Result:</label>
+            <input id="value" type="text"/>
+          </div>
 
         </div>
 
+      </div>
     </div>
-</div>
 
 
-<script>
+    <script>
 
-    var mediaTypes = [{"id":"MEDIA","text":"Alle media"},{"id":"PROGRAM","text":"Programma"},{"id":"BROADCAST","text":"Uitzending"},{"id":"CLIP","text":"Clip"},{"id":"STRAND","text":"Koepelprogramma"},{"id":"TRAILER","text":"Trailer"},{"id":"MOVIE","text":"Film"},{"id":"GROUP","text":"Groep"},{"id":"SERIES","text":"Serie"},{"id":"SEASON","text":"Seizoen"},{"id":"UMBRELLA","text":"Paraplu"},{"id":"ARCHIVE","text":"Archief"},{"id":"COLLECTION","text":"Collectie"},{"id":"PLAYLIST","text":"Speellijst"},{"id":"ALBUM","text":"Album"},{"id":"SEGMENT","text":"Segment"},{"id":"TRACK","text":"Track"},{"id":"VISUALRADIO","text":"Visual radio"},{"id":"RECORDING","text":"Opname"},{"id":"PROMO","text":"Promo"}];
-    var mediaTypeSelector = document.getElementById('type');
+      var mediaTypes = [
+        {"id": "MEDIA", "text": "Alle media"}, 
+        {"id": "PROGRAM", "text": "Programma"}, 
+        {"id": "BROADCAST", "text": "Uitzending"}, 
+        {"id": "CLIP", "text": "Clip"}, 
+        {"id": "STRAND", "text": "Koepelprogramma"},
+        {"id": "TRAILER", "text": "Trailer"}, 
+        {"id": "MOVIE", "text": "Film"}, 
+        {"id": "GROUP", "text": "Groep"}, 
+        {"id": "SERIES", "text": "Serie"}, 
+        {"id": "SEASON", "text": "Seizoen"}, 
+        {"id": "UMBRELLA", "text": "Paraplu"}, 
+        {"id": "ARCHIVE", "text": "Archief"},
+        {"id": "COLLECTION", "text": "Collectie"}, 
+        {"id": "PLAYLIST", "text": "Speellijst"},
+        {"id": "ALBUM", "text": "Album"},
+        {"id": "SEGMENT", "text": "Segment"}, 
+        {"id": "TRACK", "text": "Track"}, 
+        {"id": "VISUALRADIO", "text": "Visual radio"}, 
+        {"id": "RECORDING", "text": "Opname"}, 
+        {"id": "PROMO", "text": "Promo"}];
+      var mediaTypeSelector = document.getElementById('type');
 
-    mediaTypes.forEach( function ( mediaType ) {
+      mediaTypes.forEach(function (mediaType) {
         const option = document.createElement('option');
         option.value = mediaType.id;
         option.innerHTML = mediaType.text;
 
-        mediaTypeSelector.appendChild( option );
-    });
+        mediaTypeSelector.appendChild(option);
+      });
 
-    document.getElementById( 'select' ).onclick = function () {
-        const multipleType = document.getElementById( 'type' );
+      document.getElementById('select').onclick = function () {
+        const multipleType = document.getElementById('type');
         const types = [];
-        for ( var i = 0; i < multipleType.options.length; i ++ ) {
-            if ( multipleType.options[i].selected ) {
-                types.push( multipleType.options[i].value );
-            }
+        for (var i = 0; i < multipleType.options.length; i++) {
+          if (multipleType.options[i].selected) {
+            types.push(multipleType.options[i].value);
+          }
         }
-        media.select(
-            function ( value ) {
-                if ( typeof value === "object" ) {
+        nl_vpro_media_CMSSelector.select(
+                function (value) {
+                  if (typeof value === "object") {
                     value = value.mid + ":" + value.title;
+                  }
+                  document.getElementById('value').value = value;
+                }, {
+                  mediaType: types.join(),
+                  writable: document.getElementById('writable').value,
+                  avType: document.getElementById('avType').value,
+                  returnValue: document.getElementById('return').value
                 }
-                document.getElementById( 'value' ).value = value;
-            }, {
-                mediaType: types.join(),
-                returnValue: document.getElementById( 'return' ).value
-            }
         );
-    };
-</script>
+      };
+    </script>
 
-</body>
+  </body>
 </html>

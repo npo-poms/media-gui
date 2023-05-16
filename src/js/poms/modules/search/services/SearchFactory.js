@@ -24,7 +24,9 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
         }
 
 
-
+        /**
+         * Some kind of documentation would be welcome here.
+         */
         function RestrictedValue ( config ) {
             this.strict = config && config.strict || false;
             this.restriction = config && config.restriction || undefined;
@@ -42,7 +44,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             value : undefined,
 
             remove : function ( value ) {
-                var allow = this.restriction == undefined;
+                var allow = this.restriction === undefined;
 
                 if ( this.value.constructor === Array ) {
                     if ( ! allow ) {
@@ -98,9 +100,10 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
 
             this.excludedMids = config && config.excludedMids;
 
+
             _.forEach( this, function ( field ) {
-                if ( field && field.isRestrictedField && field.restriction && (field.strict || ! field.value || field.value.length == 0) ) {
-                    if ( field.restriction.constructor == Array ) {
+                if ( field && field.isRestrictedField && field.restriction && (field.strict || ! field.value || field.value.length === 0) ) {
+                    if ( field.restriction.constructor === Array ) {
                         // For strict fields the value should at least contain all restrictions
                         field.value = _.unique( field.value ? field.value.concat( field.restriction ) : field.restriction );
                     }
@@ -120,7 +123,6 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             channels : [],
             avType : undefined,
             tags : [],
-            properties : [],
             sortDate : {
                 'start' : undefined,
                 'stop' : undefined
@@ -271,7 +273,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     ignoreKeys = [ 'text', 'summary', 'dateType', '$$hashKey' ];
 
                 for ( var key in this ) {
-                    if ( ! this[ key ] || key.length && key.length === 0 ) {
+                    if ( ! this[ key ] || (key.length && key.length === 0)) {
                         continue;
                     }
 
@@ -303,23 +305,27 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                             value = value.value;
                         }
 
-                        //check for objects & arrays ... and strings???
-                        if ( value && value.length ) {
-                            for ( var term in value ) {
-                                if ( value.hasOwnProperty( term ) ) {
-                                    if (typeof value[ term ] === 'string') {
-                                        queryTerms.push( value[ term ] );
-                                    }else if ( value[ term ].text ) {
-                                        queryTerms.push( value[ term ].text );
-                                    } else {
-                                        queryTerms.push( value.value[ term ] );
+                       
+                        if ( value ) {
+                            //check for objects & arrays ... and strings???
+                            if (value.length) {
+                                for (var term in value) {
+                                    if (value.hasOwnProperty(term)) {
+                                        if (typeof value[term] === 'string') {
+                                            queryTerms.push(value[term]);
+                                        } else if (value[term].text) {
+                                            queryTerms.push(value[term].text);
+                                        } else {
+                                            queryTerms.push(value.value[term]);
+                                        }
                                     }
                                 }
+                            } else if (value.text) {
+                                //check for strings
+                                queryTerms.push(value.text);
                             }
-                        }
-                        //check for strings
-                        else if ( value && value.text ) {
-                            queryTerms.push( value.text );
+                        } else {
+                            console.log("Unrecognized", key, value);
                         }
 
                     }

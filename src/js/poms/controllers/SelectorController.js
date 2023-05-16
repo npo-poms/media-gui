@@ -1,4 +1,9 @@
+/**
+ * This is the implementation of the CMS Selector.
+ */
+
 angular.module( 'poms.controllers' ).controller( 'SelectorController', [
+    '$q',
     '$rootScope',
     '$scope',
     '$route',
@@ -16,34 +21,31 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
     'EditorService',
     'FavoritesService',
     'SearchService',
-    'SearchFactory',
-    'MessageService',
     'MediaService',
-    'UploadService',
     (function () {
 
-        function SelectorController ( $rootScope,
-                                 $scope,
-                                 $route,
-                                 $routeParams,
-                                 $location,
-                                 $modal,
-                                 $document,
-                                 $window,
-                                 $timeout,
-                                 localStorageService,
-                                 appConfig,
-                                 pomsEvents,
-                                 guiService,
-                                 listService,
-                                 editorService,
-                                 favoritesService,
-                                 searchService,
-                                 searchFactory,
-                                 messageService,
-                                 mediaService,
-                                 UploadService ) {
-
+        function SelectorController (
+            $q,
+            $rootScope,
+            $scope,
+            $route,
+            $routeParams,
+            $location,
+            $modal,
+            $document,
+            $window,
+            $timeout,
+            localStorageService,
+            appConfig,
+            pomsEvents,
+            guiService,
+            listService,
+            editorService,
+            favoritesService,
+            searchService,
+            mediaService  ) {
+            
+            this.$q = $q;
             this.$rootScope = $rootScope;
             this.$route = $route;
             this.$routeParams = $routeParams;
@@ -57,10 +59,8 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             this.editorService = editorService;
             this.favoritesService = favoritesService;
             this.searchService = searchService;
-            this.searchFactory = searchFactory;
-            this.messageService = messageService;
             this.mediaService = mediaService;
-            this.uploadService = UploadService;
+           
 
             this.$scope = $scope;
             this.$document = $document;
@@ -77,7 +77,6 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             loaded: false,
 
             editMedia: function ( media ) {
-
                 this.$window.open( this.appConfig.apiHost +'/#/edit/'+ media.mid );
             },
 
@@ -86,9 +85,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                     function () {
 
                         this.initSearch();
-
                         this.handleRouteChange();
-
                         this.handleErrors();
 
                     }.bind( this )
@@ -114,62 +111,75 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             initSearch: function () {
 
                 var searchConfig = {
-                    multiSelect: false
+                    multiSelect: false,
+                    form: {
+                        properties: {
+                            value: []
+                        }
+                    }
                 };
 
-                var mediaTypeFilter = /mediaType=([^&#]+)/.exec( this.$window.location.search );
-                if ( mediaTypeFilter && mediaTypeFilter.length > 0 ) {
-
-                    this.listService.getMediaTypes().then(
-
-                        function ( types ) {
-
-                            var restrictedTypes = [];
-
-                            searchConfig.form = {
-                                types: {
-                                    restriction: mediaTypeFilter[ 1 ].split(',')
-                                }
+                var urlSearchParams = new URLSearchParams(window.location.search);
+                
+                for (var [key, value] of urlSearchParams.entries()) {
+                    if (key.startsWith("properties.")) {
+                        if (value === 'true') {
+                            var val = {
+                                id: key.substring("properties.".length),
+                                text: key.substring("properties.".length)
                             };
-
+                            searchConfig.form.properties.value.push(val);
+                        }
+                    }
+                }
+                var promises = [];
+                if (urlSearchParams.get('avType')) {
+                    promises.push(this.listService.getAvTypes().then(function(t) {
+                        searchConfig.form.avType = t.find(av => av.id === urlSearchParams.get('avType'));
+                        return t;
+                    }.bind(this)));
+                }
+                var mediaTypeFilter = urlSearchParams.get('mediaType');
+                if ( mediaTypeFilter && mediaTypeFilter.length > 0 ) {
+                    promises.push(this.listService.getMediaTypes().then(
+                        function ( types ) {
+                            this.types = types;
+                            var restrictedTypes = [];
+                            searchConfig.form.types =  {
+                                restriction: mediaTypeFilter.split(',')
+                            }
                             types.forEach( function ( type ) {
                                 if ( searchConfig.form.types.restriction.indexOf( type.id ) > -1 ) {
                                     restrictedTypes.push( type );
                                 }
                             } );
-
                             searchConfig.form.types.restriction = restrictedTypes;
-
-                            this.$scope.search = this.searchService.newSearch( searchConfig );
-                            this.loaded = true;
-
-                        }.bind( this )
-                    );
-
-                } else {
-
-                    this.$scope.search = this.searchService.newSearch( searchConfig );
-                    this.loaded = true;
+                            return types;
+                        }.bind(this)
+                    ));
                 }
+                /// cant use Promise.all. Angularjs has its own promises!
+                this.$q.all(promises).then(function() {
+                    this.$scope.search = this.searchService.newSearch(searchConfig);
+                    this.loaded= true;
+                }.bind(this));
 
                 this.$scope.$on('selected', function( event, result ) {
-
-                    var returnKey = /returnValue=([^&#]+)/.exec( this.$window.location.search );
-
+                    var urlSearchParams = new URLSearchParams(window.location.search);
+                    var returnKey = urlSearchParams.get("returnValue");
+                    
                     if ( returnKey && returnKey.length > 0 ) {
                         returnKey = returnKey[ 1 ];
                     } else {
                         returnKey = 'mid';
                     }
-
-                    if ( returnKey === 'data' ) {
-                        result = result;
-                    } else {
+                    
+                    if ( returnKey !== 'data' ) {
                         result = result[ returnKey ];
                     }
-
+                    
                     if ( this.$window.opener ) {
-
+                            
                         if ( ! document.all ) {
                             this.$window.opener.postMessage( result, '*' );
                         } else {
