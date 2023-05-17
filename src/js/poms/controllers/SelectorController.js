@@ -168,9 +168,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                     var urlSearchParams = new URLSearchParams(window.location.search);
                     var returnKey = urlSearchParams.get("returnValue");
                     
-                    if ( returnKey && returnKey.length > 0 ) {
-                        returnKey = returnKey[ 1 ];
-                    } else {
+                    if ( ! returnKey) {
                         returnKey = 'mid';
                     }
                     
