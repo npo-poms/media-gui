@@ -51,8 +51,5 @@ const nl_vpro_media_CMSSelector = {
         } else {
             popup = window.open( domain + '/CMSSelector/' + query, '', media.popupFeatures);
         }
-
     }
 };
-
-const media = nl_vpro_media_CMSSelector;
