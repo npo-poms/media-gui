@@ -16,7 +16,7 @@
       .poms-form.example select {
         appearance: menulist-button;
       }
-      .poms-form.examle label {
+      .poms-form.example label {
         margin-bottom: 10px;
       }
       
@@ -50,8 +50,8 @@
             <div class="col-6">
               <label for="type">Optional media type filter:</label>
               <select id="type" multiple="multiple">
-
               </select>
+              
               <label for="properties.writable">Writable:</label>
               <input type="checkbox" id="properties.writable" />
               
@@ -112,7 +112,8 @@
         {"id": "TRACK", "text": "Track"}, 
         {"id": "VISUALRADIO", "text": "Visual radio"}, 
         {"id": "RECORDING", "text": "Opname"}, 
-        {"id": "PROMO", "text": "Promo"}];
+        {"id": "PROMO", "text": "Promo"}
+      ];
       const mediaTypeSelector = document.getElementById('type');
 
       mediaTypes.forEach(function (mediaType) {
