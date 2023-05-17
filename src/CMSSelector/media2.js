@@ -1,8 +1,7 @@
-if (typeof (window.poms_domain) === 'undefined' ) { // would have been filled by media.js.jspx if running on actual deployment
+if (typeof (window.nl_vpro_media_poms_domain) === 'undefined' ) { // would have been filled by media.js.jspx if running on actual deployment
     window.nl_vpro_media_poms_domain = document.currentScript ? new URL(document.currentScript.src).origin : '';
     console && console.log("No window.nl_vpro_media_poms_domain, taking it ", window.nl_vpro_media_poms_domain);
 }
-
 
 const nl_vpro_media_CMSSelector = {
     popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
