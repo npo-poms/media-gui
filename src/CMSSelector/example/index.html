@@ -92,8 +92,7 @@
 
 
     <script>
-
-      var mediaTypes = [
+      const mediaTypes = [
         {"id": "MEDIA", "text": "Alle media"}, 
         {"id": "PROGRAM", "text": "Programma"}, 
         {"id": "BROADCAST", "text": "Uitzending"}, 
@@ -114,7 +113,7 @@
         {"id": "VISUALRADIO", "text": "Visual radio"}, 
         {"id": "RECORDING", "text": "Opname"}, 
         {"id": "PROMO", "text": "Promo"}];
-      var mediaTypeSelector = document.getElementById('type');
+      const mediaTypeSelector = document.getElementById('type');
 
       mediaTypes.forEach(function (mediaType) {
         const option = document.createElement('option');
@@ -127,14 +126,14 @@
       document.getElementById('select').onclick = function () {
         const multipleType = document.getElementById('type');
         const types = [];
-        for (var i = 0; i < multipleType.options.length; i++) {
+        for (let i = 0; i < multipleType.options.length; i++) {
           if (multipleType.options[i].selected) {
             types.push(multipleType.options[i].value);
           }
         }
         nl_vpro_media_CMSSelector.select(
                 function (value) {
-                  var result = value;
+                  let result = value;
                   if (typeof result === "object") {
                     result = result.mid + ":" + result.title;
                   }
