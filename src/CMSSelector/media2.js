@@ -48,7 +48,7 @@ const nl_vpro_media_CMSSelector = {
             iframe = document.body.appendChild( iframe );
             iframe.src = domain + '/CMSSelector/IE.html' + query;
         } else {
-            popup = window.open( domain + '/CMSSelector/' + query, '', media.popupFeatures);
+            popup = window.open( domain + '/CMSSelector/' + query, '', nl_vpro_media_CMSSelector.popupFeatures);
         }
     }
 };
