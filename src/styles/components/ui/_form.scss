@@ -1,93 +1,93 @@
 .poms-form {
     font: $fontsizemedium;
     color: $oranje;
-}
+    textarea {
+        line-height: 18px;
+        height: 100px;
+        padding: 5px 0 0 5px;
+    }
+    
+    .row {
+        @include span-columns(12);
+    }
+    
+    .field {
+        margin-bottom: 24px;
+    }
+    
+    h1 > span {
+        display: block;
+        font-size: 11px;
+    }
+    label {
+        display: block;
+        margin: 0 0 5px;
+    }
 
-.poms-form textarea {
-    line-height: 18px;
-    height: 100px;
-    padding: 5px 0 0 5px;
-}
+    .poms-form {
+        display: inline-block;
+    }
+    
+    p {
+        color: $grijs;
+    }
 
-.poms-form .row {
-    @include span-columns(12);
-}
+    label.form-inline-label {
+        display: inline-block;
+        position: absolute;
+        right: -128px;
+        top: 31px;
+        color: $donkergrijs;
+    }
 
-.poms-form .field {
-    margin-bottom: 24px;
-}
+    .form-erase-field {
+        position: absolute;
+        right: -31px;
+        top: 31px;
+    }
 
-.poms-form h1 > span {
-    display: block;
-    font-size: 11px;
-}
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-overflow: '';
+        height: 35px;
+        line-height: 15px;
+    }
 
-.poms-form label {
-    display: block;
-    margin: 0 0 5px;
-}
+    .poms-multidropdown-label,
+    .dropdown-toggle {
+        color: $oranje; // wtf
+    }
 
-.poms-form p {
-    color: $grijs;
-}
-
-.poms-form label.form-inline-label {
-    display: inline-block;
-
-    position: absolute;
-    right: -128px;
-    top: 31px;
-    color: $donkergrijs;
-}
-
-.poms-form .form-erase-field {
-
-    position: absolute;
-    right: -31px;
-    top: 31px;
-}
-
-.poms-form select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-overflow: '';
-    height: 35px;
-    line-height: 15px;
-}
-
-.poms-form .poms-multidropdown-label,
-.poms-form .dropdown-toggle {
-    color: $oranje;
-}
-
-.poms-form .dropdown-selected {
-    color: $grijs;
-    display: block;
-}
-
-.poms-form .form-fields {
-    position: relative;
-
-    padding-bottom: 24px;
-    @include span-columns(12);
-
-}
-
-.poms-form .tooltip-wrapper {
-    position: absolute;
-    display: none;
-}
-
-.poms-form .field:hover {
-    .tooltip-wrapper {
+    .dropdown-selected {
+        color: $grijs;
         display: block;
     }
-}
 
+    .form-fields {
+        position: relative;
+
+        padding-bottom: 24px;
+        @include span-columns(12);
+
+    }
+
+    .tooltip-wrapper {
+        position: absolute;
+        display: none;
+    }
+
+    .field:hover {
+        .tooltip-wrapper {
+            display: block;
+        }
+    }
+
+}
 .poms-select {
     border-radius: 0;
-
+    
     @include icon('pulldown', 12px, '96% center');
     background-color: white;
-}
+}  

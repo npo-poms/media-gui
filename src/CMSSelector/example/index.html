@@ -9,15 +9,16 @@
       }
 
       #type {
-        height: 65px;
+        height: 100px;
       }
 
-      #return {
-        appearance: menulist;
-        -webkit-appearance: menulist;
-        -moz-appearance: menulist;
+      .poms-form.example select {
+        appearance: menulist-button;
       }
-
+      .poms-form.examle label {
+        margin-bottom: 10px;
+      }
+      
       #select {
         margin: 8px 0 20px;
       }
@@ -30,7 +31,7 @@
   </head>
   <body>
 
-    <div class="poms-form">
+    <div class="poms-form example">
       <div class="form-fields">
 
         <div class="col-8">
@@ -55,6 +56,7 @@
               
               <label for="avType">AVType:</label>
               <select id="avType">
+                <option value="">ANY</option>
                 <option value="AUDIO">Audio</option>
                 <option value="VIDEO">Video</option>
               </select>
@@ -74,8 +76,11 @@
           </div>
 
           <div class="row">
-            <label for="value">Result:</label>
-            <input id="value" type="text"/>
+            <label for="result">Result:</label>
+            <input id="result" type="text"/>
+            <label for="value">Raw result</label>
+            <textarea id="value" />
+
           </div>
 
         </div>
@@ -116,7 +121,7 @@
 
         mediaTypeSelector.appendChild(option);
       });
-
+      
       document.getElementById('select').onclick = function () {
         const multipleType = document.getElementById('type');
         const types = [];
@@ -127,13 +132,16 @@
         }
         nl_vpro_media_CMSSelector.select(
                 function (value) {
-                  if (typeof value === "object") {
-                    value = value.mid + ":" + value.title;
+                  var result = value;
+                  if (typeof result === "object") {
+                    result = result.mid + ":" + result.title;
                   }
-                  document.getElementById('value').value = value;
+                  document.getElementById('result').value = result;
+                  document.getElementById('value').value = JSON.stringify(value);
+
                 }, {
                   mediaType: types.join(),
-                  writable: document.getElementById('writable').value,
+                  writable: document.getElementById('properties.writable').checked,
                   avType: document.getElementById('avType').value,
                   returnValue: document.getElementById('return').value
                 }
