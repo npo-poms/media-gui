@@ -15,7 +15,7 @@ const nl_vpro_media_CMSSelector = {
         if ( options ) {
             for (let i in options ) {
                 let value = options[ i ];
-                if (value !== undefined &&  value !== '' && value !== false ) {
+                if (value !== undefined &&  value !== '' && value != null && value !== false ) {
                     query += ( query.length ? '&' : '?') + i + '=' + value;
                 }
             }
