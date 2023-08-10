@@ -35,10 +35,11 @@
                 </div>
 
                 <div ng-if="column.id == 'platform'">
+
                     <span e-form="rowform" e-name='{{column.id}}' e-required
-                          editable-select="item[column.id]"
+                          editable-select="item[column.id].id"
                           e-ng-options="s.id as s.text for s in modalTableEditController.platforms">
-                        {{ item[ column.id ] || 'kies' }}
+                        {{ item[ column.id ].text || 'kies' }}
                     </span>
                     <poms-invalid violation="item.violations.platform"></poms-invalid>
                 </div>
