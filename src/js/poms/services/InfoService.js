@@ -40,7 +40,7 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                 }
             },
             getImageBackendUrl: function() {
-                return properties['image_backend.baseUrl']
+                return properties['npo-images_backend.baseUrl']
             }
 
         };
