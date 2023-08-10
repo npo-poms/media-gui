@@ -9,7 +9,7 @@
 
     <div class="editfield">
         <div ng-repeat="item in modalTableEditController.items">
-             {{item[optionField].text}} <span ng-if="item.platform">({{item.platform}})</span>
+             {{item[optionField].text}} <span ng-if="item.platform">({{item.platform.text}})</span>
         </div>
     </div>
 
