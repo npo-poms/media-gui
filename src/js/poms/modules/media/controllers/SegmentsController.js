@@ -55,9 +55,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     duration: 0,
                     mainTitle: null
                 };
-
+                
                 if (this.canItemize()) {
-                    this.segments.push( this.$scope.insertedSegment );
+                    // Itemize with player
                     this.itemize(this.$scope.insertedSegment);
                 } else {
                     this.modalSegment(this.$scope.media)
