@@ -4,6 +4,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
     '$modal',
     'PomsEvents',
     'MediaService',
+    'ListService',
     (function () {
 
         function load ( scope, pomsEvents, dest ) {
@@ -21,13 +22,15 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             )
         }
 
-        function ModalTableEditController ( $scope, $q, $modal, pomsEvents, mediaService ) {
+        function ModalTableEditController ( $scope, $q, $modal, pomsEvents, mediaService, listService ) {
 
             this.items = [];
 
             this.options = [];
-            this.platforms = [];
-
+            listService.getPlatforms().then(function(p) {
+                this.platforms = p;
+                console.log("platforms", this.platforms);
+            }.bind(this));
             this.$scope = $scope;
             this.$q = $q;
             this.$modal = $modal;
