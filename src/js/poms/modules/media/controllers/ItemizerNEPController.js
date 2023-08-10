@@ -629,11 +629,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            if ( this.itemizeRequest.mid === message.request.mid &&
+                            if (this.itemizeRequest && 
+                                this.itemizeRequest.mid === message.request.mid &&
                                 this.itemizeRequest.start === message.request.start &&
                                 this.itemizeRequest.stop === message.request.stop
                             ) {
-
                                 this.$scope.workflowExecution = message.workflowExecution;
                                 this.$scope.assetWaiting = ! message.readyForDownload;
                                 this.$scope.assetSize = message.mibSize;
