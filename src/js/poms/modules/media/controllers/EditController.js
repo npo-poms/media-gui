@@ -413,7 +413,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                                 }, this)
                             }.bind( this ),
                             function ( error ) {
-                                if ( error.code === "nl.vpro.restriction.tooManyPublications" ) {
+                                if ( error.cause === "TOO_MANY_PUBLICATIONS" ) {
                                     var type, message;
                                     if(memberType === 'episodeOf') {
                                         type = 'aflevering van';

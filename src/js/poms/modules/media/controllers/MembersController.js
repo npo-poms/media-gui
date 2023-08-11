@@ -212,7 +212,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                                 }, this)
                             }.bind( this ),
                             function ( error ) {
-                                if ( error.code === "nl.vpro.restriction.tooManyPublications" ) {
+                                if ( error.cause === "TOO_MANY_PUBLICATIONS" ) {
                                     var type, message;
                                     if(this.$scope.type === 'episodes') {
                                         type = 'afleveringen';
@@ -293,7 +293,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                                 this.load();
                             }.bind(this),
                             function ( error ) {
-                                if ( error.code === "nl.vpro.restriction.tooManyPublications" ) {
+                                if ( error.cause === "TOO_MANY_PUBLICATIONS" ) {
                                     var type, message;
                                     if(this.$scope.media.ordered) {
                                         type = 'ordenen lijst';
