@@ -181,8 +181,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
         EditController.prototype = {
 
-            showMid: true,
-
             listService: null,
 
             scope: null,
@@ -224,10 +222,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                         $scope.$emit( pomsEvents.error, error )
                     }.bind( this )
                 )
-            },
-
-            toggleShowMid: function () {
-                this.showMid = ! this.showMid;
             },
 
             editRef: function ( mid ) {
