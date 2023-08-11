@@ -89,21 +89,11 @@
 
     <div class="media-static-fields">
 
-      <div class="media-static-field">
-        <h2 class="small-header media-static-field-title media-data-tab-switch"
-            ng-class="{'active' : editController.showMid}" ng-click="editController.toggleShowMid()">
-          <span ng-class="{'active' : editController.showMid}">Mid</span>
-          <span ng-if="media.urn" ng-class="{'active' : !editController.showMid}">Urn</span>
-        </h2>
-
-        <p class="media-static-field-content" ng-if="editController.showMid">
+      <div class="media-static-field media-mid">
+        <h2 class="small-header media-static-field-title">MID</h2>
+        <p class="media-static-field-content" >
           <poms-clipboard field="media.mid"></poms-clipboard>
         </p>
-
-        <p class="media-static-field-content" ng-if="!editController.showMid">
-          <poms-clipboard field="media.urn"></poms-clipboard>
-        </p>
-
         <div class="media-field-tools">
           <poms-help field="editor.general.mid"></poms-help>
         </div>
