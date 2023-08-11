@@ -228,12 +228,13 @@
                     </div>
 
                     <div class="field" ng-class="{'has-error' : bulkUpdateForm.inputKickerDescription.$invalid}" ng-if="bulkUpdateController.hasWritePermission('kickerDescription')">
-                        <label for="inputKickerDescription">Eenregelige beschrijving</label>
-                        <textarea  type="text" name="inputKickerDescription" id="inputKickerDescription"
+                        <label for="inputKickerDescription">E&eacute;nregelige beschrijving</label>
+                        <input  type="text" name="inputKickerDescription" id="inputKickerDescription"
                                 ng-change="bulkUpdateController.validate()"
+                                ng-maxlength="140"
                                    ng-model="update.kickerDescription"
                                    ng-disabled="erase.kickerDescription"
-                                   placeholder="{{ erase.kickerDescription ? 'wordt gewist' : 'geen wijziging' }}"></textarea>
+                                   placeholder="{{ erase.kickerDescription ? 'wordt gewist' : 'geen wijziging' }}"></input>
 
                         <label class="form-inline-label" for="clearKickerDescription">Wis in {{ ::media.length }} items</label>
                         <input class="form-erase-field" type="checkbox" id="clearKickerDescription" ng-change="bulkUpdateController.validate()" ng-model="erase.kickerDescription" />

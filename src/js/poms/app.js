@@ -133,7 +133,7 @@
         lexicoTitle: 'Lexicografische titel',
         mainDescription: 'Beschrijving',
         shortDescription: 'Korte beschrijving',
-        kickerDescription: 'Eénregelige beschrijving',
+        kickerDescription: 'E&eacute;nregelige beschrijving',
         subDescription: 'Afleveringsbeschrijving'
     });
 
