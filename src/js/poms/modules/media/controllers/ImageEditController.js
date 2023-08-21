@@ -246,7 +246,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 $.find('#uploadinfo')[0].innerHTML = "";
                 this.setPreview('');
                 this.$upload.upload({
-                    url: this.infoService.getImageBackendUrl() + "api/images/metadata",
+                    url: this.infoService.getImageBackendUrl() + "/api/images/metadata",
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
@@ -267,7 +267,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             date: metadata.date,
                             credits: metadata.credits
                         });
-                        this.setPreview(this.infoService.getImageBackendUrl() + "api/images/thumb/" + metadata.uploadId + "?access_token=" + editor.keycloakToken);
+                        this.setPreview(this.infoService.getImageBackendUrl() + "/api/images/thumb/" + metadata.uploadId + "?access_token=" + editor.keycloakToken);
                     }.bind(this),
                     function (error) {
                         mes = error.statusText;
