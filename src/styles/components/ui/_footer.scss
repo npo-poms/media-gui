@@ -111,6 +111,7 @@
     @include icon('warning', 20px, 0 center)
 }
 
+
 .footer .required-field {
     &:after {
         content: ',\00a0';

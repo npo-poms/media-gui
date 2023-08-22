@@ -18,6 +18,10 @@
        e-form="editElement"
        e-name="editvalue"  >
         <span ng-if="media[field].iconClass != null" class="icon" title="{{media[field].text}}" ng-class="media[field].iconClass"></span>
+      <div ng-if="media[field].required && media[field].id == null && !isOpen" class="required-feedback-message">
+        Niet ingevuld
+        <poms-help field="{{helpField}}.required"></poms-help>
+       </div> 
     </p>
 
     <div class="editfield-backdrop" ng-click="blurredSave($event)"></div>

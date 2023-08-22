@@ -267,6 +267,14 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             setTwitterRefs: function ( twitterrefs ) {
                 return this.mediaService.setTwitterRefs( this.media, twitterrefs );
             },
+            
+            getEmail: function () {
+                return this.mediaService.getEmail( this.media );
+            },
+
+            setEmail: function ( email ) {
+                return this.mediaService.setEmail( this.media, email );
+            },
 
             allowedPortalRestrictions: function () {
                 return this.editorService.getAllowedPortals();

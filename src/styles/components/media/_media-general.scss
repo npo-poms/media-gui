@@ -205,6 +205,22 @@
         }
 
     }
+    .required-feedback-message {
+        padding-left: 28px;
+        color: $rood;
+        text-decoration: underline $lichtrood;
+        @include icon('warning', 20px, 0 center);
+        .tooltip-wrapper {
+            display: inline-block;
+
+            .tooltip-icon {
+                cursor: pointer;
+                display: inline-block;
+            }
+        }
+    }
+    
+
 }
 
 .editfield-backdrop {
