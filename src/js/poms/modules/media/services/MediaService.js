@@ -330,6 +330,15 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setTwitterRefs: function ( media, twitterrefs ) {
                 return post( media, '/twitterRefs', twitterrefs );
             },
+            
+            
+            getEmail: function ( media ) {
+                return Promise.resolve(media.email);
+            },
+
+            setEmail: function ( media, email ) {
+                return post( media, '/email', email );
+            },
 
             getGenres: function ( media ) {
                 return get( media, '/genres' );
@@ -360,7 +369,6 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             removeTargetGroups: function ( media ) {
-                console.log( 'remove' )
                 return del( media, '/targetGroups' );
             },
 
