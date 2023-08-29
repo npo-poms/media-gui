@@ -150,7 +150,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
             },
 
             setSaveConfirm : function ( value ) {
-                localStorageService.set( this.saveConfirmKey, value );
+                localStorageService.set( this.saveConfirmKey, "" + value );
             },
 
             // As of POMS 4.1 we store the whole search object instead of the query data migrate the queries
