@@ -30,10 +30,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 this.searchKey = this.editor.hashId + '.searchFavorites';
                 this.mediaKey = this.editor.hashId + '.mediaFavorites';
                 this.saveConfirmKey = this.editor.hashId + '.saveconfirm';
-
-                this.migratedKey = this.editor.hashId + '.migratedFavoriteSearches';
-                this.migrateSearches();
-
+                
                 // init media
                 this.media = localStorageService.get( this.mediaKey ) || [];
 
@@ -85,7 +82,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
 
                 for ( var i = 0; i < this.searches.length; i ++ ) {
                     var existing = this.searches[ i ];
-                    if ( search.id == existing.id ) {
+                    if ( search.id === existing.id ) {
                         search.update();
                         this.searches[ i ] = search;
                         localStorageService.set( this.searchKey, this.searches );
@@ -151,28 +148,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
 
             setSaveConfirm : function ( value ) {
                 localStorageService.set( this.saveConfirmKey, "" + value );
-            },
-
-            // As of POMS 4.1 we store the whole search object instead of the query data migrate the queries
-            migrateSearches : function () {
-                if ( localStorageService.get( this.migratedKey ) ) {
-                    return;
-                }
-
-                var searches = localStorageService.get( this.searchKey ) || [];
-                if ( searches ) {
-                    for ( var i = 0; i < searches.length; i ++ ) {
-                        var search = searches[ i ];
-                        var migrated = this.searchFactory.migrateQuery( { form : search } );
-                        searches[ i ] = migrated;
-                        migrated.favorite = true
-                    }
-                    localStorageService.set( this.searchKey, searches );
-                }
-
-                localStorageService.set( this.migratedKey, true );
             }
-
 
         };
 

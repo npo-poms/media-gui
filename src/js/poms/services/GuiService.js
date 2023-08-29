@@ -25,8 +25,6 @@ angular.module('poms.services').factory('GuiService', [
 
                 editorService.init().then(
                         function(editor) {
-                            this.migrateTabs(editor.hashId);
-
                             localStorageService.bind($rootScope, editor.hashId, []);
 
 
@@ -151,27 +149,6 @@ angular.module('poms.services').factory('GuiService', [
 
             removedImage : function(ownerMid) {
                 $rootScope.$broadcast(pomsEvents.imageRemoved, ownerMid);
-            },
-
-            migrateTabs : function(key) {
-                var mKey = key + '.migratedSearchTabs'
-                if(localStorageService.get(mKey)) {
-                    return;
-                }
-
-                var tabs = localStorageService.get(key);
-
-                if(tabs) {
-                    for(var i = 0; i < tabs.length; i++) {
-                        var tab = tabs[i];
-                        if(tab.type === 'search') {
-                            tabs[i].item = searchFactory.migrateQuery({id : tab.item.tab, form : tab.item});
-                        }
-                    }
-                    localStorageService.set(this.mediaKey, tabs);
-                }
-
-                localStorageService.set(mKey, true);
             }
         };
 
