@@ -8,9 +8,6 @@
         <input type="checkbox" ng-model="media[field]" ng-change="save()" ng-disabled="!mayWrite()" >
     </p>
 
-    <div class="media-field-tools">
-        <div class="edit-icon"></div>
-        <poms-help field="{{helpField}}"></poms-help>
-    </div>
+  <poms-edit-tools may-write="mayWrite()" help-field="{{helpField}}"></poms-edit-tools>
 
 </div>

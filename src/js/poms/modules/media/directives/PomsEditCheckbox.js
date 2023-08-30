@@ -7,7 +7,8 @@ angular.module( 'poms.media.directives' )
             scope: {
                 header: '@header',
                 options: '@options',
-                field: '@field'
+                field: '@field',
+                helpField : '@'
             },
             link: function ( $scope, element, attrs ) {
 

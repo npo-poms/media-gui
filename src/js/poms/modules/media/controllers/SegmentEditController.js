@@ -8,8 +8,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
     'PomsEvents',
     'MediaService',
     'ValidationPatterns',
+    'HelpService',
     (function () {
-        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, segmentscontroller, pomsEvents, mediaService, validationPatterns) {
+        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, segmentscontroller, pomsEvents, mediaService, validationPatterns, helpService) {
 
             this.$scope = $scope;
             this.$scope.segment = segment;
@@ -19,6 +20,13 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             this.$scope.modalTitle = 'Nieuw segment voor ' + media.mainTitle.text + " (" + media.mid + ")";
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
+            
+            this.$scope.segmentsHelp = "...";
+            
+            helpService.getMessage('editor.segments.help').then(function(result) { 
+                this.$scope.segmentsHelp = $sce.trustAsHtml(result.text);
+            }.bind(this));
+
 
 
             // TODO These constants could be stored somewhere centralized (or even server side?)

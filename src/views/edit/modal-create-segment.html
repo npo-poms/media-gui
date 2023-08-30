@@ -63,7 +63,7 @@
                         ng-model="segment.mainTitle"
                         ng-disabled="waiting"/>
                 <poms-invalid violation="controller.violations.title"></poms-invalid>
-                <poms-help field="editor.segment.title"></poms-help>
+                <poms-help field="editor.segment.mainTitle"></poms-help>
               </div>
 
             </div>
@@ -82,7 +82,7 @@
                         ng-model="segment.mainDescription"
                         ng-disabled="waiting"/>
               <poms-invalid violation="controller.violations.description"></poms-invalid>
-              <poms-help field="editor.segment.description"></poms-help>
+              <poms-help field="editor.segment.mainDescription"></poms-help>
             </div>
 
           </div>
@@ -90,6 +90,10 @@
         </div>
 
       </div>
+      <div class="modal-column">
+        <div ng-bind-html="segmentsHelp"></div>
+      </div>
+
     </div>
 
     <div class="modal-disable-overlay"></div>
