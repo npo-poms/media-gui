@@ -11,6 +11,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
     'media',
     'location',
     'edit',
+    'HelpService',
     (function () {
 
         function isValid ( location ) {
@@ -20,7 +21,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 location.url !== ''
         }
 
-        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit ) {
+        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit, helpService) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -60,6 +61,12 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 $scope.editLocationFormValid = isValid( newValue, $scope );
 
             }, true );
+            
+            this.$scope.locationsHelp = "...";
+            
+            helpService.getMessage('editor.locations.help').then(function(result) { 
+                this.$scope.locationsHelp = $sce.trustAsHtml(result.text);
+            }.bind(this));
         }
 
         LocationEditController.prototype = {
