@@ -20,7 +20,7 @@
             />
           </div>
 
-          <div class="col-6 field">
+          <div class="col-6 field" ng-if="prediction.isEncryptionPossible">
             <label for="encryption">Encryptie</label>
               <ui-select id="encryption"
                          ng-model="prediction.encryption"
