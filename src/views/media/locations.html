@@ -10,10 +10,19 @@
         Bron toevoegen
     </button>
 
-    <button id="uploadLocation" ng-disabled="locationsController.uploadInProgress" class="btn-text-icon btn-text-icon-add"
-            ng-if="locationsController.mayUpload() && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"
-            ng-click="locationsController.uploadLocation();">
-        Upload
+    
+    <button id="uploadAudioLocation" ng-disabled="locationsController.uploadInProgress" 
+            class="btn-text-icon btn-text-icon-add"
+            ng-if="(media.avType.id === 'AUDIO' || media.avType.id === 'MIXED') &&  locationsController.mayUpload() && locationsController.mayAddLocations()"
+            ng-click="locationsController.uploadLocation('AUDIO');">
+        Upload audio
+    </button>
+  
+   <button id="uploadLocation" ng-disabled="locationsController.uploadInProgress" 
+            class="btn-text-icon btn-text-icon-add"            
+            ng-if="(media.avType.id === 'VIDEO' || media.avType.id === 'MIXED') &&  locationsController.mayUpload() && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"            
+            ng-click="locationsController.uploadLocation('VIDEO');">
+        Upload video
     </button>
 
     <table class="poms-table poms-table-locations"

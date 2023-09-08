@@ -213,7 +213,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 );
             },
 
-            uploadLocation : function () {
+            uploadLocation : function (streamType) {
                 var modal = this.$modal.open( {
                     controller : 'LocationUploadController',
                     controllerAs : 'uploadController',
@@ -224,9 +224,12 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         encryptionTypes: this.listService.getEncryptionTypes,
                         media : function () {
                             return this.$scope.media;
-                        }.bind( this ),
+                        }.bind(this),
                         location : function () {
                             return {};
+                        },
+                        streamType: function () {
+                            return streamType;
                         }
                     }
                 } );

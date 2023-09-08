@@ -11,10 +11,11 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
     'location',
     'priorityTypes',
     'encryptionTypes',
+    'streamType',
     (function () {
 
 
-        function LocationUploadController ( $scope, $modalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes) {
+        function LocationUploadController ( $scope, $modalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes, streamType) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -29,6 +30,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
             this.$scope.location = location;
             this.$scope.media = media;
+            this.$scope.streamType = streamType;
 
             this.$scope.required = [
                 {'id': 'file', 'text': 'Bestand'}
@@ -87,26 +89,27 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             violations: {},
             
             needsPriorityField: function() {
-                return this.$scope.media.avType.id !== 'AUDIO';
+                return this.$scope.streamType === 'VIDEO';
             },
             
             needsEncryptionField: function() {
-                return this.$scope.media.avType.id !== 'AUDIO';
+                return this.$scope.streamType === 'VIDEO';
             },
             
-            avType: function() {
-                return this.$scope.media.avType.text;
+            guiStreamType: function() {
+                return this.$scope.streamType === 'AUDIO' ? 'audio' : 'video';
             },
             
             accept: function() {
-                var avtype = this.$scope.media.avType.id;
+                
                 var accept = "";
-                if (avtype === 'AUDIO' || avtype === 'MIXED') {
+                if (this.streamType  === 'AUDIO') {
                     accept = ".mp3,.wav,audio/mp3,audio/wav";
-                } 
-                if (avtype === 'VIDEO' || avtype === 'MIXED') {
+                }  else if (this.streamType  === 'VIDEO') {
                     accept += ".mp4,.m4v,.mxf,application/mxf,video/mp4,video/x-m4v";
-                } 
+                } else {
+                    throw "unknown stream type"
+                }
                 return accept;
             },
 
@@ -122,7 +125,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
                 this.$scope.waiting = true;
 
-                // Uploading is a two step process:
+                // Uploading is a two-step process:
                 // - First the location is uploaded to the location server (running on /locations).
                 // - Second the returned urn from the location server is submitted to Poms with all other meta-data.
 

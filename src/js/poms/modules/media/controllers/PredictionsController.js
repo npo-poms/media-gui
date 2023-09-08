@@ -9,10 +9,11 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
     'MediaService',
     'NotificationService',
     'ListService',
+    'MessageService',
     'appConfig',
     (function () {
 
-        function PredictionsController($rootScope, $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, appConfig) {
+        function PredictionsController($rootScope, $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, MessageService, appConfig) {
             this.$http = $http;
             this.$filter = $filter;
             this.$modal = $modal;
@@ -20,13 +21,24 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
             this.mediaService = MediaService;
             this.notificationService = NotificationService;
             this.listService = ListService;
+            this.messageService = MessageService;
             this.$scope = $scope;
             this.appConfig = appConfig;
             this.$rootScope = $rootScope;
-            this.load();
+            this.init();
+
         }
 
         PredictionsController.prototype = {
+            init: function() {
+                //console.log("Initing predictions");
+                this.load();
+                this.messageService.receiveRepaintMessage().then( null, null, function (message ) {
+                    if (message.mid === this.$scope.media.mid && message.aspect === "avType") {
+                        this.load()
+                    }
+                }.bind( this ));
+            },
 
             editPrediction: function (prediction) {
 
@@ -39,12 +51,12 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
 
                 var modal = this.$modal.open({
                     controller: 'PredictionEditController',
-                                controllerAs: 'controller',
-                                templateUrl: 'edit/modal-edit-prediction.html',
-                                windowClass: 'modal-form modal-edit-prediction',
-                                resolve: {
-                                media: function () {
-                                    return this.$scope.media;
+                    controllerAs: 'controller',
+                    templateUrl: 'edit/modal-edit-prediction.html',
+                    windowClass: 'modal-form modal-edit-prediction',
+                    resolve: {
+                        media: function () {
+                            return this.$scope.media;
                         }.bind(this),
                         prediction: function () {
                             return prediction;

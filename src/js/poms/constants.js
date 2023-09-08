@@ -1,3 +1,3 @@
 'use strict';
 angular.module('poms.constants', [])
-  .constant('appConfig', {"version":"6.5.0","apiHost":""});
+  .constant('appConfig', {"version":"6.6.0","apiHost":""});

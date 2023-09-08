@@ -12,10 +12,12 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
         var RECONNECT_TIMEOUT = appConfig.RECONNECT_TIMEOUT || 30000;
         var PUBLICATIONS_REQUEST = appConfig.PUBLICATIONS_REQUEST || BASE_URL + '/publications';
         var PUBLICATIONS_TOPIC = appConfig.PUBLICATIONS_TOPIC || "/topic/publications";
+        var REPAINT_TOPIC =  "/topic/repaint";
         var ITEMIZER_TOPIC = "/topic/itemizer";
         var MESSAGES_TOPIC = "/topic/messages";
         var publicationListener = $q.defer();
         var itemizerListener = $q.defer();
+        var repaintListener = $q.defer();
 
         var callbacks = {};
         var client;
@@ -41,6 +43,10 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
             stomp.subscribe( ITEMIZER_TOPIC, function ( data ) {
                 itemizerListener.notify( getMessage( data.body ) );
+            } );
+            stomp.subscribe( REPAINT_TOPIC, function ( data ) {
+                console.log("repaint", data);
+                repaintListener.notify( getMessage( data.body ) );
             } );
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
                 var json = JSON.parse(data.body);
@@ -93,6 +99,10 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
             receiveItemizerMessage: function () {
                 return itemizerListener.promise;
+            },
+            
+            receiveRepaintMessage: function () {
+                return repaintListener.promise;
             },
             callback: function(id, f) {
                 this.callbacks[id] = f;
