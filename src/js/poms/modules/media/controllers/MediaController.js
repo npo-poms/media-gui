@@ -220,7 +220,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     function ( data ) {
                         this.$scope.avTypes = data;
                     }.bind( this ),
-                    function () {
+                    function (e) {
+                        console.log(e);
                         this.$scope.avTypes = {};
                     }.bind( this )
                 );

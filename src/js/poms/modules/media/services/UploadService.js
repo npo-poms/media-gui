@@ -92,10 +92,10 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                 var status;
 
                 if ( upload.status === 'uploadFinished' ) {
-                    if (upload.passthrough) {
-                        message = '<span>' + upload.fileName + '  is ge&uuml;pload, we wachten op de afmelding</span>';
+                    if (upload.avType === 'AUDIO') {
+                        message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afhandeling door sourcing service</span>';
                     } else {
-                        message = '<span>' + upload.fileName + '  is ge&uuml;pload, transcodering is begonnen </span>';
+                        message = '<span>' + upload.fileName + '  is geüpload, transcodering is begonnen</span>';
                     }
                 } else if ( upload.status === 'uploadStart' ) {
                     message = '<span>' + upload.fileName + '  is nu aan het uploaden bij MID ' + upload.mid + ' </span>';
@@ -115,15 +115,12 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             upload: function ( media, location, fields ) {
                 
                 var avType = media.avType;
-                var passthrough = media.avType.id === "AUDIO";
                 
                 var uploadStatus = {
                     "mid": media.mid,
                     "fileName": location.file[0].name,
                     "status": "uploadStart",
-                    "avType": avType,
-                    "passthrough": passthrough
-
+                    "avType": avType
                 };
 
 
@@ -155,7 +152,6 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                             "fileName": location.file[0].name,
                             "status": "uploadFinished",
                             "avType": avType,
-                            "passthrough": passthrough,
                             "message": data.message ? data.message : JSON.stringify(data)
                         };
 

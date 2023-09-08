@@ -96,7 +96,7 @@
                 ng-click="mediaController.goTo('episodes')">
 
                 <span class='media-item-navigation-text' title="Afleveringen" ng-class="{'media-item-navigation-text-waiting' : episodesWaiting }">
-                    <span title="Afleveringen">Afleveringen ({{media.episodes}})</span>
+                    <span title="Afleveringen">Afleveringen ({{media.episodes.count}})</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
@@ -105,15 +105,15 @@
                 ng-click="mediaController.goTo('members')">
 
                 <span class='media-item-navigation-text' title="Onderdelen" ng-class="{'media-item-navigation-text-waiting' : membersWaiting }">
-                    <span title="Onderdelen">Onderdelen ({{media.members}})</span>
+                    <span title="Onderdelen">Onderdelen ({{media.members.count}})</span>
                 </span>
             </li>
             <li class='media-item-navigation-link'
                 ng-class="{'active' : mediaController.activeSection == 'relations' }"
                 ng-click="mediaController.goTo('relations')" >
 
-                <span class='media-item-navigation-text' title="Relaties" ng-class="{'media-item-navigation-text-waiting' : relationsWaiting }">
-                    <span title="Relaties">Relaties ({{media.relations}})</span>
+              <span class='media-item-navigation-text' title="Relaties" ng-class="{'media-item-navigation-text-waiting' : relationsWaiting }">
+                    <span title="Relaties">Relaties ({{media.relations.count}})</span>
                 </span>
             </li>
 
