@@ -11,19 +11,27 @@
     </button>
 
     
-    <button id="uploadAudioLocation" ng-disabled="locationsController.uploadInProgress" 
+    <button id="uploadAudioLocation" 
+            ng-disabled="locationsController.uploadInProgress || ! (locationsController.mayUpload() && locationsController.mayAddLocations())" 
             class="btn-text-icon btn-text-icon-add"
-            ng-if="(media.avType.id === 'AUDIO' || media.avType.id === 'MIXED') &&  locationsController.mayUpload() && locationsController.mayAddLocations()"
-            ng-click="locationsController.uploadLocation('AUDIO');">
+            ng-if="(media.avType.id === 'AUDIO')"
+            ng-click="locationsController.uploadLocation('AUDIO');"
+            title="{{locationsController.mayUpload() && locationsController.mayAddLocations() ? 'upload' : 'upload niet toegestaan'}}"
+    >
         Upload audio
     </button>
   
-   <button id="uploadLocation" ng-disabled="locationsController.uploadInProgress" 
-            class="btn-text-icon btn-text-icon-add"            
-            ng-if="(media.avType.id === 'VIDEO' || media.avType.id === 'MIXED') &&  locationsController.mayUpload() && locationsController.mayAddLocations() && !locationsController.transcodingServiceError"            
-            ng-click="locationsController.uploadLocation('VIDEO');">
+  
+   <button id="uploadLocation" 
+           ng-disabled="locationsController.uploadInProgress || ! (locationsController.mayUpload() && locationsController.mayAddLocations())" 
+           class="btn-text-icon btn-text-icon-add"
+            ng-if="(media.avType.id === 'VIDEO') && !locationsController.transcodingServiceError"            
+            ng-click="locationsController.uploadLocation('VIDEO');"
+           title="{{locationsController.mayUpload() && locationsController.mayAddLocations() ? 'upload' : 'upload niet toegestaan'}}"
+   >
         Upload video
     </button>
+  
 
     <table class="poms-table poms-table-locations"
            ng-show="locationsController.locations.length > 0"
