@@ -97,9 +97,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
                         // update counts
                         if ( this.$scope.type === 'episodes' ) {
-                            this.$scope.media.episodes = members.length;
+                            this.$scope.media.episodes.count = members.length;
                         } else {
-                            this.$scope.media.members = members.length;
+                            this.$scope.media.members.count = members.length;
                         }
                     }.bind( this ), function ( error ) {
                         this.$scope.$emit( 'error', error )
