@@ -7,5 +7,5 @@ trigger_media:
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/9.2'
+    ref: 'tags/9.4'
     file: 'maven_release.yml'
