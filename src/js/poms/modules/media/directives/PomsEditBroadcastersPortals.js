@@ -37,7 +37,7 @@ angular.module( 'poms.media.directives' )
 
 
                 $scope.$on( 'closeEditField', function ( e, data ) {
-                    if ( data.field == $scope.field ) {
+                    if ( data.field === $scope.field ) {
                         $timeout( function () {
                             $scope.onHide();
                         }, 0 );
@@ -52,12 +52,11 @@ angular.module( 'poms.media.directives' )
                 };
 
 
-                $scope.showEditElement = function ( event ) {
+                $scope.showEditElement = function ( event) {
 
                     event.preventDefault();
                     event.stopPropagation();
-
-                    if ( $scope.mayWrite && ! $scope.isOpen ) {
+                    if ( $scope.mayWrite() && ! $scope.isOpen ) {
 
                         var currentItems = angular.copy( $scope.media[$scope.field] );
 
@@ -67,7 +66,7 @@ angular.module( 'poms.media.directives' )
                         if ( $scope.options.length > 0 && currentItems ) {
                             for ( var i = 0; i < currentItems.length; i ++ ) {
                                 for ( var j = 0; j < $scope.options.length; j ++ ) {
-                                    if ( $scope.options[j].id == currentItems[i].id ) {
+                                    if ( $scope.options[j].id === currentItems[i].id ) {
 
                                         $scope.selectedItems.selected.push( $scope.options[j] );
                                     }
@@ -186,10 +185,10 @@ angular.module( 'poms.media.directives' )
 
                     var broadcasters, portals;
 
-                    if ( field == 'broadcasters' ) {
+                    if ( field === 'broadcasters' ) {
                         broadcasters = data;
                         portals = $scope.media.portals;
-                    } else if ( field == 'portals' ) {
+                    } else if ( field === 'portals' ) {
                         broadcasters = $scope.media.broadcasters;
                         portals = data;
                     }
@@ -202,7 +201,7 @@ angular.module( 'poms.media.directives' )
                     if ( broadcasters ) {
                         for ( var i = 0; i < broadcasters.length; i ++ ) {
                             for ( var j = 0; j < $scope.allowedBroadcasters.length; j ++ ) {
-                                if ( $scope.allowedBroadcasters[j].id == broadcasters[i].id ) {
+                                if ( $scope.allowedBroadcasters[j].id === broadcasters[i].id ) {
                                     chosenAllowedBroadcasters.push( $scope.allowedBroadcasters[j] );
                                 }
                             }
@@ -213,26 +212,26 @@ angular.module( 'poms.media.directives' )
                     if ( portals ) {
                         for ( var i = 0; i < portals.length; i ++ ) {
                             for ( var j = 0; j < $scope.allowedPortals.length; j ++ ) {
-                                if ( $scope.allowedPortals[j].id == portals[i].id ) {
+                                if ( $scope.allowedPortals[j].id === portals[i].id ) {
                                     chosenAllowedPortals.push( $scope.allowedPortals[j] );
                                 }
                             }
                         }
                     }
 
-                    if ( field == 'broadcasters' && $scope.options ) {
+                    if ( field === 'broadcasters' && $scope.options ) {
                         for ( var j = 0; j < $scope.options.length; j ++ ) {
-                            $scope.options[j].disabled = ( broadcasters.length == 1 && broadcasters[0].id == $scope.options[j].id );
+                            $scope.options[j].disabled = ( broadcasters.length === 1 && broadcasters[0].id === $scope.options[j].id );
 
                         }
                     }
 
 
-                    if ( field == 'portals' && $scope.options ) {
+                    if ( field === 'portals' && $scope.options ) {
                         for ( var j = 0; j < $scope.options.length; j ++ ) {
-                            $scope.options[j].disabled = ( chosenAllowedBroadcasters.length == 0
-                            && chosenAllowedPortals.length == 1
-                            && $scope.options[j].id == chosenAllowedPortals[0].id );
+                            $scope.options[j].disabled = ( chosenAllowedBroadcasters.length === 0
+                            && chosenAllowedPortals.length === 1
+                            && $scope.options[j].id === chosenAllowedPortals[0].id );
 
                         }
                     }
