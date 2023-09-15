@@ -20,8 +20,11 @@
 
 </div>
 
-<poms-pager ng-show="searchResults.total > searchResults.max" class="pager" searchresults="searchResults"
-            onsearch="searchResultController.submit(offset)"></poms-pager>
+<poms-pager 
+        ng-show="searchResults.total > searchResults.max" 
+        class="pager" 
+        searchresults="searchResults"
+        onsearch="searchResultController.submit(offset)"></poms-pager>
 
 <div class="table-wrapper" ng-class="{ 'updating' : searching }">
   <div class="default-sort btn-text-icon-uploads btn-text-icon animate-fade" ng-if="sort != 'relevance'">

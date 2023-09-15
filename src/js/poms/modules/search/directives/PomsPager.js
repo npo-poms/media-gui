@@ -13,20 +13,29 @@ angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $l
             $scope.total = 0;
             $scope.offset = 0;
             $scope.currentPage = 0;
+            $scope.waiting = true;
 
             $scope.$watch( 'searchResults', function ( newValue, oldValue ) {
 
                 if ( ! angular.equals( newValue, oldValue ) ) {
+                    // two modes. Either the backend returns with offset, or with previous/next pages
+                    $scope.total = newValue.total;                    
+                    if ( newValue.offset != null) {
+                        $scope.max = newValue.max;
+                        $scope.offset = newValue.offset;
+                        $scope.currentPage = ($scope.offset / $scope.max) + 1;
+                        $scope.totalPages = Math.floor($scope.total / $scope.max) + 1;
 
-                    $scope.max = newValue.max;
-                    $scope.total = newValue.total;
-                    $scope.offset = newValue.offset;
-
-                    $scope.currentPage = ($scope.offset / $scope.max) + 1;
-                    $scope.totalPages = Math.floor( $scope.total / $scope.max ) + 1;
+                    } else {
+                        $scope.max = newValue.pageSize;
+                        $scope.offset = newValue.page * $scope.max;
+                        $scope.currentPage = newValue.page + 1;
+                        $scope.totalPages = newValue.previousPages.length  + newValue.nextPages.length + 1;
+                    }
                 }
+                $scope.waiting = false;
 
-            } );
+            });
 
             $scope.previous = function () {
                 $scope.offset = $scope.offset - $scope.max;
@@ -68,7 +77,6 @@ angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $l
 
             $scope.last = function () {
                 $scope.offset = $scope.total - ( $scope.total % $scope.max);
-
                 if ( $scope.offset < $scope.total ) {
                     $scope.update();
                 } else {
@@ -77,8 +85,8 @@ angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $l
             };
 
             $scope.update = function () {
-
-                $scope.submit( {offset: $scope.offset} );
+                $scope.waiting = true;
+                $scope.submit( {offset: $scope.offset, page: $scope.offset / $scope.max} );
             };
 
         }

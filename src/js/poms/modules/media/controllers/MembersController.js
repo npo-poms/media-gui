@@ -19,24 +19,25 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             this.searchFactory = SearchFactory;
             this.searchService = SearchService;
             this.mediaService = mediaService;
+            this.overlap = 2;
 
             this.mayWrite = function() {
                 return this.mediaService.hasWritePermission( $scope.media, 'media' ) && this.$scope.type === 'episodes' ? this.mediaService.hasWritePermission( $scope.media, 'episodes' ) : this.mediaService.hasWritePermission( $scope.media, 'members' );
             }.bind(this);
 
 
-            this.$scope.waiting = false;
-            this.$scope.displayQuantity = 10;
+            this.$scope.waiting = true;
+            this.$scope.page = 0;             
 
             $scope.sortableOptions = {
                 handle: '.sort-handle',
                 update: function ( event, ui ) {
                     var moveMethod = $scope.type === 'episodes' ? 'moveEpisode' : 'moveMember';
-
-                    var to = ui.item.index();
+                    var index = ui.item.index();
+                    var to = $scope.members.entries[index].id
                     if ( this.from >= 0 && to !== this.from ) {
                         $scope.waiting = true;
-                        this.mediaService[moveMethod]( $scope.media, this.from, to ).then(
+                        this.mediaService[moveMethod]( $scope.media, this.from, to, $scope.page, this.overlap).then(
                             function ( media ) {
                                 this.load();
                                 angular.copy( media, $scope.media );
@@ -54,7 +55,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                     this.from = - 1;
                 }.bind( this ),
                 start: function ( event, ui ) {
-                    this.from = ui.item.index();
+                    var index = ui.item.index();
+                    this.from = $scope.members.entries[index].id
                 }.bind( this ),
                 items: "tr:not(.not-sortable)"
             };
@@ -91,15 +93,15 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 this.$scope.waiting = true;
                 this.$scope.$emit( this.pomsEvents.loaded, {'section': this.$scope.type, 'waiting': true} );
 
-                this.mediaService[loadMethod]( this.$scope.media )
+                this.mediaService[loadMethod]( this.$scope.media, this.$scope.page, this.$scope.media.ordered ? this.overlap : 0)
                     .then( function ( members ) {
                         this.$scope.members = members;
 
                         // update counts
                         if ( this.$scope.type === 'episodes' ) {
-                            this.$scope.media.episodes.count = members.length;
+                            this.$scope.media.episodes.count = members.total;
                         } else {
-                            this.$scope.media.members.count = members.length;
+                            this.$scope.media.members.count = members.total;
                         }
                     }.bind( this ), function ( error ) {
                         this.$scope.$emit( 'error', error )
@@ -110,6 +112,13 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                     }.bind( this ) );
 
             },
+            
+            setPage: function (page) {
+              if (this.$scope.page !== page) {
+                  this.$scope.page = page;
+                  this.load()
+              }
+            },
 
             remove: function ( member ) {
                 var removeMethod = this.$scope.type === 'episodes' ? 'removeEpisode' : 'removeMember';
@@ -117,7 +126,6 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 return this.mediaService[removeMethod]( this.$scope.media, member ).then(
                     function ( media ) {
                         this.load();
-
                         angular.copy( media, this.$scope.media );
 
                         if ( this.$scope.type === 'episodes' ) {
@@ -183,9 +191,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             },
 
             addMember: function () {
-                var addMethod,
-                        addEventMethod,
-                        search;
+                var addMethod;
+                var addEventMethod;
+                var search;
 
                 if(this.$scope.type === 'episodes') {
                     addMethod = 'addEpisode';
@@ -242,10 +250,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 this.load();
             },
 
-            showAllMembers : function(){
-                this.$scope.displayQuantity = this.$scope.members.length;
-            },
-
+         
             locationTypes : function( locations ){
                 var uniqueLocations = [];
                 for ( var i = 0; i < locations.length; i ++ ) {
