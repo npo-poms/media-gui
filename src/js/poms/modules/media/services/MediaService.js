@@ -428,12 +428,12 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return del( media, '/segments/' + segment.id );
             },
 
-            getEpisodes: function ( media ) {
-                return get( media, '/episodes' );
+            getEpisodes: function ( media, page, overlap) {
+                return get( media, '/episodes?page=' + page + (overlap > 0 ? '&overlap=' + overlap : ''));
             },
 
-            moveEpisode: function ( media, from, to ) {
-                return put( media, '/episodes', { from: from, to: to } );
+            moveEpisode: function ( media, from, to, page, overlap) {
+                return put( media, '/episodes?page=' + page + '&overlap=' + overlap, { from: from, to: to } );
             },
 
             updateEpisode: function ( media, episode ) {
@@ -456,12 +456,12 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return post( media, '/episodeOf', mids );
             },
 
-            getMembers: function ( media ) {
-                return get( media, '/members' );
+            getMembers: function ( media, page, overlap) {
+                return get( media, '/members?page=' + page + (overlap > 0 ? '&overlap=' + overlap : ''));
             },
 
-            moveMember: function ( media, from, to ) {
-                return put( media, '/members', { from: from, to: to } );
+            moveMember: function ( media, from, to, page, overlap) {
+                return put( media, '/members?page=' + page + '&overlap=' + overlap, { from: from, to: to } );
             },
 
             updateMember: function ( media, member ) {

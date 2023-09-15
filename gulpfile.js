@@ -81,6 +81,13 @@ gulp.task('selector-deploy', function () {
         })
 });
 
+gulp.task('head-deploy', function () {
+    gulp.src(__dirname + '/src/head.jspx')
+        .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
+        .pipe(gulp.dest(__dirname + '/build/deploy/'));
+});
+
+
 gulp.task('selector-deploy-dev', function () {
 
     return gulp.src(__dirname + '/src/CMSSelector/**/*')

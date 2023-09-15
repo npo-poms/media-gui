@@ -2,16 +2,18 @@
      ng-controller="MembersController as membersController">
 
     <h1 class='media-section-title' ng-class="{'waiting': waiting}">
-        {{header}} ({{members.length}})
+        {{header}}
+       <span ng-if="members.total <= members.pageSize">({{members.total}})</span>
+       <span ng-if="members.total > members.pageSize">({{members.page * members.pageSize + 1}} - {{members.page * members.pageSize + members.entries.length}} / {{members.total}})</span>
         <poms-help field="{{helpField}}"></poms-help>
     </h1>
-
+  
     <button id="addMember" class="btn-text-icon btn-text-icon-add" ng-if="membersController.mayWrite()" ng-click="membersController.addMember()">
         Onderdeel toevoegen
     </button>
 
 
-    <table class="poms-table poms-table-members" ng-if="members.length > 0" ng-class="{'updating': waiting}">
+    <table class="poms-table poms-table-members" ng-if="members.entries.length > 0" ng-class="{'updating': waiting}">
 
         <thead>
         <tr class="poms-table-head-row">
@@ -29,8 +31,8 @@
         </tr>
         </thead>
 
-        <tbody ui-sortable="sortableOptions" ng-model="members">
-        <tr class="poms-table-row" ng-repeat="member in members  | limitTo: displayQuantity"
+        <tbody ui-sortable="sortableOptions" ng-model="members.entries">
+        <tr class="poms-table-row" ng-repeat="member in members.entries"
             ng-class="{ 'editing': rowform.$visible, 'may-write': membersController.mayWrite(), 'deleted-row': member.workflow.id == ('FOR_DELETION' || 'DELETED'), 'not-sortable': member.number == null }"
             ng-dblclick="membersController.openInEditor( $event, member.mid, rowform )"
             >
@@ -118,10 +120,11 @@
 
         </tbody>
     </table>
-
-    <div class='show-all-rows' ng-if="displayQuantity < members.length" ng-click="membersController.showAllMembers()">
-        <a> Toon alle {{members.length}} {{::header | lowercase}} </a>
-    </div>
+   
+   <poms-pager ng-show="members.previousPages.length > 0 || members.nextPages.length > 0" 
+               class="pager" 
+               searchresults="members"
+               onsearch="membersController.setPage(page)"></poms-pager>
 
     <span ng-if="type=='members' && media.orderable">
         <label class='media-toggle-ordered'>
