@@ -1,15 +1,16 @@
 {
   "name": "pomsui",
   "description": "GUI of the POMS admin",
-  "version": "6.6.0",
+  "version": "6.7.0",
   "config": {
-    "version": "6.6.0",
+    "version": "6.7.0",
     "apiHost": ""
   },
   "scripts": {
     "prebuild:app:dev": "npm run build:constants && npm run build:templatecache:gulp",
     "build:app:dev": "gulp app-deploy-dev",
     "build:app:gulp": "gulp app-deploy",
+    "build:head:gulp": "gulp head-deploy",
     "build:selector:dev": "gulp selector-deploy-dev",
     "build:selector:gulp": "gulp selector-deploy",
     "build:constants": "node ./create.constants.js",
@@ -31,7 +32,7 @@
     "create:workbase": "mkdirp ./build/work",
     "create:workbase:css": "mkdirp ./build/work/css",
     "predeploy:gulp": "npm run clean:target && npm run clean:deploy && npm run create:deploybase",
-    "deploy:gulp": "npm run copy:resources && npm run build:styles && npm run build:templatecache:gulp && npm run build:constants && npm run build:app:gulp && npm run build:selector:gulp",
+    "deploy:gulp": "npm run copy:resources && npm run build:styles && npm run build:templatecache:gulp && npm run build:constants && npm run build:app:gulp && npm run build:selector:gulp && npm run build:head:gulp",
     "predev": "npm run clean:work && npm run create:workbase",
     "dev": "npm run build:styles:dev && npm run build:app:dev && npm run build:selector:dev",
     "livereload": "node ./livereload.js",
@@ -65,7 +66,7 @@
     "cssnano": "~3.4.0",
     "debug": "~2.1.0",
     "express": "~4.10.4",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.1",
     "gulp-angular-templatecache": "~1.4.2",
     "gulp-header": "1.5.2",
     "gulp-load-plugins": "~0.7.1",
