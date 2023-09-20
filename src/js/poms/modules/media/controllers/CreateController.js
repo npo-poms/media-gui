@@ -65,9 +65,8 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
-                    
                     invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 
-                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
+                    this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
                         invalid = invalid || ! newValue.genres || newValue.genres.length === 0;
                         this.$scope.genresHeader = 'Genre *';
