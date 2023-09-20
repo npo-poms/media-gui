@@ -34,19 +34,26 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
             this.uploadInProgress = false;
             this.currentUpload = undefined;
-            this.hasFeedback = false;
+            this.hasErrors = false;
             this.collapsed = localStorageService.get( 'locationsCollapsed' ) || false;
             this.$scope.upload_feedback = [];
             this.messageService.receiveLogMessage().then(null, null, function (message) {
-                var i = this.$scope.upload_feedback.length;
-                while (i--) {
-                    var existingMessage = this.$scope.upload_feedback[i];
-                    if (existingMessage.id === message.id && existingMessage.phase === message.phase) {
-                        $scope.upload_feedback.splice(i, 1);
+                if (message.mid === $scope.media.mid) {
+                    if (message.level === 'ERROR') {
+                        this.hasErrors = true;
+                        this.collapsed = false;
                     }
+                    var i = this.$scope.upload_feedback.length;
+
+                    while (i--) {
+                        var existingMessage = this.$scope.upload_feedback[i];
+                        if (existingMessage.id === message.id && existingMessage.phase === message.phase) {
+                            $scope.upload_feedback.splice(i, 1);
+                        }
+                    }
+
+                    this.$scope.upload_feedback.push(message);
                 }
-                
-                this.$scope.upload_feedback.push(message);
             }.bind(this));
 
             this.setAvFileFormats( this );
@@ -57,7 +64,6 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             $scope.$on( this.pomsEvents.uploadStatus, function ( e, upload ) {
 
                 if ( upload.mid === $scope.media.mid ) {
-                    this.hasFeedback = true;
                     if ( upload.status === "uploadStart" ) {
                         this.uploadInProgress = true;
                         this.currentUpload = upload.fileName;
@@ -105,8 +111,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             },
             
             toggleCollapsed : function () {
-                this.collapsed = ! this.collapsed;
-                this.localStorageService.set( 'locationsCollapsed', this.collapsed );
+                if (!this.hasErrors) {
+                    this.collapsed = ! this.collapsed;
+                    this.localStorageService.set('locationsCollapsed', this.collapsed);
+                }
             },
             
             editLocation : function ( location, permission ) {
@@ -192,9 +200,6 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         function ( transcodings ) {
                             this.transcodings = transcodings;
                             this.transcodingServiceError = false;
-                            if (transcodings.length > 0) {
-                                this.hasFeedback = true;
-                            }
                         }.bind( this ),
                         function ( error ) {
                             if ( error.code) {

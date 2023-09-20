@@ -25,6 +25,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             this.$scope.media = media;
 
+            this.avTypes = avTypes;
             this.$scope.avTypes = avTypes;
             this.$scope.mediaTypes = mediaTypes;
             this.$scope.broadcasters = broadcasters;
@@ -71,13 +72,23 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
                         this.$scope.genreRequired = true;
                         this.$scope.genresHeader = 'Genre *';
-                    }else{
+                    } else {
                         this.$scope.createFormValid =  !( newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 );
 
                         this.$scope.genreRequired = false;
                         this.$scope.genresHeader = 'Genre';
                     }
-
+                    if (this.$scope.media && this.$scope.media.type) {
+                        this.$scope.avTypes = this.avTypes.filter(function (avType) {
+                            return this.$scope.media.type.avTypes.includes(avType.id)
+                        }.bind(this));
+                        
+                        if (this.$scope.media.avType && ! this.$scope.media.type.avTypes.includes(this.$scope.media.avType.id)) {
+                            this.$scope.media.avType = undefined;
+                        }
+                        console.log("Filtered", this.$scope.avTypes);
+                        console.log(this.$scope.media.avType);
+                    }
 
                 }.bind( this ), true );
             },
@@ -116,7 +127,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                     }
                 } );
             }
-
+            
         };
 
         return CreateController;

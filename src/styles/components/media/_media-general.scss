@@ -533,19 +533,32 @@
     }
 }
 
-.media-data .trancoding-logging {
-    ol {
-        background-color: $extralichtgrijs;
-        padding: 2px;
-        li {
-            font: smaller monospace;
-            width: 100%;
+.media-data {
+    .trancoding-logging {
+        &.ERROR a:before {
+            @include icon('warning', 10px, 0 center);
         }
-        li:nth-child(odd) {
-            background-color: $white;
-        }
-        li:nth-child(even) {
+
+        ol {
             background-color: $extralichtgrijs;
+            padding: 2px;
+
+            li {
+                font: smaller monospace;
+                width: 100%; 
+                &:nth-child(odd) {
+                    background-color: $white;
+                }
+    
+                &:nth-child(even) {
+                    background-color: $extralichtgrijs;
+                }
+
+                &.ERROR {
+                    background-color: $rood;
+                    color: $white;
+                }
+            }
         }
     }
 }
@@ -558,7 +571,7 @@
 .media-field-owner {
     display: inline;
     padding-left: 3px;
-
+    
     font-size: 10px;
     color: $lichtgrijs;
     a {
@@ -619,19 +632,19 @@
     font-size: $fontsizemedium;
     color: $lichtgrijs;
     line-height: 27px;
-
+    
     cursor: pointer;
-
+    
     .tooltip-wrapper{
         top: 4px;
         display: none;
     }
-
+    
     &:hover{
         .tooltip-wrapper{
             display: inline-block;
         }
-
+        
     }
 }
 
@@ -657,3 +670,4 @@
 .fi:after {
     content:"\00a0";
 }
+

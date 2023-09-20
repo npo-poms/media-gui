@@ -135,14 +135,17 @@
     <div ng-if="locationsController.transcodingServiceError" class="inline-error">
       De transcodeer-dienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
     </div>
-    <div class="trancoding-logging dropdown-wrapper"
+    <div class="trancoding-logging dropdown-wrapper {{locationsController.hasErrors ? 'ERROR' : ''}}"
          ng-if="upload_feedback.length > 0">
-       <a href="#" ng-click="locationsController.toggleCollapsed()" class="{{locationsController.collapsed ? 'dropdown-toggle' : 'dropdown-selected'}}">
-         {{locationsController.collapsed ? 'toon' : 'verberg'}} {{upload_feedback.length}} berichten over deze upload
+       <a href="#" ng-click="locationsController.toggleCollapsed()"
+          ng-disabled="locationsController.hasErrors"
+          class="{{locationsController.collapsed ? 'dropdown-toggle' : 'dropdown-selected'}} ">
+         <span ng-if="! locationsController.hasErrors">{{locationsController.collapsed ? 'toon' : 'verberg'}}</span> 
+         {{upload_feedback.length}} berichten over deze upload
        </a>
         <ol ng-show="! locationsController.collapsed">
           <li  ng-repeat="feedback in upload_feedback" 
-             class="{{feedback.status}} {{feedback.phase}}"
+             class="{{feedback.status}} {{feedback.phase}} {{feedback.level}}"
                ng-bind-html="feedback.message">
           </li>
         </ol>
