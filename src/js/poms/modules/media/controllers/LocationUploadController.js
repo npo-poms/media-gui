@@ -12,10 +12,11 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
     'priorityTypes',
     'encryptionTypes',
     'streamType',
+    'locationsController',
     (function () {
 
 
-        function LocationUploadController ( $scope, $modalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes, streamType) {
+        function LocationUploadController ( $scope, $modalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes, streamType, locationsController) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -25,12 +26,14 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.uploadService = UploadService;
+            this.locationsController = locationsController;
 
             location.publication = location.publication || {};
 
             this.$scope.location = location;
             this.$scope.media = media;
             this.$scope.streamType = streamType;
+            this.streamType = streamType;
 
             this.$scope.required = [
                 {'id': 'file', 'text': 'Bestand'}
@@ -108,7 +111,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                 }  else if (this.streamType  === 'VIDEO') {
                     accept += ".mp4,.m4v,.mxf,application/mxf,video/mp4,video/x-m4v";
                 } else {
-                    throw "unknown stream type"
+                    throw "unknown stream type" + this.streamType;
                 }
                 return accept;
             },
@@ -162,8 +165,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                 }
 
                 // Location not uploaded to location server yet
-
-                this.uploadService.upload( media, location, fields, this.$scope);
+                this.uploadService.upload( media, location, fields, this.$scope, this.locationsController);
 
 
                 this.$modalInstance.close( );

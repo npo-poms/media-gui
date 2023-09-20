@@ -3,30 +3,51 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
     '$filter',
     '$http',
     '$modal',
+    '$sce',
+    'localStorageService',
     'EditorService',
     'PomsEvents',
     'MediaService',
     'NotificationService',
     'ListService',
     'UploadService',
+    'MessageService',
     'appConfig',
     (function () {
 
-        function LocationsController ( $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, UploadService , appConfig) {
+        function LocationsController ( $scope, $filter, $http, $modal, $sce, localStorageService, EditorService, PomsEvents, MediaService, NotificationService, ListService, UploadService , MessageService, appConfig) {
             this.$http = $http;
             this.$filter = $filter;
             this.$modal = $modal;
+            this.localStorageService = localStorageService;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.notificationService = NotificationService;
             this.listService = ListService;
             this.uploadService = UploadService;
             this.$scope = $scope;
+            this.$sce = $sce;
+            this.messageService = MessageService;
             this.appConfig = appConfig;
 
+         
 
             this.uploadInProgress = false;
             this.currentUpload = undefined;
+            this.hasFeedback = false;
+            this.collapsed = localStorageService.get( 'locationsCollapsed' ) || false;
+            this.$scope.upload_feedback = [];
+            this.messageService.receiveLogMessage().then(null, null, function (message) {
+                var i = this.$scope.upload_feedback.length;
+                while (i--) {
+                    var existingMessage = this.$scope.upload_feedback[i];
+                    if (existingMessage.id === message.id && existingMessage.phase === message.phase) {
+                        $scope.upload_feedback.splice(i, 1);
+                    }
+                }
+                
+                this.$scope.upload_feedback.push(message);
+            }.bind(this));
 
             this.setAvFileFormats( this );
             this.load();
@@ -36,7 +57,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             $scope.$on( this.pomsEvents.uploadStatus, function ( e, upload ) {
 
                 if ( upload.mid === $scope.media.mid ) {
-
+                    this.hasFeedback = true;
                     if ( upload.status === "uploadStart" ) {
                         this.uploadInProgress = true;
                         this.currentUpload = upload.fileName;
@@ -57,9 +78,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
             // update locations when platforms are updated since new locations can be created as result.
             $scope.$on(PomsEvents.predictionUpdated, function(event, mid) {
-                  if (mid === this.$scope.media.mid) {
-                      this.load();
-                  }
+                if (mid === this.$scope.media.mid) {
+                    this.load();
+                }
             }.bind(this));
             $scope.$on(PomsEvents.externalChange, function(event, mid) {
                 if (mid === this.$scope.media.mid) {
@@ -81,6 +102,11 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             },
             mayUpload: function() {
                 return  this.$scope.media.permissions['LOCATION_UPLOAD'];
+            },
+            
+            toggleCollapsed : function () {
+                this.collapsed = ! this.collapsed;
+                this.localStorageService.set( 'locationsCollapsed', this.collapsed );
             },
             
             editLocation : function ( location, permission ) {
@@ -166,6 +192,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         function ( transcodings ) {
                             this.transcodings = transcodings;
                             this.transcodingServiceError = false;
+                            if (transcodings.length > 0) {
+                                this.hasFeedback = true;
+                            }
                         }.bind( this ),
                         function ( error ) {
                             if ( error.code) {
@@ -212,8 +241,33 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     }.bind( this )
                 );
             },
+            notify: function(upload) {
+                var message = "";
+                var status;
+
+                if ( upload.status === 'uploadFinished' ) {
+                    if (upload.avType === 'AUDIO') {
+                        message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afhandeling door sourcing service</span>';
+                    } else {
+                        message = '<span>' + upload.fileName + '  is geüpload, transcodering is begonnen</span>';
+                    }
+                } else if ( upload.status === 'uploadStart' ) {
+                    message = '<span>' + upload.fileName + '  is nu aan het uploaden bij MID ' + upload.mid + ' </span>';
+                } else if ( upload.status === 'uploadError' ) {
+                    message = '<span>' + upload.fileName + ' is niet ge&uuml;pload (' + upload.message + ')</span>';
+                    status = 'error';
+                } else if ( upload.status === 'transcodingPublication' ) {
+                    message = '<span> Het geüploade bestand bij' + upload.mid + ' is getranscodeerd </span>';
+                } else {
+                    message = '<span>' + upload + '</span>';
+                }
+                upload.message = this.$sce.trustAsHtml(message);
+                //console.log(upload);
+                this.$scope.upload_feedback.push(upload);
+            },
 
             uploadLocation : function (streamType) {
+                var self = this;
                 var modal = this.$modal.open( {
                     controller : 'LocationUploadController',
                     controllerAs : 'uploadController',
@@ -230,7 +284,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         },
                         streamType: function () {
                             return streamType;
-                        }
+                        },
+                        locationsController: function() {
+                            return self
+                        }.bind(this)
                     }
                 } );
 

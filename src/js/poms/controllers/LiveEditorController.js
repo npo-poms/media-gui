@@ -358,7 +358,6 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                             );
 
                                         }
-
                                         document.getElementById("itemizer-delete-" + id).onclick = function() {
                                             var element = document.getElementById("itemizer-row-" + id);
                                             element.parentNode.removeChild(element);

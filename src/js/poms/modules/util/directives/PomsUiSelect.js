@@ -47,7 +47,6 @@ angular.module( 'poms.util.directives' )
                         }, 0 );
                     }
                 },
-
                 trustAsHtml: function ( value ) {
                     return this.$sce.trustAsHtml( value );
                 },

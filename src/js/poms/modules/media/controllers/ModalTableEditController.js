@@ -27,10 +27,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             this.items = [];
 
             this.options = [];
-            listService.getPlatforms().then(function(p) {
-                this.platforms = p;
-                console.log("platforms", this.platforms);
-            }.bind(this));
             this.$scope = $scope;
             this.$q = $q;
             this.$modal = $modal;

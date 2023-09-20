@@ -1,139 +1,152 @@
 <div id="{{section}}" ng-if="media.mayHaveLocations" class="media-data media-locations media-section" ng-controller="LocationsController as locationsController">
 
-    <h1 class="media-section-title" ng-class="{ 'waiting': locationsController.waiting }">Bronnen ({{locationsController.locations.length}})
-        <poms-help field="editor.locations"></poms-help>
-    </h1>
-
-    <button id="addLocation" class="btn-text-icon btn-text-icon-add"
-            ng-if="locationsController.mayAddLocations();"
-            ng-click="locationsController.addLocation();">
-        Bron toevoegen
-    </button>
-
+  <h1 class="media-section-title" ng-class="{ 'waiting': locationsController.waiting }">Bronnen ({{locationsController.locations.length}})
+    <poms-help field="editor.locations"></poms-help>
+  </h1>
+  
+  <button id="addLocation" class="btn-text-icon btn-text-icon-add"
+          ng-if="locationsController.mayAddLocations();"
+          ng-click="locationsController.addLocation();">
+    Bron toevoegen
+  </button>
+  
+  
+  <button id="uploadAudioLocation" 
+          ng-disabled="locationsController.uploadInProgress || ! (locationsController.mayUpload() && locationsController.mayAddLocations())" 
+          class="btn-text-icon btn-text-icon-add"
+          ng-if="(media.avType.id === 'AUDIO')"
+          ng-click="locationsController.uploadLocation('AUDIO');"
+          title="{{locationsController.mayUpload() && locationsController.mayAddLocations() ? 'upload' : 'upload niet toegestaan'}}"
+  >
+    Upload audio
+  </button>
+  
+  
+  <button id="uploadLocation" 
+          ng-disabled="locationsController.uploadInProgress || ! (locationsController.mayUpload() && locationsController.mayAddLocations())" 
+          class="btn-text-icon btn-text-icon-add"
+          ng-if="(media.avType.id === 'VIDEO') && !locationsController.transcodingServiceError"            
+          ng-click="locationsController.uploadLocation('VIDEO');"
+          title="{{locationsController.mayUpload() && locationsController.mayAddLocations() ? 'upload' : 'upload niet toegestaan'}}"
+  >
+    Upload video
+  </button>
+  
+  
+  <table class="poms-table poms-table-locations"
+         ng-show="locationsController.locations.length > 0"
+         ng-class="{ 'updating': locationsController.waiting }">
     
-    <button id="uploadAudioLocation" 
-            ng-disabled="locationsController.uploadInProgress || ! (locationsController.mayUpload() && locationsController.mayAddLocations())" 
-            class="btn-text-icon btn-text-icon-add"
-            ng-if="(media.avType.id === 'AUDIO')"
-            ng-click="locationsController.uploadLocation('AUDIO');"
-            title="{{locationsController.mayUpload() && locationsController.mayAddLocations() ? 'upload' : 'upload niet toegestaan'}}"
-    >
-        Upload audio
-    </button>
-  
-  
-   <button id="uploadLocation" 
-           ng-disabled="locationsController.uploadInProgress || ! (locationsController.mayUpload() && locationsController.mayAddLocations())" 
-           class="btn-text-icon btn-text-icon-add"
-            ng-if="(media.avType.id === 'VIDEO') && !locationsController.transcodingServiceError"            
-            ng-click="locationsController.uploadLocation('VIDEO');"
-           title="{{locationsController.mayUpload() && locationsController.mayAddLocations() ? 'upload' : 'upload niet toegestaan'}}"
-   >
-        Upload video
-    </button>
-  
-
-    <table class="poms-table poms-table-locations"
-           ng-show="locationsController.locations.length > 0"
-           ng-class="{ 'updating': locationsController.waiting }">
-
-        <thead>
-
-        <tr class="poms-table-head-row">
-            <!--<th class="poms-table-header column-play" > </th>-->
-
-            <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
-                <span title="{{column.value}}">
-                     {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
-                </span>
-            </th>
-
-            <th class="poms-table-header column-tools" >
-                <poms-location-columns> </poms-location-columns>
-            </th>
-        </tr>
-
-        </thead>
-
-        <tbody>
-        <tr class="poms-table-row"
-            ng-repeat="location in locationsController.locations"
-            ng-class="{'waiting': locationsController.waiting, 'may-write': locationsController.mayWrite(location)}"
-            ng-dblclick="locationsController.editLocation(location, locationsController.mayWrite(location))"
-            >
-
-            <!--<th class="poms-table-header column-play" >-->
-                <!--<span class="play-icon" ng-click="locationsController.playLocation(location)"> </span>-->
-            <!--</th>-->
-
-            <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
-
-                 <span title="{{::location.format}}" ng-switch-when="format"  >
-                     {{::location.format}}
-                 </span>
-
-                 <span title="{{::location.url}}" ng-switch-when="url"  class="url-outer">
-                     <span class="url-inner"> {{::location.url}} </span>
-                 </span>
-
-                <span ng-switch-when="workflow"
-                      class="workflow {{::location.workflow.id }}"
-                      title="{{::location.workflow.text}}">
-                </span>
-
-                <span ng-switch-when="platform"
-                      title="{{::location.platform}}"
-                >{{::location.platform}}</span>
-
-
-                <span ng-switch-when="bitrate"
-                      title=" {{::location.bitrate}}"
-                >{{::location.bitrate}}</span>
-
-                <span title=" {{::location.offset | mediaDuration }}" ng-switch-when="offset"  >
-                   {{::location.offset | mediaDuration }}
-                </span>
-
-                <span title="{{ ::location.publication.start |  date:'dd/MM/yyyy' }} - {{ ::location.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
-                    <span ng-if="::location.publication.start">van: </span> {{ ::location.publication.start |  mediaDateTime }}
-                    <span ng-if="::location.publication.stop"> tot: </span> {{ ::location.publication.stop |  mediaDateTime }}
-                </span>
-
-                <span ng-switch-when="owner" title=" {{::location.owner}}">{{::location.owner}}</span>
-
-            </td>
-
-            <td class="column-tools">
-                <div ng-show="::location.mayWrite || location.mayDelete" >
-                    <div class="tools" >
-                        <button name="editLocation" ng-if="::location.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="locationsController.editLocation(location)">bewerk</button>
-                        <button name="deleteLocation" ng-if="::location.mayDelete" title='verwijder bron' class="poms-icon icon-remove" poms-confirm="'Bron'" poms-submit="locationsController.remove($index)">
-                            verwijder
-                        </button>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <div ng-if="locationsController.mayUpload">
-        <div ng-if="locationsController.uploadInProgress" class="uploading-location" ng-class="{'no-locations' : (!locationsController.locations || locationsController.locations.length == 0)}">
-            <div ng-style="{width: upService.uploadProgress[media.mid]}" class="uploading-location-progress"></div>
-            <div class="uploading-location-title">Uploading {{locationsController.currentUpload}} ({{upService.uploadProgress[media.mid]}}) </div>
-        </div>
-
-        <div class="transcoding-location" ng-repeat="transcoding in locationsController.transcodings">
-            <div title="{{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title">
-                Transcoding gestart op {{transcoding | searchColumnFilter:"creationDate" }} heeft als status {{transcoding.state}} {{transcoding.title ? '(' + (transcoding.title | limitTo: 70) + (transcoding.title.length > 70 ? ' ...' : '') + ')' : ''}}
-                <span ng-if="transcoding.endDate">
-                en is be&euml;indigd op {{transcoding | searchColumnFilter:"endDate" }}
-                </span>
+    <thead>
+      
+      <tr class="poms-table-head-row">
+        <!--<th class="poms-table-header column-play" > </th>-->
+        
+        <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
+          <span title="{{column.value}}">
+            {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
+          </span>
+        </th>
+        
+        <th class="poms-table-header column-tools" >
+          <poms-location-columns> </poms-location-columns>
+        </th>
+      </tr>
+      
+    </thead>
+    
+    <tbody>
+      <tr class="poms-table-row"
+          ng-repeat="location in locationsController.locations"
+          ng-class="{'waiting': locationsController.waiting, 'may-write': locationsController.mayWrite(location)}"
+          ng-dblclick="locationsController.editLocation(location, locationsController.mayWrite(location))"
+      >
+        
+        <!--<th class="poms-table-header column-play" >-->
+        <!--<span class="play-icon" ng-click="locationsController.playLocation(location)"> </span>-->
+        <!--</th>-->
+        
+        <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+          
+          <span title="{{::location.format}}" ng-switch-when="format"  >
+            {{::location.format}}
+          </span>
+          
+          <span title="{{::location.url}}" ng-switch-when="url"  class="url-outer">
+            <span class="url-inner"> {{::location.url}} </span>
+          </span>
+          
+          <span ng-switch-when="workflow"
+                class="workflow {{::location.workflow.id }}"
+                title="{{::location.workflow.text}}">
+          </span>
+          
+          <span ng-switch-when="platform"
+                title="{{::location.platform}}"
+          >{{::location.platform}}</span>
+          
+          
+          <span ng-switch-when="bitrate"
+                title=" {{::location.bitrate}}"
+          >{{::location.bitrate}}</span>
+          
+          <span title=" {{::location.offset | mediaDuration }}" ng-switch-when="offset"  >
+            {{::location.offset | mediaDuration }}
+          </span>
+          
+          <span title="{{ ::location.publication.start |  date:'dd/MM/yyyy' }} - {{ ::location.publication.stop |  date:'dd/MM/yyyy' }}" ng-switch-when="dates" >
+            <span ng-if="::location.publication.start">van: </span> {{ ::location.publication.start |  mediaDateTime }}
+            <span ng-if="::location.publication.stop"> tot: </span> {{ ::location.publication.stop |  mediaDateTime }}
+          </span>
+          
+          <span ng-switch-when="owner" title=" {{::location.owner}}">{{::location.owner}}</span>
+          
+        </td>
+        
+        <td class="column-tools">
+          <div ng-show="::location.mayWrite || location.mayDelete" >
+            <div class="tools" >
+              <button name="editLocation" ng-if="::location.mayWrite" title='edit bron' class="poms-icon icon-edit" ng-click="locationsController.editLocation(location)">bewerk</button>
+              <button name="deleteLocation" ng-if="::location.mayDelete" title='verwijder bron' class="poms-icon icon-remove" poms-confirm="'Bron'" poms-submit="locationsController.remove($index)">
+                verwijder
+              </button>
             </div>
-        </div>
-
-        <div ng-if="locationsController.transcodingServiceError" class="inline-error">
-            De transcodeerdienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
-        </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div ng-if="locationsController.mayUpload">
+    <div ng-if="locationsController.uploadInProgress" class="uploading-location" ng-class="{'no-locations' : (!locationsController.locations || locationsController.locations.length == 0)}">
+      <div ng-style="{width: upService.uploadProgress[media.mid]}" class="uploading-location-progress"></div>
+      <div class="uploading-location-title">Uploading {{locationsController.currentUpload}} ({{upService.uploadProgress[media.mid]}}) </div>
     </div>
+    
+    <div class="transcoding-location" ng-repeat="transcoding in locationsController.transcodings">
+      <div title="{{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title">
+        Transcoding gestart op {{transcoding | searchColumnFilter:"creationDate" }} heeft als status {{transcoding.state}} {{transcoding.title ? '(' + (transcoding.title | limitTo: 70) + (transcoding.title.length > 70 ? ' ...' : '') + ')' : ''}}
+        <span ng-if="transcoding.endDate">
+          en is be&euml;indigd op {{transcoding | searchColumnFilter:"endDate" }}
+        </span>
+      </div>
+    </div>
+    
+    <div ng-if="locationsController.transcodingServiceError" class="inline-error">
+      De transcodeer-dienst is op dit moment onbereikbaar. Het is niet mogelijk om bronnen te uploaden of de status van huidige uploads op te vragen.
+    </div>
+    <div class="trancoding-logging dropdown-wrapper"
+         ng-if="upload_feedback.length > 0">
+       <a href="#" ng-click="locationsController.toggleCollapsed()" class="{{locationsController.collapsed ? 'dropdown-toggle' : 'dropdown-selected'}}">
+         {{locationsController.collapsed ? 'toon' : 'verberg'}} {{upload_feedback.length}} berichten over deze upload
+       </a>
+        <ol ng-show="! locationsController.collapsed">
+          <li  ng-repeat="feedback in upload_feedback" 
+             class="{{feedback.status}} {{feedback.phase}}"
+               ng-bind-html="feedback.message">
+          </li>
+        </ol>
+    </div>
+    
+  </div>
 </div>

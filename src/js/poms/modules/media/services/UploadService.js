@@ -2,14 +2,14 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
     '$rootScope',
     '$timeout',
     '$upload',
+    '$sce',
     'PomsEvents',
     'EditorService',
     'localStorageService',
-    'NotificationService',
     'appConfig',
     '$q',
     '$http',
-    function ( $rootScope, $timeout, $upload, PomsEvents, editorService, localStorageService, notificationService, appConfig, $q, $http ) {
+    function ( $rootScope, $timeout, $upload, $sce, PomsEvents, editorService, localStorageService, appConfig, $q, $http ) {
 
 
         var baseUrl = appConfig.apiHost + '/gui',
@@ -34,31 +34,25 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             this.$upload = $upload;
             this.$timeout = $timeout;
             this.$rootScope = $rootScope;
+            this.$sce = $sce;
             this.pomsEvents = PomsEvents;
             this.host = appConfig.apiHost;
-
             this.editorService = editorService;
-
             this.localStorageService = localStorageService;
-            this.notificationService = notificationService;
-
-            this.uploads = [];
+            this.uploads = {};
             this.uploadProgress = {};
 
         }
 
         UploadService.prototype = {
 
-            addUpload: function ( mid ) {
-                this.uploads.push( mid );
+            addUpload: function ( mid, locationsController ) {
+                this.uploads[mid] = locationsController;
             },
 
             removeUpload: function ( mid ) {
-                var index = this.uploads.indexOf( mid );
-                if ( index > - 1 ) {
-                    this.uploads.splice( index, 1 );
-                }
-                this.uploadProgress[ mid ] = undefined;
+                delete this.uploads[mid];
+                delete this.uploadProgress[ mid ];
             },
 
             getUploads: function () {
@@ -75,7 +69,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             isUploading: function () {
-                return (this.uploads.length > 0);
+                return Object.keys(this.uploads).length > 0;
             },
 
             getJobsForMid: function ( mid, mock ) {
@@ -87,32 +81,12 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             notify: function( upload ){
-
-                var message = "";
-                var status;
-
-                if ( upload.status === 'uploadFinished' ) {
-                    if (upload.avType === 'AUDIO') {
-                        message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afhandeling door sourcing service</span>';
-                    } else {
-                        message = '<span>' + upload.fileName + '  is geüpload, transcodering is begonnen</span>';
-                    }
-                } else if ( upload.status === 'uploadStart' ) {
-                    message = '<span>' + upload.fileName + '  is nu aan het uploaden bij MID ' + upload.mid + ' </span>';
-                } else if ( upload.status === 'uploadError' ) {
-                    message = '<span>' + upload.fileName + ' is niet ge&uuml;pload (' + upload.message + ')</span>';
-                    status = 'error';
-                } else if ( upload.status === 'transcodingPublication' ) {
-                    message = '<span> Het ge&uuml;ploade bestand bij' + upload.mid + ' is getranscodeerd </span>';
-                } else {
-                    message = '<span>' + upload + '</span>';
-                }
-
-                this.notificationService.notify( message, status );
+                locationsController = this.uploads[upload.mid];
+                locationsController.notify(upload);
             },
 
 
-            upload: function ( media, location, fields ) {
+            upload: function ( media, location, fields, uploadScope, locationsController) {
                 
                 var avType = media.avType;
                 
@@ -123,8 +97,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                     "avType": avType
                 };
 
-
-                this.addUpload( media.mid );
+                this.addUpload( media.mid, locationsController);
 
                 this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, uploadStatus );
                 this.notify( uploadStatus );

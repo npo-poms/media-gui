@@ -44,7 +44,7 @@
     &.open {
         box-shadow: 0 0 3px 3px rgba(0,0,0,0.1);
 
-        .header-account-dropdowns{
+        .header-account-dropdowns {
             display:block;
         }
 
@@ -53,14 +53,15 @@
 }
 
 
-.header-account-dropdowns{
+.header-account-dropdowns {
+    columns: 2;
     padding: 8px;
 
     border-top: 2px solid $ultralichtgrijs;
     display:none;
 }
 
-.header-account-link{
+.header-account-link {
 
     padding: 8px;
     border-left: 2px solid $ultralichtgrijs;
@@ -72,10 +73,6 @@
 
     .open {
         text-decoration: underline;
-
-        .header-dropdown-menu {
-            display: block;
-        }
     }
 
     &:hover{
@@ -94,17 +91,19 @@
     font-weight: bold;
 }
 
-.header-dropdown{
+.header-dropdown {
     &.open .header-dropdown-menu {
         display: block;
     }
-}
-
-.header-dropdown-menu {
-    position: relative;
-    display: none;
-    width: 100%;
-    line-height:21px;
+    div {
+        line-height: 21px;
+        h2 {
+            display: inline-block;
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: small;
+        }
+    }
 }
 
 
