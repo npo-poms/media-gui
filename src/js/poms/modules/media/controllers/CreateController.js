@@ -86,8 +86,6 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                         if (this.$scope.media.avType && ! this.$scope.media.type.avTypes.includes(this.$scope.media.avType.id)) {
                             this.$scope.media.avType = undefined;
                         }
-                        console.log("Filtered", this.$scope.avTypes);
-                        console.log(this.$scope.media.avType);
                     }
 
                 }.bind( this ), true );
