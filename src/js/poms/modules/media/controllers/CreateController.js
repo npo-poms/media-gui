@@ -69,7 +69,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                     invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 
                      this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
-                        invalid = invalid || ! newValue.genre || newValue.genres.length === 0;
+                        invalid = invalid || ! newValue.genres || newValue.genres.length === 0;
                         this.$scope.genresHeader = 'Genre *';
                     } else {
                         this.$scope.genresHeader = 'Genre';
