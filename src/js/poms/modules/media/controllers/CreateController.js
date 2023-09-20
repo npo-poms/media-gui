@@ -66,17 +66,15 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
                     
-                    if ( newValue.type && newValue.type.requiresGenre) {
-                        this.$scope.createFormValid =  !( !newValue.genres || newValue.genres.length === 0 || newValue.title === undefined || newValue.avType === undefined || !newValue.broadcasters || newValue.broadcasters.length === 0 );
-
-                        this.$scope.genreRequired = true;
+                    invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 
+                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
+                    if (this.$scope.genreRequired) {
+                        invalid = invalid || ! newValue.genre || newValue.genres.length === 0;
                         this.$scope.genresHeader = 'Genre *';
                     } else {
-                        this.$scope.createFormValid =  !( newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 );
-
-                        this.$scope.genreRequired = false;
                         this.$scope.genresHeader = 'Genre';
                     }
+                    this.$scope.createFormValid =  !(invalid);
                     if (newValue.type) {
                         this.$scope.avTypes = this.avTypes.filter(function (avType) {
                             return newValue.type.avTypes.includes(avType.id)
