@@ -18,6 +18,7 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
         var publicationListener = $q.defer();
         var itemizerListener = $q.defer();
         var repaintListener = $q.defer();
+        var loggingListener = $q.defer();
 
         var callbacks = {};
         var client;
@@ -38,39 +39,52 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
 
         function startListeners () {
             stomp.subscribe( PUBLICATIONS_TOPIC, function ( data ) {
+                //console.log("publication", data);
                 publicationListener.notify( getMessage( data.body ) );
             } );
 
             stomp.subscribe( ITEMIZER_TOPIC, function ( data ) {
+                //console.log("itemizer", data);
                 itemizerListener.notify( getMessage( data.body ) );
             } );
             stomp.subscribe( REPAINT_TOPIC, function ( data ) {
-                console.log("repaint", data);
+                //console.log("repaint", data);
                 repaintListener.notify( getMessage( data.body ) );
             } );
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
-                var json = JSON.parse(data.body);
+                var json = getMessage(data.body);
                 var callback = callbacks[json.id];
+                var type = json['@type'];
                 if (callback) {
                     delete callbacks[json.id];
                     if (callback(json)) {
                         return;
                     }
                 }
-                if (json.receiverId == null || json.receiverId === editorService.getCurrentEditor().id) {
-                    var debug = json.levelInt < 20;
-                    console.log(json);
-                    if (! debug) {
-                        notificationService.notify(
-                            json.text,
-                            json.levelInt > 20 ? 'error' : 'success',
-                            {
-                                timeout: json.duration * 1000,
-                                id: json.id,
-                                creation: new Date(json.creation)
+                switch(type) {
+                    case 'message':
+                        if (json.receiverId == null || json.receiverId === editorService.getCurrentEditor().id) {
+                            var debug = json.levelInt < 20;
+                            if (!debug) {
+                                notificationService.notify(
+                                    json.text,
+                                    json.levelInt > 20 ? 'error' : 'success',
+                                    {
+                                        timeout: json.duration * 1000,
+                                        id: json.id,
+                                        creation: new Date(json.creation)
+                                    }
+                                );
                             }
-                        );
-                    }
+                        } else {
+                            // ignoring, not for us
+                        }
+                        break
+                    case 'loggingEvent':
+                        loggingListener.notify(json);
+                        break;
+                    default:
+                        console.log("unknown message type", json);
                 }
             }.bind(this) );
 
@@ -96,13 +110,14 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
             receivePublicationMessage: function () {
                 return publicationListener.promise;
             },
-
             receiveItemizerMessage: function () {
                 return itemizerListener.promise;
             },
-            
             receiveRepaintMessage: function () {
                 return repaintListener.promise;
+            },
+            receiveLogMessage: function () {
+                return loggingListener.promise;
             },
             callback: function(id, f) {
                 this.callbacks[id] = f;

@@ -533,6 +533,23 @@
     }
 }
 
+.media-data .trancoding-logging {
+    ol {
+        background-color: $extralichtgrijs;
+        padding: 2px;
+        li {
+            font: smaller monospace;
+            width: 100%;
+        }
+        li:nth-child(odd) {
+            background-color: $white;
+        }
+        li:nth-child(even) {
+            background-color: $extralichtgrijs;
+        }
+    }
+}
+
 .media-schedule-events {
     float: left;
     width: 140px;

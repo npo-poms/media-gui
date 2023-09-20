@@ -225,13 +225,13 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 );
             },
 
+            
             download: function (ev) {
                 ev.preventDefault();
                 var queryData, options;
                 [queryData, options] = this.queryDataAndOptions(0);
                 this.$scope.downloading = true;
-                var promise = this.searchService.download(queryData, options);
-                promise.then(
+                this.searchService.download(queryData, options).then(
                     function ( data ) {
                         this.messageService.callback(data.uuid, function(arg) {
                             this.$scope.csvUrl = data.url;
