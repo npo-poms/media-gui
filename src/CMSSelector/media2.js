@@ -63,7 +63,7 @@ const nl_vpro_media_CMSSelector = {
                 if (popup.closed) {
                     clearInterval(timer);
                     handleClose();
-                    console.log("Closed", popup);
+                    //console.log("Closed", popup);
                 }
             }, 1000);
         }

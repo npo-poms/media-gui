@@ -84,7 +84,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                     }
                     search.form.summary += ')';
                 }
-                console.log("Saving search", search);
+                //console.log("Saving search", search);
                 search.favorite = true;
                 angular.copy( search.form, search._backup );
 
