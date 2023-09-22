@@ -21,19 +21,21 @@ const nl_vpro_media_CMSSelector = {
             }
         }
         function handleMessage ( e ) {
-
             if ( e.origin === domain || domain === '') {
                 callback( e.data );
-                if ( popup ) {
+                if (popup) {
                     popup.close();
                 }
-                if ( iframe ) {
+                if (iframe) {
                     iframe.parentNode.removeChild( iframe );
                 }
             } else {
-                console && console.log("Ignoring since", e.origin, "!=", domain)
+                console && console.log("Ignoring since", e.origin, "!=", domain);
             }
-            // message received, event listener not needed any more.
+            handleClose();
+        }
+        
+        function handleClose() {
             if (window.removeEventListener) {
                 window.removeEventListener('message', handleMessage);
             } else if (window.detachEvent) {
@@ -41,10 +43,12 @@ const nl_vpro_media_CMSSelector = {
             }
         }
 
-        if ( window.addEventListener ) {
-            window.addEventListener( 'message', handleMessage, false );
-        } else if ( window.attachEvent ) {
-            window.attachEvent( 'message', handleMessage, false );
+        { // add event listener
+            if (window.addEventListener) {
+                window.addEventListener('message', handleMessage, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('message', handleMessage, false);
+            }
         }
 
         if ( document.all ) {
@@ -55,6 +59,13 @@ const nl_vpro_media_CMSSelector = {
             iframe.src = domain + '/CMSSelector/IE.html' + query;
         } else {
             popup = window.open( domain + '/CMSSelector/' + query, '', nl_vpro_media_CMSSelector.popupFeatures);
+            var timer = setInterval(function() {
+                if (popup.closed) {
+                    clearInterval(timer);
+                    handleClose();
+                    console.log("Closed", popup);
+                }
+            }, 1000);
         }
     }
 };
