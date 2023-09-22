@@ -78,7 +78,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 }
 
                 if (search.form.sort.field !== 'relevance') {
-                    search.form.summary += ' (' + search.form.sort.field;
+                    search.form.summary += ' (' + (search.form.sort.fieldName || search.form.sort.field);
                     if (search.form.sort.order === 'DESC') {
                         search.form.summary += '↓';
                     }

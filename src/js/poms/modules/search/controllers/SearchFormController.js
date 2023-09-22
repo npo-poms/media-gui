@@ -28,6 +28,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             this.$scope.suggestions = [];
 
             this.$scope.userSuggestions = [];
+            
 
             this.$scope.searchDate = {
                 'isOpen' : false,

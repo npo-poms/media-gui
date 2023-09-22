@@ -36,9 +36,9 @@
 
     <tr class="poms-table-head-row">
       <th class="poms-table-header column-checkbox" ></th>
-      <th class="poms-table-header " ng-class="{'sortable' : column.sortable, 'ordered': sort == column.id, 'column-{{::column.id}}': true }"
+      <th class="poms-table-header " ng-class="{'sortable' : column.sortable, 'ordered': search.form.sort.field === column.id, 'column-{{::column.id}}': true }"
           ng-repeat="column in selectedColumns" ng-click="searchResultController.toggleSort(column)">
-                <span class="{{order}} column-header" title="{{column.value}}">
+                <span class="{{search.form.sort.order}} column-header" title="{{column.value}}">
                     {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
                 </span>
       </th>

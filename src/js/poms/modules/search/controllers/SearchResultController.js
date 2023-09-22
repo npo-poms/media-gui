@@ -161,7 +161,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                     if ( toggledColumn.id !== this.$scope.search.form.sort.field ) {
                         this.$scope.search.form.sort = {
                             field: toggledColumn.id,
-                            order: 'DESC'
+                            order: 'DESC',
+                            fieldName: toggledColumn.value
                         }
                     } else {
                         this.$scope.search.form.sort.order = this.$scope.search.form.sort.order === 'DESC' ? 'ASC' : 'DESC';

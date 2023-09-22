@@ -68,7 +68,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     if ( allow ) {
                         var l = this.value.length;
                         _.remove( this.value, function ( type ) {
-                            return type.id == value.id;
+                            return type.id === value.id;
                         } );
                         return this.value.length < l;
                     }
@@ -347,7 +347,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
         };
 
         function Search ( config ) {
-            this.id = config && config.id || Math.random().toString( 36 ).substr( 2 );
+            this.id = config && config.id || Math.random().toString( 36 ).substring(2);
             this.favorite = config && config.favorite || false;
             this.scope = config && config.scope || undefined;
             this.parentMid = config && config.parentMid || undefined;
@@ -355,7 +355,6 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.allowStore = config && config.allowStore !== undefined ? config.multiSelect : true;
             this.selection = config && config.selection || [];
             this.form = new Form( config && config.form ? config.form : undefined );
-            console.log("Form", config.form, this.form);
             this._backup = new Form( config && config._backup ? config._backup : angular.copy( this.form ) );
         }
 

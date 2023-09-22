@@ -68,7 +68,8 @@
         content: '';
     }
 
-    &.ordered .column-header.DESC, &.ordered .column-header.ASC {
+    &.ordered .column-header.DESC,
+    &.ordered .column-header.ASC {
         text-decoration: underline;
     }
 

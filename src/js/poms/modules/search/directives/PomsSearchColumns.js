@@ -59,7 +59,6 @@ angular.module( 'poms.search.directives' )
 
                 $scope.setDefault = function ( columns ) {
                     localStorageService.set( defaultKey , columns );
-
                     NotificationService.notify('Uw voorkeuren voor zoek-kolommen zijn opgeslagen');
 
                 };
