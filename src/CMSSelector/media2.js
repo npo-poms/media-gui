@@ -33,6 +33,12 @@ const nl_vpro_media_CMSSelector = {
             } else {
                 console && console.log("Ignoring since", e.origin, "!=", domain)
             }
+            // message received, event listener not needed any more.
+            if (window.removeEventListener) {
+                window.removeEventListener('message', handleMessage);
+            } else if (window.detachEvent) {
+                window.detachEvent('message', handleMessage);
+            }
         }
 
         if ( window.addEventListener ) {
