@@ -77,11 +77,19 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                     throw new Error( 'Not allowed to store search' + search )
                 }
 
+                if (search.form.sort.field !== 'relevance') {
+                    search.form.summary += ' (' + search.form.sort.field;
+                    if (search.form.sort.order === 'DESC') {
+                        search.form.summary += '↓';
+                    }
+                    search.form.summary += ')';
+                }
+                console.log("Saving search", search);
                 search.favorite = true;
                 angular.copy( search.form, search._backup );
 
                 for ( var i = 0; i < this.searches.length; i ++ ) {
-                    var existing = this.searches[ i ];
+                    var existing = this.searches[i];
                     if ( search.id === existing.id ) {
                         search.update();
                         this.searches[ i ] = search;
@@ -121,7 +129,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 var isFavorite = false;
 
                 for ( var i = 0; i < this.media.length; i ++ ) {
-                    if ( this.media[ i ].mid === media.mid ) {
+                    if ( this.media[i].mid === media.mid ) {
                         isFavorite = true;
                     }
                 }
@@ -130,7 +138,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
 
             removeSearch : function ( search ) {
                 for ( var i = 0; i < this.searches.length; i ++ ) {
-                    if ( this.searches[ i ].id == search.id ) {
+                    if ( this.searches[i].id === search.id ) {
                         search.favorite = false;
                         this.searches.splice( i, 1 );
                         break;

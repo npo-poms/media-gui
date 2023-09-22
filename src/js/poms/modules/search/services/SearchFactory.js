@@ -99,7 +99,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.scheduleEventDate = dateRange(config && config.scheduleEventDate);
 
             this.excludedMids = config && config.excludedMids;
-
+            this.sort = config && config.sort || { field : 'relevance'};
 
             _.forEach( this, function ( field ) {
                 if ( field && field.isRestrictedField && field.restriction && (field.strict || ! field.value || field.value.length === 0) ) {
@@ -117,6 +117,9 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             dateConstraintTypes: mediaService.dateConstraintTypes,
             text : '',
             summary : 'Geen beperking',
+            sort: {
+                field: 'relevance'
+            },
             types : [],
             portals : [],
             broadcasters : [],
@@ -281,13 +284,13 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                         var formDate = this[key];
                         if (formDate.start || formDate.stop) {
                             var dateDisplay = this.dateConstraintTypes[key];
-                            if ( formDate.start ) {
-                                dateDisplay = dateDisplay + " vanaf " + $filter( 'date' )( formDate.start, 'dd-MM-yyyy' );
+                            if (formDate.start) {
+                                dateDisplay = dateDisplay + " vanaf " + $filter('date')(formDate.start, 'dd-MM-yyyy');
                             }
-                            if ( formDate.stop ) {
-                                dateDisplay = dateDisplay + " tot en met " + $filter( 'date' )( formDate.stop, 'dd-MM-yyyy' );
+                            if (formDate.stop) {
+                                dateDisplay = dateDisplay + " tot en met " + $filter('date')(formDate.stop, 'dd-MM-yyyy');
                             }
-                            queryTerms.push( dateDisplay );
+                            queryTerms.push(dateDisplay);
                         }
                     } else if ( key === 'createdBy' && this[ key ] ) {
                         queryTerms.push( 'gemaakt door: ' + this[ key ] );
@@ -352,6 +355,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.allowStore = config && config.allowStore !== undefined ? config.multiSelect : true;
             this.selection = config && config.selection || [];
             this.form = new Form( config && config.form ? config.form : undefined );
+            console.log("Form", config.form, this.form);
             this._backup = new Form( config && config._backup ? config._backup : angular.copy( this.form ) );
         }
 

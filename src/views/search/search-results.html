@@ -27,7 +27,7 @@
         onsearch="searchResultController.submit(offset)"></poms-pager>
 
 <div class="table-wrapper" ng-class="{ 'updating' : searching }">
-  <div class="default-sort btn-text-icon-uploads btn-text-icon animate-fade" ng-if="sort != 'relevance'">
+  <div class="default-sort btn-text-icon-uploads btn-text-icon animate-fade" ng-if="search.form.sort.field != 'relevance'">
     <span ng-click="searchResultController.defaultSort();"> Sorteer op relevantie</span>
 
   </div>

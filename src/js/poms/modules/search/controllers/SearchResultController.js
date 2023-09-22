@@ -27,13 +27,10 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             this.search = $scope.search;
 
             this.$scope.lastSelect = null;
-
-
+            
             this.clearResults();
 
             this.searchCount = 0;
-
-            this.$scope.sort = 'relevance';
 
             this.$scope.$watchCollection( 'query', function ( newValue ) {
                 this.submit();
@@ -57,7 +54,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             },
 
             modifiedFavorite: function () {
-                return this.isFavorite() && this.$scope.search.modified();
+                return this.isFavorite() && (this.$scope.search.modified());
             },
 
             editResult: function ( result ) {
@@ -150,23 +147,26 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             },
 
             defaultSort: function () {
-                this.$scope.sort = 'relevance';
-                this.$scope.order = 'DESC';
+                this.$scope.search.form.sort = {
+                    field: 'relevance',
+                    order: undefined
+                };
+                this.$scope.search.form.buildSummary();
                 this.submit();
             },
 
             toggleSort: function ( toggledColumn ) {
-
                 if ( toggledColumn.sortable === true ) {
 
-                    if ( toggledColumn.id !== this.$scope.sort ) {
-
-                        this.$scope.sort = toggledColumn.id;
-                        this.$scope.order = 'DESC';
-
+                    if ( toggledColumn.id !== this.$scope.search.form.sort.field ) {
+                        this.$scope.search.form.sort = {
+                            field: toggledColumn.id,
+                            order: 'DESC'
+                        }
                     } else {
-                        this.$scope.order = this.$scope.order === 'DESC' ? 'ASC' : 'DESC';
+                        this.$scope.search.form.sort.order = this.$scope.search.form.sort.order === 'DESC' ? 'ASC' : 'DESC';
                     }
+                    this.$scope.search.form.buildSummary();
                     this.submit();
                 }
 
@@ -180,9 +180,9 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 var options = {
                     offset: offset || 0
                 };
-                if ( this.$scope.sort && this.$scope.sort !== 'relevance' ) {
-                    options.sort = this.$scope.sort;
-                    options.order = this.$scope.order;
+                if ( this.$scope.search.form.sort.field && this.$scope.search.form.sort.field !== 'relevance' ) {
+                    options.sort = this.$scope.search.form.sort.field;
+                    options.order = this.$scope.search.form.sort.order;
                 }
                 return [queryData, options];
 
@@ -191,14 +191,10 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             submit: function ( offset ) {
                 this.$scope.searching = true;
                 this.$scope.csvUrl = null;
+
                 var searchCount = ++this.searchCount;
-                var queryData, options;
-                // [queryData, options] = this.queryDataAndOptions(offset); doesn't work in IE 11
-                {
-                    var a = this.queryDataAndOptions(offset);
-                    queryData = a[0];
-                    options = a[1];
-                }
+                var [queryData, options] = this.queryDataAndOptions(offset);
+                console && console.log("Submit", queryData,options);
                 var promise;
                 if ( this.search.scope === 'episodeOf' ) {
                     promise = this.searchService.loadEpisodeOfs( queryData, options );
@@ -228,8 +224,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             
             download: function (ev) {
                 ev.preventDefault();
-                var queryData, options;
-                [queryData, options] = this.queryDataAndOptions(0);
+                var [queryData, options] = this.queryDataAndOptions(0);
                 this.$scope.downloading = true;
                 this.searchService.download(queryData, options).then(
                     function ( data ) {
