@@ -24,7 +24,7 @@ angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $l
                         $scope.max = newValue.pageSize;
                         $scope.offset = newValue.offset;
                         $scope.currentPage = newValue.page + 1;
-                        $scope.totalPages = newValue.previousPages.length  + newValue.nextPages.length + 1;
+                        $scope.totalPages = newValue.lastPage + 1;
                     } else { // used for normal search result (todo: perhaps convert this too?)
                         $scope.max = newValue.max;
                         $scope.offset = newValue.offset;
