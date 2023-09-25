@@ -20,12 +20,11 @@ angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $l
                 if ( ! angular.equals( newValue, oldValue ) ) {
                     // two modes. Either the backend returns with offset, or with previous/next pages
                     $scope.total = newValue.total;                    
-                    if ( newValue.offset != null) {
+                    if ( newValue.previousPages == null) {
                         $scope.max = newValue.max;
                         $scope.offset = newValue.offset;
                         $scope.currentPage = ($scope.offset / $scope.max) + 1;
                         $scope.totalPages = Math.floor($scope.total / $scope.max) + 1;
-
                     } else {
                         $scope.max = newValue.pageSize;
                         $scope.offset = newValue.page * $scope.max;
