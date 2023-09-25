@@ -192,10 +192,9 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             submit: function ( offset ) {
                 this.$scope.searching = true;
                 this.$scope.csvUrl = null;
-
                 var searchCount = ++this.searchCount;
-                var [queryData, options] = this.queryDataAndOptions(offset);
-                console && console.log("Submit", queryData,options);
+                var queryData, options;
+                [queryData, options] = this.queryDataAndOptions(offset);
                 var promise;
                 if ( this.search.scope === 'episodeOf' ) {
                     promise = this.searchService.loadEpisodeOfs( queryData, options );
@@ -225,7 +224,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             
             download: function (ev) {
                 ev.preventDefault();
-                var [queryData, options] = this.queryDataAndOptions(0);
+                var queryData, options;
+                [queryData, options] = this.queryDataAndOptions(0);
                 this.$scope.downloading = true;
                 this.searchService.download(queryData, options).then(
                     function ( data ) {
