@@ -66,7 +66,7 @@
         <!--<span class="play-icon" ng-click="locationsController.playLocation(location)"> </span>-->
         <!--</th>-->
         
-        <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+        <td class="column-{{::column.id}}"  ng-repeat="column in selectedColumns " ng-switch on="column.id">
           
           <span title="{{::location.format}}" ng-switch-when="format"  >
             {{::location.format}}
@@ -89,6 +89,10 @@
           <span ng-switch-when="bitrate"
                 title=" {{::location.bitrate}}"
           >{{::location.bitrate}}</span>
+          
+          <span ng-switch-when="byteSize"
+                title=" {{::location.byteSize}}"
+          >{{::location.mebiSize}}</span>
           
           <span title=" {{::location.offset | mediaDuration }}" ng-switch-when="offset"  >
             {{::location.offset | mediaDuration }}

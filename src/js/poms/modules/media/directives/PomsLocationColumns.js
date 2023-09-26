@@ -14,6 +14,7 @@ angular.module( 'poms.media.directives' )
                     {'id': 'platform', 'value': 'Platform'},
                     {'id': 'workflow', 'value': 'Status', 'tableValue': ''},
                     {'id': 'bitrate', 'value': 'Bitrate'},
+                    {'id': 'byteSize', 'value': 'Grootte'},
                     {'id': 'offset', 'value': 'Offset'},
                     {'id': 'dates', 'value': 'Online / Offline'},
                     {'id': 'owner', 'value': 'Eigenaar'}
