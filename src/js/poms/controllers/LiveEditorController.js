@@ -346,7 +346,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                                 if (message.readyForDownload) {
                                     // button! fancy, yes
                                     var link = this.itemizerTasks[id];
-                                    messageHtml.innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mibSize + ")</button>"
+                                    messageHtml.innerHTML = "<button id='itemizer-download-"+id+"' class=\"live-editor-button\">Downloaden (" + message.mebiSize + ")</button>"
                                     messageHtml.innerHTML += "<button id='itemizer-delete-"+id+"' class=\"live-editor-button\">Verwijderen</button>"
 
                                     setTimeout(function () {
