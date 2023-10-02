@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<svg version="2.0" xmlns="http://www.w3.org/2000/svg" 
+		 x="0px" y="0px"
+		 width="20" height="20px" 
+		 viewBox="10 10 14 14" 
+		 style="background-color: transparent">
+<polygon style="fill:#FFAD1C;"
+				 points="19.231,13.281 17,15.513 14.769,13.281 13.281,14.769 15.513,17 13.281,19.231 
+	14.769,20.719 17,18.487 19.231,20.719 20.719,19.231 18.487,17 20.719,14.769 "/>
+</svg>

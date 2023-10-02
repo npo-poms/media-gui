@@ -97,7 +97,7 @@
     white-space: nowrap;
 }
 
-.tab-close {
+.tab-close, .tab-close-all {
     position: absolute;
     right: 0;
     top: 0;
@@ -110,6 +110,13 @@
 
     &:hover {
         @include icon('tab-close_hover');
+    }
+}
+.tab-close-all {
+    right: -15px;
+    border-bottom: none !important;
+     &:hover {
+        @include icon('tab-close-all_hover');
     }
 }
 

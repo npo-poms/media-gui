@@ -52,7 +52,7 @@
             var isPomsUrl = ( !isAbsolute || ( isAbsolute  && isAbsolutePomsUrl ) );
             var currentOwner = localStorageService.get("currentOwner");
             var currentUser  = localStorageService.get("currentUser");
-            if((config.method === 'GET' || config.method === 'POST' || config.method === 'DELETE') && currentOwner && currentOwner.length > 0 && isPomsUrl ) {
+            if((config.method === 'GET' || config.method === 'POST' || config.method === 'DELETE' || config.method === 'PUT') && currentOwner && currentOwner.length > 0 && isPomsUrl ) {
                 config.headers['X-Poms-CurrentOwner'] = currentOwner; // This seems like a horrible hack.
                 config.headers['X-Poms-CurrentUser'] = currentUser;
 
@@ -117,7 +117,8 @@
         episodeOfRemoved: 'episodeOfRemoved',
         externalChange: 'externalChange',
         predictionUpdated: 'predictionUpdated',
-        scheduleEventUpdated: 'scheduleEventUpdated'
+        scheduleEventUpdated: 'scheduleEventUpdated',
+        tabChanged: 'tabChanged'
     } );
 
     module.value( 'TextfieldNames', {

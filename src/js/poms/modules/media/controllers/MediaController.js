@@ -183,8 +183,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 this.$scope.mayWrite = function() {
                     return this.mediaService.hasWritePermission( this.$scope.media, 'media' );
                 }.bind(this);
-
-                console.log(this.$scope);
+                
                 this.$scope.mayDelete = function () {
                     return this.mediaService.hasDeletePermission( this.$scope.media );
                 }.bind(this);
