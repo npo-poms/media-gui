@@ -15,6 +15,8 @@
   </scm>
   <properties>
     <flag-icons.version>6.6.5</flag-icons.version>
+    <node.version>v10.18.0</node.version>
+    <npm.version>6.14.18</npm.version>
   </properties>
 
   <build>
@@ -37,8 +39,8 @@
               <goal>install-node-and-npm</goal>
             </goals>
             <configuration>
-              <nodeVersion>v10.18.0</nodeVersion>
-              <npmVersion>6.14.18</npmVersion>
+              <nodeVersion>${node.version}</nodeVersion>
+              <npmVersion>${npm.version}</npmVersion>
             </configuration>
           </execution>
           <execution>
