@@ -113,9 +113,12 @@
     }
 }
 .tab-close-all {
-    right: -15px;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
     border-bottom: none !important;
-     &:hover {
+    &:hover {
         @include icon('tab-close-all_hover');
     }
 }

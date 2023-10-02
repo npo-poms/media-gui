@@ -65,6 +65,7 @@
 .tabset .right-nav-button{
     &:before{ display:none; }
     @include icon('arrow-right-white', 14px);
+    right: 15px;
 }
 .tabset .left-nav-button{
     &:before{ display:none; }

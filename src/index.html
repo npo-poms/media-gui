@@ -58,7 +58,7 @@
   <script src="./js/vendor/akamai/controlbar/ControlBar.js"></script>
   
   <!-- endbuild -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/dashjs/2.6.6/dash.all.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.6.6/dash.all.min.js" ></script>
   <script src="//cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
   
   <script src="//cdn.npoplayer.nl/player/1.11.0/web/npoplayer.js"
@@ -192,7 +192,9 @@
       </tab>
       
       <tab title='open een nieuwe zoek-tab' ng-click="guiController.newSearch()" class="tab-add"></tab>
-      <tab title='sluit alle tabs' ng-click="guiController.closeAllTabs(null, 1)" class="tab-close-all" ng-if="guiController.tabs.length > 1"></tab>
+      <tab title='sluit alle tabs' 
+           ng-click="guiController.closeAllTabs(null, 1)" 
+           class="tab-close-all" ng-if="guiController.tabs.length > 1"></tab>
       
     </tabset>
   </scrollable-tabset>
