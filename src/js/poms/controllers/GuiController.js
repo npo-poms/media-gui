@@ -20,26 +20,27 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
     'NotificationService',
     (function () {
 
-        function GuiController ( $rootScope,
-                                 $scope,
-                                 $route,
-                                 $location,
-                                 $modal,
-                                 $document,
-                                 $timeout,
-                                 localStorageService,
-                                 appConfig,
-                                 pomsEvents,
-                                 guiService,
-                                 listService,
-                                 editorService,
-                                 favoritesService,
-                                 searchService,
-                                 messageService,
-                                 mediaService,
-                                 UploadService,
-                                 NotificationService) {
-
+        function GuiController ( 
+            $rootScope,
+            $scope,
+            $route,
+            $location,
+            $modal,
+            $document,
+            $timeout,
+            localStorageService,
+            appConfig,
+            pomsEvents,
+            guiService,
+            listService,
+            editorService,
+            favoritesService,
+            searchService,
+            messageService,
+            mediaService,
+            UploadService,
+            NotificationService) {
+            
             this.$rootScope = $rootScope;
             this.$route = $route;
             this.$location = $location;
@@ -127,15 +128,22 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             },
 
-            closeAllTabs: function( e ){
-                e.preventDefault();
-                e.stopPropagation();
-
-                this.tabs = [];
-                this.newSearch();
-
+            closeAllTabs: function( e, newLength) {
+                if (newLength === undefined) {
+                    newLength = 0;
+                }
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                this.tabs.length = newLength;
+                if (this.tabs.length === 0) {
+                    this.newSearch();
+                } else {
+                    this.setScrolling( this.tabs[ this.tabs.length  - 1 ] );
+                    this.scrlTabsApi.doRecalculate();
+                }
                 this.localStorageService.set( this.editor.hashId , []);
-
             },
 
             editAccount: function () {
@@ -252,7 +260,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 if ( tab.type === 'edit' ) {
                     document.title = 'POMS - ' + (tab.item.mainTitle ? tab.item.mainTitle.text : "(no title)");
                     if ( tab.active && tab.reload ) {
-                        console.log("Reloading", tab);
                         tab.reload = false;
                         this.mediaService.load(tab.id).then(
                             function (media) {
@@ -280,7 +287,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
                 } else {
-
                     for ( var i = 0; i < this.tabs.length; i ++ ) {
                         var tab = this.tabs[i];
                         if ( tab.type === 'edit' ) {
@@ -315,7 +321,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }.bind( this ),
                     function ( error ) {
                         console.error(error)
-                        this.$rootScope.$emit( pomsEvents.error, error );
+                        this.$rootScope.$emit(this.pomsEvents.error, error );
                     }.bind( this ));
             },
 
@@ -345,9 +351,13 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
 
+            /**
+             * Creates and inserts a new search
+             */
             newSearch: function ( ) {
                 this.openSearchTab(this.searchService.newSearch());
             },
+            
 
 
             openInEditor: function ( media ) {
@@ -449,6 +459,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.scrlTabsApi.doRecalculate();
             },
 
+            /**
+             * Set the current tab and scroll to the last known position
+             */
             setScrolling : function ( tab ) {
                 var currentScrollPosition = this.$document.scrollTop();
                 if ( this.currentTab ) {
@@ -471,6 +484,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             this.scrlTabsApi.scrollTabIntoView(i);
                         }
                         this.setScrolling( tab );
+                        this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
                         return true;
                     }
                 }

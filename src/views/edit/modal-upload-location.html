@@ -1,116 +1,118 @@
 <div class="modal-header">
-    <div class="modal-title"> Bron uploaden ({{uploadController.guiStreamType()}})</div>
-    <div class="modal-close-button" ng-click="uploadController.cancel()"> close</div>
+  <div class="modal-title"> Bron uploaden ({{uploadController.guiStreamType()}})</div>
+  <div class="modal-close-button" ng-click="uploadController.cancel()"> close</div>
 </div>
 
 <form role="form" class="poms-form uploadLocationForm" ng-class="{'waiting': waiting}" name="uploadLocationForm">
-    <div class="modal-body">
-        <div class="form-fields ">
-            <div class="modal-column">
-
-            <div ng-if="isTranscoding">
-
-            <p>Er wordt al een upload verwerkt voor dit media-item.
-                Dit is de voortgang:
-            </p>
-
-            <table class="poms-table">
-                <thead>
-                <tr class="poms-table-head-row">
-                    <th title="MID" class="poms-table-header"> MID</th>
-                    <th title="Status" class="poms-table-header"> Status</th>
-                    <th title="Encoder" class="poms-table-header"> Encoder</th>
-                    <th title="Gestart op" class="poms-table-header"> Gestart op</th>
-                    <th title="Gewijzigd op" class="poms-table-header"> Gewijzigd op</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index">
-                    <td> {{ transcoding.mid }} </td>
-                    <td> {{ transcoding.title }}  </td>
-                    <td> {{ transcoding.state }} </td>
-                    <td> {{ transcoding.encoder }} </td>
-                    <td>
-                    <span ng-if="transcoding.creationDate">
-                        {{ transcoding | searchColumnFilter:"creationDate"}}
-                    </span>
-                        </td>
-                        <td>
-                    <span ng-if="transcoding.lastModifiedDate">
-                        {{ transcoding | searchColumnFilter:"lastModifiedDate" }}
-                    </span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            Zodra de upload voltooid is zal deze als bron verschijnen bij het media-item.
-            <hr style="margin-bottom: 20px;"/>
+  <div class="modal-body">
+    <div class="form-fields ">
+      <div class="modal-column">
+        
+        <div ng-if="isTranscoding">
+          
+          <p>Er wordt al een upload verwerkt voor dit media-item.
+            Dit is de voortgang:
+          </p>
+          
+          <table class="poms-table">
+            <thead>
+              <tr class="poms-table-head-row">
+                <th title="MID" class="poms-table-header"> MID</th>
+                <th title="Status" class="poms-table-header"> Status</th>
+                <th title="Encoder" class="poms-table-header"> Encoder</th>
+                <th title="Gestart op" class="poms-table-header"> Gestart op</th>
+                <th title="Gewijzigd op" class="poms-table-header"> Gewijzigd op</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index">
+                <td> {{ transcoding.mid }} </td>
+                <td> {{ transcoding.title }}  </td>
+                <td> {{ transcoding.state }} </td>
+                <td> {{ transcoding.encoder }} </td>
+                <td>
+                  <span ng-if="transcoding.creationDate">
+                    {{ transcoding | searchColumnFilter:"creationDate"}}
+                  </span>
+                </td>
+                <td>
+                  <span ng-if="transcoding.lastModifiedDate">
+                    {{ transcoding | searchColumnFilter:"lastModifiedDate" }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          Zodra de upload voltooid is zal deze als bron verschijnen bij het media-item.
+          <hr style="margin-bottom: 20px;"/>
         </div>
-
-
-            <div class="row">
-
-                <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}"  ng-if="uploadController.needsPriorityField()" >
-                    <label>Prioriteit&#42;</label>
-                    <ui-select ng-model="location.priority" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
-                        <ui-select-choices repeat="item in priorityTypes | filter: {text: $select.search}">
-                        <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
-                        </ui-select-choices>
-                    <ui-select-match>{{$select.selected.text }}</ui-select-match>
-                    </ui-select>
-                <poms-invalid violation="controller.violations.priority"></poms-invalid>
-                </div>
-
-                <div class="col-6 field"   ng-if="uploadController.needsEncryptionField()" >
-                    <label>Encryptie&#42;</label>
-                    <ui-select ng-model="location.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
-                        <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
-                            <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
-                        </ui-select-choices>
-                        <ui-select-match>{{$select.selected.text }}</ui-select-match>
-                        </ui-select>
-                    <poms-invalid violation="controller.violations.encryption"></poms-invalid>
-                </div>
-
-                <div class="field float-clear col-4" ng-class="{'has-error' : uploadLocationForm.inputFile.$invalid}">
-                    <label for="inputFile">Bestand</label>
-                        <input type="file"
-                               id="inputFile" name="inputFile"
-                               ng-file-select="uploadController.fileSelected()"
-                               ng-model="location.file"
-                               accept="{{uploadController.accept()}}" />
-                </div>
-
-
-            </div>
-
+        
+        
+        <div class="row">
+          
+          <div class="col-6 field" ng-class="{'has-error' : uploadLocationForm.inputPriorityType.$invalid}"  ng-if="uploadController.needsPriorityField()" >
+            <label>Prioriteit&#42;</label>
+            <ui-select ng-model="location.priority" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+              <ui-select-choices repeat="item in priorityTypes | filter: {text: $select.search}">
+                <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+              </ui-select-choices>
+              <ui-select-match>{{$select.selected.text }}</ui-select-match>
+            </ui-select>
+            <poms-invalid violation="controller.violations.priority"></poms-invalid>
+          </div>
+          
+          <div class="col-6 field"   ng-if="uploadController.needsEncryptionField()" >
+            <label>Encryptie&#42;</label>
+            <ui-select ng-model="location.encryption" theme="selectize" close-on-select="true" reset-search-input="true" style="width: 200px;">
+              <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
+                <div ng-bind-html="uploadController.trustAsHtml((item.text | highlight: $select.search))"></div>
+              </ui-select-choices>
+              <ui-select-match>{{$select.selected.text }}</ui-select-match>
+            </ui-select>
+            <poms-invalid violation="controller.violations.encryption"></poms-invalid>
+          </div>
+          
+          <div class="field float-clear col-4" ng-class="{'has-error' : uploadLocationForm.inputFile.$invalid}">
+            <label for="inputFile">Bestand</label>
+            <input type="file"
+                   id="inputFile" 
+                   name="inputFile"
+                   ng-file-select="uploadController.fileSelected()"
+                   ng-model="location.file"
+                   accept="{{uploadController.accept()}}">
+            
+          </div>
+          
+          
         </div>
-
-
-        <div class="modal-disable-overlay"></div>
-
-
+        
+      </div>
+      
+      
+      <div class="modal-disable-overlay"></div>
+      
+      
     </div>
-
+    
 
 
     <div class="footer-container">
         <div class="footer modal-footer footer-two-buttons">
-
-            <div class="required-feedback footer-message">
-                <span class="required-feedback-message" ng-if="!location.file">Nog in te vullen:</span>
-                <span class="required-field" ng-if="!location.file">Bestand</span>
-                &nbsp;
-            </div>
-
-            <button class="btn-rect" ng-click="uploadController.save()" ng-disabled="!location.file || waiting">
-                Start upload
-            </button>
-            <button class="btn-rect btn-rect-cancel" ng-click="uploadController.cancel($event)">Annuleer</button>
-
+          
+          <div class="required-feedback footer-message">
+            <span class="required-feedback-message" ng-if="!location.file">Nog in te vullen:</span>
+            <span class="required-field" ng-if="!location.file">Bestand</span>
+            &nbsp;
+          </div>
+          
+          <button class="btn-rect" ng-click="uploadController.save()" ng-disabled="!location.file || waiting">
+            Start upload
+          </button>
+          <button class="btn-rect btn-rect-cancel" ng-click="uploadController.cancel($event)">Annuleer</button>
+          
         </div>
     </div>
-
+  </div>
 </form>

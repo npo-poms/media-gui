@@ -12,12 +12,14 @@
             <div class="modal-column">
 
                 <div class="row">
-                    <div class="field"  ng-class="{'has-error' : editLocationForm.inputUrl.$invalid}">
+                    <div class="field"  
+                         ng-class="{'has-error' : editLocationForm.inputUrl.$invalid}">
                         <label for="inputUrl">URL &#42;</label>
 
                         <input type="text" name="inputUrl" id="inputUrl" required
                                placeholder="Url (verplicht)"
                                ng-disabled="!controller.mayWrite('programUrl')"
+                               ng-blur="controller.headRequest(location.url)"
                                ng-model="location.url"/>
                         <poms-invalid violation="controller.violations.programUrl"></poms-invalid>
                         <poms-help field="editor.location.url"></poms-help>

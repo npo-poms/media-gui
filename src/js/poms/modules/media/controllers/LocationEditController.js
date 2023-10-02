@@ -12,6 +12,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
     'location',
     'edit',
     'HelpService',
+    'InfoService',
     (function () {
 
         function isValid ( location ) {
@@ -21,7 +22,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 location.url !== ''
         }
 
-        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit, helpService) {
+        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit, helpService, infoService) {
 
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
@@ -31,6 +32,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
             this.host = appConfig.apiHost;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
+            this.infoService = infoService;
 
             location.publication = location.publication || {};
 
@@ -86,7 +88,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
             },
             mayWrite: function(field) {
                 if (this.$scope.location.mayWrite) {
-                    return this.$scope.location.mayWriteFields === undefined || this.$scope.location.mayWriteFields.indexOf(field) >= 0;
+                    return this.$scope.location.mayWriteFields === null || this.$scope.location.mayWriteFields.indexOf(field) >= 0;
                 }
                 return false;
             },
@@ -123,6 +125,16 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 )
 
             },
+            headRequest: function ( url ) {
+                return this.infoService.getByteSize(url).then(function (contentLength) {
+                    var result = parseInt(contentLength);
+                    if (result > 0) {
+                        this.$scope.location.byteSize = parseInt(contentLength);
+                    }
+                }.bind(this));
+                
+            },
+
 
             trustAsHtml: function ( value ) {
                 return this.$sce.trustAsHtml( value );

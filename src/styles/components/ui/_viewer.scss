@@ -29,27 +29,25 @@
     font-weight: bold;
 }
 
-.viewer-player ,
-.npoplayer_wrapper {
-    float: left;
-    width: 200px;
-    height: 150px;
-    background-color: black;
+.viewer-player {
     margin: 0 16px;
+    width: 200px;
+    height: 112px;
+    float: left;
+    background-color: black;
     position: relative;
-}
-.viewer-player.playing {
-    width: 400px;
-    height: 300px;
-}
-
-.viewer-placeholder {
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: relative;
+    
+    
+    &.playing.size-small {
+        width: 400px;
+        height: 225px;
+    }
+    
+    &.playing.size-medium {
+        width: 600px;
+        height: 338px;
+    }
+    
 }
 
 .viewer-info {
@@ -102,8 +100,7 @@
 .modal-preview .viewer-player,
 .modal-preview .npoplayer_wrapper {
     float: left;
-    width: 410px;
-    height: 275px;
+    
     margin: 0;
     margin-bottom: 16px;
     margin-right: 16px;

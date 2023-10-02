@@ -29,9 +29,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             this.$sce = $sce;
             this.messageService = MessageService;
             this.appConfig = appConfig;
-
-         
-
+            
             this.uploadInProgress = false;
             this.currentUpload = undefined;
             this.hasErrors = false;
