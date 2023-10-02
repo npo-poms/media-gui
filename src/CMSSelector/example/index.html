@@ -55,6 +55,9 @@
               <label for="properties.writable">Writable:</label>
               <input type="checkbox" id="properties.writable" />
               
+              <label for="properties.withoutLocations">Zonder locaties:</label>
+              <input type="checkbox" id="properties.withoutLocations" />
+              
               <label for="avType">AVType:</label>
               <select id="avType">
                 <option value="">ANY</option>
@@ -145,6 +148,7 @@
                 }, {
                   mediaType: types.join(),
                   "properties.writable": document.getElementById('properties.writable').checked,
+                  "properties.withoutLocations": document.getElementById('properties.withoutLocations').checked,
                   avType: document.getElementById('avType').value,
                   returnValue: document.getElementById('return').value
                 }
