@@ -6,7 +6,6 @@
 var gulp = require('gulp');
 var packageInfo = require('./package.json');
 var plugins = require('gulp-load-plugins')();
-var es = require('event-stream');
 
 /******************************
  * HELPERS
