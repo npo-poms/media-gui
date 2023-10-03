@@ -158,6 +158,25 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                         }.bind(this)
                     ));
                 }
+                var broadcasterFilter = urlSearchParams.get('broadcaster');
+                if ( broadcasterFilter && broadcasterFilter.length > 0 ) {
+                    promises.push(this.listService.getBroadcasters().then(
+                        function ( broadcasters) {
+                            this.broadcasters = broadcasters;
+                            var restrictedBroadcaster = [];
+                            searchConfig.form.broadcasters =  {
+                                restriction: broadcasterFilter.split(',')
+                            }
+                            broadcasters.forEach( function ( broadcaster ) {
+                                if ( searchConfig.form.broadcasters.restriction.indexOf( broadcaster.id ) > -1 ) {
+                                    restrictedBroadcaster.push( broadcaster );
+                                }
+                            } );
+                            searchConfig.form.broadcasters.restriction = restrictedBroadcaster;
+                            return broadcasters;
+                        }.bind(this)
+                    ));
+                }
                 /// cant use Promise.all. Angularjs has its own promises!
                 this.$q.all(promises).then(function() {
                     this.$scope.search = this.searchService.newSearch(searchConfig);
