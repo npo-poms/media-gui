@@ -11,10 +11,10 @@ angular.module('poms.list.services').factory('ListService', [
             var deferred = $q.defer();
 
             $http.get(appConfig.apiHost + '/gui/select' + path, config)
-                    .success(function(data) {
+                .then(function(data) {
                         deferred.resolve(data);
-                    }.bind(this))
-                    .error(function(error) {
+                    },
+                    function(error) {
                         deferred.reject(error);
                     });
 
