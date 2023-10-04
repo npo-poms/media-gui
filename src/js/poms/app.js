@@ -290,11 +290,11 @@
             };
         });
 
-    angular.module( 'poms' )
+  /*  TODO? angular.module( 'poms' )
         .config( [ '$uibModalInstance', function ( $modalProvider ) {
             $modalProvider.options.backdrop = "static";
         } ] );
-
+*/
     module.config(['$compileProvider', function ($compileProvider) {
         $compileProvider.debugInfoEnabled(false);
 
