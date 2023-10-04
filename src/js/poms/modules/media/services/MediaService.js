@@ -2,7 +2,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
     '$rootScope',
     '$q',
     '$http',
-    '$modal',
+    '$uibModal',
     'localStorageService',
     'appConfig',
     function ( $rootScope, $q, $http, $modal, localStorageService, appConfig ) {

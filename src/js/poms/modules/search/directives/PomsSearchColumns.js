@@ -6,7 +6,9 @@ angular.module( 'poms.search.directives' )
             controller: function ( $scope, $rootScope, PomsEvents, localStorageService, EditorService, NotificationService) {
 
                 var defaultKey, defaultColumns, localKey, editor;
-                editor = EditorService.getCurrentEditor() ;
+                this.$onInit = function() {
+                    this.editor = EditorService.getCurrentEditor();
+                }.bind(this);
 
 
                 $scope.allColumns = [

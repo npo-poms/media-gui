@@ -2,7 +2,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     '$q',
     '$rootScope',
     '$http',
-    '$modal',
+    '$uibModal',
     'appConfig',
     'PomsEvents',
     'localStorageService',

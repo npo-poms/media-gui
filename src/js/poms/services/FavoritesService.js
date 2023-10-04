@@ -1,6 +1,6 @@
 angular.module( 'poms.services' ).factory( 'FavoritesService', [
     '$rootScope',
-    '$modal',
+    '$uibModal',
     'localStorageService',
     'EditorService',
     'NotificationService',

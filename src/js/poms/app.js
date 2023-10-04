@@ -79,14 +79,14 @@
             } );
     } );
 
-    module.config( function ( datepickerConfig, datepickerPopupConfig ) {
-        datepickerConfig.showWeeks = false;
-        datepickerConfig.startingDay = 1;
-        datepickerPopupConfig.datepickerPopup = "dd/MM/yyyy";
-        datepickerPopupConfig.currentText = "Vandaag";
-        datepickerPopupConfig.clearText = "Wis";
-        datepickerPopupConfig.closeText = "Klaar";
-        datepickerPopupConfig.toggleWeeksText = "Week";
+    module.config( function ( uibDatepickerConfig, uibDatepickerPopupConfig ) {
+        uibDatepickerConfig.showWeeks = false;
+        uibDatepickerConfig.startingDay = 1;
+        uibDatepickerPopupConfig.datepickerPopup = "dd/MM/yyyy";
+        uibDatepickerPopupConfig.currentText = "Vandaag";
+        uibDatepickerPopupConfig.clearText = "Wis";
+        uibDatepickerPopupConfig.closeText = "Klaar";
+        uibDatepickerPopupConfig.toggleWeeksText = "Week";
     } );
 
     module.value( 'PomsEvents', {
@@ -291,7 +291,7 @@
         });
 
     angular.module( 'poms' )
-        .config( [ '$modalProvider', function ( $modalProvider ) {
+        .config( [ '$uibModalInstance', function ( $modalProvider ) {
             $modalProvider.options.backdrop = "static";
         } ] );
 

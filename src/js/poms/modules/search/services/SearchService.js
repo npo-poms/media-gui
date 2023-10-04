@@ -3,7 +3,7 @@ angular.module('poms.search.services').factory('SearchService', [
     '$q',
     '$http',
     '$filter',
-    '$modal',
+    '$uibModal',
     'appConfig',
     'GuiService',
     'MediaService',

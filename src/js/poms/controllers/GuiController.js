@@ -3,7 +3,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
     '$scope',
     '$route',
     '$location',
-    '$modal',
+    '$uibModal',
     '$document',
     '$timeout',
     'localStorageService',

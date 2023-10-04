@@ -11,7 +11,6 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
         },
         controller: function ( $scope, $modal ) {
             $scope.confirm = function () {
-
                 // skip modal if provided function returns true
                 if ( $scope.pomsSkip() ) {
                     $scope.pomsSubmit();

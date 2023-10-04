@@ -8,18 +8,7 @@ angular.module( 'poms.media.directives' )
                 helpField : '@'
             },
             controller: function ( $scope ) {
-
-                var media = $scope.media;
-                var uiSelect;
-
-                $scope.genres = [];
-                $scope.options = [];
-                $scope.preSelectedItems = [];
-                $scope.isOpen = false;
-                $scope.mayWrite = function() {
-                    return mediaService.hasGenrePermission( media);
-                }.bind(this);
-
+                
                 function load ( media, dest ) {
                     mediaService.getGenres( media ).then(
                         function ( data ) {
@@ -30,16 +19,31 @@ angular.module( 'poms.media.directives' )
                         }
                     )
                 }
-                load( media, $scope.genres );
+                this.$onInit = function() {
+                    var media = $scope.media;
+                    var uiSelect;
 
-                listService.getGenres().then(
-                    function ( data ) {
-                        $scope.options = data;
-                    },
-                    function ( error ) {
-                        $scope.$emit( pomsEvents.error, error )
-                    }
-                );
+                    $scope.genres = [];
+                    $scope.options = [];
+                    $scope.preSelectedItems = [];
+                    $scope.isOpen = false;
+                    $scope.mayWrite = function () {
+                        return mediaService.hasGenrePermission(media);
+                    }.bind(this);
+
+
+                    load(media, $scope.genres);
+
+                    listService.getGenres().then(
+                        function (data) {
+                            $scope.options = data;
+                        },
+                        function (error) {
+                            $scope.$emit(pomsEvents.error, error)
+                        }
+                    );
+                };
+                
 
 
                 $scope.$on( 'closeEditField', function ( e, data ) {
@@ -90,7 +94,7 @@ angular.module( 'poms.media.directives' )
 
                 $scope.keyEvent = function ( e ) {
 
-                    if ( e.keyCode == 27 ) {
+                    if ( e.keyCode === 27 ) {
                         $scope.cancel();
                     }
 
