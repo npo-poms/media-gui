@@ -1,15 +1,15 @@
 angular.module('poms.util.controllers')
         .controller('AlertController', [
             '$scope',
-            '$modalInstance',
+            '$uibModalInstance',
             'GuiService',
             'error',
             (function() {
 
-                function AlertController($scope, $modalInstance, GuiService, error) {
+                function AlertController($scope, $uibModalInstance, GuiService, error) {
 
                     this.$scope = $scope;
-                    this.$modalInstance = $modalInstance;
+                    this.$uibModalInstance = $uibModalInstance;
                     this.guiService = GuiService;
                     this.error = error;
                     if (! this.error.message) {
@@ -46,7 +46,7 @@ angular.module('poms.util.controllers')
                     },
 
                     cancel : function() {
-                        this.$modalInstance.close();
+                        this.$uibModalInstance.close();
                     }
                 };
 

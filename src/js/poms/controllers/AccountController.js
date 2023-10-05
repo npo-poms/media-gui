@@ -1,7 +1,7 @@
 
 angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$sce',
     '$window',
     'appConfig',
@@ -13,11 +13,11 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
     'editor',
     (function () {
 
-        function AccountController ( $scope, $modalInstance, $sce, $window, appConfig, PomsEvents, EditorService, FavoritesService, ListService, LocalStorageService, editor ) {
+        function AccountController ( $scope, $uibModalInstance, $sce, $window, appConfig, PomsEvents, EditorService, FavoritesService, ListService, LocalStorageService, editor ) {
 
             $scope.editor = angular.copy( editor );
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$sce = $sce;
             this.$window = $window;
             this.host = appConfig.apiHost;
@@ -43,7 +43,7 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
             },
 
             cancel: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             init: function () {
@@ -97,7 +97,7 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
 
                 this.editorService.setAccount( this.$scope.editor ).then(
                     function ( editor ) {
-                        this.$modalInstance.close( editor );
+                        this.$uibModalInstance.close( editor );
                     }.bind( this ),
                     function ( error ) {
                         this.$scope.$emit( this.pomsEvents.error, error );
