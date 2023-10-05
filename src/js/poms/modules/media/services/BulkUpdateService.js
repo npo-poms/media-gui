@@ -1,9 +1,9 @@
 angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
     '$q',
     '$http',
-    '$modal',
+    '$uibModal',
     'appConfig',
-    function ($q, $http, $modal, appConfig ) {
+    function ($q, $http, $uibModal, appConfig ) {
         var baseUrl = appConfig.apiHost + '/gui/bulk';
 
         function BulkUpdateService () {
@@ -12,7 +12,7 @@ angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
         BulkUpdateService.prototype = {
 
             start: function ( selection ) {
-                $modal.open( {
+                $uibModal.open( {
                     controller: 'BulkUpdateController',
                     controllerAs: 'bulkUpdateController',
                     templateUrl: 'media/modal-bulk-update.html',

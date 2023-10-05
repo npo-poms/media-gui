@@ -59,6 +59,7 @@
     "angular-route": "~1.8.3",
     "angular-sanitize": "~1.8.3",
     "angular-scroll": "~1.0.2",
+    "angular-ui": "~1.0.0",
     "angular-ui-tab-scroll": "~1.2.3",
     "angular-ui-bootstrap": "~2.5.6",
     "autoprefixer": "~6.1.2",

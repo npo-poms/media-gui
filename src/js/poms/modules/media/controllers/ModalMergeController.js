@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'config',
     'merge',
     'submitMerge',
@@ -8,9 +8,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
     'PomsEvents',
     (function () {
 
-        function ModalMergeController ( $scope, $modalInstance, config, merge, submitMerge, MediaService, Pomsevents ) {
+        function ModalMergeController ( $scope, $uibModalInstance, config, merge, submitMerge, MediaService, Pomsevents ) {
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.config = config;
             this.merge = merge;
             this.submitMerge = submitMerge;
@@ -146,7 +146,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
 
             cancel : function () {
                 if ( this.mayClose ) {
-                    this.$modalInstance.dismiss( 'canceled' );
+                    this.$uibModalInstance.dismiss( 'canceled' );
                 }
             },
 
@@ -160,7 +160,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
 
                 this.submitMerge( this.merge ).then(
                     function ( destination ) {
-                        this.$modalInstance.close( destination );
+                        this.$uibModalInstance.close( destination );
                         this.$scope.waiting = false;
 
                     }.bind( this ),

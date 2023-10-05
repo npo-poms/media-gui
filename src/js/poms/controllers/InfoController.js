@@ -1,19 +1,19 @@
 angular.module('poms.media.controllers').controller('InfoController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'PomsEvents',
     'InfoService',
     'SearchService',
     (function() {
 
-        function InfoController($scope, $modalInstance, PomsEvents, InfoService, SearchService) {
+        function InfoController($scope, $uibModalInstance, PomsEvents, InfoService, SearchService) {
 
             this.pomsEvents = PomsEvents;
             this.infoService = InfoService;
             this.searchService = SearchService;
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
 
             this.init();
         }
@@ -21,7 +21,7 @@ angular.module('poms.media.controllers').controller('InfoController', [
         InfoController.prototype = {
 
             cancel : function() {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             init : function() {

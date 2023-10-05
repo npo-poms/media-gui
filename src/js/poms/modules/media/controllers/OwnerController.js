@@ -1,24 +1,24 @@
 angular.module( 'poms.media.controllers' ).controller( 'OwnerController', [
-    '$modalInstance',
+    '$uibModalInstance',
     'title',
     'ownerData',
     'owner',
     (function () {
 
-        function OwnerController ( $modalInstance, title, ownerData, owner ) {
+        function OwnerController ( $uibModalInstance, title, ownerData, owner ) {
 
             this.title = title;
             this.owner = owner.text;
             this.ownerData = ownerData;
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
 
         }
 
         OwnerController.prototype = {
 
             close: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             }
 
         };

@@ -2,7 +2,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
     '$scope',
     '$sce',
     '$filter',
-    '$modalInstance',
+    '$uibModalInstance',
     'SubtitlesService',
     'media',
     'title',
@@ -13,11 +13,11 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
     'ValidationPatterns',
     (function () {
 
-        function SubtitlesUploadController ( $scope, $sce, $filter, $modalInstance, subtitlesService, media, title, languages, subtitlesTypes, mayWrite,  pomsEvents, validationPatterns ) {
+        function SubtitlesUploadController ( $scope, $sce, $filter, $uibModalInstance, subtitlesService, media, title, languages, subtitlesTypes, mayWrite,  pomsEvents, validationPatterns ) {
             this.$scope = $scope;
             this.$sce = $sce;
             this.$filter = $filter;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.subtitlesService = subtitlesService;
             this.languages = languages;
             this.subtitlesTypes = subtitlesTypes;
@@ -59,7 +59,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
         SubtitlesUploadController.prototype = {
 
             close: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
 
@@ -88,7 +88,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
                 }.bind(this));
 
 
-                this.$modalInstance.close();
+                this.$uibModalInstance.close();
             },
 
             isDuplicate: function () {

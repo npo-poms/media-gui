@@ -3,7 +3,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
     '$scope',
     '$filter',
     '$http',
-    '$modal',
+    '$uibModal',
     'EditorService',
     'PomsEvents',
     'MediaService',
@@ -13,10 +13,10 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
     'appConfig',
     (function () {
 
-        function PredictionsController($rootScope, $scope, $filter, $http, $modal, EditorService, PomsEvents, MediaService, NotificationService, ListService, MessageService, appConfig) {
+        function PredictionsController($rootScope, $scope, $filter, $http, $uibModal, EditorService, PomsEvents, MediaService, NotificationService, ListService, MessageService, appConfig) {
             this.$http = $http;
             this.$filter = $filter;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.notificationService = NotificationService;
@@ -49,7 +49,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
 
                 var editMode = true;
 
-                var modal = this.$modal.open({
+                var modal = this.$uibModal.open({
                     controller: 'PredictionEditController',
                     controllerAs: 'controller',
                     templateUrl: 'edit/modal-edit-prediction.html',

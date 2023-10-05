@@ -2,9 +2,9 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
     '$q',
     '$rootScope',
     '$http',
-    '$modal',
+    '$uibModal',
     "EditorService",
-    function ( $q, $rootScope, $http, $modal, editorService) {
+    function ( $q, $rootScope, $http, $uibModal, editorService) {
 
 
         function GTAAService () {
@@ -46,7 +46,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                 }.bind(this);
                 var gtaaPopup =  this.openFunction(handle, scheme, item);
 
-                modal= $modal.open({
+                modal= $uibModal.open({
                     controller: "ModalIFrameController",
                     controllerAs: "controller",
                     templateUrl: 'edit/modal-iframe.html',

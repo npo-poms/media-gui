@@ -1,18 +1,18 @@
 angular.module( 'poms.media.controllers' ).controller( 'TranscodingsController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'PomsEvents',
     'UploadService',
     'MediaService',
     'NotificationService',
     (function () {
 
-        function TranscodingsController ( $scope, $modalInstance, PomsEvents, uploadService, mediaService, notificationService ) {
+        function TranscodingsController ( $scope, $uibModalInstance, PomsEvents, uploadService, mediaService, notificationService ) {
 
             this.pomsEvents = PomsEvents;
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.uploadService = uploadService;
             this.mediaService = mediaService;
             this.notificationService = notificationService;
@@ -36,14 +36,14 @@ angular.module( 'poms.media.controllers' ).controller( 'TranscodingsController',
         TranscodingsController.prototype = {
 
             cancel: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             openMid: function( transcoding ){
                 if (transcoding.missingMedia) {
                     alert("Er is geen object " + transcoding.mid);
                 } else {
-                    this.$modalInstance.close(transcoding.mid);
+                    this.$uibModalInstance.close(transcoding.mid);
                 }
             }
         };

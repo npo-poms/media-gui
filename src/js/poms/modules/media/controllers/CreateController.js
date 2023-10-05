@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'EditorService',
     'MediaService',
     'PomsEvents',
@@ -12,11 +12,11 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
     'genres',
     (function () {
 
-        function CreateController ( $scope, $modalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, media, genres ) {
+        function CreateController ( $scope, $uibModalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, media, genres ) {
 
             this.$scope = $scope;
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.mediaService = MediaService;
             this.editorService = EditorService;
             this.pomsEvents = PomsEvents;
@@ -60,7 +60,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             init: function(){
@@ -99,7 +99,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                 this.mediaService.create( this.$scope.media ) .then(
                     function ( media ) {
                         this.$scope.waiting = false;
-                        this.$modalInstance.close( media );
+                        this.$uibModalInstance.close( media );
                     }.bind( this ),
                     function( error ){
                         this.$scope.waiting = false;

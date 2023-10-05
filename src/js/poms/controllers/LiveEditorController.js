@@ -1,6 +1,6 @@
 angular.module('poms.media.controllers').controller('LiveEditorController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$filter',
     '$timeout',
     '$interval',
@@ -12,7 +12,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
     'appConfig',
     (function() {
 
-        function LiveEditorController($scope, $modalInstance, $filter, $timeout, $interval,  PomsEvents, NEPService, ListService, MessageService, notificationService, appConfig) {
+        function LiveEditorController($scope, $uibModalInstance, $filter, $timeout, $interval,  PomsEvents, NEPService, ListService, MessageService, notificationService, appConfig) {
 
             this.pomsEvents = PomsEvents;
             this.appConfig = appConfig;
@@ -22,7 +22,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             this.notificationService = notificationService;
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$filter = $filter;
             this.$timeout = $timeout;
             this.$interval = $interval;
@@ -43,7 +43,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
                 if (this.videoElement) {
                     this.videoElement.pause();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             init : function () {

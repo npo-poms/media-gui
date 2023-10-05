@@ -4,7 +4,7 @@ angular.module( 'poms.media.directives' )
         '$q',
         '$filter',
         '$sce',
-        '$modal',
+        '$uibModal',
         '$timeout',
         'PomsEvents',
         'EditFieldService',
@@ -13,7 +13,7 @@ angular.module( 'poms.media.directives' )
             $q,
             $filter,
             $sce,
-            $modal,
+            $uibModal,
             $timeout,
             pomsEvents,
             editFieldService ) {

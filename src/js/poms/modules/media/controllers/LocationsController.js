@@ -2,7 +2,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
     '$scope',
     '$filter',
     '$http',
-    '$modal',
+    '$uibModal',
     '$sce',
     'localStorageService',
     'EditorService',
@@ -15,10 +15,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
     'appConfig',
     (function () {
 
-        function LocationsController ( $scope, $filter, $http, $modal, $sce, localStorageService, EditorService, PomsEvents, MediaService, NotificationService, ListService, UploadService , MessageService, appConfig) {
+        function LocationsController ( $scope, $filter, $http, $uibModal, $sce, localStorageService, EditorService, PomsEvents, MediaService, NotificationService, ListService, UploadService , MessageService, appConfig) {
             this.$http = $http;
             this.$filter = $filter;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.localStorageService = localStorageService;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
@@ -128,7 +128,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     editMode = false;
                 }
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller : 'LocationEditController',
                     controllerAs : 'controller',
                     templateUrl : 'edit/modal-edit-location.html',
@@ -158,7 +158,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             },
 /*
             playLocation : function( location ) {
-                this.$modal.open( {
+                this.$uibModal.open( {
                     controller : 'LocationPlayController',
                     controllerAs : 'LocationPlayController',
                     templateUrl : 'edit/modal-play-location.html',
@@ -271,7 +271,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
             uploadLocation : function (streamType) {
                 var self = this;
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller : 'LocationUploadController',
                     controllerAs : 'uploadController',
                     templateUrl : 'edit/modal-upload-location.html',

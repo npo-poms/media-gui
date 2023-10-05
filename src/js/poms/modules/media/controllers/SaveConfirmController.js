@@ -1,6 +1,6 @@
 angular.module('poms.media.controllers').controller('SaveConfirmController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'FavoritesService',
     (function () {
 

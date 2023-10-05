@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'PomsEvents',
     'ListService',
     'MediaService',
@@ -8,7 +8,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
     'media',
     (function () {
 
-        function BulkUpdateController ( $scope, $modalInstance, PomsEvents, ListService, MediaService, BulkUpdateService, media ) {
+        function BulkUpdateController ( $scope, $uibModalInstance, PomsEvents, ListService, MediaService, BulkUpdateService, media ) {
 
             this.pomsEvents = PomsEvents;
             this.listService = ListService;
@@ -16,7 +16,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
             this.bulkUpdateService = BulkUpdateService;
             this.steps = 3;
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$scope = $scope;
 
             $scope.step = 0;
@@ -70,7 +70,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             confirm: function () {
@@ -168,7 +168,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
                 this.bulkUpdateService.update( update, validate )
                     .then( function ( answer ) {
                         if ( ! validate ) {
-                            this.$modalInstance.close( answer );
+                            this.$uibModalInstance.close( answer );
                         }
                     }.bind( this ),
                     function ( error ) {

@@ -2,11 +2,11 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
     '$rootScope',
     '$q',
     '$http',
-    '$modal',
+    '$uibModal',
     'localStorageService',
     'appConfig',
     'NotificationService',
-    function ( $rootScope, $q, $http, $modal, localStorageService, appConfig, notificationService) {
+    function ( $rootScope, $q, $http, $uibModal, localStorageService, appConfig, notificationService) {
 
         var baseUrl = appConfig.apiHost + '/gui/player';
 

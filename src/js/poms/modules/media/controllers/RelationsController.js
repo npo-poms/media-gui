@@ -1,15 +1,15 @@
 angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
     '$scope',
-    '$modal',
+    '$uibModal',
     'PomsEvents',
     'MediaService',
     'ListService',
     (function () {
 
-        function RelationsController ( $scope, $modal, PomsEvents, MediaService, ListService ) {
+        function RelationsController ( $scope, $uibModal, PomsEvents, MediaService, ListService ) {
 
             this.$scope = $scope;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.listService = ListService;
@@ -66,7 +66,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
                     editMode = false;
                 }
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'RelationEditController',
                     controllerAs: 'controller',
                     templateUrl: 'edit/modal-edit-relation.html',

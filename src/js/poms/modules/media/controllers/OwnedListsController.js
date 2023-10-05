@@ -2,7 +2,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
     '$scope',
     '$q',
     '$sce',
-    '$modal',
+    '$uibModal',
     '$timeout',
     'PomsEvents',
     'MediaService',
@@ -35,7 +35,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
 
         function OwnedListsController (
-          $scope, $q, $sce, $modal, $timeout,
+          $scope, $q, $sce, $uibModal, $timeout,
           pomsEvents, mediaService, editorService, listService, editFieldService ) {
 
             this.options = [];
@@ -45,7 +45,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             this.$scope = $scope;
             this.$q = $q;
             this.$sce = $sce;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.$timeout = $timeout;
             this.media = $scope.media;
 

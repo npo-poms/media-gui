@@ -2,7 +2,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
     '$scope',
     '$q',
     '$sce',
-    '$modal',
+    '$uibModal',
     '$timeout',
     'PomsEvents',
     'MediaService',
@@ -21,7 +21,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
         }
 
         function MultiEditController (
-          $scope, $q, $sce, $modal, $timeout,
+          $scope, $q, $sce, $uibModal, $timeout,
           pomsEvents, mediaService, editFieldService ) {
 
             this.violation = undefined;
@@ -32,7 +32,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             this.$scope = $scope;
             this.$q = $q;
             this.$sce = $sce;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.$timeout = $timeout;
             this.media = $scope.media;
             this.values = [];

@@ -1,5 +1,5 @@
 angular.module( 'poms.media.directives' )
-    .directive( 'pomsGenres', ['PomsEvents', 'EditService', 'FavoritesService' ,'MediaService', 'ListService', '$q', '$sce', '$timeout', '$modal', 'EditFieldService', function ( pomsEvents, editService, favoritesService, mediaService, listService, $q, $sce, $timeout, $modal, editFieldService ) {
+    .directive( 'pomsGenres', ['PomsEvents', 'EditService', 'FavoritesService' ,'MediaService', 'ListService', '$q', '$sce', '$timeout', '$uibModal', 'EditFieldService', function ( pomsEvents, editService, favoritesService, mediaService, listService, $q, $sce, $timeout, $uibModal, editFieldService ) {
         return {
             restrict: 'E',
             templateUrl: 'edit/editables/poms-genres.html',

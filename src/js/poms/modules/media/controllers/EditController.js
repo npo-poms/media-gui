@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'EditController', [
     '$scope',
-    '$modal',
+    '$uibModal',
     '$sce',
     'PomsEvents',
     'EditorService',
@@ -13,7 +13,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
         function EditController (
             $scope,
-            $modal,
+            $uibModal,
             $sce,
             pomsEvents,
             editorService,
@@ -23,7 +23,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             searchFactory ,
             searchService) {
             this.$scope = $scope;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.$sce = $sce;
             this.pomsEvents = pomsEvents;
 
@@ -469,7 +469,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             showAllEvents: function () {
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     resolve: {
                         title: function () {
                             return 'Alle uitzendingen';
@@ -492,7 +492,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             showAllOwnerData: function ( owners ) {
 
-                var modal = this.$modal.open({
+                var modal = this.$uibModal.open({
                     scope: this.$scope,
                     resolve: {
                         title: function(){
@@ -515,7 +515,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             showOwnerData : function( owner ) {
 
-                var modal = this.$modal.open({
+                var modal = this.$uibModal.open({
                     scope : this.$scope,
                     resolve : {
                         title : function() {
@@ -542,7 +542,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
 
             showSubtitles: function () {
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     resolve: {
                         title: function () {
                             return 'Alle ondertitels';
@@ -569,7 +569,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             },
 
             uploadSubtitle: function () {
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     resolve: {
                         title: function () {
                             return 'Upload ondertitels';

@@ -1,16 +1,16 @@
 angular.module( 'poms.media.controllers' ).controller( 'FavoritesController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'FavoritesService',
     'GuiService',
     'MediaService',
     'PomsEvents',
     (function () {
 
-        function FavoritesController ( $scope, $modalInstance, favoritesService , guiService , mediaService , pomsEvents) {
+        function FavoritesController ( $scope, $uibModalInstance, favoritesService , guiService , mediaService , pomsEvents) {
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.favoritesService = favoritesService;
             this.guiService = guiService;
             this.mediaService = mediaService;
@@ -22,7 +22,7 @@ angular.module( 'poms.media.controllers' ).controller( 'FavoritesController', [
         FavoritesController.prototype = {
 
             cancel: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             init : function(){

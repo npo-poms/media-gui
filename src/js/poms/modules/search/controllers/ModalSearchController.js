@@ -1,14 +1,14 @@
 angular.module( 'poms.search.controllers' ).controller( 'ModalSearchController', [
     '$scope',
-    '$modalInstance',
-    '$modal',
+    '$uibModalInstance',
+    '$uibModal',
     'search',
     (function () {
 
         function ModalSearchController ( $scope, modalInstance, modal, search ) {
             this.$scope = $scope;
             this.modalInstance = modalInstance;
-            this.$modal = modal;
+            this.$uibModal = modal;
             this.search = search;
             this.$scope.search = search;
 

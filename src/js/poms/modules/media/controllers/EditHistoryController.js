@@ -1,17 +1,17 @@
 angular.module( 'poms.media.controllers' ).controller( 'EditHistoryController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'title',
     'media',
     'MediaService',
     (function () {
 
-        function EditHistoryController(  $scope, $modalInstance,  title, media, mediaService  ){
+        function EditHistoryController(  $scope, $uibModalInstance,  title, media, mediaService  ){
 
             this.$scope = $scope;
             this.$scope.title = title;
             this.$scope.media = media;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.mediaService = mediaService;
 
             this.init();
@@ -22,7 +22,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditHistoryController', 
         EditHistoryController.prototype = {
 
             close: function(){
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             init: function(){

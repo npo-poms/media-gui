@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$sce',
     'segment',
     'media',
@@ -10,13 +10,13 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
     'ValidationPatterns',
     'HelpService',
     (function () {
-        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, segmentscontroller, pomsEvents, mediaService, validationPatterns, helpService) {
+        function SegmentEditController( $scope, $uibModalInstance, $sce, segment, media, segmentscontroller, pomsEvents, mediaService, validationPatterns, helpService) {
 
             this.$scope = $scope;
             this.$scope.segment = segment;
             this.$scope.media = media;
             this.segmentscontroller = segmentscontroller;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$scope.modalTitle = 'Nieuw segment voor ' + media.mainTitle.text + " (" + media.mid + ")";
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
@@ -75,7 +75,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
 
@@ -102,7 +102,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                             mainTitle: segment.mainTitle
 
                         });
-                        this.$modalInstance.close(segment);
+                        this.$uibModalInstance.close(segment);
                         this.$scope.waiting = false;
                     }.bind(this),
                     function (error) {

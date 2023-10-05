@@ -6,7 +6,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
     'NotificationService',
     'SearchFactory',
     'PomsEvents',
-    function ( $rootScope, $modal, localStorageService, EditorService,  NotificationService, SearchFactory, pomsEvents ) {
+    function ( $rootScope, $uibModal, localStorageService, EditorService,  NotificationService, SearchFactory, pomsEvents ) {
 
         function FavoritesService () {
 
@@ -48,7 +48,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
             },
 
             openFavorites : function () {
-                $modal.open( {
+                $uibModal.open( {
                     controller : 'FavoritesController',
                     controllerAs : 'favoritesController',
                     templateUrl : 'gui/modal-favorites.html',

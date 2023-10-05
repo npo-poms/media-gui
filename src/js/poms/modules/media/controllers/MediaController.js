@@ -3,7 +3,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     '$scope',
     '$document',
     '$element',
-    '$modal',
+    '$uibModal',
     '$window',
     '$filter',
     'EditorService',
@@ -16,7 +16,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
     'InfoService', // just to init it already
     (function () {
 
-        function MediaController ( $rootScope, $scope, $document, $element, $modal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents, InfoService ) {
+        function MediaController ( $rootScope, $scope, $document, $element, $uibModal, $window, $filter, EditorService, GuiService, MediaService, MergeService, ListService, NotificationService, PomsEvents, InfoService ) {
             this.$rootScope = $rootScope;
             $scope.showMid = true;
 
@@ -31,7 +31,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
             this.notificationService = NotificationService;
 
             this.$document = $document;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.$element = $element;
             this.$scope.sidebarFixed = false;
             this.$scope.predictionsWaiting = true;
@@ -345,7 +345,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
             editHistory : function () {
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     resolve : {
                         title : function () {
                             return 'Alle wijzigingen';

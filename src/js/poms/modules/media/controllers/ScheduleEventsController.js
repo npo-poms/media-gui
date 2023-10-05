@@ -1,12 +1,12 @@
 angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventsController', [
-    '$modalInstance',
+    '$uibModalInstance',
     'title',
     'media',
     (function () {
 
-        function ScheduleEventsController ( $modalInstance, title, media ) {
+        function ScheduleEventsController ( $uibModalInstance, title, media ) {
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.title = title;
             this.media = media;
 
@@ -15,7 +15,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventsController
         ScheduleEventsController.prototype = {
 
             close: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             }
 
         };

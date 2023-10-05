@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'OwnersController', [
     '$q',
-    '$modalInstance',
+    '$uibModalInstance',
     'MediaService',
     'title',
     'owners',
@@ -8,11 +8,11 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnersController', [
     'TextfieldNames',
     (function () {
 
-        function OwnersController ( $q, $modalInstance, mediaService, title, owners, media, fieldNames ) {
+        function OwnersController ( $q, $uibModalInstance, mediaService, title, owners, media, fieldNames ) {
 
             this.fieldNames = fieldNames;
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.mediaService = mediaService;
 
             this.title = title;
@@ -70,7 +70,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnersController', [
         OwnersController.prototype = {
 
             close: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             }
 
         };

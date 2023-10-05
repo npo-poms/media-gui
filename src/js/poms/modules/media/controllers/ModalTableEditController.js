@@ -1,7 +1,7 @@
 angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController', [
     '$scope',
     '$q',
-    '$modal',
+    '$uibModal',
     'PomsEvents',
     'MediaService',
     'ListService',
@@ -22,14 +22,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             )
         }
 
-        function ModalTableEditController ( $scope, $q, $modal, pomsEvents, mediaService, listService ) {
+        function ModalTableEditController ( $scope, $q, $uibModal, pomsEvents, mediaService, listService ) {
 
             this.items = [];
 
             this.options = [];
             this.$scope = $scope;
             this.$q = $q;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
 
             this.media = $scope.media;
             this.pomsEvents = pomsEvents;
@@ -171,7 +171,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             showEditElement: function () {
 
                 if ( this.mayWrite) {
-                    this.$scope.modal = this.$modal.open( {
+                    this.$scope.modal = this.$uibModal.open( {
                         scope: this.$scope,
                         templateUrl: 'edit/editables/poms-table-restrictions.html',
                         windowClass: 'modal-edit'

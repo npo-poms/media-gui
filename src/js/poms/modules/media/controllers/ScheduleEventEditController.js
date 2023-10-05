@@ -1,7 +1,7 @@
 angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditController', [
     '$scope',
     '$timeout',
-    '$modalInstance',
+    '$uibModalInstance',
     '$upload',
     '$sce',
     '$filter',
@@ -15,11 +15,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
     'TextfieldNames',
     (function () {
 
-        function ScheduleEventEditController ( $scope, $timeout, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, mediaService, listService, media, event, edit, textfieldNames ) {
+        function ScheduleEventEditController ( $scope, $timeout, $uibModalInstance, $upload, $sce, $filter, appConfig, PomsEvents, mediaService, listService, media, event, edit, textfieldNames ) {
 
             this.$scope = $scope;
             this.$timeout = $timeout;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.$filter = $filter;
@@ -79,7 +79,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             save: function () {
@@ -88,7 +88,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
 
                 return this.mediaService.saveScheduleEvent( this.$scope.media, data ).then(
                     function (scheduleEvent) {
-                        this.$modalInstance.close(scheduleEvent);
+                        this.$uibModalInstance.close(scheduleEvent);
                         this.$scope.waiting = false;
                         this.$scope.events = [scheduleEvent];
                         this.$timeout(function() {

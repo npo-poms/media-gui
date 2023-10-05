@@ -6,7 +6,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     'appConfig',
     'PomsEvents',
     'localStorageService',
-    function ( $q, $rootScope, $http, $modal, appConfig, pomsEvents, localStorageService ) {
+    function ( $q, $rootScope, $http, $uibModal, appConfig, pomsEvents, localStorageService ) {
 
         var baseUrl = appConfig.apiHost + '/gui/editor';
         var rolesHolder = [];
@@ -107,7 +107,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             editAccount: function () {
-                var modal = $modal.open( {
+                var modal = $uibModal.open( {
                     controller: 'AccountController',
                     controllerAs: 'accountController',
                     templateUrl: 'gui/modal-account.html',

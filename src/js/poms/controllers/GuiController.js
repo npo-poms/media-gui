@@ -25,7 +25,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             $scope,
             $route,
             $location,
-            $modal,
+            $uibModal,
             $document,
             $timeout,
             localStorageService,
@@ -44,7 +44,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             this.$rootScope = $rootScope;
             this.$route = $route;
             this.$location = $location;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.localStorageService = localStorageService;
             this.pomsEvents = pomsEvents;
             this.guiService = guiService;
@@ -326,7 +326,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             newMedia: function () {
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'CreateController',
                     controllerAs: 'controller',
                     templateUrl: 'edit/modal-create.html',
@@ -377,7 +377,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openInfo: function () {
-                this.$modal.open( {
+                this.$uibModal.open( {
                     controller: 'InfoController',
                     controllerAs: 'infoController',
                     templateUrl: 'gui/modal-info.html',
@@ -386,7 +386,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openOwnerInfo: function(){
-                this.$modal.open( {
+                this.$uibModal.open( {
                     controller: 'OwnerInfoController',
                     controllerAs: 'controller',
                     templateUrl: 'gui/modal-owner-info.html',
@@ -396,7 +396,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openTranscodings: function () {
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'TranscodingsController',
                     controllerAs: 'transcodingsController',
                     templateUrl: 'gui/modal-transcodings.html',
@@ -426,7 +426,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             openLiveEditor : function(){
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'LiveEditorController',
                     controllerAs: 'liveEditorController',
                     templateUrl: 'gui/modal-live-editor.html',

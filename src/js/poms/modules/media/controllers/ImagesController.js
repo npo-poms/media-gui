@@ -1,14 +1,14 @@
 angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
     '$scope',
-    '$modal',
+    '$uibModal',
     'PomsEvents',
     'ListService',
     'MediaService',
     (function () {
-        function ImagesController ( $scope, $modal, PomsEvents, ListService, mediaService ) {
+        function ImagesController ( $scope, $uibModal, PomsEvents, ListService, mediaService ) {
 
             this.$scope = $scope;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.pomsEvents = PomsEvents;
             this.listService = ListService;
 
@@ -101,7 +101,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                     image = {};
                     editMode = false;
                 }
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'ImageEditController',
                     controllerAs: 'controller',
                     templateUrl: 'edit/modal-edit-image.html',

@@ -9,7 +9,7 @@ angular.module('poms.search.services').factory('SearchService', [
     'MediaService',
     'PomsEvents',
     'SearchFactory',
-    function($rootScope, $q, $http, $filter, $modal, appConfig, guiService, mediaService, pomsEvents, searchFactory) {
+    function($rootScope, $q, $http, $filter, $uibModal, appConfig, guiService, mediaService, pomsEvents, searchFactory) {
 
         var baseUrl = appConfig.apiHost + '/gui/search';
 
@@ -102,7 +102,7 @@ angular.module('poms.search.services').factory('SearchService', [
             },
 
             previewResultsInModal : function(results, index) {
-                var modal = $modal.open( {
+                var modal = $uibModal.open( {
                     controller: 'PreviewController',
                     controllerAs: 'controller',
                     templateUrl: 'gui/modal-preview-media.html',
@@ -140,7 +140,7 @@ angular.module('poms.search.services').factory('SearchService', [
             searchMediaInModal : function( search ) {
                 var deferred = $q.defer();
 
-                var modal = $modal.open({
+                var modal = $uibModal.open({
                     templateUrl : 'search/modal-search.html',
                     controller : 'ModalSearchController',
                     controllerAs : 'modalSearchController',

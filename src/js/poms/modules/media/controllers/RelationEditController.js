@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'RelationEditController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$upload',
     '$sce',
     'appConfig',
@@ -21,10 +21,10 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationEditController',
             );
         }
 
-        function RelationEditController ( $scope, $modalInstance, $upload,  $sce, appConfig, PomsEvents, MediaService, types, media, relation, edit ) {
+        function RelationEditController ( $scope, $uibModalInstance, $upload,  $sce, appConfig, PomsEvents, MediaService, types, media, relation, edit ) {
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.host = appConfig.apiHost;
@@ -69,7 +69,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationEditController',
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             save: function () {
@@ -78,7 +78,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationEditController',
 
                 return this.mediaService.saveRelation( this.$scope.media, data ).then(
                     function ( media ) {
-                        this.$modalInstance.close( media );
+                        this.$uibModalInstance.close( media );
                         this.$scope.waiting = false;
                     }.bind( this ),
                     function ( error ) {

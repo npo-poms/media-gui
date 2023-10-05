@@ -1,7 +1,7 @@
 angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
     '$scope',
-    '$modal',
-    '$modalInstance',
+    '$uibModal',
+    '$uibModalInstance',
     '$upload',
     '$sce',
     '$timeout',
@@ -35,11 +35,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             );
         }
 
-        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, infoService, imageTypes, licenses, media, image, edit, service) {
+        function ImageEditController ( $scope, $uibModal, $uibModalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, infoService, imageTypes, licenses, media, image, edit, service) {
 
             this.$scope = $scope;
-            this.$modal = $modal;
-            this.$modalInstance = $modalInstance;
+            this.$uibModal = $uibModal;
+            this.$uibModalInstance = $uibModalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.$timeout = $timeout;
@@ -132,7 +132,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     e.stopPropagation();
                 }
                 angular.copy( this.resetValue, this.$scope.image );
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             formatDate: function(millis) {
@@ -188,7 +188,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     this.save();
                 } else {
 
-                    modal = this.$modal.open( {
+                    modal = this.$uibModal.open( {
                         controller: 'ConfirmController',
                         controllerAs: 'controller',
                         templateUrl: 'util/confirm.html',
@@ -308,7 +308,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 var saveUploadedImage = function () {
                     this.service.saveImage(this.$scope.media, this.$scope.image).then(
                         function (media) {
-                            this.$modalInstance.close(media);
+                            this.$uibModalInstance.close(media);
                             this.$scope.waiting = false;
                         }.bind(this),
                         function (error) {

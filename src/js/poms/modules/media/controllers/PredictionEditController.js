@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$upload',
     '$sce',
     '$filter',
@@ -14,10 +14,10 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
     (function () {
 
 
-        function PredictionEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, prediction, edit, listService) {
+        function PredictionEditController ( $scope, $uibModalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, media, prediction, edit, listService) {
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.$filter = $filter;
@@ -54,7 +54,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
 
@@ -69,7 +69,7 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
 
                 this.mediaService.savePrediction(this.$scope.media, prediction).then(
                     function ( media ) {
-                        this.$modalInstance.close( media );
+                        this.$uibModalInstance.close( media );
                         this.$scope.waiting = false;
                     }.bind( this ),
                     function (error) {

@@ -1,7 +1,7 @@
 angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
     '$scope',
     '$filter',
-    '$modal',
+    '$uibModal',
     '$location',
     '$timeout',
     'GuiService',
@@ -9,11 +9,11 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
     'MediaService',
     (function () {
 
-        function SegmentsController ( $scope, $filter, $modal, $location, $timeout, GuiService, PomsEvents, MediaService ) {
+        function SegmentsController ( $scope, $filter, $uibModal, $location, $timeout, GuiService, PomsEvents, MediaService ) {
 
             this.$scope = $scope;
             this.$filter = $filter;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.$location = $location;
             this.$timeout = $timeout;
             this.guiService = GuiService;
@@ -68,7 +68,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
             },
             modalSegment: function(media){
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'SegmentEditController',
                     controllerAs: 'controller',
                     templateUrl: 'edit/modal-create-segment.html',
@@ -130,7 +130,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     itemizerTemplate = 'media/itemizerNEP.html';
                 }
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller : itemizerController,
                     controllerAs : 'itemizerController',
                     templateUrl : itemizerTemplate,

@@ -9,7 +9,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
     '$route',
     '$routeParams',
     '$location',
-    '$modal',
+    '$uibModal',
     '$document',
     '$window',
     '$timeout',
@@ -31,7 +31,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             $route,
             $routeParams,
             $location,
-            $modal,
+            $uibModal,
             $document,
             $window,
             $timeout,
@@ -50,7 +50,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             this.$route = $route;
             this.$routeParams = $routeParams;
             this.$location = $location;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.localStorageService = localStorageService;
             this.appConfig = appConfig;
             this.pomsEvents = pomsEvents;

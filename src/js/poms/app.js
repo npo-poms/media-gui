@@ -33,6 +33,7 @@
     ] );
 
 
+
     module.config( function ( $httpProvider ) {
         $httpProvider.defaults.headers.common['Accept'] = 'application/json';
         $httpProvider.defaults.withCredentials = true;
@@ -290,9 +291,9 @@
             };
         });
 
-  /*  TODO? angular.module( 'poms' )
-        .config( [ '$uibModalInstance', function ( $modalProvider ) {
-            $modalProvider.options.backdrop = "static";
+  /*  angular.module( 'poms' )
+        .config( [ '$uibModalInstance', function ( $uibModalProvider ) {
+            $uibModalProvider.options.backdrop = "static";
         } ] );
 */
     module.config(['$compileProvider', function ($compileProvider) {

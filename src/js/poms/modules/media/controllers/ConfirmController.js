@@ -1,13 +1,13 @@
 angular.module( 'poms.media.controllers' ).controller( 'ConfirmController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'title',
     'message',
     'submit',
     'cancel',
     (function () {
 
-        function ConfirmController ( $scope, $modalInstance, title, message, submit, cancel ) {
+        function ConfirmController ( $scope, $uibModalInstance, title, message, submit, cancel ) {
 
             $scope.title = title;
             $scope.message = message;
@@ -15,18 +15,18 @@ angular.module( 'poms.media.controllers' ).controller( 'ConfirmController', [
             $scope.cancel = cancel;
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
 
         }
 
         ConfirmController.prototype = {
 
             cancel: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             submit: function () {
-                this.$modalInstance.close();
+                this.$uibModalInstance.close();
             }
 
         };

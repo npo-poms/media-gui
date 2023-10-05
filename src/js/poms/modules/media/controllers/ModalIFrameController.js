@@ -1,14 +1,14 @@
 angular.module( 'poms.media.controllers' ).controller( 'ModalIFrameController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     "title",
     "callback",
     (function () {
 
-        function ModalIFrameController( $scope, $modalInstance, title, callback) {
+        function ModalIFrameController( $scope, $uibModalInstance, title, callback) {
             this.$scope = $scope;
             this.$scope.title = title;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.inited = false;
             this.callbacks = [];
             if (callback) {
@@ -33,7 +33,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalIFrameController', 
 
             cancel : function () {
                 if ( this.mayClose ) {
-                    this.$modalInstance.dismiss( 'canceled' );
+                    this.$uibModalInstance.dismiss( 'canceled' );
                 }
             }
 

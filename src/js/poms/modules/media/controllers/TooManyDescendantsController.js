@@ -1,14 +1,14 @@
 angular.module( 'poms.media.controllers' ).controller( 'TooManyDescendantsController', [
-    '$modalInstance',
+    '$uibModalInstance',
     'type',
     'message',
     'max',
     'count',
     (function () {
 
-        function TooManyDescendantsController ( $modalInstance, type, message, max, count ) {
+        function TooManyDescendantsController ( $uibModalInstance, type, message, max, count ) {
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.type = type;
             this.message = message;
             this.max = max;
@@ -19,7 +19,7 @@ angular.module( 'poms.media.controllers' ).controller( 'TooManyDescendantsContro
         TooManyDescendantsController.prototype = {
 
             close: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             }
 
         };

@@ -5,7 +5,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
     '$uibModal',
     'localStorageService',
     'appConfig',
-    function ( $rootScope, $q, $http, $modal, localStorageService, appConfig ) {
+    function ( $rootScope, $q, $http, $uibModal, localStorageService, appConfig ) {
         storageService = localStorageService;
 
         baseUrl = appConfig.apiHost + '/gui/media';
@@ -518,7 +518,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             tooManyDescendants: function ( type, error, message ) {
 
-                return $modal.open( {
+                return $uibModal.open( {
                     templateUrl: 'media/modal-too-many-descendants.html',
                     windowClass: 'modal-descendants',
                     controller: 'TooManyDescendantsController',

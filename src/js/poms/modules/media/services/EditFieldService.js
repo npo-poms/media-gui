@@ -1,5 +1,5 @@
-angular.module( 'poms.media.services' ).factory( 'EditFieldService', [ '$modal', '$q','FavoritesService',
-    function ( $modal, $q, favoritesService ) {
+angular.module( 'poms.media.services' ).factory( 'EditFieldService', [ '$uibModal', '$q','FavoritesService',
+    function ( $uibModal, $q, favoritesService ) {
 
         function EditFieldService () {
         }
@@ -15,7 +15,7 @@ angular.module( 'poms.media.services' ).factory( 'EditFieldService', [ '$modal',
                 if ( confirmSkip == 'true' ){
                    deferred.resolve( true );
                 }else {
-                    var saveConfirmModal = $modal.open( {
+                    var saveConfirmModal = $uibModal.open( {
                         controller: 'SaveConfirmController',
                         controllerAs: 'controller',
                         templateUrl: 'util/saveconfirm.html',

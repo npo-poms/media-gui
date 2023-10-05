@@ -2,7 +2,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
     '$scope',
     '$filter',
     '$http',
-    '$modal',
+    '$uibModal',
     'PomsEvents',
     'MediaService',
     'NotificationService',
@@ -10,10 +10,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
     'appConfig',
     (function () {
 
-        function ScheduleEventOverviewController ( $scope, $filter, $http, $modal, PomsEvents, MediaService, NotificationService, ListService , appConfig) {
+        function ScheduleEventOverviewController ( $scope, $filter, $http, $uibModal, PomsEvents, MediaService, NotificationService, ListService , appConfig) {
             this.$http = $http;
             this.$filter = $filter;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.notificationService = NotificationService;
@@ -40,7 +40,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
                 }
                 var editMode = true;
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller : 'ScheduleEventEditController',
                     controllerAs : 'controller',
                     templateUrl : 'edit/modal-edit-schedule-event.html',

@@ -1,5 +1,5 @@
 angular.module( 'poms.media.directives' )
-    .directive( 'pomsBroadcasters', ['EditService', '$q', '$filter', '$sce', '$modal', '$timeout', 'PomsEvents', 'EditFieldService', function ( editService, $q, $filter, $sce, $modal, $timeout, pomsEvents, editFieldService ) {
+    .directive( 'pomsBroadcasters', ['EditService', '$q', '$filter', '$sce', '$uibModal', '$timeout', 'PomsEvents', 'EditFieldService', function ( editService, $q, $filter, $sce, $uibModal, $timeout, pomsEvents, editFieldService ) {
         return {
             restrict: 'E',
             templateUrl: 'edit/editables/poms-broadcasters-portals.html',

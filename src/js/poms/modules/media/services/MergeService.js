@@ -2,13 +2,13 @@ angular.module('poms.media.services').factory('MergeService', [
     '$rootScope',
     '$http',
     '$q',
-    '$modal',
+    '$uibModal',
     'appConfig',
     'GuiService',
     'PomsEvents',
     'SearchFactory',
     'SearchService',
-    function($rootScope, $http, $q, $modal, appConfig, guiService, pomsEvents, searchFactory, searchService) {
+    function($rootScope, $http, $q, $uibModal, appConfig, guiService, pomsEvents, searchFactory, searchService) {
 
         var baseUrl = appConfig.apiHost + '/gui/merge',
                 url, source;
@@ -49,7 +49,7 @@ angular.module('poms.media.services').factory('MergeService', [
 
             _showMergeView : function(merge) {
 
-                var modal = $modal.open({
+                var modal = $uibModal.open({
                     templateUrl : 'edit/modal-merge.html',
                     controller : 'ModalMergeController',
                     controllerAs : 'controller',

@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
     '$scope',
-    '$modal',
+    '$uibModal',
     'PomsEvents',
     'EditorService',
     'GuiService',
@@ -9,10 +9,10 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
     'MediaService',
     (function () {
 
-        function MembersController ( $scope, $modal, PomsEvents, EditorService, GuiService, SearchFactory, SearchService, mediaService ) {
+        function MembersController ( $scope, $uibModal, PomsEvents, EditorService, GuiService, SearchFactory, SearchService, mediaService ) {
 
             this.$scope = $scope;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
             this.pomsEvents = PomsEvents;
             this.editorService = EditorService;
             this.guiService = GuiService;
@@ -265,7 +265,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
             toggleOrdered: function () {
 
-                var modal = this.$modal.open( {
+                var modal = this.$uibModal.open( {
                     controller: 'ConfirmController',
                     controllerAs: 'controller',
                     templateUrl: 'util/confirm.html',

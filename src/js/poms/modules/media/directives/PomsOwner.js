@@ -1,5 +1,5 @@
 angular.module( 'poms.media.directives' )
-.directive( 'pomsOwner', ['$modal', 'MediaService', function ( $modal, mediaService) {
+.directive( 'pomsOwner', ['$uibModal', 'MediaService', function ( $uibModal, mediaService) {
     return {
         restrict: 'E',
         replace: true,
@@ -18,7 +18,7 @@ angular.module( 'poms.media.directives' )
                 e.preventDefault();
                 e.stopPropagation();
 
-                var modal = $modal.open( {
+                var modal = $uibModal.open( {
                     scope: this.$scope,
                     resolve: {
                         title: function () {

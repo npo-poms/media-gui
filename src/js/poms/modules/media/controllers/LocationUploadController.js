@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$upload',
     '$sce',
     'appConfig',
@@ -16,10 +16,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
     (function () {
 
 
-        function LocationUploadController ( $scope, $modalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes, streamType, locationsController) {
+        function LocationUploadController ( $scope, $uibModalInstance, $upload, $sce, appConfig, PomsEvents, MediaService, UploadService,  media, location, priorityTypes, encryptionTypes, streamType, locationsController) {
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.host = appConfig.apiHost;
@@ -121,7 +121,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             save: function () {
@@ -168,7 +168,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                 this.uploadService.upload( media, location, fields, this.$scope, this.locationsController);
 
 
-                this.$modalInstance.close( );
+                this.$uibModalInstance.close( );
 
             },
 

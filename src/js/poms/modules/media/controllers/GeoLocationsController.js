@@ -1,7 +1,7 @@
 angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController', [
     '$scope',
     '$q',
-    '$modal',
+    '$uibModal',
     'PomsEvents',
     'MediaService',
     'EditorService',
@@ -18,12 +18,12 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                 }
             )
         }
-        function GeoLocationsController ( $scope, $q, $modal, pomsEvents, mediaService, editorService, gtaaService) {
+        function GeoLocationsController ( $scope, $q, $uibModal, pomsEvents, mediaService, editorService, gtaaService) {
 
             this.items = [];
             this.$scope = $scope;
             this.$q = $q;
-            this.$modal = $modal;
+            this.$uibModal = $uibModal;
 
             this.media = $scope.media;
             this.pomsEvents = pomsEvents;

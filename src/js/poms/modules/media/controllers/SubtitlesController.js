@@ -3,7 +3,7 @@ angular.module( 'poms.media.controllers' ).controller(
         '$scope',
         '$q',
         '$filter',
-        '$modalInstance',
+        '$uibModalInstance',
         'SubtitlesService',
         'title',
         'media',
@@ -12,11 +12,11 @@ angular.module( 'poms.media.controllers' ).controller(
 
         (function () {
 
-        function SubtitlesController ( $scope, $q, $filter, $modalInstance, subtitlesService, title, media, pomsEvents, validationPatterns) {
+        function SubtitlesController ( $scope, $q, $filter, $uibModalInstance, subtitlesService, title, media, pomsEvents, validationPatterns) {
 
             this.$scope = $scope;
             this.$filter = $filter;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.subtitlesService = subtitlesService;
 
             this.title = title;
@@ -45,7 +45,7 @@ angular.module( 'poms.media.controllers' ).controller(
         SubtitlesController.prototype = {
 
             close: function () {
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             showSubtitle: function ( subtitle ) {

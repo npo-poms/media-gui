@@ -4,7 +4,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
     '$upload',
     '$interval',
     '$timeout',
-    '$modalInstance',
+    '$uibModalInstance',
     '$rootScope',
     'appConfig',
     'PomsEvents',
@@ -30,7 +30,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
         }
 
 
-        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment, editorService) {
+        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $uibModalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment, editorService) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -38,7 +38,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             this.$interval = $interval;
             this.$timeout = $timeout;
 
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$rootScope = $rootScope;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
@@ -70,7 +70,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
             this.loadingAssets = []
 
-            this.$modalInstance.opened.then( function () {
+            this.$uibModalInstance.opened.then( function () {
                 this.init( segment );
             }.bind( this ) );
 
@@ -196,12 +196,12 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                     this.$scope.segments.pop();
                 }
                 // Do not dismiss. Several segments might have been made before this controller is cancelled
-                this.$modalInstance.close();
+                this.$uibModalInstance.close();
             },
 
 
             close : function () {
-                this.$modalInstance.close();
+                this.$uibModalInstance.close();
             },
 
 

@@ -9,7 +9,7 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
             pomsSubmit: '&',
             pomsCancel: '&'
         },
-        controller: function ( $scope, $modal ) {
+        controller: function ( $scope, $uibModal ) {
             $scope.confirm = function () {
                 // skip modal if provided function returns true
                 if ( $scope.pomsSkip() ) {
@@ -21,7 +21,7 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
                 var message = $scope.pomsMessage || 'Je kunt dit niet meer ongedaan maken.';
                 var submitButtonText = $scope.pomsSubmitButtonText || 'verwijderen';
 
-                var modal = $modal.open( {
+                var modal = $uibModal.open( {
                     controller: 'ConfirmController',
                     controllerAs: 'controller',
                     templateUrl: 'util/confirm.html',

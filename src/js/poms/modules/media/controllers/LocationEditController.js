@@ -1,6 +1,6 @@
 angular.module( 'poms.media.controllers' ).controller( 'LocationEditController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$upload',
     '$sce',
     '$filter',
@@ -22,10 +22,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 location.url !== ''
         }
 
-        function LocationEditController ( $scope, $modalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit, helpService, infoService) {
+        function LocationEditController ( $scope, $uibModalInstance, $upload, $sce, $filter, appConfig, PomsEvents, MediaService, AVFileFormats, media, location, edit, helpService, infoService) {
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$upload = $upload;
             this.$sce = $sce;
             this.$filter = $filter;
@@ -80,7 +80,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                     e.preventDefault();
                     e.stopPropagation();
                 }
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             isFieldMissing : function(field){
@@ -111,7 +111,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
 
                 return this.mediaService.saveLocation( this.$scope.media, data ).then(
                     function ( media ) {
-                        this.$modalInstance.close( media );
+                        this.$uibModalInstance.close( media );
                         this.$scope.waiting = false;
                     }.bind( this ),
                     function ( error ) {

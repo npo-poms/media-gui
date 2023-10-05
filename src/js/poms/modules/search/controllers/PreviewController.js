@@ -1,15 +1,15 @@
 angular.module( 'poms.search.controllers' ).controller( 'PreviewController', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$document',
     'items',
     'step',
     (function () {
 
-        function PreviewController ( $scope, $modalInstance, $document, items, step ) {
+        function PreviewController ( $scope, $uibModalInstance, $document, items, step ) {
 
             this.$scope = $scope;
-            this.$modalInstance = $modalInstance;
+            this.$uibModalInstance = $uibModalInstance;
             this.$document = $document;
 
             this.$scope.items = items;
@@ -49,7 +49,7 @@ angular.module( 'poms.search.controllers' ).controller( 'PreviewController', [
 
             cancel: function () {
                 this.$document.unbind( "keydown" );
-                this.$modalInstance.dismiss();
+                this.$uibModalInstance.dismiss();
             },
 
             hasPrevious: function () {
