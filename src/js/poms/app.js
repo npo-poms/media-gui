@@ -26,7 +26,6 @@
         'ngSanitize',
         'ngAnimate',
         'ngToast',
-        'ui',
         "ui-rangeSlider",
         "angular-clipboard",
         'ui.tab.scroll'

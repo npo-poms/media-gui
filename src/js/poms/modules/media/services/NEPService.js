@@ -121,13 +121,13 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                             'Accept': "text/plain",
                             'Content-Type': 'application/json'
                         }
-                    })
-                    .success(function (media) {
-                        deferred.resolve(media);
-                    })
-                    .error(function (error) {
-                        deferred.reject(error);
-                    });
+                    }).then(
+                        function (media) {
+                            deferred.resolve(media);
+                        },
+                        function (error) {
+                            deferred.reject(error);
+                        });
 
                 return deferred.promise;
             },
@@ -144,11 +144,11 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
                             'Accept': "text/plain",
                             'Content-Type': 'application/json'
                         }
-                    })
-                    .success(function (media) {
-                        deferred.resolve(media);
-                    })
-                    .error(function (error) {
+                    }).then(
+                        function (media) {
+                            deferred.resolve(media);
+                        },
+                        function (error) {
                         deferred.reject(error);
                     });
 

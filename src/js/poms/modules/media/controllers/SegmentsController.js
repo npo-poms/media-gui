@@ -127,7 +127,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
                 if (this.canItemize()) {
                     itemizerController = 'ItemizerNEPController';
-                    itemizerTemplate = 'media/itemizerNEP.html';
+                    itemizerTemplate = 'views/media/itemizerNEP.html';
                 }
 
                 var modal = this.$uibModal.open( {

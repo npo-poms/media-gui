@@ -563,7 +563,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     scope: this.$scope,
                     controller: 'SubtitlesController',
                     controllerAs: 'subtitlesController',
-                    templateUrl: 'media/modal-subtitles.html'
+                    templateUrl: 'views/media/modal-subtitles.html'
 
                 } );
             },

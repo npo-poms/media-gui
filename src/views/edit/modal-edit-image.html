@@ -119,13 +119,13 @@
           <div class="col-6 field" ng-class="{'has-error' : uploadImageForm.inputImageType.$invalid}" >
 
         <label label-for="image_license">Licentie</label>
-        <ui-select input-id="image_license" ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
+        <ui-select input-id="image_license" class="images_licenses" ng-model="image.license" theme="selectize" close-on-select="true" reset-search-input="true" >
           <ui-select-choices repeat="item in licenses | filter: {text: $select.search}">
             <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))">
             </div>
           </ui-select-choices>
 
-          <ui-select-match placeholder="Kies een licentie">{{$select.selected.text || image.license}}</ui-select-match>
+          <ui-select-match class="images_licenses" placeholder="Kies een licentie">{{$select.selected.text || image.license}}</ui-select-match>
         </ui-select>
 
         <poms-invalid violation="controller.violations.license"></poms-invalid>

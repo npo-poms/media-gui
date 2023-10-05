@@ -13,11 +13,11 @@ angular.module( 'poms.util.directives' )
 
                     switch (error.cause) {
                         case 'CIRCULAR_REFERENCE':
-                            template = 'util/modal-error/circular.html';
+                            template = 'views/util/modal-error/circular.html';
                             break;
 
                         case 'CONSTRAINT_VIOLATION':
-                            template = 'util/modal-error/violation.html';
+                            template = 'views/util/modal-error/violation.html';
                             break;
 
                         case 'NOT_FOUND':
@@ -27,11 +27,11 @@ angular.module( 'poms.util.directives' )
                             break;
 
                         case 'NEP_EXCEPTION':
-                            template = 'util/modal-error/nep.html';
+                            template = 'views/util/modal-error/nep.html';
                             break;
 
                         default:
-                            template = 'util/modal-error/default.html';
+                            template = 'views/util/modal-error/default.html';
                             break;
                     }
 

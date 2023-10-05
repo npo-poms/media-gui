@@ -24,7 +24,7 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
                 var modal = $uibModal.open( {
                     controller: 'ConfirmController',
                     controllerAs: 'controller',
-                    templateUrl: 'util/confirm.html',
+                    templateUrl: 'views/util/confirm.html',
                     windowClass: 'modal-confirm',
                     resolve: {
                         title: function () {

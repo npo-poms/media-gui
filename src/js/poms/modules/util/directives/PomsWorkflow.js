@@ -3,7 +3,7 @@ angular.module( 'poms.util.directives' )
         return {
             restrict : 'E',
 
-            templateUrl : 'template/poms-workflow.html',
+            templateUrl : 'views/template/poms-workflow.html',
             controller : function ( $scope, PomsEvents ) {
                 $scope.$on( PomsEvents.publication, function ( e, publication ) {
                     if ( publication.mid === $scope.mid ) {

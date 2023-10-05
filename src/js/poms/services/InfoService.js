@@ -26,13 +26,13 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                     return Promise.resolve(properties);
                 } else {
                     var deferred = $q.defer();
-                    $http.get(baseUrl + "/properties", {cache: true})
-                        .success(function (info) {
+                    $http.get(baseUrl + "/properties", {cache: true}).then(
+                        function (info) {
                             deferred.resolve(info);
                             properties = info;
                             //console.log(properties);
-                        })
-                        .error(function (error) {
+                        },
+                        function (error) {
                             deferred.reject(error);
                         });
 
@@ -44,13 +44,13 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
             },
             getByteSize: function(programUrl) {
                  var deferred = $q.defer();
-                $http.get(baseUrl + "/byteSize?programUrl=" + programUrl, {cache: true})
-                    .success(function (info) {
+                $http.get(baseUrl + "/byteSize?programUrl=" + programUrl, {cache: true}).then(
+                    function (info) {
                         deferred.resolve(info);
                         properties = info;
                         //console.log(properties);
-                    })
-                    .error(function (error) {
+                    },
+                    function (error) {
                         deferred.reject(error);
                     });
                 

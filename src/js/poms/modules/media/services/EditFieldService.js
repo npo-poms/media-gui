@@ -12,13 +12,13 @@ angular.module( 'poms.media.services' ).factory( 'EditFieldService', [ '$uibModa
                 var confirmSkip = favoritesService.getSaveConfirm();
 
                 // we have to check for a string, since localStorage cannot store booleans
-                if ( confirmSkip == 'true' ){
+                if ( confirmSkip === 'true' ){
                    deferred.resolve( true );
                 }else {
                     var saveConfirmModal = $uibModal.open( {
                         controller: 'SaveConfirmController',
                         controllerAs: 'controller',
-                        templateUrl: 'util/saveconfirm.html',
+                        templateUrl: 'views/util/saveconfirm.html',
                         windowClass: "modal-confirm-save"
                     } );
 

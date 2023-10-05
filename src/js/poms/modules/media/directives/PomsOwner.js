@@ -4,7 +4,7 @@ angular.module( 'poms.media.directives' )
         restrict: 'E',
         replace: true,
 
-        templateUrl: 'util/poms-owner.html',
+        templateUrl: 'views/util/poms-owner.html',
 
         scope: {
             owner: '@',

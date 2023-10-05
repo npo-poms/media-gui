@@ -15,7 +15,7 @@ angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
                 $uibModal.open( {
                     controller: 'BulkUpdateController',
                     controllerAs: 'bulkUpdateController',
-                    templateUrl: 'media/modal-bulk-update.html',
+                    templateUrl: 'views/media/modal-bulk-update.html',
                     windowClass: 'modal-form',
                     resolve: {
                         media: function () {

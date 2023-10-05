@@ -1,7 +1,7 @@
 angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $log ) {
     return {
         restrict: 'E',
-        templateUrl: 'search/pager.html',
+        templateUrl: 'views/search/pager.html',
         scope: {
             searchResults: '=searchresults',  // allows data to be passed into directive from controller scope
             submit: '&onsearch'

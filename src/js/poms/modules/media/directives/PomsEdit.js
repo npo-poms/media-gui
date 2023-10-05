@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsEditor', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/editor.html',
+            templateUrl: 'views/media/editor.html',
             transclude: true,
             scope: {
                 media: '='
@@ -12,7 +12,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsEdit', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/general.html',
+            templateUrl: 'views/media/general.html',
             transclude: true,
             scope: {
                 generalsection: '@generalsection',
@@ -25,7 +25,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsImages', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/images.html',
+            templateUrl: 'views/media/images.html',
             transclude: true,
             scope: {
                 section: '@section',
@@ -37,7 +37,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsPredictions', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/predictions.html',
+            templateUrl: 'views/media/predictions.html',
             transclude: true,
             scope: {
                 section: '@section',
@@ -48,7 +48,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsLocations', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/locations.html',
+            templateUrl: 'views/media/locations.html',
             transclude: true,
             scope: {
                 section: '@section',
@@ -59,7 +59,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsMembers', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/members.html',
+            templateUrl: 'views/media/members.html',
             transclude: true,
             scope: {
                 type: '@',
@@ -74,7 +74,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsRelations', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/relations.html',
+            templateUrl: 'views/media/relations.html',
             transclude: true,
             scope: {
                 section: '@section',
@@ -85,7 +85,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsSegments', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'media/segments.html',
+            templateUrl: 'views/media/segments.html',
             transclude: true,
             scope: {
                 section: '@section',
@@ -96,7 +96,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsScheduleevents', [function () {
             return {
             restrict: 'E',
-            templateUrl: 'media/schedule-events.html',
+            templateUrl: 'views/media/schedule-events.html',
             transclude: true,
             scope: {
                 section: '@section',

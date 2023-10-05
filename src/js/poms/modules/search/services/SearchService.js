@@ -18,11 +18,11 @@ angular.module('poms.search.services').factory('SearchService', [
             var deferred = $q.defer();
             var url = baseUrl + path;
 
-            $http.post(url, body, config)
-                .success(function(results) {
+            $http.post(url, body, config).then(
+                function(results) {
                     deferred.resolve(results);
-                })
-                .error(function(error) {
+                },
+                function(error) {
                     deferred.reject(error);
                 });
 
@@ -141,7 +141,7 @@ angular.module('poms.search.services').factory('SearchService', [
                 var deferred = $q.defer();
 
                 var modal = $uibModal.open({
-                    templateUrl : 'search/modal-search.html',
+                    templateUrl : 'views/search/modal-search.html',
                     controller : 'ModalSearchController',
                     controllerAs : 'modalSearchController',
                     windowClass : 'modal-search',
