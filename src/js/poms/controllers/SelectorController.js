@@ -44,7 +44,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             favoritesService,
             searchService,
             mediaService  ) {
-            
+
             this.$q = $q;
             this.$rootScope = $rootScope;
             this.$route = $route;
@@ -60,7 +60,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             this.favoritesService = favoritesService;
             this.searchService = searchService;
             this.mediaService = mediaService;
-           
+
 
             this.$scope = $scope;
             this.$document = $document;
@@ -120,7 +120,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                 };
 
                 var urlSearchParams = new URLSearchParams(window.location.search);
-                
+
                 for (var [key, value] of urlSearchParams.entries()) {
                     if (key.startsWith("properties.")) {
                         if (value === 'true') {
@@ -186,17 +186,17 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                 this.$scope.$on('selected', function( event, result ) {
                     var urlSearchParams = new URLSearchParams(window.location.search);
                     var returnKey = urlSearchParams.get("returnValue");
-                    
+
                     if ( ! returnKey) {
                         returnKey = 'mid';
                     }
-                    
+
                     if ( returnKey !== 'data' ) {
                         result = result[ returnKey ];
                     }
-                    
+
                     if ( this.$window.opener ) {
-                            
+
                         if ( ! document.all ) {
                             this.$window.opener.postMessage( result, '*' );
                         } else {

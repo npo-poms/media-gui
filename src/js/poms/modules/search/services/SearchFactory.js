@@ -85,7 +85,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.text = config && config.text || '';
             this.types = new RestrictedValue( config && config.types || { value : [] } );
             this.portals = config && config.portals || [];
-            this.broadcasters = config && config.broadcasters || [];
+            this.broadcasters = new RestrictedValue( config && config.broadcasters || { value : [] } );
             this.channels = config && config.channels || [];
             this.avType = config && config.avType || undefined;
             this.properties = new RestrictedValue( config && config.properties || { value : [] } );
@@ -109,6 +109,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     }
                 }
             } );
+            console.log("construcuted", this);
         }
 
 
@@ -266,7 +267,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     } );
                     delete clone.properties;
                 }
-
+                console.log("getQuery", clone);
                 return clone;
             },
 
@@ -308,7 +309,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                             value = value.value;
                         }
 
-                       
+
                         if ( value ) {
                             //check for objects & arrays ... and strings???
                             if (value.length) {

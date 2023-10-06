@@ -114,12 +114,12 @@
             <poms-ui-select-multi class="poms-uiselect"
                                   options="broadcasters.data"
                                   name="Omroepen"
-                                  selection="formData.broadcasters"
+                                  selection="formData.broadcasters.value"
                                   option-selected="searchFormController.submit()"
                     > </poms-ui-select-multi>
 
             <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
-               ng-repeat="broadcaster in formData.broadcasters"
+               ng-repeat="broadcaster in formData.broadcasters.value"
                ng-click="searchFormController.removeOption(formData.broadcasters, broadcaster)">
                 {{broadcaster.text}}
             </a>
