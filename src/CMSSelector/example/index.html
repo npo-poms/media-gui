@@ -65,6 +65,14 @@
                 <option value="VIDEO">Video</option>
               </select>
               
+              <label for="broadcaster">Omroep:</label>
+              <select id="broadcaster" multiple>
+                <option value="">ANY</option>
+                <option value="BNVA">BNNVARA</option>
+                <option value="VPRO">VPRO</option>
+                <option value="EO">EO</option>
+              </select>
+              
             </div>
             <div class="col-6">
               <label for="return">Return data:</label>
@@ -150,6 +158,8 @@
                   "properties.writable": document.getElementById('properties.writable').checked,
                   "properties.withoutLocations": document.getElementById('properties.withoutLocations').checked,
                   avType: document.getElementById('avType').value,
+                  broadcaster: document.getElementById('avType').value,
+
                   returnValue: document.getElementById('return').value
                 }
         );
