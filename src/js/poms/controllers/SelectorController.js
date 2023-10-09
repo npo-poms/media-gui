@@ -44,7 +44,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             favoritesService,
             searchService,
             mediaService  ) {
-            
+
             this.$q = $q;
             this.$rootScope = $rootScope;
             this.$route = $route;
@@ -60,7 +60,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             this.favoritesService = favoritesService;
             this.searchService = searchService;
             this.mediaService = mediaService;
-           
+
 
             this.$scope = $scope;
             this.$document = $document;
@@ -120,7 +120,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                 };
 
                 var urlSearchParams = new URLSearchParams(window.location.search);
-                
+
                 for (var [key, value] of urlSearchParams.entries()) {
                     if (key.startsWith("properties.")) {
                         if (value === 'true') {
@@ -158,6 +158,25 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                         }.bind(this)
                     ));
                 }
+                var broadcasterFilter = urlSearchParams.get('broadcaster');
+                if ( broadcasterFilter && broadcasterFilter.length > 0 ) {
+                    promises.push(this.listService.getBroadcasters().then(
+                        function ( broadcasters) {
+                            this.broadcasters = broadcasters;
+                            var restrictedBroadcaster = [];
+                            searchConfig.form.broadcasters =  {
+                                restriction: broadcasterFilter.split(',')
+                            }
+                            broadcasters.forEach( function ( broadcaster ) {
+                                if ( searchConfig.form.broadcasters.restriction.indexOf( broadcaster.id ) > -1 ) {
+                                    restrictedBroadcaster.push( broadcaster );
+                                }
+                            } );
+                            searchConfig.form.broadcasters.restriction = restrictedBroadcaster;
+                            return broadcasters;
+                        }.bind(this)
+                    ));
+                }
                 /// cant use Promise.all. Angularjs has its own promises!
                 this.$q.all(promises).then(function() {
                     this.$scope.search = this.searchService.newSearch(searchConfig);
@@ -167,17 +186,17 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                 this.$scope.$on('selected', function( event, result ) {
                     var urlSearchParams = new URLSearchParams(window.location.search);
                     var returnKey = urlSearchParams.get("returnValue");
-                    
+
                     if ( ! returnKey) {
                         returnKey = 'mid';
                     }
-                    
+
                     if ( returnKey !== 'data' ) {
                         result = result[ returnKey ];
                     }
-                    
+
                     if ( this.$window.opener ) {
-                            
+
                         if ( ! document.all ) {
                             this.$window.opener.postMessage( result, '*' );
                         } else {
