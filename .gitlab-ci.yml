@@ -1,4 +1,4 @@
---- 
+---
 variables:
   PUBLISH_ARTIFACTS_OF_MERGE_REQUESTS: 'true' # This project normally is just developed by one person, so just publish the merge requests, so we can more easily deploy features
 
@@ -11,5 +11,5 @@ trigger_media:
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/9.9'
+    ref: 'tags/9.11'
     file: 'maven_release.yml'
