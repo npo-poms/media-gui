@@ -1,114 +1,114 @@
 .viewer {
-    padding-bottom: 16px;
-
-    @include clearfix;
+  padding-bottom: 16px;
+  padding-left: 20px;
+  @include clearfix;
 }
 
 .viewer-title,
 .viewer-subtitle,
 .viewer-media-type,
 .viewer-description {
-    color: $grijs;
-    margin-top: 0;
-    margin-bottom: 0;
+  color: $grijs;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .viewer-title {
-    font-size: 16px;
-    font-weight: bold;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .viewer-subtitle,
 .viewer-media-type,
 .viewer-description {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .modal-preview .viewer-title {
-    font-size: 30px;
-    font-weight: bold;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .viewer-player {
-    margin: 0 16px;
-    width: 200px;
-    height: 112px;
-    float: left;
-    background-color: black;
-    position: relative;
-    
-    
-    &.playing.size-small {
-        width: 400px;
-        height: 225px;
-    }
-    
-    &.playing.size-medium {
-        width: 600px;
-        height: 338px;
-    }
-    
+  margin: 0 16px;
+  width: 200px;
+  height: 112px;
+  float: left;
+  background-color: black;
+  position: relative;
+
+
+  &.playing.size-small {
+    width: 400px;
+    height: 225px;
+  }
+
+  &.playing.size-medium {
+    width: 600px;
+    height: 338px;
+  }
+
 }
 
 .viewer-info {
-    padding-right: 20px;
+  padding-right: 20px;
 }
 
 .viewer-error {
-    color: white;
-    padding: 6px;
-    display: block;
-    position: absolute;
-    top:0;
+  color: white;
+  padding: 6px;
+  display: block;
+  position: absolute;
+  top:0;
 }
 
 .viewer-play-button {
-    position: absolute;
+  position: absolute;
 
-    left: 50%;
-    top: 50%;
+  left: 50%;
+  top: 50%;
 
-    margin-left: -20px;
-    margin-top: -20px;
+  margin-left: -20px;
+  margin-top: -20px;
 
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 
-    background-color: transparent;
-    @include icon('play', 60px);
+  background-color: transparent;
+  @include icon('play', 60px);
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .viewer-add-favorite {
-    margin-top: 8px;
-    padding-left: 18px;
-    position: relative;
+  margin-top: 8px;
+  padding-left: 18px;
+  position: relative;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    color: $groen;
-    font-size: $fontsizemedium;
+  color: $groen;
+  font-size: $fontsizemedium;
 
-    @include icon('favorite', 14px, '0 center');
+  @include icon('favorite', 14px, '0 center');
 
-    &:hover {
-        @include icon('favorite_hover', 14px, '0 center');
-    }
+  &:hover {
+    @include icon('favorite_hover', 14px, '0 center');
+  }
 }
 
 .modal-preview .viewer-player,
 .modal-preview .npoplayer_wrapper {
-    float: left;
-    
-    margin: 0;
-    margin-bottom: 16px;
-    margin-right: 16px;
+  float: left;
+
+  margin: 0;
+  margin-bottom: 16px;
+  margin-right: 16px;
 
 }
 
 .modal-preview .viewer-subtitle,
 .modal-preview .viewer-media-type,
 .modal-preview .viewer-description {
-    font-size: 18px;
+  font-size: 18px;
 }
