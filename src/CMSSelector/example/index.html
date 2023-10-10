@@ -19,7 +19,7 @@
       .poms-form.example label {
         margin-bottom: 10px;
       }
-      
+
       #select {
         margin: 8px 0 20px;
       }
@@ -51,20 +51,20 @@
               <label for="type">Media type filter:</label>
               <select id="type" multiple="multiple">
               </select>
-              
+
               <label for="properties.writable">Writable:</label>
               <input type="checkbox" id="properties.writable" />
-              
+
               <label for="properties.withoutLocations">Zonder locaties:</label>
               <input type="checkbox" id="properties.withoutLocations" />
-              
+
               <label for="avType">AVType:</label>
               <select id="avType">
                 <option value="">ANY</option>
                 <option value="AUDIO">Audio</option>
                 <option value="VIDEO">Video</option>
               </select>
-              
+
               <label for="broadcaster">Omroep:</label>
               <select id="broadcaster" multiple>
                 <option value="">ANY</option>
@@ -72,7 +72,7 @@
                 <option value="VPRO">VPRO</option>
                 <option value="EO">EO</option>
               </select>
-              
+
             </div>
             <div class="col-6">
               <label for="return">Return data:</label>
@@ -104,26 +104,26 @@
 
     <script>
       const mediaTypes = [
-        {"id": "MEDIA", "text": "Alle media"}, 
-        {"id": "PROGRAM", "text": "Programma"}, 
-        {"id": "BROADCAST", "text": "Uitzending"}, 
-        {"id": "CLIP", "text": "Clip"}, 
+        {"id": "MEDIA", "text": "Alle media"},
+        {"id": "PROGRAM", "text": "Programma"},
+        {"id": "BROADCAST", "text": "Uitzending"},
+        {"id": "CLIP", "text": "Clip"},
         {"id": "STRAND", "text": "Koepelprogramma"},
-        {"id": "TRAILER", "text": "Trailer"}, 
-        {"id": "MOVIE", "text": "Film"}, 
-        {"id": "GROUP", "text": "Groep"}, 
-        {"id": "SERIES", "text": "Serie"}, 
-        {"id": "SEASON", "text": "Seizoen"}, 
-        {"id": "UMBRELLA", "text": "Paraplu"}, 
+        {"id": "TRAILER", "text": "Trailer"},
+        {"id": "MOVIE", "text": "Film"},
+        {"id": "GROUP", "text": "Groep"},
+        {"id": "SERIES", "text": "Serie"},
+        {"id": "SEASON", "text": "Seizoen"},
+        {"id": "UMBRELLA", "text": "Paraplu"},
         {"id": "ARCHIVE", "text": "Archief"},
-        {"id": "COLLECTION", "text": "Collectie"}, 
+        {"id": "COLLECTION", "text": "Collectie"},
         {"id": "PLAYLIST", "text": "Speellijst"},
         {"id": "ALBUM", "text": "Album"},
-        {"id": "SEGMENT", "text": "Segment"}, 
-        {"id": "VISUALSEGMENT", "text": "Visual segment"}, 
-        {"id": "TRACK", "text": "Track"}, 
-        {"id": "VISUALRADIO", "text": "Visual radio"}, 
-        {"id": "RECORDING", "text": "Opname"}, 
+        {"id": "SEGMENT", "text": "Segment"},
+        {"id": "VISUALSEGMENT", "text": "Visual segment"},
+        {"id": "TRACK", "text": "Track"},
+        {"id": "VISUALRADIO", "text": "Visual radio"},
+        {"id": "RECORDING", "text": "Opname"},
         {"id": "PROMO", "text": "Promo"}
       ];
       const mediaTypeSelector = document.getElementById('type');
@@ -135,7 +135,7 @@
 
         mediaTypeSelector.appendChild(option);
       });
-      
+
       document.getElementById('select').onclick = function () {
         const multipleType = document.getElementById('type');
         const types = [];
@@ -152,14 +152,13 @@
                   }
                   document.getElementById('result').value = result;
                   document.getElementById('value').value = JSON.stringify(value);
-                  
+
                 }, {
                   mediaType: types.join(),
                   "properties.writable": document.getElementById('properties.writable').checked,
                   "properties.withoutLocations": document.getElementById('properties.withoutLocations').checked,
                   avType: document.getElementById('avType').value,
-                  broadcaster: document.getElementById('avType').value,
-
+                  broadcaster: document.getElementById('broadcaster').value,
                   returnValue: document.getElementById('return').value
                 }
         );
