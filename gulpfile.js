@@ -82,9 +82,9 @@ gulp.task('selector-deploy', function () {
 });
 
 gulp.task('head-deploy', function () {
-    gulp.src(__dirname + '/src/head.jspx')
+    gulp.src(__dirname + '/src/css/head.jspx')
         .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
-        .pipe(gulp.dest(__dirname + '/build/deploy/'));
+        .pipe(gulp.dest(__dirname + '/build/deploy/css/'));
 });
 
 

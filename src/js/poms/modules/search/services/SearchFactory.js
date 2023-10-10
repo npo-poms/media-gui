@@ -109,7 +109,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     }
                 }
             } );
-            console.log("construcuted", this);
+            //console.log("constructed", this);
         }
 
 
@@ -329,7 +329,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                                 queryTerms.push(value.text);
                             }
                         } else {
-                            console.log("Unrecognized", key, value);
+                            console.log("Unrecognized key", key, value);
                         }
 
                     }
@@ -600,7 +600,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     return;
                 }
 
-                _.forEach( [ 'types', 'properties' ], function ( field ) {
+                _.forEach( [ 'broadcasters' ], function ( field ) {
                     if ( config.form[ field ] ) {
                         config.form[ field ] = { value : config.form[ field ] };
                     }
@@ -612,7 +612,8 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newSearchResult : function ( config ) {
-                return new SearchResult( config )
+                this.migrateQuery(config);
+                return new SearchResult(config);
             }
 
         };
