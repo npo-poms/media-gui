@@ -42,7 +42,9 @@
             <p>
               Check out the <a href="https://wiki.vpro.nl/display/poms/CMS+integration">wiki</a> page for usage
               information.
-              <br/><br/>
+            </p>
+            <p>
+              You might also want to check the source of this page.
             </p>
           </div>
 
@@ -103,17 +105,7 @@
 
 
     <script>
-      const mediaTypeSelector = document.getElementById('type');
-      nl_vpro_media_CMSSelector.getMediaTypes().then(function (mediaTypes) {
-        console.log(mediaTypes);
-        mediaTypes.forEach(function (mediaType) {
-          const option = document.createElement('option');
-          option.value = mediaType.id;
-          option.innerHTML = mediaType.text;
-
-          mediaTypeSelector.appendChild(option);
-        });
-      });
+      nl_vpro_media_CMSSelector.getMediaTypes(document.getElementById('type'));
       nl_vpro_media_CMSSelector.getBroadcasters().then(function (broadcasters) {
         console.log(broadcasters);
       }, function() {
