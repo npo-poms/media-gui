@@ -82,4 +82,57 @@ const nl_vpro_media_CMSSelector = {
         }
         return values;
     },
+    /**
+     * Dynamically resolve the current mediatypes. (supported from api 7.8)
+     * @return a promise that resolves to an array of mediatypes json objects.
+     */
+    getMediaTypes: function() {
+        return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://rs.poms.omroep.nl/v1/schema/enum/MediaType.json", true);
+            xhr.onload = () => {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resolve(JSON.parse(xhr.response));
+                } else {
+                    reject(xhr.statusText);
+                }
+            };
+            xhr.send();
+        });
+    },
+
+    /**
+     * Dynamically resolve the current broadcasters.
+     * @return a promise that resolves to an array of broadcaster json objects.
+     */
+    getBroadcasters: function() {
+        return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", window.nl_vpro_media_poms_domain + "/broadcasters/CSV", true);
+            //xhr.open("GET", "http://michiel.vpro.nl:8071/broadcasters/CSV", true);
+            xhr.onload = () => {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    let lines = xhr.response.split(/[\n\r]+/);
+                    let broadcasters = [];
+                    for (let i = 1; i < lines.length; i++) {
+                        let line = lines[i];
+                        let split = line.split(",");
+                        if (split.length === 6) {
+                            broadcasters.push({
+                                id: split[0].trim(),
+                                text: split[2].trim(),
+                                domain: split[3].trim(),
+                                from: split[4].trim(),
+                                to: split[5].trim()
+                            });
+                        }
+                    }
+                    resolve(broadcasters);
+                } else {
+                    reject(xhr.statusText);
+                }
+            };
+            xhr.send();
+        });
+    }
 };

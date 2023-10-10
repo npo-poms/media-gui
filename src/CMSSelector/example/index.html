@@ -103,37 +103,21 @@
 
 
     <script>
-      const mediaTypes = [
-        {"id": "MEDIA", "text": "Alle media"},
-        {"id": "PROGRAM", "text": "Programma"},
-        {"id": "BROADCAST", "text": "Uitzending"},
-        {"id": "CLIP", "text": "Clip"},
-        {"id": "STRAND", "text": "Koepelprogramma"},
-        {"id": "TRAILER", "text": "Trailer"},
-        {"id": "MOVIE", "text": "Film"},
-        {"id": "GROUP", "text": "Groep"},
-        {"id": "SERIES", "text": "Serie"},
-        {"id": "SEASON", "text": "Seizoen"},
-        {"id": "UMBRELLA", "text": "Paraplu"},
-        {"id": "ARCHIVE", "text": "Archief"},
-        {"id": "COLLECTION", "text": "Collectie"},
-        {"id": "PLAYLIST", "text": "Speellijst"},
-        {"id": "ALBUM", "text": "Album"},
-        {"id": "SEGMENT", "text": "Segment"},
-        {"id": "VISUALSEGMENT", "text": "Visual segment"},
-        {"id": "TRACK", "text": "Track"},
-        {"id": "VISUALRADIO", "text": "Visual radio"},
-        {"id": "RECORDING", "text": "Opname"},
-        {"id": "PROMO", "text": "Promo"}
-      ];
       const mediaTypeSelector = document.getElementById('type');
+      nl_vpro_media_CMSSelector.getMediaTypes().then(function (mediaTypes) {
+        console.log(mediaTypes);
+        mediaTypes.forEach(function (mediaType) {
+          const option = document.createElement('option');
+          option.value = mediaType.id;
+          option.innerHTML = mediaType.text;
 
-      mediaTypes.forEach(function (mediaType) {
-        const option = document.createElement('option');
-        option.value = mediaType.id;
-        option.innerHTML = mediaType.text;
-
-        mediaTypeSelector.appendChild(option);
+          mediaTypeSelector.appendChild(option);
+        });
+      });
+      nl_vpro_media_CMSSelector.getBroadcasters().then(function (broadcasters) {
+        console.log(broadcasters);
+      }, function() {
+        console.log('error');
       });
 
       document.getElementById('select').onclick = function () {
