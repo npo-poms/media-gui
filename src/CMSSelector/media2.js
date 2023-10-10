@@ -5,6 +5,7 @@ if (typeof (window.nl_vpro_media_poms_domain) === 'undefined' ) { // would have 
 
 const nl_vpro_media_CMSSelector = {
     popupFeatures: 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no',
+
     select: function ( callback, options ) {
         const domain = window.nl_vpro_media_poms_domain;
         let popup;
@@ -34,7 +35,7 @@ const nl_vpro_media_CMSSelector = {
             }
             handleClose();
         }
-        
+
         function handleClose() {
             if (window.removeEventListener) {
                 window.removeEventListener('message', handleMessage);
@@ -67,5 +68,18 @@ const nl_vpro_media_CMSSelector = {
                 }
             }, 1000);
         }
-    }
+    },
+    /**
+     * Utility to get multiple values from a select element
+     */
+    getMultiple: function(id) {
+        const multipleType = document.getElementById(id);
+        const values = [];
+        for (let i = 0; i < multipleType.options.length; i++) {
+            if (multipleType.options[i].selected) {
+                values.push(multipleType.options[i].value);
+            }
+        }
+        return values;
+    },
 };

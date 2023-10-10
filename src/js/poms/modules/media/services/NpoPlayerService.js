@@ -47,7 +47,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                             },
                             playback: {
                                 muted: false,
-                                autoplay: false
+                                autoplay: true
                             },
                         };
                         if (resp.data.analyticsKey) {
@@ -59,7 +59,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                         $("#" + containerId + "-placeholder").hide();
                         container.show();
                         let element = playerELement(container);
-                        console.log("element", element);
+                        //console.log("element", element);
                         let player = new NpoPlayer.default(element, playerConfig);
 
                         // the npo player itself could also determin the start, then we could just pass the mid of the segment
