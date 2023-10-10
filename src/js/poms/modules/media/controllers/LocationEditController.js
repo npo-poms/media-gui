@@ -63,10 +63,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 $scope.editLocationFormValid = isValid( newValue, $scope );
 
             }, true );
-            
+
             this.$scope.locationsHelp = "...";
-            
-            helpService.getMessage('editor.locations.help').then(function(result) { 
+
+            helpService.getMessage('editor.locations.help').then(function(result) {
                 this.$scope.locationsHelp = $sce.trustAsHtml(result.text);
             }.bind(this));
         }
@@ -132,7 +132,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                         this.$scope.location.byteSize = parseInt(contentLength);
                     }
                 }.bind(this));
-                
+
             },
 
 
