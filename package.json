@@ -59,7 +59,6 @@
     "angular-route": "~1.8.3",
     "angular-sanitize": "~1.8.3",
     "angular-scroll": "~1.0.2",
-    "angular-ui": "~0.4.0",
     "angular-ui-sortable": "~0.19.0",
 
     "angular-ui-tab-scroll": "~1.2.3",
@@ -104,6 +103,6 @@
     "python": "you may have to issue: npm config set python /opt/homebrew/bin/python3.10, user use venvs. I created pygui alias"
   },
   "dependencies": {
-    
+
   }
 }

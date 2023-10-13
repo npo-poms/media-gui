@@ -13,14 +13,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
         get = function ( media, path, config ) {
             var deferred = $q.defer();
             var url = baseUrl + '/' + media.mid + path;
-            $http.get( url, config )
-                .success( function ( result ) {
+            $http.get( url, config ).then(
+                function ( result ) {
                     deferred.resolve( result );
-                } )
-                .error( function ( error ) {
-                        deferred.reject( error );
-                    }
-                );
+                },
+                function ( error ) {
+                    deferred.reject( error );
+                }
+            );
 
             return deferred.promise;
         };
@@ -30,13 +30,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             var deferred = $q.defer();
             var url = path.startsWith("http") ? path  : baseUrl + (media ? '/' + media.mid : '') + path;
 
-            $http.post( url, body )
-                .success( function ( result ) {
+            $http.post( url, body ).then(
+                function ( result ) {
                     deferred.resolve( result );
-                } )
-                .error( function ( error ) {
+                },
+                function ( error ) {
                     deferred.reject( error );
-                } );
+                }
+            );
 
             return deferred.promise;
         };
@@ -134,13 +135,13 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             load: function ( mid ) {
                 var deferred = $q.defer();
-                $http.get( baseUrl + '/' + mid )
-                    .success( function ( media ) {
+                $http.get( baseUrl + '/' + mid ).then(
+                    function ( media ) {
                         deferred.resolve( media );
-                    } )
-                    .error( function ( error ) {
+                    },
+                    function ( error ) {
                         deferred.reject( error );
-                    } );
+                    });
 
                 return deferred.promise;
             },
@@ -330,8 +331,8 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setTwitterRefs: function ( media, twitterrefs ) {
                 return post( media, '/twitterRefs', twitterrefs );
             },
-            
-            
+
+
             getEmail: function ( media ) {
                 return Promise.resolve(media.email);
             },

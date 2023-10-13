@@ -19,13 +19,14 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                 var deferred = $q.defer(),
                     url = baseUrl + path + params;
 
-                $http.get( url, config )
-                    .success( function ( result ) {
+                $http.get( url, config ).then(
+                    function ( result ) {
                         deferred.resolve( result );
-                    } )
-                    .error( function ( error ) {
+                    },
+                    function ( error ) {
                         deferred.reject( error );
-                    } );
+                    }
+                );
 
                 return deferred.promise;
             };
@@ -87,9 +88,9 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
 
             upload: function ( media, location, fields, uploadScope, locationsController) {
-                
+
                 var avType = media.avType;
-                
+
                 var uploadStatus = {
                     "mid": media.mid,
                     "fileName": location.file[0].name,

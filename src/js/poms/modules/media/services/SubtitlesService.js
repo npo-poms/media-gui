@@ -9,13 +9,14 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
 
         function get( path, config ) {
             var deferred = $q.defer();
-            $http.get( baseUrl + path, config )
-                .success( function ( data ) {
+            $http.get( baseUrl + path, config ).then(
+                function ( data ) {
                     deferred.resolve( data );
-                }.bind( this ) )
-                .error( function ( error ) {
+                }.bind( this ),
+                function ( error ) {
                     deferred.reject( error );
-                } );
+                }
+            );
 
             return deferred.promise;
         }
@@ -24,13 +25,14 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
             var deferred = $q.defer();
             var url = baseUrl + '/' + mediaId +'/'+ path;
 
-            $http.post( url, body )
-                .success( function ( subtitle ) {
+            $http.post( url, body ).then(
+                function ( subtitle ) {
                     deferred.resolve( subtitle );
-                } )
-                .error( function ( error ) {
+                },
+                function ( error ) {
                     deferred.reject( error );
-                } );
+                }
+            );
 
             return deferred.promise;
         }

@@ -14,15 +14,15 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
 
             var deferred = $q.defer();
             var url = baseUrl + '/'  + path;
-            $http.get(url, config )
-                .success( function ( result ) {
+            $http.get(url, config ).then(
+                function ( result ) {
                     deferred.resolve( result );
-                } )
-                .error( function ( error ) {
+                },
+                function ( error ) {
                     deferred.reject( error );
                     notificationService.notify(error.message, 'error', {timeout: -1, id: 'nep-service'});
-                    }
-                );
+                }
+            );
 
             return deferred.promise;
         };

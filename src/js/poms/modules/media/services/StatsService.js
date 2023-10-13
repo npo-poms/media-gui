@@ -13,13 +13,14 @@ angular.module( 'poms.media.services' ).factory( 'StatsService', [
             getStats: function ( ) {
                 var deferred = $q.defer();
 
-                $http.get( baseUrl )
-                        .success( function ( stats ) {
-                            deferred.resolve( stats );
-                        } )
-                        .error( function ( error ) {
-                            deferred.reject( error );
-                        } );
+                $http.get( baseUrl ).then(
+                    function ( stats ) {
+                        deferred.resolve( stats );
+                    },
+                    function ( error ) {
+                        deferred.reject( error );
+                    }
+                );
 
                 return deferred.promise;
             }

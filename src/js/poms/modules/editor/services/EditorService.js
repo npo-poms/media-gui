@@ -16,13 +16,14 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             var deferred = $q.defer();
             var url = baseUrl + path;
 
-            $http.get( url, {cache: true} )
-                .success( function ( organisations ) {
+            $http.get( url, {cache: true} ).then(
+                function ( organisations ) {
                     deferred.resolve( organisations );
-                } )
-                .error( function ( error ) {
+                },
+                function ( error ) {
                     deferred.reject( error );
-                } );
+                }
+            );
 
             return deferred.promise;
         }
@@ -31,13 +32,14 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             var deferred = $q.defer();
             var url = baseUrl + path;
 
-            $http.post( url, body )
-                .success( function ( editor ) {
+            $http.post( url, body ).then(
+                function ( editor ) {
                     deferred.resolve( editor );
-                } )
-                .error( function ( error ) {
+                },
+                function ( error ) {
                     deferred.reject( error );
-                } );
+                }
+            );
 
             return deferred.promise;
         }

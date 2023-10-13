@@ -11,13 +11,14 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
         InfoService.prototype = {
             getInfo: function () {
                 var deferred = $q.defer();
-                $http.get(baseUrl, {cache: true})
-                    .success( function ( info ) {
+                $http.get(baseUrl, {cache: true}).then(
+                    function ( info ) {
                         deferred.resolve( info );
-                    } )
-                    .error( function ( error ) {
+                    },
+                    function ( error ) {
                         deferred.reject( error );
-                    } );
+                    }
+                );
 
                 return deferred.promise;
             },
@@ -53,7 +54,7 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                     function (error) {
                         deferred.reject(error);
                     });
-                
+
                 return deferred.promise;
             }
 
