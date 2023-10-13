@@ -42,7 +42,7 @@
         <div class="search-query-wrapper poms-typeahead">
             <input class="search-query-text" id="query" type="text"
                    ng-model="formData.text"
-                   typeahead="suggestion as suggestion.text for suggestion in searchFormController.suggest($viewValue)"
+                   uib-typeahead="suggestion as suggestion.text for suggestion in searchFormController.suggest($viewValue)"
                    typeahead-focus-first="false"
                    typeahead-on-select="searchFormController.suggestClicked( $item )"
                    typeahead-template-url="searchTypeaheadTpl.html"
