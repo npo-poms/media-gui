@@ -372,8 +372,6 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
 
                         var mediaTabs = _.filter(this.guiService.getGuiMedia(), filter);
                         var favoriteMedia = _.filter(this.favoritesService.getFavoriteMedia(), filter);
-
-                        console.log("a", favoriteMedia);
                         var fastSuggestions = mediaTabs.concat(
                             _.filter(favoriteMedia, function(favorite) {
                                 let map = _.map(mediaTabs, function(media) {
@@ -381,12 +379,14 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                                 });
                                 return ! _.includes(map, favorite.mid);
                             }));
-                        console.log("b");
-
                         var re = new RegExp(this.$scope.formData.text, 'gi');
                         for(var j = 0; j < fastSuggestions.length; j++) {
                             var suggestion = fastSuggestions[j];
-                            if(suggestion.mainTitle.text.match(re)) {
+                            if (! suggestion.mainTitle) {
+                                console.log("Odd suggestion!", suggestion);
+                                continue;
+                            }
+                            if(suggestion.mainTitle && suggestion.mainTitle.text.match(re)) {
 
                                 var subTitle = "";
                                 if ( suggestion.subTitle ){
