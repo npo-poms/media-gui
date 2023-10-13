@@ -20,7 +20,8 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                     url = baseUrl + path + params;
 
                 $http.get( url, config ).then(
-                    function ( result ) {
+                    function ( response ) {
+                        var result = response.data;
                         deferred.resolve( result );
                     },
                     function ( error ) {

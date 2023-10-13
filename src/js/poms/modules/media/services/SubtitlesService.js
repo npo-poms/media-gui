@@ -10,7 +10,8 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
         function get( path, config ) {
             var deferred = $q.defer();
             $http.get( baseUrl + path, config ).then(
-                function ( data ) {
+                function ( response ) {
+                    var data = response.data;
                     deferred.resolve( data );
                 }.bind( this ),
                 function ( error ) {
@@ -26,8 +27,8 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
             var url = baseUrl + '/' + mediaId +'/'+ path;
 
             $http.post( url, body ).then(
-                function ( subtitle ) {
-                    deferred.resolve( subtitle );
+                function ( response ) {
+                    deferred.resolve( response.data);
                 },
                 function ( error ) {
                     deferred.reject( error );

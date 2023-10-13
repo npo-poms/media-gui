@@ -39,12 +39,13 @@ angular.module('poms.media.services').factory('MergeService', [
                 url = baseUrl + '/' + sMid + '/to/' + dMid;
 
                 $http.get(url).then(
-                        function(merge) {
-                            this._showMergeView(merge)
-                        }.bind(this),
-                        function(error) {
-                            $rootScope.$emit(pomsEvents.error, error)
-                        });
+                    function(response) {
+                        var merge = response.data;
+                        this._showMergeView(merge)
+                    }.bind(this),
+                    function(error) {
+                        $rootScope.$emit(pomsEvents.error, error)
+                    });
             },
 
             _showMergeView : function(merge) {

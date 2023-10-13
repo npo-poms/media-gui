@@ -19,8 +19,8 @@ angular.module('poms.search.services').factory('SearchService', [
             var url = baseUrl + path;
 
             $http.post(url, body, config).then(
-                function(results) {
-                    deferred.resolve(results);
+                function(response) {
+                    deferred.resolve(response.data);
                 },
                 function(error) {
                     deferred.reject(error);

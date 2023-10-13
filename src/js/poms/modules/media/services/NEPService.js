@@ -15,7 +15,8 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             var deferred = $q.defer();
             var url = baseUrl + '/'  + path;
             $http.get(url, config ).then(
-                function ( result ) {
+                function ( response ) {
+                    var result = response.data;
                     deferred.resolve( result );
                 },
                 function ( error ) {

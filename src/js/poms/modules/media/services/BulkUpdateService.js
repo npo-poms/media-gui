@@ -28,8 +28,8 @@ angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
                 var deferred = $q.defer();
 
                 $http.post( baseUrl, update, {params: {validate: validate || false}} ).then(
-                    function ( answer ) {
-                        deferred.resolve( answer );
+                    function ( response ) {
+                        deferred.resolve( response.data );
                     },
                     function ( error ) {
                         deferred.reject( error );

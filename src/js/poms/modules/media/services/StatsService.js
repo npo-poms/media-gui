@@ -14,7 +14,8 @@ angular.module( 'poms.media.services' ).factory( 'StatsService', [
                 var deferred = $q.defer();
 
                 $http.get( baseUrl ).then(
-                    function ( stats ) {
+                    function ( response ) {
+                        var start = response.data;
                         deferred.resolve( stats );
                     },
                     function ( error ) {

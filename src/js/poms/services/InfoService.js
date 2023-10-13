@@ -12,7 +12,8 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
             getInfo: function () {
                 var deferred = $q.defer();
                 $http.get(baseUrl, {cache: true}).then(
-                    function ( info ) {
+                    function ( response ) {
+                        var info = response.data;
                         deferred.resolve( info );
                     },
                     function ( error ) {
@@ -28,7 +29,8 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                 } else {
                     var deferred = $q.defer();
                     $http.get(baseUrl + "/properties", {cache: true}).then(
-                        function (info) {
+                        function (response) {
+                            var info = response.data;
                             deferred.resolve(info);
                             properties = info;
                             //console.log(properties);
@@ -46,7 +48,8 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
             getByteSize: function(programUrl) {
                  var deferred = $q.defer();
                 $http.get(baseUrl + "/byteSize?programUrl=" + programUrl, {cache: true}).then(
-                    function (info) {
+                    function (response) {
+                        var info = response.data;
                         deferred.resolve(info);
                         properties = info;
                         //console.log(properties);

@@ -14,7 +14,8 @@ angular.module( 'poms.services' ).factory( 'HelpService', [
 
                 $http.get( appConfig.apiHost + '/gui/help', {cache: true, params: {message: id}} )
                     .then(
-                        function ( message ) {
+                        function ( response ) {
+                            var message = response.data;
                             deferred.resolve( message );
                         }.bind( this ),
                         function ( error ) {

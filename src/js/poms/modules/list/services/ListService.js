@@ -11,7 +11,8 @@ angular.module('poms.list.services').factory('ListService', [
             var deferred = $q.defer();
 
             $http.get(appConfig.apiHost + '/gui/select' + path, config)
-                .then(function(data) {
+                .then(function(response) {
+                        var data = response.data;
                         deferred.resolve(data);
                     },
                     function(error) {

@@ -34,8 +34,8 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             var url = path.startsWith("http") ? path  : baseUrl + (media ? '/' + media.mid : '') + path;
 
             $http.post( url, body ).then(
-                function ( result ) {
-                    deferred.resolve( result );
+                function ( response ) {
+                    deferred.resolve( response.data );
                 },
                 function ( error ) {
                     deferred.reject( error );
@@ -139,7 +139,8 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             load: function ( mid ) {
                 var deferred = $q.defer();
                 $http.get( baseUrl + '/' + mid ).then(
-                    function ( media ) {
+                    function ( response ) {
+                        var media = response.data;
                         deferred.resolve( media );
                     },
                     function ( error ) {

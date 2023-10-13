@@ -17,7 +17,8 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             var url = baseUrl + path;
 
             $http.get( url, {cache: true} ).then(
-                function ( organisations ) {
+                function ( response ) {
+                    var organisations = response.data;
                     deferred.resolve( organisations );
                 },
                 function ( error ) {
@@ -33,7 +34,8 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             var url = baseUrl + path;
 
             $http.post( url, body ).then(
-                function ( editor ) {
+                function ( response ) {
+                    var editor = response.data;
                     deferred.resolve( editor );
                 },
                 function ( error ) {
