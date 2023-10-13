@@ -14,7 +14,6 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <flag-icons.version>6.6.5</flag-icons.version>
     <node.version>v16.16.0</node.version>
     <npm.version>8.11.0</npm.version>
   </properties>
@@ -29,7 +28,6 @@
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
-            <FLAG_ICON_VERSION>${flag-icons.version}</FLAG_ICON_VERSION>
           </environmentVariables>
         </configuration>
         <executions>
@@ -121,14 +119,6 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-   <dependency>
-     <!-- alternatively just use https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.3.0/css/flag-icons.min.css -->
-     <groupId>org.webjars.npm</groupId>
-     <artifactId>flag-icons</artifactId>
-     <version>${flag-icons.version}</version>
-   </dependency>
-  </dependencies>
 
 
   <profiles>

@@ -205,8 +205,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 }
 
                 promise.then(
-                    function ( response ) {
-                        data = response.data;
+                    function ( data ) {
                         if( searchCount === this.searchCount ) {
                             this.$scope.searchResults = data;
                             this.$scope.hasResults = data.items && data.items.length;
