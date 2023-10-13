@@ -24,7 +24,7 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.12.1</version>
+        <version>1.14.0</version>
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
@@ -63,7 +63,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.0</version>
         <configuration>
           <warSourceDirectory>build/deploy</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -71,7 +71,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.1</version>
         <configuration>
           <!-- the frontend plugin sucks horribly and installs all over the place in src dir.-->
           <filesets>
@@ -89,7 +89,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <configuration>
           <branchName>REL-${project.version}</branchName>
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
