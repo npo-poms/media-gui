@@ -38,7 +38,7 @@ gulp.task('templates', function () {
         .pipe(gulp.dest(templateSrc));
 });
 
-gulp.task('app-deploy', function () {
+gulp.task('app-deploy',async function () {
 
     return gulp.src(__dirname + '/src/index.html')
         .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
@@ -61,7 +61,7 @@ gulp.task('app-deploy-dev', function () {
         .pipe(gulp.dest(__dirname + '/build/work/'));
 });
 
-gulp.task('selector-deploy', function () {
+gulp.task('selector-deploy', async function () {
     gulp.src(__dirname + '/src/CMSSelector/**/*')
         .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
         .pipe(gulp.dest(__dirname + '/build/deploy/CMSSelector/'))
@@ -78,7 +78,7 @@ gulp.task('selector-deploy', function () {
         })
 });
 
-gulp.task('head-deploy', function () {
+gulp.task('head-deploy', async function () {
     gulp.src(__dirname + '/src/css/head.jspx')
         .pipe(plugins.replace(/\{version\}/g, getCurrentVersion('')))
         .pipe(gulp.dest(__dirname + '/build/deploy/css/'));
