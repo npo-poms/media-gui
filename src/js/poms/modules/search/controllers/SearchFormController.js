@@ -28,7 +28,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             this.$scope.suggestions = [];
 
             this.$scope.userSuggestions = [];
-            
+
 
             this.$scope.searchDate = {
                 'isOpen' : false,
@@ -356,7 +356,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                 return this.searchService.suggest(normalized).then(
 
                     function(suggestions) {
-
+                        console.log("suggestingion?");
                         for(var i = 0; i < suggestions.data.length; i++) {
                             suggestions.data[i] = {
                                 "text" : suggestions.data[i],
@@ -373,12 +373,15 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                         var mediaTabs = _.filter(this.guiService.getGuiMedia(), filter);
                         var favoriteMedia = _.filter(this.favoritesService.getFavoriteMedia(), filter);
 
+                        console.log("a", favoriteMedia);
                         var fastSuggestions = mediaTabs.concat(
-                                _.filter(favoriteMedia, function(favorite) {
-                                    return !_.contains(_.map(mediaTabs, function(media) {
-                                        return media.mid;
-                                    }), favorite.mid);
-                                }));
+                            _.filter(favoriteMedia, function(favorite) {
+                                let map = _.map(mediaTabs, function(media) {
+                                    return media.mid;
+                                });
+                                return ! _.includes(map, favorite.mid);
+                            }));
+                        console.log("b");
 
                         var re = new RegExp(this.$scope.formData.text, 'gi');
                         for(var j = 0; j < fastSuggestions.length; j++) {
@@ -399,7 +402,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                             }
 
                         }
-
+                        console.log("Ready!");
                         this.suggestionsWaiting = false;
 
                         return suggestions.data;

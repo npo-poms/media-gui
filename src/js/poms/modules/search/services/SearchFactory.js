@@ -57,7 +57,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                         } else {
                             for ( var i = 0; i < this.value.length; i ++ ) {
                                 var restrictedValue = this.value[ i ];
-                                if ( ! angular.equals( restrictedValue, value ) && _.contains( this.restriction, value ) ) {
+                                if ( ! angular.equals( restrictedValue, value ) && _.includes( this.restriction, value ) ) {
                                     allow = true;
                                     break;
                                 }
@@ -210,7 +210,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                 var checks = [
                     function () {
                         allow = ! self.types.restriction
-                            || _.contains(
+                            || _.includes(
                                 _.map( self.types.restriction, function ( type ) {
                                     return type.id
                                 } ), media.type.id );
