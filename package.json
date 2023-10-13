@@ -33,7 +33,7 @@
     "create:workbase": "mkdirp ./build/work",
     "create:workbase:css": "mkdirp ./build/work/css",
     "predeploy:gulp": "npm run clean:target && npm run clean:deploy && npm run create:deploybase",
-    "deploy:gulp": "npm run copy:resources && npm copy:node_modules_styles && npm run build:styles && npm run build:templatecache:gulp && npm run build:constants && npm run build:app:gulp && npm run build:selector:gulp && npm run build:head:gulp",
+    "deploy:gulp": "npm run copy:resources && npm run copy:node_modules_styles && npm run build:styles && npm run build:templatecache:gulp && npm run build:constants && npm run build:app:gulp && npm run build:selector:gulp && npm run build:head:gulp",
     "predev": "npm run clean:work && npm run create:workbase",
     "dev": "npm run build:styles:dev && npm run build:app:dev && npm run build:selector:dev",
     "livereload": "node ./livereload.js",
