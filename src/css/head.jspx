@@ -1,2 +1,2 @@
 <!-- This is processed by gulp, and can be used to jsp:include later, it will contain the correct version -->
-<link rel="stylesheet" href="/${pageContext.request.contextPath}css/poms-{version}.css"  />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/poms-{version}.css"  />

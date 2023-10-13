@@ -35,10 +35,10 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 this.media = localStorageService.get( this.mediaKey ) || [];
 
                 // init searches
-                this.searches = this.getFavoriteSearches();
                 this.searches = localStorageService.get( this.searchKey ) || [];
+                console.log("this.searches", this.searches);
                 for ( var i = 0; i < this.searches.length; i ++ ) {
-                    var favorite = this.searches[ i ];
+                    var favorite = this.searches[i];
                     this.searches[ i ] = this.searchFactory.newSearch( favorite );
                 }
             },
