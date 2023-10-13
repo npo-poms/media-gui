@@ -33,7 +33,7 @@ angular.module( 'poms.media.directives' )
                     },
                     controller: 'OwnersController',
                     controllerAs: 'ownersController',
-                    templateUrl: 'edit/modal-owner.html',
+                    templateUrl: 'views/edit/modal-owner.html',
                     windowClass: "modal-owner"
 
                 } );

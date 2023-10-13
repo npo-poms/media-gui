@@ -183,7 +183,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 this.$scope.mayWrite = function() {
                     return this.mediaService.hasWritePermission( this.$scope.media, 'media' );
                 }.bind(this);
-                
+
                 this.$scope.mayDelete = function () {
                     return this.mediaService.hasDeletePermission( this.$scope.media );
                 }.bind(this);
@@ -359,7 +359,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     },
                     controller : "EditHistoryController",
                     controllerAs : "EditHistoryController",
-                    templateUrl : 'edit/modal-history.html'
+                    templateUrl : 'views/edit/modal-history.html'
 
                 } );
             }

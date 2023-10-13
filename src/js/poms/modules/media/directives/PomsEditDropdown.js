@@ -19,7 +19,7 @@ angular.module( 'poms.media.directives' )
             editFieldService ) {
         return {
             restrict: 'E',
-            templateUrl: 'edit/editables/poms-dropdown.html',
+            templateUrl: 'views/edit/editables/poms-dropdown.html',
             transclude: true,
             scope: {
                 header: '@header',

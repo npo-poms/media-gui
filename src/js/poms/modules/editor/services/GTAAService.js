@@ -49,7 +49,7 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                 modal= $uibModal.open({
                     controller: "ModalIFrameController",
                     controllerAs: "controller",
-                    templateUrl: 'edit/modal-iframe.html',
+                    templateUrl: 'views/edit/modal-iframe.html',
                     windowClass: 'modal-' + scheme,
                     resolve: {
                         "callback":  function() {

@@ -20,7 +20,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
     'NotificationService',
     (function () {
 
-        function GuiController ( 
+        function GuiController (
             $rootScope,
             $scope,
             $route,
@@ -40,7 +40,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             mediaService,
             UploadService,
             NotificationService) {
-            
+
             this.$rootScope = $rootScope;
             this.$route = $route;
             this.$location = $location;
@@ -329,7 +329,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 var modal = this.$uibModal.open( {
                     controller: 'CreateController',
                     controllerAs: 'controller',
-                    templateUrl: 'edit/modal-create.html',
+                    templateUrl: 'views/edit/modal-create.html',
                     windowClass: 'modal-create',
                     resolve: {
                         mediaTypes: this.listService.getMediaCreateTypes,
@@ -357,7 +357,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             newSearch: function ( ) {
                 this.openSearchTab(this.searchService.newSearch());
             },
-            
+
 
 
             openInEditor: function ( media ) {
@@ -380,7 +380,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.$uibModal.open( {
                     controller: 'InfoController',
                     controllerAs: 'infoController',
-                    templateUrl: 'gui/modal-info.html',
+                    templateUrl: 'views/gui/modal-info.html',
                     windowClass: 'modal-info'
                 } );
             },
@@ -389,7 +389,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.$uibModal.open( {
                     controller: 'OwnerInfoController',
                     controllerAs: 'controller',
-                    templateUrl: 'gui/modal-owner-info.html',
+                    templateUrl: 'views/gui/modal-owner-info.html',
                     windowClass: 'modal-owner-info'
                 } );
 
@@ -399,7 +399,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 var modal = this.$uibModal.open( {
                     controller: 'TranscodingsController',
                     controllerAs: 'transcodingsController',
-                    templateUrl: 'gui/modal-transcodings.html',
+                    templateUrl: 'views/gui/modal-transcodings.html',
                     windowClass: 'modal-transcodings'
                 } );
 
@@ -429,7 +429,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 var modal = this.$uibModal.open( {
                     controller: 'LiveEditorController',
                     controllerAs: 'liveEditorController',
-                    templateUrl: 'gui/modal-live-editor.html',
+                    templateUrl: 'views/gui/modal-live-editor.html',
                     windowClass: 'modal-live-editor'
                 } );
 

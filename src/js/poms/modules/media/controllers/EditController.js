@@ -75,7 +75,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             listService.getAvTypes().then(
                 function ( data ) {
                     this.$scope.avTypes = data.filter(function (avType) {
-                        return this.$scope.media.targetAVTypes.indexOf(avType.id) !== -1; 
+                        return this.$scope.media.targetAVTypes.indexOf(avType.id) !== -1;
                     }.bind(this));
                     //console.log("ec Types,", this.$scope.avTypes);
                 }.bind( this ),
@@ -270,7 +270,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             setTwitterRefs: function ( twitterrefs ) {
                 return this.mediaService.setTwitterRefs( this.media, twitterrefs );
             },
-            
+
             getEmail: function () {
                 return this.mediaService.getEmail( this.media );
             },
@@ -481,7 +481,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     scope: this.$scope,
                     controller: 'ScheduleEventsController',
                     controllerAs: 'scheduleEventsController',
-                    templateUrl: 'edit/modal-schedule-events.html'
+                    templateUrl: 'views/edit/modal-schedule-events.html'
 
                 } );
             },
@@ -507,7 +507,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     },
                     controller : 'OwnersController',
                     controllerAs : 'ownersController',
-                    templateUrl: 'edit/modal-owners.html',
+                    templateUrl: 'views/edit/modal-owners.html',
                     windowClass: "modal-owners"
                 });
 
@@ -530,7 +530,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     },
                     controller : 'OwnerController',
                     controllerAs : 'ownerController',
-                    templateUrl: 'edit/modal-owner.html',
+                    templateUrl: 'views/edit/modal-owner.html',
                     windowClass: "modal-owner"
 
                 });
@@ -589,7 +589,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     },
                     controller : 'SubtitlesUploadController',
                     controllerAs : 'subtitlesUploadController',
-                    templateUrl : 'edit/modal-upload-subtitles.html',
+                    templateUrl : 'views/edit/modal-upload-subtitles.html',
                     windowClass : 'modal-subtitles-upload'
                 } );
 

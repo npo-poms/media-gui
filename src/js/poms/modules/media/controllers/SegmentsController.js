@@ -55,7 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     duration: 0,
                     mainTitle: null
                 };
-                
+
                 if (this.canItemize()) {
                     // Itemize with player
                     this.itemize(this.$scope.insertedSegment);
@@ -71,7 +71,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 var modal = this.$uibModal.open( {
                     controller: 'SegmentEditController',
                     controllerAs: 'controller',
-                    templateUrl: 'edit/modal-create-segment.html',
+                    templateUrl: 'views/edit/modal-create-segment.html',
                     windowClass: 'modal-form modal-segment',
                     resolve: {
                         media: function () {

@@ -29,7 +29,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             this.$sce = $sce;
             this.messageService = MessageService;
             this.appConfig = appConfig;
-            
+
             this.uploadInProgress = false;
             this.currentUpload = undefined;
             this.hasErrors = false;
@@ -107,14 +107,14 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             mayUpload: function() {
                 return  this.$scope.media.permissions['LOCATION_UPLOAD'];
             },
-            
+
             toggleCollapsed : function () {
                 if (!this.hasErrors) {
                     this.collapsed = ! this.collapsed;
                     this.localStorageService.set('locationsCollapsed', this.collapsed);
                 }
             },
-            
+
             editLocation : function ( location, permission ) {
 
                 if ( permission === false ) {
@@ -131,7 +131,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 var modal = this.$uibModal.open( {
                     controller : 'LocationEditController',
                     controllerAs : 'controller',
-                    templateUrl : 'edit/modal-edit-location.html',
+                    templateUrl : 'views/edit/modal-edit-location.html',
                     windowClass : 'modal-form',
                     resolve: {
                         media: function () {
@@ -274,7 +274,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 var modal = this.$uibModal.open( {
                     controller : 'LocationUploadController',
                     controllerAs : 'uploadController',
-                    templateUrl : 'edit/modal-upload-location.html',
+                    templateUrl : 'views/edit/modal-upload-location.html',
                     windowClass : 'modal-location-upload',
                     resolve : {
                         priorityTypes: this.listService.getPriorityTypes,

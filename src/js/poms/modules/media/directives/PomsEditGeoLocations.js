@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsGeolocations', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'edit/editables/poms-editable-geolocations.html',
+            templateUrl: 'views/edit/editables/poms-editable-geolocations.html',
             scope: {
                 options: '&',
                 load: '&',

@@ -30,7 +30,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 this.searchKey = this.editor.hashId + '.searchFavorites';
                 this.mediaKey = this.editor.hashId + '.mediaFavorites';
                 this.saveConfirmKey = this.editor.hashId + '.saveconfirm';
-                
+
                 // init media
                 this.media = localStorageService.get( this.mediaKey ) || [];
 
@@ -51,7 +51,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 $uibModal.open( {
                     controller : 'FavoritesController',
                     controllerAs : 'favoritesController',
-                    templateUrl : 'gui/modal-favorites.html',
+                    templateUrl : 'views/gui/modal-favorites.html',
                     windowClass : 'modal-favorites'
                 } );
             },

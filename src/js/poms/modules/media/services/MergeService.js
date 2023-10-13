@@ -50,7 +50,7 @@ angular.module('poms.media.services').factory('MergeService', [
             _showMergeView : function(merge) {
 
                 var modal = $uibModal.open({
-                    templateUrl : 'edit/modal-merge.html',
+                    templateUrl : 'views/edit/modal-merge.html',
                     controller : 'ModalMergeController',
                     controllerAs : 'controller',
                     windowClass : 'modal-merge',
@@ -77,21 +77,21 @@ angular.module('poms.media.services').factory('MergeService', [
                         guiService.addedEpisodeOf(result.mid);
                         guiService.addedMember(result.mid);
                         guiService.addedMemberOf(result.mid);
-                        
+
                         guiService.addedSegment(result.mid);
-                        
+
                         guiService.addedImage(result.mid);
-                        
+
                         guiService.editMid(result.mid);
-                        
+
                         guiService.deleted(source.mid);
-                        
+
                         deferred.resolve(result);
                     },
                     function(error) {
                         deferred.reject(error);
                     });
-                
+
                 return deferred.promise;
             }
         };

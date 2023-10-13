@@ -2,7 +2,7 @@ angular.module( 'poms.util.directives')
     .directive( 'pomsViewer', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'edit/viewer.html',
+            templateUrl: 'views/edit/viewer.html',
             scope: {
                 media: '=',
                 playertype: "@", // if set will be inserted into the id of the player. This was the same object can e.g. be in a modal, and in an editor.
@@ -13,8 +13,8 @@ angular.module( 'poms.util.directives')
                 $scope.isPlayable = ($scope.media.locations > 0
                                     || ($scope.media.locations && $scope.media.locations.length > 0)
                                     || $scope.media.type.id === 'SEGMENT');
-                
-             
+
+
 
                 $scope.play = function () {
 
@@ -56,7 +56,7 @@ angular.module( 'poms.util.directives')
                 $scope.stop = function () {
                     NpoPlayerService.stop( $scope.containerId);
                 };
-                
+
                 $scope.pause = function () {
                     NpoPlayerService.pause( $scope.containerId);
                 };
@@ -110,11 +110,11 @@ angular.module( 'poms.util.directives')
 
                 setupPlayer = function(midOrParent) {
                     if (!$scope.players) {
-                        
+
                         return NpoPlayerService.list(midOrParent).then(function (resp) {
                             $scope.players = resp.data;
                             $scope.selected = {"value": $scope.players[0]};
-                            
+
                             $scope.$watch('selected.value', restartPlayer)
                         }.bind(this));
                     }

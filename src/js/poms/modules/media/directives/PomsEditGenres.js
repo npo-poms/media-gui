@@ -2,13 +2,13 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsGenres', ['PomsEvents', 'EditService', 'FavoritesService' ,'MediaService', 'ListService', '$q', '$sce', '$timeout', '$uibModal', 'EditFieldService', function ( pomsEvents, editService, favoritesService, mediaService, listService, $q, $sce, $timeout, $uibModal, editFieldService ) {
         return {
             restrict: 'E',
-            templateUrl: 'edit/editables/poms-genres.html',
+            templateUrl: 'views/edit/editables/poms-genres.html',
             scope: {
                 media: '=',
                 helpField : '@'
             },
             controller: function ( $scope ) {
-                
+
                 function load ( media, dest ) {
                     mediaService.getGenres( media ).then(
                         function ( data ) {
@@ -43,7 +43,7 @@ angular.module( 'poms.media.directives' )
                         }
                     );
                 };
-                
+
 
 
                 $scope.$on( 'closeEditField', function ( e, data ) {

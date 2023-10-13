@@ -104,7 +104,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                 var modal = this.$uibModal.open( {
                     controller: 'ImageEditController',
                     controllerAs: 'controller',
-                    templateUrl: 'edit/modal-edit-image.html',
+                    templateUrl: 'views/edit/modal-edit-image.html',
                     windowClass: 'modal-form modal-images',
                     resolve: {
                         imageTypes: this.listService.getImagesTypes,

@@ -105,7 +105,7 @@ angular.module('poms.search.services').factory('SearchService', [
                 var modal = $uibModal.open( {
                     controller: 'PreviewController',
                     controllerAs: 'controller',
-                    templateUrl: 'gui/modal-preview-media.html',
+                    templateUrl: 'views/gui/modal-preview-media.html',
                     windowClass: 'modal-preview',
 
                     resolve: {

@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
         .directive( 'pomsMulti', [function () {
             return {
                 restrict: 'E',
-                templateUrl: 'edit/editables/poms-multi.html',
+                templateUrl: 'views/edit/editables/poms-multi.html',
                 scope: {
                     options: '&',
                     load: '&',

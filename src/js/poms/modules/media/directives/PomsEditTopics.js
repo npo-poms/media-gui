@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsTopics', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'edit/editables/poms-editable-topics.html',
+            templateUrl: 'views/edit/editables/poms-editable-topics.html',
             scope: {
                 options: '&',
                 load: '&',

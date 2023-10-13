@@ -109,7 +109,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     }
                 }
             } );
-            console.log("construcuted", this);
+            //console.log("constructed", this);
         }
 
 
