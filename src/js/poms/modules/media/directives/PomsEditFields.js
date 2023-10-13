@@ -29,25 +29,25 @@ angular.module( 'poms.media.directives' )
             templateUrl: function ( element, attrs ) {
                 switch ( attrs.fieldtype ) {
                     case 'title':
-                        return 'edit/editables/poms-title.html';
+                        return 'views/edit/editables/poms-title.html';
                     case 'description':
-                        return 'edit/editables/poms-description.html';
+                        return 'views/edit/editables/poms-description.html';
                     case 'time':
-                        return 'edit/editables/poms-time.html';
+                        return 'views/edit/editables/poms-time.html';
                     case 'duration':
-                        return 'edit/editables/poms-duration.html';
+                        return 'views/edit/editables/poms-duration.html';
                     case 'number':
-                        return 'edit/editables/poms-number.html';
+                        return 'views/edit/editables/poms-number.html';
                     case 'checklist':
-                        return 'edit/editables/poms-checklist.html';
+                        return 'views/edit/editables/poms-checklist.html';
                     case 'checklist-icons':
-                        return 'edit/editables/poms-checklist-icons.html';
+                        return 'views/edit/editables/poms-checklist-icons.html';
                     case 'checkbox':
-                        return 'edit/editables/poms-checkbox.html';
+                        return 'views/edit/editables/poms-checkbox.html';
                     case 'radiolist':
-                        return 'edit/editables/poms-radiolist.html';
+                        return 'views/edit/editables/poms-radiolist.html';
                     case 'radiolist-icons':
-                        return 'edit/editables/poms-radiolist-icons.html';
+                        return 'views/edit/editables/poms-radiolist-icons.html';
                 }
             },
             transclude: true,

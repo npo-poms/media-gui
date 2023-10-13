@@ -7,7 +7,7 @@ angular.module( 'poms.search.directives' )
 
                 var defaultKey, defaultColumns, localKey, editor;
                 editor = EditorService.getCurrentEditor();
-                console.log('editor', editor);
+                //console.log('editor', editor);
 
 
                 $scope.allColumns = [

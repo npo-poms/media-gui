@@ -141,6 +141,11 @@ angular.module( 'poms.ui.multidropdown' ).directive( 'pomsMultiDropdown', functi
                         this.ngModelCtrl.$render = this.setStateFromModel.bind( this );
 
                         this.ngModelCtrl.$isEmpty = function () {
+                            console.log(this.$scope);
+                            if (! this.$scope) {
+                                console.log('no scope', this);
+                            }
+                            console.log(this.$scope.options);
                             return ! this.$scope.options.some( function ( option ) {
                                 return option.selected;
                             } );
@@ -212,9 +217,9 @@ angular.module( 'poms.ui.multidropdown' ).directive( 'pomsMultiDropdown', functi
 
                     setModelFromState: function () {
 
-                        var items = this.$scope.items,
-                            options = this.$scope.options,
-                            modelItems = [];
+                        var items = this.$scope.items;
+                        var options = this.$scope.options;
+                        var modelItems = [];
 
                         if ( this.isSingleValue ) {
                             options.every( function ( option, index ) {
@@ -236,9 +241,9 @@ angular.module( 'poms.ui.multidropdown' ).directive( 'pomsMultiDropdown', functi
 
                     setStateFromModel: function () {
 
-                        var items = this.$scope.items,
-                            model = this.ngModelCtrl.$viewValue,
-                            options = this.$scope.options;
+                        var items = this.$scope.items;
+                        var model = this.ngModelCtrl.$viewValue;
+                        var options = this.$scope.options;
 
                         //TODO: validate model
 

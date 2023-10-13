@@ -356,7 +356,6 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                 return this.searchService.suggest(normalized).then(
 
                     function(suggestions) {
-                        console.log("suggestingion?");
                         for(var i = 0; i < suggestions.data.length; i++) {
                             suggestions.data[i] = {
                                 "text" : suggestions.data[i],

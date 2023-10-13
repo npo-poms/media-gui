@@ -12,10 +12,13 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
         get = function ( media, path, config ) {
             var deferred = $q.defer();
+            if (!media.mid) {
+                console.log("No mid in", media);
+            }
             var url = baseUrl + '/' + media.mid + path;
             $http.get( url, config ).then(
                 function ( result ) {
-                    deferred.resolve( result );
+                    deferred.resolve( result.data );
                 },
                 function ( error ) {
                     deferred.reject( error );

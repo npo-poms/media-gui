@@ -27,7 +27,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             this.search = $scope.search;
 
             this.$scope.lastSelect = null;
-            
+
             this.clearResults();
 
             this.searchCount = 0;
@@ -205,7 +205,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 }
 
                 promise.then(
-                    function ( data ) {
+                    function ( response ) {
+                        data = response.data;
                         if( searchCount === this.searchCount ) {
                             this.$scope.searchResults = data;
                             this.$scope.hasResults = data.items && data.items.length;
@@ -221,7 +222,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 );
             },
 
-            
+
             download: function (ev) {
                 ev.preventDefault();
                 var queryData, options;

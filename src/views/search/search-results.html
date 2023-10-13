@@ -20,9 +20,9 @@
 
 </div>
 
-<poms-pager 
-        ng-show="searchResults.total > searchResults.max" 
-        class="pager" 
+<poms-pager
+        ng-show="searchResults.total > searchResults.max"
+        class="pager"
         searchresults="searchResults"
         onsearch="searchResultController.submit(offset)"></poms-pager>
 
@@ -43,7 +43,7 @@
                 </span>
       </th>
       <th class="poms-table-header column-tools" ng-show="!search.parentMid">
-        <poms-search-columns></poms-search-columns>
+        <poms-search-columns />
       </th>
     </tr>
     </thead>
@@ -55,12 +55,12 @@
         ng-dblclick="searchResultController.selectResult(item)">
 
       <td  class="checkbox-cell column-checkbox" ng-click="searchResultController.toggleSelect( item , $event)">
-        <input type="checkbox" ng-checked="item.selected" class="search-result-checkbox" >
+        <input type="checkbox" ng-checked="item.selected" class="search-result-checkbox"  />
       </td>
 
       <td ng-repeat="column in selectedColumns " ng-switch on="column.id" class="column-{{column.id}}">
         <span ng-switch-when="workflow">
-          <poms-workflow mid="::item.mid" workflow="item.workflow" on-deleted="searchResultController.onDeleteResult()"></poms-workflow>
+          <poms-workflow mid="::item.mid" workflow="item.workflow" on-deleted="searchResultController.onDeleteResult()" />
         </span>
 
         <span ng-switch-when="preview">
@@ -102,11 +102,12 @@
         </span>
       </td>
 
-      <td class="column-tools" ng-show="!search.parentMid">
+      <td class="column-tools" ng-show="true ||!search.parentMid">
         <div class="tools">
-                    <span class=" poms-icon icon-preview"
-                          ng-click="searchResultController.previewResult( $index )"
-                          title="preview"></span>
+          tools
+          <span class=" poms-icon icon-preview"
+                ng-click="searchResultController.previewResult( $index )"
+                title="preview"></span>
 
           <a class="poms-icon icon-edit"
              ng-click="searchResultController.editResult(item)"
