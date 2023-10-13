@@ -10,27 +10,27 @@
   <link rel="mask-icon" href="{domain}/favicons/safari-pinned-tab.svg" color="#5bbad5" />
   <link rel="shortcut icon" href="{domain}/favicon.ico" />
 
-  
+
   <meta name="msapplication-config" content="${domain}/favicons/browserconfig.xml" />
   <meta name="theme-color" content="#ffffff" />
-  
-  
+
+
   <link rel="stylesheet" href="css/angular-xeditable/xeditable.css"/>
   <link rel="stylesheet" href="css/ng-toast/ngToast.min.css"/>
   <link rel="stylesheet" href="css/ng-toast/ngToast-animations.min.css"/>
   <link rel="stylesheet" href="css/angular-ui-tab-scroll/angular-ui-tab-scroll.css" />
   <link rel="stylesheet" href="css/akamai/controlbar.css">
-  
+
   <link rel="stylesheet" href="css/poms-{version}.css"  />
-  
+
   <!--
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css" />
     -->
   <link rel="stylesheet" href="{domain}/webjars/flag-icons/{FLAG_ICON_VERSION}/css/flag-icons.min.css"  />
-  
+
   <link rel="stylesheet" href="{domain}/kijkwijzer/kijkwijzer.css" />
-  
-  
+
+
   <!-- build:vendor js/vendor-{version}.js -->
   <script src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script src="../node_modules/stompjs/lib/stomp.min.js"></script>
@@ -49,25 +49,25 @@
   <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
   <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
   <script src="../node_modules/moment/moment.js"></script>
-  
+  <script src="../node_modules/ui-select/dist/select.js"></script>
+
   <script src="./js/vendor/ng-toast/ngToast.min.js"></script>
   <script src="./js/vendor/angular-xeditable/xeditable.min.js"></script>
   <script src="./js/vendor/angular-xeditable/checklist-model.js"></script>
-  <script src="./js/vendor/ui-select/select.min.js"></script>
   <script src="./js/vendor/angular.rangeSlider.js"></script>
   <script src="./js/vendor/akamai/controlbar/ControlBar.js"></script>
-  
+
   <!-- endbuild -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.6.6/dash.all.min.js" ></script>
   <script src="//cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-  
+
   <script src="//cdn.npoplayer.nl/player/1.11.0/web/npoplayer.js"
           type="module" defer></script> <!-- als je geen 'module' gebruikt dan werkt het niet na gulp -->
   <link rel="stylesheet" href="https://cdn.npoplayer.nl/player/1.11.0/web/npoplayer.css"/>
 
 
 </head>
-  
+
 <body id="scroll-spy-top" ng-app="poms" poms-alert
       ng-controller="GuiController as guiController">
 
@@ -105,25 +105,25 @@
     <div class="header-account-details" ng-class="{'open': (userDropdown.isopen)}">
 
       <div class="header-account-buttons">
-        
+
         <div class="header-account-link">
-          <span id="currentUser" 
+          <span id="currentUser"
                 ng-class="{'open': (userDropdown.isopen)}"
                 ng-click="guiController.toggleUserDropdown($event)">
             {{::guiController.editor.text}}</span>
         </div>
-        
+
         <div class="header-account-link no-border " ng-if="guiController.showOwnerMis()">
           <span class="header-account-owner" ng-click="guiController.openOwnerInfo()"> (NPO gebruiker {{guiController.currentOwnerTypeToShow()}})</span>
         </div>
-        
+
         <div class="header-account-link">
           <span class="btn-text-icon btn-text-icon-favorite"
                 ng-click="guiController.openFavorites()" >
             mijn favorieten
           </span>
         </div>
-        
+
         <div class="header-account-link">
           <span class="btn-text-icon btn-text-icon-help">
             <a title="Uitleg over de interface van POMS"
@@ -131,9 +131,9 @@
           </span>
         </div>
       </div>
-      
+
       <div class="header-account-dropdowns">
-        
+
         <div class="header-dropdown" dropdown is-open="userDropdown.isopen">
           <div>
             <h2>account</h2>
@@ -153,12 +153,12 @@
             </ul>
           </div>
         </div>
-        
+
       </div>
-      
+
     </div>
 </nav>
-  
+
 
 <div class="tabset" ng-if="guiController.loaded">
   <scrollable-tabset api="guiController.scrlTabsApi">
@@ -167,41 +167,41 @@
            class="tab tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}}"
            active="tab.active"
            select="guiController.initTab(tab)">
-        
+
         <tab-heading class="tab-heading ">
-          
+
           <span ng-if="tab.type=='edit'">
             <span class="tab-subtitle">{{::tab.item.type.text }}</span>
             <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{ tab.item.mainTitle.text }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
-          
+
           <span ng-if="tab.type=='search'">
             <span class="tab-subtitle">Zoeken</span>
             <span class="tab-title" title="{{tab.item.form.summary}}"> {{ tab.item.form.summary }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
-          
+
         </tab-heading>
-        
+
         <poms-editor ng-if="tab.type =='edit' && !tab.reload" media="tab.item"></poms-editor>
-        
+
         <poms-search-tab ng-if="tab.type=='search'" id="search-{{tab.id}}" search="tab.item"></poms-search-tab>
-        
+
       </tab>
-      
+
       <tab title='open een nieuwe zoek-tab' ng-click="guiController.newSearch()" class="tab-add"></tab>
-      <tab title='sluit alle tabs' 
-           ng-click="guiController.closeAllTabs(null, 1)" 
+      <tab title='sluit alle tabs'
+           ng-click="guiController.closeAllTabs(null, 1)"
            class="tab-close-all" ng-if="guiController.tabs.length > 1"></tab>
-      
+
     </tabset>
   </scrollable-tabset>
 
 </div>
-  
+
 
 <poms-notifications>
   <toast></toast>
