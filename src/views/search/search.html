@@ -57,14 +57,9 @@
             <script type="text/ng-template" id="searchTypeaheadTpl.html">
                 <a tabindex="-1" >
                     <span ng-switch on="match.model.type">
-                        <span ng-switch-when="searchSuggestion">
-                            {{match.model.text}}
-                        </span>
-
+                        <span ng-switch-when="searchSuggestion" ng-bind-html="match.model.text" />
                         <span ng-switch-when="mediaSuggestion">
-                          <span class="btn-text-icon btn-text-icon-favorite-highlight">
-                              {{match.model.text}}
-                          </span>
+                          <span class="btn-text-icon btn-text-icon-favorite-highlight" ng-bind-html="match.model.text" />
                         </span>
                     </span>
 
@@ -392,7 +387,6 @@
 
   <div class="search-results">
 
-    <poms-search-result search="search" query="query"></poms-search-result>
 
   </div>
 </div>
