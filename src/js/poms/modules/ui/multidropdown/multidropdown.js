@@ -146,6 +146,9 @@ angular.module( 'poms.ui.multidropdown' ).directive( 'pomsMultiDropdown', functi
                                 console.log('no scope', this);
                             }
                             console.log(this.$scope.options);
+                            if (! this.$scope.options) {
+                                return false;
+                            }
                             return ! this.$scope.options.some( function ( option ) {
                                 return option.selected;
                             } );

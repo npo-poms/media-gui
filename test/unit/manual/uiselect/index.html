@@ -6,9 +6,10 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.8.3/angular-sanitize.min.js"
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.8/select.min.js"
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
@@ -22,26 +23,25 @@
           {id: 4, text: 'fourth'},
           {id: 5, text: 'fifth'},
         ];
-        $scope.selected = {};
+        $scope.selected = {"value": {"id": 2, "text": "second"}};
       }]);
 
     </script>
 </head>
 
-<body class="ng-scope" ng-controller="TestController">
+<body  ng-controller="TestController">
+  <p>1</p>
   <p>items: {{itemArray}}</p>
   <p>selected: {{selected.value.id }}</p>
   <ui-select
-          close-on-select="true"
-          reset-search-input="true"
           ng-model="selected.value"
-          theme="bootstrap">
-    <ui-select-match>
-      <span ng-bind="$select.selected.text"></span>
-    </ui-select-match>
+          theme="selectize">
     <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
       <span ng-bind="item.text"></span>
     </ui-select-choices>
+    <ui-select-match>
+      <span ng-bind="$select.selected.text"></span>
+    </ui-select-match>
   </ui-select>
 
 </body>

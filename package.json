@@ -47,7 +47,7 @@
     "poststyles:optimize:dev": "rimraf ./build/work/css/style.css",
     "watch:dev": "npm run dev && npm run serve:dev",
     "watch:dev-secure": "npm run dev && npm run serve:dev-secure",
-    "watch:app": "nodemon --watch src --ext js,html ---exec npm run build:app:dev",
+    "watch:app": "nodemon --watch src --ext js,html --ignore src/generated-js/templates.js --ignore src/generated-js/constants.js --exec npm run build:app:dev",
     "watch:styles": "nodemon --watch src/styles --ext scss --exec npm run build:styles:dev"
   },
   "devDependencies": {
