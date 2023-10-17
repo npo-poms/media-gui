@@ -94,7 +94,6 @@ angular.module( 'poms.util.directives' )
 
 angular.module( 'poms.util.directives' )
     .controller( 'PomsUiSelectController', ['$scope', '$sce', '$timeout',
-
         (function () {
 
             function PomsUiSelectController ( $scope, $sce, $timeout ) {

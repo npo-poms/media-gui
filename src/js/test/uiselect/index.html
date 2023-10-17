@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl" ng-app="app">
+<head>
+  <title>uiselect</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.8.3/angular-sanitize.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.8/select.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
+  <script>
+      var app = angular.module('app', [ 'ui.select', 'ngSanitize']);
+      app.controller('TestController', ['$scope', function ($scope){
+        $scope.itemArray = [
+          {id: 1, name: 'first'},
+          {id: 2, name: 'second'},
+          {id: 3, name: 'third'},
+          {id: 4, name: 'fourth'},
+          {id: 5, name: 'fifth'},
+        ];
+        $scope.selected = { value: $scope.itemArray[0] };
+      }]);
+    </script>
+</head>
+
+<body class="ng-scope" ng-controller="TestController">
+  <p>items: {{itemArray}}</p>
+  <p>selected: {{selected.value.name }}</p>
+  <ui-select ng-model="selected.value" theme="bootstrap">
+    <ui-select-match>
+      <span ng-bind="$select.selected.name"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
+      <span ng-bind="item.name"></span>
+    </ui-select-choices>
+  </ui-select>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+= Test directory
+
+Hier kunnen we handmatig dingen uitproberen in vereenvoudigde omgevingen. Om letterlijk eigen extensies te testen/documenteren,
+maar ook om angularjs te leren.
+
+== multidropdown
+
+== ui-select
+
+Ik kreeg poms-ui-select even niet meer aan de praat. Hier zitten uitproberen hoe dat hele ui-select eigenlijk zou werken.
