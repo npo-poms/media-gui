@@ -114,8 +114,11 @@ angular.module( 'poms.util.directives')
                         return NpoPlayerService.list(midOrParent).then(function (resp) {
                             $scope.players = resp.data;
                             $scope.selected = {"value": $scope.players[0]};
-
-                            $scope.$watch('selected.value', restartPlayer)
+                            $scope.$watch('selected.value', function(newValue, oldValue) {
+                                if (newValue !== oldValue) {
+                                    restartPlayer();
+                                }
+                            }.bind(this))
                         }.bind(this));
                     }
                     $scope.players = $scope.players || [];

@@ -32,7 +32,7 @@ if [ $API_SCHEME = 'https' ] ; then
   RUN="watch:dev-secure"
 fi
 
-echo "Using Media Backend API host $API_HOST"
+echo "Using Media GUI API host $API_HOST"
 
 echo "Find frontend at $API_SCHEME://$localhost:${PORT}"
 echo "Making backup of $CONSTANTS"
