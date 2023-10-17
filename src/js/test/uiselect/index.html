@@ -16,26 +16,31 @@
       var app = angular.module('app', [ 'ui.select', 'ngSanitize']);
       app.controller('TestController', ['$scope', function ($scope){
         $scope.itemArray = [
-          {id: 1, name: 'first'},
-          {id: 2, name: 'second'},
-          {id: 3, name: 'third'},
-          {id: 4, name: 'fourth'},
-          {id: 5, name: 'fifth'},
+          {id: 1, text: 'first'},
+          {id: 2, text: 'second'},
+          {id: 3, text: 'third'},
+          {id: 4, text: 'fourth'},
+          {id: 5, text: 'fifth'},
         ];
-        $scope.selected = { value: $scope.itemArray[0] };
+        $scope.selected = {};
       }]);
+
     </script>
 </head>
 
 <body class="ng-scope" ng-controller="TestController">
   <p>items: {{itemArray}}</p>
-  <p>selected: {{selected.value.name }}</p>
-  <ui-select ng-model="selected.value" theme="bootstrap">
+  <p>selected: {{selected.value.id }}</p>
+  <ui-select
+          close-on-select="true"
+          reset-search-input="true"
+          ng-model="selected.value"
+          theme="bootstrap">
     <ui-select-match>
-      <span ng-bind="$select.selected.name"></span>
+      <span ng-bind="$select.selected.text"></span>
     </ui-select-match>
     <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
-      <span ng-bind="item.name"></span>
+      <span ng-bind="item.text"></span>
     </ui-select-choices>
   </ui-select>
 
