@@ -330,7 +330,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     var fields = this.fields();
                     // Image not uploaded to image server yet
                     this.$upload.upload({
-                        url: this.infoService.getImageBackendUrl() + "api/images/upload",
+                        url: this.infoService.getImageBackendUrl() + "/api/images/upload",
                         method: 'POST',
                         fields: fields,
                         file: image.file && image.file.length > 0 ? image.file[0] : undefined,
