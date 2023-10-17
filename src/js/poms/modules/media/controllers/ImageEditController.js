@@ -191,7 +191,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     modal = this.$uibModal.open( {
                         controller: 'ConfirmController',
                         controllerAs: 'controller',
-                        templateUrl: 'views/util/confirm.html',
+                        templateUrl: '/views/util/confirm.html',
                         windowClass: 'modal-confirm',
                         resolve: {
                             title: function () {

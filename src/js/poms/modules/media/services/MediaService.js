@@ -524,7 +524,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             tooManyDescendants: function ( type, error, message ) {
 
                 return $uibModal.open( {
-                    templateUrl: 'views/media/modal-too-many-descendants.html',
+                    templateUrl: '/views/media/modal-too-many-descendants.html',
                     windowClass: 'modal-descendants',
                     controller: 'TooManyDescendantsController',
                     controllerAs: 'tooManyDescendantsController',

@@ -131,7 +131,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 var modal = this.$uibModal.open( {
                     controller : 'LocationEditController',
                     controllerAs : 'controller',
-                    templateUrl : 'views/edit/modal-edit-location.html',
+                    templateUrl : '/views/edit/modal-edit-location.html',
                     windowClass : 'modal-form',
                     resolve: {
                         media: function () {
@@ -274,7 +274,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 var modal = this.$uibModal.open( {
                     controller : 'LocationUploadController',
                     controllerAs : 'uploadController',
-                    templateUrl : 'views/edit/modal-upload-location.html',
+                    templateUrl : '/views/edit/modal-upload-location.html',
                     windowClass : 'modal-location-upload',
                     resolve : {
                         priorityTypes: this.listService.getPriorityTypes,

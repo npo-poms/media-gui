@@ -69,7 +69,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
                 var modal = this.$uibModal.open( {
                     controller: 'RelationEditController',
                     controllerAs: 'controller',
-                    templateUrl: 'views/edit/modal-edit-relation.html',
+                    templateUrl: '/views/edit/modal-edit-relation.html',
                     windowClass: 'modal-form',
                     resolve: {
                         media: function () {

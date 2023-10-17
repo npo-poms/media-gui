@@ -2,7 +2,7 @@ angular.module( 'poms.util.directives' )
     .directive( 'pomsUiSelectMulti', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/search/poms-ui-select-multiple.html',
+            templateUrl: '/views/search/poms-ui-select-multiple.html',
             scope: {
                 selection: '=',
                 options: '=',
@@ -78,7 +78,7 @@ angular.module( 'poms.util.directives' )
     .directive( 'pomsUiSelect', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/search/poms-ui-select.html',
+            templateUrl: '/views/search/poms-ui-select.html',
             scope: {
                 selection: '=',
                 options: '=',
@@ -146,7 +146,7 @@ angular.module( 'poms.util.directives' )
     .directive( 'pomsUiSelectSuggest', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/search/poms-ui-select-suggest.html',
+            templateUrl: '/views/search/poms-ui-select-suggest.html',
             scope: {
                 selection: '=',
                 remove: '&',

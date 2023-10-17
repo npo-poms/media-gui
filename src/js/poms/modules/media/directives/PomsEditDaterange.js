@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsDaterangepicker', ['EditService', 'EditFieldService', '$q', function ( editService, editFieldService, $q ) {
         return {
             restrict: 'E',
-            templateUrl: 'views/edit/editables/poms-daterangepicker.html',
+            templateUrl: '/views/edit/editables/poms-daterangepicker.html',
             scope: {
                 field: '@',
                 header: '@',

@@ -173,7 +173,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
                 if ( this.mayWrite) {
                     this.$scope.modal = this.$uibModal.open( {
                         scope: this.$scope,
-                        templateUrl: 'views/edit/editables/poms-table-restrictions.html',
+                        templateUrl: '/views/edit/editables/poms-table-restrictions.html',
                         windowClass: 'modal-edit'
                     } );
                 }

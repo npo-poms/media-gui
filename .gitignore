@@ -4,4 +4,4 @@
 /build
 /node_modules
 /node
-/constants.js.bu
+/src/generated-js

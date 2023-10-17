@@ -3,7 +3,7 @@ angular.module( 'poms.media.directives' )
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'views/edit/editables/poms-edit-tools.html',
+            templateUrl: '/views/edit/editables/poms-edit-tools.html',
             scope: {
                 helpField: '@',
                 mayWrite: '=',

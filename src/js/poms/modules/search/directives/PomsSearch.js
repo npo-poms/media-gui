@@ -2,7 +2,7 @@ angular.module('poms.search.directives')
         .directive('pomsSearchTab', [function() {
             return {
                 restrict : 'E',
-                templateUrl : 'views/search/search-tab.html',
+                templateUrl : '/views/search/search-tab.html',
                 controller : 'SearchTabController',
                 controllerAs : 'searchTabController',
                 scope : {
@@ -13,7 +13,7 @@ angular.module('poms.search.directives')
         .directive('pomsSearch', [function() {
             return {
                 restrict : 'E',
-                templateUrl : 'views/search/search.html',
+                templateUrl : '/views/search/search.html',
                 controller : 'SearchFormController',
                 controllerAs : 'searchFormController',
                 scope : {
@@ -24,7 +24,7 @@ angular.module('poms.search.directives')
         .directive('pomsSearchResult', [function() {
             return {
                 restrict : 'E',
-                templateUrl : 'views/search/search-results.html',
+                templateUrl : '/views/search/search-results.html',
                 controller : 'SearchResultController',
                 controllerAs : 'searchResultController',
                 scope : {

@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsGenres', ['PomsEvents', 'EditService', 'FavoritesService' ,'MediaService', 'ListService', '$q', '$sce', '$timeout', '$uibModal', 'EditFieldService', function ( pomsEvents, editService, favoritesService, mediaService, listService, $q, $sce, $timeout, $uibModal, editFieldService ) {
         return {
             restrict: 'E',
-            templateUrl: 'views/edit/editables/poms-genres.html',
+            templateUrl: '/views/edit/editables/poms-genres.html',
             scope: {
                 media: '=',
                 helpField : '@'

@@ -3,7 +3,7 @@ angular.module( 'poms.util.directives' )
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'views/template/poms-help/poms-help.html',
+            templateUrl: '/views/template/poms-help/poms-help.html',
 
             scope: {
                 field: '@'

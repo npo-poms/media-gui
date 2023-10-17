@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsEditableModal', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/edit/editables/poms-editable-modal.html',
+            templateUrl: '/views/edit/editables/poms-editable-modal.html',
             scope: {
                 options: '&',
                 platforms: '&',

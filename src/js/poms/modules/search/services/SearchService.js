@@ -105,7 +105,7 @@ angular.module('poms.search.services').factory('SearchService', [
                 var modal = $uibModal.open( {
                     controller: 'PreviewController',
                     controllerAs: 'controller',
-                    templateUrl: 'views/gui/modal-preview-media.html',
+                    templateUrl: '/views/gui/modal-preview-media.html',
                     windowClass: 'modal-preview',
 
                     resolve: {
@@ -141,7 +141,7 @@ angular.module('poms.search.services').factory('SearchService', [
                 var deferred = $q.defer();
 
                 var modal = $uibModal.open({
-                    templateUrl : 'views/search/modal-search.html',
+                    templateUrl : '/views/search/modal-search.html',
                     controller : 'ModalSearchController',
                     controllerAs : 'modalSearchController',
                     windowClass : 'modal-search',

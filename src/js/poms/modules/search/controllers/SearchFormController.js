@@ -40,7 +40,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             this.$scope.dateFormat = 'dd-MM-yyyy';
 
             this.$scope.formData = this.search.form;
-
+            this.$scope.formData.selectedAVType = {value: { id : 'VIDEO', text : 'Video' }};
 
             this.setFilterOptions();
 
@@ -224,12 +224,13 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                     }
 
                     for(var i = 0; i < selected.length; i++) {
-                        var value = selected[i];
+                        const value = selected[i];
 
                         var option = _.find(options, function(option) {
                             return option.id === value.id;
                         });
 
+                        console.log("option", option);
                         if(!option) {
                             // just a precaution
                             selected.splice(i, 1);
@@ -244,7 +245,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                     var field = form[binding.field];
                     var value = field && field.isRestrictedField ? field.value : field;
                     var restriction = field && field.restriction;
-
+                    console.log(scope);
                     if(restriction) {
                         scope[binding.options] = {
                             data : restriction
@@ -252,18 +253,18 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                         bindSelectedValues(value, restriction);
                     } else {
                         binding.load().then(
-                                function(data) {
-                                    scope[binding.options] = {
-                                        data : data
-                                    };
-
-                                    bindSelectedValues(value, data);
-                                },
-                                function() {
-                                    options = {
-                                        data : []
-                                    };
-                                }
+                            function(data) {
+                                console.log("Loaded ", binding.options, data);
+                                scope[binding.options] = {
+                                    data : data
+                                };
+                                bindSelectedValues(value, data);
+                            },
+                            function() {
+                                options = {
+                                    data : []
+                                };
+                            }
                         );
                     }
                 });

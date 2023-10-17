@@ -4,7 +4,7 @@ angular.module( 'poms.media.directives' )
         restrict: 'E',
         replace: true,
 
-        templateUrl: 'views/util/poms-owner.html',
+        templateUrl: '/views/util/poms-owner.html',
 
         scope: {
             owner: '@',
@@ -33,7 +33,7 @@ angular.module( 'poms.media.directives' )
                     },
                     controller: 'OwnersController',
                     controllerAs: 'ownersController',
-                    templateUrl: 'views/edit/modal-owner.html',
+                    templateUrl: '/views/edit/modal-owner.html',
                     windowClass: "modal-owner"
 
                 } );

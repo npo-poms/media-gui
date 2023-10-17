@@ -114,7 +114,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 var modal = $uibModal.open( {
                     controller: 'AccountController',
                     controllerAs: 'accountController',
-                    templateUrl: 'views/gui/modal-account.html',
+                    templateUrl: '/views/gui/modal-account.html',
                     windowClass: 'modal-account',
                     resolve: {
                         editor: function () {

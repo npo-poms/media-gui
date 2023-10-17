@@ -481,7 +481,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     scope: this.$scope,
                     controller: 'ScheduleEventsController',
                     controllerAs: 'scheduleEventsController',
-                    templateUrl: 'views/edit/modal-schedule-events.html'
+                    templateUrl: '/views/edit/modal-schedule-events.html'
 
                 } );
             },
@@ -507,7 +507,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     },
                     controller : 'OwnersController',
                     controllerAs : 'ownersController',
-                    templateUrl: 'views/edit/modal-owners.html',
+                    templateUrl: '/views/edit/modal-owners.html',
                     windowClass: "modal-owners"
                 });
 
@@ -530,7 +530,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     },
                     controller : 'OwnerController',
                     controllerAs : 'ownerController',
-                    templateUrl: 'views/edit/modal-owner.html',
+                    templateUrl: '/views/edit/modal-owner.html',
                     windowClass: "modal-owner"
 
                 });
@@ -563,7 +563,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     scope: this.$scope,
                     controller: 'SubtitlesController',
                     controllerAs: 'subtitlesController',
-                    templateUrl: 'views/media/modal-subtitles.html'
+                    templateUrl: '/views/media/modal-subtitles.html'
 
                 } );
             },
@@ -589,7 +589,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                     },
                     controller : 'SubtitlesUploadController',
                     controllerAs : 'subtitlesUploadController',
-                    templateUrl : 'views/edit/modal-upload-subtitles.html',
+                    templateUrl : '/views/edit/modal-upload-subtitles.html',
                     windowClass : 'modal-subtitles-upload'
                 } );
 

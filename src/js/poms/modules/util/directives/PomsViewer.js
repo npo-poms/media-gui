@@ -2,7 +2,7 @@ angular.module( 'poms.util.directives')
     .directive( 'pomsViewer', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/edit/viewer.html',
+            templateUrl: '/views/edit/viewer.html',
             scope: {
                 media: '=',
                 playertype: "@", // if set will be inserted into the id of the player. This was the same object can e.g. be in a modal, and in an editor.

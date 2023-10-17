@@ -359,7 +359,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     },
                     controller : "EditHistoryController",
                     controllerAs : "EditHistoryController",
-                    templateUrl : 'views/edit/modal-history.html'
+                    templateUrl : '/views/edit/modal-history.html'
 
                 } );
             }

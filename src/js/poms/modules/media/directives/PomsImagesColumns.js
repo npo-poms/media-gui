@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsImagesColumns', ['$parse', 'PomsEvents', 'localStorageService', 'EditorService', 'NotificationService', function ( $parse, pomsEvents, localStorageService, editorService, notificationService ) {
         return {
             restrict: 'E',
-            templateUrl: 'views/common/columns.html',
+            templateUrl: '/views/common/columns.html',
             link: function ( $scope, element, attrs ) {
                 var namespace, defaultKey, editor;
 

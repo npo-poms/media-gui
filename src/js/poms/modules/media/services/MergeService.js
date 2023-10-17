@@ -51,7 +51,7 @@ angular.module('poms.media.services').factory('MergeService', [
             _showMergeView : function(merge) {
 
                 var modal = $uibModal.open({
-                    templateUrl : 'views/edit/modal-merge.html',
+                    templateUrl : '/views/edit/modal-merge.html',
                     controller : 'ModalMergeController',
                     controllerAs : 'controller',
                     windowClass : 'modal-merge',

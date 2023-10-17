@@ -51,7 +51,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 $uibModal.open( {
                     controller : 'FavoritesController',
                     controllerAs : 'favoritesController',
-                    templateUrl : 'views/gui/modal-favorites.html',
+                    templateUrl : '/views/gui/modal-favorites.html',
                     windowClass : 'modal-favorites'
                 } );
             },

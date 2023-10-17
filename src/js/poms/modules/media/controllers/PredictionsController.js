@@ -52,7 +52,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                 var modal = this.$uibModal.open({
                     controller: 'PredictionEditController',
                     controllerAs: 'controller',
-                    templateUrl: 'views/edit/modal-edit-prediction.html',
+                    templateUrl: '/views/edit/modal-edit-prediction.html',
                     windowClass: 'modal-form modal-edit-prediction',
                     resolve: {
                         media: function () {

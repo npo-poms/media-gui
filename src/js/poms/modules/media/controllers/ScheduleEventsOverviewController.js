@@ -43,7 +43,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
                 var modal = this.$uibModal.open( {
                     controller : 'ScheduleEventEditController',
                     controllerAs : 'controller',
-                    templateUrl : 'views/edit/modal-edit-schedule-event.html',
+                    templateUrl : '/views/edit/modal-edit-schedule-event.html',
                     windowClass : 'modal-form',
                     resolve : {
                         media : function () {

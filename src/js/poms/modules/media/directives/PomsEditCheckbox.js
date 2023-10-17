@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsEditCheckbox', ['EditService', '$q', function ( editService, $q ) {
         return {
             restrict: 'E',
-            templateUrl: 'views/edit/editables/poms-checkbox.html',
+            templateUrl: '/views/edit/editables/poms-checkbox.html',
             transclude: true,
             scope: {
                 header: '@header',

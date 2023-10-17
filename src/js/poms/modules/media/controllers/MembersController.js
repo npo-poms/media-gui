@@ -27,7 +27,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
 
             this.$scope.waiting = true;
-            this.$scope.page = 0;             
+            this.$scope.page = 0;
 
             $scope.sortableOptions = {
                 handle: '.sort-handle',
@@ -112,7 +112,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                     }.bind( this ) );
 
             },
-            
+
             setPage: function (page) {
               if (this.$scope.page !== page) {
                   this.$scope.page = page;
@@ -250,7 +250,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 this.load();
             },
 
-         
+
             locationTypes : function( locations ){
                 var uniqueLocations = [];
                 for ( var i = 0; i < locations.length; i ++ ) {
@@ -268,7 +268,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                 var modal = this.$uibModal.open( {
                     controller: 'ConfirmController',
                     controllerAs: 'controller',
-                    templateUrl: 'views/util/confirm.html',
+                    templateUrl: '/views/util/confirm.html',
                     windowClass: 'modal-confirm',
                     resolve: {
                         title: function () {

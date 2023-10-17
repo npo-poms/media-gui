@@ -89,7 +89,7 @@
     "lodash": "~4.17.21",
     "mkdirp": "~0.5.1",
     "moment": "^2.29.4",
-    "ng-config": "git+https://github.com/tlvince/ng-config.git#1.0.0",
+    "ng-config": "1.0.0",
     "ng-file-upload": "~3.0.7",
     "node-gyp": "~8.4.1",
     "nodemon": "~1.8.1",

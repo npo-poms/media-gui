@@ -1,7 +1,7 @@
 angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $log ) {
     return {
         restrict: 'E',
-        templateUrl: 'views/search/pager.html',
+        templateUrl: '/views/search/pager.html',
         scope: {
             searchResults: '=searchresults',  // allows data to be passed into directive from controller scope
             submit: '&onsearch'
@@ -20,7 +20,7 @@ angular.module( 'poms.search.directives' ).directive( 'pomsPager', function ( $l
                 if ( ! angular.equals( newValue, oldValue ) ) {
                     // two modes. Either the backend returns with offset, or with previous/next pages
                     $scope.total = newValue.total;
-                    if (newValue['@type'] === 'pagedList') { // used for members/episodes 
+                    if (newValue['@type'] === 'pagedList') { // used for members/episodes
                         $scope.max = newValue.pageSize;
                         $scope.offset = newValue.offset;
                         $scope.currentPage = newValue.page + 1;

@@ -18,7 +18,7 @@ angular.module( 'poms.media.services' ).factory( 'EditFieldService', [ '$uibModa
                     var saveConfirmModal = $uibModal.open( {
                         controller: 'SaveConfirmController',
                         controllerAs: 'controller',
-                        templateUrl: 'views/util/saveconfirm.html',
+                        templateUrl: '/views/util/saveconfirm.html',
                         windowClass: "modal-confirm-save"
                     } );
 

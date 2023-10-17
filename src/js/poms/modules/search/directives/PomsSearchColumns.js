@@ -2,7 +2,7 @@ angular.module( 'poms.search.directives' )
     .directive( 'pomsSearchColumns', [function ( ) {
         return {
             restrict: 'E',
-            templateUrl: 'views/common/columns.html',
+            templateUrl: '/views/common/columns.html',
             controller: function ( $scope, $rootScope, PomsEvents, localStorageService, EditorService, NotificationService) {
 
                 var defaultKey, defaultColumns, localKey, editor;

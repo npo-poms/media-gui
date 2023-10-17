@@ -71,7 +71,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 var modal = this.$uibModal.open( {
                     controller: 'SegmentEditController',
                     controllerAs: 'controller',
-                    templateUrl: 'views/edit/modal-create-segment.html',
+                    templateUrl: '/views/edit/modal-create-segment.html',
                     windowClass: 'modal-form modal-segment',
                     resolve: {
                         media: function () {
@@ -127,7 +127,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
                 if (this.canItemize()) {
                     itemizerController = 'ItemizerNEPController';
-                    itemizerTemplate = 'views/media/itemizerNEP.html';
+                    itemizerTemplate = '/views/media/itemizerNEP.html';
                 }
 
                 var modal = this.$uibModal.open( {

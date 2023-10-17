@@ -3,7 +3,7 @@ angular.module( 'poms.util.directives' )
         return {
             replace : false,
 
-            templateUrl : 'views/util/poms-clipboard.html',
+            templateUrl : '/views/util/poms-clipboard.html',
 
             scope : {
                 field : '='

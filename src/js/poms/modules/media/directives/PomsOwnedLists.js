@@ -2,7 +2,7 @@ angular.module( 'poms.media.directives' )
     .directive( 'pomsOwnedlists', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/edit/editables/poms-ownedlists.html',
+            templateUrl: '/views/edit/editables/poms-ownedlists.html',
             scope: {
               media: '=',
               helpField : '@',
