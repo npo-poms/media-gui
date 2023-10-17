@@ -13,8 +13,8 @@ angular.module( 'poms.util.directives')
                 $scope.isPlayable = ($scope.media.locations > 0
                                     || ($scope.media.locations && $scope.media.locations.length > 0)
                                     || $scope.media.type.id === 'SEGMENT');
-                
-             
+
+
 
                 $scope.play = function () {
 
@@ -56,7 +56,7 @@ angular.module( 'poms.util.directives')
                 $scope.stop = function () {
                     NpoPlayerService.stop( $scope.containerId);
                 };
-                
+
                 $scope.pause = function () {
                     NpoPlayerService.pause( $scope.containerId);
                 };
@@ -110,12 +110,15 @@ angular.module( 'poms.util.directives')
 
                 setupPlayer = function(midOrParent) {
                     if (!$scope.players) {
-                        
+
                         return NpoPlayerService.list(midOrParent).then(function (resp) {
                             $scope.players = resp.data;
                             $scope.selected = {"value": $scope.players[0]};
-                            
-                            $scope.$watch('selected.value', restartPlayer)
+                            $scope.$watch('selected.value', function(newValue, oldValue) {
+                                if (newValue !== oldValue) {
+                                    restartPlayer();
+                                }
+                            }.bind(this))
                         }.bind(this));
                     }
                     $scope.players = $scope.players || [];
