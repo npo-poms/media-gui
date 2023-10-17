@@ -18,11 +18,8 @@ localhost=${localhost_fromsettings:-localhost}
 D=$(dirname $BASH_SOURCE)
 DIR=`(cd $D ; pwd)`
 PATH=$DIR/node:$PATH
-CONSTANTS=$DIR/src/js/poms/constants.js
 ARGS=
 RUN="watch:dev"
-
-FLAG_ICONS_VERSION=`mvn help:evaluate     -Dexpression=flag-icon-css.version  -q -DforceStdout`
 
 if [ $API_SCHEME = 'https' ] ; then
   if [ -e "$D/server.key" ] ; then
@@ -35,9 +32,4 @@ fi
 echo "Using Media GUI API host $API_HOST"
 
 echo "Find frontend at $API_SCHEME://$localhost:${PORT}"
-echo "Making backup of $CONSTANTS"
-cp $CONSTANTS $DIR/constants.js.bu
-(cd $DIR ; npm_config_apihost=$API_HOST  FLAG_ICON_VERSION=$FLAG_ICONS_VERSION $ARGS npm run $RUN)
-echo "Restoring $CONSTANTS"
-
-mv -f $DIR/constants.js.bu $CONSTANTS
+(cd $DIR ; npm_config_apihost=$API_HOST  $ARGS npm run $RUN)

@@ -15,6 +15,8 @@ app.use( '/node_modules', express.static( './node_modules' ) );
 app.use( '/js', express.static( './src/js' ) );
 app.use( '/views', express.static( './src/views' ) );
 app.use( '/resources', express.static( './src/resources' ) );
+app.use( '/build', express.static( './build' ) );
+
 
 app.listen( port, function () {
 
