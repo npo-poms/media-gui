@@ -26,12 +26,12 @@ angular.module('poms.media.controllers').controller('InfoController', [
 
             init : function() {
                 this.infoService.getInfo().then(
-                        function(info) {
-                            this.$scope.info = info;
-                        }.bind(this),
-                        function(error) {
-                            $scope.$emit(this.pomsEvents.error, error);
-                        }.bind(this)
+                    function(info) {
+                        this.$scope.info = info;
+                    }.bind(this),
+                    function(error) {
+                        this.$scope.$emit(this.pomsEvents.error, error);
+                    }.bind(this)
                 );
             },
 
@@ -41,8 +41,8 @@ angular.module('poms.media.controllers').controller('InfoController', [
             },
 
             showUserUpdatesLastHour : function( displayName ) {
-                var start = new Date();
-                var stop = new Date();
+                const start = new Date();
+                const stop = new Date();
 
                 start.setHours(start.getHours() - 1);
 
@@ -51,8 +51,8 @@ angular.module('poms.media.controllers').controller('InfoController', [
             },
 
             showUserUpdatesLastDay : function( displayName ) {
-                var start = new Date(),
-                        stop = new Date();
+                const start = new Date();
+                const stop = new Date();
 
                 start.setDate(start.getDate() - 1);
 

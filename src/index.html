@@ -78,7 +78,7 @@
 </div>
 
 <nav class="header" ng-if="guiController.loaded">
-  <span class="header-title">
+  <span class="header-title" title="{{guiController.infoService.getOtap().otap}}">
     <a class="header-logo" href="javascript:void(0)" ng-click="guiController.openInfo()">
       <img class="header-logo-image" src="./resources/images/npo-poms.svg" alt="POMS"/>
     </a>
