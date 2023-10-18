@@ -10,7 +10,7 @@ angular.module( 'poms.media.directives' )
             },
             link: function ( $scope, element, attrs ) {
 
-                var media = $scope.$parent.media;
+                const media = $scope.$parent.media;
                 $scope.errorType = '';
 
                 $scope.media = media;
@@ -45,7 +45,7 @@ angular.module( 'poms.media.directives' )
                 };
 
                 $scope.keyEvent = function ( event ) {
-                    if ( event.keyCode == 27 ) {
+                    if ( event.keyCode === 27 ) {
                         $scope.cancel();
                     }
                 };
@@ -58,10 +58,10 @@ angular.module( 'poms.media.directives' )
                 $scope.save = function (  ) {
                     $scope.waiting = true;
 
-                    var dateObject = {};
+                    const dateObject = {};
 
-                    var startdate = $scope.editableForm.$data.startdate;
-                    var stopdate = $scope.editableForm.$data.stopdate;
+                    let startdate = $scope.editableForm.$data.startdate;
+                    let stopdate = $scope.editableForm.$data.stopdate;
 
                     if ( startdate ) {
                         startdate = new Date( startdate ).getTime();
@@ -81,11 +81,11 @@ angular.module( 'poms.media.directives' )
                     if (// field was empty, end remained empty
                         (!dateObject.stop && !dateObject.start && !$scope.media[$scope.field].start && !$scope.media[$scope.field].stop) ||
                         // or, no changes
-                        ( $scope.media[$scope.field].start == startdate && $scope.media[$scope.field].stop == stopdate )){
+                        ( $scope.media[$scope.field].start === startdate && $scope.media[$scope.field].stop === stopdate )){
                             $scope.waiting = false;
                             $scope.editableForm.$hide();
                     } else {
-                        var deferred = $q.defer();
+                        const deferred = $q.defer();
 
                         editService[$scope.field]( media, dateObject ).then(
                             function ( result ) {
@@ -118,10 +118,10 @@ angular.module( 'poms.media.directives' )
 
                     e.stopPropagation();
 
-                    var dateObject = {};
+                    const dateObject = {};
 
-                    var startdate = $scope.editableForm.$data.startdate;
-                    var stopdate = $scope.editableForm.$data.stopdate;
+                    let startdate = $scope.editableForm.$data.startdate;
+                    let stopdate = $scope.editableForm.$data.stopdate;
 
                     if ( startdate ) {
                         startdate = new Date( startdate ).getTime();
@@ -138,7 +138,7 @@ angular.module( 'poms.media.directives' )
                         dateObject.stop = dateObject.start;
                     }
 
-                    if ((!dateObject.stop && ! dateObject.start ) || ( $scope.media[$scope.field].start == startdate && $scope.media[$scope.field].stop == stopdate )){
+                    if ((!dateObject.stop && ! dateObject.start ) || ( $scope.media[$scope.field].start === startdate && $scope.media[$scope.field].stop === stopdate )){
                         $scope.waiting = false;
                         $scope.editableForm.$hide();
                     }else{

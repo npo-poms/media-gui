@@ -14,7 +14,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             return new Date( '' + d );
         }
         function dateRange(range) {
-            var result = {};
+            const result = {};
             if (range) {
                 result.start = date(range.start);
                 result.stop = date(range.stop);
@@ -44,7 +44,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             value : undefined,
 
             remove : function ( value ) {
-                var allow = this.restriction === undefined;
+                let allow = this.restriction === undefined;
 
                 if ( this.value.constructor === Array ) {
                     if ( ! allow ) {
@@ -55,8 +55,8 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                                 allow = true;
                             }
                         } else {
-                            for ( var i = 0; i < this.value.length; i ++ ) {
-                                var restrictedValue = this.value[ i ];
+                            for (let i = 0; i < this.value.length; i ++ ) {
+                                const restrictedValue = this.value[i];
                                 if ( ! angular.equals( restrictedValue, value ) && _.includes( this.restriction, value ) ) {
                                     allow = true;
                                     break;
@@ -66,7 +66,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     }
 
                     if ( allow ) {
-                        var l = this.value.length;
+                        const l = this.value.length;
                         _.remove( this.value, function ( type ) {
                             return type.id === value.id;
                         } );
@@ -151,9 +151,9 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                 if ( field.isRestrictedField ) {
                     return field.remove( value );
                 } else {
-                    var success = false;
+                    let success = false;
                     _.remove( field, function ( option ) {
-                        var equals = _.isEqual( value, option );
+                        const equals = _.isEqual(value, option);
                         success |= equals;
                         return equals;
                     } );
@@ -202,23 +202,23 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             applyRestrictions : function ( media ) {
-                var self = this;
-                var allow = true;
+                const self = this;
+                let allow = true;
 
                 // We don't check against the form fields but against the restricted fields
                 // currently the only restricted fields in use are types and properties
-                var checks = [
+                const checks = [
                     function () {
-                        allow = ! self.types.restriction
+                        allow = !self.types.restriction
                             || _.includes(
-                                _.map( self.types.restriction, function ( type ) {
+                                _.map(self.types.restriction, function (type) {
                                     return type.id
-                                } ), media.type.id );
+                                }), media.type.id);
                         return allow;
                     },
                     function () {
-                        _.forEach( self.properties.restriction, function ( restriction ) {
-                            switch ( restriction.id ) {
+                        _.forEach(self.properties.restriction, function (restriction) {
+                            switch (restriction.id) {
                                 case 'noScheduleEvents' :
                                     allow = media.scheduleEvents && media.scheduleEvents.length > 0;
                                     return allow;
@@ -232,11 +232,11 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                                     allow = media.locations && media.locations.length > 0;
                                     return allow;
                                 case 'writable' :
-                                    allow = mediaService.hasWritePermission( media, 'media' );
+                                    allow = mediaService.hasWritePermission(media, 'media');
                                     return allow;
                             }
 
-                        } );
+                        });
 
                         return allow;
                     }
@@ -252,7 +252,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
 
             // returns a shallow clone of this object while replacing all restricted field to there bare value for querying
             getQuery : function () {
-                var clone = _.clone( this );
+                const clone = _.clone(this);
 
                 // unwrap restricted fields
                 _.forEach( clone, function ( field, key ) {
@@ -272,19 +272,19 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             buildSummary : function () {
-                var queryTerms = [],
-                    queryText = this.text,
-                    ignoreKeys = [ 'text', 'summary', 'dateType', '$$hashKey' ];
+                let queryTerms = [];
+                const queryText = this.text,
+                    ignoreKeys = ['text', 'summary', 'dateType', '$$hashKey'];
 
-                for ( var key in this ) {
+                for (let key in this ) {
                     if ( ! this[ key ] || (key.length && key.length === 0)) {
                         continue;
                     }
 
                     if ( this.hasOwnProperty( key ) && key in this.dateConstraintTypes) {
-                        var formDate = this[key];
+                        const formDate = this[key];
                         if (formDate.start || formDate.stop) {
-                            var dateDisplay = this.dateConstraintTypes[key];
+                            let dateDisplay = this.dateConstraintTypes[key];
                             if (formDate.start) {
                                 dateDisplay = dateDisplay + " vanaf " + $filter('date')(formDate.start, 'dd-MM-yyyy');
                             }
@@ -303,7 +303,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                         queryTerms.push( 'niet: ' + this[ key ] );
                     } else if ( this.hasOwnProperty(key) && ignoreKeys.indexOf(key) === - 1 ) {
 
-                        var value = this[ key ];
+                        let value = this[key];
 
                         if ( value.isRestrictedField ) {
                             value = value.value;
@@ -313,7 +313,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                         if ( value ) {
                             //check for objects & arrays ... and strings???
                             if (value.length) {
-                                for (var term in value) {
+                                for (let term in value) {
                                     if (value.hasOwnProperty(term)) {
                                         if (typeof value[term] === 'string') {
                                             queryTerms.push(value[term]);
@@ -380,8 +380,8 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             matches : function ( scope ) {
-                for ( var i = 0; i < this.scope.length; i ++ ) {
-                    var value = this.scope[ i ];
+                for (let i = 0; i < this.scope.length; i ++ ) {
+                    const value = this.scope[i];
                     if ( value === scope ) {
                         return true;
                     }
@@ -427,10 +427,10 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
         }
 
         SearchFactory.pushMediaTypes = function ( ids, target ) {
-            for ( var r = 0; r < ids.length; r ++ ) {
-                var requestType = ids[ r ];
-                for ( var s = 0; s < SearchFactory._typesHolder.length; s ++ ) {
-                    var sourceType = SearchFactory._typesHolder[ s ];
+            for (let r = 0; r < ids.length; r ++ ) {
+                const requestType = ids[r];
+                for (let s = 0; s < SearchFactory._typesHolder.length; s ++ ) {
+                    const sourceType = SearchFactory._typesHolder[s];
                     if ( requestType === sourceType.id ) {
                         target.push( sourceType );
                         break;
@@ -455,12 +455,12 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newDescendantOfSearch : function ( config ) {
-                var search = {
-                    scope : 'descendantOf',
-                    form : {
-                        excludedMids : config.selectedMids ,
-                        types : {
-                            restriction : SearchFactory.pushMediaTypes( [ 'GROUP' ], [] )
+                const search = {
+                    scope: 'descendantOf',
+                    form: {
+                        excludedMids: config.selectedMids,
+                        types: {
+                            restriction: SearchFactory.pushMediaTypes(['GROUP'], [])
                         }/*,
                          properties : {
                          strict : true,
@@ -480,12 +480,12 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newEpisodesSearch : function ( config ) {
-                var search = {
-                    scope : 'episodes',
-                    form : {
-                        excludedMids : [ config.parentMid ],
-                        types : {
-                            restriction : SearchFactory.pushMediaTypes( [ 'BROADCAST' ], [] )
+                const search = {
+                    scope: 'episodes',
+                    form: {
+                        excludedMids: [config.parentMid],
+                        types: {
+                            restriction: SearchFactory.pushMediaTypes(['BROADCAST'], [])
                         }/*,
                         properties : {
                             strict : true,
@@ -505,19 +505,19 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newEpisodeOfSearch : function ( config ) {
-                var search = {
-                    scope : 'episodeOf',
-                    form : {
-                        excludedMids : [ config.parentMid ],
-                        types : {
-                            restriction : SearchFactory.pushMediaTypes( [ 'SERIES', 'SEASON' ], [] )
+                const search = {
+                    scope: 'episodeOf',
+                    form: {
+                        excludedMids: [config.parentMid],
+                        types: {
+                            restriction: SearchFactory.pushMediaTypes(['SERIES', 'SEASON'], [])
                         },
-                        properties : {
-                            strict : true,
-                            restriction : [
+                        properties: {
+                            strict: true,
+                            restriction: [
                                 {
-                                    id : 'writable',
-                                    text : 'Mag schrijven'
+                                    id: 'writable',
+                                    text: 'Mag schrijven'
                                 }
                             ]
                         }
@@ -530,10 +530,10 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newMembersSearch : function ( config ) {
-                var search = {
-                    scope : 'members',
-                    form : {
-                        excludedMids : [ config.parentMid ]
+                const search = {
+                    scope: 'members',
+                    form: {
+                        excludedMids: [config.parentMid]
                     }
 
                 };
@@ -544,16 +544,16 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newMemberOfSearch : function ( config ) {
-                var search = {
-                    scope : 'memberOf',
-                    form : {
-                        excludedMids : [ config.parentMid ],
-                        properties : {
-                            strict : true,
-                            restriction : [
+                const search = {
+                    scope: 'memberOf',
+                    form: {
+                        excludedMids: [config.parentMid],
+                        properties: {
+                            strict: true,
+                            restriction: [
                                 {
-                                    id : 'writable',
-                                    text : 'Mag schrijven'
+                                    id: 'writable',
+                                    text: 'Mag schrijven'
                                 }
                             ]
                         }
@@ -568,22 +568,22 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             newMergeSearch : function ( type, config ) {
                 config = config || {};
 
-                var search = {
-                    scope : 'merge',
-                    allowStore : false,
-                    multiSelect : false,
-                    form : {
-                        excludedMids : [ config.parentMid ],
-                        types : {
-                            strict : true,
-                            restriction : SearchFactory.pushMediaTypes( [ type.id ? type.id : type ], [] )
+                const search = {
+                    scope: 'merge',
+                    allowStore: false,
+                    multiSelect: false,
+                    form: {
+                        excludedMids: [config.parentMid],
+                        types: {
+                            strict: true,
+                            restriction: SearchFactory.pushMediaTypes([type.id ? type.id : type], [])
                         },
-                        properties : {
-                            strict : true,
-                            restriction : [
+                        properties: {
+                            strict: true,
+                            restriction: [
                                 {
-                                    id : 'writable',
-                                    text : 'Mag schrijven'
+                                    id: 'writable',
+                                    text: 'Mag schrijven'
                                 }
                             ]
                         }
@@ -606,7 +606,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     }
                 } );
 
-                var search = new Search( config );
+                const search = new Search(config);
                 search.form.buildSummary();
                 return search
             },

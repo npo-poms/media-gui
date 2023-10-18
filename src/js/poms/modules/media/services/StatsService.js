@@ -3,7 +3,7 @@ angular.module( 'poms.media.services' ).factory( 'StatsService', [
     '$http',
     'appConfig',
     function ($q, $http, appConfig ) {
-        var baseUrl = appConfig.apiHost + '/gui/admin';
+        const baseUrl = appConfig.apiHost + '/gui/admin';
 
         function StatsService () {
         }
@@ -11,11 +11,11 @@ angular.module( 'poms.media.services' ).factory( 'StatsService', [
         StatsService.prototype = {
 
             getStats: function ( ) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
                 $http.get( baseUrl ).then(
                     function ( response ) {
-                        var start = response.data;
+                        const start = response.data;
                         deferred.resolve( stats );
                     },
                     function ( error ) {

@@ -75,13 +75,13 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                     this.mediaService[this.$scope.load]( this.media ).then(
                         function ( data ) {
-                            var values = data.values;
+                            const values = data.values;
                             this.$scope.selectedItems = {
                                 selected :[]
                             };
 
-                            for ( var i = 0; i < values.length; i ++ ) {
-                                for ( var j = 0; j < this.options.length; j ++ ) {
+                            for (let i = 0; i < values.length; i ++ ) {
+                                for (let j = 0; j < this.options.length; j ++ ) {
                                     if ( this.options[j].id === values[i].id ) {
                                         this.$scope.selectedItems.selected.push( this.options[j] );
                                     }
@@ -140,8 +140,8 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             submit: function ( e ) {
                 this.waiting = true;
 
-                var data = this.uiSelect.selected;
-                var deferred = this.$q.defer();
+                const data = this.uiSelect.selected;
+                const deferred = this.$q.defer();
 
                 if ( e ) {
                     e.preventDefault();
@@ -152,7 +152,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                     this.close();
                     return; // no change
                 }
-                var saveMethodName = this.$scope.save;
+                const saveMethodName = this.$scope.save;
                 this.mediaService[saveMethodName]( this.media, data ).then(
                     function ( result ) {
 
@@ -168,7 +168,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                         this.$scope.errorText = error.message;
 
                         if ( error.violations ) {
-                            for ( var violation in  error.violations ) {
+                            for (let violation in  error.violations ) {
                                 this.$scope.errorText = error.violations[violation];
                                 deferred.reject( $scope.errorText );
                                 break;
@@ -186,7 +186,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
                 e.stopPropagation();
 
-                var data = this.uiSelect.selected;
+                const data = this.uiSelect.selected;
 
                 if ( angular.equals( data, this.items.values ) || (data.length === 0 && !this.items.values) ) {
                     this.close();
@@ -207,7 +207,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             },
 
             removeOverride: function () {
-                var removeMethodName = this.$scope.removeAll;
+                const removeMethodName = this.$scope.removeAll;
                 this.mediaService[removeMethodName](this.media).then(
                     function (data) {
                         angular.copy(data, this.items);

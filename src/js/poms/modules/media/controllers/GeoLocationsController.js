@@ -59,7 +59,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
                     "geographicname",
                     item,
                     function ( concept, role ) {
-                        var parsedGeoLocation = this.parseGeoLocation(concept, role);
+                        const parsedGeoLocation = this.parseGeoLocation(concept, role);
                         parsedGeoLocation.id = item ? item.id : null;
                         this.saveGeoLocation(parsedGeoLocation);
                     }.bind(this));

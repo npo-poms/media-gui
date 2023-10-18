@@ -5,7 +5,7 @@
         'poms.media'
     ] );
 
-    var module = angular.module( 'poms', [
+    const module = angular.module('poms', [
         'poms.controllers',
         'poms.editor',
         'poms.util',
@@ -29,8 +29,7 @@
         "ui-rangeSlider",
         "angular-clipboard",
         'ui.tab.scroll'
-    ] );
-
+    ]);
 
 
     module.config( function ( $httpProvider ) {
@@ -44,14 +43,14 @@
             // add header for all request to POMS backend
 
             // check for absolute URL (http://, https:// or //)
-            var isAbsolute = /^(?:https?:\/\/|\/\/)/.test( config.url );
+            const isAbsolute = /^(?:https?:\/\/|\/\/)/.test(config.url);
 
             // Absolute URL could also be a POMS url, for instance when developing GUI locally against poms-dev
-            var isAbsolutePomsUrl =  ( isAbsolute && ( config.url.indexOf( appConfig.apiHost ) !== -1 ) );
+            const isAbsolutePomsUrl = (isAbsolute && (config.url.indexOf(appConfig.apiHost) !== -1));
 
-            var isPomsUrl = ( !isAbsolute || ( isAbsolute  && isAbsolutePomsUrl ) );
-            var currentOwner = localStorageService.get("currentOwner");
-            var currentUser  = localStorageService.get("currentUser");
+            const isPomsUrl = (!isAbsolute || (isAbsolute && isAbsolutePomsUrl));
+            const currentOwner = localStorageService.get("currentOwner");
+            const currentUser = localStorageService.get("currentUser");
             if((config.method === 'GET' || config.method === 'POST' || config.method === 'DELETE' || config.method === 'PUT') && currentOwner && currentOwner.length > 0 && isPomsUrl ) {
                 config.headers['X-Poms-CurrentOwner'] = currentOwner; // This seems like a horrible hack.
                 config.headers['X-Poms-CurrentUser'] = currentUser;
@@ -219,16 +218,16 @@
                 inputTpl: '<span></span>',
                 render: function() {
                     this.parent.render.call(this);
-                    var parsed = editableNgOptionsParser(this.attrs.eNgOptions);
-                    var html = '<label ng-repeat="'+parsed.ngRepeat+'">'+
-                        '<input type="radio" ng-disabled="' + this.attrs.eNgDisabled + '" ng-model="$parent.$data" value="{{'+parsed.locals.valueFn+'}}">'+
-                        '<span class="list-icon" ng-class="'+ parsed.locals.valueName + '.iconClass' +'" ng-bind="'+parsed.locals.displayFn+'"></span></label>';
+                    const parsed = editableNgOptionsParser(this.attrs.eNgOptions);
+                    const html = '<label ng-repeat="' + parsed.ngRepeat + '">' +
+                        '<input type="radio" ng-disabled="' + this.attrs.eNgDisabled + '" ng-model="$parent.$data" value="{{' + parsed.locals.valueFn + '}}">' +
+                        '<span class="list-icon" ng-class="' + parsed.locals.valueName + '.iconClass' + '" ng-bind="' + parsed.locals.displayFn + '"></span></label>';
                     this.inputEl.removeAttr('ng-model');
                     this.inputEl.removeAttr('ng-options');
                     this.inputEl.html(html);
                 },
                 autosubmit: function() {
-                    var self = this;
+                    const self = this;
                     self.inputEl.bind('change', function() {
                         setTimeout(function() {
                             self.scope.$apply(function() {

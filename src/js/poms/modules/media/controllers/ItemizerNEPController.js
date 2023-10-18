@@ -116,19 +116,19 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
             },
             formatDuration: function(ms) {
-                var s = Math.floor(ms / 1000);
+                let s = Math.floor(ms / 1000);
                 ms = ms % 1000;
-                var m = Math.floor(s / 60);
+                let m = Math.floor(s / 60);
                 s %= 60;
-                var h = Math.floor(m / 60);
+                const h = Math.floor(m / 60);
                 m %= 60;
                 return this.$filter("toDigits")(h, 2) + ":" + this.$filter("toDigits")(m, 2) + ":" + this.$filter("toDigits")(s, 2) + "." + this.$filter("toDigits")(ms, 3);
             },
             parseDuration: function(string) {
-                var split = string.replace(',', '.').split(':');
-                var hours = parseInt(split[0]);
-                var minutes = parseInt(split[1]);
-                var millis  = 1000 * parseFloat(split[2]);
+                const split = string.replace(',', '.').split(':');
+                const hours = parseInt(split[0]);
+                const minutes = parseInt(split[1]);
+                const millis = 1000 * parseFloat(split[2]);
 
                 return (hours * 60 + minutes) * 60 * 1000 + millis;
 
@@ -168,18 +168,18 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 contentType = contentType || '';
                 sliceSize = sliceSize || 512;
 
-                var byteCharacters = atob( b64Data );
-                var byteArrays = [];
+                const byteCharacters = atob(b64Data);
+                const byteArrays = [];
 
-                for ( var offset = 0; offset < byteCharacters.length; offset += sliceSize ) {
-                    var slice = byteCharacters.slice( offset, offset + sliceSize );
+                for (let offset = 0; offset < byteCharacters.length; offset += sliceSize ) {
+                    const slice = byteCharacters.slice(offset, offset + sliceSize);
 
-                    var byteNumbers = new Array( slice.length );
-                    for ( var i = 0; i < slice.length; i++ ) {
+                    const byteNumbers = new Array(slice.length);
+                    for (let i = 0; i < slice.length; i++ ) {
                         byteNumbers[ i ] = slice.charCodeAt( i );
                     }
 
-                    var byteArray = new Uint8Array( byteNumbers );
+                    const byteArray = new Uint8Array(byteNumbers);
 
                     byteArrays.push( byteArray );
                 }
@@ -227,17 +227,17 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.controlbar.initialize();
 
                 // Add generated drm tokens for the stream requested. Depends on the profile and drm type.
-                var protectionData = {
+                const protectionData = {
                     'com.microsoft.playready': {
                         serverURL: 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
                         httpRequestHeaders: {
                             customdata: data.playReadyToken
                         }
                     },
-                    'com.widevine.alpha' : {
-                        serverURL : 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
-                        httpRequestHeaders : {
-                            customdata : data.widevineToken
+                    'com.widevine.alpha': {
+                        serverURL: 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
+                        httpRequestHeaders: {
+                            customdata: data.widevineToken
                         }
                     }
                 };
@@ -271,13 +271,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
-                var offset = Math.floor( this.videoElement.currentTime * 1000) ;
+                const offset = Math.floor(this.videoElement.currentTime * 1000);
 
                 this.NEPService.getScreengrab( this.$scope.media.mid , offset )
 
                     .then( function ( response ) {
                             if (response && response.data) {
-                                var blob = new Blob([response.data], {type: 'image/jpeg'});
+                                const blob = new Blob([response.data], {type: 'image/jpeg'});
                                 this.$scope.still = window.URL.createObjectURL(blob);
 
                                 this.$scope.image = {
@@ -288,7 +288,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                         }.bind( this ),
                         function ( error ) {
-                            var reader = new FileReader();
+                            const reader = new FileReader();
                             reader.onload = function() {
                                 this.$scope.stillerror = reader.result;
                                 this.notificationService.notify(reader.result, "error");
@@ -322,7 +322,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             },
 
             markStart : function () {
-                var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
+                const currentPos = Math.floor(this.videoElement.currentTime * 1000);
                 if ( ! isNaN( currentPos ) && this.$scope.segment.stop < currentPos ) {
                     this.$scope.segment.stop = currentPos;
                 }
@@ -333,7 +333,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             },
 
             markStop : function () {
-                var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
+                const currentPos = Math.floor(this.videoElement.currentTime * 1000);
 
                 if ( ! isNaN( currentPos ) && this.$scope.segment.start > currentPos ) {
                     this.$scope.segment.start = currentPos;
@@ -350,11 +350,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.mediaService.getSegments( this.$scope.media ).then(
                     function ( segments ) {
 
-                        for ( var i = 0; i < segments.length; i++ ) {
+                        for (let i = 0; i < segments.length; i++ ) {
 
-                            var isNew = true;
+                            let isNew = true;
 
-                            for ( var j = 0; j < this.$scope.segments.length; j++ ) {
+                            for (let j = 0; j < this.$scope.segments.length; j++ ) {
                                 if ( this.$scope.segments[ j ].mid && segments[ i ].mid === this.$scope.segments[ j ].mid ) {
                                     isNew = false;
                                 }
@@ -509,7 +509,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
                 this.$scope.waiting = true;
 
-                var data = angular.copy( this.$scope.segment );
+                const data = angular.copy(this.$scope.segment);
 
                 data.start = {
                     string:  this.$scope.segment.formattedstart
@@ -545,17 +545,17 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
             saveImage : function () {
 
-                var credits = 'Still ' + this.$scope.media.mainTitle.text + ( ( this.$scope.media.subTitle ) ? '/' + this.$scope.media.subTitle.text : '' );
-                var sourceName = ( ( this.$scope.media.broadcasters ) ? this.$scope.media.broadcasters.map( function ( broadcaster ) {
+                const credits = 'Still ' + this.$scope.media.mainTitle.text + ((this.$scope.media.subTitle) ? '/' + this.$scope.media.subTitle.text : '');
+                const sourceName = ((this.$scope.media.broadcasters) ? this.$scope.media.broadcasters.map(function (broadcaster) {
                     return broadcaster.text;
-                } ).join( ', ' ) : '' );
-                var license = { id : "COPYRIGHTED", text : "Copyrighted" };
-                var fields = {
-                    title : this.$scope.media.mainTitle.text,
-                    description : 'Still van ' + this.$scope.media.mainTitle.text,
-                    imageType : 'PICTURE',
-                    publishStart : '',
-                    publishStop : ''
+                }).join(', ') : '');
+                const license = {id: "COPYRIGHTED", text: "Copyrighted"};
+                const fields = {
+                    title: this.$scope.media.mainTitle.text,
+                    description: 'Still van ' + this.$scope.media.mainTitle.text,
+                    imageType: 'PICTURE',
+                    publishStart: '',
+                    publishStop: ''
                 };
 
                 // Image not uploaded to image server yet
@@ -567,20 +567,20 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                     fileFormDataName : 'file'
                 } ).then(
                     function ( extResult ) {
-                        var uploaded = extResult.data.list[ 0 ];
+                        const uploaded = extResult.data.list[0];
 
-                        var imageToSave = {
-                            'uri' : uploaded.urn,
-                            'height' : uploaded.height,
-                            'width' : uploaded.width,
-                            'title' : uploaded.title,
-                            'description' : uploaded.description,
-                            'credits' : credits,
-                            'sourceName' : sourceName,
-                            'license' : license,
-                            'type' : { id : "STILL", text : "Still" },
-                            'publication' : {},
-                            'file' : uploaded
+                        const imageToSave = {
+                            'uri': uploaded.urn,
+                            'height': uploaded.height,
+                            'width': uploaded.width,
+                            'title': uploaded.title,
+                            'description': uploaded.description,
+                            'credits': credits,
+                            'sourceName': sourceName,
+                            'license': license,
+                            'type': {id: "STILL", text: "Still"},
+                            'publication': {},
+                            'file': uploaded
                         };
 
                         this.mediaService.saveImage( this.$scope.segment, imageToSave ).then(
@@ -629,7 +629,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            if (this.itemizeRequest && 
+                            if (this.itemizeRequest &&
                                 this.itemizeRequest.mid === message.request.mid &&
                                 this.itemizeRequest.start === message.request.start &&
                                 this.itemizeRequest.stop === message.request.stop

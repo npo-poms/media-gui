@@ -45,7 +45,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
             $scope.$on( PomsEvents.publication, function ( e, publication ) {
                 if ( publication.mid === $scope.media.mid ) {
-                    var message = '<span><a href="#/edit/' + $scope.media.mid + '">' + $scope.media.mainTitle.text + '</a></span>';
+                    let message = '<span><a href="#/edit/' + $scope.media.mid + '">' + $scope.media.mainTitle.text + '</a></span>';
                     send = false;
                     args = {
                         id: 'event_' + $scope.media.mid
@@ -145,8 +145,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
         }
 
         MediaController.breadCrumbs = function ( scope, media ) {
-            var answer = [],
-                crumb = media.breadCrumbs;
+            const answer = [];
+            let crumb = media.breadCrumbs;
 
             while ( crumb ) {
                 answer.push( {
@@ -260,10 +260,10 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     this.scrollElement.on( 'scroll', function () {
 
                         // fix sidebar to top
-                        var scrollPos = this.scrollElement.scrollTop();
+                        const scrollPos = this.scrollElement.scrollTop();
                         if ( scrollPos > 50 && ! this.$scope.sidebarFixed ) {
 
-                            var offset = $( '.nav-tabs' ).height() + 97;
+                            const offset = $('.nav-tabs').height() + 97;
                             $( this.sidebar ).css( { 'top' : offset } );
 
                             this.$scope.sidebarFixed = true;
@@ -276,12 +276,12 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                         }
 
                         //monitor active section
-                        for ( var i = 0; i < this.sectionsAmount - 1; i ++ ) {
-                            var $el = $( this.sections[ i ] );
-                            var $nextEl = $( this.sections[ i + 1 ] );
+                        for (let i = 0; i < this.sectionsAmount - 1; i ++ ) {
+                            const $el = $(this.sections[i]);
+                            const $nextEl = $(this.sections[i + 1]);
 
-                            var elPosition = $el.position();
-                            var nextElPosition = $nextEl.position();
+                            const elPosition = $el.position();
+                            const nextElPosition = $nextEl.position();
 
                             if ( scrollPos < nextElPosition.top - 100 && scrollPos > elPosition.top - 100 ) {
                                 if ( ! $( this.sidebarSections[ i ] ).hasClass( 'active' ) ) {
@@ -305,7 +305,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
             },
 
             goTo : function ( section ) {
-                var element = this.$element.find( '#' + this.sectionId( section ) );
+                const element = this.$element.find('#' + this.sectionId(section));
                 if ( element.length > 0 ) {
                     this.scrollElement.scrollToElementAnimated( element, 100, 1000 );
                 }
@@ -345,23 +345,23 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
             editHistory : function () {
 
-                var modal = this.$uibModal.open( {
-                    resolve : {
-                        title : function () {
+                const modal = this.$uibModal.open({
+                    resolve: {
+                        title: function () {
                             return 'Alle wijzigingen';
                         },
-                        media : function () {
+                        media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
-                        mediaService : function () {
+                        }.bind(this),
+                        mediaService: function () {
                             return this.mediaService;
-                        }.bind( this )
+                        }.bind(this)
                     },
-                    controller : "EditHistoryController",
-                    controllerAs : "EditHistoryController",
-                    templateUrl : '/views/edit/modal-history.html'
+                    controller: "EditHistoryController",
+                    controllerAs: "EditHistoryController",
+                    templateUrl: '/views/edit/modal-history.html'
 
-                } );
+                });
             }
 
         };

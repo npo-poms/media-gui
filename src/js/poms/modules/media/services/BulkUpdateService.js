@@ -4,7 +4,7 @@ angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
     '$uibModal',
     'appConfig',
     function ($q, $http, $uibModal, appConfig ) {
-        var baseUrl = appConfig.apiHost + '/gui/bulk';
+        const baseUrl = appConfig.apiHost + '/gui/bulk';
 
         function BulkUpdateService () {
         }
@@ -25,7 +25,7 @@ angular.module( 'poms.media.services' ).factory( 'BulkUpdateService', [
                 } );            },
 
             update: function ( update , validate) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
                 $http.post( baseUrl, update, {params: {validate: validate || false}} ).then(
                     function ( response ) {

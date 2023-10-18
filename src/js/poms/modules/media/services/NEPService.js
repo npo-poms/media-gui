@@ -8,19 +8,19 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
     'NotificationService',
     function ( $rootScope, $q, $http, $uibModal, localStorageService, appConfig, notificationService) {
 
-        var baseUrl = appConfig.apiHost + '/gui/player';
+        const baseUrl = appConfig.apiHost + '/gui/player';
 
-        var get = function ( path, config ) {
+        const get = function (path, config) {
 
-            var deferred = $q.defer();
-            var url = baseUrl + '/'  + path;
-            $http.get(url, config ).then(
-                function ( response ) {
-                    var result = response.data;
-                    deferred.resolve( result );
+            const deferred = $q.defer();
+            const url = baseUrl + '/' + path;
+            $http.get(url, config).then(
+                function (response) {
+                    const result = response.data;
+                    deferred.resolve(result);
                 },
-                function ( error ) {
-                    deferred.reject( error );
+                function (error) {
+                    deferred.reject(error);
                     notificationService.notify(error.message, 'error', {timeout: -1, id: 'nep-service'});
                 }
             );
@@ -44,7 +44,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             },
 
             getStreamUrl: function (mid, duration ) {
-                var url = 'streamurl?mid=' + mid;
+                let url = 'streamurl?mid=' + mid;
                 if ( duration ) {
                     url = url + '&duration=' + duration;
                 }
@@ -53,7 +53,7 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
 
 
             getLiveStreamUrl: function (channel, duration ) {
-                var url = 'streamurllive?channel=' + channel;
+                let url = 'streamurllive?channel=' + channel;
                 if ( duration ) {
                     url = url + '&duration=' + duration;
                 }
@@ -61,13 +61,13 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             },
 
             getScreengrab : function(mid, offset){
-                var url = 'screengrab/' + mid + '?offset=' + offset;
+                const url = 'screengrab/' + mid + '?offset=' + offset;
                 return this.getBlob(url);
             },
 
 
             getLiveScreengrab : function(channel, datetime){
-                var url = 'screengrablive/' + channel + '?epoch=' + datetime;
+                const url = 'screengrablive/' + channel + '?epoch=' + datetime;
                 return this.getBlob(url);
             },
 
@@ -81,15 +81,15 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
 
             getStream : function( midOrChannel, live) {
 
-                var deferred = $q.defer();
+                const deferred = $q.defer();
                 this.getPlayReadyToken().then( function ( playReady ) {
-                    var playReadyToken = playReady.token;
+                    const playReadyToken = playReady.token;
 
                     this.getWideVineToken().then( function ( widevine ) {
-                        var widevineToken = widevine.token;
+                        const widevineToken = widevine.token;
 
 
-                        var getUrl = live ? this.getLiveStreamUrl : this.getStreamUrl;
+                        const getUrl = live ? this.getLiveStreamUrl : this.getStreamUrl;
 
                         getUrl(midOrChannel).then( function ( result ) {
                             deferred.resolve( {stream: result, widevineToken: widevineToken, playReadyToken: playReadyToken } );
@@ -111,8 +111,8 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
 
             itemize :  function( request ) {
 
-                var deferred = $q.defer();
-                var url = baseUrl + '/itemize';
+                const deferred = $q.defer();
+                const url = baseUrl + '/itemize';
 
                 $http({
                         method: 'post',
@@ -134,10 +134,10 @@ angular.module( 'poms.media.services' ).factory( 'NEPService', [
             },
              itemizelive :  function( request ) {
 
-                var deferred = $q.defer();
-                var url = baseUrl + '/itemizelive';
+                 const deferred = $q.defer();
+                 const url = baseUrl + '/itemizelive';
 
-                $http({
+                 $http({
                         method: 'post',
                         url: url,
                         data: request,

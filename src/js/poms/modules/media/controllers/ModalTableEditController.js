@@ -55,7 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             this.$scope.sortableOptions = {
                 handle: '.sort-handle',
                 update: function ( event, ui ) {
-                    var to = ui.item.index();
+                    const to = ui.item.index();
                     if ( this.from >= 0 && to !== this.from ) {
                         this.$scope.moveRestriction( {media: this.$scope.media, from: this.from, to: to} ).then(
                             function ( media ) {
@@ -91,7 +91,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
 
             submit: function ( index, data ) {
 
-                var source = this.items[index];
+                const source = this.items[index];
 
                 if ( source ) {
                     source.violations = undefined;
@@ -137,7 +137,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
 
 
             remove: function ( index ) {
-                var source = this.items[index];
+                const source = this.items[index];
                 if ( ! source.id ) {
                     this.items.splice( index, 1 );
                     return;
@@ -157,7 +157,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
             },
 
             cancelEdit: function ( index, rowform ) {
-                var item = this.items[index];
+                const item = this.items[index];
                 item.violations = undefined;
 
                 delete item.$$hashKey;

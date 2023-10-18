@@ -12,7 +12,7 @@ angular.module( 'poms.media.directives' )
             },
             link: function ( $scope, element, attrs ) {
 
-                var media = $scope.$parent.media;
+                const media = $scope.$parent.media;
 
                 $scope.media = media;
                 $scope.resetValue = angular.copy( $scope.media[$scope.field] );
@@ -35,7 +35,7 @@ angular.module( 'poms.media.directives' )
 
                     $scope.waiting = true;
 
-                    var deferred = $q.defer();
+                    const deferred = $q.defer();
 
                     editService[$scope.field]( media, $scope.media[$scope.field] ).then(
                         function ( result ) {

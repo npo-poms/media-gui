@@ -58,14 +58,14 @@ angular.module( 'poms.util.filters' )
                 ms = ms.getTime();
 
             }
-            var s = Math.floor(ms / 1000);
-            var m = Math.floor(s / 60);
+            let s = Math.floor(ms / 1000);
+            let m = Math.floor(s / 60);
             s %= 60;
-            var h = Math.floor(m / 60);
+            let h = Math.floor(m / 60);
             m %= 60;
-            var d = Math.floor(h / 24);
+            const d = Math.floor(h / 24);
             h %= 24;
-            var result = "";
+            let result = "";
             if (d === 1) {
                 result += "1 dag ";
             } else if (d > 1 ) {
@@ -133,9 +133,9 @@ angular.module( 'poms.util.filters' )
                 case 'lastScheduleEvent':
                     return $filter('mediaDateTime')(item);
                 case 'broadcasters':
-                    var values = item[type].map( function ( i ) {
+                    const values = item[type].map(function (i) {
                         return i.text;
-                    } );
+                    });
                     return values.join( ', ' );
 
                 case 'type':
@@ -195,15 +195,15 @@ angular.module( 'poms.util.filters' )
     .filter( 'timeToMSeconds', function () {
         // I think this converts a formatted duration back to a number of milliseconds
         return function ( t ) {
-            var res = t.split(/[:.]+/) ;
+            const res = t.split(/[:.]+/);
             return (parseInt(res[ 0 ]) * 60 * 60 * 1000) + (parseInt(res[ 1 ]) * 60 * 1000) + (parseInt(res[ 2 ]) * 1000) + parseInt(res[ 3 ]);
         }
     } )
     .filter( 'dateTimeToMSeconds', function () {
         // deprecated, I would not see any use case for such hackery.
         return function ( t ) {
-            var now = new Date();
-            var res = t.split(/[:.]+/) ;
+            const now = new Date();
+            const res = t.split(/[:.]+/);
             return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), parseInt(res[ 0 ]), parseInt(res[ 1 ]), parseInt(res[ 2 ]), parseInt(res[ 3 ]))).getTime();
         }
     } )
@@ -213,10 +213,10 @@ angular.module( 'poms.util.filters' )
             if ( !v ) {
                 v = 0;
             }
-            var h = Math.floor( v / 3600 );
-            var m = Math.floor( (v - (h * 3600)) / 60 );
-            var s = Math.floor( v % 60 );
-            var ms = Math.floor( (v % 1) * 1000 );
+            let h = Math.floor(v / 3600);
+            const m = Math.floor((v - (h * 3600)) / 60);
+            const s = Math.floor(v % 60);
+            const ms = Math.floor((v % 1) * 1000);
 
             h %= 24;
 
@@ -230,9 +230,9 @@ angular.module( 'poms.util.filters' )
             if ( !v ) {
                 v = 0;
             }
-            var h = Math.floor( v / 3600 );
-            var m = Math.floor( (v - (h * 3600)) / 60 );
-            var s = Math.floor( v % 60 );
+            let h = Math.floor(v / 3600);
+            const m = Math.floor((v - (h * 3600)) / 60);
+            const s = Math.floor(v % 60);
             //var ms = Math.floor( (v % 1) * 1000 );
 
             h %= 24;
@@ -248,12 +248,12 @@ angular.module( 'poms.util.filters' )
     .filter( 'convertMS', function() {
         // convert a duration in millis to a object with 4 fields, d, h, m, s
         return function(ms) {
-            var s = Math.floor(ms / 1000);
-            var m = Math.floor(s / 60);
+            let s = Math.floor(ms / 1000);
+            let m = Math.floor(s / 60);
             s %= 60;
-            var h = Math.floor(m / 60);
+            let h = Math.floor(m / 60);
             m %= 60;
-            var d = Math.floor(h / 24);
+            const d = Math.floor(h / 24);
             h %= 24;
             return { d: d, h: h, m: m, s: s };
         }

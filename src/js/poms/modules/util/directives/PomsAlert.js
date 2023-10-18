@@ -3,10 +3,10 @@ angular.module( 'poms.util.directives' )
         return {
             restrict: 'A',
             controller: function ( $rootScope, $scope, $uibModal, PomsEvents) {
-                var errorOpen = false;
+                const errorOpen = false;
 
                 $rootScope.$on( PomsEvents.error, function ( event, error ) {
-                    var template;
+                    let template;
                     if (! error) {
                         return;
                     }
@@ -36,7 +36,7 @@ angular.module( 'poms.util.directives' )
                     }
 
                     if (template) {
-                        var modal = $uibModal.open({
+                        const modal = $uibModal.open({
                             controller: 'AlertController',
                             controllerAs: 'alertController',
                             templateUrl: template,

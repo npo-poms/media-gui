@@ -41,10 +41,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         this.hasErrors = true;
                         this.collapsed = false;
                     }
-                    var i = this.$scope.upload_feedback.length;
+                    let i = this.$scope.upload_feedback.length;
 
                     while (i--) {
-                        var existingMessage = this.$scope.upload_feedback[i];
+                        const existingMessage = this.$scope.upload_feedback[i];
                         if (existingMessage.id === message.id && existingMessage.phase === message.phase) {
                             $scope.upload_feedback.splice(i, 1);
                         }
@@ -120,7 +120,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 if ( permission === false ) {
                     return;
                 }
-                var editMode = true;
+                let editMode = true;
 
                 if ( ! location ) {
                     // creating new location
@@ -128,26 +128,26 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     editMode = false;
                 }
 
-                var modal = this.$uibModal.open( {
-                    controller : 'LocationEditController',
-                    controllerAs : 'controller',
-                    templateUrl : '/views/edit/modal-edit-location.html',
-                    windowClass : 'modal-form',
+                const modal = this.$uibModal.open({
+                    controller: 'LocationEditController',
+                    controllerAs: 'controller',
+                    templateUrl: '/views/edit/modal-edit-location.html',
+                    windowClass: 'modal-form',
                     resolve: {
                         media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
-                        location : function () {
+                        }.bind(this),
+                        location: function () {
                             return location;
                         },
-                        AVFileFormats : function () {
+                        AVFileFormats: function () {
                             return this.$scope.AVFileFormats;
-                        }.bind( this ),
-                        edit : function () {
+                        }.bind(this),
+                        edit: function () {
                             return editMode;
                         }
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( media ) {
@@ -214,7 +214,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
 
             remove : function ( index ) {
-                var source = this.locations[ index ];
+                const source = this.locations[index];
                 return this.mediaService.removeLocation( this.$scope.media, source ).then(
                     function ( media ) {
                         angular.copy( media, this.$scope.media );
@@ -245,8 +245,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 );
             },
             notify: function(upload) {
-                var message = "";
-                var status;
+                let message = "";
+                let status;
 
                 if ( upload.status === 'uploadFinished' ) {
                     if (upload.avType === 'AUDIO') {
@@ -270,29 +270,29 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             },
 
             uploadLocation : function (streamType) {
-                var self = this;
-                var modal = this.$uibModal.open( {
-                    controller : 'LocationUploadController',
-                    controllerAs : 'uploadController',
-                    templateUrl : '/views/edit/modal-upload-location.html',
-                    windowClass : 'modal-location-upload',
-                    resolve : {
+                const self = this;
+                const modal = this.$uibModal.open({
+                    controller: 'LocationUploadController',
+                    controllerAs: 'uploadController',
+                    templateUrl: '/views/edit/modal-upload-location.html',
+                    windowClass: 'modal-location-upload',
+                    resolve: {
                         priorityTypes: this.listService.getPriorityTypes,
                         encryptionTypes: this.listService.getEncryptionTypes,
-                        media : function () {
+                        media: function () {
                             return this.$scope.media;
                         }.bind(this),
-                        location : function () {
+                        location: function () {
                             return {};
                         },
                         streamType: function () {
                             return streamType;
                         },
-                        locationsController: function() {
+                        locationsController: function () {
                             return self
                         }.bind(this)
                     }
-                } );
+                });
 
                 modal.result.then(
                     function () {

@@ -37,10 +37,10 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
 
 
             getDuplicate = function () {
-                var subtitleLanguage = $scope.uploadSubtitleForm.subtitleLanguage;
-                var subtitleType = $scope.uploadSubtitleForm.subtitleType;
+                const subtitleLanguage = $scope.uploadSubtitleForm.subtitleLanguage;
+                const subtitleType = $scope.uploadSubtitleForm.subtitleType;
 
-                var result = [];
+                const result = [];
 
                 if (!$scope.uploadSubtitleForm.subtitleLanguage.id || !$scope.uploadSubtitleForm.subtitleType.id) {
                     return [];
@@ -65,17 +65,17 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
 
             addSubtitle: function () {
                 this.$scope.waiting = true;
-                var fields = {
+                const fields = {
                     mid: this.media.mid,
                     name: this.$scope.uploadSubtitleForm.subtitleFile[0].name,
                     fileSize: this.$scope.uploadSubtitleForm.subtitleFile[0].size,
                     language: this.$scope.uploadSubtitleForm.subtitleLanguage.id,
                     type: this.$scope.uploadSubtitleForm.subtitleType.id,
-                    duration:  this.$scope.uploadSubtitleForm.offset.string
+                    duration: this.$scope.uploadSubtitleForm.offset.string
 
                 };
 
-                var data = this.$scope.uploadSubtitleForm.subtitleFile[0];
+                const data = this.$scope.uploadSubtitleForm.subtitleFile[0];
 
                 this.subtitlesService.upload(fields.mid, fields.language, fields.type, fields, data).then(
                     function (response) {
@@ -92,12 +92,12 @@ angular.module( 'poms.media.controllers' ).controller( 'SubtitlesUploadControlle
             },
 
             isDuplicate: function () {
-                var dups = getDuplicate();
+                const dups = getDuplicate();
                 return dups.length > 0
 
             },
             mayWriteDuplicate: function () {
-                var dups = getDuplicate();
+                const dups = getDuplicate();
                 mayWrite = true;
                 if (dups.length > 0) {
                     dups.forEach(function (duplicate) {

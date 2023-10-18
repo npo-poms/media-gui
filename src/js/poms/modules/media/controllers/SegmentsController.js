@@ -68,7 +68,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
             },
             modalSegment: function(media){
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open({
                     controller: 'SegmentEditController',
                     controllerAs: 'controller',
                     templateUrl: '/views/edit/modal-create-segment.html',
@@ -76,11 +76,11 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     resolve: {
                         media: function () {
                             return media;
-                        }.bind( this ),
-                        segment : function () {
+                        }.bind(this),
+                        segment: function () {
                             start = "00:00:00.000";
                             startInMillis = 0;
-                            for (var i = 0; i < this.segments.length; i++) {
+                            for (let i = 0; i < this.segments.length; i++) {
                                 if (this.segments[i].stop.inMillis > startInMillis) {
                                     start = this.segments[i].stop.string;
                                     startInMillis = this.segments[i].stop.inMillis;
@@ -93,12 +93,12 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                                 "duration": "00:02:00.000"
                             };
                             //return this.$scope.insertedSegment;
-                        }.bind( this ),
-                        segmentscontroller: function() {
+                        }.bind(this),
+                        segmentscontroller: function () {
                             return this;
                         }.bind(this)
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( media ) {
@@ -122,38 +122,38 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
             itemize: function ( segment ) {
 
-                var itemizerController = undefined;
-                var itemizerTemplate = undefined;
+                let itemizerController = undefined;
+                let itemizerTemplate = undefined;
 
                 if (this.canItemize()) {
                     itemizerController = 'ItemizerNEPController';
                     itemizerTemplate = '/views/media/itemizerNEP.html';
                 }
 
-                var modal = this.$uibModal.open( {
-                    controller : itemizerController,
-                    controllerAs : 'itemizerController',
-                    templateUrl : itemizerTemplate,
-                    windowClass : 'modal-itemizer',
-                    resolve : {
-                        media : function () {
+                const modal = this.$uibModal.open({
+                    controller: itemizerController,
+                    controllerAs: 'itemizerController',
+                    templateUrl: itemizerTemplate,
+                    windowClass: 'modal-itemizer',
+                    resolve: {
+                        media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
-                        segments : function () {
+                        }.bind(this),
+                        segments: function () {
                             return this.segments;
-                        }.bind( this ),
-                        segment : function () {
+                        }.bind(this),
+                        segment: function () {
                             return {
                                 id: segment.id,
                                 mid: segment.mid,
-                                start:  segment.start ? segment.start.inMillis : 0,
+                                start: segment.start ? segment.start.inMillis : 0,
                                 stop: segment.stop ? segment.stop.inMillis : 0,
                                 mainTitle: segment.mainTitle ? segment.mainTitle.text : null,
                                 mainDescription: segment.mainDescription ? segment.mainDescription.text : null
                             };
                         }
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( result ) {
@@ -193,7 +193,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
             },
 
             remove: function ( index ) {
-                var source = this.segments[index];
+                const source = this.segments[index];
                 return this.mediaService.removeSegment( this.$scope.media, source ).then(
                     function ( media ) {
                         this.load();

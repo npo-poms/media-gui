@@ -4,9 +4,8 @@ angular.module( 'poms.media.directives' )
             restrict: 'E',
             templateUrl: '/views/common/columns.html',
             link: function ( $scope, element, attrs ) {
-                var namespace, defaultKey, editor;
-
-                editor = EditorService.getCurrentEditor() ;
+                let namespace;
+                const editor = EditorService.getCurrentEditor() ;
 
                 $scope.allColumns = [
                     {'id': 'preview', 'value': 'Afbeelding', tableValue:''},
@@ -26,9 +25,9 @@ angular.module( 'poms.media.directives' )
 
                 namespace = namespace || 'segments';
 
-                defaultKey = editor.hashId + '.edit.' + namespace + '.grid.columns.default';
+                const defaultKey = editor.hashId + '.edit.' + namespace + '.grid.columns.default';
 
-                var defaultColumns = localStorageService.get( defaultKey );
+                let defaultColumns = localStorageService.get(defaultKey);
 
                 if ( ! defaultColumns ) {
                     defaultColumns = [

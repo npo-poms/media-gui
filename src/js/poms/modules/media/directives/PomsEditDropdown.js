@@ -30,8 +30,8 @@ angular.module( 'poms.media.directives' )
                 helpField: '@'
             },
             link: function ( $scope, element, attrs ) {
-                var media = $scope.$parent.media;
-                var uiSelect;
+                const media = $scope.$parent.media;
+                let uiSelect;
 
                 $scope.errorType = attrs.errortype || '';
                 $scope.isOpen = false;
@@ -71,14 +71,14 @@ angular.module( 'poms.media.directives' )
 
                     if ( $scope.mayWrite() && ! $scope.isOpen ) {
 
-                        var currentItems = angular.copy( $scope.media[$scope.field] );
+                        const currentItems = angular.copy($scope.media[$scope.field]);
 
                         $scope.isOpen = true;
 
                         $scope.selectedItems.selected = [];
                         if ( $scope.options.length > 0 && currentItems ) {
-                            for ( var i = 0; i < currentItems.length; i ++ ) {
-                                for ( var j = 0; j < $scope.options.length; j ++ ) {
+                            for (let i = 0; i < currentItems.length; i ++ ) {
+                                for (let j = 0; j < $scope.options.length; j ++ ) {
                                     if ( $scope.options[j].id === currentItems[i].id ) {
 
                                         $scope.selectedItems.selected.push( $scope.options[j] );
@@ -122,7 +122,7 @@ angular.module( 'poms.media.directives' )
                         return; // no change
                     }
 
-                    var deferred = $q.defer();
+                    const deferred = $q.defer();
 
                     editService[$scope.field]( media, data ).then(
                         function ( result ) {
@@ -138,10 +138,10 @@ angular.module( 'poms.media.directives' )
                         },
                         function ( error ) {
                             if(error) {
-                                var errorText = error.message;
+                                let errorText = error.message;
 
                                 if ( error.violations ) {
-                                    for ( var violation in  error.violations ) {
+                                    for (let violation in  error.violations ) {
                                         errorText = error.violations[violation];
                                         deferred.reject( errorText );
                                         break;
@@ -168,8 +168,8 @@ angular.module( 'poms.media.directives' )
                     if ( e ) {
                         e.stopPropagation();
                     }
-                    var data = $scope.selectedItems.selected;
-                    if ( angular.equals( data === media[$scope.field] ) ) {
+                    const data = $scope.selectedItems.selected;
+                    if ( angular.equals( data, media[$scope.field] ) ) {
                         this.waiting = false;
                         $scope.onHide();
                     } else {

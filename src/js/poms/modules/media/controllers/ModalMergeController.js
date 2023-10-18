@@ -151,7 +151,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
             },
 
             hasOwner : function ( media, column ) {
-                return this.$scope.merge[ media ][ column.id ] && this.$scope.merge[ media ][ column.id ].owner && this.$scope.merge[ media ][ column.id ].owner != 'BROADCASTER'
+                return this.$scope.merge[ media ][ column.id ] && this.$scope.merge[ media ][ column.id ].owner && this.$scope.merge[ media ][ column.id ].owner !== 'BROADCASTER'
             },
 
             submit : function () {

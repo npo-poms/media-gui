@@ -18,7 +18,7 @@ angular.module( 'poms.util.directives')
 
                 $scope.play = function () {
 
-                    var mid = $scope.media.mid;
+                    const mid = $scope.media.mid;
                     if ( mid && ( $scope.media.locations > 0 || ( $scope.media.locations && $scope.media.locations.length > 0) ) ) {
                          setupPlayer(mid).then(function() {
                              startPlayer(mid, {})
@@ -87,8 +87,8 @@ angular.module( 'poms.util.directives')
                         }.bind( this )
                     ).then(
                         function ( segments ) {
-                            var deferred = $q.defer();
-                            for ( var i = 0; i < segments.length; i ++ ) {
+                            const deferred = $q.defer();
+                            for (let i = 0; i < segments.length; i ++ ) {
                                 if ( segments[i].mid === mid ) {
                                     deferred.resolve ( {
                                         start: segments[i].start / 1000,
@@ -122,7 +122,7 @@ angular.module( 'poms.util.directives')
                         }.bind(this));
                     }
                     $scope.players = $scope.players || [];
-                    var deferred = $q.defer();
+                    const deferred = $q.defer();
                     deferred.resolve();
                     return deferred.promise;
                 };

@@ -26,7 +26,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
             this.$scope.sortableOptions = {
                 handle: '.sort-handle',
                 update: function ( event, ui ) {
-                    var to = ui.item.index();
+                    const to = ui.item.index();
                     if ( this.from >= 0 && to !== this.from ) {
                         this.mediaService.moveImage( this.$scope.media, this.from, to ).then(
                             function ( media ) {
@@ -95,13 +95,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                     return;
                 }
 
-                var editMode = true;
+                let editMode = true;
 
                 if ( ! image ) {
                     image = {};
                     editMode = false;
                 }
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open({
                     controller: 'ImageEditController',
                     controllerAs: 'controller',
                     templateUrl: '/views/edit/modal-edit-image.html',
@@ -111,19 +111,19 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                         licenses: this.listService.getLicenses,
                         media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
+                        }.bind(this),
                         image: function () {
                             return image;
                         },
                         edit: function () {
                             return editMode;
                         },
-                        service: function(){
+                        service: function () {
                             return this.mediaService
                         }.bind(this)
 
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( media ) {
@@ -170,8 +170,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
             setHighlight: function( image ){
                 image.highlighted = !image.highlighted;
 
-                var source = image;
-                if ( source ) {
+                const source = image;
+                if (source) {
                     source.violations = undefined;
                 }
 

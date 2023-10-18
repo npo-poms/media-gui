@@ -3,21 +3,22 @@ angular.module('poms.list.services').factory('ListService', [
     '$http',
     'appConfig',
     function($q, $http, appConfig) {
-        var GET_CONFIG = {
+        const GET_CONFIG = {
             cache: true
         };
 
         function get(path, config) {
-            var deferred = $q.defer();
+            const deferred = $q.defer();
 
-            $http.get(appConfig.apiHost + '/gui/select' + path, config)
-                .then(function(response) {
-                        var data = response.data;
-                        deferred.resolve(data);
-                    },
-                    function(error) {
-                        deferred.reject(error);
-                    });
+            $http.get(appConfig.apiHost + '/gui/select' + path, config).then(
+                function(response) {
+                    const data = response.data;
+                    deferred.resolve(data);
+                },
+                function(error) {
+                    deferred.reject(error);
+                }
+            );
 
             return deferred.promise;
         }
@@ -101,7 +102,7 @@ angular.module('poms.list.services').factory('ListService', [
             },
 
             getMediaCreateTypes : function() {
-                var promise = get("/types", GET_CONFIG);
+                const promise = get("/types", GET_CONFIG);
                 return promise.then(function(data) {
                     return data.filter(function(element) { return element.mayCreate; });
                 });

@@ -84,7 +84,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventEditControl
 
             save: function () {
 
-                var data = this.$scope.event;
+                const data = this.$scope.event;
 
                 return this.mediaService.saveScheduleEvent( this.$scope.media, data ).then(
                     function (scheduleEvent) {

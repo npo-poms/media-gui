@@ -5,13 +5,13 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
     'appConfig',
     function ( $q, $http, $upload, appConfig ) {
 
-        var baseUrl = appConfig.apiHost + '/gui/subtitles';
+        const baseUrl = appConfig.apiHost + '/gui/subtitles';
 
         function get( path, config ) {
-            var deferred = $q.defer();
+            const deferred = $q.defer();
             $http.get( baseUrl + path, config ).then(
                 function ( response ) {
-                    var data = response.data;
+                    const data = response.data;
                     deferred.resolve( data );
                 }.bind( this ),
                 function ( error ) {
@@ -23,8 +23,8 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
         }
 
         function post ( mediaId, path, body ) {
-            var deferred = $q.defer();
-            var url = baseUrl + '/' + mediaId +'/'+ path;
+            const deferred = $q.defer();
+            const url = baseUrl + '/' + mediaId + '/' + path;
 
             $http.post( url, body ).then(
                 function ( response ) {
@@ -39,8 +39,8 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
         }
 
         function postData ( mediaId, path, fields, file ) {
-            var deferred = $q.defer();
-            var url = baseUrl + '/' + mediaId +'/'+ path;
+            const deferred = $q.defer();
+            const url = baseUrl + '/' + mediaId + '/' + path;
 
             $upload.upload( {
                 url: url,
@@ -62,8 +62,8 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
         }
 
         function del ( mediaId, path ) {
-            var deferred = $q.defer();
-            var url = baseUrl + '/' + mediaId +'/'+ path;
+            const deferred = $q.defer();
+            const url = baseUrl + '/' + mediaId + '/' + path;
 
             $http.delete( url )
                 .success( function ( subtitles ) {

@@ -15,8 +15,8 @@ angular.module('poms.search.services').factory('SearchService', [
 
         function post(path, body, config) {
 
-            var deferred = $q.defer();
-            var url = baseUrl + path;
+            const deferred = $q.defer();
+            const url = baseUrl + path;
 
             $http.post(url, body, config).then(
                 function(response) {
@@ -44,48 +44,48 @@ angular.module('poms.search.services').factory('SearchService', [
             },
 
             load : function(queryData, options) {
-                var config = {
-                    params : options
+                const config = {
+                    params: options
                 };
 
                 return post('', queryData, config);
             },
 
             download : function(queryData, options) {
-                var config = {
-                    params : options
+                const config = {
+                    params: options
                 };
 
                 return post('/csv', queryData, config);
             },
 
             loadEpisodes : function(queryData, options) {
-                var config = {
-                    params : options
+                const config = {
+                    params: options
                 };
 
                 return post('/episodes', queryData, config);
             },
 
             loadEpisodeOfs : function(queryData, options) {
-                var config = {
-                    params : options
+                const config = {
+                    params: options
                 };
 
                 return post('/episodeOfs', queryData, config);
             },
 
             suggest : function(queryData) {
-                var queryDataCopy = this.setStopDates(queryData);
+                const queryDataCopy = this.setStopDates(queryData);
                 return $http.post(appConfig.apiHost + '/gui/search/titles', queryDataCopy);
             },
 
             setStopDates: function(queryData) {
-                var queryDateCopy  = angular.copy(queryData);
+                const queryDateCopy = angular.copy(queryData);
                 for (f in this.mediaService.dateConstraintTypes) {
-                    var range = queryDateCopy[f];
+                    const range = queryDateCopy[f];
                     if (range.stop) {
-                        var d = new Date(range.stop);
+                        const d = new Date(range.stop);
                         d.setDate(d.getDate() + 1);
                         range.stop = d.toISOString();
                     }
@@ -102,7 +102,7 @@ angular.module('poms.search.services').factory('SearchService', [
             },
 
             previewResultsInModal : function(results, index) {
-                var modal = $uibModal.open( {
+                const modal = $uibModal.open({
                     controller: 'PreviewController',
                     controllerAs: 'controller',
                     templateUrl: '/views/gui/modal-preview-media.html',
@@ -116,7 +116,7 @@ angular.module('poms.search.services').factory('SearchService', [
                             return index ? index : 0;
                         }.bind(this)
                     }
-                } );
+                });
 
                 modal.result.then(
                         function ( source ) {
@@ -138,15 +138,15 @@ angular.module('poms.search.services').factory('SearchService', [
             },
 
             searchMediaInModal : function( search ) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
-                var modal = $uibModal.open({
-                    templateUrl : '/views/search/modal-search.html',
-                    controller : 'ModalSearchController',
-                    controllerAs : 'modalSearchController',
-                    windowClass : 'modal-search',
-                    resolve : {
-                        search : function() {
+                const modal = $uibModal.open({
+                    templateUrl: '/views/search/modal-search.html',
+                    controller: 'ModalSearchController',
+                    controllerAs: 'modalSearchController',
+                    windowClass: 'modal-search',
+                    resolve: {
+                        search: function () {
                             return search;
                         }
                     }

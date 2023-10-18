@@ -15,8 +15,6 @@ angular.module( 'poms.media.controllers' ).controller( 'EditHistoryController', 
             this.mediaService = mediaService;
 
             this.init();
-
-
         }
 
         EditHistoryController.prototype = {

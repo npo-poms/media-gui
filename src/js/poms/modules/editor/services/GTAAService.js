@@ -40,11 +40,11 @@ angular.module( 'poms.editor.services' ).factory( 'GTAAService', [
                 }
             },
             modal: function(title, scheme, item, conceptHandler) {
-                var handle = function(message) {
-                    this.handleMessage(modal, message,  scheme, conceptHandler);
+                const handle = function (message) {
+                    this.handleMessage(modal, message, scheme, conceptHandler);
                     modal.close();
                 }.bind(this);
-                var gtaaPopup =  this.openFunction(handle, scheme, item);
+                const gtaaPopup = this.openFunction(handle, scheme, item);
 
                 modal= $uibModal.open({
                     controller: "ModalIFrameController",

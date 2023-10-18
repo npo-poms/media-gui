@@ -59,7 +59,7 @@ angular.module( 'poms.media.controllers' ).controller( 'TopicsController', [
                     "topic",
                     item,
                     function ( concept, role ) {
-                        var parsedTopic = this.parseTopic(concept, role);
+                        const parsedTopic = this.parseTopic(concept, role);
                         parsedTopic.id = item ? item.id : null;
                         this.saveTopic(parsedTopic);
                     }.bind(this));
@@ -93,7 +93,7 @@ angular.module( 'poms.media.controllers' ).controller( 'TopicsController', [
 
             errorHandler: function(error) {
                 if (error.violations) {
-                    for (var violation in  error.violations) {
+                    for (let violation in  error.violations) {
                         this.$scope.errorText = error.violations[violation];
                         break;
                     }

@@ -12,16 +12,16 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
     function ( $rootScope, $timeout, $upload, $sce, PomsEvents, editorService, localStorageService, appConfig, $q, $http ) {
 
 
-        var baseUrl = appConfig.apiHost + '/gui',
+        const baseUrl = appConfig.apiHost + '/gui';
 
-            get = function ( path, config, params ) {
+        const get = function ( path, config, params ) {
 
-                var deferred = $q.defer(),
-                    url = baseUrl + path + params;
+            const deferred = $q.defer();
+            const url = baseUrl + path + params;
 
-                $http.get( url, config ).then(
+            $http.get( url, config ).then(
                     function ( response ) {
-                        var result = response.data;
+                        const result = response.data;
                         deferred.resolve( result );
                     },
                     function ( error ) {
@@ -62,7 +62,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             getJobs: function ( mock ) {
-                var params ='';
+                let params = '';
                 if ( mock ) {
                     params = '?mock=true';
                 }
@@ -75,7 +75,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             getJobsForMid: function ( mid, mock ) {
-                var params='';
+                let params = '';
                 if ( mock ) {
                     params = '?mock=true';
                 }
@@ -83,16 +83,16 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             notify: function( upload ){
-                locationsController = this.uploads[upload.mid];
+                let locationsController = this.uploads[upload.mid];
                 locationsController.notify(upload);
             },
 
 
             upload: function ( media, location, fields, uploadScope, locationsController) {
 
-                var avType = media.avType;
+                const avType = media.avType;
 
-                var uploadStatus = {
+                const uploadStatus = {
                     "mid": media.mid,
                     "fileName": location.file[0].name,
                     "status": "uploadStart",
@@ -115,14 +115,13 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                     fileFormDataName: 'file'
                 } )
                     .progress( function ( evt ) {
-
                         this.uploadProgress[ media.mid ] = parseInt( 100.0 * evt.loaded / evt.total ) + "%";
 
                     }.bind( this ) )
 
                     .success( function ( data, status, headers, config ) {
 
-                        var uploadStatus = {
+                        const uploadStatus = {
                             "mid": media.mid,
                             "fileName": location.file[0].name,
                             "status": "uploadFinished",
@@ -141,7 +140,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                         if (data.cause === 'NEP_EXCEPTION') {
                             this.$rootScope.$emit(this.pomsEvents.error, data);
                         } else {
-                            var newUpload = {
+                            const newUpload = {
                                 "mid": media.mid,
                                 "fileName": location.file[0].name,
                                 "status": "uploadError",

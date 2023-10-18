@@ -12,7 +12,6 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnerController', [
             this.ownerData = ownerData;
 
             this.$uibModalInstance = $uibModalInstance;
-
         }
 
         OwnerController.prototype = {
@@ -20,7 +19,6 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnerController', [
             close: function () {
                 this.$uibModalInstance.dismiss();
             }
-
         };
 
         return OwnerController;

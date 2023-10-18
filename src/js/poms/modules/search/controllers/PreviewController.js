@@ -24,10 +24,10 @@ angular.module( 'poms.search.controllers' ).controller( 'PreviewController', [
 
             this.$document.bind( 'keydown', function ( e ) {
 
-                if ( e.which == 40 ) {
+                if ( e.which === 40 ) {
                     this.next();
                     this.$scope.$apply();
-                } else if ( e.which == 38 ) {
+                } else if ( e.which === 38 ) {
                     this.previous();
                     this.$scope.$apply();
                 }

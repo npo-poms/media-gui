@@ -60,10 +60,11 @@ angular.module( 'poms.media.controllers' ).controller( 'PredictionEditController
 
             save: function () {
 
-                var prediction = this.$scope.prediction;
+                const prediction = this.$scope.prediction;
 
-
-                if ( prediction.publication.stop && prediction.publication.start && (prediction.publication.stop < prediction.publication.start) ){
+                if ( prediction.publication.stop &&
+                    prediction.publication.start &&
+                    (prediction.publication.stop < prediction.publication.start) ){
                     prediction.publication.stop = prediction.publication.start;
                 }
 

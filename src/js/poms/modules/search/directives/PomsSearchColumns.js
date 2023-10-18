@@ -5,8 +5,8 @@ angular.module( 'poms.search.directives' )
             templateUrl: '/views/common/columns.html',
             controller: function ( $scope, $rootScope, PomsEvents, localStorageService, EditorService, NotificationService) {
 
-                var defaultKey, defaultColumns, localKey, editor;
-                editor = EditorService.getCurrentEditor();
+                let defaultColumns, localKey;
+                const editor = EditorService.getCurrentEditor();
                 //console.log('editor', editor);
 
 
@@ -33,7 +33,7 @@ angular.module( 'poms.search.directives' )
                     {'id': 'streamingPlatformStatus', 'value': 'Streaming platformstatus', "sortable": false}
 
                 ];
-                defaultKey = editor.hashId + '.search.grid.columns.default';
+                const defaultKey = editor.hashId + '.search.grid.columns.default';
                 defaultColumns = localStorageService.get( defaultKey );
 
                 if ( ! defaultColumns ) {

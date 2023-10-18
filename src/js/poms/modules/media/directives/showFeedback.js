@@ -14,7 +14,7 @@ angular.module( 'poms.media.directives' )
         return {
             compile: function ( element, attrs ) {
                 return function link ( scope, element, attrs ) {
-                    var first = true;
+                    let first = true;
                     attrs.$observe( 'status', function ( value ) {
                         if ( ! first ) {
                             $animate.addClass( element, 'saved' ).then( function () {

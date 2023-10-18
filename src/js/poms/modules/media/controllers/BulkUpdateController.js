@@ -24,7 +24,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
             $scope.mayWrite = this.hasWritePermission( 'media' );
             $scope.tags = [];
 
-            var mids = [];
+            const mids = [];
             angular.forEach( media, function ( item, index ) {
                 mids.push( item.mid );
             } );
@@ -38,9 +38,9 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
 
             buildUpdate: function () {
 
-                var update = angular.copy( this.$scope.update ),
-                    erase = angular.copy( this.$scope.erase ),
-                    hasUpdatedFields = false;
+                const update = angular.copy(this.$scope.update),
+                    erase = angular.copy(this.$scope.erase);
+                let hasUpdatedFields = false;
 
                 this.$scope.violations = undefined;
 
@@ -96,7 +96,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
             },
 
             hasSave: function () {
-                var hasUpdate = false;
+                let hasUpdate = false;
 
                 angular.forEach( this.$scope.update, function ( item, name ) {
                     if ( name === 'mainTitle' ) {
@@ -118,8 +118,8 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
             },
 
             hasWritePermission: function ( permission ) {
-                for ( var i = 0; i < this.$scope.media.length; i ++ ) {
-                    var media = this.$scope.media[i];
+                for (let i = 0; i < this.$scope.media.length; i ++ ) {
+                    const media = this.$scope.media[i];
                     if ( ! this.mediaService.hasWritePermission( media, permission ) ) {
                         return false;
                     }
@@ -146,7 +146,7 @@ angular.module( 'poms.media.controllers' ).controller( 'BulkUpdateController', [
             },
 
             submit: function ( validate ) {
-                var update = this.$scope.update,
+                const update = this.$scope.update,
                     erase = this.$scope.erase;
 
                 this.$scope.violations = undefined;

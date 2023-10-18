@@ -19,7 +19,7 @@ angular.module('poms.util.controllers')
                     if(error.familyTree) {
                         this.breadCrumbs = [];
 
-                        var crumb = error.familyTree;
+                        let crumb = error.familyTree;
 
                         while(crumb) {
                             this.breadCrumbs.push({

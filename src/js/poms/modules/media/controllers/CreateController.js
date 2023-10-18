@@ -65,7 +65,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
-                    invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 
+                    let invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0
                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
                         invalid = invalid || ! newValue.genres || newValue.genres.length === 0;
@@ -78,7 +78,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                         this.$scope.avTypes = this.avTypes.filter(function (avType) {
                             return newValue.type.avTypes.includes(avType.id)
                         });
-                        
+
                         if (newValue.avType && ! newValue.type.avTypes.includes(newValue.avType.id)) {
                             newValue.avType = undefined;
                         }
@@ -121,7 +121,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                     }
                 } );
             }
-            
+
         };
 
         return CreateController;

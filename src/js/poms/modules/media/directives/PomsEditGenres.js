@@ -20,8 +20,8 @@ angular.module( 'poms.media.directives' )
                     )
                 }
                 this.$onInit = function() {
-                    var media = $scope.media;
-                    var uiSelect;
+                    const media = $scope.media;
+                    let uiSelect;
 
                     $scope.genres = [];
                     $scope.options = [];
@@ -65,8 +65,8 @@ angular.module( 'poms.media.directives' )
                                     selected :[]
                                 };
 
-                                for ( var i = 0; i < data.length; i ++ ) {
-                                    for ( var j = 0; j < $scope.options.length; j ++ ) {
+                                for (let i = 0; i < data.length; i ++ ) {
+                                    for (let j = 0; j < $scope.options.length; j ++ ) {
                                         if ( $scope.options[j].id === data[i].id ) {
                                             $scope.selectedItems.selected.push( $scope.options[j] );
                                         }
@@ -126,8 +126,8 @@ angular.module( 'poms.media.directives' )
                         e.stopPropagation();
                     }
 
-                    var data = uiSelect.selected;
-                    var deferred = $q.defer();
+                    const data = uiSelect.selected;
+                    const deferred = $q.defer();
 
                     if ( angular.equals( data, $scope.genres ) ) {
                         $scope.waiting = false;
@@ -151,7 +151,7 @@ angular.module( 'poms.media.directives' )
                             $scope.errorText = error.message;
 
                             if ( error.violations ) {
-                                for ( var violation in  error.violations ) {
+                                for (let violation in  error.violations ) {
                                     $scope.errorText = error.violations[violation];
                                     deferred.reject( $scope.errorText );
                                     break;
@@ -169,7 +169,7 @@ angular.module( 'poms.media.directives' )
 
                     e.stopPropagation();
 
-                    var data = uiSelect.selected;
+                    const data = uiSelect.selected;
 
                     if ( angular.equals( data, $scope.genres ) ) {
                         $scope.waiting = false;

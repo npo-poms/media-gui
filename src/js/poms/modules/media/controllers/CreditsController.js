@@ -58,7 +58,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
                     "person,name",
                     item,
                     function (concept, role ) {
-                        var parsedCredits = this.parseConcept(concept, role);
+                        const parsedCredits = this.parseConcept(concept, role);
                         parsedCredits.id = item ? item.id : null;
                         if (parsedCredits.role) {
                             this.mediaService.setCredits(this.media, parsedCredits)
@@ -69,7 +69,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
                                     }.bind(this),
                                     function (error) {
                                         if (error.violations) {
-                                            for (var violation in  error.violations) {
+                                            for (let violation in  error.violations) {
                                                 this.$scope.errorText = error.violations[violation];
                                                 break;// what about the next error?
                                             }
@@ -116,7 +116,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreditsController', [
 
             errorHandler: function(error) {
                 if (error.violations) {
-                    for (var violation in  error.violations) {
+                    for (let violation in  error.violations) {
                         this.$scope.errorText = error.violations[violation];
                         break;
                     }

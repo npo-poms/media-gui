@@ -46,8 +46,8 @@ angular.module('poms.services').factory('GuiService', [
             },
 
             initTabs : function() {
-                for(var i = 0; i < this.tabs.length; i++) {
-                    var tab = this.tabs[i];
+                for(let i = 0; i < this.tabs.length; i++) {
+                    const tab = this.tabs[i];
 
                     if(tab.type === 'search') {
                         this.tabs[i].item = searchFactory.newSearch(tab.item);
@@ -77,8 +77,8 @@ angular.module('poms.services').factory('GuiService', [
             },
 
             getActiveMid : function() {
-                for(var i = 0; i < this.tabs.length; i++) {
-                    var tab = this.tabs[i];
+                for(let i = 0; i < this.tabs.length; i++) {
+                    const tab = this.tabs[i];
                     if(tab.type === 'edit' && tab.active) {
                         return tab.item.mid;
                     }
@@ -88,10 +88,10 @@ angular.module('poms.services').factory('GuiService', [
             },
 
             getGuiMedia : function() {
-                var answer = [];
+                const answer = [];
 
-                for(var i = 0; i < this.tabs.length; i++) {
-                    var tab = this.tabs[i];
+                for(let i = 0; i < this.tabs.length; i++) {
+                    const tab = this.tabs[i];
                     if(tab.type === 'edit') {
                         answer.push(tab.item);
                     }

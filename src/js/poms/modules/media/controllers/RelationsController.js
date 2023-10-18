@@ -59,14 +59,14 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
 
             editRelation: function( relation ){
 
-                var editMode = true;
+                let editMode = true;
 
                 if ( !relation ){
                     relation = {};
                     editMode = false;
                 }
 
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open({
                     controller: 'RelationEditController',
                     controllerAs: 'controller',
                     templateUrl: '/views/edit/modal-edit-relation.html',
@@ -74,18 +74,18 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
                     resolve: {
                         media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
+                        }.bind(this),
                         relation: function () {
                             return relation;
                         },
-                        types: function(){
+                        types: function () {
                             return this.$scope.types;
                         }.bind(this),
                         edit: function () {
                             return editMode;
                         }
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( media ) {
@@ -98,7 +98,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationsController', [
 
 
             remove: function ( index ) {
-                var source = this.relations[index];
+                const source = this.relations[index];
                 return this.mediaService.removeRelation( this.$scope.media, source ).then(
                     function ( media ) {
                         angular.copy( media, this.$scope.media );

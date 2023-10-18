@@ -18,7 +18,7 @@ angular.module( 'poms.media.directives' )
                 e.preventDefault();
                 e.stopPropagation();
 
-                var modal = $uibModal.open( {
+                const modal = $uibModal.open( {
                     scope: this.$scope,
                     resolve: {
                         title: function () {

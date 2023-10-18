@@ -10,8 +10,8 @@ angular.module('poms.media.services').factory('MergeService', [
     'SearchService',
     function($rootScope, $http, $q, $uibModal, appConfig, guiService, pomsEvents, searchFactory, searchService) {
 
-        var baseUrl = appConfig.apiHost + '/gui/merge',
-                url, source;
+        const  baseUrl = appConfig.apiHost + '/gui/merge';
+        let url, source;
 
         function MergeService() {
         }
@@ -24,8 +24,8 @@ angular.module('poms.media.services').factory('MergeService', [
             },
 
             _findDestination : function(media) {
-                var search = searchFactory.newMergeSearch(media.type, { parentMid : media.mid }),
-                        promise = searchService.searchMediaInModal(search);
+                const search = searchFactory.newMergeSearch(media.type, {parentMid: media.mid}),
+                    promise = searchService.searchMediaInModal(search);
 
                 promise.then(function(destinations) {
                     if(destinations) {
@@ -40,7 +40,7 @@ angular.module('poms.media.services').factory('MergeService', [
 
                 $http.get(url).then(
                     function(response) {
-                        var merge = response.data;
+                        const merge = response.data;
                         this._showMergeView(merge)
                     }.bind(this),
                     function(error) {
@@ -50,19 +50,19 @@ angular.module('poms.media.services').factory('MergeService', [
 
             _showMergeView : function(merge) {
 
-                var modal = $uibModal.open({
-                    templateUrl : '/views/edit/modal-merge.html',
-                    controller : 'ModalMergeController',
-                    controllerAs : 'controller',
-                    windowClass : 'modal-merge',
-                    resolve : {
-                        config : function() {
+                const modal = $uibModal.open({
+                    templateUrl: '/views/edit/modal-merge.html',
+                    controller: 'ModalMergeController',
+                    controllerAs: 'controller',
+                    windowClass: 'modal-merge',
+                    resolve: {
+                        config: function () {
                             return {};
                         },
-                        merge : function() {
+                        merge: function () {
                             return merge;
                         },
-                        submitMerge : function() {
+                        submitMerge: function () {
                             return this._merge;
                         }.bind(this)
                     }
@@ -70,7 +70,7 @@ angular.module('poms.media.services').factory('MergeService', [
             },
 
             _merge : function(config) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
                 $http.put(url, config).then(
                     function(result) {

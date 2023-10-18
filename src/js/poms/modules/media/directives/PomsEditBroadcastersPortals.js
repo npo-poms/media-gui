@@ -15,8 +15,8 @@ angular.module( 'poms.media.directives' )
                 helpField: '@'
             },
             link: function ( $scope, element, attrs ) {
-                var media = $scope.$parent.media;
-                var uiSelect;
+                const media = $scope.$parent.media;
+                let uiSelect;
 
                 $scope.errorType = attrs.errortype || '';
                 $scope.isOpen = false;
@@ -58,14 +58,14 @@ angular.module( 'poms.media.directives' )
                     event.stopPropagation();
                     if ( $scope.mayWrite() && ! $scope.isOpen ) {
 
-                        var currentItems = angular.copy( $scope.media[$scope.field] );
+                        const currentItems = angular.copy($scope.media[$scope.field]);
 
                         $scope.isOpen = true;
 
                         $scope.selectedItems.selected = [];
                         if ( $scope.options.length > 0 && currentItems ) {
-                            for ( var i = 0; i < currentItems.length; i ++ ) {
-                                for ( var j = 0; j < $scope.options.length; j ++ ) {
+                            for (let i = 0; i < currentItems.length; i ++ ) {
+                                for (let j = 0; j < $scope.options.length; j ++ ) {
                                     if ( $scope.options[j].id === currentItems[i].id ) {
 
                                         $scope.selectedItems.selected.push( $scope.options[j] );
@@ -104,12 +104,12 @@ angular.module( 'poms.media.directives' )
 
                     $scope.waiting = true;
 
-                    if ( angular.equals( data === media[$scope.field] ) ) {
+                    if ( angular.equals( data, media[$scope.field] ) ) {
                         $scope.waiting = false;
                         return; // no change
                     }
 
-                    var deferred = $q.defer();
+                    const deferred = $q.defer();
 
                     editService[$scope.field]( media, data ).then(
                         function ( result ) {
@@ -125,10 +125,10 @@ angular.module( 'poms.media.directives' )
                         },
                         function ( error ) {
                             if(error) {
-                                var errorText = error.message;
+                                let errorText = error.message;
 
                                 if ( error.violations ) {
-                                    for ( var violation in  error.violations ) {
+                                    for (let violation in  error.violations ) {
                                         errorText = error.violations[violation];
                                         deferred.reject( errorText );
                                         break;
@@ -145,7 +145,7 @@ angular.module( 'poms.media.directives' )
                 };
 
                 $scope.keyEvent = function ( event ) {
-                    if ( event.keyCode == 27 ) {
+                    if ( event.keyCode === 27 ) {
                         $scope.cancel();
                     }
                 };
@@ -155,7 +155,7 @@ angular.module( 'poms.media.directives' )
                     if ( e ) {
                         e.stopPropagation();
                     }
-                    var data = $scope.selectedItems.selected;
+                    const data = $scope.selectedItems.selected;
                     if ( angular.equals( data === media[$scope.field] ) ) {
                         this.waiting = false;
                         $scope.onHide();
@@ -183,7 +183,7 @@ angular.module( 'poms.media.directives' )
                     // function to make sure at least one of the editors broadcasters or portals is selected //
                     // prevents editor from saving media item and thereby removing his own editing permssions //
 
-                    var broadcasters, portals;
+                    let broadcasters, portals;
 
                     if ( field === 'broadcasters' ) {
                         broadcasters = data;
@@ -197,10 +197,10 @@ angular.module( 'poms.media.directives' )
                     }
 
 
-                    var chosenAllowedBroadcasters = [];
+                    const chosenAllowedBroadcasters = [];
                     if ( broadcasters ) {
-                        for ( var i = 0; i < broadcasters.length; i ++ ) {
-                            for ( var j = 0; j < $scope.allowedBroadcasters.length; j ++ ) {
+                        for ( let i = 0; i < broadcasters.length; i ++ ) {
+                            for ( let j = 0; j < $scope.allowedBroadcasters.length; j ++ ) {
                                 if ( $scope.allowedBroadcasters[j].id === broadcasters[i].id ) {
                                     chosenAllowedBroadcasters.push( $scope.allowedBroadcasters[j] );
                                 }
@@ -208,10 +208,10 @@ angular.module( 'poms.media.directives' )
                         }
                     }
 
-                    var chosenAllowedPortals = [];
+                    const chosenAllowedPortals = [];
                     if ( portals ) {
-                        for ( var i = 0; i < portals.length; i ++ ) {
-                            for ( var j = 0; j < $scope.allowedPortals.length; j ++ ) {
+                        for ( let i = 0; i < portals.length; i ++ ) {
+                            for ( let j = 0; j < $scope.allowedPortals.length; j ++ ) {
                                 if ( $scope.allowedPortals[j].id === portals[i].id ) {
                                     chosenAllowedPortals.push( $scope.allowedPortals[j] );
                                 }
@@ -220,7 +220,7 @@ angular.module( 'poms.media.directives' )
                     }
 
                     if ( field === 'broadcasters' && $scope.options ) {
-                        for ( var j = 0; j < $scope.options.length; j ++ ) {
+                        for ( let j = 0; j < $scope.options.length; j ++ ) {
                             $scope.options[j].disabled = ( broadcasters.length === 1 && broadcasters[0].id === $scope.options[j].id );
 
                         }
@@ -228,7 +228,7 @@ angular.module( 'poms.media.directives' )
 
 
                     if ( field === 'portals' && $scope.options ) {
-                        for ( var j = 0; j < $scope.options.length; j ++ ) {
+                        for ( let j = 0; j < $scope.options.length; j ++ ) {
                             $scope.options[j].disabled = ( chosenAllowedBroadcasters.length === 0
                             && chosenAllowedPortals.length === 1
                             && $scope.options[j].id === chosenAllowedPortals[0].id );

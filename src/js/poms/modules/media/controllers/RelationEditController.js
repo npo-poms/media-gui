@@ -74,7 +74,7 @@ angular.module( 'poms.media.controllers' ).controller( 'RelationEditController',
 
             save: function () {
                 this.$scope.waiting = true;
-                var data = this.$scope.relation;
+                const data = this.$scope.relation;
 
                 return this.mediaService.saveRelation( this.$scope.media, data ).then(
                     function ( media ) {

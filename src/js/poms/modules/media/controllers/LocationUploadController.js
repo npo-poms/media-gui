@@ -58,14 +58,14 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
             init: function () {
 
-                var mock = false;
+                const mock = false;
 
                 this.uploadService.getJobsForMid( this.$scope.media.mid , mock).then(
                     function ( result ) {
 
                         if ( result.length ){
                             this.$scope.transcodings = result;
-                            for (var i=0; i< result.length;i++){
+                            for (let i=0; i< result.length; i++){
                                 if ( result[i] && result[i].state === 'REQUEST'
                                     || result[i].state === 'PENDING'
                                     || result[i].state === 'ENCODED'
@@ -90,22 +90,21 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             },
 
             violations: {},
-            
+
             needsPriorityField: function() {
                 return this.$scope.streamType === 'VIDEO';
             },
-            
+
             needsEncryptionField: function() {
                 return this.$scope.streamType === 'VIDEO';
             },
-            
+
             guiStreamType: function() {
                 return this.$scope.streamType === 'AUDIO' ? 'audio' : 'video';
             },
-            
+
             accept: function() {
-                
-                var accept = "";
+                let accept = "";
                 if (this.streamType  === 'AUDIO') {
                     accept = ".mp3,.wav,audio/mp3,audio/wav";
                 }  else if (this.streamType  === 'VIDEO') {
@@ -133,7 +132,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                 // - Second the returned urn from the location server is submitted to Poms with all other meta-data.
 
                 // We are using the legacy ext-js upload from the location server with a multipart-form upload
-                var location = this.$scope.location;
+                const location = this.$scope.location;
 
                 if ( location.publication && location.publication.start ) {
                     location.publication.start = new Date( location.publication.start ).getTime();
@@ -148,15 +147,15 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
                     location.publication.stop = location.publication.start;
                 }
 
-                var media = this.$scope.media;
-                var fields = {
+                const media = this.$scope.media;
+                const fields = {
                     mid: media.mid,
                     name: location.file[0].name,
                     avType: media.avType.id,
                     priority: location.priority.id,
                     encryption: location.encryption.id
 
-                    };
+                };
                 if (location.publication.start) {
                     fields.publicationStart = location.publication.start;
                 }

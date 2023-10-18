@@ -32,9 +32,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             $scope.sortableOptions = {
                 handle: '.sort-handle',
                 update: function ( event, ui ) {
-                    var moveMethod = $scope.type === 'episodes' ? 'moveEpisode' : 'moveMember';
-                    var index = ui.item.index();
-                    var to = $scope.members.entries[index].id
+                    const moveMethod = $scope.type === 'episodes' ? 'moveEpisode' : 'moveMember';
+                    const index = ui.item.index();
+                    const to = $scope.members.entries[index].id;
                     if ( this.from >= 0 && to !== this.from ) {
                         $scope.waiting = true;
                         this.mediaService[moveMethod]( $scope.media, this.from, to, $scope.page, this.overlap).then(
@@ -55,7 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                     this.from = - 1;
                 }.bind( this ),
                 start: function ( event, ui ) {
-                    var index = ui.item.index();
+                    const index = ui.item.index();
                     this.from = $scope.members.entries[index].id
                 }.bind( this ),
                 items: "tr:not(.not-sortable)"
@@ -89,7 +89,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             from: - 1,
 
             load: function () {
-                var loadMethod = this.$scope.type === 'episodes' ? 'getEpisodes' : 'getMembers';
+                const loadMethod = this.$scope.type === 'episodes' ? 'getEpisodes' : 'getMembers';
                 this.$scope.waiting = true;
                 this.$scope.$emit( this.pomsEvents.loaded, {'section': this.$scope.type, 'waiting': true} );
 
@@ -121,7 +121,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             },
 
             remove: function ( member ) {
-                var removeMethod = this.$scope.type === 'episodes' ? 'removeEpisode' : 'removeMember';
+                const removeMethod = this.$scope.type === 'episodes' ? 'removeEpisode' : 'removeMember';
 
                 return this.mediaService[removeMethod]( this.$scope.media, member ).then(
                     function ( media ) {
@@ -167,7 +167,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
                 data.id = member.id;
 
-                var updateMethod = this.$scope.type === 'episodes' ? 'updateEpisode' : 'updateMember';
+                const updateMethod = this.$scope.type === 'episodes' ? 'updateEpisode' : 'updateMember';
 
                 this.mediaService[updateMethod]( this.$scope.media, data ).then(
                     function ( media ) {
@@ -191,9 +191,9 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
             },
 
             addMember: function () {
-                var addMethod;
-                var addEventMethod;
-                var search;
+                let addMethod;
+                let addEventMethod;
+                let search;
 
                 if(this.$scope.type === 'episodes') {
                     addMethod = 'addEpisode';
@@ -221,7 +221,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                             }.bind( this ),
                             function ( error ) {
                                 if ( error.cause === "TOO_MANY_PUBLICATIONS" ) {
-                                    var type, message;
+                                    let type, message;
                                     if(this.$scope.type === 'episodes') {
                                         type = 'afleveringen';
                                         message = 'Ik probeer [' + _.map(results, function(result) {return ' ' + result.mid + ' '}).join()+ '] als aflevering toe te voegen bij ' + this.$scope.media.mid;
@@ -252,8 +252,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
 
             locationTypes : function( locations ){
-                var uniqueLocations = [];
-                for ( var i = 0; i < locations.length; i ++ ) {
+                const uniqueLocations = [];
+                for (let i = 0; i < locations.length; i ++ ) {
                     if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
                         uniqueLocations.push( locations[i].format );
                     }
@@ -265,7 +265,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
 
             toggleOrdered: function () {
 
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open({
                     controller: 'ConfirmController',
                     controllerAs: 'controller',
                     templateUrl: '/views/util/confirm.html',
@@ -276,7 +276,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                         },
                         message: function () {
 
-                            if ( !this.$scope.media.ordered ) {
+                            if (!this.$scope.media.ordered) {
                                 return "Weet je zeker dat je de ordening van deze onderdelen wilt verwijderen? Dit kan niet ongedaan worden gemaakt";
                             } else {
                                 return "Weet je zeker dat je van deze lijst een geordende lijst wilt maken?"
@@ -289,7 +289,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                             return 'ok';
                         }
                     }
-                } );
+                });
 
                 modal.result.then(
                     function () {
@@ -299,7 +299,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MembersController', [
                             }.bind(this),
                             function ( error ) {
                                 if ( error.cause === "TOO_MANY_PUBLICATIONS" ) {
-                                    var type, message;
+                                    let type, message;
                                     if(this.$scope.media.ordered) {
                                         type = 'ordenen lijst';
                                         message = 'Ik probeer de onderdelen bij ' + this.$scope.media.mid + ' te ordenen';

@@ -105,7 +105,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
 
                 if ( newValue && newValue.file && newValue.file[0]  ) {
 
-                    var reader = new FileReader();
+                    const reader = new FileReader();
                     reader.onload = function ( e ) {
                         this.$scope.$apply( function(){
                             this.setPreview(e.target.result);
@@ -136,7 +136,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             },
 
             formatDate: function(millis) {
-                var date = new Date(millis);
+                const date = new Date(millis);
                 return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
             },
 
@@ -167,7 +167,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 this.setPreview('');
             },
             setPreview: function(src) {
-                var image = $.find('#previewimage')[0];
+                const image = $.find('#previewimage')[0];
                 if (image) {
                     image.src = src;
                 }
@@ -181,8 +181,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             // MSE-3429 - For now, the image editor will show a warning when credits are invalid
             // In the future these will be mandatory.
             preSave: function () {
-                var modal;
-                var image = this.$scope.image;
+                let modal;
+                const image = this.$scope.image;
 
                 if ( hasValidCredits( image ) ) {
                     this.save();
@@ -224,7 +224,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 }
             },
             fields: function() {
-                var image = this.$scope.image;
+                const image = this.$scope.image;
                 return  {
                     title: image.title,
                     description: image.description,
@@ -254,7 +254,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     }
                 }).then(
                     function (extResult) {
-                        var metadata = extResult.data;
+                        const metadata = extResult.data;
                         $.find('#uploadinfo')[0].innerHTML = "Een plaatje gevonden met grootte " + metadata.width + "x" + metadata.height + " van " + metadata.size + " bytes";
                         angular.extend(this.$scope.image, {
                             title: metadata.title,
@@ -290,7 +290,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                 // - Second the returned urn from the image server is submitted to Poms with all other meta-data.
 
                 // We are using the legacy ext-js upload from the image server with a multipart-form upload
-                var image = this.$scope.image;
+                const image = this.$scope.image;
 
                 if ( image.publication && image.publication.start ) {
                     image.publication.start = new Date( image.publication.start ).getTime();
@@ -305,7 +305,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     image.publication.stop = image.publication.start;
                 }
 
-                var saveUploadedImage = function () {
+                const saveUploadedImage = function () {
                     this.service.saveImage(this.$scope.media, this.$scope.image).then(
                         function (media) {
                             this.$uibModalInstance.close(media);
@@ -313,10 +313,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         }.bind(this),
                         function (error) {
                             this.$scope.waiting = false;
-                            if ( error.status === 400 && error.violations ) {
+                            if (error.status === 400 && error.violations) {
                                 this.violations = error.violations;
                             } else {
-                                this.$scope.$emit( this.pomsEvents.error, error )
+                                this.$scope.$emit(this.pomsEvents.error, error)
                             }
                         }.bind(this)
                     )
@@ -327,7 +327,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     // Image uploaded to image server already, but there probably were validation errors when submitting to Poms
                     saveUploadedImage();
                 } else {
-                    var fields = this.fields();
+                    const fields = this.fields();
                     // Image not uploaded to image server yet
                     this.$upload.upload({
                         url: this.infoService.getImageBackendUrl() + "/api/images/upload",
@@ -340,7 +340,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         }
                     }).then(
                         function (response) {
-                            var uploaded = response.data.list[0];
+                            const uploaded = response.data.list[0];
                             angular.extend(this.$scope.image, {
                                 uri: uploaded.urn,
                                 height: uploaded.height,

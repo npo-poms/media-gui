@@ -17,11 +17,11 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
                     return;
                 }
 
-                var title = $scope.pomsConfirm ? $scope.pomsConfirm + ' verwijderen?' : 'verwijderen?';
-                var message = $scope.pomsMessage || 'Je kunt dit niet meer ongedaan maken.';
-                var submitButtonText = $scope.pomsSubmitButtonText || 'verwijderen';
+                const title = $scope.pomsConfirm ? $scope.pomsConfirm + ' verwijderen?' : 'verwijderen?';
+                const message = $scope.pomsMessage || 'Je kunt dit niet meer ongedaan maken.';
+                const submitButtonText = $scope.pomsSubmitButtonText || 'verwijderen';
 
-                var modal = $uibModal.open( {
+                const modal = $uibModal.open({
                     controller: 'ConfirmController',
                     controllerAs: 'controller',
                     templateUrl: '/views/util/confirm.html',
@@ -40,7 +40,7 @@ angular.module( 'poms.util.directives' ).directive( 'pomsConfirm', [function () 
                             return submitButtonText;
                         }
                     }
-                } );
+                });
 
                 modal.result.then(
                     function () {

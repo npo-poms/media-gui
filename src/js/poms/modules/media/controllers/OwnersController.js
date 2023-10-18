@@ -21,7 +21,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnersController', [
 
             this.ownersData = {};
 
-            var ownerPromises = [];
+            const ownerPromises = [];
 
             angular.forEach( this.owners, function( owner, i ){
 
@@ -35,8 +35,8 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnersController', [
                 if( ownersData.length > 0 ) {
 
                     // get the keys from the first ownerData
-                    var keys = Object.keys(ownersData[0]);
-                    var ownKeys = [];
+                    const keys = Object.keys(ownersData[0]);
+                    const ownKeys = [];
 
                     // filter out possibly inherited keys
                     for (var i = keys.length - 1; i >= 0; i--) {
@@ -49,7 +49,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnersController', [
                     angular.forEach(ownersData, function (ownerData) {
 
                         // Loop over all keys
-                        for (var i = ownKeys.length - 1; i >= 0; i--) {
+                        for (let i = ownKeys.length - 1; i >= 0; i--) {
 
                             if (!this.ownersData[ownKeys[i]]) {
                                 this.ownersData[ownKeys[i]] = {};

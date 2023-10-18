@@ -28,7 +28,7 @@ angular.module( 'poms.util.directives' )
                 this.$scope.opened = false;
 
                 this.$scope.$on( "uiSelect:events", function ( e, events ) {
-                    var open = events[0];
+                    const open = events[0];
                     if ( ! open ) {
                         this.$scope.opened = false;
                     }
@@ -114,7 +114,6 @@ angular.module( 'poms.util.directives' )
             PomsUiSelectController.prototype = {
 
                 closeClick: function () {
-
                     this.$scope.opened = false;
                     this.$scope.optionSelected();
                 },
@@ -173,7 +172,7 @@ angular.module( 'poms.util.directives' )
                 this.$scope.options = [];
 
                 this.$scope.$on( "uiSelect:events", function ( e, events ) {
-                    var open = events[0];
+                    const open = events[0];
 
                     if ( ! open ) {
                         this.$scope.opened = false;

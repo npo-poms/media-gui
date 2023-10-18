@@ -101,7 +101,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
             handleRouteChange: function () {
                 this.$scope.$on( '$routeChangeSuccess', function () {
 
-                    var mid = this.$route.current.params.mid;
+                    const mid = this.$route.current.params.mid;
                     if ( mid ) {
                         this.$window.open( this.appConfig.apiHost +'/#/edit/'+ mid );
                     }
@@ -110,7 +110,7 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
 
             initSearch: function () {
 
-                var searchConfig = {
+                const searchConfig = {
                     multiSelect: false,
                     form: {
                         properties: {
@@ -119,12 +119,12 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                     }
                 };
 
-                var urlSearchParams = new URLSearchParams(window.location.search);
+                const urlSearchParams = new URLSearchParams(window.location.search);
 
-                for (var [key, value] of urlSearchParams.entries()) {
+                for (let [key, value] of urlSearchParams.entries()) {
                     if (key.startsWith("properties.")) {
                         if (value === 'true') {
-                            var val = {
+                            const val = {
                                 id: key.substring("properties.".length),
                                 text: key.substring("properties.".length)
                             };
@@ -132,19 +132,19 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                         }
                     }
                 }
-                var promises = [];
+                const promises = [];
                 if (urlSearchParams.get('avType')) {
                     promises.push(this.listService.getAvTypes().then(function(t) {
                         searchConfig.form.avType = t.find(av => av.id === urlSearchParams.get('avType'));
                         return t;
                     }.bind(this)));
                 }
-                var mediaTypeFilter = urlSearchParams.get('mediaType');
+                const mediaTypeFilter = urlSearchParams.get('mediaType');
                 if ( mediaTypeFilter && mediaTypeFilter.length > 0 ) {
                     promises.push(this.listService.getMediaTypes().then(
                         function ( types ) {
                             this.types = types;
-                            var restrictedTypes = [];
+                            const restrictedTypes = [];
                             searchConfig.form.types =  {
                                 restriction: mediaTypeFilter.split(',')
                             }
@@ -158,12 +158,12 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                         }.bind(this)
                     ));
                 }
-                var broadcasterFilter = urlSearchParams.get('broadcaster');
+                const broadcasterFilter = urlSearchParams.get('broadcaster');
                 if ( broadcasterFilter && broadcasterFilter.length > 0 ) {
                     promises.push(this.listService.getBroadcasters().then(
                         function ( broadcasters) {
                             this.broadcasters = broadcasters;
-                            var restrictedBroadcaster = [];
+                            const restrictedBroadcaster = [];
                             searchConfig.form.broadcasters =  {
                                 restriction: broadcasterFilter.split(',')
                             }
@@ -184,8 +184,8 @@ angular.module( 'poms.controllers' ).controller( 'SelectorController', [
                 }.bind(this));
 
                 this.$scope.$on('selected', function( event, result ) {
-                    var urlSearchParams = new URLSearchParams(window.location.search);
-                    var returnKey = urlSearchParams.get("returnValue");
+                    const urlSearchParams = new URLSearchParams(window.location.search);
+                    let returnKey = urlSearchParams.get("returnValue");
 
                     if ( ! returnKey) {
                         returnKey = 'mid';

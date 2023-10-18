@@ -1,18 +1,19 @@
 angular.module( 'poms.media.services' ).factory('NpoPlayerService',
     function ( $http, $q, appConfig) {
 
-        var playerRequestBase = appConfig.apiHost + '/gui/npoplayer';
-        var NpoPlayerService = function () {};
-        var playerELement =  function(containerId) {
-            if (typeof(containerId) === 'string') {
+        const playerRequestBase = appConfig.apiHost + '/gui/npoplayer';
+        const NpoPlayerService = function () {
+        };
+        const playerELement = function (containerId) {
+            if (typeof (containerId) === 'string') {
                 return $('#' + containerId + " div")[0];
             } else {
                 return containerId.find(" div")[0];
             }
         };
-        var playerObject =  function(containerId) {
+        const playerObject = function (containerId) {
             element = playerELement(containerId);
-            player =  element ? element.player : null;
+            player = element ? element.player : null;
             return player;
         };
         NpoPlayerService.prototype = {
@@ -30,7 +31,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
 
             play: function (containerId, request, size, options) {
                 options = options || {};
-                var deferred = $q.defer();
+                const deferred = $q.defer();
                 $http({
                     method : 'GET',
                     url : playerRequestBase + request,

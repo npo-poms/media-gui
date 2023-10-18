@@ -26,7 +26,7 @@ angular.module( 'poms.media.controllers' ).controller(
             this.pomsEvents = pomsEvents;
 
             this.media.subtitles.forEach( function ( subtitle ) {
-                var sub = {};
+                const sub = {};
                 angular.copy( subtitle, sub );
                 sub.originalOffset  = {};
                 angular.copy( sub.offset, sub.originalOffset );
@@ -49,7 +49,7 @@ angular.module( 'poms.media.controllers' ).controller(
             },
 
             showSubtitle: function ( subtitle ) {
-                var urlSuffix = this.media.mid + '/' + subtitle.language + '/' + subtitle.type.id;
+                const urlSuffix = this.media.mid + '/' + subtitle.language + '/' + subtitle.type.id;
                 window.open( this.$filter( 'subtitlesLocationPrefix' )( urlSuffix ) );
             },
 
@@ -85,7 +85,7 @@ angular.module( 'poms.media.controllers' ).controller(
                 );
             },
             cancel: function ( index) {
-                var sub = this.subtitles[index];
+                const sub = this.subtitles[index];
                 angular.copy( sub.originalOffset, sub.offset);
             }
 

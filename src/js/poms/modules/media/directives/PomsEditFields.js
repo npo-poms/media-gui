@@ -144,11 +144,11 @@ angular.module( 'poms.media.directives' )
 
 
                 $scope.findDeep = function(media, field) {
-                    var current = media[field];
+                    let current = media[field];
                     if (! current) {
                         current = media;
-                        for (var i = 0; i < field.split('.').length; i++){
-                            var p = field.split('.')[i];
+                        for (let i = 0; i < field.split('.').length; i++){
+                            const p = field.split('.')[i];
                             current = current[p];
                             if (current == null) {
                                 break
@@ -173,7 +173,7 @@ angular.module( 'poms.media.directives' )
 
                 $scope.isUnchanged = function ( data ) {
 
-                    var oldValue = angular.copy( $scope.media[$scope.field] );
+                    const oldValue = angular.copy($scope.media[$scope.field]);
 
                     if ( $scope.field === "duration" && data ) {
                         data = $filter( 'noTimezone' )( data ).getTime(); // WTF?
@@ -229,7 +229,7 @@ angular.module( 'poms.media.directives' )
                 $scope.save = function ( data ) {
 
                     if ( $scope.options && $scope.options.length ) {
-                        for ( var key in $scope.options ) {
+                        for (let key in $scope.options ) {
                             if ( $scope.options[key] && $scope.options[key].id === data ) {
                                 data = $scope.options[key];
                                 break;
@@ -257,14 +257,14 @@ angular.module( 'poms.media.directives' )
                 DUTCH_PARTICLES =  [/^(de)\b.+/i, /^(het)\b.+/i, /^(een)\b.+/i];
                 $scope.getLexico = function (title) {
                     // This is a javascript version of poms-shared.jar!nl.vpro.util.TextUtil#getLexico()
-                    for (var i = 0; i < DUTCH_PARTICLES.length; i++) {
-                        var regexp = DUTCH_PARTICLES[i];
-                        var match = regexp.exec(title);
+                    for (let i = 0; i < DUTCH_PARTICLES.length; i++) {
+                        const regexp = DUTCH_PARTICLES[i];
+                        const match = regexp.exec(title);
                         if (match !== null) {
-                            var matchLength = match[1].length;
-                            var start = title.substring(0, matchLength);
-                            var uppercase = title.toUpperCase() === title;
-                            var b = title.substring(matchLength).trim()
+                            const matchLength = match[1].length;
+                            const start = title.substring(0, matchLength);
+                            const uppercase = title.toUpperCase() === title;
+                            let b = title.substring(matchLength).trim()
                                 + ", " +
                                 (uppercase ? start.toUpperCase() : start.toLowerCase());
                             if (start.charAt(0) === start.charAt(0).toUpperCase()) {
@@ -303,7 +303,7 @@ angular.module( 'poms.media.directives' )
                 };
 
                 $scope.blurredSave = function ( e ) {
-                    var data;
+                    let data;
 
                     if ( e ) {
                         e.stopPropagation();
@@ -351,9 +351,9 @@ angular.module( 'poms.media.directives' )
 
                 $scope.process = function ( media, data ) {
 
-                    var deferred = $q.defer();
+                    const deferred = $q.defer();
 
-                    var method = $scope.field.split('.')[0];
+                    const method = $scope.field.split('.')[0];
                     this.editService[method] ( media, data ).then(
                         function ( result ) {
 
@@ -367,10 +367,10 @@ angular.module( 'poms.media.directives' )
 
                         },
                         function ( error ) {
-                            var errorText = error.message;
+                            let errorText = error.message;
 
                             if ( error.violations ) {
-                                for ( var violation in error.violations ) {
+                                for (let violation in error.violations ) {
                                     errorText = error.violations[violation];
                                     deferred.reject( errorText );
                                     break;

@@ -88,11 +88,11 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             },
 
             toggleSelect: function ( item, event) {
-                var previous = this.$scope.lastSelect;
-                var range = event.shiftKey && previous;
+                const previous = this.$scope.lastSelect;
+                const range = event.shiftKey && previous;
                 //console.log("Range matching", range, event.shiftKey, previous);
                 this.$scope.lastSelect = item;
-                var spliceIdx = - 1;
+                let spliceIdx = -1;
                 item.selected = !item.selected;
 
                 if ( !this.search.multiSelect ){
@@ -110,10 +110,10 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                         });
                     }
                 } else {
-                    var matching = false;
-                    var selectionTarget = item.selected;
+                    let matching = false;
+                    const selectionTarget = item.selected;
                     angular.forEach( this.$scope.searchResults.items, function ( i ) {
-                        var matchCurrent = i.mid === item.mid;
+                        const matchCurrent = i.mid === item.mid;
                         if (range) {
                             var matchPrevious = i.mid === previous.mid;
                             if (matchPrevious || matchCurrent) {
@@ -174,11 +174,11 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             },
 
             queryDataAndOptions: function(offset) {
-                var queryData = this.searchService.setStopDates(this.$scope.query);
+                const queryData = this.searchService.setStopDates(this.$scope.query);
 
                 this.$scope.dateFilter = queryData.sortDate || {};
 
-                var options = {
+                const options = {
                     offset: offset || 0
                 };
                 if ( this.$scope.search.form.sort.field && this.$scope.search.form.sort.field !== 'relevance' ) {
@@ -192,10 +192,10 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             submit: function ( offset ) {
                 this.$scope.searching = true;
                 this.$scope.csvUrl = null;
-                var searchCount = ++this.searchCount;
-                var queryData, options;
+                const searchCount = ++this.searchCount;
+                let queryData, options;
                 [queryData, options] = this.queryDataAndOptions(offset);
-                var promise;
+                let promise;
                 if ( this.search.scope === 'episodeOf' ) {
                     promise = this.searchService.loadEpisodeOfs( queryData, options );
                 } else if ( this.search.scope === 'episodes' ) {
@@ -224,7 +224,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
             download: function (ev) {
                 ev.preventDefault();
-                var queryData, options;
+                let queryData, options;
                 [queryData, options] = this.queryDataAndOptions(0);
                 this.$scope.downloading = true;
                 this.searchService.download(queryData, options).then(
@@ -244,8 +244,8 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             },
 
             locationTypes : function( locations ){
-                var uniqueLocations = [];
-                for ( var i = 0; i < locations.length; i ++ ) {
+                const uniqueLocations = [];
+                for (let i = 0; i < locations.length; i ++ ) {
                     if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
                         uniqueLocations.push( locations[i].format );
                     }

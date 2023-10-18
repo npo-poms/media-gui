@@ -10,12 +10,12 @@ angular.module( 'poms.services' ).factory( 'HelpService', [
         HelpService.prototype = {
 
             getMessage: function ( id ) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
                 $http.get( appConfig.apiHost + '/gui/help', {cache: true, params: {message: id}} )
                     .then(
                         function ( response ) {
-                            var message = response.data;
+                            const message = response.data;
                             deferred.resolve( message );
                         }.bind( this ),
                         function ( error ) {

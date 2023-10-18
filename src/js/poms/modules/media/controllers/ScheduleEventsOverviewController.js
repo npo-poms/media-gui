@@ -38,25 +38,25 @@ angular.module( 'poms.media.controllers' ).controller( 'ScheduleEventOverviewCon
                 if (! this.mayWrite(event)) {
                     return;
                 }
-                var editMode = true;
+                const editMode = true;
 
-                var modal = this.$uibModal.open( {
-                    controller : 'ScheduleEventEditController',
-                    controllerAs : 'controller',
-                    templateUrl : '/views/edit/modal-edit-schedule-event.html',
-                    windowClass : 'modal-form',
-                    resolve : {
-                        media : function () {
+                const modal = this.$uibModal.open({
+                    controller: 'ScheduleEventEditController',
+                    controllerAs: 'controller',
+                    templateUrl: '/views/edit/modal-edit-schedule-event.html',
+                    windowClass: 'modal-form',
+                    resolve: {
+                        media: function () {
                             return this.$scope.media;
-                        }.bind( this ),
-                        event : function () {
+                        }.bind(this),
+                        event: function () {
                             return event;
                         },
-                        edit : function () {
+                        edit: function () {
                             return editMode;
                         }
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( scheduleEvent ) {
