@@ -1,5 +1,6 @@
 <span class='poms-multidropdown-label disable-select' ng-click="controller.toggleOpen($event)">{{name}}</span>
 <ui-select
+        uis-open-close="scope.$parent.$broadcast('uiSelect:events', val )"
         ng-model="$parent.selection"
         theme="selectize"
         close-on-select="true"
