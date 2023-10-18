@@ -8,17 +8,17 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
     'localStorageService',
     function ( $q, $rootScope, $http, $uibModal, appConfig, pomsEvents, localStorageService ) {
 
-        var baseUrl = appConfig.apiHost + '/gui/editor';
-        var rolesHolder = [];
-        var editorHolder = null;
+        const baseUrl = appConfig.apiHost + '/gui/editor';
+        let rolesHolder = [];
+        let editorHolder = null;
 
         function getOrganisations ( path ) {
-            var deferred = $q.defer();
-            var url = baseUrl + path;
+            const deferred = $q.defer();
+            const url = baseUrl + path;
 
             $http.get( url, {cache: true} ).then(
                 function ( response ) {
-                    var organisations = response.data;
+                    const organisations = response.data;
                     deferred.resolve( organisations );
                 },
                 function ( error ) {
@@ -30,12 +30,12 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
         }
 
         function post ( path, body ) {
-            var deferred = $q.defer();
-            var url = baseUrl + path;
+            const deferred = $q.defer();
+            const url = baseUrl + path;
 
             $http.post( url, body ).then(
                 function ( response ) {
-                    var editor = response.data;
+                    const editor = response.data;
                     deferred.resolve( editor );
                 },
                 function ( error ) {
@@ -52,11 +52,10 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
         EditorService.heartBeatCount = 0;
         EditorService.heartBeatErrorCount = 0;
         EditorService.prototype = {
-
             init: function () {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
                 this.hearbeatTimeout = 30000;
-                var heartbeat = function() { // heartbeat (MSE-2949)
+                const heartbeat = function () { // heartbeat (MSE-2949)
                     if (EditorService.heartBeatCount++ > 0) {
                         console && console.log("Heartbeating ", new Date(), "count: " + EditorService.heartBeatCount, "errors: " + EditorService.heartBeatErrorCount);
                     }
@@ -68,9 +67,10 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     .then(
                         // success
                         function (response) {
-                            editor = response.data;
-                            this.hearbeatTimeout = editor.hearbeat || this.hearbeatTimeout;
-                            if (editorHolder && editor.created < editorHolder.created) {
+                            const editor = response.data;
+                            console.log("Received editor", editor);
+                            this.hearbeatTimeout = editor.heartbeat || this.hearbeatTimeout;
+                            if (editorHolder && editor.authTime < editorHolder.authTime) {
                                 console.log("Received editor", editor, "is older then current one", editorHolder);
                                 return;
                             }
@@ -79,9 +79,9 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                                 localStorageService.set("currentUser", editor.id);
                             }
                             if (editor.loginAsap) {
-                                var lastReload = localStorageService.get("lastReload");
+                                const lastReload = localStorageService.get("lastReload");
                                 console.log("Seem to be logged out. Forcing reload", editor, lastReload);
-                                var reloadAfter = lastReload == null ? 0 : 10000;
+                                const reloadAfter = lastReload == null ? 0 : 10000;
                                 localStorageService.set('lastReload', new Date());
                                 setTimeout(function() {
                                     document.location.reload();
@@ -95,6 +95,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                             }
                             editor.hashId = this.getHashId( editor.id, 'user' );
                             rolesHolder = editor.roles;
+                            console.log("Resolving promise", deferred, editor);
                             deferred.resolve(editor);
                             heartbeat();
                         }.bind(this),
@@ -111,7 +112,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             editAccount: function () {
-                var modal = $uibModal.open( {
+                const modal = $uibModal.open({
                     controller: 'AccountController',
                     controllerAs: 'accountController',
                     templateUrl: '/views/gui/modal-account.html',
@@ -119,9 +120,9 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     resolve: {
                         editor: function () {
                             return editorHolder;
-                        }.bind( this )
+                        }.bind(this)
                     }
-                } );
+                });
 
                 modal.result.then(
                     function ( editor ) {
@@ -135,7 +136,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 return editorHolder;
             },
             getCurrentOwnerType: function() {
-                var ownerType = localStorageService.get('currentOwner');
+                const ownerType = localStorageService.get('currentOwner');
                 if(ownerType && ownerType.length > 0) {
                     return ownerType;
                 }else{
@@ -161,8 +162,8 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
 
                 // I'd say that the code below contains a bug, if the above to cases will not come out of it naturally.
 
-                var result = _.find(rolesHolder, function(roleHolder) {
-                    return _.some(roles, function(role) {
+                const result = _.find(rolesHolder, function (roleHolder) {
+                    return _.some(roles, function (role) {
                         return 'MEDIA_' + role === roleHolder;
                     });
                 });
@@ -194,12 +195,12 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             getHashId: function ( userId, prefix ) {
-                var hash = 0;
+                let hash = 0;
                 if ( userId.length === 0 ) {
                     return hash;
                 }
-                for ( var i = 0; i < userId.length; i ++ ) {
-                    var char = userId.charCodeAt( i );
+                for (let i = 0; i < userId.length; i ++ ) {
+                    const char = userId.charCodeAt(i);
                     hash = ((hash << 12) - hash) + char;
                     hash = hash & hash; // Convert to 32bit integer
                 }

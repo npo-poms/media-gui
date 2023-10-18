@@ -77,11 +77,13 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             init: function () {
                 this.guiService.boot(this).then(
                     function (tabs) {
-                        this.loaded = true;
                         this.tabs = tabs;
                         this.editor = this.editorService.getCurrentEditor();
 
                         this.initTabs();
+
+                        this.loaded = true;
+
 
                         this.handleEdits();
 
@@ -101,11 +103,12 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             addTab: function (tab) {
                 this.tabs.push(tab);
+                console.log("Added tab", tab, this.scrlTabsApi);
                 this.$timeout( function () {
+                    console.log("Adding tab", tab, this.scrlTabsApi);
                     tab.active = true;
-
                     this.setScrolling( tab );
-                    if ( this.tabs.length > 1){
+                    if ( this.tabs.length > 1) {
                         this.scrlTabsApi.scrollTabIntoView( this.tabs.length );
                     }
                     this.scrlTabsApi.doRecalculate();
@@ -164,14 +167,14 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             editSelection: function ( selection ) {
-                var tabs = this.tabs;
+                const tabs = this.tabs;
                 angular.forEach( selection, function ( item, index ) {
                     // Add a tab with a media placeholder to reload. Should reload on tab activation
                     if ( ! this.setActive( tabs, item.mid ) ) {
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
-                        var tab = {
+                        const tab = {
                             active: false,
                             reload: true,
                             id: item.mid,
@@ -206,29 +209,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 }.bind( this ) );
             },
 
-/*
-            handleOpenFavoriteSearch: function () {
-
-                this.$rootScope.$on( 'openSearch', function ( e, query ) {
-                    this.newSearch( query );
-                }.bind( this ) );
-
-                this.$rootScope.$on( 'activateSearch', function ( e, tabId ) {
-                    if ( this.setActive( this.tabs, tabId ) ) {
-                        return;
-                    }
-                }.bind( this ) );
-
-                this.$rootScope.$on( 'favoriteAdded', function ( e, favorite ) {
-                    this.$rootScope.$broadcast( 'favorite', favorite );
-                }.bind( this ) );
-            },
-*/
 
             handleRemove: function () {
                 this.$scope.$on( this.pomsEvents.deleted, function ( e, mid ) {
-                    for ( var i = 0; i < this.tabs.length; i ++ ) {
-                        var tab = this.tabs[i];
+                    for (let i = 0; i < this.tabs.length; i ++ ) {
+                        const tab = this.tabs[i];
                         if ( tab.id === mid ) {
                             this.removeTab( i );
                         }
@@ -239,14 +224,14 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             handleRouteChange: function () {
                 this.$scope.$on( '$routeChangeSuccess', function () {
 
-                    var mid = this.$route.current.params.mid;
+                    const mid = this.$route.current.params.mid;
                     if ( mid ) {
                         if ( ! this.setActive( this.tabs, mid ) ) {
                             this.newEditTab( mid );
                         }
                     }
 
-                    var qid = this.$route.current.params.qid;
+                    const qid = this.$route.current.params.qid;
                     if ( qid ) {
                         if ( this.setActive( this.tabs, qid ) ) {
                             return;
@@ -256,11 +241,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             initTab: function (tab) {
-                console.log("inittab", tab);
                 this.$location.path( '/' + tab.type + '/' + tab.id );
-                if ( tab.type === 'edit' ) {
+                tab.active = true;
+                if (tab.type === 'edit' ) {
                     document.title = 'POMS - ' + (tab.item.mainTitle ? tab.item.mainTitle.text : "(no title)");
-                    if ( tab.active && tab.reload ) {
+                    if (tab.active && tab.reload ) {
                         tab.reload = false;
                         this.mediaService.load(tab.id).then(
                             function (media) {
@@ -282,14 +267,14 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             initTabs: function () {
 
-                var entryMid = this.$route.current.params.mid;
-                var openNewMedia = true;
+                const entryMid = this.$route.current.params.mid;
+                let openNewMedia = true;
 
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
                 } else {
-                    for ( var i = 0; i < this.tabs.length; i ++ ) {
-                        var tab = this.tabs[i];
+                    for (let i = 0; i < this.tabs.length; i ++ ) {
+                        const tab = this.tabs[i];
                         if ( tab.type === 'edit' ) {
                             tab.reload = true;
                         }
@@ -300,16 +285,21 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }
 
                     if ( openNewMedia ) {
-                        if ( ! this.setActive( this.tabs, entryMid ) ) {
+                        if ( !this.setActive( this.tabs, entryMid ) ) {
                             this.newEditTab( entryMid );
                         }
                     }
                 }
+                this.activeTab = this.tabs.findIndex(function (tab) {
+                    return tab.active;
+                }) + 1;
             },
 
             isActive: function ( tab ) {
                 return tab.active;
             },
+
+
 
             logOut: function () {
                 this.editorService.logOut();
@@ -398,12 +388,12 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openTranscodings: function () {
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open({
                     controller: 'TranscodingsController',
                     controllerAs: 'transcodingsController',
                     templateUrl: '/views/gui/modal-transcodings.html',
                     windowClass: 'modal-transcodings'
-                } );
+                });
 
                 modal.result.then(
                     function ( mid ) {
@@ -428,12 +418,12 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             openLiveEditor : function(){
 
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open({
                     controller: 'LiveEditorController',
                     controllerAs: 'liveEditorController',
                     templateUrl: '/views/gui/modal-live-editor.html',
                     windowClass: 'modal-live-editor'
-                } );
+                });
 
                 modal.result.then(
                     function ( mid ) {
@@ -443,8 +433,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             removeSearchTab: function ( search ) {
-                for ( var i = 0; i < this.tabs.length; i ++ ) {
-                    var tab = this.tabs[i];
+                for (let i = 0; i < this.tabs.length; i ++ ) {
+                    const tab = this.tabs[i];
                     if ( tab.id === search.id ) {
                         this.removeTab( i );
                         break;
@@ -465,7 +455,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
              * Set the current tab and scroll to the last known position
              */
             setScrolling : function ( tab ) {
-                var currentScrollPosition = this.$document.scrollTop();
+                const currentScrollPosition = this.$document.scrollTop();
                 if ( this.currentTab ) {
                     this.currentTab.scrollPosition = currentScrollPosition;
                 }
@@ -478,30 +468,31 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             setActive: function ( tabs, id ) {
-                for ( var i = 0; i < tabs.length; i ++ ) {
-                    var tab = tabs[i];
+                console.log("Setting active", tabs, id);
+                let hasChange = false;
+                for (let i = 0; i < tabs.length; i ++ ) {
+                    const tab = tabs[i];
                     if ( tab.id === id ) {
+                        this.activeTab = i + 1;
                         tab.active = true;
                         if (this.scrlTabsApi && tabs.length > 1){
                             this.scrlTabsApi.scrollTabIntoView(i);
                         }
                         this.setScrolling( tab );
+                        hasChange = true;
                         this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
-                        return true;
+                    } else {
+                        tab.active = false;
                     }
                 }
-                return false;
-            },
-
-            showSecondScreens: function () {
-                return this.editorService.currentEditorHasRoles( ['SCREENUSER', 'SUPERADMIN'] );
+                return hasChange;
             },
 
             showOwnerMis: function () {
                 return this.editorService.currentEditorHasRoles( ['MIS'] ) && this.editorService.getCurrentOwnerType() !== 'BROADCASTER';
             },
             currentOwnerTypeToShow: function() {
-                var currentOwnerType = this.editorService.getCurrentOwnerType();
+                const currentOwnerType = this.editorService.getCurrentOwnerType();
                 return currentOwnerType === 'NPO' ? '' : currentOwnerType;
             },
 

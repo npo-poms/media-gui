@@ -13,41 +13,39 @@ angular.module( 'poms.ui.multidropdown' ).factory( 'MultiDropdownService', [
     '$document',
     function ( $document ) {
 
-        var openScope = null,
-            closeOnEvent = function ( event ) {
+        let openScope = null;
+        const closeOnEvent = function ( event ) {
+
+            if ( openScope ) {
+
+                switch ( event.type ) {
+                    case 'click':
+                        if ( openScope.element[0].contains( event.target ) ) {
+                            return;
+                        }
+                        break;
+                    case 'keydown':
+                        if ( event.which !== 27 ) {
+                            openScope.isOpen = false;
+                            return;
+                        }
+                        break;
+                }
 
                 if ( openScope ) {
-
-                    switch ( event.type ) {
-                        case 'click':
-                            if ( openScope.element[0].contains( event.target ) ) {
-                                return;
-                            }
-                            break;
-                        case 'keydown':
-                            if ( event.which !== 27 ) {
-                                openScope.isOpen = false;
-                                return;
-                            }
-                            break;
-                    }
-
-                    if ( openScope ) {
-                        openScope.$apply( function () {
-                            openScope.isOpen = false;
-                        } )
-                    }
+                    openScope.$apply( function () {
+                        openScope.isOpen = false;
+                    } )
                 }
-            };
+            }
+        };
 
         function MultiDropdownService () {
 
         }
 
         MultiDropdownService.prototype = {
-
             open: function ( someScope ) {
-
                 if ( ! openScope ) {
                     $document.bind( 'click', closeOnEvent );
                     $document.bind( 'keydown', closeOnEvent );
@@ -141,11 +139,9 @@ angular.module( 'poms.ui.multidropdown' ).directive( 'pomsMultiDropdown', functi
                         this.ngModelCtrl.$render = this.setStateFromModel.bind( this );
 
                         this.ngModelCtrl.$isEmpty = function () {
-                            console.log(this.$scope);
                             if (! this.$scope) {
                                 console.log('no scope', this);
                             }
-                            console.log(this.$scope.options);
                             if (! this.$scope.options) {
                                 return false;
                             }

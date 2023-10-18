@@ -160,22 +160,22 @@
 
 <div class="tabset" ng-if="guiController.loaded">
   <scrollable-tabset api="guiController.scrlTabsApi">
-    <uib-tabset>
+    <uib-tabset active="guiController.activeTab">
       <uib-tab ng-repeat="tab in guiController.tabs"
-           class="tab tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}}"
-           active="tab.active"
-           select="guiController.initTab(tab)">
+               class="tab tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}} {{tab.active ? 'active' : ''}}"
+               select="guiController.initTab(tab)"
+      >
 
         <uib-tab-heading class="tab-heading ">
 
-          <span ng-if="tab.type=='edit'">
+          <span ng-if="tab.type == 'edit'">
             <span class="tab-subtitle">{{::tab.item.type.text }}</span>
             <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{ tab.item.mainTitle.text }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
 
-          <span ng-if="tab.type=='search'">
+          <span ng-if="tab.type == 'search'">
             <span class="tab-subtitle">Zoeken</span>
             <span class="tab-title" title="{{tab.item.form.summary}}"> {{ tab.item.form.summary }}</span>
             <span class="tab-close" title="sluit deze tab"

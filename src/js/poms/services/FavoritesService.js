@@ -36,9 +36,9 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
 
                 // init searches
                 this.searches = localStorageService.get( this.searchKey ) || [];
-                console.log("this.searches", this.searches);
-                for ( var i = 0; i < this.searches.length; i ++ ) {
-                    var favorite = this.searches[i];
+
+                for (let i = 0; i < this.searches.length; i ++ ) {
+                    const favorite = this.searches[i];
                     this.searches[ i ] = this.searchFactory.newSearch( favorite );
                 }
             },
@@ -61,10 +61,10 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                     this.media.push( media );
                     localStorageService.set( this.mediaKey, this.media );
 
-                    var message;
+                    let message;
                     if ( media.mainTitle && media.mainTitle.text ) {
                         message = media.mainTitle.text + " (" + media.mid + ") ";
-                    } else if ( $scope.media.title ) {
+                    } else if ( this.$scope.media.title ) {
                         message = media.title + " (" + media.mid + ") ";
                     }
 
@@ -88,8 +88,8 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
                 search.favorite = true;
                 angular.copy( search.form, search._backup );
 
-                for ( var i = 0; i < this.searches.length; i ++ ) {
-                    var existing = this.searches[i];
+                for (let i = 0; i < this.searches.length; i ++ ) {
+                    const existing = this.searches[i];
                     if ( search.id === existing.id ) {
                         search.update();
                         this.searches[ i ] = search;
@@ -117,7 +117,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
             },
 
             isFavoriteSearch : function ( search ) {
-                for ( var i = 0; i < this.searches.length; i ++ ) {
+                for (let i = 0; i < this.searches.length; i ++ ) {
                     if ( search.id === this.searches[ i ].id ) {
                         return true;
                     }
@@ -126,9 +126,9 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
             },
 
             isFavoriteMedia : function ( media ) {
-                var isFavorite = false;
+                let isFavorite = false;
 
-                for ( var i = 0; i < this.media.length; i ++ ) {
+                for (let i = 0; i < this.media.length; i ++ ) {
                     if ( this.media[i].mid === media.mid ) {
                         isFavorite = true;
                     }
@@ -137,7 +137,7 @@ angular.module( 'poms.services' ).factory( 'FavoritesService', [
             },
 
             removeSearch : function ( search ) {
-                for ( var i = 0; i < this.searches.length; i ++ ) {
+                for (let i = 0; i < this.searches.length; i ++ ) {
                     if ( this.searches[i].id === search.id ) {
                         search.favorite = false;
                         this.searches.splice( i, 1 );
