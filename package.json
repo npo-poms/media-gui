@@ -82,7 +82,7 @@
     "gulp-replace": "~1.1.4",
     "gulp-uglify": "~3.0.2",
     "gulp-usemin": "~0.3.30",
-    "jquery": "~3.5.0",
+    "jquery": "~3.7.1",
     "jquery-ui": "~1.13.2",
     "livereload": "~0.4.0",
     "lodash": "~4.17.21",
