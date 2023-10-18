@@ -68,7 +68,6 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                         // success
                         function (response) {
                             const editor = response.data;
-                            console.log("Received editor", editor);
                             this.hearbeatTimeout = editor.heartbeat || this.hearbeatTimeout;
                             if (editorHolder && editor.authTime < editorHolder.authTime) {
                                 console.log("Received editor", editor, "is older then current one", editorHolder);
@@ -95,7 +94,6 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                             }
                             editor.hashId = this.getHashId( editor.id, 'user' );
                             rolesHolder = editor.roles;
-                            console.log("Resolving promise", deferred, editor);
                             deferred.resolve(editor);
                             heartbeat();
                         }.bind(this),
@@ -148,9 +146,6 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
              * Checks whether the current user has at least one of the given roles
              */
             currentEditorHasRoles: function ( roles ) {
-
-//                console.log("check:" + roles);
-//                console.log(rolesHolder);
 
                 // I'd say: simply return false, because that is logical thing to do
                 if(_.isEmpty(roles) ){
