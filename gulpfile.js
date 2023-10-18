@@ -36,7 +36,7 @@ gulp.task('templates', function () {
     const templateSrc = __dirname + '/src/';
     return gulp.src(templateSrc + '**/*.html')
         .pipe(templateCache({module: 'poms'}))
-        .pipe(gulp.dest(__dirname + '/src/generated-js'));
+        .pipe(gulp.dest(__dirname + '/generated-js'));
 });
 
 gulp.task('app-deploy',async function () {
