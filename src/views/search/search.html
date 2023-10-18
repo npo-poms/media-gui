@@ -1,42 +1,6 @@
 <div class="search">
 
   <div class="search-container">
-
-    <!--
-        <div class="search-favorites-overlay animate-show" ng-show="favoritesOpen">
-
-            <div class="col-6">
-                <h3> Favoriete Zoekopdrachten </h3>
-                <ul >
-                    <li ng-repeat="search in favoriteSearches">
-                        <a class="btn-text-icon btn-text-icon-favorite-highlight" title='voer deze zoekopdracht uit' ng-click="searchFormController.submitFavoriteSearch( search )">
-                            Zoek: {{ search.summary }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-6">
-                <h3> Favoriete Media-items </h3>
-                <ul>
-                    <li ng-repeat="item in favoriteItems">
-                        <a class="btn-text-icon btn-text-icon-favorite-highlight" title="kies dit media-item" ng-click="searchFormController.selectFavoriteItem( [item.mid] )">
-                            Kies: {{item.type.text}} - {{item.mainTitle.text}} - {{item.mid}}
-                        </a>
-                    </li>
-                </ul>
-                <span ng-if="!favoriteItems.length">Je hebt geen favorite media Items die van toepassing zijn voor deze actie.</span>
-            </div>
-
-
-        </div>
-
-        <span ng-if="searchModal" class="btn-text-icon btn-text-icon-favorite search-favorites-toggle" ng-click="searchFormController.toggleFavorites()" >
-            <span ng-if="!favoritesOpen"> open favorieten</span>
-            <span ng-if="favoritesOpen"> sluit favorieten</span>
-        </span>
-    -->
-
-
     <form class="search-form" ng-submit="searchFormController.submit()">
 
         <div class="search-query-wrapper poms-typeahead">
@@ -99,7 +63,7 @@
                             selection="formData.avType"
                             option-selected="searchFormController.submit()"
                     > </poms-ui-select>
-
+4
             <a title="verwijder dit criteria" ng-model='formData.avType' ng-click="searchFormController.deleteOption(formData , 'avType')">
                 <span ng-if="formData.avType.text" class="dropdown-selected"> {{formData.avType.text}} </span>
             </a>
