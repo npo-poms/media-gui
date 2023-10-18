@@ -23,7 +23,7 @@ app.use( '/node_modules', express.static( './node_modules' ) );
 app.use( '/js', express.static( './src/js' ) );
 app.use( '/views', express.static( './src/views' ) );
 app.use( '/resources', express.static( './src/resources' ) );
-app.use( '/generated-js', express.static( './generated-js' ) );
+app.use( '/build/generated-js', express.static( './build/generated-js' ) );
 
 // app.listen( port, function () {
 //     debug( 'express server started on localhost:%d', port );

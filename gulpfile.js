@@ -5,10 +5,10 @@
 
 const gulp = require('gulp');
 const packageInfo = require('./package.json');
-const fs   = require('fs');
 const plugins = require('gulp-load-plugins')();
 const templateCache = require('gulp-angular-templatecache');
 
+const htmlMinOptions = {collapseWhitespace: true, removeComments: true};
 
 /******************************
  * HELPERS
@@ -36,7 +36,7 @@ gulp.task('templates', function () {
     const templateSrc = __dirname + '/src/';
     return gulp.src(templateSrc + '**/*.html')
         .pipe(templateCache({module: 'poms'}))
-        .pipe(gulp.dest(__dirname + '/generated-js'));
+        .pipe(gulp.dest(__dirname + '/build/generated-js'));
 });
 
 gulp.task('app-deploy',async function () {
@@ -47,14 +47,13 @@ gulp.task('app-deploy',async function () {
         .pipe(plugins.usemin({
                 vendor: [plugins.ngAnnotate(), plugins.uglify()],
                 poms: [plugins.ngAnnotate(), plugins.uglify()],
-                html: [plugins.minifyHtml({empty: true, spare: true, quotes: true})]
+                html: [plugins.htmlmin(htmlMinOptions)]
             })
         )
         .pipe(gulp.dest(__dirname + '/build/deploy/'));
 });
 
 gulp.task('app-deploy-dev', function () {
-
     return gulp.src(__dirname + '/src/index.html')
         .pipe(plugins.replace(/\{version}/g, getCurrentVersion('')))
         .pipe(plugins.replace(/\{domain}/g, getApiHost()))
@@ -69,9 +68,9 @@ gulp.task('selector-deploy', async function () {
             gulp.src(__dirname + '/src/CMSSelector/index.html')
                 .pipe(plugins.replace(/\{version}/g, getCurrentVersion('')))
                 .pipe(plugins.usemin({
-                        vendor: [plugins.ngAnnotate(), plugins.uglify()],
-                        poms: [plugins.ngAnnotate(), plugins.uglify()],
-                        html: [plugins.minifyHtml({empty: true, spare: true, quotes: true})]
+                    vendor: [plugins.ngAnnotate(), plugins.uglify()],
+                    poms: [plugins.ngAnnotate(), plugins.uglify()],
+                    html: [plugins.htmlmin(htmlMinOptions)]
                     })
                 )
                 .pipe(gulp.dest(__dirname + '/build/deploy/CMSSelector/'))

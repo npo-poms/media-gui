@@ -19,7 +19,7 @@ const config = ngConfig({
     module: 'poms.constants'
 });
 
-const dest = './generated-js/constants.js';
+const dest = './build/generated-js/constants.js';
 fs.writeFileSync(dest, config);
 
 console.log("Wrote", dest);
