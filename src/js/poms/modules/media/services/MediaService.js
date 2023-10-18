@@ -11,11 +11,11 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
         baseUrl = appConfig.apiHost + '/gui/media';
 
         get = function ( media, path, config ) {
-            var deferred = $q.defer();
+            const deferred = $q.defer();
             if (!media.mid) {
                 console.log("No mid in", media);
             }
-            var url = baseUrl + '/' + media.mid + path;
+            const url = baseUrl + '/' + media.mid + path;
             $http.get( url, config ).then(
                 function ( result ) {
                     deferred.resolve( result.data );
@@ -30,8 +30,8 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
         post = function ( media, path, body ) {
 
-            var deferred = $q.defer();
-            var url = path.startsWith("http") ? path  : baseUrl + (media ? '/' + media.mid : '') + path;
+            const deferred = $q.defer();
+            const url = path.startsWith("http") ? path : baseUrl + (media ? '/' + media.mid : '') + path;
 
             $http.post( url, body ).then(
                 function ( response ) {
@@ -47,24 +47,25 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
         put = function ( media, path, body ) {
 
-            var deferred = $q.defer();
-            var url = baseUrl + '/' + media.mid + path;
+            const deferred = $q.defer();
+            const url = baseUrl + '/' + media.mid + path;
 
-            $http.put( url, body )
-                .success( function ( media ) {
+            $http.put( url, body ).then(
+                function ( response ) {
+                    const media = response.data;
                     deferred.resolve( media );
-                } )
-                .error( function ( error ) {
+                },
+                function ( error ) {
                     deferred.reject( error );
-                } );
+                });
 
             return deferred.promise;
         };
 
         del = function ( media, path ) {
 
-            var deferred = $q.defer();
-            var url = baseUrl + '/' + media.mid + path;
+            const deferred = $q.defer();
+            const url = baseUrl + '/' + media.mid + path;
 
             $http.delete( url )
                 .success( function ( media ) {
@@ -123,24 +124,26 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             },
 
             create: function ( source ) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
-                $http.put( baseUrl, source )
-                    .success( function ( media ) {
+                $http.put( baseUrl, source ).then(
+                    function ( response ) {
+                        const media = response.data;
                         deferred.resolve( media );
-                    } )
-                    .error( function ( error ) {
+                    },
+                    function ( error ) {
                         deferred.reject( error );
-                    } );
+                    }
+                );
 
                 return deferred.promise;
             },
 
             load: function ( mid ) {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
                 $http.get( baseUrl + '/' + mid ).then(
                     function ( response ) {
-                        var media = response.data;
+                        const media = response.data;
                         deferred.resolve( media );
                     },
                     function ( error ) {
@@ -185,7 +188,7 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 if ( !text || text === "" ) {
                     return del( media, '/titles/' + type );
                 }
-                var data = { 'type': type, 'text': text };
+                const data = {'type': type, 'text': text};
                 return post( media, '/titles', data );
             },
 
