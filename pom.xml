@@ -14,8 +14,8 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <node.version>v16.16.0</node.version>
-    <npm.version>8.11.0</npm.version>
+    <node.version>v16.20.2</node.version>
+    <npm.version>8.19.1</npm.version>
   </properties>
 
   <build>
