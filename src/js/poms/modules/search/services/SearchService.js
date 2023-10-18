@@ -11,7 +11,7 @@ angular.module('poms.search.services').factory('SearchService', [
     'SearchFactory',
     function($rootScope, $q, $http, $filter, $uibModal, appConfig, guiService, mediaService, pomsEvents, searchFactory) {
 
-        var baseUrl = appConfig.apiHost + '/gui/search';
+        const baseUrl = appConfig.apiHost + '/gui/search';
 
         function post(path, body, config) {
 
