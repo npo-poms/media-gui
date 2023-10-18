@@ -103,17 +103,13 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             addTab: function (tab) {
                 this.tabs.push(tab);
-                console.log("Added tab", tab, this.scrlTabsApi);
                 this.$timeout( function () {
-                    console.log("Adding tab", tab, this.scrlTabsApi);
                     tab.active = true;
                     this.setScrolling( tab );
                     if ( this.tabs.length > 1) {
                         this.scrlTabsApi.scrollTabIntoView( this.tabs.length );
                     }
                     this.scrlTabsApi.doRecalculate();
-
-
                 }.bind(this) );
             },
 
@@ -308,7 +304,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             newEditTab: function (mid) {
                 this.mediaService.load( mid ).then(
                     function (media) {
-                        console.log("Loaded", media);
+                        //console.log("Loaded", media);
                         this.editMedia(media);
                     }.bind(this),
                     function (error) {
@@ -468,7 +464,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             setActive: function ( tabs, id ) {
-                console.log("Setting active", tabs, id);
                 let hasChange = false;
                 for (let i = 0; i < tabs.length; i ++ ) {
                     const tab = tabs[i];
