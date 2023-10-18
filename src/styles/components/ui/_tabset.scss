@@ -1,7 +1,7 @@
-.tab-pane {
+.tab-content>.tab-pane {
     display: none;
 
-    height: calc(100vh - 138px);
+    height: calc(100vh - 138px) !important;
     overflow: auto;
 
     width:960px;
@@ -15,7 +15,7 @@
     }
 }
 
-.tab-pane.active {
+.tab-content>.tab-pane.active {
     display: inline-block;
 }
 
