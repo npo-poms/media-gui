@@ -135,8 +135,6 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             },
 
             addDescendantOf : function( ) {
-
-
                 if ( this.$scope.formData.descendantOf  && this.$scope.formData.descendantOf.length ){
                     if ( this.$scope.formData.descendantOf.indexOf( this.$scope.descendantOfMid ) === -1 ){
                         this.$scope.formData.descendantOf.push( this.$scope.descendantOfMid );
@@ -154,13 +152,13 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
 
             searchDescendantOf : function( ) {
 
-                var search = this.searchFactory.newDescendantOfSearch( { selectedMids: this.$scope.formData.descendantOf });
+                const search = this.searchFactory.newDescendantOfSearch( { selectedMids: this.$scope.formData.descendantOf });
 
                 this.searchService.searchMediaInModal(search).then( function ( results ) {
 
                     if ( results && results.length ) {
 
-                        var mids = _.map(results, function( result ){
+                        const mids = _.map(results, function( result ){
                             return result.mid
                         });
 
@@ -178,11 +176,11 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             },
 
             setFilterOptions : function() {
-                var form = this.search.form;
-                var scope = this.$scope;
-                var properties = this.$q.defer();
+                const form = this.search.form;
+                const scope = this.$scope;
+                const properties = this.$q.defer();
 
-                var selectBindings = [
+                const selectBindings = [
                     {
                         field : 'types',
                         options : 'mediaTypes',
@@ -218,19 +216,17 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                 ];
 
                 // bind selected values to option values as is required by ui-select
-                var bindSelectedValues = function(selected, options) {
+                const bindSelectedValues = function(selected, options) {
                     if(!selected) {
                         return;
                     }
 
-                    for(var i = 0; i < selected.length; i++) {
+                    for(let i = 0; i < selected.length; i++) {
                         const value = selected[i];
-
-                        var option = _.find(options, function(option) {
+                        const option = _.find(options, function(option) {
                             return option.id === value.id;
                         });
 
-                        console.log("option", option);
                         if(!option) {
                             // just a precaution
                             selected.splice(i, 1);
@@ -242,10 +238,9 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                 };
 
                 _.forEach(selectBindings, function(binding) {
-                    var field = form[binding.field];
-                    var value = field && field.isRestrictedField ? field.value : field;
-                    var restriction = field && field.restriction;
-                    console.log(scope);
+                    const field = form[binding.field];
+                    const value = field && field.isRestrictedField ? field.value : field;
+                    const restriction = field && field.restriction;
                     if(restriction) {
                         scope[binding.options] = {
                             data : restriction
@@ -254,7 +249,6 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                     } else {
                         binding.load().then(
                             function(data) {
-                                console.log("Loaded ", binding.options, data);
                                 scope[binding.options] = {
                                     data : data
                                 };
@@ -350,49 +344,49 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
 
                 this.suggestionsWaiting = true;
 
-                var normalized = this.$scope.formData.getQuery();
+                const normalized = this.$scope.formData.getQuery();
 
                 normalized.text = viewValue;
 
                 return this.searchService.suggest(normalized).then(
 
                     function(suggestions) {
-                        for(var i = 0; i < suggestions.data.length; i++) {
+                        for(let i = 0; i < suggestions.data.length; i++) {
                             suggestions.data[i] = {
                                 "text" : suggestions.data[i],
                                 "type" : 'searchSuggestion'
                             };
                         }
 
-                        var search = this.search;
+                        const search = this.search;
 
-                        var filter = function(media) {
+                        const filter = function(media) {
                             return search && media.mid !== search.parentMid && search.form.applyRestrictions(media);
                         };
 
-                        var mediaTabs = _.filter(this.guiService.getGuiMedia(), filter);
-                        var favoriteMedia = _.filter(this.favoritesService.getFavoriteMedia(), filter);
-                        var fastSuggestions = mediaTabs.concat(
+                        const mediaTabs = _.filter(this.guiService.getGuiMedia(), filter);
+                        const favoriteMedia = _.filter(this.favoritesService.getFavoriteMedia(), filter);
+                        const fastSuggestions = mediaTabs.concat(
                             _.filter(favoriteMedia, function(favorite) {
                                 let map = _.map(mediaTabs, function(media) {
                                     return media.mid;
                                 });
                                 return ! _.includes(map, favorite.mid);
                             }));
-                        var re = new RegExp(this.$scope.formData.text, 'gi');
-                        for(var j = 0; j < fastSuggestions.length; j++) {
-                            var suggestion = fastSuggestions[j];
+                        const re = new RegExp(this.$scope.formData.text, 'gi');
+                        for(let j = 0; j < fastSuggestions.length; j++) {
+                            const suggestion = fastSuggestions[j];
                             if (! suggestion.mainTitle) {
                                 console.log("Odd suggestion!", suggestion);
                                 continue;
                             }
                             if(suggestion.mainTitle && suggestion.mainTitle.text.match(re)) {
 
-                                var subTitle = "";
+                                let subTitle = "";
                                 if ( suggestion.subTitle ){
                                     subTitle = " - " + suggestion.subTitle.text;
                                 }
-                                var favoriteSuggestion = {
+                                const favoriteSuggestion = {
                                     "text" : suggestion.mainTitle.text + subTitle + " (" + suggestion.type.text + "-" + this.$filter('mediaDate')(suggestion.sortDate) + ")",
                                     "type" : 'mediaSuggestion',
                                     "media" : suggestion
@@ -402,7 +396,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                             }
 
                         }
-                        console.log("Ready!");
+                        //console.log("Ready!");
                         this.suggestionsWaiting = false;
 
                         return suggestions.data;
