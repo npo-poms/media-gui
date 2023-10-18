@@ -1,23 +1,25 @@
 /**
  * Run through the build:constants NPM script
  */
-var fs = require( 'fs' );
-var ngConfig = require( 'ng-config' );
-var pkgConfig = require('./package.json' ).config;
+const fs = require( 'fs' );
+const ngConfig = require( 'ng-config' );
+const pkgConfig = require('./package.json' ).config;
 
-var apiHost = process.env.npm_config_apihost || pkgConfig.apiHost;
-var version = pkgConfig.version;
-var constants = {
+const apiHost = process.env.npm_config_apihost || pkgConfig.apiHost;
+const version = pkgConfig.version;
+const constants = {
     appConfig: {
         version: version,
         apiHost: apiHost
     }
 };
 
-var config = ngConfig({
+const config = ngConfig({
     constants: constants,
     module: 'poms.constants'
 });
 
+const dest = './src/generated-js/constants.js';
+fs.writeFileSync(dest, config);
 
-fs.writeFileSync('./src/generated-js/constants.js', config);
+console.log("Wrote", dest);

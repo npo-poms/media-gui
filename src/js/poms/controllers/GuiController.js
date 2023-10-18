@@ -99,8 +99,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 );
             },
 
-            addTab: function ( tab ) {
-                this.tabs.push( tab );
+            addTab: function (tab) {
+                this.tabs.push(tab);
                 this.$timeout( function () {
                     tab.active = true;
 
@@ -111,7 +111,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     this.scrlTabsApi.doRecalculate();
 
 
-                }.bind( this ) );
+                }.bind(this) );
             },
 
             bindUploadListener: function () {
@@ -255,7 +255,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 }.bind( this ) );
             },
 
-            initTab: function ( tab ) {
+            initTab: function (tab) {
+                console.log("inittab", tab);
                 this.$location.path( '/' + tab.type + '/' + tab.id );
                 if ( tab.type === 'edit' ) {
                     document.title = 'POMS - ' + (tab.item.mainTitle ? tab.item.mainTitle.text : "(no title)");
@@ -314,19 +315,20 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.editorService.logOut();
             },
 
-            newEditTab: function ( mid ) {
+            newEditTab: function (mid) {
                 this.mediaService.load( mid ).then(
-                    function ( media ) {
+                    function (media) {
+                        console.log("Loaded", media);
                         this.editMedia(media);
-                    }.bind( this ),
-                    function ( error ) {
+                    }.bind(this),
+                    function (error) {
                         console.error(error)
                         this.$rootScope.$emit(this.pomsEvents.error, error );
-                    }.bind( this ));
+                    }.bind(this));
             },
 
             newMedia: function () {
-                var modal = this.$uibModal.open( {
+                const modal = this.$uibModal.open( {
                     controller: 'CreateController',
                     controllerAs: 'controller',
                     templateUrl: '/views/edit/modal-create.html',
