@@ -168,7 +168,7 @@
 
     // We extend Angular ui-select directive to we can catch OPEN events
     // https://github.com/angular-ui/ui-select/issues/432
-    module.config( function( $provide ) {
+   /* module.config( function( $provide ) {
         $provide.decorator( "uiSelectDirective", function( $delegate ) {
             var directive = $delegate[ 0 ];
             directive.compile = function compile( ) {
@@ -183,7 +183,7 @@
             };
             return $delegate;
         });
-    });
+    });*/
 
 
     // custom directive copied from x-editable (editableChecklist) to allow for custom render template with icons
@@ -197,8 +197,8 @@
                 useCopy: true,
                 render: function() {
                     this.parent.render.call(this);
-                    var parsed = editableNgOptionsParser(this.attrs.eNgOptions);
-                    var html = '<label ng-repeat="'+parsed.ngRepeat+'">'+
+                    const parsed = editableNgOptionsParser(this.attrs.eNgOptions);
+                    const html = '<label ng-repeat="'+parsed.ngRepeat+'">'+
                         '<input  type="checkbox" checklist-model="$parent.$data" checklist-value="'+parsed.locals.valueFn+'">'+
                         '<span class="list-icon" ng-class="' + parsed.locals.valueName + '.iconClass'  + '" ng-bind="' + parsed.locals.displayFn+'"></span></label>';
 
@@ -260,15 +260,14 @@
             return {
                 require: 'ngModel',
                 link: function (scope, element, attr, ngModel) {
-
                     //trigger the popup on 'click' because 'focus'
                     //is also triggered after the item selection
                     element.bind('click', function () {
 
-                        var viewValue = ngModel.$viewValue;
+                        const viewValue = ngModel.$viewValue;
 
                         //restore to null value so that the typeahead can detect a change
-                        if (ngModel.$viewValue == ' ') {
+                        if (ngModel.$viewValue === ' ') {
                             ngModel.$setViewValue(null);
                         }
 
@@ -281,7 +280,7 @@
 
                     //compare function that treats the empty space as a match
                     scope.emptyOrMatch = function (actual, expected) {
-                        if (expected == ' ') {
+                        if (expected === ' ') {
                             return true;
                         }
                         return actual.indexOf(expected) > -1;
