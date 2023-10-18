@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="../node_modules/ng-toast/dist/ngToast.css"/>
   <link rel="stylesheet" href="../node_modules/ng-toast/dist/ngToast-animations.min.css"/>
   <link rel="stylesheet" href="../node_modules/angular-ui-tab-scroll/angular-ui-tab-scroll.css" />
-  <link rel="stylesheet" href="css/akamai/controlbar.css">
-  <link rel="stylesheet" href="css/poms-{version}.css"  />
+  <link rel="stylesheet" href="./css/akamai/controlbar.css">
+  <link rel="stylesheet" href="./css/poms-{version}.css"  />
 
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.1/css/flag-icons.min.css"
@@ -160,13 +160,13 @@
 
 <div class="tabset" ng-if="guiController.loaded">
   <scrollable-tabset api="guiController.scrlTabsApi">
-    <tabset>
-      <tab ng-repeat="tab in guiController.tabs"
+    <uib-tabset>
+      <uib-tab ng-repeat="tab in guiController.tabs"
            class="tab tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}}"
            active="tab.active"
            select="guiController.initTab(tab)">
 
-        <tab-heading class="tab-heading ">
+        <uib-tab-heading class="tab-heading ">
 
           <span ng-if="tab.type=='edit'">
             <span class="tab-subtitle">{{::tab.item.type.text }}</span>
@@ -182,20 +182,20 @@
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
 
-        </tab-heading>
+        </uib-tab-heading>
 
         <poms-editor ng-if="tab.type =='edit' && !tab.reload" media="tab.item"></poms-editor>
 
         <poms-search-tab ng-if="tab.type=='search'" id="search-{{tab.id}}" search="tab.item"></poms-search-tab>
 
-      </tab>
+      </uib-tab>
 
-      <tab title='open een nieuwe zoek-tab' ng-click="guiController.newSearch()" class="tab-add"></tab>
-      <tab title='sluit alle tabs'
+      <uib-tab title='open een nieuwe zoek-tab' ng-click="guiController.newSearch()" class="tab-add"></uib-tab>
+      <uib-tab title='sluit alle tabs'
            ng-click="guiController.closeAllTabs(null, 1)"
-           class="tab-close-all" ng-if="guiController.tabs.length > 1"></tab>
+           class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
 
-    </tabset>
+    </uib-tabset>
   </scrollable-tabset>
 
 </div>
