@@ -108,7 +108,7 @@
 
                                 <input name='fromdate' type="text" class="form-control"
                                        ng-disabled="!controller.mayWrite('publishStart')"
-                                       datepicker-popup="dd-MM-yyyy HH:mm"
+                                       uib-datepicker-popup="dd-MM-yyyy HH:mm"
                                        max-date='maxStart'
                                        ng-model="location.publication.start"
                                        is-open="startdate.open"
@@ -126,7 +126,7 @@
 
                                 <input name='todate' type="text" class="form-control"
                                        ng-disabled="!controller.mayWrite('publishStop')"
-                                       datepicker-popup="dd-MM-yyyy HH:mm"
+                                       uib-datepicker-popup="dd-MM-yyyy HH:mm"
                                        min-date='minStop'
                                        ng-model="location.publication.stop"
                                        is-open="stopdate.open"

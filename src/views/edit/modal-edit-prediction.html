@@ -42,7 +42,7 @@
                       <label class='date-input-label' label-for="fromdate" >Start</label>
                       <input name='fromdate' type="text" class="form-control"
                              ng-disabled="! prediction.mayWriteEmbargo"
-                             datepicker-popup="dd-MM-yyyy HH:mm"
+                             uib-datepicker-popup="dd-MM-yyyy HH:mm"
                              max-date='maxStart'
                              ng-model="prediction.publication.start"
                              is-open="startdate.open"
@@ -58,7 +58,7 @@
 
                       <input name='todate' type="text" class="form-control"
                              ng-disabled="! prediction.mayWrite"
-                             datepicker-popup="dd-MM-yyyy HH:mm"
+                             uib-datepicker-popup="dd-MM-yyyy HH:mm"
                              min-date='minStop'
                              ng-model="prediction.publication.stop"
                              is-open="stopdate.open"

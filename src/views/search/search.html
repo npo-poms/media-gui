@@ -138,7 +138,7 @@
               <div class="input-group datepicker-dropdown">
                 <label class="date-input-label" label-for="fromdate">van:</label>
                 <input name="fromdate" type="text" class="form-control"
-                       datepicker-popup="dd-MM-yyyy"
+                       uib-datepicker-popup="dd-MM-yyyy"
                        max-date="maxStart"
                        ng-model="searchDate.start"
                        is-open="startdate.open"
@@ -152,10 +152,11 @@
 
 
               <div class="input-group datepicker-dropdown">
-                <label class="date-input-label" for="todate">t/m</label>
+                <label class="date-input-label" for-name="todate">t/m</label>
 
-                <input name="todate" id="todate" type="text" class="form-control"
-                       datepicker-popup="dd-MM-yyyy"
+                <input name="todate" type="text"
+                       class="form-control"
+                       uib-datepicker-popup="dd-MM-yyyy"
                        min-date="minStop"
                        ng-model="searchDate.stop"
                        is-open="stopdate.open"
