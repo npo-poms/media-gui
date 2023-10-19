@@ -51,7 +51,7 @@
                                         selection="media.avType"
                                 ></poms-ui-select>
                         <div>
-                            <div class="dropdown-selected" 
+                            <div class="dropdown-selected"
                                  ng-if="media.avType" ng-click="media.avType = undefined">
                                 {{media.avType.text}}
                             </div>
@@ -87,7 +87,7 @@
                     <div class="field col-6 dropdown-wrapper scrollable"
                          ng-class="{'has-error' : createForm.inputBroadcasters.$invalid}">
 
-                        <poms-ui-select-multi 
+                        <poms-ui-select-multi
                                 class="poms-uiselect"
                                               options="genres"
                                               name="{{genresHeader}}"
@@ -131,11 +131,11 @@
                     </div>
 
                     <div class="field col-6 dropdown-wrapper">
-                        <div dropdown>
-                            <span class="dropdown-toggle" dropdown-toggle> Publicatiestart </span>
+                        <div uib-dropdown>
+                            <span class="dropdown-toggle" uib-dropdown-toggle> Publicatiestart </span>
 
 
-                            <div dropdown-menu class="daterange-select" daterangepicker>
+                            <div uib-dropdown-menu class="daterange-select" daterangepicker>
 
                                 <div class="input-group datepicker-dropdown">
                                     <label class='date-input-label' label-for="fromdate">Start</label>

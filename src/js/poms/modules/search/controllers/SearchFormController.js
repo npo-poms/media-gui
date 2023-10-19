@@ -377,7 +377,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                         for(let j = 0; j < fastSuggestions.length; j++) {
                             const suggestion = fastSuggestions[j];
                             if (! suggestion.mainTitle) {
-                                console.log("Odd suggestion!", suggestion);
+                                console.log("Odd suggestion! (missing mainTitle)", suggestion);
                                 continue;
                             }
                             if(suggestion.mainTitle && suggestion.mainTitle.text.match(re)) {

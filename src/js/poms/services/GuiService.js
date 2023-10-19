@@ -24,9 +24,7 @@ angular.module('poms.services').factory('GuiService', [
                 const deferred = $q.defer();
                 editorService.init().then(
                     function(editor) {
-                        console.log("Found", editor);
                         localStorageService.bind($rootScope, editor.hashId, []);
-
 
                         this.tabs = $rootScope[editor.hashId];
 

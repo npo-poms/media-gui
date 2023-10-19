@@ -33,11 +33,11 @@
                 <ui-select-match>{{$select.selected.text }}</ui-select-match>
               </ui-select>
             </div>
-          <div dropdown class="dropdown-wrapper col-6 field">
+          <div uib-dropdown class="dropdown-wrapper col-6 field">
                 <li class="dropdown open">
-                  <span class="dropdown-toggle" dropdown-toggle > Publicatie start/stop </span>
+                  <span class="dropdown-toggle" uib-dropdown-toggle > Publicatie start/stop </span>
 
-                  <div dropdown-menu class="daterange-select" display="true" daterangepicker >
+                  <div uib-dropdown-menu class="daterange-select" display="true" daterangepicker >
                     <div class="input-group datepicker-dropdown"  >
                       <label class='date-input-label' label-for="fromdate" >Start</label>
                       <input name='fromdate' type="text" class="form-control"
