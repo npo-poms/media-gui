@@ -45,10 +45,11 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                 return properties['npo-images_backend.baseUrl']
             },
 
-            getOtap: function() {
+            getOtap: async function() {
+                const props = await this.getProperties();
                 return {
-                    env: properties['npo.env'],
-                    otap: properties['otap']
+                    env: props['npo.env'],
+                    otap: props['otap']
                 };
             },
             getByteSize: function(programUrl) {

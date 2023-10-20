@@ -36,8 +36,6 @@ angular.module( 'poms.util.directives' )
             }
 
             PomsUiSelectController.prototype = {
-
-
                 toggleOpen: function ( event ) {
 
                     this.$scope.opened = ! this.$scope.opened;
@@ -51,9 +49,7 @@ angular.module( 'poms.util.directives' )
                     return this.$sce.trustAsHtml( value );
                 },
 
-
                 remove: function ( collection, item ) {
-
                     collection.some( function ( someItem, index ) {
                         if ( angular.equals( someItem, item ) ) {
                             collection.splice( index, 1 );
@@ -65,7 +61,6 @@ angular.module( 'poms.util.directives' )
                 select: function () {
                     this.$scope.optionSelected();
                 }
-
             };
 
             return PomsUiSelectController;
@@ -103,8 +98,7 @@ angular.module( 'poms.util.directives' )
                 this.$scope.opened = false;
 
                 this.$scope.$on( "uiSelect:events", function ( e, events ) {
-                    var open = events[0];
-
+                    const open = events[0];
                     if ( ! open ) {
                         this.$scope.opened = false;
                     }
@@ -171,19 +165,19 @@ angular.module( 'poms.util.directives' )
                 this.$scope.opened = false;
                 this.$scope.options = [];
 
+                // this might be broken currently?
                 this.$scope.$on( "uiSelect:events", function ( e, events ) {
+                    console.log("event", e, events);
                     const open = events[0];
-
                     if ( ! open ) {
                         this.$scope.opened = false;
                     }
-                }.bind( this ) );
+                }.bind(this));
             }
 
             PomsUiSelectSuggestController.prototype = {
 
                 closeClick: function () {
-
                     this.$scope.opened = false;
                     this.$scope.optionSelected();
                 },
@@ -192,7 +186,7 @@ angular.module( 'poms.util.directives' )
                     if ( data ) {
                         this.$scope.updateOptions( data ).then(
                             function ( response ) {
-                                this.$scope.options = response;
+                                this.$scope.options = response.data;
                             }.bind( this )
                         );
                     }

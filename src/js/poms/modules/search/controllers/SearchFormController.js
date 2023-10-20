@@ -1,4 +1,7 @@
-angular.module('poms.search.controllers').controller('SearchFormController', [
+//import _ from "lodash"; (''import' and 'export' may appear only with 'sourceType: module' (1016:0)] )
+
+angular.module('poms.search.controllers')
+    .controller('SearchFormController', [
     '$scope',
     '$q',
     '$filter',

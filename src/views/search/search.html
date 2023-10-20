@@ -301,11 +301,12 @@
         </div>
 
         <div class="dropdown-wrapper search-dropdown-wrapper ">
-          <poms-ui-select-suggest class="poms-uiselect"
-                                  name="Tags"
-                                  selection="formData.tags"
-                                  update-options="searchFormController.getTags( tagsuggest )"
-                                  option-selected="searchFormController.submit()"
+          <poms-ui-select-suggest
+                  class="poms-uiselect"
+                  name="Tags"
+                  selection="formData.tags"
+                  update-options="searchFormController.getTags( tagsuggest )"
+                  option-selected="searchFormController.submit()"
           ></poms-ui-select-suggest>
 
           <a title="verwijder dit criteria" class="dropdown-selected animate-fade"

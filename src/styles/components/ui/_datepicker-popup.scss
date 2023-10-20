@@ -1,8 +1,7 @@
-.datepicker-dropdown {
-    font-size: $fontsizemedium;
-}
+.uib-datepicker-dropdown {
+  font-size: $fontsizemedium;
 
-.datepicker-dropdown .dropdown-menu {
+  .uib-dropdown-menu {
     width: 258px;
 
     background-color: $white;
@@ -16,19 +15,18 @@
 
     padding: 0;
     padding-bottom: 8px;
+  }
 
-}
-
-.datepicker-dropdown .dropdown-menu li {
+  .uib-dropdown-menu li {
     padding: 0;
-}
+  }
 
-.datepicker-dropdown li .btn-group {
+  li .btn-group {
     margin-left: 8px;
-}
+  }
 
-.datepicker-dropdown li .btn-group button,
-.datepicker-dropdown li .btn-success {
+  li .btn-group button,
+  li .btn-success {
     line-height: 16px;
     color: $grijs;
     background-color: transparent;
@@ -36,77 +34,76 @@
     padding: 4px;
 
     &:hover {
-        border-color: $oranje;
+      border-color: $oranje;
     }
-}
+  }
 
-.datepicker button {
+  button {
     border: none;
     cursor: pointer;
     padding: 0;
 
-}
+  }
 
-.datepicker table {
+  table {
     border-spacing: 2px;
     border-color: $grijs;
     border-collapse: collapse;
     margin: 0 auto;
-}
+  }
 
-.datepicker-day th,
-.datepicker-month th,
-.datepicker-year th {
+  .uib-datepicker-day th,
+  .uib-datepicker-month th,
+  .uib-datepicker-year th {
     font-weight: normal;
-}
+  }
 
-.datepicker-day th button,
-.datepicker-month th button,
-.datepicker-year th button {
+  .uib-datepicker-day th button,
+  .uib-datepicker-month th button,
+  .uib-datepicker-year th button {
     background-color: transparent;
-}
+  }
 
-.datepicker-day th .arrow-left,
-.datepicker-month th .arrow-left,
-.datepicker-year th .arrow-left {
+  .uib-datepicker-day th .arrow-left,
+  .uib-datepicker-month th .arrow-left,
+  .uib-datepicker-year th .arrow-left {
     position: relative;
     top: 5px;
     width: 30px;
     height: 30px;
     display: inline-block;
     @include icon('arrow-left', 14px);
-}
+  }
 
-.datepicker-day th .arrow-right,
-.datepicker-month th .arrow-right,
-.datepicker-year th .arrow-right {
+  .uib-datepicker-day th .arrow-right,
+  .uib-datepicker-month th .arrow-right,
+  .uib-datepicker-year th .arrow-right {
     position: relative;
     top: 5px;
     width: 30px;
     height: 30px;
     display: inline-block;
     @include icon('arrow-right', 14px);
-}
+  }
 
-.datepicker-day tr,
-.datepicker-month tr,
-.datepicker-year tr {
+  .uib-datepicker-day tr,
+  .uib-datepicker-month tr,
+  .uib-datepicker-year tr {
     height: 30px;
     vertical-align: bottom;
     text-align: center;
-}
+  }
 
-.datepicker-day .datepicker-tr,
-.datepicker-month .datepicker-tr,
-.datepicker-year .datepicker-tr {
+  .uib-datepicker-day .uib-datepicker-tr,
+  .uib-datepicker-month .uib-datepicker-tr,
+  .uib-datepicker-year .uib-datepicker-tr {
     vertical-align: middle;
     border-bottom: 1px solid $lichtgrijs;
-}
+  }
 
-.datepicker-day tbody button,
-.datepicker-month tbody button,
-.datepicker-year tbody button {
-
+  .uib-datepicker-day tbody button,
+  .uib-datepicker-month tbody button,
+  .uib-datepicker-year tbody button {
     color: white;
     padding: 8px;
     width: 30px;
@@ -116,22 +113,23 @@
     background-color: $lichtgrijs;
 
     &.active {
-        background-color: $oranje;
+      background-color: $oranje;
     }
 
     &:hover {
-        box-shadow: inset 0 0 0 1px $oranje;
+      box-shadow: inset 0 0 0 1px $oranje;
     }
 
     &.text-muted {
-        background-color: $extralichtgrijs;
+      background-color: $extralichtgrijs;
 
     }
 
     &:disabled {
-        background-color: $ultralichtgrijs;
+      background-color: $ultralichtgrijs;
     }
 
     box-sizing: border-box;
 
+  }
 }

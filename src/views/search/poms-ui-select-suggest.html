@@ -1,10 +1,10 @@
 <span class='poms-multidropdown-label disable-select' ng-click="controller.toggleOpen($event)">{{name}}</span>
 
-
 <ui-select
         multiple
         ng-model="$parent.selection"
-        theme="bootstrap" ng-show="opened"
+        theme="selectize"
+        ng-show="opened"
         on-select="controller.select()" >
   <ui-select-choices
           repeat="item in options"

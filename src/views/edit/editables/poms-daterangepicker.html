@@ -40,36 +40,35 @@
 
 
       <div class="pickers" daterangepicker>
+        PICKERS
         <div class="editable-datepicker from-date datepicker-dropdown" >
 
           <a href="#"
-             e-name="startdate"
+             name="startdate"
              editable-bsdate="media[field].start"
              uib-datepicker-popup="dd-MM-yyyy HH:mm"
-             e-close-on-date-selection="true"
-             e-is-open="startdate.open"
-             e-max-date="maxStart"
-             e-close-text="sluit"
-             e-ng-change="setMinStop(this.$data)">
+             close-on-date-selection="true"
+             is-open="startdate.open"
+             max-date="maxStart"
+             close-text="sluit"
+             ng-change="setMinStop(this.$data)">
             {{ (media[field].start | mediaDateTime) || 'empty' }}
           </a>
           <button class="open-calendar" ng-click="openStartDate($event)"></button>
-
         </div>
 
         <br />
 
         <div class="editable-datepicker to-date datepicker-dropdown" >
-
           <a href="#"
-             e-name="stopdate"
+             name="stopdate"
              editable-bsdate="media[field].stop"
              uib-datepicker-popup="dd-MM-yyyy HH:mm"
-             e-close-on-date-selection="true"
-             e-is-open="stopdate.open"
-             e-min-date="minStop"
-             e-close-text="sluit"
-             e-ng-change="setMaxStart(this.$data)"
+             close-on-date-selection="true"
+             is-open="stopdate.open"
+             min-date="minStop"
+             close-text="sluit"
+             ng-change="setMaxStart(this.$data)"
           >
             {{ (media[field].stop | mediaDateTime) || 'empty' }}
           </a>
