@@ -73,7 +73,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                     this.$scope.$emit( 'editFieldOpen', { 'field': this.$scope.field, 'isOpen': true} );
 
                     this.$scope.$on( 'closeEditField', function ( e, data ) {
-                        if ( data.field == this.$scope.field ) {
+                        if ( data.field === this.$scope.field ) {
                             this.$timeout( function () {
                                 this.close();
                             }.bind(this), 0 );
@@ -123,13 +123,14 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 if ( options && options.then ) {
                     options.then(
                         function ( response ) {
-                            this.options = response;
+                            this.options = response.data;
                         }.bind( this ),
                         function ( error ) {
                             this.$scope.$emit( this.pomsEvents.error, error )
                         }.bind( this )
                     );
                 }
+                return options;
             },
 
             submit: function ( e ) {
@@ -198,7 +199,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
 
                 var data = this.selection;
 
-                if ( angular.equals( data, this.values ) || (data.length == 0 && !this.values) ) {
+                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values) ) {
                     this.close();
 
                 }else{
