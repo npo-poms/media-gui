@@ -11,7 +11,6 @@
 
     <h2 class="small-header"> {{header}} </h2>
     {{media[field].start | mediaDateTime}}
-
     <span ng-if="media[field].start || media[field].stop">
       <span ng-if="! media[field].start">-</span>
       /
@@ -40,9 +39,8 @@
 
 
       <div class="pickers" daterangepicker>
-        PICKERS
         <div class="editable-datepicker from-date datepicker-dropdown" >
-
+          <button class="open-calendar" ng-click="openStartDate($event)"></button>
           <a href="#"
              name="startdate"
              editable-bsdate="media[field].start"
@@ -54,7 +52,7 @@
              ng-change="setMinStop(this.$data)">
             {{ (media[field].start | mediaDateTime) || 'empty' }}
           </a>
-          <button class="open-calendar" ng-click="openStartDate($event)"></button>
+
         </div>
 
         <br />

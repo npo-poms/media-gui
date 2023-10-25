@@ -145,15 +145,12 @@
                        close-text="sluit"
                        ng-click="$event.preventDefault(); $event.stopPropagation();"
                        ng-change="setMinStop(searchDate.start);"/>
-
-                <button class="open-calendar" ng-click="openStartDate($event)">
-                </button>
+                <button class="open-calendar" ng-click="openStartDate($event)" />
               </div>
 
 
               <div class="input-group datepicker-dropdown">
                 <label class="date-input-label" for-name="todate">t/m</label>
-
                 <input name="todate" type="text"
                        class="form-control"
                        uib-datepicker-popup="dd-MM-yyyy"
@@ -163,9 +160,8 @@
                        close-text="sluit"
                        ng-click="$event.preventDefault(); $event.stopPropagation();"
                        ng-change="setMaxStart(searchDate.stop);"/>
+                <button class="open-calendar" ng-click="openStopDate($event)" />
 
-                <button class="open-calendar" ng-click="openStopDate($event)">
-                </button>
               </div>
 
               <a class="search-preset-date" ng-click="searchFormController.setDays( 1 )"> Laatste 24 uur </a><br/>

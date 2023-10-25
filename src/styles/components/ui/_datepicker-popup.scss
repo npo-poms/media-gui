@@ -1,7 +1,10 @@
-.uib-datepicker-dropdown {
+.datepicker-dropdown {
   font-size: $fontsizemedium;
 
-  .uib-dropdown-menu {
+  div {
+    display: inline-block;
+  }
+  .dropdown-menu {
     width: 258px;
 
     background-color: $white;
@@ -15,10 +18,10 @@
 
     padding: 0;
     padding-bottom: 8px;
-  }
 
-  .uib-dropdown-menu li {
-    padding: 0;
+    li {
+      padding: 0;
+    }
   }
 
   li .btn-group {
@@ -52,58 +55,52 @@
     margin: 0 auto;
   }
 
-  .uib-datepicker-day th,
-  .uib-datepicker-month th,
-  .uib-datepicker-year th {
+  .uib-datepicker th {
     font-weight: normal;
   }
 
-  .uib-datepicker-day th button,
-  .uib-datepicker-month th button,
-  .uib-datepicker-year th button {
+  .uib-datepicker .ui-day th button,
+  .uib-datepicker .uid-month th button,
+  .uib-datepicker .uid-year th button {
     background-color: transparent;
   }
 
-  .uib-datepicker-day th .arrow-left,
-  .uib-datepicker-month th .arrow-left,
-  .uib-datepicker-year th .arrow-left {
+  .uib-datepicker th .uib-left {
     position: relative;
     top: 5px;
     width: 30px;
     height: 30px;
     display: inline-block;
     @include icon('arrow-left', 14px);
+    span {
+      display: none;
+    }
   }
 
-  .uib-datepicker-day th .arrow-right,
-  .uib-datepicker-month th .arrow-right,
-  .uib-datepicker-year th .arrow-right {
+  .uib-datepicker th .uib-right {
     position: relative;
     top: 5px;
     width: 30px;
     height: 30px;
     display: inline-block;
     @include icon('arrow-right', 14px);
+    span {
+      display: none;
+    }
   }
 
-  .uib-datepicker-day tr,
-  .uib-datepicker-month tr,
-  .uib-datepicker-year tr {
+  .uib-datepicker tr {
     height: 30px;
     vertical-align: bottom;
     text-align: center;
   }
 
-  .uib-datepicker-day .uib-datepicker-tr,
-  .uib-datepicker-month .uib-datepicker-tr,
-  .uib-datepicker-year .uib-datepicker-tr {
+  .uib-datepicker .uib-datepicker-tr {
     vertical-align: middle;
     border-bottom: 1px solid $lichtgrijs;
   }
 
-  .uib-datepicker-day tbody button,
-  .uib-datepicker-month tbody button,
-  .uib-datepicker-year tbody button {
+  .uib-datepicker tbody button {
     color: white;
     padding: 8px;
     width: 30px;
@@ -120,7 +117,7 @@
       box-shadow: inset 0 0 0 1px $oranje;
     }
 
-    &.text-muted {
+    >.text-muted {
       background-color: $extralichtgrijs;
 
     }
