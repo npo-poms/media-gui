@@ -105,7 +105,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                 if ( field && field.isRestrictedField && field.restriction && (field.strict || ! field.value || field.value.length === 0) ) {
                     if ( field.restriction.constructor === Array ) {
                         // For strict fields the value should at least contain all restrictions
-                        field.value = _.unique( field.value ? field.value.concat( field.restriction ) : field.restriction );
+                            field.value = _.uniq( field.value ? field.value.concat( field.restriction ) : field.restriction );
                     }
                 }
             } );
