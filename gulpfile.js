@@ -4,7 +4,7 @@
  */
 
 const gulp = require('gulp');
-var ngAnnotate = require('gulp-ng-annotate-patched');
+const ngAnnotate = require('gulp-ng-annotate-patched');
 const packageInfo = require('./package.json');
 const plugins = require('gulp-load-plugins')();
 const templateCache = require('gulp-angular-templatecache');
