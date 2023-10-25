@@ -112,14 +112,13 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             },
 
             updateOptions: function ( text ) {
-
                 if( !text ) {
                     return;
                 }
 
                 this.tempValue = text;
 
-                var options = this.$scope.options( ({data: text}) );
+                const options = this.$scope.options(({data: text}));
                 if ( options && options.then ) {
                     options.then(
                         function ( response ) {
@@ -130,7 +129,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                         }.bind( this )
                     );
                 }
-                return options;
+                //return options;
             },
 
             submit: function ( e ) {
@@ -139,8 +138,8 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
 
                 this.pushTemp();
 
-                var data = this.selection;
-                var deferred = this.$q.defer();
+                const data = this.selection;
+                const deferred = this.$q.defer();
 
                 if ( e ) {
                     e.preventDefault();
@@ -168,7 +167,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                         this.$scope.errorText = error.message;
 
                         if ( error.violations ) {
-                            for ( var violation in  error.violations ) {
+                            for (let violation in  error.violations ) {
                                 this.$scope.errorText = error.violations[violation];
                                 deferred.reject( this.$scope.errorText );
                                 break;
@@ -197,7 +196,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                     this.pushTemp();
                 }
 
-                var data = this.selection;
+                const data = this.selection;
 
                 if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values) ) {
                     this.close();
