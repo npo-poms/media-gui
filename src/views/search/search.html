@@ -164,9 +164,9 @@
 
               </div>
 
-              <a class="search-preset-date" ng-click="searchFormController.setDays( 1 )"> Laatste 24 uur </a><br/>
-              <a class="search-preset-date" ng-click="searchFormController.setDays( 7 )"> Afgelopen week </a><br/>
-              <a class="search-preset-date" ng-click="searchFormController.setDays( 30 )"> Afgelopen maand </a><br/>
+              <a class="search-preset-date" ng-click="searchFormController.setDays(1)"> Laatste 24 uur </a><br/>
+              <a class="search-preset-date" ng-click="searchFormController.setDays(7)"> Afgelopen week </a><br/>
+              <a class="search-preset-date" ng-click="searchFormController.setDays(3 )"> Afgelopen maand </a><br/>
 
               <hr>
 
@@ -196,11 +196,12 @@
 
                 <label class="poms-typeahead" for="search-person-filter">
                   naam:
-                  <input id="search-person-filter" type="text" class="search-user-typeahead"
+                  <input id="search-person-filter" type="text"
+                         class="search-user-typeahead"
                          ng-model="searchUser.text"
                          autocomplete="off"
                          ng-keyup="searchFormController.getUsers($event)"
-                         typeahead="suggestion.text for suggestion in userSuggestions"
+                         uib-typeahead="suggestion.text for suggestion in userSuggestions"
                          typeahead-focus-first="false"
                          typeahead-on-select="userSelected()"
                          ng-class="{'waiting': searchFormController.userSuggestionsWaiting}"/>
