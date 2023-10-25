@@ -4,6 +4,7 @@
  */
 
 const gulp = require('gulp');
+var ngAnnotate = require('gulp-ng-annotate-patched');
 const packageInfo = require('./package.json');
 const plugins = require('gulp-load-plugins')();
 const templateCache = require('gulp-angular-templatecache');
@@ -45,8 +46,8 @@ gulp.task('app-deploy',async function () {
         .pipe(plugins.replace(/\{version}/g, getCurrentVersion('')))
         .pipe(plugins.replace(/\{domain}/g, getApiHost()))
         .pipe(plugins.usemin({
-                vendor: [plugins.ngAnnotate(), plugins.uglify()],
-                poms: [plugins.ngAnnotate(), plugins.uglify()],
+                vendor: [ngAnnotate(), plugins.uglify()],
+                poms: [ngAnnotate(), plugins.uglify()],
                 html: [plugins.htmlmin(htmlMinOptions)]
             })
         )
@@ -68,8 +69,8 @@ gulp.task('selector-deploy', async function () {
             gulp.src(__dirname + '/src/CMSSelector/index.html')
                 .pipe(plugins.replace(/\{version}/g, getCurrentVersion('')))
                 .pipe(plugins.usemin({
-                    vendor: [plugins.ngAnnotate(), plugins.uglify()],
-                    poms: [plugins.ngAnnotate(), plugins.uglify()],
+                    vendor: [ngAnnotate(), plugins.uglify()],
+                    poms: [ngAnnotate(), plugins.uglify()],
                     html: [plugins.htmlmin(htmlMinOptions)]
                     })
                 )

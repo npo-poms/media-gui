@@ -45,9 +45,9 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                 return properties['npo-images_backend.baseUrl']
             },
 
-            getOtap: function() {
+            getOtap: async function() {
                 // TODO: we should wait for the answer, but await/async not understood by gulp
-                const props = this.getProperties();
+                const props = await this.getProperties();
                 return {
                     env: props['npo.env'],
                     otap: props['otap']
