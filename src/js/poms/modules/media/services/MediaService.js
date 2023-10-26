@@ -68,12 +68,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             const url = baseUrl + '/' + media.mid + path;
 
             $http.delete( url )
-                .success( function ( media ) {
-                    deferred.resolve( media );
-                } )
-                .error( function ( error ) {
-                    deferred.reject( error );
-                } );
+                .then(
+                    function ( response ) {
+                        deferred.resolve( response.data);
+                    }.bind(this),
+                    function ( error ) {
+                        deferred.reject( error );
+                    }
+                );
 
             return deferred.promise;
         };

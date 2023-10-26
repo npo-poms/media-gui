@@ -66,12 +66,15 @@ angular.module( 'poms.media.services' ).factory( 'SubtitlesService', [
             const url = baseUrl + '/' + mediaId + '/' + path;
 
             $http.delete( url )
-                .success( function ( subtitles ) {
-                    deferred.resolve( subtitles );
-                } )
-                .error( function ( error ) {
-                    deferred.reject( error );
-                } );
+                .then(
+                    function ( response ) {
+                        const subtitles = response.data;
+                        deferred.resolve( subtitles );
+                    },
+                    function ( error ) {
+                        deferred.reject( error );
+                    }
+                );
 
 
             return deferred.promise;
