@@ -1,91 +1,89 @@
 <div id="{{section}}" class="media-data media-images media-section" ng-controller="ImagesController as imagesController">
-    <h1 class="media-section-title" ng-class="{'waiting': imagesController.waiting}"> Afbeeldingen ({{images.length}})
-        <poms-help field="editor.images"></poms-help>
-    </h1>
+  <h1 class="media-section-title" ng-class="{'waiting': imagesController.waiting}"> Afbeeldingen ({{images.length}})
+    <poms-help field="editor.images"></poms-help>
+  </h1>
 
-    <button id="addImage" class="btn-text-icon btn-text-icon-add" ng-if="imagesController.mayWrite() && imagesController.mayUpload()" ng-click="imagesController.addImage()">
-        Afbeelding toevoegen
-    </button>
+  <button id="addImage" class="btn-text-icon btn-text-icon-add" ng-if="imagesController.mayWrite() && imagesController.mayUpload()" ng-click="imagesController.addImage()">
+    Afbeelding toevoegen
+  </button>
 
-    <table class="poms-table poms-table-images" ng-show="images.length > 0">
-        <thead>
-        <tr class="poms-table-head-row">
-            <th title="sorteer" class="poms-table-header column-sort" ng-if="imagesController.mayWrite() &&  images.length > 1">&nbsp;</th>
+  <table class="poms-table poms-table-images" ng-show="images.length > 0">
+    <thead>
+      <tr class="poms-table-head-row">
+        <th title="sorteer" class="poms-table-header column-sort" ng-if="imagesController.mayWrite() &&  images.length > 1">&nbsp;</th>
 
-            <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
-                <span title="{{column.value}}">
-                     {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
-                </span>
-            </th>
+        <th class="poms-table-header column-{{::column.id}}" ng-repeat="column in selectedColumns">
+          <span title="{{column.value}}">
+            {{ column.tableValue || (column.tableValue == '' ? '' : column.value) }}
+          </span>
+        </th>
 
-            <th class="poms-table-header column-tools" >
-                <poms-images-columns> </poms-images-columns>
-            </th>
-        </tr>
-        </thead>
+        <th class="poms-table-header column-tools" >
+          <poms-images-columns> </poms-images-columns>
+        </th>
+      </tr>
+    </thead>
 
-        <tbody ui-sortable="sortableOptions" ng-model="images">
-        <tr class="poms-table-row" ng-repeat="image in images"
-            ng-class="{'waiting': imagesController.waiting, 'may-write': imagesController.mayWrite(), 'deleted-row': image.workflow.id == ('FOR_DELETION' || 'DELETED')}"
-            ng-dblclick="imagesController.edit(image, imagesController.mayWrite())">
+    <tbody ui-sortable="sortableOptions" ng-model="images">
+      <tr class="poms-table-row" ng-repeat="image in images"
+          ng-class="{'waiting': imagesController.waiting, 'may-write': imagesController.mayWrite(), 'deleted-row': image.workflow.id == ('FOR_DELETION' || 'DELETED')}"
+          ng-dblclick="imagesController.edit(image, imagesController.mayWrite())">
 
-            <td class="column-sort" ng-if="::imagesController.mayWrite() && images.length > 1">
-              <span class="sort-handle"></span>
-            </td>
+        <td class="column-sort" ng-if="::imagesController.mayWrite() && images.length > 1">
+          <span class="sort-handle"></span>
+        </td>
 
-            <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
+        <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
 
-                <span ng-switch-when="preview">
-                    <a class="preview-image"
-                       title='bekijk de volledige afbeelding'
-                       alt="{{image.title}}"
-                       href="{{image.backend.original}}" target="blank"  style="background-image: url('{{image.backend.thumb}}')"> <!-- unclear to me what's wrong with img-tag -->
-                    </a>
-                </span>
+          <span ng-switch-when="preview">
+            <a class="preview-image"
+               title='bekijk de volledige afbeelding'
+               alt="{{image.title}}"
+               href="{{image.backend.original}}" target="blank"  style="background-image: url('{{image.backend.thumb}}')"> <!-- unclear to me what's wrong with img-tag -->
+            </a>
+          </span>
 
-                <span ng-switch-when="highlighted"  >
-                    <span class="highlighted"  ng-class="{'selected' : image.highlighted}" ng-click="imagesController.setHighlight( image )"></span>
-                </span>
+          <span ng-switch-when="highlighted"  >
+            <span class="highlighted"  ng-class="{'selected' : image.highlighted}" ng-click="imagesController.setHighlight( image )"></span>
+          </span>
 
-                <span ng-switch-when="workflow" class="workflow {{::image.workflow.id }}"
-                    title="{{::image.workflow.text}}">
-                </span>
-                <span ng-switch-when="publication">
-                    <span> {{::image.publication.start ? 'van: ' : '&nbsp;'}} {{::image.publication.start | mediaDate }} <br ng-if="image.publication.start"/>
-                    {{::image.publication.stop ? 'tot: ' : '&nbsp;'}} {{::image.publication.stop | mediaDate }}</span>
-                </span>
+          <span ng-switch-when="workflow" class="workflow {{::image.workflow.id }}"
+                title="{{::image.workflow.text}}">
+          </span>
+          <span ng-switch-when="publication">
+            <span> {{::image.publication.start ? 'van: ' : '&nbsp;'}} {{::image.publication.start | mediaDate }} <br ng-if="image.publication.start"/>
+              {{::image.publication.stop ? 'tot: ' : '&nbsp;'}} {{::image.publication.stop | mediaDate }}</span>
+          </span>
 
-                <span ng-switch-when="type">
-                    {{::image.type.text}}
-                </span>
+          <span ng-switch-when="type">
+            {{::image.type.text}}
+          </span>
 
-                <span ng-switch-when="license">
-                    {{::image.license.text}}
-                </span>
+          <span ng-switch-when="license">
+            {{::image.license.text}}
+          </span>
 
-                <span ng-switch-when="size">
-                    {{::image.width ? 'b: ' + image.width : '&nbsp;'}}<br ng-if="::image.width"/>{{::image.height ? 'h: ' + image.height : '&nbsp;'}}
-                </span>
-                <span ng-switch-when="owner">
-                    {{::image.owner }}
-                </span>
+          <span ng-switch-when="size">
+            {{::image.width ? 'b: ' + image.width : '&nbsp;'}}<br ng-if="::image.width"/>{{::image.height ? 'h: ' + image.height : '&nbsp;'}}
+          </span>
+          <span ng-switch-when="owner">
+            {{::image.owner }}
+          </span>
 
-                <span ng-switch-default>
-                    {{::image | searchColumnFilter: column.id }}
-                </span>
-
-
-            </td>
-
-            <td class="column-tools" ng-show="::imagesController.mayWrite()">
-                <div class="tools" >
-                    <button name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
-                    <button name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+          <span ng-switch-default>
+            {{::image | searchColumnFilter: column.id }}
+          </span>
 
 
+        </td>
+
+        <td class="column-tools" ng-show="::imagesController.mayWrite()">
+          <div class="tools" >
+            <button name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
+            <button name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

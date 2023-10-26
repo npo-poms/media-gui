@@ -13,8 +13,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
     'media',
     'image',
     'edit',
+    'EditorService',
     'service',
-
     (function () {
 
         function isValid ( image ) {
@@ -35,7 +35,23 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             );
         }
 
-        function ImageEditController ( $scope, $uibModal, $uibModalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, infoService, imageTypes, licenses, media, image, edit, service) {
+        function ImageEditController (
+            $scope,
+            $uibModal,
+            $uibModalInstance,
+            $upload,
+            $sce,
+            $timeout,
+            appConfig,
+            PomsEvents,
+            infoService,
+            imageTypes,
+            licenses,
+            media,
+            image,
+            edit,
+            EditorService,
+            service) {
 
             this.$scope = $scope;
             this.$uibModal = $uibModal;
@@ -50,6 +66,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             this.pomsEvents = PomsEvents;
 
             this.service = service;
+            this.editorService = EditorService;
 
             this.resetValue = angular.copy( image );
 
@@ -250,7 +267,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
-                        "authorization": "Bearer " + editor.keycloakToken
+                        "authorization": "Bearer " + this.editorService.getKeycloakToken()
                     }
                 }).then(
                     function (extResult) {
@@ -267,7 +284,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             date: metadata.date,
                             credits: metadata.credits
                         });
-                        this.setPreview(this.infoService.getImageBackendUrl() + "/api/images/thumb/" + metadata.uploadId + "?access_token=" + editor.keycloakToken);
+                        this.setPreview(this.infoService.getImageBackendUrl() + "/api/images/thumb/" + metadata.uploadId + "?access_token=" + this.editorService.getKeycloakToken());
                     }.bind(this),
                     function (error) {
                         mes = error.statusText;
@@ -336,7 +353,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         file: image.file && image.file.length > 0 ? image.file[0] : undefined,
                         fileFormDataName: 'file',
                         headers: {
-                            "authorization": "Bearer " + editor.keycloakToken
+                            "authorization": "Bearer " + this.editorService.getKeycloakToken()
                         }
                     }).then(
                         function (response) {

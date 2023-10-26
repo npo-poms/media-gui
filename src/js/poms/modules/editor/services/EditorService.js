@@ -133,6 +133,9 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             getCurrentEditor: function () {
                 return editorHolder;
             },
+            getKeycloakToken: function () {
+                return editorHolder.keycloakToken;
+            },
             getCurrentOwnerType: function() {
                 const ownerType = localStorageService.get('currentOwner');
                 if(ownerType && ownerType.length > 0) {
