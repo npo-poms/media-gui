@@ -43,7 +43,7 @@
           <button class="open-calendar" ng-click="openStartDate($event)"></button>
           <a href="#"
              name="startdate"
-             editable-bsdate="media[field].start"
+             ng-model="media[field].start"
              uib-datepicker-popup="dd-MM-yyyy HH:mm"
              close-on-date-selection="true"
              is-open="startdate.open"
@@ -60,7 +60,7 @@
         <div class="editable-datepicker to-date datepicker-dropdown" >
           <a href="#"
              name="stopdate"
-             editable-bsdate="media[field].stop"
+             ng-model="media[field].stop"
              uib-datepicker-popup="dd-MM-yyyy HH:mm"
              close-on-date-selection="true"
              is-open="stopdate.open"
