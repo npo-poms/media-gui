@@ -4,6 +4,7 @@
         multiple
         ng-model="$parent.selection"
         theme="selectize"
+        uis-open-close="controller.openClose(isOpen)"
         ng-show="opened"
         on-select="controller.select()" >
   <ui-select-choices

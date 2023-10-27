@@ -107,7 +107,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             addTab: function (tab) {
                 let newLength = this.tabs.push(tab);
-                console.log("Added", tab);
+                //console.log("Added", tab);
 
                 this.$timeout( function () {
                     this.initTab(tab);
@@ -245,7 +245,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 console.log("leaveTab", arguments);
             },
             initTab: function (tab, origin, event) {
-                console.log("inittab", tab, origin, event);
+
+                if (tab == null) {
+                    return;
+                }
                 this.$location.path( '/' + tab.type + '/' + tab.id );
                 tab.active = true;
                 if (tab.type === 'edit' ) {
@@ -302,7 +305,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     return tab.active;
                 });
                 if (findIndex !== -1) {
-                    console.log("Found active tab", this.tabs[findIndex]);
+                    // TODO, wth
+                    //console.log("Found active tab", this.tabs[findIndex]);
                     this.$timeout(function () {
                         this.initTab(this.tabs[findIndex]);
                         this.setActive(this.tabs[findIndex].id);
@@ -500,7 +504,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         tab.active = false;
                     }
                 }
-                console.log("setActive", id, found, this.currentTabIndex);
+                //console.log("setActive", id, found, this.currentTabIndex);
                 return found;
             },
 

@@ -159,10 +159,10 @@
 
 
 <div class="tabset" ng-if="guiController.loaded">
-  {{guiController.currentTabIndex}} {{guiController.tabs[-1]}}
-  <scrollableddd-tabset api="guiController.scrlTabsApi" auto-recalculate="true">
-    <uib-tabset>
+  <scrollable-tabset api="guiController.scrlTabsApi">
+    <uib-tabset   ng-init="guiController.initTab(guiController.currentTab)">
       <uib-tab data-ng-repeat="tab in guiController.tabs"
+
                class="tab  tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}} {{$index === guiController.currentTabIndex ? 'active' : ''}}"
                select="guiController.initTab(tab)"
                deselect="guiController.leaveTab($selectedIndex, $event)"
@@ -170,15 +170,15 @@
         <uib-tab-heading class="tab-heading ">
 
           <span ng-if="tab.type == 'edit'">
-            <span class="tab-subtitle">{{$index}} {{::tab.item.type.text }}</span>
-            <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{tab.active}} {{ tab.item.mainTitle.text }}</span>
+            <span class="tab-subtitle">{{::tab.item.type.text }}</span>
+            <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{ tab.item.mainTitle.text }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
 
           <span ng-if="tab.type == 'search'">
-            <span class="tab-subtitle">{{$index}} Zoeken</span>
-            <span class="tab-title" title="{{tab.item.form.summary}}">{{tab.active}} {{ tab.item.form.summary }}</span>
+            <span class="tab-subtitle">Zoeken</span>
+            <span class="tab-title" title="{{tab.item.form.summary}}">{{ tab.item.form.summary }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
@@ -196,7 +196,7 @@
            class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
 
     </uib-tabset>
-  </scrollableddd-tabset>
+  </scrollable-tabset>
 
 </div>
 

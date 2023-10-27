@@ -18,7 +18,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             searchService,
             editorService,
             messageService) {
-            console.log("new search reuslt controller");
+            //console.log("new search reuslt controller");
             this.$scope = $scope;
 
             this.favoritesService = favoritesService;

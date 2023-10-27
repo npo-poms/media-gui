@@ -39,7 +39,6 @@ angular.module('poms.services').factory('GuiService', [
                         deferred.reject(error);
                     }
                 );
-                console.log("Returning promise", deferred.promise);
                 return deferred.promise;
             },
 

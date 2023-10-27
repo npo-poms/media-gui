@@ -111,7 +111,6 @@ angular.module( 'poms.util.directives' )
             PomsUiSelectController.prototype = {
 
                 select: function () {
-                    console.log(arguments);
                     this.$scope.optionSelected();
                 },
                 openClose: function ( isOpen ) {
@@ -183,19 +182,17 @@ angular.module( 'poms.util.directives' )
 
             PomsUiSelectSuggestController.prototype = {
 
-                closeClick: function () {
-                    this.$scope.opened = false;
-                    this.$scope.optionSelected();
-                },
-
                 getOptions: function ( data ) {
                     if ( data ) {
-                        this.$scope.updateOptions( data ).then(
+                        this.$scope.updateOptions(data).then(
                             function ( response ) {
                                 this.$scope.options = response.data;
                             }.bind( this )
                         );
                     }
+                },
+                openClose: function ( isOpen ) {
+                    this.$scope.opened = isOpen;
                 },
 
                 toggleOpen: function ( event ) {

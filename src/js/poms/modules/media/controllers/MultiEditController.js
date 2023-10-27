@@ -113,7 +113,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
 
             updateOptions: function ( text ) {
                 if( !text ) {
-                    return;
+                    return Promise.resolve([]);
                 }
 
                 this.tempValue = text;

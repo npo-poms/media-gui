@@ -29,7 +29,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             return deferred.promise;
         }
 
-        function post ( path, body ) {
+        function post( path, body ) {
             const deferred = $q.defer();
             const url = baseUrl + path;
 
