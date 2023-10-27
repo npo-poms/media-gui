@@ -46,11 +46,9 @@ angular.module('poms.services').factory('GuiService', [
             initTabs : function() {
                 for(let i = 0; i < this.tabs.length; i++) {
                     const tab = this.tabs[i];
-
                     if(tab.type === 'search') {
                         this.tabs[i].item = searchFactory.newSearch(tab.item);
                     }
-
                 }
             },
 

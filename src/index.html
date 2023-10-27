@@ -159,25 +159,26 @@
 
 
 <div class="tabset" ng-if="guiController.loaded">
-  <scrollable-tabset api="guiController.scrlTabsApi">
-    <uib-tabset active="guiController.activeTab">
-      <uib-tab ng-repeat="tab in guiController.tabs"
-               class="tab tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}} {{tab.active ? 'active' : ''}}"
+  {{guiController.currentTabIndex}} {{guiController.tabs[-1]}}
+  <scrollableddd-tabset api="guiController.scrlTabsApi" auto-recalculate="true">
+    <uib-tabset>
+      <uib-tab data-ng-repeat="tab in guiController.tabs"
+               class="tab  tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}} {{$index === guiController.currentTabIndex ? 'active' : ''}}"
                select="guiController.initTab(tab)"
+               deselect="guiController.leaveTab($selectedIndex, $event)"
       >
-
         <uib-tab-heading class="tab-heading ">
 
           <span ng-if="tab.type == 'edit'">
-            <span class="tab-subtitle">{{::tab.item.type.text }}</span>
-            <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{ tab.item.mainTitle.text }}</span>
+            <span class="tab-subtitle">{{$index}} {{::tab.item.type.text }}</span>
+            <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{tab.active}} {{ tab.item.mainTitle.text }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
 
           <span ng-if="tab.type == 'search'">
-            <span class="tab-subtitle">Zoeken</span>
-            <span class="tab-title" title="{{tab.item.form.summary}}"> {{ tab.item.form.summary }}</span>
+            <span class="tab-subtitle">{{$index}} Zoeken</span>
+            <span class="tab-title" title="{{tab.item.form.summary}}">{{tab.active}} {{ tab.item.form.summary }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>
           </span>
@@ -185,7 +186,6 @@
         </uib-tab-heading>
 
         <poms-editor ng-if="tab.type =='edit' && !tab.reload" media="tab.item"></poms-editor>
-
         <poms-search-tab ng-if="tab.type=='search'" id="search-{{tab.id}}" search="tab.item"></poms-search-tab>
 
       </uib-tab>
@@ -196,7 +196,7 @@
            class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
 
     </uib-tabset>
-  </scrollable-tabset>
+  </scrollableddd-tabset>
 
 </div>
 

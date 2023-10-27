@@ -127,7 +127,7 @@ angular.module( 'poms.util.directives')
                     return deferred.promise;
                 };
                 startPlayer = function (containerId, options ) {
-                    player = $scope.selected.value;
+                    const player = $scope.selected.value;
                     NpoPlayerService.play($scope.containerId, player.request, $scope.size, options);
                     $rootScope.$on(PomsEvents.tabChanged, function ( ) {
                         $scope.pause();

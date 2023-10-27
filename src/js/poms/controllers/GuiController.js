@@ -66,6 +66,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             this.$timeout = $timeout;
 
             this.currentTab = undefined;
+            this.currentTabIndex = -1;
 
             this.$scope.userDropdown = {isopen: false};
 
@@ -84,11 +85,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         this.tabs = tabs;
                         this.editor = this.editorService.getCurrentEditor();
 
-                        this.initTabs();
-
-                        this.loaded = true;
-
-
                         this.handleEdits();
 
                         this.handleErrors();
@@ -101,21 +97,23 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                         this.bindUploadListener();
 
+                        this.loaded = true;
+                        this.initTabs();
+
                     }.bind( this )
                 );
             },
 
 
             addTab: function (tab) {
-                this.tabs.push(tab);
+                let newLength = this.tabs.push(tab);
+                console.log("Added", tab);
+
                 this.$timeout( function () {
-                    tab.active = true;
-                    this.setScrolling( tab );
-                    if ( this.tabs.length > 1) {
-                        this.scrlTabsApi.scrollTabIntoView( this.tabs.length );
-                    }
-                    this.scrlTabsApi.doRecalculate();
-                }.bind(this) );
+                    this.initTab(tab);
+                    this.doRecalculate();
+                }.bind(this));
+                return newLength - 1;
             },
 
             bindUploadListener: function () {
@@ -141,13 +139,14 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     e.stopPropagation();
                 }
                 this.tabs.length = newLength;
+
                 if (this.tabs.length === 0) {
                     this.newSearch();
-                } else {
-                    this.setScrolling( this.tabs[ this.tabs.length  - 1 ] );
-                    this.scrlTabsApi.doRecalculate();
                 }
-                this.localStorageService.set( this.editor.hashId , []);
+                if (this.currentTabIndex > this.tabs.length) {
+                    this.setActive(this.tabs[this.tabs.length - 1].id);
+                }
+                this.localStorageService.set(this.editor.hashId , []);
             },
 
             editAccount: function () {
@@ -155,23 +154,23 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             editMedia: function ( media ) {
-                if ( this.setActive( this.tabs, media.mid ) ) {
+                if ( this.setActive(media.mid) ) {
                     return;
                 }
 
-                this.addTab( {
+                let newIndex = this.addTab( {
                     active: true,
                     id: media.mid,
                     item: media,
                     type: 'edit'
                 } );
+                this.setActive(this.tabs[newIndex].id);
             },
 
             editSelection: function ( selection ) {
-                const tabs = this.tabs;
                 angular.forEach( selection, function ( item, index ) {
                     // Add a tab with a media placeholder to reload. Should reload on tab activation
-                    if ( ! this.setActive( tabs, item.mid ) ) {
+                    if ( ! this.setActive(item.mid ) ) {
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
@@ -216,7 +215,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     for (let i = 0; i < this.tabs.length; i ++ ) {
                         const tab = this.tabs[i];
                         if ( tab.id === mid ) {
-                            this.removeTab( i );
+                            this.removeTab(i);
                         }
                     }
                 }.bind( this ) );
@@ -224,24 +223,29 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             handleRouteChange: function () {
                 this.$scope.$on( '$routeChangeSuccess', function () {
-
+                    console.log("Route changed", this.$route.current);
                     const mid = this.$route.current.params.mid;
-                    if ( mid ) {
-                        if ( ! this.setActive( this.tabs, mid ) ) {
+                    if (mid) {
+                        if ( ! this.setActive(mid ) ) {
+                            console.log("Creating new tab for mid");
                             this.newEditTab( mid );
                         }
                     }
 
                     const qid = this.$route.current.params.qid;
                     if ( qid ) {
-                        if ( this.setActive( this.tabs, qid ) ) {
-                            return;
+                        if (!this.setActive(qid )) {
+                            console.log("Could not set to", qid);
                         }
                     }
                 }.bind( this ) );
             },
 
-            initTab: function (tab) {
+            leaveTab: function() {
+                console.log("leaveTab", arguments);
+            },
+            initTab: function (tab, origin, event) {
+                console.log("inittab", tab, origin, event);
                 this.$location.path( '/' + tab.type + '/' + tab.id );
                 tab.active = true;
                 if (tab.type === 'edit' ) {
@@ -251,6 +255,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         this.mediaService.load(tab.id).then(
                             function (media) {
                                 angular.copy(media, tab.item);
+                                this.doRecalculate();
                             }.bind(this),
                             function (error) {
                                 if (error.status === 404) {
@@ -263,7 +268,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }
                 } else {
                     document.title = 'POMS - Zoek';
+                    this.doRecalculate();
                 }
+                return true;
             },
 
             initTabs: function () {
@@ -286,27 +293,36 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }
 
                     if ( openNewMedia ) {
-                        if ( !this.setActive( this.tabs, entryMid ) ) {
+                        if ( !this.setActive( entryMid ) ) {
                             this.newEditTab( entryMid );
                         }
                     }
                 }
-                this.activeTab = this.tabs.findIndex(function (tab) {
+                let findIndex = this.tabs.findIndex(function (tab) {
                     return tab.active;
-                }) + 1;
+                });
+                if (findIndex !== -1) {
+                    console.log("Found active tab", this.tabs[findIndex]);
+                    this.$timeout(function () {
+                        this.initTab(this.tabs[findIndex]);
+                        this.setActive(this.tabs[findIndex].id);
+                    }.bind(this));
+                }
             },
 
             isActive: function ( tab ) {
                 return tab.active;
             },
 
-
-
             logOut: function () {
                 this.editorService.logOut();
             },
 
+            /**
+             * New editTab for mid (or opens the existing one if there is one)
+             */
             newEditTab: function (mid) {
+
                 this.mediaService.load( mid ).then(
                     function (media) {
                         //console.log("Loaded", media);
@@ -405,7 +421,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openSearchTab: function ( search ) {
-                if ( this.setActive( this.tabs, search.id ) ) {
+                if ( this.setActive( search.id ) ) {
                     return;
                 }
 
@@ -437,18 +453,18 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 for (let i = 0; i < this.tabs.length; i ++ ) {
                     const tab = this.tabs[i];
                     if ( tab.id === search.id ) {
-                        this.removeTab( i );
+                        this.removeTab(i);
                         break;
                     }
                 }
             },
 
-            removeTab: function ( index ) {
-                this.tabs.splice( index, 1 );
+            removeTab: function (index) {
+                this.tabs.splice(index, 1);
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
                 }
-                this.setScrolling( this.tabs[ index - 1 ] );
+                this.setActive( this.tabs[Math.max(index - 1, 0)].id );
                 this.scrlTabsApi.doRecalculate();
             },
 
@@ -457,37 +473,40 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
              */
             setScrolling : function ( tab ) {
                 const currentScrollPosition = this.$document.scrollTop();
-                if ( this.currentTab ) {
+                if (this.currentTab) {
                     this.currentTab.scrollPosition = currentScrollPosition;
                 }
-                if ( tab && tab.scrollPosition ) {
-                    this.$document.scrollTop( tab.scrollPosition )
-                }else{
-                    this.$document.scrollTop( 0 );
+                if ( tab && tab.scrollPosition) {
+                    this.$document.scrollTop(tab.scrollPosition)
+                } else {
+                    this.$document.scrollTop(0);
                 }
-                this.currentTab = tab;
             },
 
-            setActive: function ( tabs, id ) {
-                let hasChange = false;
-                for (let i = 0; i < tabs.length; i ++ ) {
-                    const tab = tabs[i];
+            setActive: function (id) {
+                let found = false;
+                for (let i = 0; i < this.tabs.length; i ++ ) {
+                    const tab = this.tabs[i];
                     if ( tab.id === id ) {
-                        this.activeTab = i + 1;
+                        this.currentTabIndex = i;
                         tab.active = true;
-                        if (this.scrlTabsApi && tabs.length > 1){
+                        if (this.scrlTabsApi && this.tabs.length > 1) {
                             this.scrlTabsApi.scrollTabIntoView(i);
                         }
-                        this.setScrolling( tab );
-                        hasChange = true;
+                        this.setScrolling(tab);
+                        found = true;
                         this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
                     } else {
                         tab.active = false;
                     }
                 }
-                return hasChange;
+                console.log("setActive", id, found, this.currentTabIndex);
+                return found;
             },
 
+            doRecalculate: function() {
+                this.scrlTabsApi && this.scrlTabsApi.doRecalculate();
+            },
             showOwnerMis: function () {
                 return this.editorService.currentEditorHasRoles( ['MIS'] ) && this.editorService.getCurrentOwnerType() !== 'BROADCASTER';
             },

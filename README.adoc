@@ -1,10 +1,18 @@
-# Hello POMS
+= Hello POMS
 
-# install
-Install the [Node Version Manager](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps)
+== install
+
+Install the https://www.digitalocean.com/community/tutorials/how-to-install-node-js-with-nvm-node-version-manager-on-a-vps[Node Version Manager]
 
 By running `curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash`
 
+
+Then
+
+[source,bash]
+----
+source version
+----
 Install Node JS by running `nvm install 10.16.0` and `nvm use 10.16.0`
 Install the latest NPM by running `npm install -g npm`
 
@@ -12,60 +20,59 @@ Run `npm install` to install all prerequisites.
 
 NOTE (for Mac): there's now a dependency on xcode application (xcode-select seems not to be enough)
 
-#Current versions:
-nvm: 0.34.0
-node: v10.16.0
-npm: 6.10.1
 
-# development
+== development
 
-## coding guidelines (TEMP)
+=== coding guidelines (TEMP)
 
--   Group Angular modules by functionality
--   A module for each feature
--   A module for each reusable component (especially directives and filters)
--   And an application level module which depends on the above modules and contains any initialization code.
+* Group Angular modules by functionality
+* A module for each feature
+* A module for each reusable component (especially directives and filters)
+* And an application level module which depends on the above modules and contains any initialization code.
+* Filenames start with uppercase for controllers, directives etc
 
--  Filenames start with uppercase for controllers, directives etc
--  Unit test filenames end in ...Spec
+* Unit test filenames end in …Spec
+* Directives are prefixed with poms, e.g. pomsGreeter equals poms-greeter (in file Greeter.js)
 
--  Directives are prefixed with poms, e.g. pomsGreeter equals poms-greeter (in file Greeter.js)
+=== Run backend and frontend together
 
-## Run backend and frontend together
 Checkout poms and follow the instruction to run it on your local machine. Then:
 
-1. Run backend server on port 8071
-2. Run `NPM_CONFIG_APIHOST=http://localhost:8071 && npm run watch:dev`
-3. Go to `http://localhost:8071/` to trigger the login process via the backand server 
-3. Go to `http://localhost:port` to debug the frontend application 
-                                                                        
+. Run backend server on port 8071
+. Run [PORT=<port>] ./watch.sh
+. Go to `http://localhost:8071/` to trigger the login process via the backend server
+. Go to `http://localhost:port` to debug the frontend application
+
 Or a bit more fancy:
 
-1. Run backend server on port 8071
-2. Run frontend
+. Run backend server on port 8071
+. Run frontend
 `./watch-proxy`
-3. Install ha-proxy 
+. Install ha-proxy
 `brew install haproxy`
-4. Run proxy
+. Run proxy
 `proxy/start.sh`
 
+=== check the current development
 
-## check the current development
 Run `./watch-dev.sh` to build and run the current development version on `http://localhost:port` ( port defaults to 4000 )
 
-## live reloading
+=== live reloading
+
 Run `npm run watch:dev` and navigate to `http://localhost:port` ( port defaults to 4000 )
 Any changes to the code are automatically reflected in your browser.
 
-## API and signon hosts
+=== API and signon hosts
+
 If you want the server to run with different API and signon hosts you can override the
 package config settings by setting environment variables as follows:
 
-`NPM_CONFIG_APIHOST=http://poms-dev.omroep.nl NPM_CONFIG_SIGNONHOST=http://sso-dev.omroep.nl npm run watch:dev`
+`NPM_CONFIG_APIHOST=https://poms-test.omroep.nl NPM_CONFIG_SIGNONHOST=http://sso-dev.omroep.nl npm run watch:dev`
 
-## https
+== https
+
 The POMS gui can also run on https locally. To do so follow these steps
-Use a secure API host when starting the server. For instance,  `NPM_CONFIG_APIHOST=https://poms-dev.omroep.nl`
+Use a secure API host when starting the server. For instance, `NPM_CONFIG_APIHOST=https://poms-dev.omroep.nl`
 Specifiy the paths to your local `server.key` and `server.crt` files as the following environment variables:
 `SERVER_KEY_PATH`
 `SERVER_CRT_PATH`
@@ -74,14 +81,20 @@ Use `npm run serve:dev-secure` with the above mentioned environment variables to
 
 Example:
 `NPM_CONFIG_APIHOST=https://poms-dev.omroep.nl NPM_CONFIG_SIGNONHOST=https://sso-dev.omroep.nl SERVER_KEY_PATH=~/.secure/server.key SERVER_CRT_PATH=~/.secure/server.crt npm run serve:dev-secure`
-(Note: running node scripts directly from the console like `npm run serve:dev-secure` wont work without defining `NPM_CONFIG_APIHOST` & `NPM_CONFIG_SIGNONHOST` )
+(Note: running node scripts directly from the console like `npm run serve:dev-secure` wont work without defining `NPM_CONFIG_APIHOST` &amp; `NPM_CONFIG_SIGNONHOST` )
 
-## debug statements in your console
+== debug statements in your console
 
-To show POMSUI debugging messages in the console we use a [debugging](https://www.npmjs.org/package/debug)
+To show POMSUI debugging messages in the console we use a https://www.npmjs.org/package/debug[debugging]
 utility which can be initialised by running commandline commands like `DEBUG=pomsui your_command`.
 This will allow all 'pomsui' namespaced debug messages to be output to the console.
 
-# deployment
+== deployment
 
 For now, run `npm run deploy:gulp` to generate just a hand full of files in the build/deploy folder.
+
+
+== Relevant documentation
+
+https://github.com/VersifitTechnologies/angular-ui-tab-scroll
+https://angular-ui.github.io/bootstrap/

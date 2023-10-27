@@ -37,13 +37,16 @@ angular.module( 'poms.util.directives' )
 
             PomsUiSelectController.prototype = {
                 toggleOpen: function ( event ) {
-
                     this.$scope.opened = ! this.$scope.opened;
                     if ( this.$scope.opened ) {
                         this.$timeout( function () {
                             angular.element( event.currentTarget ).parent().find( 'input' ).click();
                         }, 0 );
                     }
+                },
+
+                openClose: function ( isOpen ) {
+                    this.$scope.opened = isOpen;
                 },
                 trustAsHtml: function ( value ) {
                     return this.$sce.trustAsHtml( value );
@@ -107,9 +110,12 @@ angular.module( 'poms.util.directives' )
 
             PomsUiSelectController.prototype = {
 
-                closeClick: function () {
-                    this.$scope.opened = false;
+                select: function () {
+                    console.log(arguments);
                     this.$scope.optionSelected();
+                },
+                openClose: function ( isOpen ) {
+                    this.$scope.opened = isOpen;
                 },
 
                 toggleOpen: function ( event ) {

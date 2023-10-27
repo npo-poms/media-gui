@@ -98,7 +98,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
 
 
             $scope.$on( 'editFieldOpen', function ( e, element ) {
-                this.editFieldOpen = (element.isOpen ? true : false);
+                this.editFieldOpen = ! element.isOpen;
                 this.editField = element.field;
             } );
             angular.element( $window ).on( 'keydown', function ( e ) {

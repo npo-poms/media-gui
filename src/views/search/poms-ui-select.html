@@ -2,10 +2,10 @@
 <ui-select
         ng-model="$parent.selection"
         theme="selectize"
-        close-on-select="true"
+        uis-open-close="controller.openClose(isOpen)"
         reset-search-input="true"
         ng-show="opened"
-        on-select="controller.closeClick();" >
+        on-select="controller.select" >
   <ui-select-choices repeat="item in options | filter: {text: $select.search}">
     <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))"></div>
   </ui-select-choices>

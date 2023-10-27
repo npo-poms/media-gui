@@ -4,10 +4,11 @@
         multiple
         ng-model="$parent.selection"
         theme="selectize"
+        uis-open-close="controller.openClose(isOpen)"
         close-on-select="true"
         reset-search-input="true"
         ng-show="opened"
-        on-select="controller.select()" >
+        on-select="controller.select" >
   <ui-select-choices repeat="item in options | filter: {text: $select.search}">
     <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))"></div>
   </ui-select-choices>

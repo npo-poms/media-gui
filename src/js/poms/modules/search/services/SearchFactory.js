@@ -451,6 +451,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             },
 
             newSearch : function ( config ) {
+                console.log("Creating new search for", config);
                 return new Search( config )
             },
 

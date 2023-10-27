@@ -7,11 +7,18 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
     'SearchService',
     'EditorService',
     'MessageService',
-
     (function () {
 
-        function SearchResultController ( $scope, favoritesService, guiService, mediaService, pomsEvents, searchService, editorService, messageService) {
-
+        function SearchResultController (
+            $scope,
+            favoritesService,
+            guiService,
+            mediaService,
+            pomsEvents,
+            searchService,
+            editorService,
+            messageService) {
+            console.log("new search reuslt controller");
             this.$scope = $scope;
 
             this.favoritesService = favoritesService;
@@ -36,7 +43,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 this.submit();
             }.bind( this ));
 
-            this.$scope.mayDownload = editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER', 'SUPPORT'])
+            this.$scope.mayDownload = true;// editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER', 'SUPPORT'])
         }
 
         SearchResultController.prototype = {

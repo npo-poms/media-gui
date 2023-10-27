@@ -1,3 +1,3 @@
-# pleas source this before running npm install
+# please source this before running npm install
 nvm use $(mvn help:evaluate -Dexpression=node.version -q -DforceStdout)
 pygui
