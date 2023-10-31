@@ -140,6 +140,9 @@ angular.module( 'poms.util.directives' )
     ] );
 
 
+/**
+ * Called 'suggest', but actually only tag!
+ */
 angular.module( 'poms.util.directives' )
     .directive( 'pomsUiSelectSuggest', [function () {
         return {
@@ -182,11 +185,12 @@ angular.module( 'poms.util.directives' )
 
             PomsUiSelectSuggestController.prototype = {
 
-                getOptions: function ( data ) {
-                    if ( data ) {
-                        this.$scope.updateOptions(data).then(
-                            function ( response ) {
-                                this.$scope.options = response.data;
+                getOptions: function ( text ) {
+
+                    if (text) {
+                        this.$scope.updateOptions(text).then(
+                            function (data) {
+                                this.$scope.options = data;
                             }.bind( this )
                         );
                     }

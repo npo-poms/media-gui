@@ -64,7 +64,7 @@ angular.module('poms.services').factory('GuiService', [
             },
 
             editMid : function(mid, title, type) {
-                this.guiController.newEditTab(mid, title, type);
+                this.guiController.newEditTabWithFields(mid, title, type);
             },
 
             editSelection : function(selection) {

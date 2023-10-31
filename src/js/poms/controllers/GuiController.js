@@ -154,29 +154,43 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.editorService.editAccount();
             },
 
-            editMedia: function (mid, title, type) {
-                console.log("Editing media", mid, title, type);
+            editMediaWithFields: function (mid, title, type, permissions) {
+                //console.log("Editing media", mid, title, type);
                 if ( this.setActive(mid) ) {
-                    console.log("Already active");
+                    //console.log("Already active");
                     return;
                 }
-                const newTab = {
-                    reload: true,
-                    id: mid,
-                    item: {
-                        mid: mid,
-                        mainTitle: {
-                            text: title,
-                        },
-                        type: type
-                    },
-                    type: 'edit'
-                };
-                console.log("tab", newTab);
+                const newTab = this.tabFromSearchResultFields(mid, title, type, permissions);
+                //console.log("tab", newTab);
                 this.addTab(newTab);
                 this.$timeout(function() {
                     this.setActive(mid)
                 }.bind(this));
+            },
+
+            editMedia: function (media) {
+                //console.log("editMedia", media);
+                this.editMediaWithFields(media.mid, media.title, media.type, media.permissions);
+            },
+
+
+            tabFromSearchResultFields: function(mid, title, type, permissions) {
+                return {
+                     active: false,
+                     reload: true,
+                     id: mid,
+                     item: {
+                         mid: mid,
+                         type: type,
+                         permissions: permissions,
+                         mainTitle: {text: title}
+                     },
+                     type: 'edit'
+                 };
+            },
+
+            tabFromSearchResult: function(searchResult) {
+                return this.tabFromSearchResultFields(searchResult.mid, searchResult.title, searchResult.type, searchResult.permissions);
             },
 
             editSelection: function ( selection ) {
@@ -186,19 +200,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
-                        const tab = {
-                            active: false,
-                            reload: true,
-                            id: item.mid,
-                            item: {
-                                mid: item.mid,
-                                type: item.type,
-                                permissions: item.permissions,
-                                mainTitle: {text: item.title}
-                            },
-                            type: 'edit'
-                        };
-                        this.addTab(tab);
+
+                        this.addTab(this.tabFromSearchResult(item));
                     }
                 }.bind(this) );
 
@@ -239,8 +242,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     const mid = this.$route.current.params.mid;
                     if (mid) {
                         if ( ! this.setActive(mid ) ) {
-                            console.log("Creating new tab for mid");
-                            this.newEditTab( mid );
+                            console.log("Creating new tab for mid", mid);
+                            this.newEditTabWithFields(mid);
                         }
                     }
 
@@ -340,11 +343,18 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             /**
              * New editTab for mid (or opens the existing one if there is one)
              */
-            newEditTab: function (mid, title, type) {
+            newEditTabWithFields: function (mid, title="??", type= {"id": "MEDIA"}, permissions) {
                 if ( this.setActive(mid )) {
                     return;
                 }
-                this.editMedia(mid, title, type);
+                this.editMediaWithFields(mid, title, type, permissions);
+            },
+
+            newEditTab: function (media) {
+                if ( this.setActive(media.mid )) {
+                    return;
+                }
+                this.editMedia(media);
             },
 
             newMedia: function () {
@@ -381,7 +391,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     this.searchService.newSearch()
                 );
             },
-
 
 
             openInEditor: function ( media ) {
@@ -435,7 +444,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 );
             },
 
-            openSearchTab: function ( search ) {
+            openSearchTab: function (search) {
                 if (this.setActive( search.id ) ) {
                     return;
                 }
@@ -447,8 +456,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.addTab(newTab);
                 this.$timeout(function() {
                     this.setActive(newTab.id);
+                    this.doRecalculate();
                 }.bind(this));
-                this.doRecalculate();
+
             },
 
             openLiveEditor : function(){

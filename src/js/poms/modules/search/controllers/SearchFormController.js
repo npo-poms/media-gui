@@ -89,8 +89,8 @@ angular.module('poms.search.controllers')
                 return '#/edit/' + mid;
             },
 
-            getTags : function(data) {
-                return this.listService.getTags(data);
+            getTags : function(text) {
+                return this.listService.getTags(text);
             },
 
             getUsers : function() {

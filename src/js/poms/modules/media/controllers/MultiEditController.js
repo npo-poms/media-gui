@@ -111,25 +111,30 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 this.submit();
             },
 
-            updateOptions: function ( text ) {
+            updateOptions: function (text) {
                 if( !text ) {
+                    console.log("no text, returnin empty promis");
                     return Promise.resolve([]);
                 }
 
                 this.tempValue = text;
 
-                const options = this.$scope.options(({data: text}));
+                console.log("updateOptions", this.$scope.getOptions);
+                const options = this.$scope.getOptions(({data: text}));
                 if ( options && options.then ) {
                     options.then(
                         function ( response ) {
                             this.options = response.data;
+                            console.log("options", this.options);
                         }.bind( this ),
                         function ( error ) {
                             this.$scope.$emit( this.pomsEvents.error, error )
                         }.bind( this )
                     );
+                } else {
+                    console("not a promise", options)
                 }
-                //return options;
+                return options;
             },
 
             submit: function ( e ) {
