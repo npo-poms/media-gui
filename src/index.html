@@ -194,16 +194,15 @@
 
       <uib-tab
               title='open een nieuwe zoek-tab'
-              index="1001"
+              index="10000"
               class="tab-add"
               ng-click="guiController.newSearch()">
-        <span class="tab-add" ></span>
       </uib-tab>
-      <uib-tab title='sluit alle tabs'
-               index="1002"
-             ng-click="guiController.closeAllTabs(null, 1)"
-             class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
-      <span class="tab-close-all" ></span>
+      <uib-tab
+              title='sluit alle tabs'
+              index="10001"
+              ng-click="guiController.closeAllTabs(null, 1)"
+              class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
     </uib-tabset>
   </scrollable-tabset>
 

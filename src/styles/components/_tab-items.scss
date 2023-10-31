@@ -123,59 +123,46 @@
     }
 }
 
-.tab-add .nav-link {
+.tab-add {
+  .nav-link {
+    display: block;
+    float: left;
+    width: 40px;
+    box-sizing: content-box;
+    text-decoration: none;
+    @include icon('tab-new', 32px);
+
+    &:hover {
+      border-top-color: $oranje;
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+
+.tab-close-all {
+  float: right;
+  .nav-link {
     display: block;
     float: left;
 
-    width: 40px;
+    width: 115px;
     height: 38px;
 
     box-sizing: content-box;
+    padding-left: 8px;
 
     border-top: 2px solid transparent;
 
     text-decoration: none;
 
-    @include icon('tab-new', 32px);
+    @include icon('tab-close', 32px, 'right center');
 
     &:hover {
-        background-color: $white;
-        border-top-color: $oranje;
+      background-color: $rood !important;
+      border-top-color: $rood;
+      @include icon('tab-close-white', 32px, 'right center');
     }
-}
-//
-//.tab-close-all {
-//    float: right;
-//}
-//
-//.tab-close-all .nav-link {
-//    display: block;
-//    float: left;
-//
-//    width: 115px;
-//    height: 38px;
-//
-//    box-sizing: content-box;
-//    padding-left: 8px;
-//
-//    border-top: 2px solid transparent;
-//
-//    text-decoration: none;
-//
-//    @include icon('tab-close', 32px, 'right center');
-//
-//    &:hover {
-//        background-color: $rood !important;
-//        border-top-color: $rood;
-//        @include icon('tab-close-white', 32px, 'right center');
-//
-//        .tab-subtitle{
-//            color: white;
-//        }
-//    }
-//}
-
-.tab-close-all .tab-heading {
-    position: relative;
-    top: 13px;
+  }
 }

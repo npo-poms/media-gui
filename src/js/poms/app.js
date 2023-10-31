@@ -17,6 +17,7 @@
         "poms.constants",
         'ui.bootstrap',
         'ui.select',
+        'ui.tab.scroll',
         'ngRoute',
         'LocalStorageModule',
         'angularFileUpload',
@@ -27,8 +28,7 @@
         'ngAnimate',
         'ngToast',
         "ui-rangeSlider",
-        "angular-clipboard",
-        'ui.tab.scroll'
+        "angular-clipboard"
     ]);
 
 

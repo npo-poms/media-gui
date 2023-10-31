@@ -112,6 +112,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             addTab: function (tab) {
                 tab.index = this.tabs.length;
                 this.tabs.push(tab);
+                this.scrlTabsApi.doRecalculate();
                 return tab.index;
             },
 
@@ -146,6 +147,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     this.setActive(this.tabs[this.tabs.length - 1].id);
                 }
                 this.localStorageService.set(this.editor.hashId , []);
+                this.scrlTabsApi.doRecalculate();
             },
 
             editAccount: function () {
@@ -375,7 +377,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
              * Creates and inserts a new search
              */
             newSearch: function ( ) {
-                this.openSearchTab(this.searchService.newSearch());
+                this.openSearchTab(
+                    this.searchService.newSearch()
+                );
             },
 
 
@@ -441,7 +445,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     type: 'search'
                 }
                 this.addTab(newTab);
-                this.setActive(newTab.id);
+                this.$timeout(function() {
+                    this.setActive(newTab.id);
+                }.bind(this));
+                this.doRecalculate();
             },
 
             openLiveEditor : function(){
