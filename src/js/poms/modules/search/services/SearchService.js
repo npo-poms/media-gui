@@ -94,7 +94,8 @@ angular.module('poms.search.services').factory('SearchService', [
             },
 
             editResult : function(result) {
-                guiService.editMid(result.mid);
+                console.log("Editing  search result item", result);
+                guiService.editMid(result.mid, result.title, result.type);
             },
 
             editSelection : function(selection) {

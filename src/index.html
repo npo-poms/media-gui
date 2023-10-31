@@ -160,11 +160,13 @@
 
 <div class="tabset" ng-if="guiController.loaded">
   <scrollable-tabset api="guiController.scrlTabsApi">
-    <uib-tabset   ng-init="guiController.initTab(guiController.currentTab)">
+    <uib-tabset
+            active="guiController.currentTabIndex"
+            ng-init="guiController.initTab(guiController.currentTab)">
       <uib-tab data-ng-repeat="tab in guiController.tabs"
-
-               class="tab  tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}} {{$index === guiController.currentTabIndex ? 'active' : ''}}"
-               select="guiController.initTab(tab)"
+               index="$index"
+               class="tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} tab-maywrite{{tab.mayWrite}} {{guiController.currentTabIndex === tab.index ? 'active' : ''}}"
+               select="guiController.setActive(tab.id)"
                deselect="guiController.leaveTab($selectedIndex, $event)"
       >
         <uib-tab-heading class="tab-heading ">
@@ -190,11 +192,18 @@
 
       </uib-tab>
 
-      <uib-tab title='open een nieuwe zoek-tab' ng-click="guiController.newSearch()" class="tab-add"></uib-tab>
+      <uib-tab
+              title='open een nieuwe zoek-tab'
+              index="1001"
+              class="tab-add"
+              ng-click="guiController.newSearch()">
+        <span class="tab-add" ></span>
+      </uib-tab>
       <uib-tab title='sluit alle tabs'
-           ng-click="guiController.closeAllTabs(null, 1)"
-           class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
-
+               index="1002"
+             ng-click="guiController.closeAllTabs(null, 1)"
+             class="tab-close-all" ng-if="guiController.tabs.length > 1"></uib-tab>
+      <span class="tab-close-all" ></span>
     </uib-tabset>
   </scrollable-tabset>
 

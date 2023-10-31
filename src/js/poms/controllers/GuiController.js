@@ -67,6 +67,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             this.currentTab = undefined;
             this.currentTabIndex = -1;
+            this.tabs = [];
 
             this.$scope.userDropdown = {isopen: false};
 
@@ -105,15 +106,13 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
 
+            /**
+             * Just add a tab to the end.
+             */
             addTab: function (tab) {
-                let newLength = this.tabs.push(tab);
-                //console.log("Added", tab);
-
-                this.$timeout( function () {
-                    this.initTab(tab);
-                    this.doRecalculate();
-                }.bind(this));
-                return newLength - 1;
+                tab.index = this.tabs.length;
+                this.tabs.push(tab);
+                return tab.index;
             },
 
             bindUploadListener: function () {
@@ -153,18 +152,29 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.editorService.editAccount();
             },
 
-            editMedia: function ( media ) {
-                if ( this.setActive(media.mid) ) {
+            editMedia: function (mid, title, type) {
+                console.log("Editing media", mid, title, type);
+                if ( this.setActive(mid) ) {
+                    console.log("Already active");
                     return;
                 }
-
-                let newIndex = this.addTab( {
-                    active: true,
-                    id: media.mid,
-                    item: media,
+                const newTab = {
+                    reload: true,
+                    id: mid,
+                    item: {
+                        mid: mid,
+                        mainTitle: {
+                            text: title,
+                        },
+                        type: type
+                    },
                     type: 'edit'
-                } );
-                this.setActive(this.tabs[newIndex].id);
+                };
+                console.log("tab", newTab);
+                this.addTab(newTab);
+                this.$timeout(function() {
+                    this.setActive(mid)
+                }.bind(this));
             },
 
             editSelection: function ( selection ) {
@@ -186,9 +196,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             },
                             type: 'edit'
                         };
-                        this.addTab( tab);
+                        this.addTab(tab);
                     }
-                }.bind( this ) );
+                }.bind(this) );
 
             },
 
@@ -244,21 +254,25 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             leaveTab: function() {
                 console.log("leaveTab", arguments);
             },
-            initTab: function (tab, origin, event) {
+
+            /**
+             * @param tab The tab (an object) to init
+             */
+            initTab: function (tab) {
 
                 if (tab == null) {
+                    console.log("initTab called with null tab!");
                     return;
                 }
-                this.$location.path( '/' + tab.type + '/' + tab.id );
-                tab.active = true;
+                console.log("Initing tab", tab);
+
                 if (tab.type === 'edit' ) {
-                    document.title = 'POMS - ' + (tab.item.mainTitle ? tab.item.mainTitle.text : "(no title)");
-                    if (tab.active && tab.reload ) {
+                    if (tab.reload) {
                         tab.reload = false;
                         this.mediaService.load(tab.id).then(
                             function (media) {
                                 angular.copy(media, tab.item);
-                                this.doRecalculate();
+                                //          this.doRecalculate();
                             }.bind(this),
                             function (error) {
                                 if (error.status === 404) {
@@ -269,9 +283,6 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             }.bind(this)
                         );
                     }
-                } else {
-                    document.title = 'POMS - Zoek';
-                    this.doRecalculate();
                 }
                 return true;
             },
@@ -284,11 +295,13 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
                 } else {
+                    console.log("initTab length ", this.tabs.length);
                     for (let i = 0; i < this.tabs.length; i ++ ) {
                         const tab = this.tabs[i];
                         if ( tab.type === 'edit' ) {
                             tab.reload = true;
                         }
+                        tab.index = i;
 
                         if ( tab.mid === entryMid ) {
                             openNewMedia = false;
@@ -301,16 +314,16 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         }
                     }
                 }
-                let findIndex = this.tabs.findIndex(function (tab) {
+                const foundIndex = this.tabs.findIndex(function (tab) {
                     return tab.active;
                 });
-                if (findIndex !== -1) {
+                if (foundIndex !== -1) {
                     // TODO, wth
-                    //console.log("Found active tab", this.tabs[findIndex]);
+                    console.log("Found active tab. Initing and making active.", foundIndex, this.tabs[foundIndex]);
+                    this.setActive(this.tabs[foundIndex].id);
                     this.$timeout(function () {
-                        this.initTab(this.tabs[findIndex]);
-                        this.setActive(this.tabs[findIndex].id);
-                    }.bind(this));
+                        this.initTab(this.tabs[foundIndex]);
+                    }.bind(this), 1000);
                 }
             },
 
@@ -325,17 +338,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             /**
              * New editTab for mid (or opens the existing one if there is one)
              */
-            newEditTab: function (mid) {
-
-                this.mediaService.load( mid ).then(
-                    function (media) {
-                        //console.log("Loaded", media);
-                        this.editMedia(media);
-                    }.bind(this),
-                    function (error) {
-                        console.error(error)
-                        this.$rootScope.$emit(this.pomsEvents.error, error );
-                    }.bind(this));
+            newEditTab: function (mid, title, type) {
+                if ( this.setActive(mid )) {
+                    return;
+                }
+                this.editMedia(mid, title, type);
             },
 
             newMedia: function () {
@@ -425,16 +432,16 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openSearchTab: function ( search ) {
-                if ( this.setActive( search.id ) ) {
+                if (this.setActive( search.id ) ) {
                     return;
                 }
-
-                this.addTab( {
-                    active: true,
+                const newTab = {
                     id: search.id,
                     item: search,
                     type: 'search'
-                } );
+                }
+                this.addTab(newTab);
+                this.setActive(newTab.id);
             },
 
             openLiveEditor : function(){
@@ -487,28 +494,48 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 }
             },
 
+            /**
+             * @param id The id (mid or search hash) of the tab to set active
+             */
             setActive: function (id) {
                 let found = false;
                 for (let i = 0; i < this.tabs.length; i ++ ) {
                     const tab = this.tabs[i];
                     if ( tab.id === id ) {
-                        this.currentTabIndex = i;
-                        tab.active = true;
-                        if (this.scrlTabsApi && this.tabs.length > 1) {
-                            this.scrlTabsApi.scrollTabIntoView(i);
+                        let changed = this.currentTabIndex !== i;
+                        if (changed) {
+                            this.currentTabIndex = i;
+                            this.currentTab = tab;
+                            tab.active = true;
+                            this.$location.path('/' + tab.type + '/' + tab.id);
+                            if (tab.type === 'edit') {
+                                document.title = 'POMS - ' + (tab.item.mainTitle ? tab.item.mainTitle.text : "(no title)");
+                            } else {
+                                document.title = 'POMS - Zoek - ' + tab.item.form.summary;
+                            }
+                            if (this.scrlTabsApi && this.tabs.length > 1) {
+                                this.scrlTabsApi.scrollTabIntoView(i);
+                            }
+                            this.initTab(tab);
+                            this.setScrolling(tab);
+                            this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
+                        } else if (tab.reload) {
+                            this.initTab(tab);
+                        } else {
+                            console.log("Nothing to do (" +  id + "is already active)");
                         }
-                        this.setScrolling(tab);
                         found = true;
-                        this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
                     } else {
                         tab.active = false;
                     }
                 }
+
                 //console.log("setActive", id, found, this.currentTabIndex);
                 return found;
             },
 
             doRecalculate: function() {
+                console.log("doRecalculate", this.scrlTabsApi);
                 this.scrlTabsApi && this.scrlTabsApi.doRecalculate();
             },
             showOwnerMis: function () {
@@ -526,7 +553,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             this.$rootScope.$broadcast( this.pomsEvents.publication, message );
                         }.bind( this ) );
                 } catch ( e ) {
-                    console.log( 'Can\'t setup a /topic/publications websocket, see root cause: ', e );
+                    console.log('Can\'t setup a /topic/publications websocket, see root cause: ', e );
                 }
             },
 

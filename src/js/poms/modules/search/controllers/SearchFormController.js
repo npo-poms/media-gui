@@ -102,8 +102,8 @@ angular.module('poms.search.controllers')
                 this.editResult({mid : mid});
             },
 
-            editResult : function(results) {
-                this.searchService.editResult(results);
+            editResult : function(result) {
+                this.searchService.editResult(result);
             },
 
             previewSelection : function() {

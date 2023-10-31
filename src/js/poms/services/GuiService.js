@@ -63,8 +63,8 @@ angular.module('poms.services').factory('GuiService', [
                 this.guiController.removeSearchTab(search);
             },
 
-            editMid : function(mid) {
-                this.guiController.newEditTab(mid);
+            editMid : function(mid, title, type) {
+                this.guiController.newEditTab(mid, title, type);
             },
 
             editSelection : function(selection) {

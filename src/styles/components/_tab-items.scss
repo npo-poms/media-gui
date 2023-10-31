@@ -5,7 +5,7 @@
     background-color: transparent;
 }
 
-.tab .nav-link {
+.uib-tab .nav-link {
     display: block;
     float: left;
     width: calc(1400px / 9);
@@ -24,7 +24,7 @@
     }
 }
 
-.tab.active .nav-link {
+.uib-tab.active .nav-link {
     background-color: $white;
 }
 
