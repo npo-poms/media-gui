@@ -203,6 +203,16 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     hash = hash & hash; // Convert to 32bit integer
                 }
                 return prefix + Math.abs(hash);
+            },
+
+            openImage: function(url, event) {
+                // the access_token in the url may be expired. Refresh it before using the url
+                const keyCloakToken = this.getKeycloakToken();
+                const newUrl = new URL(url);
+                newUrl.searchParams.set('access_token', keyCloakToken);
+                //console.log(url, newUrl.toString());
+                window.open(newUrl, event.currentTarget.target || "_blank");
+
             }
         };
 

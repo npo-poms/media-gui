@@ -64,7 +64,11 @@
         </span>
 
         <span ng-switch-when="preview">
-          <a class="preview-image" title='bekijk de volledige afbeelding' href="{{item.image.backend.original}}" target="blank" ng-if="::item.image" style="background-image: url('{{item.image.backend.thumb}}')">
+          <a class="preview-image" title='bekijk de volledige afbeelding'
+             ng-click="searchResultController.openImage($event)"
+             href="{{item.image.backend.original}}"
+             target="blank" ng-if="::item.image"
+             style="background-image: url('{{item.image.backend.thumb}}')">
           </a>
         </span>
 

@@ -27,6 +27,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             this.pomsEvents = pomsEvents;
             this.searchService = searchService;
             this.messageService = messageService;
+            this.editorService = editorService;
 
 
             this.$scope.searchResults = {};
@@ -260,6 +261,11 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 }
                 return uniqueLocations;
 
+            },
+            openImage: function(event) {
+                const url = event.currentTarget.getAttribute('href');
+                this.editorService.openImage(url, event);
+                event.preventDefault();
             }
 
         };
