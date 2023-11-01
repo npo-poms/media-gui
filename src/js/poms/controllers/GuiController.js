@@ -147,7 +147,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     this.setActive(this.tabs[this.tabs.length - 1].id);
                 }
                 this.localStorageService.set(this.editor.hashId , []);
-                this.scrlTabsApi.doRecalculate();
+                this.doRecalculate();
             },
 
             editAccount: function () {
@@ -295,40 +295,33 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             initTabs: function () {
 
                 const entryMid = this.$route.current.params.mid;
-                let openNewMedia = true;
+                let foundEntryMid = false;
 
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
                 } else {
-                    console.log("initTab length ", this.tabs.length);
+                    //console.log("initTab length ", this.tabs.length);
+                    // iterate existing tabs
                     for (let i = 0; i < this.tabs.length; i ++ ) {
                         const tab = this.tabs[i];
                         if ( tab.type === 'edit' ) {
                             tab.reload = true;
+                            if ( tab.mid === entryMid ) {
+                                foundEntryMid = true;
+                            }
                         }
                         tab.index = i;
-
-                        if ( tab.mid === entryMid ) {
-                            openNewMedia = false;
-                        }
                     }
+                    if (!foundEntryMid && entryMid) {
+                        this.newEditTab(entryMid);
 
-                    if ( openNewMedia ) {
-                        if ( !this.setActive( entryMid ) ) {
-                            this.newEditTab( entryMid );
-                        }
                     }
                 }
                 const foundIndex = this.tabs.findIndex(function (tab) {
                     return tab.active;
                 });
                 if (foundIndex !== -1) {
-                    // TODO, wth
-                    console.log("Found active tab. Initing and making active.", foundIndex, this.tabs[foundIndex]);
                     this.setActive(this.tabs[foundIndex].id);
-                    this.$timeout(function () {
-                        this.initTab(this.tabs[foundIndex]);
-                    }.bind(this), 1000);
                 }
             },
 
@@ -351,7 +344,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             newEditTab: function (media) {
-                if ( this.setActive(media.mid )) {
+                if (this.setActive(media.mid)) {
                     return;
                 }
                 this.editMedia(media);
@@ -493,7 +486,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     this.newSearch();
                 }
                 this.setActive( this.tabs[Math.max(index - 1, 0)].id );
-                this.scrlTabsApi.doRecalculate();
+                this.doRecalculate();
             },
 
             /**
@@ -551,6 +544,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 return found;
             },
 
+            /**
+             * Related to the scroll tab feature (if there are many tabs), we need to trigger recalculation if that is needed
+             */
             doRecalculate: function() {
                 console.log("doRecalculate", this.scrlTabsApi);
                 this.scrlTabsApi && this.scrlTabsApi.doRecalculate();

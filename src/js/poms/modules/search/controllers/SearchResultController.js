@@ -18,7 +18,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             searchService,
             editorService,
             messageService) {
-            //console.log("new search reuslt controller");
+            //console.log("new search result controller");
             this.$scope = $scope;
 
             this.favoritesService = favoritesService;
@@ -39,9 +39,9 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
             this.searchCount = 0;
 
-            this.$scope.$watchCollection( 'query', function ( newValue ) {
+            this.$scope.$watchCollection('query', function ( newValue ) {
                 this.submit();
-            }.bind( this ));
+            }.bind(this));
 
             this.$scope.mayDownload = true;// editorService.currentEditorHasRoles(['SUPERADMIN', 'SUPERUSER', 'SUPPORT'])
         }

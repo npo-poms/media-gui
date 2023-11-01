@@ -21,22 +21,29 @@ angular.module( 'poms.util.directives' )
 
         (function () {
 
-            function PomsUiSelectController ( $scope, $sce, $timeout ) {
+            function PomsUiSelectController($scope, $sce, $timeout) {
                 this.$scope = $scope;
                 this.$sce = $sce;
                 this.$timeout = $timeout;
                 this.$scope.opened = false;
+                this.template = "";
+                this.$scope.selected = { };
+                this.$scope.tagHandler = function (tag){
+                    return null;
+                }
 
-                this.$scope.$on( "uiSelect:events", function ( e, events ) {
+
+                this.$scope.$on("uiSelect:events", function ( e, events ) {
+                    console.log("Received event", e, events);
                     const open = events[0];
-                    if ( ! open ) {
+                    if (! open ) {
                         this.$scope.opened = false;
                     }
                 }.bind( this ) );
             }
 
             PomsUiSelectController.prototype = {
-                toggleOpen: function ( event ) {
+                toggleOpen: function (event ) {
                     this.$scope.opened = ! this.$scope.opened;
                     if ( this.$scope.opened ) {
                         this.$timeout( function () {
@@ -94,7 +101,7 @@ angular.module( 'poms.util.directives' )
     .controller( 'PomsUiSelectController', ['$scope', '$sce', '$timeout',
         (function () {
 
-            function PomsUiSelectController ( $scope, $sce, $timeout ) {
+            function PomsUiSelectController ($scope, $sce, $timeout) {
                 this.$scope = $scope;
                 this.$sce = $sce;
                 this.$timeout = $timeout;
@@ -109,7 +116,6 @@ angular.module( 'poms.util.directives' )
             }
 
             PomsUiSelectController.prototype = {
-
                 select: function () {
                     this.$scope.optionSelected();
                 },
@@ -123,7 +129,7 @@ angular.module( 'poms.util.directives' )
                     if ( this.$scope.opened ) {
                         this.$timeout( function () {
                             angular.element( event.currentTarget ).parent().find( 'input' ).click();
-                        }, 0 );
+                        });
                     }
                 },
 
