@@ -38,6 +38,7 @@ angular.module( 'poms.util.directives' )
                 this.$scope.$watch('singleSelection.value', function(newValue, oldValue) {
                     if (newValue && ! this.$scope.selection.includes(newValue)) {
                         this.$scope.selection.push(newValue);
+                        this.$scope.optionSelected();
                     }
                 }.bind(this));
                 this.$scope.$on("uiSelect:events", function ( e, events ) {
@@ -50,9 +51,6 @@ angular.module( 'poms.util.directives' )
             }
 
             PomsUiSelectMultiController.prototype = {
-                select: function () {
-                    this.$scope.optionSelected();
-                },
                 openClose: function ( isOpen ) {
                     this.$scope.opened = isOpen;
                 },
