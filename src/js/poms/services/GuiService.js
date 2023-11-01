@@ -25,13 +25,8 @@ angular.module('poms.services').factory('GuiService', [
                 editorService.init().then(
                     function(editor) {
                         localStorageService.bind($rootScope, editor.hashId, []);
-
                         this.tabs = $rootScope[editor.hashId];
-
-                        this.initTabs();
-
                         favoritesService.init();
-
                         deferred.resolve(this.tabs);
                     }.bind(this),
                     function(error) {
@@ -40,15 +35,6 @@ angular.module('poms.services').factory('GuiService', [
                     }
                 );
                 return deferred.promise;
-            },
-
-            initTabs : function() {
-                for(let i = 0; i < this.tabs.length; i++) {
-                    const tab = this.tabs[i];
-                    if(tab.type === 'search') {
-                        this.tabs[i].item = searchFactory.newSearch(tab.item);
-                    }
-                }
             },
 
             openMediaTab : function(media) {

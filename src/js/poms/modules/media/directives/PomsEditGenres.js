@@ -138,7 +138,7 @@ angular.module( 'poms.media.directives' )
 
                         editService.genres( $scope.media, data ).then(
                             function ( result ) {
-                                angular.copy( result, media );
+                                angular.copy( result, $scope.media );
 
                                 load($scope.media, $scope.genres )
                                 deferred.resolve( false );

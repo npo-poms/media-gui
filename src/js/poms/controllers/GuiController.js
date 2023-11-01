@@ -98,8 +98,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                         this.bindUploadListener();
 
-                        this.loaded = true;
                         this.initTabs();
+
+                        this.loaded = true;
 
                     }.bind( this )
                 );
@@ -304,11 +305,15 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     // iterate existing tabs
                     for (let i = 0; i < this.tabs.length; i ++ ) {
                         const tab = this.tabs[i];
-                        if ( tab.type === 'edit' ) {
+                        if (tab.type === 'edit') {
                             tab.reload = true;
-                            if ( tab.mid === entryMid ) {
+                            if (tab.mid === entryMid) {
                                 foundEntryMid = true;
                             }
+                        } else if (tab.type === 'search') {
+                            tab.item = this.searchService.newSearch(tab.item);
+                        } else {
+                            console.error("Unknown tab type", tab.type, tab);
                         }
                         tab.index = i;
                     }
