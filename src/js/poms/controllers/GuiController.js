@@ -112,7 +112,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             addTab: function (tab) {
                 tab.index = this.tabs.length;
                 this.tabs.push(tab);
-                this.scrlTabsApi.doRecalculate();
+                this.doRecalculate();
                 return tab.index;
             },
 
