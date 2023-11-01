@@ -7,7 +7,10 @@ trigger_media:
   extends: .trigger_down_stream
   trigger:
     project: npo/media
-    branch: main
+    branch: $CI_COMMIT_BRANCH
+  rules:
+    - when: on_success
+
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
