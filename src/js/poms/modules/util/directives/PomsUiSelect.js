@@ -11,7 +11,14 @@ angular.module( 'poms.util.directives' )
                 optionSelected: '&'
             },
             controller: 'PomsUiSelectMultiController',
-            controllerAs: 'controller'
+            controllerAs: 'controller',
+            compile: function(ele, attr, ctrl) {
+                return {
+                    pre: function preLink(scope, ele, attr, ctrl) {
+    //                            console.log("pre", scope,ele, attr, ctrl);
+                    }
+                }
+            }
         };
     }] );
 
@@ -21,18 +28,18 @@ angular.module( 'poms.util.directives' )
 
         (function () {
 
-            function PomsUiSelectController($scope, $sce, $timeout) {
+            function PomsUiSelectMultiController($scope, $sce, $timeout) {
                 this.$scope = $scope;
                 this.$sce = $sce;
                 this.$timeout = $timeout;
                 this.$scope.opened = false;
-                this.template = "";
-                this.$scope.selected = { };
-                this.$scope.tagHandler = function (tag){
-                    return null;
-                }
+                this.$scope.singleSelection = { value: null};
 
-
+                this.$scope.$watch('singleSelection.value', function(newValue, oldValue) {
+                    if (newValue && ! this.$scope.selection.includes(newValue)) {
+                        this.$scope.selection.push(newValue);
+                    }
+                }.bind(this));
                 this.$scope.$on("uiSelect:events", function ( e, events ) {
                     console.log("Received event", e, events);
                     const open = events[0];
@@ -42,19 +49,23 @@ angular.module( 'poms.util.directives' )
                 }.bind( this ) );
             }
 
-            PomsUiSelectController.prototype = {
+            PomsUiSelectMultiController.prototype = {
+                select: function () {
+                    this.$scope.optionSelected();
+                },
+                openClose: function ( isOpen ) {
+                    this.$scope.opened = isOpen;
+                },
                 toggleOpen: function (event ) {
+
                     this.$scope.opened = ! this.$scope.opened;
                     if ( this.$scope.opened ) {
                         this.$timeout( function () {
                             angular.element( event.currentTarget ).parent().find( 'input' ).click();
-                        }, 0 );
+                        });
                     }
                 },
 
-                openClose: function ( isOpen ) {
-                    this.$scope.opened = isOpen;
-                },
                 trustAsHtml: function ( value ) {
                     return this.$sce.trustAsHtml( value );
                 },
@@ -68,12 +79,10 @@ angular.module( 'poms.util.directives' )
                     } );
                 },
 
-                select: function () {
-                    this.$scope.optionSelected();
-                }
+
             };
 
-            return PomsUiSelectController;
+            return PomsUiSelectMultiController;
 
         })()
     ] );

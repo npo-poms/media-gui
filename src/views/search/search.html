@@ -41,11 +41,11 @@
 
       <div class="search-filtering-row">
         <div class="dropdown-wrapper search-dropdown-wrapper ">
-          <poms-ui-select-multi class="poms-uiselect"
-                                options="mediaTypes.data"
-                                name="MediaType"
-                                selection="formData.types.value"
-                                option-selected="searchFormController.submit()"
+          <poms-ui-select-multi
+                  options="mediaTypes.data"
+                  name="MediaType"
+                  selection="formData.types.value"
+                  option-selected="searchFormController.submit()"
           > </poms-ui-select-multi>
 
           <a class="dropdown-selected animate-fade" title="verwijder dit criterium"
@@ -57,7 +57,7 @@
 
 
         <div class="dropdown-wrapper search-dropdown-wrapper ">
-          <poms-ui-select class="poms-uiselect"
+          <poms-ui-select
                           options="avTypes.data"
                           name="avType"
                           selection="formData.avType"

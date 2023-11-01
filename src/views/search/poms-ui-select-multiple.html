@@ -1,7 +1,8 @@
 <span class='poms-multidropdown-label disable-select' ng-click="controller.toggleOpen($event)">{{name}}</span>
+
+<!-- using multiple give all kind of issues (on new tabs) -->
 <ui-select
-        multiple
-        ng-model="$parent.selection"
+        ng-model="singleSelection.value"
         theme="selectize"
         uis-open-close="controller.openClose(isOpen)"
         close-on-select="true"
