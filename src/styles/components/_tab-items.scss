@@ -105,20 +105,20 @@
   }
   &.tab-close-all {
     position: absolute;
-    right: 0;
+    right: 10px;
+    top: 0;
     width: 15px;
     height: 15px;
-    background-color: transparent;
     border-bottom: none !important;
     text-indent: -9999px;
     .nav-link {
-      border-top: none !important;
-      text-decoration: none;
-      @include icon('tab-close', 32px, 'right center');
+      border-top: none;
+      width:32px;
+      @include icon('tab-close', 32px, 'left center');
     }
     &:hover {
       .nav-link {
-        @include icon('tab-close-all-hover', 32px, 'right center');
+        @include icon('tab-close-all_hover', 32px, 'right center');
       }
     }
 
