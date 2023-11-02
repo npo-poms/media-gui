@@ -8,12 +8,14 @@ trigger_media:
   trigger:
     project: npo/media
     branch: "$CI_COMMIT_BRANCH"
+  inherit:
+    variables: false
   rules:
-    - !reference[.rules, build]
+    - !reference [ .rules, build ]
 
 
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/9.18'
+    ref: 'main'
     file: 'maven_release.yml'
