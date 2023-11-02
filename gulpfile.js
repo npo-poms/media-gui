@@ -11,7 +11,7 @@ const templateCache = require('gulp-angular-templatecache');
 
 const htmlMinOptions = {collapseWhitespace: true, removeComments: true};
 
-const uglifyOptions = {sourceMap: true, 'output.comments': false};
+const uglifyOptions = {};
 
 /******************************
  * HELPERS
