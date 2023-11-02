@@ -1,7 +1,12 @@
 <span class='poms-multidropdown-label disable-select' ng-click="controller.toggleOpen($event)">{{name}}</span>
 
-<!-- using multiple give all kind of issues (on new tabs), so we just use non-multiple and arrange it
- in the controller.
+<!--
+ using multiple give all kind of issues (on new tabs),
+ troubles with expected 1 ui-select-match rather than 0. Seems to be a known issue in ui-select.
+
+ So we just use non-multiple and arrange it in the controller (which watches singleSelect.value to fill the _real_ array value).
+  AFAIK it doesn't matter much for the user because
+ the drop-down is closed on every select anyway.
 
  -->
 <ui-select
