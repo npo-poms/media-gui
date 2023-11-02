@@ -5,7 +5,8 @@
     background-color: transparent;
 }
 
-.uib-tab .nav-link {
+.uib-tab {
+  .nav-link {
     display: block;
     float: left;
     width: calc(1400px / 9);
@@ -20,149 +21,151 @@
     text-decoration: none;
 
     &:hover {
-        background-color: $white;
+      background-color: $white;
     }
-}
+  }
 
-.uib-tab.active .nav-link {
+  &.active .nav-link {
     background-color: $white;
-}
+  }
 
-.tab-search .nav-link {
-    border-top: 2px solid $lichtgrijs;
-}
+  &.tab-search {
+    .nav-link {
+      border-top: 2px solid $lichtgrijs;
+    }
 
-.tab-search.active .nav-link {
-    border-top-color: $grijs;
-}
+    &.active {
+      .nav-link {
+        border-top-color: $grijs;
+      }
+    }
+  }
 
-.tab-media.active .nav-link {
-    border-top-color: $oranje;
-}
+  &.tab-media.active {
+    .nav-link {
+      border-top-color: $oranje;
+    }
+  }
 
-.no-edit .nav-link {
-    border-top-color: $grijs;
-}
+  &.no-edit {
+    .nav-link {
+      border-top-color: $grijs;
+    }
 
-.no-edit.active .nav-link {
-    border-top-color: $black;
-}
+    &.active {
+      .nav-link {
+        border-top-color: $black;
+      }
+    }
+  }
 
-.tab-media-FOR_REPUBLICATION .nav-link,
-.tab-media-FOR_PUBLICATION .nav-link  {
-    border-top: 2px dashed $lichtoranje;
-}
+  &.tab-add {
+    .nav-link {
+      display: block;
+      float: left;
+      width: 40px;
+      text-decoration: none;
 
-.tab-media-FOR_REPUBLICATION.active .nav-link,
-.tab-media-FOR_PUBLICATION.active .nav-link {
-    border-top: 2px dashed $oranje;
-}
+      background-color: transparent;
+      border-top: transparent;
 
-.tab-media-FOR_REPUBLICATION.no-edit .nav-link,
-.tab-media-FOR_PUBLICATION.no-edit .nav-link{
-    border-top: 2px dashed $grijs;
-}
-
-.tab-media-FOR_REPUBLICATION.no-edit .nav-link,
-.tab-media-FOR_PUBLICATION.no-edit .nav-link {
-    border-top: 2px dashed $black;
-}
-
-
-.tab-heading {
-    display: block;
-    position: relative;
-}
-
-.tab-subtitle,
-.tab-title {
-    display: block;
-}
-
-.tab-subtitle {
-    color: $textcolorlight;
-    font-size: $fontsizesmall;
-    line-height: $fontsizemedium;
-    text-transform: uppercase;
-}
-
-.tab-title {
-    display: block;
-    width: 130px;
-    overflow: hidden;
-
-    font-size: $fontsizemedium;
-    color: $textcolor;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.tab-close, .tab-close-all {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 12px;
-    height: 12px;
-
-    @include icon('tab-close');
-
-    text-indent: -9999px;
+      @include icon('tab-new', 32px);
+    }
 
     &:hover {
-        @include icon('tab-close_hover');
+      .nav-link {
+        border-top: 2px solid $oranje;
+      }
     }
-}
-.tab-close-all {
+  }
+
+  &.tab-media-FOR_REPUBLICATION,
+  &.tab-media-FOR_PUBLICATION {
+    .nav-link {
+      border-top: 2px dashed $lichtoranje;
+    }
+
+    &.active {
+      .nav-link {
+        border-top: 2px dashed $oranje;
+      }
+    }
+
+    &.no-edit {
+      .nav-link {
+        border-top: 2px dashed $grijs;
+      }
+
+      &.active {
+        .nav-link {
+          border-top: 2px dashed $black;
+        }
+      }
+    }
+  }
+  &.tab-close-all {
+    position: absolute;
     right: 0;
     width: 15px;
     height: 15px;
     background-color: transparent;
     border-bottom: none !important;
-    &:hover {
-        @include icon('tab-close-all_hover');
+    text-indent: -9999px;
+    .nav-link {
+      border-top: none !important;
+      text-decoration: none;
+      @include icon('tab-close', 32px, 'right center');
     }
+    &:hover {
+      .nav-link {
+        @include icon('tab-close-all-hover', 32px, 'right center');
+      }
+    }
+
+  }
+
+}
+.tab-heading {
+  display: block;
+  position: relative;
 }
 
-.tab-add {
-  .nav-link {
-    display: block;
-    float: left;
-    width: 40px;
-    box-sizing: content-box;
-    text-decoration: none;
-    @include icon('tab-new', 32px);
+.tab-subtitle,
+.tab-title {
+  display: block;
+}
 
-    &:hover {
-      border-top-color: $oranje;
-      background-color: transparent;
-      border: none;
-    }
+.tab-subtitle {
+  color: $textcolorlight;
+  font-size: $fontsizesmall;
+  line-height: $fontsizemedium;
+  text-transform: uppercase;
+}
+
+.tab-title {
+  display: block;
+  width: 130px;
+  overflow: hidden;
+
+  font-size: $fontsizemedium;
+  color: $textcolor;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+span.tab-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 12px;
+  height: 12px;
+
+  @include icon('tab-close');
+  text-indent: -9999px;
+
+  &:hover {
+    @include icon('tab-close_hover');
   }
 }
 
-
-.tab-close-all {
-  float: right;
-  .nav-link {
-    display: block;
-    float: left;
-
-    width: 115px;
-    height: 38px;
-
-    box-sizing: content-box;
-    padding-left: 8px;
-
-    border-top: 2px solid transparent;
-
-    text-decoration: none;
-
-    @include icon('tab-close', 32px, 'right center');
-
-    &:hover {
-      background-color: $rood !important;
-      border-top-color: $rood;
-      @include icon('tab-close-white', 32px, 'right center');
-    }
-  }
-}
