@@ -1,11 +1,11 @@
 <span class='poms-multidropdown-label disable-select' ng-click="controller.toggleOpen($event)">{{name}}</span>
 <ui-select
-        ng-model="$parent.selection"
+        ng-model="singleSelection.value"
         theme="selectize"
         uis-open-close="controller.openClose(isOpen)"
         reset-search-input="true"
         ng-show="opened"
-        on-select="controller.select" >
+>
   <ui-select-choices repeat="item in options | filter: {text: $select.search}">
     <div ng-bind-html="controller.trustAsHtml((item.text | highlight: $select.search))"></div>
   </ui-select-choices>

@@ -87,7 +87,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.portals = config && config.portals || [];
             this.broadcasters = new RestrictedValue( config && config.broadcasters || { value : [] } );
             this.channels = config && config.channels || [];
-            this.avType = config && config.avType || undefined;
+            this.avType = config && config.avType || {};
             this.properties = new RestrictedValue( config && config.properties || { value : [] } );
             this.tags = config && config.tags || [];
             this.descendantOf = config && config.descendantOf || [];
@@ -300,17 +300,16 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     } else if ( key === 'lastModifiedBy' && this[ key ] ) {
                         queryTerms.push( 'gewijzigd door: ' + this[ key ] );
                     } else if ( key === 'excludedMids' && this[ key ] ) {
-                        queryTerms.push( 'niet: ' + this[ key ] );
+                        queryTerms.push('niet: ' + this[key]);
+                    } else if ( key === 'sort') {
+                        // skip for summary
                     } else if ( this.hasOwnProperty(key) && ignoreKeys.indexOf(key) === - 1 ) {
                         let value = this[key];
                         try {
                             if (value.isRestrictedField) {
                                 value = value.value;
                             }
-
-
                             if (value) {
-                                //check for objects & arrays ... and strings???
                                 if (value === Object(value)) {
                                     for (let term in value) {
                                         if (value.hasOwnProperty(term)) {
@@ -324,11 +323,13 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                                         }
                                     }
                                 } else if (value.text) {
-                                    //check for strings
+                                    console.log(key, value);
                                     queryTerms.push(value.text);
+                                } else {
+                                    console.log("Unrecognized key", key, value);
                                 }
                             } else {
-                                console.log("Unrecognized key", key, value);
+                                console.log("Untruthy value ignored. ", key, value);
                             }
                         } catch (e) {
                             console.log("Error building summary. Skipped key " + key, value, e);

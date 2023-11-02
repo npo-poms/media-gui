@@ -114,6 +114,17 @@ angular.module( 'poms.util.directives' )
                 this.$timeout = $timeout;
                 this.$scope.opened = false;
 
+                this.$scope.singleSelection = {"value": null};
+
+                this.$scope.$watch('singleSelection.value', function(newValue, oldValue) {
+                    if (newValue) {
+                        angular.copy(newValue, this.$scope.selection);
+                        this.$scope.optionSelected();
+                    }
+                    this.$scope.opened = false;
+                }.bind(this));
+
+
                 this.$scope.$on( "uiSelect:events", function ( e, events ) {
                     const open = events[0];
                     if ( ! open ) {
@@ -123,15 +134,8 @@ angular.module( 'poms.util.directives' )
             }
 
             PomsUiSelectController.prototype = {
-                select: function () {
-                    this.$scope.optionSelected();
-                },
-                openClose: function ( isOpen ) {
-                    this.$scope.opened = isOpen;
-                },
 
                 toggleOpen: function ( event ) {
-
                     this.$scope.opened = ! this.$scope.opened;
                     if ( this.$scope.opened ) {
                         this.$timeout( function () {
