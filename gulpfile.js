@@ -11,6 +11,8 @@ const templateCache = require('gulp-angular-templatecache');
 
 const htmlMinOptions = {collapseWhitespace: true, removeComments: true};
 
+const uglifyOptions = {sourceMap: true, 'output.comments': false};
+
 /******************************
  * HELPERS
  ******************************/
@@ -46,8 +48,8 @@ gulp.task('app-deploy',async function () {
         .pipe(plugins.replace(/\{version}/g, getCurrentVersion('')))
         .pipe(plugins.replace(/\{domain}/g, getApiHost()))
         .pipe(plugins.usemin({
-                vendor: [ngAnnotate(), plugins.uglify()],
-                poms: [ngAnnotate(), plugins.uglify()],
+                vendor: [ngAnnotate(), plugins.uglify(uglifyOptions)],
+                poms: [ngAnnotate(), plugins.uglify(uglifyOptions)],
                 html: [plugins.htmlmin(htmlMinOptions)]
             })
         )
@@ -69,8 +71,8 @@ gulp.task('selector-deploy', async function () {
             gulp.src(__dirname + '/src/CMSSelector/index.html')
                 .pipe(plugins.replace(/\{version}/g, getCurrentVersion('')))
                 .pipe(plugins.usemin({
-                    vendor: [ngAnnotate(), plugins.uglify()],
-                    poms: [ngAnnotate(), plugins.uglify()],
+                    vendor: [ngAnnotate(), plugins.uglify(uglifyOptions)],
+                    poms: [ngAnnotate(), plugins.uglify(uglifyOptions)],
                     html: [plugins.htmlmin(htmlMinOptions)]
                     })
                 )
