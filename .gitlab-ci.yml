@@ -8,8 +8,8 @@ trigger_media:
   trigger:
     project: npo/media
     branch: $CI_COMMIT_BRANCH
-  rules:
-    - when: on_success
+  rules: !reference[.rules, build]
+
 
 
 include:
