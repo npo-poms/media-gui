@@ -1,12 +1,9 @@
 <span class='poms-multidropdown-label disable-select' ng-click="controller.toggleOpen($event)">{{name}}</span>
-<!--TAGS only? -->
 <ui-select
-        multiple
-        ng-model="$parent.selection"
+        ng-model="singleSelection.value"
         theme="selectize"
-        uis-open-close="controller.openClose(isOpen)"
         ng-show="opened"
-        on-select="controller.select()" >
+>
   <ui-select-choices
           repeat="item in options"
           refresh="controller.getOptions({'tagsuggest': $select.search})"

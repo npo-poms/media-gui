@@ -184,7 +184,14 @@ angular.module( 'poms.util.directives' )
                 this.$sce = $sce;
                 this.$timeout = $timeout;
                 this.$scope.opened = false;
-                this.$scope.options = [];
+                this.$scope.singleSelection = {"value": null};
+                this.$scope.$watch('singleSelection.value', function(newValue, oldValue) {
+                    if (newValue && ! this.$scope.selection.includes(newValue)) {
+                        this.$scope.selection.push(newValue);
+                        this.$scope.optionSelected();
+                    }
+                    this.$scope.opened = false;
+                }.bind(this));
 
                 // this might be broken currently?
                 this.$scope.$on( "uiSelect:events", function ( e, events ) {
@@ -199,7 +206,6 @@ angular.module( 'poms.util.directives' )
             PomsUiSelectSuggestController.prototype = {
 
                 getOptions: function ( text ) {
-
                     if (text) {
                         this.$scope.updateOptions(text).then(
                             function (data) {
@@ -208,27 +214,15 @@ angular.module( 'poms.util.directives' )
                         );
                     }
                 },
-                openClose: function ( isOpen ) {
-                    this.$scope.opened = isOpen;
-                },
 
                 toggleOpen: function ( event ) {
-
                     this.$scope.opened = ! this.$scope.opened;
-                    if ( this.$scope.opened ) {
-                        this.$timeout( function () {
-                            angular.element( event.currentTarget ).parent().find( 'input' ).click();
-                        }, 0 );
-                    }
                 },
 
                 trustAsHtml: function ( value ) {
                     return this.$sce.trustAsHtml( value );
                 },
 
-                select: function () {
-                    this.$scope.optionSelected();
-                }
 
 
             };

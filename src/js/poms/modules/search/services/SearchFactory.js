@@ -302,34 +302,36 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     } else if ( key === 'excludedMids' && this[ key ] ) {
                         queryTerms.push( 'niet: ' + this[ key ] );
                     } else if ( this.hasOwnProperty(key) && ignoreKeys.indexOf(key) === - 1 ) {
-
                         let value = this[key];
+                        try {
+                            if (value.isRestrictedField) {
+                                value = value.value;
+                            }
 
-                        if ( value.isRestrictedField ) {
-                            value = value.value;
-                        }
 
-
-                        if ( value ) {
-                            //check for objects & arrays ... and strings???
-                            if (value.length) {
-                                for (let term in value) {
-                                    if (value.hasOwnProperty(term)) {
-                                        if (typeof value[term] === 'string') {
-                                            queryTerms.push(value[term]);
-                                        } else if (value[term].text) {
-                                            queryTerms.push(value[term].text);
-                                        } else {
-                                            queryTerms.push(value.value[term]);
+                            if (value) {
+                                //check for objects & arrays ... and strings???
+                                if (value === Object(value)) {
+                                    for (let term in value) {
+                                        if (value.hasOwnProperty(term)) {
+                                            if (typeof value[term] === 'string') {
+                                                queryTerms.push(value[term]);
+                                            } else if (value[term].text) {
+                                                queryTerms.push(value[term].text);
+                                            } else {
+                                                queryTerms.push(value[term]);
+                                            }
                                         }
                                     }
+                                } else if (value.text) {
+                                    //check for strings
+                                    queryTerms.push(value.text);
                                 }
-                            } else if (value.text) {
-                                //check for strings
-                                queryTerms.push(value.text);
+                            } else {
+                                console.log("Unrecognized key", key, value);
                             }
-                        } else {
-                            console.log("Unrecognized key", key, value);
+                        } catch (e) {
+                            console.log("Error building summary. Skipped key " + key, value, e);
                         }
 
                     }
