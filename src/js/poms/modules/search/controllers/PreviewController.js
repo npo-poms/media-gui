@@ -2,15 +2,17 @@ angular.module( 'poms.search.controllers' ).controller( 'PreviewController', [
     '$scope',
     '$uibModalInstance',
     '$document',
+    '$location',
     'items',
     'step',
     (function () {
 
-        function PreviewController ( $scope, $uibModalInstance, $document, items, step ) {
+        function PreviewController ( $scope, $uibModalInstance, $document, $location, items, step ) {
 
             this.$scope = $scope;
             this.$uibModalInstance = $uibModalInstance;
             this.$document = $document;
+            this.$location = $location;
 
             this.$scope.items = items;
             this.$scope.step = step;
@@ -39,11 +41,11 @@ angular.module( 'poms.search.controllers' ).controller( 'PreviewController', [
 
 
             editRef: function ( mid ) {
-                return '#/edit/' + mid;
+                return '/edit/' + mid;
             },
 
             openInEditor: function ( mid ) {
-                window.location.href = this.editRef( mid );
+                this.$location.path(this.editRef(mid));
                 this.cancel();
             },
 

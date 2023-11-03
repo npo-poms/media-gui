@@ -215,8 +215,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             handleEdits: function () {
                 this.$rootScope.$on( this.pomsEvents.edit, function ( e, mid ) {
-                    window.location.href = '#/edit/' + mid ;
-                });
+                    this.$location.path('/edit/' + mid);
+                }.bind(this));
             },
 
             handleErrors: function () {
@@ -264,7 +264,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
              */
             initTab: function (tab) {
 
-                if (tab === null) {
+                if (tab === null || tab.type === null) {
                     console.log("initTab called with null tab!");
                     return;
                 }
@@ -391,12 +391,12 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             openInEditor: function ( media ) {
                 if ( angular.isArray( media ) ) {
                     if ( media.length === 1 ) {
-                        window.location.href = '#/edit/' + media[0];
-                    } else {
+                        this.$location.path('/edit/' + media[0]);
+
                         this.editSelection( media );
                     }
                 } else {
-                    window.location.href = '#/edit/' + media;
+                    this.$location.path('/edit/' + media);
                 }
             },
 

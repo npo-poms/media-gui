@@ -1,20 +1,23 @@
 angular.module( 'poms.media.controllers' ).controller( 'FavoritesController', [
     '$scope',
     '$uibModalInstance',
+    '$location',
     'FavoritesService',
     'GuiService',
     'MediaService',
     'PomsEvents',
     (function () {
 
-        function FavoritesController ( $scope, $uibModalInstance, favoritesService , guiService , mediaService , pomsEvents) {
+        function FavoritesController ( $scope, $uibModalInstance, $location, favoritesService , guiService , mediaService , pomsEvents) {
 
             this.$scope = $scope;
             this.$uibModalInstance = $uibModalInstance;
+            this.$location = $location;
             this.favoritesService = favoritesService;
             this.guiService = guiService;
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
+
 
             this.$scope.media = [];
         }
@@ -39,7 +42,7 @@ angular.module( 'poms.media.controllers' ).controller( 'FavoritesController', [
             },
 
             openMediaItem : function( mid ){
-                window.location.href = '#/edit/' + mid ;
+                this.$location.path('/edit/' + mid);
                 this.cancel();
             },
 
