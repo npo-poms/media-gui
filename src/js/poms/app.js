@@ -32,8 +32,8 @@
     ]);
 
 
-    module.config(function($routeProvider, $locationProvider) {
-       $locationProvider.hashPrefix('');   // in angular 1.6 the default changed to '!', but we stay compatible for now
+    module.config(function($locationProvider) {
+        $locationProvider.hashPrefix('');   // in angular 1.6 the default changed to '!', but we stay compatible for now
     });
     module.config( function ( $httpProvider ) {
         $httpProvider.defaults.headers.common['Accept'] = 'application/json';
@@ -297,11 +297,13 @@
         } ] );
 */
     module.config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.debugInfoEnabled(false);
+        $compileProvider.debugInfoEnabled(true);
 
         // Allow blob links in urls
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|file|blob|mailto):|data:image\//);
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:image\//);
+
+
     }]);
 
 

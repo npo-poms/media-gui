@@ -98,3 +98,5 @@ For now, run `npm run deploy:gulp` to generate just a hand full of files in the 
 
 https://github.com/VersifitTechnologies/angular-ui-tab-scroll
 https://angular-ui.github.io/bootstrap/
+
+https://docs.angularjs.org/guide/migration

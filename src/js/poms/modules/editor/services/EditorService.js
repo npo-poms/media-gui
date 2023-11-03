@@ -212,8 +212,12 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 return newUrl.toString();
             },
 
-            openImage: function(url, event) {
-                window.open(this.refreshTokenInUrl(url), event.currentTarget.target || "_blank");
+            openImage: function(event, url) {
+                if (! url) {
+                    url = event.currentTarget.getAttribute('href');
+                }
+                window.open(this.refreshTokenInUrl(url), event.currentTarget.target || "poms_image");
+                event.preventDefault();
 
             }
         };

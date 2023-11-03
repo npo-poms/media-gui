@@ -4,15 +4,16 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
     'PomsEvents',
     'ListService',
     'MediaService',
+    'EditorService',
     (function () {
-        function ImagesController ( $scope, $uibModal, PomsEvents, ListService, mediaService ) {
+        function ImagesController ( $scope, $uibModal, PomsEvents, ListService, mediaService, editorService) {
 
             this.$scope = $scope;
             this.$uibModal = $uibModal;
             this.pomsEvents = PomsEvents;
             this.listService = ListService;
-
             this.mediaService = mediaService;
+            this.editorService = editorService;
 
             this.mayWrite = function() {
                 return this.mediaService.hasWritePermission($scope.media, 'images');
@@ -89,7 +90,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                 );
             },
 
-            edit: function ( image, permission ) {
+            edit: function ( image, permission) {
 
                 if ( permission === false ) {
                     return;
@@ -101,10 +102,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                     image = {};
                     editMode = false;
                 }
+                template = '/views/edit/modal-edit-image.html';
+                if (! this.mayWrite()) {
+                    template = '/views/edit/modal-image.html';
+                }
                 const modal = this.$uibModal.open({
                     controller: 'ImageEditController',
                     controllerAs: 'controller',
-                    templateUrl: '/views/edit/modal-edit-image.html',
+                    templateUrl: template,
                     windowClass: 'modal-form modal-images',
                     resolve: {
                         imageTypes: this.listService.getImagesTypes,

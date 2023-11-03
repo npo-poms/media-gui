@@ -39,7 +39,9 @@
             <a class="preview-image"
                title='bekijk de volledige afbeelding'
                alt="{{image.title}}"
-               href="{{image.backend.original}}" target="blank"  style="background-image: url('{{image.backend.thumb}}')"> <!-- unclear to me what's wrong with img-tag -->
+               href="{{image.backend.original}}"
+               ng-click="imagesController.editorService.openImage($event)"
+               style="background-image: url('{{image.backend.thumb}}')"> <!-- unclear to me what's wrong with img-tag -->
             </a>
           </span>
 
@@ -77,10 +79,10 @@
 
         </td>
 
-        <td class="column-tools" ng-show="::imagesController.mayWrite()">
+        <td class="column-tools">
           <div class="tools" >
-            <button name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
-            <button name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
+            <button  name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
+            <button  ng-show="::imagesController.mayWrite()" name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
           </div>
         </td>
       </tr>

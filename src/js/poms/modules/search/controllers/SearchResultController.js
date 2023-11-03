@@ -263,9 +263,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
 
             },
             openImage: function(event) {
-                const url = event.currentTarget.getAttribute('href');
-                this.editorService.openImage(url, event);
-                event.preventDefault();
+                this.editorService.openImage(event);
             }
 
         };

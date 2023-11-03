@@ -71,6 +71,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             this.$scope.userDropdown = {isopen: false};
 
+
+
             $scope.errors = [];
 
             this.init();

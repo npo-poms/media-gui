@@ -1,0 +1,109 @@
+<div class="modal-header">
+  <div class="modal-title"> {{ ::modalTitle }} </div>
+  <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
+</div>
+<div class="modal-body">
+  <div class="viewer">
+      <div class="col-8">
+        <div class="row">
+
+          <div class="field" >
+            <label for="inputTitle">Titel &#42; </label>
+            <input  type="text" name="inputTitle"
+                    id="inputTitle"
+                    ng-readonly="true"
+                    ng-model="image.title"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="inputDescription">Beschrijving &#42;</label>
+            <textarea type="text" name="inputDescription" id="inputDescription" required
+                      ng-readonly="true"
+                      ng-model="image.description"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field col-6">
+            <label for="inputCredits">Fotograaf/Rechthebbende</label>
+            <input type="text" name="inputCredits" id="inputCredits"
+                   ng-readonly="true"
+                   ng-model="image.credits"/>
+          </div>
+
+          <div class="field col-6">
+            <label for="inputDate">Jaar</label>
+            <input type="text" name="inputDate" id="inputDate"
+                   ng-readonly="true"
+                   ng-model="image.date"/>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="field col-6">
+            <label for="copyrightSource">Bron</label>
+            <input type="text" name="copyrightSource" id="copyrightSource"
+                   ng-readonly="true"
+                   ng-model="image.sourceName"/>
+          </div>
+
+          <div class="col-6 field" >
+
+            <label label-for="image_license">Licentie</label>
+            <input type="text" name="image_license" id="image_license"
+                   ng-readonly="true"
+                   ng-model="image.license.text"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field" >
+            <label for="copyrightUrl">Bron URL</label>
+            <input  type="text" name="copyrightUrl" id="copyrightUrl"
+                    ng-readonly="true"
+                    ng-model="image.source"/>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-6 field">
+
+            <label label-for="image_type">Afbeeldingstype &#42;</label>
+             <input type="text" name="image_type" id="image_type"
+                   ng-readonly="true"
+                   ng-model="image.type.text"/>
+          </div>
+
+
+
+        <div class="row">
+
+          <div class="field col-6">
+            <label for="highlight">Uitgelicht</label>
+            <input name='highlight' id='highlight' type="checkbox" ng-model="image.highlighted" ng-readonly="true" />
+            <poms-help class="tooltip-right" field="editor.image.highlighted"></poms-help>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div ng-if="edit">
+            <a class='preview-image' title='bekijk de volledige afbeelding'
+               href="{{image.frontend.original}}"
+               ng-click="controller.editorService.openImage($event)"
+               >
+              <img ng-src="{{ image.backend.preview}}"/>
+            </a>
+            <a class='preview-image' title='Link naar afbeelding met vaste afmeting' href="{{image.frontend.preview}}" target="blank" >
+              Link naar afbeelding met vaste afmeting
+            </a>
+          </div>
+          <div ng-if="!edit" class='preview-image'>
+            <img src="" id="previewimage"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-disable-overlay"></div>
+</div>
