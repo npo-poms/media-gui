@@ -108,8 +108,7 @@
         <div class="header-account-link">
           <span id="currentUser"
                 ng-class="{'open': (userDropdown.isopen)}"
-                ng-click="guiController.toggleUserDropdown($event)">
-            {{::guiController.editor.text}}</span>
+                ng-click="guiController.toggleUserDropdown($event)">{{::guiController.editor.text}}</span>
         </div>
 
         <div class="header-account-link no-border " ng-if="guiController.showOwnerMis()">
@@ -133,7 +132,9 @@
 
       <div class="header-account-dropdowns">
 
-        <div class="header-dropdown" dropdown is-open="userDropdown.isopen">
+        <div class="header-dropdown"
+             uib-dropdown
+             is-open="userDropdown.isopen">
           <div>
             <h2>account</h2>
             <ul>
