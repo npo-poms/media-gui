@@ -32,6 +32,9 @@
     ]);
 
 
+    module.config(function($routeProvider, $locationProvider) {
+       $locationProvider.hashPrefix('');   // in angular 1.6 the default changed to '!', but we stay compatible for now
+    });
     module.config( function ( $httpProvider ) {
         $httpProvider.defaults.headers.common['Accept'] = 'application/json';
         $httpProvider.defaults.withCredentials = true;
