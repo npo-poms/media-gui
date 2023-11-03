@@ -125,6 +125,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ImagesController', [
                         },
                         service: function () {
                             return this.mediaService
+                        }.bind(this),
+                        mayWrite: function (){
+                            return this.mayWrite();
                         }.bind(this)
 
                     }

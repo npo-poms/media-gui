@@ -218,12 +218,14 @@
       <div class="col-4">
         <div class="row">
           <div ng-if="edit">
-            <a class='preview-image' title='bekijk de volledige afbeelding' href="{{image.frontend.original}}" target="blank" >
+            <a class='preview-image' title='bekijk de volledige afbeelding' href="{{image.frontend.original}}" target="poms_image" >
 
-              <img ng-src="{{ image.backend.preview}}"/>
+              <img ng-src="{{controller.editorService.refreshTokenInUrl(image.backend.preview)}}"/>
             </a>
-            <a class='preview-image' title='Link naar afbeelding met vaste afmeting' href="{{image.frontend.preview}}" target="blank" >
+            <a class='preview-image' title='Link naar afbeelding met vaste afmeting' href="{{image.frontend.preview}}" target="poms_image">
               Link naar afbeelding met vaste afmeting
+              <br />
+              <code>{{image.frontend.preview}}</code>
             </a>
           </div>
           <div ng-if="!edit" class='preview-image'>

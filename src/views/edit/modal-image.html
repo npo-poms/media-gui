@@ -80,27 +80,32 @@
 
           <div class="field col-6">
             <label for="highlight">Uitgelicht</label>
-            <input name='highlight' id='highlight' type="checkbox" ng-model="image.highlighted" ng-readonly="true" />
-            <poms-help class="tooltip-right" field="editor.image.highlighted"></poms-help>
+            <input name='highlight'
+                   id='highlight'
+                   type="checkbox"
+                   ng-model="image.highlighted" disabled="disabled"/>
+
           </div>
         </div>
       </div>
       </div>
       <div class="col-4">
         <div class="row">
-          <div ng-if="edit">
+          <div>
             <a class='preview-image' title='bekijk de volledige afbeelding'
                href="{{image.frontend.original}}"
-               ng-click="controller.editorService.openImage($event)"
+               target="poms_image"
                >
-              <img ng-src="{{ image.backend.preview}}"/>
+              <img ng-src="{{controller.editorService.refreshTokenInUrl(image.backend.preview)}}"/>
             </a>
-            <a class='preview-image' title='Link naar afbeelding met vaste afmeting' href="{{image.frontend.preview}}" target="blank" >
+            <a class='preview-image' title='Link naar afbeelding met vaste afmeting'
+               target="poms_url"
+               href="{{image.frontend.preview}}"
+            >
               Link naar afbeelding met vaste afmeting
+              <br />
+              <code>{{image.frontend.preview}}</code>
             </a>
-          </div>
-          <div ng-if="!edit" class='preview-image'>
-            <img src="" id="previewimage"/>
           </div>
         </div>
       </div>

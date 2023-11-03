@@ -80,8 +80,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             $scope.edit = edit;
 
             if ( $scope.edit ) {
-                $scope.modalTitle = "Afbeelding bewerken";
-                $scope.submitText = "bewaar";
+                if ($scope.mayWrite) {
+                    $scope.modalTitle = "Afbeelding bewerken";
+                    $scope.submitText = "bewaar";
+                } else {
+                    $scope.modalTitle = "Afbeelding bekijken";
+
+                }
             } else {
                 $scope.modalTitle = "Afbeelding toevoegen";
                 $scope.submitText = "Maak aan";

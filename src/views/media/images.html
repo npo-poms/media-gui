@@ -46,7 +46,9 @@
           </span>
 
           <span ng-switch-when="highlighted"  >
-            <span class="highlighted"  ng-class="{'selected' : image.highlighted}" ng-click="imagesController.setHighlight( image )"></span>
+            <span class="highlighted"
+                  ng-class="{'selected' : image.highlighted}"
+                  ng-click="imagesController.mayWrite() && imagesController.setHighlight( image )"></span>
           </span>
 
           <span ng-switch-when="workflow" class="workflow {{::image.workflow.id }}"
@@ -81,7 +83,8 @@
 
         <td class="column-tools">
           <div class="tools" >
-            <button  name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
+            <button  ng-show="::imagesController.mayWrite()" name="editImage" title='edit afbeelding' class="poms-icon icon-edit" ng-click="imagesController.edit(image)">bewerk</button>
+            <button  ng-show="::!imagesController.mayWrite()" name="viewImage" title='bekijk afbeelding' class="poms-icon icon-preview" ng-click="imagesController.edit(image)">bekijk</button>
             <button  ng-show="::imagesController.mayWrite()" name="deleteImage" title='verwijder afbeelding' class="poms-icon icon-remove" poms-confirm="::image.type.text" poms-submit="imagesController.remove(image)">{{::image.type.text}} verwijder</button>
           </div>
         </td>
