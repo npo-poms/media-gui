@@ -210,7 +210,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
 
             generateId: function () {
-                return Math.random().toString( 36 ).substr( 2 );
+                return Math.random().toString( 36 ).substring( 2 );
             },
 
             handleEdits: function () {
@@ -239,11 +239,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             handleRouteChange: function () {
                 this.$scope.$on( '$routeChangeSuccess', function () {
-                    console.log("Route changed", this.$route.current);
                     const mid = this.$route.current.params.mid;
                     if (mid) {
                         if ( ! this.setActive(mid ) ) {
-                            console.log("Creating new tab for mid", mid);
                             this.newEditTabWithFields(mid);
                         }
                     }
@@ -258,7 +256,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             leaveTab: function() {
-                console.log("leaveTab", arguments);
+
             },
 
             /**
@@ -266,11 +264,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
              */
             initTab: function (tab) {
 
-                if (tab == null) {
+                if (tab === null) {
                     console.log("initTab called with null tab!");
                     return;
                 }
-                console.log("Initing tab", tab);
 
                 if (tab.type === 'edit' ) {
                     if (tab.reload) {
@@ -537,7 +534,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         } else if (tab.reload) {
                             this.initTab(tab);
                         } else {
-                            console.log("Nothing to do (" +  id + "is already active)");
+                            //console.log("Nothing to do (" +  id + "is already active)");
                         }
                         found = true;
                     } else {

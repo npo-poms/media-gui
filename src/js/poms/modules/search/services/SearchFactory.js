@@ -323,7 +323,6 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                                         }
                                     }
                                 } else if (value.text) {
-                                    console.log(key, value);
                                     queryTerms.push(value.text);
                                 } else {
                                     console.log("Unrecognized key", key, value);
