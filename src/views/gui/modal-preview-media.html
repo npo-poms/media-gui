@@ -86,8 +86,8 @@
 
         <button class="btn-rect btn-rect-cancel"
                 ng-click="controller.openInEditor(currentItem.mid)">
-          <span ng-if="currentItem.mayWrite">Bewerk dit item</span>
-          <span ng-if="! currentItem.mayWrite">Bekijk dit item</span>
+          <span ng-if="currentItem.permissions.WRITE">Bewerk dit item</span>
+          <span ng-if="(! currentItem.permissions.WRITE) && currentItem.permissions.READ">Bekijk dit item</span>
         </button>
         <button class="btn-rect btn-rect-cancel" ng-click="controller.cancel($event)">Sluit</button>
 
