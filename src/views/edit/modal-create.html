@@ -27,24 +27,25 @@
 
                 <div class="row">
 
+
                     <div class="field col-6 dropdown-wrapper"
                          ng-class="{'has-error' : createForm.inputMediaType.$invalid}">
                         <poms-ui-select class="poms-uiselect"
                                         options="mediaTypes"
                                         name="Media Type &#42;"
                                         selection="media.type"
-                                ></poms-ui-select>
-                        <div>
-                            <div class="dropdown-selected" ng-if="media.type" ng-click="media.type = undefined">
-                                {{media.type.text}}
-                            </div>
+                        ></poms-ui-select>
+                      <div>
+                        <div class="dropdown-selected" ng-if="media.type.id" ng-click="media.type = undefined">
+                          {{media.type.text}}
                         </div>
-                        <poms-invalid violation="violations.type"></poms-invalid>
-
+                      </div>
+                      <poms-invalid violation="violations.type"></poms-invalid>
                     </div>
 
 
                     <div class="field col-6  dropdown-wrapper" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
+
                         <poms-ui-select class="poms-uiselect"
                                         options="avTypes"
                                         name="AV Type &#42;"
@@ -52,7 +53,7 @@
                                 ></poms-ui-select>
                         <div>
                             <div class="dropdown-selected"
-                                 ng-if="media.avType" ng-click="media.avType = undefined">
+                                 ng-if="media.avType.id" ng-click="media.avType = undefined">
                                 {{media.avType.text}}
                             </div>
                         </div>
@@ -87,6 +88,7 @@
                     <div class="field col-6 dropdown-wrapper scrollable"
                          ng-class="{'has-error' : createForm.inputBroadcasters.$invalid}">
 
+                      G {{media.genres}}
                         <poms-ui-select-multi
                                 class="poms-uiselect"
                                               options="genres"
@@ -95,9 +97,9 @@
                                 ></poms-ui-select-multi>
 
                         <div>
-                            <div class="dropdown-selected" ng-if="media.genres"
-                                 ng-repeat="genre in media.genres"
-                                 ng-click="controller.remove( media.genres, genre)">
+                            <div class="dropdown-selected" ng-if="media.genres.value"
+                                 ng-repeat="genre in media.genres.value"
+                                 ng-click="controller.remove( media.genres.value, genre)">
                                 {{genre.text}}
                             </div>
                         </div>

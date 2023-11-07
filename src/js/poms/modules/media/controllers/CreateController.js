@@ -12,7 +12,18 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
     'genres',
     (function () {
 
-        function CreateController ( $scope, $uibModalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, media, genres ) {
+        function CreateController (
+            $scope,
+            $uibModalInstance,
+            EditorService,
+            MediaService,
+            PomsEvents,
+            mediaTypes,
+            avTypes,
+            broadcasters,
+            portals,
+            media,
+            genres ) {
 
             this.$scope = $scope;
 
@@ -65,7 +76,17 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
-                    let invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0
+                    if (newValue.type === undefined) {
+                        newValue.type = {}
+                    }
+
+                    if (newValue.avType === undefined) {
+                        newValue.avType = {}
+                    }
+                    if (newValue.genres === undefined) {
+                        newValue.genres = { value: [] }
+                    }
+                    let invalid = newValue.title === undefined || newValue.type.value === undefined || newValue.avType.value === undefined || newValue.broadcasters.length === 0
                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
                         invalid = invalid || ! newValue.genres || newValue.genres.length === 0;

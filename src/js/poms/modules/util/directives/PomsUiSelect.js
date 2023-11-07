@@ -8,7 +8,8 @@ angular.module( 'poms.util.directives' )
                 options: '=',
                 remove: '&',
                 name: '@',
-                optionSelected: '&'
+                optionSelected: '&',
+                mayWrite: '='
             },
             controller: 'PomsUiSelectMultiController',
             controllerAs: 'controller',
@@ -96,7 +97,8 @@ angular.module( 'poms.util.directives' )
                 options: '=',
                 remove: '&',
                 name: '@',
-                optionSelected: '&'
+                optionSelected: '&',
+                mayWrite: '='
             },
             controller: 'PomsUiSelectController',
             controllerAs: 'controller'
