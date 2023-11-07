@@ -84,9 +84,9 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                         newValue.avType = {}
                     }
                     if (newValue.genres === undefined) {
-                        newValue.genres = { value: [] }
+                        newValue.genres = []
                     }
-                    let invalid = newValue.title === undefined || newValue.type.value === undefined || newValue.avType.value === undefined || newValue.broadcasters.length === 0
+                    let invalid = newValue.title === undefined || newValue.type.id === undefined || newValue.avType.id === undefined || newValue.broadcasters.length === 0
                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
                         invalid = invalid || ! newValue.genres || newValue.genres.length === 0;
