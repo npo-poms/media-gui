@@ -87,8 +87,6 @@
 
                     <div class="field col-6 dropdown-wrapper scrollable"
                          ng-class="{'has-error' : createForm.inputBroadcasters.$invalid}">
-
-                      G {{media.genres}}
                         <poms-ui-select-multi
                                 class="poms-uiselect"
                                               options="genres"
@@ -97,9 +95,9 @@
                                 ></poms-ui-select-multi>
 
                         <div>
-                            <div class="dropdown-selected" ng-if="media.genres.value"
-                                 ng-repeat="genre in media.genres.value"
-                                 ng-click="controller.remove( media.genres.value, genre)">
+                            <div class="dropdown-selected" ng-if="media.genres"
+                                 ng-repeat="genre in media.genres"
+                                 ng-click="controller.remove( media.genres, genre)">
                                 {{genre.text}}
                             </div>
                         </div>

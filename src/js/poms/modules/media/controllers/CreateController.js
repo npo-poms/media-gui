@@ -34,7 +34,19 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             this.$scope.modalTitle = 'Nieuw object toevoegen';
 
+
+
+            if (media.type === undefined) {
+                media.type = {}
+            }
+            if (media.avType === undefined) {
+                media.avType = {}
+            }
+            if (media.genres === undefined) {
+                media.genres = []
+            }
             this.$scope.media = media;
+
 
             this.avTypes = avTypes;
             this.$scope.avTypes = avTypes;
@@ -76,16 +88,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
-                    if (newValue.type === undefined) {
-                        newValue.type = {}
-                    }
 
-                    if (newValue.avType === undefined) {
-                        newValue.avType = {}
-                    }
-                    if (newValue.genres === undefined) {
-                        newValue.genres = []
-                    }
                     let invalid = newValue.title === undefined || newValue.type.id === undefined || newValue.avType.id === undefined || newValue.broadcasters.length === 0
                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
@@ -95,7 +98,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                         this.$scope.genresHeader = 'Genre';
                     }
                     this.$scope.createFormValid =  !(invalid);
-                    if (newValue.type) {
+                    if (newValue.type.id) {
                         this.$scope.avTypes = this.avTypes.filter(function (avType) {
                             return newValue.type.avTypes.includes(avType.id)
                         });
