@@ -41,6 +41,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalTableEditController
                 return mediaService.hasWritePermission($scope.media, $scope.field );
             }.bind(this);
 
+            listService.getPlatforms().then(function(p) {
+                this.platforms = p;
+            }.bind(this));
+
             load( $scope, this.pomsEvents, this);
 
             $scope.options().then(
