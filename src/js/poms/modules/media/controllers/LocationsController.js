@@ -124,7 +124,10 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
 
                 if ( ! location ) {
                     // creating new location
-                    location = { mayWrite: true };
+                    location = {
+                        mayWrite: true,
+                        platform: 'INTERNETVOD'
+                    };
                     editMode = false;
                 }
 
