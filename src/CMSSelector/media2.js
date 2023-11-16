@@ -104,7 +104,7 @@ const nl_vpro_media_CMSSelector = {
                     .then(resolve, reject);
             } else {
                 let xhr = new XMLHttpRequest();
-                xhr.open("GET", "https://rs-test.poms.omroep.nl/v1/schema/enum/MediaType.json", true);
+                xhr.open("GET", "https://rs.poms.omroep.nl/v1/schema/enum/MediaType.json", true);
                 xhr.onload = () => {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         resolve(JSON.parse(xhr.response));
