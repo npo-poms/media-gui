@@ -4,7 +4,6 @@
 </div>
 
 <form role="form" class="poms-form editLocationForm" ng-class="{'waiting': waiting}" name="editLocationForm" >
-
     <div class="modal-body">
 
         <div class="form-fields ">
@@ -110,14 +109,17 @@
                                        ng-disabled="!controller.mayWrite('publishStart')"
                                        datepicker-popup="dd-MM-yyyy HH:mm"
                                        max-date='maxStart'
-                                       ng-model="location.publication.start"
+                                       ng-model="location.ownPublication.start"
                                        is-open="startdate.open"
                                        close-text="sluit"
                                        ng-click="$event.preventDefault(); $event.stopPropagation();"
-                                       ng-change="setMinStop(location.publication.start)"/>
+                                       ng-change="setMinStop(location.ownPublication.start)"/>
 
                                 <button class="open-calendar" ng-click="openStartDate($event)">
                                 </button>
+                              <span ng-if="location.ownPublication.start != location.publication.start">
+                                effective start: <span> {{location.publication.start | mediaDateTime}} </span>
+                              </span>
                             </div>
 
 
@@ -128,14 +130,16 @@
                                        ng-disabled="!controller.mayWrite('publishStop')"
                                        datepicker-popup="dd-MM-yyyy HH:mm"
                                        min-date='minStop'
-                                       ng-model="location.publication.stop"
+                                       ng-model="location.ownPublication.stop"
                                        is-open="stopdate.open"
                                        close-text="sluit"
                                        ng-click="$event.preventDefault(); $event.stopPropagation();"
-                                       ng-change="setMaxStart(location.publication.stop)"/>
+                                       ng-change="setMaxStart(location.ownPublication.stop)"/>
 
                                 <button class="open-calendar" ng-click="openStopDate($event)">
                                 </button>
+                               <span ng-if="location.ownPublication.stop != location.publication.stop">
+                                effective stop: <span> {{location.publication.stop | mediaDateTime}} </span>
                             </div>
 
                         </div>
@@ -143,29 +147,42 @@
 
 
                         <a title="verwijder" class="dropdown-selected "
-                           ng-if="location.publication.start && controller.mayWrite('publishStart')"
-                           ng-click="location.publication.start = undefined">
-                            start: <span> {{location.publication.start | mediaDateTime}} </span>
+                           ng-if="location.ownPublication.start && controller.mayWrite('publishStart')"
+                           ng-click="location.ownPublication.start = undefined">
+                            start: <span> {{location.ownPublication.start | mediaDateTime}} </span>
                         </a>
-                        <div if="location.publication.start && ! controller.mayWrite('publishStart')">
-                             start: <span> {{location.publication.start | mediaDateTime}} </span>
+                        <div if="location.ownPublication.start && ! controller.mayWrite('publishStart')">
+                             start: <span> {{location.ownPublication.start | mediaDateTime}} </span>
                         </div>
 
                         <a title="verwijder" class="dropdown-selected "
-                           ng-if="location.publication.stop && controller.mayWrite('publishStop')" ng-click="location.publication.stop = undefined">
-                            stop: <span> {{location.publication.stop | mediaDateTime}} </span>
+                           ng-if="location.ownPublication.stop && controller.mayWrite('publishStop')" ng-click="location.ownPublication.stop = undefined">
+                            stop: <span> {{location.ownPublication.stop | mediaDateTime}} </span>
                         </a>
-                         <div if="location.publication.stop && ! controller.mayWrite('publishStop')">
-                             stop: <span> {{location.publication.stop | mediaDateTime}} </span>
+                         <div if="location.ownPublication.stop && ! controller.mayWrite('publishStop')">
+                             stop: <span> {{location.ownPublication.stop | mediaDateTime}} </span>
                         </div>
 
-                        <span class='publication-placeholder' ng-if="!location.publication.start && !location.publication.stop">
+
+                        <span class='publication-placeholder' ng-if="!location.ownPublication.start && !location.ownPublication.stop">
                             geen publicatiedatum geselecteerd
                         </span>
 
                         <poms-help class="tooltip-right" field="editor.location.publication"></poms-help>
 
                     </div>
+                    <div class="col-6 field">
+                        <div ng-if="location.publication.start > location.ownPublication.start || location.publication.stop < location.ownPublication.stop">
+                            wegens platform-restricties is het werkelijke zichtbaarheidsinterval beperkter:
+                          <div>
+                          start: <span> {{location.publication.start | mediaDateTime}} </span>
+                          </div>
+                          <div>
+                          stop: <span> {{location.publication.stop | mediaDateTime}} </span>
+                          </div>
+                        </div>
+                    </div>
+
 
                 </div>
 
