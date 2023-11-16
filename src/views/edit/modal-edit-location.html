@@ -27,8 +27,6 @@
 
                 <div class="row">
                     <div class="field col-6" ng-class="{'has-error' : editLocationForm.inputFormat.$invalid}" >
-
-
                         <label>Type &#42;</label>
 
                         <ui-select
@@ -48,6 +46,10 @@
                         <poms-invalid violation="controller.violations.format"></poms-invalid>
                         <poms-help class="tooltip-right" field="editor.location.format"></poms-help>
 
+                    </div>
+                    <div class="field col-6">
+                      <label>Platform</label>
+                      <input type="text" value="{{location.platform}}" ng-readonly="true" />
                     </div>
                 </div>
 
@@ -171,8 +173,8 @@
                         <poms-help class="tooltip-right" field="editor.location.publication"></poms-help>
 
                     </div>
-                    <div class="col-6 field">
-                        <div ng-if="location.publication.start > location.ownPublication.start || location.publication.stop < location.ownPublication.stop">
+                    <div class="col-6 dropdown-wrapper">
+                        <div ng-if="location.publication.start > location.ownPublication.start  || (location.publication.start != null && location.ownPublication.start == null) ||  location.publication.stop < location.ownPublication.stop || (location.publication.stop != null && location.ownPublication.stop == null)">
                             wegens platform-restricties is het werkelijke zichtbaarheidsinterval beperkter:
                           <div>
                           start: <span> {{location.publication.start | mediaDateTime}} </span>
