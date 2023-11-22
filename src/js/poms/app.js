@@ -54,7 +54,7 @@
             var currentUser  = localStorageService.get("currentUser");
             if((config.method === 'GET' || config.method === 'POST' || config.method === 'DELETE' || config.method === 'PUT') && currentOwner && currentOwner.length > 0 && isPomsUrl ) {
                 config.headers['X-Poms-CurrentOwner'] = currentOwner; // This seems like a horrible hack.
-                config.headers['X-Poms-CurrentUser'] = currentUser;
+                config.headers['X-NPO-CurrentUser'] = currentUser;
 
             }
             return config;
