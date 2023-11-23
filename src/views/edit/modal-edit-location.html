@@ -11,7 +11,7 @@
             <div class="modal-column">
 
                 <div class="row">
-                    <div class="field"  
+                    <div class="field"
                          ng-class="{'has-error' : editLocationForm.inputUrl.$invalid}">
                         <label for="inputUrl">URL &#42;</label>
 
@@ -142,6 +142,7 @@
                                 </button>
                                <span ng-if="location.ownPublication.stop != location.publication.stop">
                                 effective stop: <span> {{location.publication.stop | mediaDateTime}} </span>
+                               </span>
                             </div>
 
                         </div>
