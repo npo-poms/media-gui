@@ -105,8 +105,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 }
 
                 //MGNL-2923 // prevent saving of publication stop time before publication start time
-                if ( data.publication.stop && data.publication.start && (data.publication.stop < data.publication.start) ){
-                    data.publication.stop = data.publication.start;
+                if ( data.ownPublication.stop && data.ownPublication.start && (data.ownPublication.stop < data.ownPublication.start) ){
+                    data.ownPublication.stop = data.ownPublication.start;
                 }
 
                 return this.mediaService.saveLocation( this.$scope.media, data ).then(

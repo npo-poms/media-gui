@@ -7,15 +7,9 @@ trigger_media:
   extends: .trigger_down_stream
   trigger:
     project: npo/media
-    branch: "$CI_COMMIT_BRANCH"
-  inherit:
-    variables: false
-  rules:
-    - !reference [ .rules, build ]
-
-
+    branch: main
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'main'
+    ref: 'tags/9.22'
     file: 'maven_release.yml'
