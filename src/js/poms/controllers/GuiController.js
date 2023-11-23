@@ -158,7 +158,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             editMediaWithFields: function (mid, title, type, permissions) {
-                //console.log("Editing media", mid, title, type);
+                console.log("Editing media", mid, title, type);
                 if ( this.setActive(mid) ) {
                     //console.log("Already active");
                     return;
@@ -266,7 +266,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
              */
             initTab: function (tab) {
 
-                if (tab === null || tab.type === null) {
+                if (tab === undefined || tab.type === null) {
                     console.log("initTab called with null tab!");
                     return;
                 }
@@ -317,8 +317,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         tab.index = i;
                     }
                     if (!foundEntryMid && entryMid) {
-                        this.newEditTab(entryMid);
-
+                        this.newEditTabWithFields(entryMid);
                     }
                 }
                 const foundIndex = this.tabs.findIndex(function (tab) {
@@ -511,7 +510,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             /**
              * @param id The id (mid or search hash) of the tab to set active
              */
-            setActive: function (id) {
+            setActive: function (id, event) {
+
+                if (id === undefined) {
+                    return true;
+                }
                 let found = false;
                 for (let i = 0; i < this.tabs.length; i ++ ) {
                     const tab = this.tabs[i];

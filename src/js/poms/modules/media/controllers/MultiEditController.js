@@ -113,7 +113,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
 
             updateOptions: function (text) {
                 if( !text ) {
-                    console.log("no text, returnin empty promis");
+                    //console.log("no text, returning empty promise");
                     return Promise.resolve([]);
                 }
 
