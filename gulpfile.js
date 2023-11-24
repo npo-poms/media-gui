@@ -11,7 +11,10 @@ const templateCache = require('gulp-angular-templatecache');
 
 const htmlMinOptions = {collapseWhitespace: true, removeComments: true};
 
-const uglifyOptions = {};
+const uglifyOptions = {
+    parse: {},
+    compress: {}
+};
 
 /******************************
  * HELPERS
@@ -22,7 +25,7 @@ function getCurrentVersion(prefix) {
 }
 
 
-function getApiHost(prefix) {
+function getApiHost() {
     return process.env.npm_config_apihost || "";
 }
 
