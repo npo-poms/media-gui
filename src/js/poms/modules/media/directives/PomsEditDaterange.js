@@ -65,40 +65,32 @@ angular.module( 'poms.media.directives' )
                         dateObject.stop = dateObject.start;
                     }
 
-                    if (// field was empty, end remained empty
-                        (!dateObject.stop && !dateObject.start && !$scope.media[$scope.field].start && !$scope.media[$scope.field].stop) ||
-                        // or, no changes
-                        ( $scope.media[$scope.field].start === startdate && $scope.media[$scope.field].stop === stopdate )){
-                            $scope.waiting = false;
+
+                    const deferred = $q.defer();
+
+                    editService[$scope.field]( media, dateObject ).then(
+                        function ( result ) {
+
+                            angular.copy( result, $scope.$parent.media );
                             $scope.editableForm.$hide();
-                    } else {
-                        const deferred = $q.defer();
+                            deferred.resolve( result );
+                            $scope.waiting = false;
 
-                        editService[$scope.field]( media, dateObject ).then(
-                            function ( result ) {
+                            $scope.$emit( 'saved' );
+                        },
+                        function ( error ) {
 
-                                angular.copy( result, $scope.$parent.media );
-                                $scope.editableForm.$hide();
-                                deferred.resolve( result );
-                                $scope.waiting = false;
-
-                                $scope.$emit( 'saved' );
-                            },
-                            function ( error ) {
-
-                                $scope.errorText = error.message;
-                                if ( error.violations && error.violations[$scope.errorType] ) {
-                                    $scope.errorText = error.violations[$scope.errorType];
-                                }
-
-                                deferred.reject( $scope.errorText );
-
-                                $scope.waiting = false;
+                            $scope.errorText = error.message;
+                            if ( error.violations && error.violations[$scope.errorType] ) {
+                                $scope.errorText = error.violations[$scope.errorType];
                             }
-                        );
-                        return deferred.promise;
-                    }
 
+                            deferred.reject( $scope.errorText );
+
+                            $scope.waiting = false;
+                        }
+                    );
+                    return deferred.promise;
                 };
 
                 $scope.blurredSave = function( e ){
@@ -112,23 +104,16 @@ angular.module( 'poms.media.directives' )
                         dateObject.stop = dateObject.start;
                     }
 
-                    if ((!dateObject.stop && ! dateObject.start ) || ( $scope.media[$scope.field].start === startdate && $scope.media[$scope.field].stop === stopdate )){
-                        $scope.waiting = false;
-                        $scope.editableForm.$hide();
-                    }else{
-
-                        editFieldService.saveConfirm().then(
-                            function( result ){
-                                if ( result ){
-                                    $scope.save();
-                                }
-                            },
-                            function( error ){
-                             //   $scope.$emit( pomsEvents.error, error );
+                    editFieldService.saveConfirm().then(
+                        function( result ){
+                            if ( result ){
+                                $scope.save();
                             }
-                        ) ;
-                    }
-
+                        },
+                        function( error ){
+                            //   $scope.$emit( pomsEvents.error, error );
+                        }
+                    ) ;
                 }
 
             }
