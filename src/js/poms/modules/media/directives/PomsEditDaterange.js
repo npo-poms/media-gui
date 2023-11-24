@@ -58,20 +58,7 @@ angular.module( 'poms.media.directives' )
                 $scope.save = function (  ) {
                     $scope.waiting = true;
 
-                    const dateObject = {};
-
-                    let startdate = $scope.editableForm.$data.startdate;
-                    let stopdate = $scope.editableForm.$data.stopdate;
-
-                    if ( startdate ) {
-                        startdate = new Date( startdate ).getTime();
-                        dateObject.start = startdate;
-                    }
-
-                    if ( stopdate ) {
-                        stopdate = new Date( stopdate ).getTime();
-                        dateObject.stop = stopdate;
-                    }
+                    const dateObject =  $scope.media[$scope.field];
 
                     //MGNL-2923 // prevent saving of publication stop time before publication start time
                     if ( dateObject.stop && dateObject.start && (dateObject.stop < dateObject.start) ){
@@ -118,20 +105,7 @@ angular.module( 'poms.media.directives' )
 
                     e.stopPropagation();
 
-                    const dateObject = {};
-
-                    let startdate = $scope.editableForm.$data.startdate;
-                    let stopdate = $scope.editableForm.$data.stopdate;
-
-                    if ( startdate ) {
-                        startdate = new Date( startdate ).getTime();
-                        dateObject.start = startdate;
-                    }
-
-                    if ( stopdate ) {
-                        stopdate = new Date( stopdate ).getTime();
-                        dateObject.stop = stopdate;
-                    }
+                    const dateObject =  $scope.media[$scope.field];
 
                     //MGNL-2923 // prevent saving of publication stop time before publication start time
                     if ( dateObject.stop && dateObject.start && (dateObject.stop < dateObject.start) ){
