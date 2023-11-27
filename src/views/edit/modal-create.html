@@ -45,7 +45,6 @@
 
 
           <div class="field col-6  dropdown-wrapper" ng-class="{'has-error' : createForm.inputTitle.$invalid}">
-
             <poms-ui-select class="poms-uiselect"
                             options="avTypes"
                             name="AV Type &#42;"
@@ -53,7 +52,7 @@
             ></poms-ui-select>
             <div>
               <div class="dropdown-selected"
-                   ng-if="media.avType.id" ng-click="media.avType = undefined">
+                   ng-if="media.avType.id" ng-click="media.avType = {}">
                 {{media.avType.text}}
               </div>
             </div>

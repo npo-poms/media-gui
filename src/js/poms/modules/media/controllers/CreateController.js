@@ -104,7 +104,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                         });
 
                         if (newValue.avType && ! newValue.type.avTypes.includes(newValue.avType.id)) {
-                            newValue.avType = undefined;
+                            newValue.avType = {};
                         }
                     }
 
