@@ -88,8 +88,8 @@ angular.module( 'poms.util.directives')
                             for (let i = 0; i < segments.length; i ++ ) {
                                 if ( segments[i].mid === mid ) {
                                     deferred.resolve ( {
-                                        start: segments[i].start / 1000,
-                                        stop: segments[i].stop / 1000
+                                        start: segments[i].start.inMillis / 1000,
+                                        stop: segments[i].stop.inMillis / 1000
                                     });
                                 }
                             }
