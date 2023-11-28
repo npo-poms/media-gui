@@ -63,11 +63,13 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                         let player = new NpoPlayer.default(element, playerConfig);
 
                         // the npo player itself could also determin the start, then we could just pass the mid of the segment
-                        player.loadStream(resp.data.token, {
+                        let streamOptions = {
                             endpoint: resp.data.endpoint,
-                            startOffset: options.start,
-                            endOffset: options.stop
-                        });
+                            startOffset: options.start
+                            //endOffset: options.stop
+                        };
+                        console.log("player with options", streamOptions);
+                        player.loadStream(resp.data.token, streamOptions);
                         container.addClass("playing");
                         container.addClass("size-" + size);
                     }
