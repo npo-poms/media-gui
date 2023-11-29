@@ -29,7 +29,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             this.$sce = $sce;
             this.messageService = MessageService;
             this.appConfig = appConfig;
-            
+
             this.uploadInProgress = false;
             this.currentUpload = undefined;
             this.hasErrors = false;
@@ -107,14 +107,14 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             mayUpload: function() {
                 return  this.$scope.media.permissions['LOCATION_UPLOAD'];
             },
-            
+
             toggleCollapsed : function () {
                 if (!this.hasErrors) {
                     this.collapsed = ! this.collapsed;
                     this.localStorageService.set('locationsCollapsed', this.collapsed);
                 }
             },
-            
+
             editLocation : function ( location, permission ) {
 
                 if ( permission === false ) {
@@ -252,7 +252,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 var status;
 
                 if ( upload.status === 'uploadFinished' ) {
-                    if (upload.avType === 'AUDIO') {
+                    if (upload.avType.id === 'AUDIO') {
                         message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afhandeling door sourcing service</span>';
                     } else {
                         message = '<span>' + upload.fileName + '  is geüpload, transcodering is begonnen</span>';
