@@ -88,13 +88,13 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
             },
             mayWrite: function(field) {
                 if (this.$scope.location.mayWrite) {
-                    return this.$scope.location.mayWriteFields === undefined || this.$scope.location.mayWriteFields.indexOf(field) >= 0;
+                    return  ! this.$scope.location.mayWriteFields || this.$scope.location.mayWriteFields.indexOf(field) >= 0;
                 }
                 return false;
             },
             save: function () {
 
-                var data = this.$scope.location;
+                const data = this.$scope.location;
 
                 if ( data.offset ) {
                     data.offset = this.$filter( 'noTimezone' )( data.offset );
@@ -105,7 +105,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
                 }
 
                 //MGNL-2923 // prevent saving of publication stop time before publication start time
-                if ( data.ownPublication.stop && data.ownPublication.start && (data.ownPublication.stop < data.ownPublication.start) ){
+                if ( data.ownPublication && data.ownPublication.stop && data.ownPublication.start && (data.ownPublication.stop < data.ownPublication.start) ){
                     data.ownPublication.stop = data.ownPublication.start;
                 }
 
