@@ -252,7 +252,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 let status;
 
                 if ( upload.status === 'uploadFinished' ) {
-                    if (upload.avType === 'AUDIO') {
+                    if (upload.avType.id === 'AUDIO') {
                         message = '<span>' + upload.fileName + '  is geüpload, we wachten op de afhandeling door sourcing service</span>';
                     } else {
                         message = '<span>' + upload.fileName + '  is geüpload, transcodering is begonnen</span>';
