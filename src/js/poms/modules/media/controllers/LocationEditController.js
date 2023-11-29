@@ -88,7 +88,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
             },
             mayWrite: function(field) {
                 if (this.$scope.location.mayWrite) {
-                    return this.$scope.location.mayWriteFields === null || this.$scope.location.mayWriteFields.indexOf(field) >= 0;
+                    return this.$scope.location.mayWriteFields === undefined || this.$scope.location.mayWriteFields.indexOf(field) >= 0;
                 }
                 return false;
             },
