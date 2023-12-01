@@ -53,9 +53,9 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                     otap: props['otap']
                 };
             },
-            getByteSize: function(programUrl) {
+            headRequest: function(programUrl) {
                 const deferred = $q.defer();
-                $http.get(baseUrl + "/byteSize?programUrl=" + programUrl, {cache: true}).then(
+                $http.get(baseUrl + "/head?programUrl=" + programUrl, {cache: false}).then(
                     function (response) {
                         const info = response.data;
                         deferred.resolve(info);
