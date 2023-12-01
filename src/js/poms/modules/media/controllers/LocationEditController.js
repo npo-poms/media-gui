@@ -126,11 +126,14 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationEditController',
 
             },
             headRequest: function ( url ) {
-                return this.infoService.getByteSize(url).then(function (contentLength) {
-                    var result = parseInt(contentLength);
-                    if (result > 0) {
+                return this.infoService.headRequest(url).then(function (headInfo) {
+                    var contentLength = headInfo.byteSize;
+                    var statusCode = headInfo.statusCode;
+                    this.$scope.location.statusCode = parseInt(statusCode);
+                    if (contentLength > 0) {
                         this.$scope.location.byteSize = parseInt(contentLength);
                     }
+                    this.$scope.headInfo = headInfo;
                 }.bind(this));
 
             },

@@ -42,9 +42,9 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
             getImageBackendUrl: function() {
                 return properties['npo-images_backend.baseUrl']
             },
-            getByteSize: function(programUrl) {
+            headRequest: function(programUrl) {
                  var deferred = $q.defer();
-                $http.get(baseUrl + "/byteSize?programUrl=" + programUrl, {cache: true})
+                $http.get(baseUrl + "/head?programUrl=" + programUrl, {cache: false})
                     .success(function (info) {
                         deferred.resolve(info);
                         properties = info;
@@ -53,7 +53,7 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
                     .error(function (error) {
                         deferred.reject(error);
                     });
-                
+
                 return deferred.promise;
             }
 
