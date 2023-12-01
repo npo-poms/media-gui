@@ -22,7 +22,7 @@
                                ng-model="location.url"/>
                         <poms-invalid violation="controller.violations.programUrl"></poms-invalid>
                         <poms-help field="editor.location.url"></poms-help>
-                      <span ng-if="headInfo && headInfo.statusCode != 200">{{headInfo.statusCode}}:{{headInfo.statusCodeReason}}</span>
+                      <span ng-if="headInfo && headInfo.statusCode >= 300">{{headInfo.statusCode}}:{{headInfo.statusCodeReason}}</span>
                     </div>
                 </div>
 
