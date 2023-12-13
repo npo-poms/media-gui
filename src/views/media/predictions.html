@@ -33,8 +33,8 @@
             ng-dblclick="predictionsController.editPrediction(prediction)"
         >
             <td class="column-{{::column.id}}" ng-repeat="column in selectedColumns " ng-switch on="column.id">
-                <span title="{{::prediction.platform.text}}" ng-switch-when="platform" >
-                  {{::prediction.platform.id}} ({{::prediction.platform.text}})
+                <span title="{{::prediction.platform.id}} {{::prediction.platform.text}}" ng-switch-when="platform" >
+                  {{::prediction.platform.text}}
                 </span>
 
                 <span title="{{::prediction.plannedAvailability}}" ng-switch-when="plannedAvailability" >

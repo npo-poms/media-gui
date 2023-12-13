@@ -50,7 +50,7 @@
                     </div>
                     <div class="field col-6">
                       <label>Platform</label>
-                      <input type="text" value="{{location.platform}}" ng-readonly="true" />
+                      <input type="text" value="{{location.platform.text}}" ng-readonly="true" />
                     </div>
                 </div>
 
@@ -120,9 +120,6 @@
 
                                 <button class="open-calendar" ng-click="openStartDate($event)">
                                 </button>
-                              <span ng-if="location.ownPublication.start != location.publication.start">
-                                effective start: <span> {{location.publication.start | mediaDateTime}} </span>
-                              </span>
                             </div>
 
 
@@ -141,8 +138,6 @@
 
                                 <button class="open-calendar" ng-click="openStopDate($event)">
                                 </button>
-                               <span ng-if="location.ownPublication.stop != location.publication.stop">
-                                effective stop: <span> {{location.publication.stop | mediaDateTime}} </span>
                             </div>
 
                         </div>
