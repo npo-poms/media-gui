@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <div class="modal-title"> {{ prediction.platform.id }} ({{ prediction.platform.text }})</div>
+  <div class="modal-title"> {{ prediction.platform.text }} ({{ prediction.platform.id }})</div>
   <div class="modal-close-button" ng-click="controller.cancel()"> close </div>
 </div>
 
@@ -34,21 +34,20 @@
               </ui-select>
             </div>
           <div dropdown class="dropdown-wrapper col-6 field">
-                <li class="dropdown open">
                   <span class="dropdown-toggle" dropdown-toggle > Publicatie start/stop </span>
 
-                  <div dropdown-menu class="daterange-select" display="true" daterangepicker >
+                  <div dropdown-menu class="daterange-select"  daterangepicker >
                     <div class="input-group datepicker-dropdown"  >
                       <label class='date-input-label' label-for="fromdate" >Start</label>
                       <input name='fromdate' type="text" class="form-control"
                              ng-disabled="! prediction.mayWriteEmbargo"
                              datepicker-popup="dd-MM-yyyy HH:mm"
                              max-date='maxStart'
-                             ng-model="prediction.publication.start"
+                             ng-model="prediction.ownPublication.start"
                              is-open="startdate.open"
                              close-text="sluit"
                              ng-click="$event.preventDefault(); $event.stopPropagation();"
-                             ng-change="setMinStop(image.publication.start)"/>
+                             ng-change="setMinStop(prediction.ownPublication.start); prediction.publication.start = prediction.ownPublication.start"/> <!-- avoid effectieve publicatie -->
 
                       <button class="open-calendar" ng-click="openStartDate($event)"></button>
                     </div>
@@ -60,23 +59,35 @@
                              ng-disabled="! prediction.mayWrite"
                              datepicker-popup="dd-MM-yyyy HH:mm"
                              min-date='minStop'
-                             ng-model="prediction.publication.stop"
+                             ng-model="prediction.ownPublication.stop"
                              is-open="stopdate.open"
                              close-text="sluit"
                              ng-click="$event.preventDefault(); $event.stopPropagation();"
-                             ng-change="setMaxStart(image.publication.stop)"/>
+                             ng-change="setMaxStart(prediction.ownPublication.stop); prediction.publication.stop = prediction.ownPublication.stop"/>
 
                       <button class="open-calendar" ng-click="openStopDate($event)"></button>
                     </div>
                   </div>
 
-                  <a title="verwijder" class="dropdown-selected " ng-if="prediction.publication.start" ng-click="prediction.publication.start = undefined">
-                    start: <span> {{prediction.publication.start | mediaDateTime}} </span>
+                  <a title="verwijder" class="dropdown-selected " ng-if="prediction.ownPublication.start" ng-click="prediction.ownPublication.start = undefined">
+                    start: <span> {{prediction.ownPublication.start | mediaDateTime}} </span>
                   </a>
 
-                  <a title="verwijder" class="dropdown-selected " ng-if="prediction.publication.stop" ng-click="prediction.publication.stop = undefined">
-                    stop: <span> {{prediction.publication.stop | mediaDateTime}} </span>
+                  <a title="verwijder" class="dropdown-selected " ng-if="prediction.ownPublication.stop" ng-click="prediction.ownPublication.stop = undefined">
+                    stop: <span> {{prediction.ownPublication.stop | mediaDateTime}} </span>
                   </a>
+          </div>
+           <div dropdown class="col-6 dropdown-wrapper">
+             <div ng-if="(prediction.ownPublication.start != prediction.publication.start) || (prediction.ownPublication.stop != prediction.publication.stop)">
+               <div>Effectieve publicatie</div>
+               <p>Wegens de bronnen zijn de effectieve data van dit platform anders</p>
+               <span ng-if="prediction.ownPublication.start != prediction.publication.start">
+                 start: <span> {{prediction.publication.start | mediaDateTime}} </span>
+               </span>
+              <span ng-if="prediction.ownPublication.stop != prediction.publication.stop">
+                stop: <span> {{prediction.publication.stop | mediaDateTime}} </span>
+              </span>
+             </div>
           </div>
         </div>
       </div>
