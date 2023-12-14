@@ -28,9 +28,9 @@
       <poms-editable type="media" media="media" class="media-field" fieldtype="description"
                      field="shortDescription"></poms-editable>
 
-      <poms-editable type="media" 
+      <poms-editable type="media"
                      media="media" class="media-field"
-                     fieldtype="title" 
+                     fieldtype="title"
                      field="kickerDescription"></poms-editable>
     </div>
 
@@ -76,7 +76,7 @@
       <poms-multi type="media" class="media-field" media="media" header="Websites" load="editController.getWebsites()"
                   save="editController.setWebsites(data)" permission="websites" placeholder="Websites (http://...)"
                   help-field="editor.general.websites"></poms-multi>
-      
+
       <poms-multi type="media" class="media-field" media="media" header="Email" load="editController.getEmail()"
                   save="editController.setEmail(data)" permission="email" placeholder="Email (.@..)"
                   help-field="editor.general.email"></poms-multi>
@@ -186,7 +186,8 @@
         <h2 class="small-header media-static-field-title">XML</h2>
         <a title="open de xml voor dit item in een nieuw venster" target="blank"
            href="{{::(media.id | xmlLocationPrefix) }}">bekijk in xml-formaat </a>
-
+        (<a title="open de xml voor dit item in een nieuw venster" target="blank"
+           href="{{::(media.id | xmlLocationPrefix) }}?publicationFilter=true">gepubliceerd</a>)
         <div class="media-field-tools">
           <poms-help field="editor.general.xml"></poms-help>
         </div>
@@ -267,7 +268,7 @@
     <poms-editable type="media" media="media" class="media-field" fieldtype="duration" header="Speelduur"
                    field="duration" help-field="editor.general.duration"></poms-editable>
 
-    <poms-editable type="media" media="media" class="media-field" fieldtype="radiolist" 
+    <poms-editable type="media" media="media" class="media-field" fieldtype="radiolist"
                    options='avTypes'
                    header="AV-Type" field="avType" help-field="editor.general.avType"></poms-editable>
 
@@ -437,7 +438,7 @@
             class="rating"
             help-field="editor.general.contentRating"
     ></poms-editable>
-    
+
     <poms-editable-modal
             class="media-field"
             header="Georestricties"
