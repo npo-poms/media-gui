@@ -34,7 +34,7 @@ angular.module('poms.media.controllers').controller('PredictionsController', [
                 //console.log("Initing predictions");
                 this.load();
                 this.messageService.receiveRepaintMessage().then( null, null, function (message ) {
-                    if (message.mid === this.$scope.media.mid && message.aspect === "avType") {
+                    if (message.mid === this.$scope.media.mid && (message.aspect === "avType" || message.aspect === 'predictions')) {
                         this.load()
                     }
                 }.bind( this ));
