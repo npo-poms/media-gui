@@ -1,5 +1,5 @@
 <div class="viewer">
-  
+
   <ui-select ng-model="selected.value"  theme="selectize" style="float: right; width: 12em;" ng-if="players.length > 1">
     <ui-select-match placeholder="Kies player">
         <span ng-bind="$select.selected.endpoint"></span>
@@ -8,20 +8,20 @@
         <span ng-bind="p.endpoint"></span>
     </ui-select-choices>
   </ui-select>
-  
+
   <div class="viewer-player" id="{{containerId}}-placeholder">
-    
-    <div class='viewer-placeholder'  
+
+    <div class='viewer-placeholder'
          style="{{ media.image ? 'background-image: url(' + media.image.backend.original + ')' : ''}}">
-      <span class="viewer-error" ng-if="isPlayable && ! media.image" >Dit item bevat geen afbeelding</span>
-      <div class="viewer-play-button" title="speel dit item af in de NPO player"  ng-if="isPlayable" ng-click="play()"> </div>
+      <span class="viewer-error" ng-if="media.playable && ! media.image" >Dit item bevat geen afbeelding</span>
+      <div class="viewer-play-button" title="speel dit item af in de NPO player"  ng-if="media.playable" ng-click="play()"> </div>
     </div>
-    
-    <div ng-if="!isPlayable && !media.image">
+
+    <div ng-if="!media.playable  && !media.image">
       <span class="viewer-error" >Dit item bevat geen afspeelbare bron én geen afbeelding</span>
     </div>
-    
-    <div ng-if="!isPlayable && media.image">
+
+    <div ng-if="!media.playable  && media.image">
       <span class="viewer-error" >Dit item bevat geen afspeelbare bron</span>
     </div>
   </div>
@@ -31,7 +31,7 @@
 
 
   <div class="viewer-info {{type}}">
-    
+
     <h1 class="viewer-title">{{ media.mainTitle.text || media.title || '-' }}
     </h1>
     <h2 class="viewer-subtitle">{{ media.subTitle.text }}</h2>
@@ -41,7 +41,7 @@
       {{media.episodeOf[0].number }}
       van
       <a href="{{editRef(media.episodeOf[0].id)}}">{{media.episodeOf[0].text }}</a>
-      
+
     </h2>
     <h2 class="viewer-media-type">
       <span ng-if="!media.episodeOf">{{ ::media.type.text }} - </span>
@@ -49,7 +49,7 @@
       <span ng-if="!media.scheduleEvents[0] && media.sortDate" >  {{ media.sortDate | mediaDate }}</span>
     </h2>
     <br/>
-    
+
     <h2 class="viewer-description" title="{{media.mainDescription.text || media.subTitle.text || '-' }}"> {{( media.mainDescription.text || media.subTitle.text || '-') | truncate: 130 }}</h2>
   </div>
   <span class='viewer-add-favorite animate-fade' ng-if="!isFavorite()"  ng-click="addFavorite()"> maak favoriet</span>

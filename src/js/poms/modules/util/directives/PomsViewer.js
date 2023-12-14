@@ -10,8 +10,6 @@ angular.module( 'poms.util.directives')
             },
             controller: function ( $scope, $rootScope, FavoritesService, MediaService, PomsEvents, NpoPlayerService, $q ) {
                 $scope.containerId = 'viewer-' + ($scope.playertype ? $scope.playertype + '-' : '') + $scope.media.mid;
-                $scope.isPlayable = $scope.media.playable;
-
 
                 $scope.play = function () {
 
