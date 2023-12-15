@@ -27,7 +27,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             this.search = $scope.search;
 
             this.$scope.lastSelect = null;
-            
+
             this.clearResults();
 
             this.searchCount = 0;
@@ -221,7 +221,7 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 );
             },
 
-            
+
             download: function (ev) {
                 ev.preventDefault();
                 var queryData, options;
@@ -246,6 +246,20 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
             locationTypes : function( locations ){
                 var uniqueLocations = [];
                 for ( var i = 0; i < locations.length; i ++ ) {
+                    if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
+                        uniqueLocations.push( locations[i].format );
+                    }
+
+                }
+                return uniqueLocations;
+
+            },
+            publishedLocationTypes : function( locations ){
+                var uniqueLocations = [];
+                for ( var i = 0; i < locations.length; i ++ ) {
+                    if (locations[i].workflow.id !== 'PUBLISHED')  {
+                        continue;
+                    }
                     if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
                         uniqueLocations.push( locations[i].format );
                     }

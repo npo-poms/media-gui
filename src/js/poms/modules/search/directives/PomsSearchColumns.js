@@ -17,6 +17,7 @@ angular.module( 'poms.search.directives' )
                     {'id': 'broadcasters', 'value': 'Omroep'},
                     {'id': 'workflow', 'value': 'Status', 'tableValue':''},
                     {'id': 'type', 'value': 'Type', 'sortable': true},
+                    {'id': 'allLocations', 'value': 'Alle bron(nen)'},
                     {'id': 'locations', 'value': 'Bron(nen)'},
                     {'id': 'creationDate', 'value': 'Aangemaakt op', 'sortable': true},
                     {'id': 'createdBy', 'value': 'Aangemaakt door', 'sortable': true},
