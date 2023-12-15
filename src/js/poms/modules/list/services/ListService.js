@@ -115,6 +115,17 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/platforms', GET_CONFIG);
             },
 
+            getPlatform : function(id) {
+                return this.getPlatforms().then(function(platforms) {
+                    for (var i = 0; i < platforms.length; i++) {
+                        if (platforms[i].id === id) {
+                            return platforms[i];
+                        }
+                    }
+                    return null;
+                })
+            },
+
             getPriorityTypes : function() {
                 return get('/priorityTypes', GET_CONFIG);
             },
