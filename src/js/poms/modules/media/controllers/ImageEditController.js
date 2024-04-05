@@ -250,7 +250,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
-                        "authorization": "Bearer " + editor.keycloakToken
+                        "authorization": "Bearer " + editor.token
                     }
                 }).then(
                     function (extResult) {
@@ -267,7 +267,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                             date: metadata.date,
                             credits: metadata.credits
                         });
-                        this.setPreview(this.infoService.getImageBackendUrl() + "/api/images/thumb/" + metadata.uploadId + "?access_token=" + editor.keycloakToken);
+                        this.setPreview(this.infoService.getImageBackendUrl() + "/api/images/thumb/" + metadata.uploadId);
                     }.bind(this),
                     function (error) {
                         mes = error.statusText;
@@ -336,7 +336,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         file: image.file && image.file.length > 0 ? image.file[0] : undefined,
                         fileFormDataName: 'file',
                         headers: {
-                            "authorization": "Bearer " + editor.keycloakToken
+                            "authorization": "Bearer " + editor.token
                         }
                     }).then(
                         function (response) {
