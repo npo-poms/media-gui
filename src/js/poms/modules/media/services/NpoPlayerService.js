@@ -39,7 +39,7 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                     }
                 }).then(
                     function(resp){
-                        let container = $('#' + containerId);
+                        let container = $('#' + containerId + "-" + request.id);
                         let  playerConfig = {
                             key: resp.data.key,
                             logs: {
@@ -78,15 +78,16 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                 return deferred.promise;
             },
 
-            stop: function (containerId) {
-                container = $('#' + containerId);
+            stop: function (containerId, id = 'main') {
+                container = $('#' + containerId + "-" + id)
                 player =  playerObject(containerId);
                 player && player.unload();
                 container.removeClass("playing");
                 $("#" + containerId + "-placeholder").show();
                 container.hide();
             },
-            pause: function (containerId) {
+            pause: function (containerId, id = 'main') {
+                container = $('#' + containerId + "-" + id)
                 player =  playerObject(containerId);
                 player && player.pause();
             }
