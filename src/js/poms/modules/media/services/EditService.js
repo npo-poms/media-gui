@@ -64,6 +64,10 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
             embeddable: function ( media, boolean ) {
                 return mediaService.setEmbeddable( media, boolean );
             },
+            adoptQualityFromPlus: function ( media, value) {
+                return mediaService.setAdoptQualityFromPlus( media, value );
+            },
+
             isDubbed: function (media, boolean) {
                 return mediaService.setIsDubbed(media, boolean);
             },

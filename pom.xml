@@ -65,7 +65,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.0</version>
         <configuration>
           <warSourceDirectory>build/deploy</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -73,7 +73,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.2</version>
         <configuration>
           <!-- the frontend plugin sucks horribly and installs all over the place in src dir.-->
           <filesets>
@@ -91,7 +91,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <configuration>
           <branchName>REL-${project.version}</branchName>
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
@@ -103,7 +103,7 @@
         -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <phase>install</phase>
@@ -138,7 +138,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>3.3.0</version>
+            <version>3.4.1</version>
             <configuration>
               <rules>
                 <requireReleaseDeps />
