@@ -75,10 +75,19 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             listService.getAvTypes().then(
                 function ( data ) {
                     this.$scope.avTypes = data.filter(function (avType) {
-                        return this.$scope.media.targetAVTypes.indexOf(avType.id) !== -1; 
+                        return this.$scope.media.targetAVTypes.indexOf(avType.id) !== -1;
                     }.bind(this));
                     //console.log("ec Types,", this.$scope.avTypes);
                 }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
+
+            listService.getAdoptQualityFromPlusOptions($scope.media.clazz === 'group').then(
+                function ( data ) {
+                    this.$scope.adoptQualityFromPlusOptions = data;
+                }.bind(this),
                 function ( error ) {
                     $scope.$emit( pomsEvents.error, error )
                 }.bind( this )
@@ -270,7 +279,7 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             setTwitterRefs: function ( twitterrefs ) {
                 return this.mediaService.setTwitterRefs( this.media, twitterrefs );
             },
-            
+
             getEmail: function () {
                 return this.mediaService.getEmail( this.media );
             },

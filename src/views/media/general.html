@@ -473,8 +473,21 @@
     ></poms-editable-modal>
 
 
-    <poms-edit-checkbox class="media-field" header="Embedbaar" field="embeddable"
-                        help-field="editor.general.embeddable"></poms-edit-checkbox>
+    <poms-edit-checkbox
+            class="media-field"
+            header="Embedbaar"
+            field="embeddable"
+            help-field="editor.general.embeddable"></poms-edit-checkbox>
+
+
+
+    <poms-editable
+            ng-if="media.maySetFieldsForPlayer"
+            type="media"
+            media="media" class="media-field" fieldtype="radiolist"
+            options='adoptQualityFromPlusOptions'
+            header="NPO-Start met kwaliteit van NPO-Plus" field="adoptQualityFromPlus" help-field="editor.general.adoptQualityFromPlus"></poms-editable>
+
 
   </div>
 

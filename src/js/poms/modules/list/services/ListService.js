@@ -40,6 +40,14 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/avTypes', GET_CONFIG);
             },
 
+            getAdoptQualityFromPlusOptions : function(group) {
+                if (group) {
+                    return get('/groupAdoptQualityFromPlusOptions', GET_CONFIG);
+                } else {
+                    return get('/adoptQualityFromPlusOptions', GET_CONFIG);
+                }
+            },
+
             getOwnerTypes : function() {
                 return get('/ownerTypes', GET_CONFIG);
             },
