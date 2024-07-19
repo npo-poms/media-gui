@@ -10,6 +10,6 @@ trigger_media:
     branch: main
 
 include:
-  - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/10.7'
+  - project: 'npo-identity/poms/gitlab-templates'
+    ref: 'chp4'
     file: 'maven_release.yml'

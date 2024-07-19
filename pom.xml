@@ -8,9 +8,9 @@
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:git:ssh://git@git.vpro.nl/npo/media-gui.git</connection>
-    <developerConnection>scm:git:ssh://git@git.vpro.nl/npo/media-gui.git</developerConnection>
-    <url>https://git.vpro.nl/npo/media-gui</url>
+    <connection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</connection>
+    <developerConnection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</developerConnection>
+    <url>https://gitlab.com/npo-identity/poms/media-gui</url>
     <tag>HEAD</tag>
   </scm>
   <properties>
