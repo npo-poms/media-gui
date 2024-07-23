@@ -6,7 +6,7 @@ variables:
 trigger_media:
   extends: .trigger_down_stream
   trigger:
-    project: npo/media
+    project: npo-identity/poms/media
     branch: main
 
 include:
