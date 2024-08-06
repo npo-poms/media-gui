@@ -8,9 +8,9 @@
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:git:ssh://git@git.vpro.nl/npo/media-gui.git</connection>
-    <developerConnection>scm:git:ssh://git@git.vpro.nl/npo/media-gui.git</developerConnection>
-    <url>https://git.vpro.nl/npo/media-gui</url>
+    <connection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</connection>
+    <developerConnection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</developerConnection>
+    <url>https://gitlab.com/npo-identity/poms/media-gui</url>
     <tag>REL-6.12-SNAPSHOT</tag>
   </scm>
   <properties>
@@ -150,18 +150,16 @@
     </profile>
   </profiles>
 
-
   <distributionManagement>
-    <repository>
-      <id>nexus</id>
-      <name>Nexus releases</name>
-      <url>https://nexus.vpro.nl/content/repositories/releases</url>
-    </repository>
     <snapshotRepository>
-      <id>nexus</id>
-      <name>Nexus snapshots</name>
-      <url>https://nexus.vpro.nl/content/repositories/snapshots</url>
+      <id>gitlab-com</id>
+      <url>https://gitlab.com/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
     </snapshotRepository>
+    <repository>
+      <id>gitlab-com</id>
+      <url>https://gitlab.com/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+    </repository>
   </distributionManagement>
+
 
 </project>
