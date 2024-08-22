@@ -72,10 +72,17 @@
           </a>
         </span>
 
-        <span ng-switch-when="locations">
+        <span ng-switch-when="allLocations">
           <span class='location-count' ng-if="item.numberOfLocations > 0 "
-                ng-attr-title="{{membersController.locationTypes(member.locations).join(',')}}">
+                ng-attr-title="{{searchResultController.locationTypes(item.locations).join(',')}}">
             {{::item.numberOfLocations}} (<span ng-repeat="locationType in ::searchResultController.locationTypes(item.locations)">{{locationType}}{{$last ? '' : ', '}}</span>)
+          </span>
+        </span>
+
+        <span ng-switch-when="locations">
+          <span class='location-count' ng-if="item.numberOfPublishedLocations > 0 "
+                ng-attr-title="{{searchResultController.publishedLocationTypes(item.locations).join(',')}}">
+            {{::item.numberOfPublishedLocations}} (<span ng-repeat="locationType in ::searchResultController.publishedLocationTypes(item.locations)">{{locationType}}{{$last ? '' : ', '}}</span>)
           </span>
         </span>
 

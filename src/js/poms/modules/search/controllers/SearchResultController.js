@@ -262,8 +262,19 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                 return uniqueLocations;
 
             },
-            openImage: function(event) {
-                this.editorService.openImage(event);
+            publishedLocationTypes : function( locations ){
+                var uniqueLocations = [];
+                for ( var i = 0; i < locations.length; i ++ ) {
+                    if (locations[i].workflow.id !== 'PUBLISHED')  {
+                        continue;
+                    }
+                    if ( uniqueLocations.indexOf( locations[i].format ) === -1 ){
+                        uniqueLocations.push( locations[i].format );
+                    }
+
+                }
+                return uniqueLocations;
+
             }
 
         };

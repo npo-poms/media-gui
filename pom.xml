@@ -8,12 +8,13 @@
   <name>media-gui</name>
 
   <scm>
-    <connection>scm:git:ssh://git@git.vpro.nl/npo/media-gui.git</connection>
-    <developerConnection>scm:git:ssh://git@git.vpro.nl/npo/media-gui.git</developerConnection>
-    <url>https://git.vpro.nl/npo/media-gui</url>
+    <connection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</connection>
+    <developerConnection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</developerConnection>
+    <url>https://gitlab.com/npo-identity/poms/media-gui</url>
     <tag>HEAD</tag>
   </scm>
   <properties>
+    <flag-icons.version>7.2.1</flag-icons.version>
     <node.version>v16.20.2</node.version>
     <npm.version>8.19.1</npm.version>
   </properties>
@@ -28,6 +29,7 @@
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
+            <FLAG_ICON_VERSION>${flag-icons.version}</FLAG_ICON_VERSION>
           </environmentVariables>
         </configuration>
         <executions>
@@ -71,12 +73,14 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
         <configuration>
+          <!-- the frontend plugin sucks horribly and installs all over the place in src dir.-->
           <filesets>
             <fileset>
               <directory>${basedir}</directory>
               <includes>
+                <include>src/js/poms/constants.js</include>
                 <include>build/**</include>
                 <include>node_modules/**</include>
                 <include>node/**</include>
@@ -93,8 +97,38 @@
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
+      <plugin>
+        <!-- The gulp build sometimes fails to minimize, I don't understand either
+        Fail complete build if wrong
+        -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>check-correctness.sh</executable>
+              <arguments>
+
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+  <dependencies>
+   <dependency>
+     <!-- alternatively just use https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.3.0/css/flag-icons.min.css -->
+     <groupId>org.webjars.npm</groupId>
+     <artifactId>flag-icons</artifactId>
+     <version>${flag-icons.version}</version>
+   </dependency>
+  </dependencies>
 
 
   <profiles>
@@ -104,7 +138,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>3.3.0</version>
+            <version>3.4.1</version>
             <configuration>
               <rules>
                 <requireReleaseDeps />
@@ -118,16 +152,14 @@
 
 
   <distributionManagement>
-    <repository>
-      <id>nexus</id>
-      <name>Nexus releases</name>
-      <url>https://nexus.vpro.nl/content/repositories/releases</url>
-    </repository>
     <snapshotRepository>
-      <id>nexus</id>
-      <name>Nexus snapshots</name>
-      <url>https://nexus.vpro.nl/content/repositories/snapshots</url>
+      <id>gitlab-com</id>
+      <url>https://gitlab.com/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
     </snapshotRepository>
+    <repository>
+      <id>gitlab-com</id>
+      <url>https://gitlab.com/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+    </repository>
   </distributionManagement>
 
 </project>

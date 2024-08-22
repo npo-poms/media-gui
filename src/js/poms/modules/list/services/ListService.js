@@ -42,6 +42,14 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/avTypes', GET_CONFIG);
             },
 
+            getAdoptQualityFromPlusOptions : function(group) {
+                if (group) {
+                    return get('/groupAdoptQualityFromPlusOptions', GET_CONFIG);
+                } else {
+                    return get('/adoptQualityFromPlusOptions', GET_CONFIG);
+                }
+            },
+
             getOwnerTypes : function() {
                 return get('/ownerTypes', GET_CONFIG);
             },
@@ -115,6 +123,17 @@ angular.module('poms.list.services').factory('ListService', [
 
             getPlatforms : function() {
                 return get('/platforms', GET_CONFIG);
+            },
+
+            getPlatform : function(id) {
+                return this.getPlatforms().then(function(platforms) {
+                    for (var i = 0; i < platforms.length; i++) {
+                        if (platforms[i].id === id) {
+                            return platforms[i];
+                        }
+                    }
+                    return null;
+                })
             },
 
             getPriorityTypes : function() {

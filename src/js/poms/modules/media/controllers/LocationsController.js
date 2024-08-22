@@ -125,9 +125,11 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 if ( ! location ) {
                     // creating new location
                     location = {
-                        mayWrite: true,
-                        platform: 'INTERNETVOD'
+                        mayWrite: true
                     };
+                    this.listService.getPlatform('INTERNETVOD').then(function(platform) {
+                        location.platform = platform;
+                    });
                     editMode = false;
                 }
 

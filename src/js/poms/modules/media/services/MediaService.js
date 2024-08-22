@@ -219,6 +219,11 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return post( media, '/embeddable', { 'value': embeddable } );
             },
 
+            setAdoptQualityFromPlus: function ( media, value ) {
+                return post( media, '/adoptQualityFromPlus', value );
+            },
+
+
             setIsDubbed: function ( media, isDubbed ) {
                 return post( media, '/isdubbed', { 'value': isDubbed } );
             },
