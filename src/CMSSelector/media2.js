@@ -138,7 +138,7 @@ const nl_vpro_media_CMSSelector = {
                         for (let i = 1; i < lines.length; i++) {
                             let line = lines[i];
                             let split = line.split(",");
-                            if (split.length === 6) {
+                            if (split.length >= 6) {
                                 broadcasters.push({
                                     id: split[0].trim(),
                                     text: split[2].trim(),
@@ -146,6 +146,8 @@ const nl_vpro_media_CMSSelector = {
                                     from: split[4].trim(),
                                     to: split[5].trim()
                                 });
+                            } else {
+                                console.log("skip", line);
                             }
                         }
                         resolve(broadcasters);
