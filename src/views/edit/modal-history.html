@@ -32,8 +32,9 @@
                 <td>
                     <span> {{edit.timestamp | mediaDateTime }} </span>
                 </td>
-                <td>
-                    <span> {{edit.type }} </span>
+                <td title="{{edit.message}}">
+                  <span> {{edit.type }} </span>
+                  <span ng-if="edit.class == 'PublicationEvent'">:{{edit.message}}</span>
                 </td>
             </tr>
 
