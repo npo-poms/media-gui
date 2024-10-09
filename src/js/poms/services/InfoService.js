@@ -42,6 +42,9 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
             getImageBackendUrl: function() {
                 return properties['npo-images_backend.baseUrl']
             },
+            getDocumentationLink: function() {
+                return properties['user.documentation.url']
+            },
             headRequest: function(programUrl) {
                  var deferred = $q.defer();
                 $http.get(baseUrl + "/head?programUrl=" + programUrl, {cache: false})

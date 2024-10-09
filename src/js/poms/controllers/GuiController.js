@@ -18,9 +18,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
     'MediaService',
     'UploadService',
     'NotificationService',
+    'InfoService',
     (function () {
 
-        function GuiController ( 
+        function GuiController (
             $rootScope,
             $scope,
             $route,
@@ -39,8 +40,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             messageService,
             mediaService,
             UploadService,
-            NotificationService) {
-            
+            NotificationService,
+            infoService
+            ) {
+
             this.$rootScope = $rootScope;
             this.$route = $route;
             this.$location = $location;
@@ -56,6 +59,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             this.mediaService = mediaService;
             this.uploadService = UploadService;
             this.notificationService = NotificationService;
+            this.infoService = infoService;
 
             this.$scope = $scope;
             this.$document = $document;
@@ -357,7 +361,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             newSearch: function ( ) {
                 this.openSearchTab(this.searchService.newSearch());
             },
-            
+
 
 
             openInEditor: function ( media ) {
