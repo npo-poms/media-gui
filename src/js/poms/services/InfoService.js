@@ -45,6 +45,12 @@ angular.module( 'poms.media.services' ).factory( 'InfoService', [
             getDocumentationLink: function() {
                 return properties['user.documentation.url']
             },
+            getFrontendApi: function() {
+                return properties['npo-api.baseUrl']
+            },
+            getBroadcasterRepository: function() {
+                return properties['broadcasters.repository.location'] + "/CSV"
+            },
             headRequest: function(programUrl) {
                  var deferred = $q.defer();
                 $http.get(baseUrl + "/head?programUrl=" + programUrl, {cache: false})

@@ -153,7 +153,9 @@
               <li><a href="javascript:void(0)" ng-click="guiController.closeAllTabs( $event )" >sluit alle tabs</a></li>
               <li><a href="/grids/" target="views" class="link">overzichten</a></li>
               <li><a href="/CMSSelector/example/" target="views" class="link">CMS-selector</a></li>
-              <li><a href="https://rs.poms.omroep.nl/v1/thesaurus/example/" target="views" class="link">Thesaurus-selector</a></li>
+              <li><a href="{{guiController.infoService.getFrontendApi() + '/thesaurus/example/'}}" target="views" class="link">Thesaurus-selector</a></li>
+              <li><a href="{{guiController.infoService.getBroadcasterRepository()}}" target="views" class="link">Omroepen</a></li>
+            </ul>
             </ul>
           </div>
         </div>
