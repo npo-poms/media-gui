@@ -183,7 +183,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 this.$scope.mayWrite = function() {
                     return this.mediaService.hasWritePermission( this.$scope.media, 'media' );
                 }.bind(this);
-                
+
                 this.$scope.mayDelete = function () {
                     return this.mediaService.hasDeletePermission( this.$scope.media );
                 }.bind(this);
@@ -348,7 +348,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                 var modal = this.$modal.open( {
                     resolve : {
                         title : function () {
-                            return 'Alle wijzigingen';
+                            return 'Alle wijzigingen en publicaties';
                         },
                         media : function () {
                             return this.$scope.media;
