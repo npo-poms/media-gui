@@ -208,6 +208,9 @@ angular.module( 'poms.search.controllers' ).controller( 'SearchResultController'
                     function ( data ) {
                         if( searchCount === this.searchCount ) {
                             this.$scope.searchResults = data;
+                            if (data.query) {
+                                console.log("query", data.query.split("\t"));
+                            }
                             this.$scope.hasResults = data.items && data.items.length;
                             this.$scope.resultCount = data.total;
                             this.$scope.searching = false;

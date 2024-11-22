@@ -267,7 +267,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
                     } );
                     delete clone.properties;
                 }
-                console.log("getQuery", clone);
+                //console.log("getQuery", clone);
                 return clone;
             },
 
