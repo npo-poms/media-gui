@@ -357,10 +357,10 @@
 
       <p ng-repeat="item in media.episodeOf" class="member-wrapper" poms-deleted="mediaController.onDeleteAncestor()"
          mid="item.id">
-        {{item}}
         <a class="media-episode-of-link" href="{{editController.editRef(item.id)}}">
-          <span class="link-type" title="nummer {{item.number}}">{{item.number}}:{{item.type.text}}</span>
+          <span class="link-type" title="nummer {{item.number}}">{{item.type.text}}</span>
           <span class="link-title" title="{{item.id}}">{{item.text}} ({{item.id}})</span>
+          <span class="link-number" ng-if="item.number">({{item.number}})</span>
         </a>
         <button title="koppeling verwijderen" ng-if="editController.mayWriteEpisodeOf(item)"
                 class="media-member-remove" poms-confirm="'Koppeling'"
@@ -388,8 +388,8 @@
         <a class="media-member-of-link"
            href="{{editController.editRef(item.id)}}"
            poms-deleted="mediaController.onDeleteAncestor()" mid="item.id">
-          <span class="link-type">{{item.type.text}}</span>
-          <span class="link-title">{{item.text}}</span>
+          <span class="link-type" title="nummer {{item.number}}">{{item.type.text}}</span>
+          <span class="link-title" title="{{item.id}}">{{item.text}} ({{item.id}})</span>
           <span class="link-number" ng-if="item.number">({{item.number}})</span>
         </a>
         <button title="koppeling verwijderen"
