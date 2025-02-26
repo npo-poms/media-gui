@@ -193,14 +193,14 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
 
             setPublication: function ( media, data ) {
                 if ( !data || ( !data.start && !data.stop ) ) {
-                    return del( media, '/publication/' );
+                    return del( media, '/publication' );
                 }
                 return post( media, '/publication', data );
             },
 
             setDuration: function ( media, data ) {
                 if ( !data ) {
-                    return del( media, '/duration/' );
+                    return del( media, '/duration' );
                 }
                 return post( media, '/duration', { 'string': data } );
             },
