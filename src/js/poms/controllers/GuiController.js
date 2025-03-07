@@ -341,6 +341,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         broadcasters: this.editorService.getAllowedBroadcasters,
                         portals: this.editorService.getAllowedPortals,
                         genres: this.listService.getGenres,
+                        chapterTypes: this.listService.getChapterTypes,
                         media: function () {
                             return {};
                         }

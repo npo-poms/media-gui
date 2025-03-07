@@ -99,6 +99,10 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/licenses', GET_CONFIG);
             },
 
+            getChapterTypes : function() {
+                return get('/chapterTypes', GET_CONFIG);
+            },
+
             getLivestreams : function() {
                 return get('/livestreams', GET_CONFIG);
             },

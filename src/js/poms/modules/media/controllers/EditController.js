@@ -84,6 +84,15 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 }.bind( this )
             );
 
+            listService.getChapterTypes().then(
+                function ( data ) {
+                    this.$scope.chapterTypes = data;
+                }.bind(this),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
+
             listService.getAdoptQualityFromPlusOptions($scope.media.clazz === 'group').then(
                 function ( data ) {
                     this.$scope.adoptQualityFromPlusOptions = data;

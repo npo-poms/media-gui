@@ -44,6 +44,10 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
             avType: function ( media, avType ) {
                 return mediaService.setAvType( media, avType );
             },
+
+            chapterType: function ( media, chapterType ) {
+                return mediaService.setChapterType( media, chapterType );
+            },
             type: function ( media, type ) {
                 return mediaService.setType( media, type );
             },

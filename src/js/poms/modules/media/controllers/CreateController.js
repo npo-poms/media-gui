@@ -10,9 +10,10 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
     'portals',
     'media',
     'genres',
+    'chapterTypes',
     (function () {
 
-        function CreateController ( $scope, $modalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, media, genres ) {
+        function CreateController ( $scope, $modalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, media, genres, chapterTypes ) {
 
             this.$scope = $scope;
 
@@ -65,7 +66,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
 
             init: function(){
                 this.$scope.$watch( 'media', function ( newValue ) {
-                    invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0 
+                    invalid = newValue.title === undefined || newValue.type === undefined || newValue.avType === undefined || newValue.broadcasters.length === 0
                     this.$scope.genreRequired =  newValue.type && newValue.type.requiresGenre;
                     if (this.$scope.genreRequired) {
                         invalid = invalid || ! newValue.genres || newValue.genres.length === 0;
@@ -78,7 +79,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                         this.$scope.avTypes = this.avTypes.filter(function (avType) {
                             return newValue.type.avTypes.includes(avType.id)
                         });
-                        
+
                         if (newValue.avType && ! newValue.type.avTypes.includes(newValue.avType.id)) {
                             newValue.avType = undefined;
                         }
@@ -121,7 +122,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
                     }
                 } );
             }
-            
+
         };
 
         return CreateController;

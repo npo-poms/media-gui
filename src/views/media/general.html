@@ -272,6 +272,12 @@
                    options='avTypes'
                    header="AV-Type" field="avType" help-field="editor.general.avType"></poms-editable>
 
+    <poms-editable
+            ng-if="media.segmentOf"
+            type="media" media="media" class="media-field" fieldtype="radiolist"
+            options='chapterTypes'
+            header="Hoofdstuktype" field="chapterType" help-field="editor.general.chapterType"></poms-editable>
+
     <poms-broadcasters type="media" media="media" class="media-field" header="Omroepen" placeholdertext="omroep"
                        field="broadcasters" options='editController.broadcasters'
                        allowed-broadcasters='editController.allowedBroadcasters'
@@ -347,6 +353,8 @@
       <div class="media-field-tools">
         <poms-help field="editor.general.segmentOf"></poms-help>
       </div>
+
+
 
     </div>
 

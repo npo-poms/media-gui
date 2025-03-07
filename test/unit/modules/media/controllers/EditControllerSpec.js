@@ -38,6 +38,9 @@ describe('EditController', function() {
         listService.getAvTypes = function() {
             return deferredOptions.promise;
         };
+        listService.getChapterTypes = function() {
+            return deferredOptions.promise;
+        };
         listService.getBroadcasters = function() {
             return deferredOptions.promise;
         };

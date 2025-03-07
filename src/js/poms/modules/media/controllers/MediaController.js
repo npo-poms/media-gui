@@ -225,6 +225,16 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     }.bind( this )
                 );
 
+                this.listService.getChapterTypes().then(
+                    function ( data ) {
+                        this.$scope.chapterTypes = data;
+                    }.bind( this ),
+                    function (e) {
+                        console.log(e);
+                        this.$scope.chapterTypes = {};
+                    }.bind( this )
+                );
+
 
                 this.listService.getAgeRatings().then(
                     function ( data ) {

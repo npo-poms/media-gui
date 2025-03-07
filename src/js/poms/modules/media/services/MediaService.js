@@ -172,6 +172,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
             setAvType: function ( media, avType ) {
                 return post( media, '/avType', avType );
             },
+
+            setChapterType: function ( media, chapterType ) {
+                return post( media, '/chapterType', chapterType );
+            },
             setType: function ( media, type ) {
                 return post( media, '/type', type );
             },
