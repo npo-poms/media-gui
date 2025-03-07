@@ -17,7 +17,8 @@ angular.module( 'poms.media.directives' )
                     {'id': 'start', 'value': 'Start'},
                     {'id': 'stop', 'value': 'Stop'},
                     {'id': 'duration', 'value': 'Speelduur'},
-                    {'id': 'avType', 'value': 'AV-type'}
+                    {'id': 'avType', 'value': 'AV-type'},
+                    {'id': 'chapterType', 'value': 'Hoofdstuktype'}
                 ];
 
                 if ( attrs.namespace ) {

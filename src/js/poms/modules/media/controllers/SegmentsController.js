@@ -55,7 +55,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     duration: 0,
                     mainTitle: null
                 };
-                
+
                 if (this.canItemize()) {
                     // Itemize with player
                     this.itemize(this.$scope.insertedSegment);
@@ -149,7 +149,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                                 start:  segment.start ? segment.start.inMillis : 0,
                                 stop: segment.stop ? segment.stop.inMillis : 0,
                                 mainTitle: segment.mainTitle ? segment.mainTitle.text : null,
-                                mainDescription: segment.mainDescription ? segment.mainDescription.text : null
+                                mainDescription: segment.mainDescription ? segment.mainDescription.text : null,
+                                chapterType: segment.chapterType ? segment.chapterType.text : null,
                             };
                         }
                     }

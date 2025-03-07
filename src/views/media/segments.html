@@ -69,6 +69,9 @@
           <span ng-switch-when="duration" class="segment-duration">
             <span title="{{::segment.duration.isoString}}"> {{::segment.duration.string}}</span>
           </span>
+           <span ng-switch-when="chapterType">
+            <span title="{{::segment.chapterType.id}}">{{::segment.chapterType.text}}</span>
+          </span>
 
 
           <span ng-switch-default>
