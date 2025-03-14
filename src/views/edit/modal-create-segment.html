@@ -58,11 +58,11 @@
             <poms-ui-select class="poms-uiselect"
                             options="chapterTypes"
                             name="Hoofdstuktype"
-                            selection="media.chapterType"
+                            selection="segment.chapterType"
             ></poms-ui-select>
             <div>
-              <div class="dropdown-selected" ng-if="media.chapterTpye" ng-click="media.chapterType = undefined">
-                {{media.chapterType.text}}
+              <div class="dropdown-selected" ng-if="segment.chapterType" ng-click="segment.chapterType = undefined">
+                {{segment.chapterType.text}}
               </div>
             </div>
             <poms-invalid violation="violations.chapterType"></poms-invalid>

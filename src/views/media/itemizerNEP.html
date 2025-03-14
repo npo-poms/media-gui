@@ -6,7 +6,7 @@
 <form role="form" class="poms-form segmentForm" name="segmentForm" >
 
     <div class="modal-body" ng-class="{'waiting': waiting}">
-      
+
         <div class="form-fields">
 
             <div class="col-8">
@@ -52,6 +52,7 @@
                         <input id="inputStop" type="text" ng-model="segment.formattedstop" placeholder="stoptijd" ng-change="itemizerController.setStopValueAsMs()" />
                     </div>
 
+
                     <div class='field col-4 itemizer-stop'>
                         <label for="inputDuration">Speelduur
                         </label>
@@ -61,6 +62,22 @@
                         <span class="error" ng-if="durationInvalid">De starttijd van een segment mag niet later zijn dan of gelijk zijn aan de stoptijd.</span>
 
                     </div>
+
+                </div>
+              <div class="row">
+                <div class="field col-6 dropdown-wrapper"
+                     ng-class="{'has-error' : createForm.inputMediaType.$invalid}">
+                  <poms-ui-select class="poms-uiselect"
+                                  options="chapterTypes"
+                                  name="Hoofdstuktype"
+                                  selection="segment.chapterType"
+                  ></poms-ui-select>
+                  <div>
+                    <div class="dropdown-selected" ng-if="segment.chapterType" ng-click="segment.chapterType = undefined">
+                      {{segment.chapterType.text}}
+                    </div>
+                  </div>
+                  <poms-invalid violation="violations.chapterType"></poms-invalid>
 
                 </div>
 

@@ -9,8 +9,9 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
     'MediaService',
     'ValidationPatterns',
     'HelpService',
+    'ListService',
     (function () {
-        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, segmentscontroller, pomsEvents, mediaService, validationPatterns, helpService) {
+        function SegmentEditController( $scope, $modalInstance, $sce, segment, media, segmentscontroller, pomsEvents, mediaService, validationPatterns, helpService, listService) {
 
             this.$scope = $scope;
             this.$scope.segment = segment;
@@ -20,10 +21,16 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
             this.$scope.modalTitle = 'Nieuw segment voor ' + media.mainTitle.text + " (" + media.mid + ")";
             this.mediaService = mediaService;
             this.pomsEvents = pomsEvents;
-            
+
+            console.log("SegmentEditController", segment, media, segmentscontroller);
+
+            listService.getChapterTypes().then(
+                function ( data ) {
+                    this.$scope.chapterTypes = data;
+                }.bind(this));
             this.$scope.segmentsHelp = "...";
-            
-            helpService.getMessage('editor.segments.help').then(function(result) { 
+
+            helpService.getMessage('editor.segments.help').then(function(result) {
                 this.$scope.segmentsHelp = $sce.trustAsHtml(result.text);
             }.bind(this));
 
@@ -43,7 +50,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                 "inputStop": "Eindtijd",
                 "inputDuration": "Duur",
                 "inputTitle": "Titel",
-                "inputDescription": "Beschrijving"
+                "inputDescription": "Beschrijving",
+                "chapterType": "Hoofdstuktype"
             };
           /*  for (el in $(document.createForm).find("label")) {
                 this.$scope.fieldNames[el.for] = el.text();
@@ -91,7 +99,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                         },
                         duration: {
                             string: this.$scope.segment.duration
-                        }
+                        },
+                        chapterType: this.$scope.segment.chapterType
                     }
                 ).then(
                     function (segment) {
@@ -99,7 +108,8 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentEditController', 
                             start:  segment.start,
                             stop:  segment.stop,
                             duration: segment.duration,
-                            mainTitle: segment.mainTitle
+                            mainTitle: segment.mainTitle,
+                            chapterType: segment.chapterType
 
                         });
                         this.$modalInstance.close(segment);

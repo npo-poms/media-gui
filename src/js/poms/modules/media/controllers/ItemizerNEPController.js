@@ -16,6 +16,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
     'segments',
     'segment',
     'EditorService',
+    'ListService',
 
     (function () {
 
@@ -30,7 +31,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
         }
 
 
-        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment, editorService) {
+        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment, editorService, listService) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -67,6 +68,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                     'text' : 'Beschrijving'
                 }
             ];
+            listService.getChapterTypes().then(
+                function ( data ) {
+                    this.$scope.chapterTypes = data;
+                }.bind(this));
+
 
             this.loadingAssets = []
 
@@ -629,7 +635,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 try {
                     this.messageService.receiveItemizerMessage()
                         .then( null, null, function ( message ) {
-                            if (this.itemizeRequest && 
+                            if (this.itemizeRequest &&
                                 this.itemizeRequest.mid === message.request.mid &&
                                 this.itemizeRequest.start === message.request.start &&
                                 this.itemizeRequest.stop === message.request.stop

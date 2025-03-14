@@ -7,9 +7,10 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
     'GuiService',
     'PomsEvents',
     'MediaService',
+    'ListService',
     (function () {
 
-        function SegmentsController ( $scope, $filter, $modal, $location, $timeout, GuiService, PomsEvents, MediaService ) {
+        function SegmentsController ( $scope, $filter, $modal, $location, $timeout, GuiService, PomsEvents, MediaService, listService ) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -19,9 +20,15 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
             this.guiService = GuiService;
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
+            this.listService = listService;
             this.mayWrite = function() {
                 return MediaService.hasWritePermission( $scope.media, 'segments' );
             }.bind(this);
+            this.listService.getChapterTypes().then(
+                function ( data ) {
+                    this.$scope.chapterTypes = data;
+                }.bind(this));
+
 
             this.$scope.$on( this.pomsEvents.deleted, function ( e, mid ) {
                 if(mid === this.$scope.media.mid) {
@@ -150,7 +157,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                                 stop: segment.stop ? segment.stop.inMillis : 0,
                                 mainTitle: segment.mainTitle ? segment.mainTitle.text : null,
                                 mainDescription: segment.mainDescription ? segment.mainDescription.text : null,
-                                chapterType: segment.chapterType ? segment.chapterType.text : null,
+                                chapterType: segment.chapterType ? segment.chapterType : null,
                             };
                         }
                     }
