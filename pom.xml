@@ -4,14 +4,14 @@
   <groupId>nl.vpro.media</groupId>
   <artifactId>media-gui</artifactId>
   <packaging>war</packaging>
-  <version>6.15.0</version>
+  <version>6.15.1-SNAPSHOT</version>
   <name>media-gui</name>
 
   <scm>
     <connection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</connection>
     <developerConnection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</developerConnection>
     <url>https://gitlab.com/npo-identity/poms/media-gui</url>
-    <tag>REL-6.15.0</tag>
+    <tag>REL-6.15-SNAPSHOT</tag>
   </scm>
   <properties>
     <flag-icons.version>7.2.3</flag-icons.version>
