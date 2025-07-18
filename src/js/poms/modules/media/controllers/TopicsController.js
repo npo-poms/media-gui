@@ -39,13 +39,12 @@ angular.module( 'poms.media.controllers' ).controller( 'TopicsController', [
             this.mayRead = function() {
                 return mediaService.hasReadPermission( $scope.media, $scope.permission );
             }.bind(this);
-            this.currentOwnerType = editorService.getCurrentOwnerType();
 
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
 
             $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
-                    this.load();
+                    load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
                 }
             }.bind( this ) );
 

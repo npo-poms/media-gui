@@ -45,7 +45,7 @@ angular.module( 'poms.media.controllers' ).controller( 'GeoLocationsController',
 
             $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
-                    this.load();
+                    load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
                 }
             }.bind( this ) );
 
