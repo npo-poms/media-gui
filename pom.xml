@@ -73,7 +73,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.3.2</version>
+        <version>3.5.0</version>
         <configuration>
           <!-- the frontend plugin sucks horribly and installs all over the place in src dir.-->
           <filesets>
@@ -98,12 +98,14 @@
         </configuration>
       </plugin>
       <plugin>
-        <!-- The gulp build sometimes fails to minimize, I don't understand either
-        Fail complete build if wrong
+        <!-- The gulp build sometimes fails to minimize. I don't understand either
+        Fail complete build if wrong.
+
+        This doesn't happen any more, but still, it can't hurt to check
         -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.1</version>
         <executions>
           <execution>
             <phase>install</phase>
@@ -138,7 +140,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>3.4.1</version>
+            <version>3.6.1</version>
             <configuration>
               <rules>
                 <requireReleaseDeps />
