@@ -40,7 +40,12 @@ angular.module( 'poms.media.controllers' ).controller( 'TopicsController', [
                 return mediaService.hasReadPermission( $scope.media, $scope.permission );
             }.bind(this);
 
+            this.currentOwnerType = editorService.getCurrentOwnerType(); // referred to in the template
+
             load( $scope, this.pomsEvents, this.mediaService, this.media, this.items );
+
+
+
 
             $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {

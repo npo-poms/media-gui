@@ -60,6 +60,8 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
             doLoad( this.mediaService , this.$scope, this.media, this.items, pomsEvents);
             doLoadOptions ( listService, this.$scope, this.options, pomsEvents );
 
+            this.currentOwnerType = editorService.getCurrentOwnerType(); // referred in poms-owned-lists.html
+
 
             $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
