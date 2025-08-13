@@ -9,6 +9,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
     'EditorService',
     'ListService',
     'EditFieldService',
+    'MessageService',
     (function () {
 
         function doLoad ( mediaService, scope, media, dest, pomsEvents ) {
@@ -36,7 +37,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
         function OwnedListsController (
           $scope, $q, $sce, $modal, $timeout,
-          pomsEvents, mediaService, editorService, listService, editFieldService ) {
+          pomsEvents, mediaService, editorService, listService, editFieldService, messageService ) {
 
             this.options = [];
             this.items = {};
@@ -62,7 +63,15 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
 
             this.currentOwnerType = editorService.getCurrentOwnerType(); // referred in poms-owned-lists.html
 
-
+            if (this.$scope.repaint) {
+                var aspects = new Set(this.$scope.repaint.split(","));
+                messageService.receiveRepaintMessage().then(null, null, function (message) {
+                    if (message.mid === this.$scope.media.mid && aspects.has(message.aspect)) {
+                        console.log("Reloading intentions because change of", message.aspect);
+                        doLoad(this.mediaService, this.$scope, this.media, this.items, this.pomsEvents);
+                    }
+                }.bind(this));
+            }
             $scope.$on( pomsEvents.externalChange, function ( e, mid ) {
                 if ( mid === $scope.media.mid ) {
                     doLoad( this.mediaService, this.$scope, this.media, this.items, this.pomsEvents );

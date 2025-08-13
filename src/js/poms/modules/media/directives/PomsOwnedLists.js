@@ -4,15 +4,16 @@ angular.module( 'poms.media.directives' )
             restrict: 'E',
             templateUrl: 'edit/editables/poms-ownedlists.html',
             scope: {
-              media: '=',
-              helpField : '@',
-              header: '@',
-              options: '@',
-              load: '@',
-              save: '@',
-              removeAll: '@',
-              name: '@',
-              label: '@'
+                media: '=',
+                helpField : '@',
+                header: '@',
+                options: '@',
+                load: '@',
+                save: '@',
+                removeAll: '@',
+                name: '@',
+                label: '@',
+                repaint: '@'
             },
             controller: 'OwnedListsController',
             controllerAs: 'ownedListsController'
