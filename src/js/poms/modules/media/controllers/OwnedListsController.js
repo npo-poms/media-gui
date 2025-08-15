@@ -67,7 +67,7 @@ angular.module( 'poms.media.controllers' ).controller( 'OwnedListsController', [
                 var aspects = new Set(this.$scope.repaint.split(","));
                 messageService.receiveRepaintMessage().then(null, null, function (message) {
                     if (message.mid === this.$scope.media.mid && aspects.has(message.aspect)) {
-                        console.log("Reloading intentions because change of", message.aspect);
+                        console.log("Reloading " + this.$scope.load + " because change of", message.aspect);
                         doLoad(this.mediaService, this.$scope, this.media, this.items, this.pomsEvents);
                     }
                 }.bind(this));
