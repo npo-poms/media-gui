@@ -10,17 +10,17 @@
 
             <thead>
             <tr class="poms-table-head-row">
-                <th title="Aangepast door" class="poms-table-header"> Aangepast door</th>
-                <th title="Omroep" class="poms-table-header"> Omroep</th>
-                <th title="Datum" class="poms-table-header"> Datum</th>
-                <th title="Type" class="poms-table-header"> Type</th>
-
+              <th title="Aangepast door" class="poms-table-header"> Aangepast door</th>
+              <th title="Omroep" class="poms-table-header"> Omroep</th>
+              <th title="Datum" class="poms-table-header"> Datum</th>
+              <th title="Type" class="poms-table-header"> Type</th>
+              <th title="Type" class="poms-table-header"> Overig</th>
             </tr>
             </thead>
 
             <tbody>
 
-            <tr class="poms-table-row" ng-repeat="edit in editHistory">
+            <tr class="poms-table-row" ng-repeat="edit in editHistory" title="{{edit.message}}">
                 <td>
                     {{edit.editor.text}}
                 </td>
@@ -35,6 +35,9 @@
                 <td>
                     <span> {{edit.type }} </span>
                 </td>
+              <td>
+                <output>{{edit.message}}</output>
+              </td>
             </tr>
 
             </tbody>

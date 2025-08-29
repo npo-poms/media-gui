@@ -90,21 +90,21 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
             },
 
             violations: {},
-            
+
             needsPriorityField: function() {
                 return this.$scope.streamType === 'VIDEO';
             },
-            
+
             needsEncryptionField: function() {
                 return this.$scope.streamType === 'VIDEO';
             },
-            
+
             guiStreamType: function() {
                 return this.$scope.streamType === 'AUDIO' ? 'audio' : 'video';
             },
-            
+
             accept: function() {
-                
+
                 var accept = "";
                 if (this.streamType  === 'AUDIO') {
                     accept = ".mp3,.wav,audio/mp3,audio/wav";
