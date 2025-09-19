@@ -1,6 +1,8 @@
 ---
 variables:
   PUBLISH_ARTIFACTS_OF_MERGE_REQUESTS: 'true' # This project normally is just developed by one person, so just publish the merge requests, so we can more easily deploy features
+  SKIP_TESTS_IMPLICIT: 'true' # no tests in this project.
+
 
 
 trigger_media:
