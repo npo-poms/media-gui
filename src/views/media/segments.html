@@ -6,7 +6,7 @@
     <poms-help field="editor.segments"></poms-help>
   </h1>
 
-  <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite()"
+  <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite() || segmentsController.canItemize()"
           ng-click="segmentsController.addSegment()">
     Segment toevoegen {{::segmentsController.canItemize() ? 'met speler' : 'zonder speler'}}
   </button>
@@ -82,6 +82,7 @@
 
         <td class="column-tools-xl" >
           <div class="tools">
+            BLA
             <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
                     ng-if="segmentsController.canItemize()"
                     ng-click="segmentsController.itemize(segment)">itemize
