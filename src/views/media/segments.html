@@ -80,14 +80,14 @@
 
         </td>
 
-        <td class="column-tools-xl" ng-show="segmentsController.mayWrite()">
+        <td class="column-tools-xl" >
           <div class="tools">
             <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
                     ng-if="segmentsController.canItemize()"
                     ng-click="segmentsController.itemize(segment)">itemize
             </button>
-            <button id='editSegment-{{segment.mid}}' name='editSegment' title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
-            <button id='deleteSegment-{{segment.mid}}' name='deleteSegment' title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"
+            <button ng-show="segmentsController.mayWrite()" toevoegen met spele?id='editSegment-{{segment.mid}}' name='editSegment' title='edit segment' class="poms-icon icon-edit" ng-click="segmentsController.view(segment)">bekijk</button>
+            <button ng-show="segmentsController.mayWrite()" id='deleteSegment-{{segment.mid}}' name='deleteSegment' title='verwijder segment' class="poms-icon icon-remove" poms-confirm="'Segment'"
                     poms-submit="segmentsController.remove($index)">
               verwijder
             </button>
