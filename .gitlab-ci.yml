@@ -2,9 +2,7 @@
 variables:
   PUBLISH_ARTIFACTS_OF_MERGE_REQUESTS: 'true' # This project normally is just developed by one person, so just publish the merge requests, so we can more easily deploy features
   SKIP_TESTS_IMPLICIT: 'true' # no (java) tests in this project.
-  MAVEN_IMAGE: 'ghcr.io/vpro/maven:main'
-
-
+  CHECK_DEPENDENCIES: false
 
 
 trigger_media:
