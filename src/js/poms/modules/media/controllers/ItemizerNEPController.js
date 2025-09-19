@@ -327,6 +327,10 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 return this.mediaService.hasWritePermission( this.$scope.media, 'imagesUpload' );
             },
 
+            mayWrite : function () {
+                return this.mediaService.mayWrite( this.$scope.media);
+            },
+
             markStart : function () {
                 var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
                 if ( ! isNaN( currentPos ) && this.$scope.segment.stop < currentPos ) {

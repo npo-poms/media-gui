@@ -64,7 +64,7 @@
                     </div>
 
                 </div>
-              <div class="row">
+              <div class="row" ng-if="itemizerController.mayWrite()">
                 <div class="field col-6 dropdown-wrapper"
                      ng-class="{'has-error' : createForm.inputMediaType.$invalid}">
                   <poms-ui-select class="poms-uiselect"
@@ -82,7 +82,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row" ng-if="itemizerController.mayWrite()">
                     <div class="col-12">
 
                         <div class="field " ng-class="{'has-error' : segmentForm.inputTitle.$invalid}">
@@ -99,7 +99,7 @@
 
                 </div>
 
-                <div class="row">
+              <div class="row" ng-if="itemizerController.mayWrite()">
                     <div class="col-12">
 
                         <div class="field" ng-class="{'has-error' : segmentForm.inputDescription.$invalid}">
