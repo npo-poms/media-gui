@@ -80,9 +80,8 @@
 
         </td>
 
-        <td class="column-tools-xl" >
+        <td class="column-tools-xl"  ng-show="segmentsController.mayWrite() || segmentsController.canItemize()">
           <div class="tools">
-            BLA
             <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
                     ng-if="segmentsController.canItemize()"
                     ng-click="segmentsController.itemize(segment)">itemize
