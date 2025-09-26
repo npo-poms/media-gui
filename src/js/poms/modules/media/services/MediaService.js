@@ -332,12 +332,12 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return post( media, '/websites', websites );
             },
 
-            getTwitterRefs: function ( media ) {
-                return get( media, '/twitterRefs' );
+            getSocialRefs: function ( media ) {
+                return get( media, '/socialRefs' );
             },
 
-            setTwitterRefs: function ( media, twitterrefs ) {
-                return post( media, '/twitterRefs', twitterrefs );
+            setSocialRefs: function ( media, socialrefs ) {
+                return post( media, '/socialRefs', socialrefs );
             },
 
 

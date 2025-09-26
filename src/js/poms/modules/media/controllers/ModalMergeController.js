@@ -71,7 +71,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
                     }
                 );
 
-                this.mediaService.getTwitterRefs( this.$scope.merge.source ).then(
+                this.mediaService.getSocialRefs( this.$scope.merge.source ).then(
                     function ( data ) {
                         this.$scope.merge.source.twitter = data;
                     }.bind( this ),
@@ -80,7 +80,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ModalMergeController', [
                     }
                 );
 
-                this.mediaService.getTwitterRefs( this.$scope.merge.destination ).then(
+                this.mediaService.getSocialRefs( this.$scope.merge.destination ).then(
                     function ( data ) {
                         this.$scope.merge.destination.twitter = data;
                     }.bind( this ),
