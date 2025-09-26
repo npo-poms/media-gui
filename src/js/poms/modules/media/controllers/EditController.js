@@ -281,12 +281,12 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 return this.mediaService.setWebsites( this.media, websites );
             },
 
-            getTwitterRefs: function () {
-                return this.mediaService.getTwitterRefs( this.media );
+            getSocialRefs: function () {
+                return this.mediaService.getSocialRefs( this.media );
             },
 
-            setTwitterRefs: function ( twitterrefs ) {
-                return this.mediaService.setTwitterRefs( this.media, twitterrefs );
+            setSocialRefs: function ( socialRefs ) {
+                return this.mediaService.setSocialRefs( this.media, socialRefs );
             },
 
             getEmail: function () {
