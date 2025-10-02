@@ -89,6 +89,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return media.permissions[ 'READ' ];
             },
 
+            mayWrite: function(media) {
+                return media.permissions['WRITE'];
+            },
+
             hasWritePermission: function ( media, field ) {
                 if (media) {
                     if (media[field] && media[field].mayWrite !== undefined) {
