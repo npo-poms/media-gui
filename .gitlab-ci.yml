@@ -13,5 +13,5 @@ trigger_media:
 
 include:
   - project: 'npo-identity/poms/gitlab-templates'
-    ref: "tags/12.21"
+    ref: "tags/13.0"
     file: 'maven_release.yml'
