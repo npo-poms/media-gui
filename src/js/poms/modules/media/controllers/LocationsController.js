@@ -53,8 +53,9 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     this.$scope.upload_feedback.push(message);
                 }
             }.bind(this));
+            var aspects = new Set(['predictions', 'sources']);
             this.messageService.receiveRepaintMessage().then(null, null, function (message) {
-                    if (message.mid === this.$scope.media.mid && "sources" == message.aspect) {
+                    if (message.mid === this.$scope.media.mid && aspects.has(message.aspect)) {
                         console.log("Reloading " + this.$scope.media.mid + " because of", message);
                         this.load();
                     }
