@@ -8,7 +8,7 @@ angular.module( 'poms.messages.services' ).factory( 'NotificationService', [
                 combineDuplications: true
             });*/
         }
-        
+
         NotificationService.prototype = {
             notify : function ( message, status, args) {
                 args = args || {};

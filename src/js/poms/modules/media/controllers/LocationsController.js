@@ -53,6 +53,13 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     this.$scope.upload_feedback.push(message);
                 }
             }.bind(this));
+            this.messageService.receiveRepaintMessage().then(null, null, function (message) {
+                    if (message.mid === this.$scope.media.mid && "sources" == message.aspect) {
+                        console.log("Reloading " + this.$scope.media.mid + " because of", message);
+                        this.load();
+                    }
+                }.bind(this));
+
 
             this.setAvFileFormats( this );
             this.load();
