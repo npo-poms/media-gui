@@ -48,8 +48,9 @@ angular.module( 'poms.messages.services' ).factory( 'MessageService', [
                 itemizerListener.notify( getMessage( data.body ) );
             } );
             stomp.subscribe( REPAINT_TOPIC, function ( data ) {
-                //console.log("repaint", data);
-                repaintListener.notify( getMessage( data.body ) );
+                var message = getMessage(data.body);
+                console.log("repaint", data, message);
+                repaintListener.notify(message);
             } );
             stomp.subscribe( MESSAGES_TOPIC, function ( data ) {
                 var json = getMessage(data.body);
