@@ -172,13 +172,13 @@
     <tabset>
       <tab ng-repeat="tab in guiController.tabs"
            class="tab tab-{{tab.type}} tab-media-{{tab.item.workflow.id}} {{tab.mayWrite}}"
+           id="tab-{{tab.id}}"
            active="tab.active"
            select="guiController.initTab(tab)">
-
         <tab-heading class="tab-heading ">
 
           <span ng-if="tab.type=='edit'">
-            <span class="tab-subtitle">{{::tab.item.type.text }}</span>
+            <span class="tab-subtitle">{{tab.item.type.text }}</span>
             <span class="tab-title" title="{{ tab.item.mainTitle.text }}">{{ tab.item.mainTitle.text }}</span>
             <span class="tab-close" title="sluit deze tab"
                   ng-click="guiController.removeTab($index)">close</span>

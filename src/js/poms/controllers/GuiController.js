@@ -83,9 +83,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     function (tabs) {
                         this.loaded = true;
                         this.tabs = tabs;
+                        this.initTabs();
+                        console.log(this.tabs);
                         this.editor = this.editorService.getCurrentEditor();
 
-                        this.initTabs();
 
                         this.handleEdits();
 
@@ -293,21 +294,31 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 } else {
                     for ( var i = 0; i < this.tabs.length; i ++ ) {
                         var tab = this.tabs[i];
+
                         if ( tab.type === 'edit' ) {
                             tab.reload = true;
                         }
 
-                        if ( tab.mid === entryMid ) {
+                        if ( tab.id === entryMid ) {
                             openNewMedia = false;
                         }
+                        tab.active = false;
                     }
 
                     if ( openNewMedia ) {
-                        if ( ! this.setActive( this.tabs, entryMid ) ) {
-                            this.newEditTab( entryMid );
+                        this.newEditTab( entryMid );
+                    } else {
+                        if (! this.setActive(this.tabs, entryMid)) {
+                            this.setActive(this.tabs, this.tabs[0].id);
+                            entryMid = this.tabs[0].id;
                         }
+
                     }
                 }
+                // seems a hack, but I can't get it working normally
+                this.$timeout(function() {
+                    $("#tab-" + entryMid).addClass("active");
+                });
             },
 
             isActive: function ( tab ) {
@@ -322,6 +333,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.mediaService.load( mid ).then(
                     function ( media ) {
                         this.editMedia(media);
+                        // seems a hack, but I can't get it working normally
+                        this.$timeout(function() {
+                            $("#tab-" + mid).addClass("active");
+                        });
                     }.bind( this ),
                     function ( error ) {
                         console.error(error)
@@ -481,19 +496,24 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             setActive: function ( tabs, id ) {
+                console.log("setting active tab", id);
+                var result = false;
                 for ( var i = 0; i < tabs.length; i ++ ) {
                     var tab = tabs[i];
                     if ( tab.id === id ) {
+
                         tab.active = true;
                         if (this.scrlTabsApi && tabs.length > 1){
                             this.scrlTabsApi.scrollTabIntoView(i);
                         }
                         this.setScrolling( tab );
                         this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
-                        return true;
+                        result = true;
+                    } else {
+                        this.active = false;
                     }
                 }
-                return false;
+                return result;
             },
 
             showSecondScreens: function () {
