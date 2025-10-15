@@ -84,7 +84,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         this.loaded = true;
                         this.tabs = tabs;
                         this.initTabs();
-                        console.log(this.tabs);
+                        //console.log(this.tabs);
                         this.editor = this.editorService.getCurrentEditor();
 
 
