@@ -106,17 +106,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             addTab: function ( tab ) {
                 this.tabs.push( tab );
-                this.$timeout( function () {
-                    tab.active = true;
-
-                    this.setScrolling( tab );
-                    if ( this.tabs.length > 1){
-                        this.scrlTabsApi.scrollTabIntoView( this.tabs.length );
-                    }
-                    this.scrlTabsApi.doRecalculate();
-
-
-                }.bind( this ) );
+                this.setActive(tab.id);
             },
 
             bindUploadListener: function () {
@@ -156,7 +146,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             editMedia: function ( media ) {
-                if ( this.setActive( this.tabs, media.mid ) ) {
+                if ( this.setActive(media.mid ) ) {
                     return;
                 }
 
@@ -169,10 +159,9 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             editSelection: function ( selection ) {
-                var tabs = this.tabs;
                 angular.forEach( selection, function ( item, index ) {
                     // Add a tab with a media placeholder to reload. Should reload on tab activation
-                    if ( ! this.setActive( tabs, item.mid ) ) {
+                    if ( ! this.setActive( item.mid ) ) {
                         if(!item.mid || !item.type || !item.permissions || !item.title) {
                             throw new Error('Invalid item');
                         }
@@ -219,7 +208,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 }.bind( this ) );
 
                 this.$rootScope.$on( 'activateSearch', function ( e, tabId ) {
-                    if ( this.setActive( this.tabs, tabId ) ) {
+                    if ( this.setActive( tabId ) ) {
                         return;
                     }
                 }.bind( this ) );
@@ -246,14 +235,14 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                     var mid = this.$route.current.params.mid;
                     if ( mid ) {
-                        if ( ! this.setActive( this.tabs, mid ) ) {
+                        if ( ! this.setActive( mid ) ) {
                             this.newEditTab( mid );
                         }
                     }
 
                     var qid = this.$route.current.params.qid;
                     if ( qid ) {
-                        if ( this.setActive( this.tabs, qid ) ) {
+                        if ( this.setActive( qid ) ) {
                             return;
                         }
                     }
@@ -287,7 +276,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             initTabs: function () {
 
                 var entryMid = this.$route.current.params.mid;
-                var openNewMedia = true;
+                var openNewMedia = entryMid != null;
 
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
@@ -308,17 +297,14 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     if ( openNewMedia ) {
                         this.newEditTab( entryMid );
                     } else {
-                        if (! this.setActive(this.tabs, entryMid)) {
-                            this.setActive(this.tabs, this.tabs[0].id);
+                        if (! this.setActive( entryMid)) {
+                            this.setActive(  this.tabs[0].id);
                             entryMid = this.tabs[0].id;
                         }
 
                     }
                 }
-                // seems a hack, but I can't get it working normally
-                this.$timeout(function() {
-                    $("#tab-" + entryMid).addClass("active");
-                });
+
             },
 
             isActive: function ( tab ) {
@@ -432,7 +418,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openSearchTab: function ( search ) {
-                if ( this.setActive( this.tabs, search.id ) ) {
+                if ( this.setActive(   search.id ) ) {
                     return;
                 }
 
@@ -495,25 +481,31 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.currentTab = tab;
             },
 
-            setActive: function ( tabs, id ) {
-                console.log("setting active tab", id);
-                var result = false;
-                for ( var i = 0; i < tabs.length; i ++ ) {
-                    var tab = tabs[i];
+            setActive: function ( id ) {
+                //console.log("setting active tab", id);
+                var activeId =null;
+                for ( var i = 0; i < this.tabs.length; i ++ ) {
+                    var tab = this.tabs[i];
                     if ( tab.id === id ) {
 
                         tab.active = true;
-                        if (this.scrlTabsApi && tabs.length > 1){
+                        if (this.scrlTabsApi && this.tabs.length > 1){
                             this.scrlTabsApi.scrollTabIntoView(i);
                         }
                         this.setScrolling( tab );
                         this.$rootScope.$emit(this.pomsEvents.tabChanged, tab);
-                        result = true;
+                        activeId = id;
                     } else {
                         this.active = false;
                     }
                 }
-                return result;
+                if (activeId != null) {
+                    // seems a hack, but I can't get it working normally
+                    this.$timeout(function() {
+                        $("#tab-" + activeId).addClass("active");
+                    });
+                }
+                return activeId != null;
             },
 
             showSecondScreens: function () {
