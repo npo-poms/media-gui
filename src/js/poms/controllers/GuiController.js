@@ -104,9 +104,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 );
             },
 
-            addTab: function ( tab ) {
+            addTab: function ( tab, setActive ) {
                 this.tabs.push( tab );
-                this.setActive(tab.id);
+                if (setActive) {
+                    this.setActive(tab.id);
+                }
             },
 
             bindUploadListener: function () {
@@ -145,20 +147,35 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.editorService.editAccount();
             },
 
-            editMedia: function ( media ) {
-                if ( this.setActive(media.mid ) ) {
+            editMedia: function ( media, setActive) {
+                var exists = this.tabs.some(function(tab) {
+                    return tab.id === media.mid;
+                });
+                if (exists) {
+                    if (setActive) {
+                        this.setActive(media.mid)
+
+                    }
                     return;
                 }
 
-                this.addTab( {
-                    active: true,
+                this.addTab({
                     id: media.mid,
                     item: media,
                     type: 'edit'
-                } );
+                });
+                if (setActive) {
+                    this.setActive(media.mid);
+                    // seems a hack, but I can't get it working normally
+                    this.$timeout(function () {
+                        $("#tab-" + mid).addClass("active");
+                    });
+                }
+
             },
 
             editSelection: function ( selection ) {
+                var activated = false;
                 angular.forEach( selection, function ( item, index ) {
                     // Add a tab with a media placeholder to reload. Should reload on tab activation
                     if ( ! this.setActive( item.mid ) ) {
@@ -177,7 +194,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                             },
                             type: 'edit'
                         };
-                        this.addTab( tab);
+                        this.addTab( tab, !activated);
+                        activated = true;
                     }
                 }.bind( this ) );
 
@@ -235,14 +253,12 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                     var mid = this.$route.current.params.mid;
                     if ( mid ) {
-                        if ( ! this.setActive( mid ) ) {
-                            this.newEditTab( mid );
-                        }
+                        this.newEditTab( mid, true);
                     }
 
                     var qid = this.$route.current.params.qid;
                     if ( qid ) {
-                        if ( this.setActive( qid ) ) {
+                        if ( this.setActive( qid) ) {
                             return;
                         }
                     }
@@ -295,11 +311,10 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }
 
                     if ( openNewMedia ) {
-                        this.newEditTab( entryMid );
+                        this.newEditTab( entryMid, true);
                     } else {
                         if (! this.setActive( entryMid)) {
                             this.setActive(  this.tabs[0].id);
-                            entryMid = this.tabs[0].id;
                         }
 
                     }
@@ -315,14 +330,11 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                 this.editorService.logOut();
             },
 
-            newEditTab: function ( mid ) {
+            newEditTab: function ( mid, setActive ) {
                 this.mediaService.load( mid ).then(
                     function ( media ) {
-                        this.editMedia(media);
-                        // seems a hack, but I can't get it working normally
-                        this.$timeout(function() {
-                            $("#tab-" + mid).addClass("active");
-                        });
+                        this.editMedia(media, setActive);
+
                     }.bind( this ),
                     function ( error ) {
                         console.error(error)
@@ -351,7 +363,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                 modal.result.then(
                     function ( source ) {
-                        this.editMedia( source );
+                        this.editMedia( source, true);
                     }.bind( this )
                 );
             },
@@ -411,7 +423,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                 modal.result.then(
                     function ( mid ) {
-                        this.newEditTab( mid );
+                        this.newEditTab( mid, true);
 
                     }.bind( this )
                 );
@@ -427,7 +439,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     id: search.id,
                     item: search,
                     type: 'search'
-                } );
+                }, true);
             },
 
             openLiveEditor : function(){
@@ -441,7 +453,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
                 modal.result.then(
                     function ( mid ) {
-                        this.newEditTab( mid );
+                        this.newEditTab( mid, true);
                     }.bind( this )
                 );
             },
@@ -508,7 +520,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
 
             setActive: function ( id ) {
                 //console.log("setting active tab", id);
-                var activeId =null;
+                var activeId = null;
                 for ( var i = 0; i < this.tabs.length; i ++ ) {
                     var tab = this.tabs[i];
                     if ( tab.id === id ) {
