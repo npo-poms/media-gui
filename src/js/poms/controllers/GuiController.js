@@ -457,12 +457,37 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             removeTab: function ( index ) {
+                var tabToRemove = this.tabs[index];
+                var newActive = null;
+                if (tabToRemove.active) {
+                    console.log("Closing active tab", index, tabToRemove)
+                    if (this.tabs.length > index + 1 ) {
+                        console.log("right tab can be active", this.tabs[index + 1]);
+                        newActive = index;
+                    } else {
+
+                        if (index >= 1) {
+                            console.log("left tab can be active", this.tabs[index - 1]);
+                            newActive = index - 1;
+                        } else {
+                            console.log("this was the last tab");
+                        }
+                    }
+                }
                 this.tabs.splice( index, 1 );
                 if ( this.tabs.length === 0 ) {
                     this.newSearch();
+                    this.setScrolling( this.tabs[index - 1] );
+                    this.scrlTabsApi.doRecalculate();
+                } else {
+                    if (newActive != null) {
+                        console.log("Activating", this.tabs[newActive]);
+                        this.setActive(this.tabs[newActive].id);
+                    }
+
                 }
-                this.setScrolling( this.tabs[ index - 1 ] );
-                this.scrlTabsApi.doRecalculate();
+
+
             },
 
             /**

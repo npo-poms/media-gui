@@ -73,7 +73,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                     this.$scope.$emit( 'editFieldOpen', { 'field': this.$scope.field, 'isOpen': true} );
 
                     this.$scope.$on( 'closeEditField', function ( e, data ) {
-                        if ( data.field == this.$scope.field ) {
+                        if ( data.field === this.$scope.field ) {
                             this.$timeout( function () {
                                 this.close();
                             }.bind(this), 0 );
@@ -83,7 +83,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             },
 
             keyEvent: function ( event ) {
-                if ( event.keyCode == 27 ) {
+                if ( event.keyCode === 27 ) {
                     this.close();
                 }
             },
@@ -139,6 +139,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 this.pushTemp();
 
                 var data = this.selection;
+                consolo.log("submitting", data);
                 var deferred = this.$q.defer();
 
                 if ( e ) {
@@ -146,7 +147,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                     e.stopPropagation();
                 }
 
-                if ( angular.equals( data, this.values ) || (data.length == 0 && !this.values ) ){
+                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values ) ){
                     this.close();
                     return; // no change
                 }
@@ -182,7 +183,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
             },
 
             pushTemp: function() {
-                if (this.tempValue && this.selection.indexOf(this.tempValue) == -1) {
+                if (this.tempValue && this.selection.indexOf(this.tempValue) === -1) {
                     this.selection.push(this.tempValue);
                 }
                 this.tempValue = undefined;
@@ -198,7 +199,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
 
                 var data = this.selection;
 
-                if ( angular.equals( data, this.values ) || (data.length == 0 && !this.values) ) {
+                if ( angular.equals( data, this.values ) || (data.length === 0 && !this.values) ) {
                     this.close();
 
                 }else{

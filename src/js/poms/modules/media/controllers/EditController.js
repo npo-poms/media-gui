@@ -75,7 +75,14 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             listService.getAvTypes().then(
                 function ( data ) {
                     this.$scope.avTypes = data.filter(function (avType) {
-                        return this.$scope.media.targetAVTypes.indexOf(avType.id) !== -1;
+                        console.log(this.$scope.media, this.$scope.media.targetAVTypes)
+
+                        if (this.$scope.media.targetAVTypes) {
+                            return this.$scope.media.targetAVTypes.indexOf(avType.id) !== -1;
+                        } else {
+                            console.log("No targetAVTypes in ", this.$scope.media);
+                            return false;
+                        }
                     }.bind(this));
                     //console.log("ec Types,", this.$scope.avTypes);
                 }.bind( this ),
