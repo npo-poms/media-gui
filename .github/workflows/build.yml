@@ -4,6 +4,8 @@ name: build
 on:
   push:
     branches: [main, "REL-*"]
+  workflow_dispatch:
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
