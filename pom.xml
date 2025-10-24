@@ -7,11 +7,11 @@
   <version>6.17-SNAPSHOT</version>
   <name>media-gui</name>
 
-  <scm>
-    <connection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</connection>
-    <developerConnection>scm:git:ssh://git@gitlab.com/npo-identity/poms/media-gui.git</developerConnection>
-    <url>https://gitlab.com/npo-identity/poms/media-gui</url>
-    <tag>HEAD</tag>
+   <scm>
+     <url>https://github.com/npo-poms/media-gui.git</url>
+     <connection>scm:git:${project.scm.url}</connection>
+     <developerConnection>scm:git:${project.scm.url}</developerConnection>
+     <tag>HEAD</tag>
   </scm>
   <properties>
     <flag-icons.version>7.5.0</flag-icons.version>
@@ -105,7 +105,7 @@
         -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.6.2</version>
         <executions>
           <execution>
             <phase>install</phase>
@@ -120,6 +120,16 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.9.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>true</autoPublish>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -140,7 +150,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>3.6.1</version>
+            <version>3.6.2</version>
             <configuration>
               <rules>
                 <requireReleaseDeps />
@@ -151,17 +161,5 @@
       </build>
     </profile>
   </profiles>
-
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>gitlab-com</id>
-      <url>https://gitlab.com/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
-    </snapshotRepository>
-    <repository>
-      <id>gitlab-com</id>
-      <url>https://gitlab.com/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
-    </repository>
-  </distributionManagement>
 
 </project>

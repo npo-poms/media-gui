@@ -28,5 +28,4 @@ jobs:
           cache: maven
       - name: build
         run: "mvn  install"
-      - uses: MMProgrami/after-maven-action@v2
 
