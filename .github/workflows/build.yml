@@ -1,0 +1,31 @@
+---
+name: build
+
+on:
+  push:
+    branches: [main, "REL-*"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+    runs-on: ubuntu
+    env:
+      MAVEN_ARGS: '--no-transfer-progress'
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          server-id: central
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          cache: maven
+      - name: build
+        run: "mvn  install"
+      - uses: MMProgrami/after-maven-action@v2
+
