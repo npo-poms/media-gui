@@ -1,0 +1,37 @@
+---
+name: release
+run-name: Creating release by ${{ github.actor }} on ${{ github.ref_name }}
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    env:
+      MAVEN_ARGS: '--no-transfer-progress'
+    if: startsWith(github.ref, 'refs/heads/REL-')
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: 25
+          cache: maven
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+      - uses: oleksiyrudenko/gha-git-credentials@v2
+        with:
+          name: 'github $GITHUB_ACTOR'
+          email: 'poms@mmprogrami.nl'
+          token: '${{ secrets.GITHUB_TOKEN  }}'
+      - name: Prepare and perform Release
+        run: |
+          git remote -v
+          mvn -Pgithub -U --batch-mode  -Darguments=-DskipTests  -DpushChanges=false release:prepare
+          git push --atomic -v --follow-tags
+          mvn -Pdeploy,github  --batch-mode -Darguments=-DskipTests release:perform
+        env:
+         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
+
