@@ -33,5 +33,6 @@ jobs:
       - name: build
         run: mvn deploy
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
 
