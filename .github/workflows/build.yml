@@ -31,7 +31,7 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           cache: maven
       - name: build
-        run: mvn -Pgithub deploy
+        run: mvn deploy
         env:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
 
