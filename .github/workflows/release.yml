@@ -22,7 +22,7 @@ jobs:
           cache: maven
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           server-id: 'github'
-      - uses: oleksiyrudenko/gha-git-credentials@v2
+      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
         with:
           name: 'github $GITHUB_ACTOR'
           email: 'poms@mmprogrami.nl'
