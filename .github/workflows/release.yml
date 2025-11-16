@@ -21,6 +21,7 @@ jobs:
           java-version: 25
           cache: maven
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          server-id: 'github'
       - uses: oleksiyrudenko/gha-git-credentials@v2
         with:
           name: 'github $GITHUB_ACTOR'
@@ -29,7 +30,7 @@ jobs:
       - name: Prepare and perform Release
         run: |
           git remote -v
-          mvn -Pgithub -U --batch-mode  -Darguments=-DskipTests  -DpushChanges=false release:prepare
+          mvn -U --batch-mode  -Darguments=-DskipTests  -DpushChanges=false release:prepare
           git push --atomic -v --follow-tags
           mvn -Pdeploy   --batch-mode -Darguments=-DskipTests release:perform
         env:
