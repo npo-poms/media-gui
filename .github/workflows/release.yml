@@ -32,7 +32,8 @@ jobs:
           git remote -v
           mvn -U --batch-mode  -Darguments=-DskipTests  -DpushChanges=false release:prepare
           git push --atomic -v --follow-tags
-          mvn -Pdeploy   --batch-mode -Darguments=-DskipTests release:perform
+          mvn  --batch-mode -Darguments=-DskipTests release:perform
         env:
          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
