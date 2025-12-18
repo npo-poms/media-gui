@@ -139,7 +139,7 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
                 this.pushTemp();
 
                 var data = this.selection;
-                consolo.log("submitting", data);
+                console.log("submitting", data);
                 var deferred = this.$q.defer();
 
                 if ( e ) {
