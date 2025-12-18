@@ -1,9 +1,9 @@
 {
   "name": "pomsui",
   "description": "GUI of the POMS admin",
-  "version": "6.17.0",
+  "version": "6.17.1",
   "config": {
-    "version": "6.17.0",
+    "version": "6.17.1",
     "apiHost": ""
   },
   "scripts": {
