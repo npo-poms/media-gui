@@ -25,7 +25,7 @@
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.15.4</version>
+        <version>2.0.0</version>
         <configuration>
           <environmentVariables>
             <NPM_CONFIG_VERSION>${project.version}</NPM_CONFIG_VERSION>
@@ -65,7 +65,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.1</version>
         <configuration>
           <warSourceDirectory>build/deploy</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -91,7 +91,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.3.0</version>
         <configuration>
           <branchName>REL-${project.version}</branchName>
           <tagNameFormat>REL-@{project.version}</tagNameFormat>
@@ -105,7 +105,7 @@
         -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.6.2</version>
+        <version>3.6.3</version>
         <executions>
           <execution>
             <phase>install</phase>
