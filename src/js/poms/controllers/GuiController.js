@@ -168,8 +168,8 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     this.setActive(media.mid);
                     // seems a hack, but I can't get it working normally
                     this.$timeout(function () {
-                        $("#tab-" + mid).addClass("active");
-                    });
+                        $("#tab-" + media.mid).addClass("active");
+                    }.bind(this));
                 }
 
             },
