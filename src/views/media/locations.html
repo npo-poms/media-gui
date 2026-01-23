@@ -149,7 +149,8 @@
        </a>
         <ol ng-show="! locationsController.collapsed">
           <li  ng-repeat="feedback in upload_feedback"
-             class="{{feedback.status}} {{feedback.phase}} {{feedback.level}}"
+               title="{{feedback.timestamp | mediaDateTime}} {{feedback.phase}}"
+               class="{{feedback.status}} {{feedback.phase}} {{feedback.level}}"
                ng-bind-html="feedback.message">
           </li>
         </ol>

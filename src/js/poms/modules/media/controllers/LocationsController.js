@@ -41,10 +41,11 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                         this.hasErrors = true;
                         this.collapsed = false;
                     }
-                    var i = this.$scope.upload_feedback.length;
+                    let i = this.$scope.upload_feedback.length;
 
+                    //console.log(message);
                     while (i--) {
-                        var existingMessage = this.$scope.upload_feedback[i];
+                        const existingMessage = this.$scope.upload_feedback[i];
                         if (existingMessage.id === message.id && existingMessage.phase === message.phase) {
                             $scope.upload_feedback.splice(i, 1);
                         }
@@ -53,7 +54,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                     this.$scope.upload_feedback.push(message);
                 }
             }.bind(this));
-            var aspects = new Set(['predictions', 'sources']);
+            const aspects = new Set(['predictions', 'sources']);
             this.messageService.receiveRepaintMessage().then(null, null, function (message) {
                     if (message.mid === this.$scope.media.mid && aspects.has(message.aspect)) {
                         console.log("Reloading " + this.$scope.media.mid + " because of", message);
@@ -260,7 +261,7 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             notify: function(upload) {
                 var message = "";
                 var status;
-
+                console.log("Upload status:", upload);
                 if ( upload.status === 'uploadFinished' ) {
                     if (upload.avType.id === 'AUDIO') {
                         message = '<span>' + upload.fileName + ' is geüpload, we wachten op de afhandeling door sourcing service</span>';

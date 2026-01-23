@@ -136,7 +136,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             },
 
             formatDate: function(millis) {
-                var date = new Date(millis);
+                const date = new Date(millis);
                 return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
             },
 
