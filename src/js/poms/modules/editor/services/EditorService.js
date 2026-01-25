@@ -75,8 +75,8 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                                 localStorageService.set("currentUser", editor.id);
                             }
                             if (editor.loginAsap) {
-                                var lastReload = localStorageService.get("lastReload");
-                                console.log("Seem to be logged out. Forcing reload", editor, lastReload);
+                                const lastReload = localStorageService.get("lastReload");
+                                console.log("Seems to be logged out. Forcing reload", editor, lastReload);
                                 var reloadAfter = lastReload == null ? 0 : 10000;
                                 localStorageService.set('lastReload', new Date());
                                 setTimeout(function() {

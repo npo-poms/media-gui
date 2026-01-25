@@ -92,6 +92,7 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
                     this.favoritesService.setSaveConfirm( this.$scope.saveconfirm.selected );
                 }
                 if (this.$scope.accountForm.radios && this.$scope.accountForm.radios.$dirty) {
+                    console.log("Reloading because radios", this.$scope.accountForm.radios);
                     this.$window.location.reload();
                 }
 
