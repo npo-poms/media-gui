@@ -47,12 +47,13 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
 
         EditorService.heartBeatCount = 0;
         EditorService.heartBeatErrorCount = 0;
+        EditorService.asapCount = 0;
         EditorService.prototype = {
 
             init: function () {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
                 this.hearbeatTimeout = 30000;
-                var heartbeat = function() { // heartbeat (MSE-2949)
+                const heartbeat = function() { // heartbeat (MSE-2949)
                     if (EditorService.heartBeatCount++ > 0) {
                         console && console.log("Heartbeating ", new Date(), "count: " + EditorService.heartBeatCount, "errors: " + EditorService.heartBeatErrorCount);
                     }
@@ -64,6 +65,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     .then(
                         // success
                         function (response) {
+                            console.log(response);
                             editor = response.data;
                             this.hearbeatTimeout = editor.hearbeat || this.hearbeatTimeout;
                             if (editorHolder && editor.created < editorHolder.created) {
@@ -75,15 +77,22 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                                 localStorageService.set("currentUser", editor.id);
                             }
                             if (editor.loginAsap) {
+                                EditorService.asapCount++;
                                 const lastReload = localStorageService.get("lastReload");
-                                console.log("Seems to be logged out. Forcing reload", editor, lastReload);
-                                var reloadAfter = lastReload == null ? 0 : 10000;
-                                localStorageService.set('lastReload', new Date());
-                                setTimeout(function() {
-                                    document.location.reload();
-                                }, reloadAfter);
+                                if (EditorService.asapCount > 1) {
+                                    console.log(baseUrl, response, "Seems to be logged out. Forcing reload", editor, lastReload);
+                                    const reloadAfter = lastReload == null ? 0 : 10000;
+                                    localStorageService.set('lastReload', new Date());
+                                    setTimeout(function () {
+                                        document.location.reload();
+                                    }, reloadAfter);
+                                } else {
+                                    console.log(baseUrl, response, "Seems to be logged out. Giving another change", editor, lastReload, EditorService.asapCount);
+
+                                }
                                 return;
                             } else {
+                                EditorService.asapCount = 0;
                                 localStorageService.set("lastReload", null);
                             }
                             if(editor.currentOwner) {
