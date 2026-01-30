@@ -20,11 +20,11 @@
             />
           </div>
 
-          <div class="col-6 field" ng-if="prediction.isEncryptionPossible">
-            <label for="encryption">Encryptie</label>
+          <div class="col-6 field" >
+              <label label-for="encryption">Encryptie</label>
               <ui-select id="encryption"
                          ng-model="prediction.encryption"
-                         ng-disabled="! prediction.mayWrite"
+                         ng-disabled="! prediction.mayWrite || ! prediction.encryptionIsPossible"
                          theme="selectize"
                          close-on-select="true" reset-search-input="true" style="width: 200px;">
                 <ui-select-choices repeat="item in encryptionTypes | filter: {text: $select.search}">
