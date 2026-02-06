@@ -128,8 +128,8 @@
     </div>
 
     <div class="transcoding-location" ng-repeat="transcoding in locationsController.transcodings">
-      <div title="{{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title">
-        Transcoding gestart op {{transcoding | searchColumnFilter:"creationDate" }}  ({{transcoding.dispatchedTo}}) heeft als status {{transcoding.state}} {{transcoding.title ? '(' + (transcoding.title | limitTo: 70) + (transcoding.title.length > 70 ? ' ...' : '') + ')' : ''}}
+      <div title="{{trancoding.type}} {{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title trancoding-location-{{transcoding.type}}">
+        {{transcoding.name}} van {{transcoding | searchColumnFilter:"creationDate" }} ({{transcoding.dispatchedTo}}) heeft als status {{transcoding.guiStatus}}
         <span ng-if="transcoding.endDate">
           en is beëindigd op {{transcoding | searchColumnFilter:"endDate" }}
         </span>
