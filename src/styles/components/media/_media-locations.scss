@@ -25,16 +25,28 @@
 }
 
 
-.transcoding-location{
+.transcoding-location {
   width: 100%;
   background-color: $extralichtgrijs;
   line-height: 36px;
   margin-top: 8px;
-  margin-bottom: 0px;
-  position:relative;
+  margin-bottom: 0;
+  position: relative;
   padding-left: 8px;
 }
 
-.transcoding-location-title{
-  position: relative;
+.transcoding-location-CdnEvent { // poms
+  background-color: #66ccaa;
 }
+.transcoding-location-TranscodeStatus { // NEP
+
+  background-color: #d6c68c;
+}
+.transcoding-location-StatusResponse { // SRCS
+  background-color: #cccc00;
+}
+
+.transcoding-location-title {
+    position: relative;
+}
+
