@@ -4,14 +4,14 @@
   <groupId>nl.vpro.media</groupId>
   <artifactId>media-gui</artifactId>
   <packaging>war</packaging>
-  <version>6.18-SNAPSHOT</version>
+  <version>6.18.0-SNAPSHOT</version>
   <name>media-gui</name>
 
    <scm>
      <url>https://github.com/npo-poms/media-gui.git</url>
      <connection>scm:git:${project.scm.url}</connection>
      <developerConnection>scm:git:${project.scm.url}</developerConnection>
-     <tag>HEAD</tag>
+     <tag>REL-6.18-SNAPSHOT</tag>
   </scm>
   <properties>
     <flag-icons.version>7.5.0</flag-icons.version>
