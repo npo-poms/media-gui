@@ -73,7 +73,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             getJobsForMid: function ( mid, mock ) {
-                var params='';
+                let params='';
                 if ( mock ) {
                     params = '?mock=true';
                 }
@@ -81,16 +81,16 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
             },
 
             notify: function( upload ){
-                locationsController = this.uploads[upload.mid];
-                locationsController.notify(upload);
+                this.locationsController = this.uploads[upload.mid];
+                this.locationsController.notify(upload);
             },
 
 
             upload: function ( media, location, fields, uploadScope, locationsController) {
-                
-                var avType = media.avType;
-                
-                var uploadStatus = {
+
+                const avType = media.avType;
+
+                const uploadStatus = {
                     "mid": media.mid,
                     "fileName": location.file[0].name,
                     "status": "uploadStart",
@@ -120,16 +120,17 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
 
                     .success( function ( data, status, headers, config ) {
 
-                        var uploadStatus = {
+                        const uploadStatus = {
                             "mid": media.mid,
                             "fileName": location.file[0].name,
                             "status": "uploadFinished",
                             "avType": avType,
                             "message": data.message ? data.message : JSON.stringify(data)
                         };
+                        console.log("success", data, status, headers, config, uploadStatus);
 
                         this.$rootScope.$emit( this.pomsEvents.emitUploadStatus, uploadStatus);
-                        this.notify( uploadStatus );
+                        this.notify(uploadStatus);
                         this.removeUpload( media.mid );
 
                     }.bind( this ) )
@@ -139,7 +140,8 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                         if (data.cause === 'NEP_EXCEPTION') {
                             this.$rootScope.$emit(this.pomsEvents.error, data);
                         } else {
-                            var newUpload = {
+                            console.log("error", data, status, headers, config);
+                            const newUpload = {
                                 "mid": media.mid,
                                 "fileName": location.file[0].name,
                                 "status": "uploadError",
