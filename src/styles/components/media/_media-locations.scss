@@ -27,7 +27,6 @@
 
 .transcoding-location {
   width: 100%;
-  background-color: $extralichtgrijs;
   line-height: 36px;
   margin-top: 8px;
   margin-bottom: 0;
@@ -47,6 +46,8 @@
 }
 
 .transcoding-location-title {
-    position: relative;
+  padding-left: 1ex;
+  background-color: $extralichtgrijs;
+  position: relative;
 }
 
