@@ -23,19 +23,24 @@
     <table class="poms-table" ng-if="transcodings">
         <thead>
         <tr class="poms-table-head-row">
-            <th style="width: 13%;" title="MID" class="poms-table-header"> MID </th>
-            <th style="width: 10%;" title="Gestart op" class="poms-table-header"> Gestart op </th>
-            <th style="width: 10%;" title="Gestopt op" class="poms-table-header"> Gestopt op </th>
-            <th style="width: 38%;" title="Title" class="poms-table-header"> Beschrijving </th>
-            <th style="width: 9%;" title="Status" class="poms-table-header"> Status </th>
-            <th style="width: 20%;" title="GUID" class="poms-table-header"> Job Id </th>
+          <th style="width: 1%;" title="MID" class="poms-table-header"></th>
+          <th style="width: 15%;" title="MID" class="poms-table-header"> MID </th>
+          <th style="width: 15%;" title="Gestart op" class="poms-table-header"> Gestart op </th>
+          <th style="width: 15%;" title="Gestopt op" class="poms-table-header"> Gestopt op </th>
+          <th style="width: 20%;" title="Title" class="poms-table-header"> Beschrijving </th>
+          <th style="width: 20%;" title="Status" class="poms-table-header"> Status </th>
+          <th style="width: 15%;" title="GUID" class="poms-table-header"> Job Id </th>
         </tr>
         </thead>
 
         <tbody>
-        <tr class="poms-table-row" ng-repeat="transcoding in transcodings track by $index"
+        <tr class="poms-table-row " ng-repeat="transcoding in transcodings track by $index"
+            title="{{transcoding.guiType}}"
             ng-click="transcodingsController.openMid(transcoding)">
-            <td > {{ transcoding.mid }} </td>
+          <td class="transcoding-location-{{transcoding.type}}-{{transcoding.transcodeService}}">
+            &nbsp;
+          </td>
+          <td class="id" style="text-align: right; direction: ltr;"> {{ transcoding.mid }} </td>
             <td >
                 <span ng-if="transcoding.creationDate">
                     {{ transcoding | searchColumnFilter:"creationDate"}}
@@ -46,8 +51,8 @@
                     {{ transcoding | searchColumnFilter:"endDate" }}
                 </span>
             </td>
-            <td> {{ transcoding.title }}  </td>
-            <td > {{ transcoding.state }} </td>
+            <td title="{{transcoding.title}}"> {{ transcoding.title }}  </td>
+            <td title="{{transcoding.guiStatus}}" > {{ transcoding.guiStatus }} </td>
 
             <td > {{ transcoding.workflowId }} </td>
         </tr>

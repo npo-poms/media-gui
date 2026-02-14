@@ -127,12 +127,12 @@
       <div class="uploading-location-title">Uploading {{locationsController.currentUpload}} ({{upService.uploadProgress[media.mid]}}) </div>
     </div>
 
-    <div class="transcoding-location transcoding-location-{{transcoding.type}}" ng-repeat="transcoding in locationsController.transcodings">
-      <div title="{{transcoding.type}} {{transcoding.workflowId}} - ({{transcoding.title}})" class="transcoding-location-title">
-        {{transcoding.name}} van {{transcoding | searchColumnFilter:"creationDate" }} ({{transcoding.dispatchedTo}})
-        <span ng-if="{{transcoding.type == 'CdnEvent'}}">had</span>
-        <span ng-if="{{transcoding.type != 'CdnEvent'}}">heeft</span>
-        status {{transcoding.guiStatus}}
+    <div class="transcoding-location transcoding-location-{{transcoding.type}}-{{transcoding.transcodeService}}" ng-repeat="transcoding in locationsController.transcodings">
+      <div title="{{transcoding.guiType}} {{transcoding.workflowId}} - {{transcoding.title}}" class="transcoding-location-title">
+        {{transcoding.title}} van {{transcoding | searchColumnFilter:"creationDate" }} (<span title="{{transcoding.dispatchedToURL}}">{{transcoding.dispatchedTo}}</span>))
+        <span ng-if="transcoding.type == 'POMS'">had status</span>
+        <span ng-if="transcoding.type != 'POMS'">heeft status</span>
+        <span title="{{trqnscoding.status}}">'{{transcoding.guiStatus}}'</span>
         <span ng-if="transcoding.endDate">en is beëindigd op {{transcoding | searchColumnFilter:"endDate" }}</span>
       </div>
     </div>
