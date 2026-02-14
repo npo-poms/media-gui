@@ -34,14 +34,15 @@
   padding-left: 8px;
 }
 
-.transcoding-location-CdnEvent { // poms
+.transcoding-location-POMS-SRCS_VIDEO,
+.transcoding-location-POMS-SRCS_AUDIO { // poms
   background-color: #66ccaa;
 }
-.transcoding-location-TranscodeStatus { // NEP
-
+.transcoding-location-REMOTE-NEP { // NEP
   background-color: #d6c68c;
 }
-.transcoding-location-StatusResponse { // SRCS
+.transcoding-location-REMOTE-SRCS_VIDEO,
+.transcoding-location-REMOTE-SRCS_AUDIO { // SRCS
   background-color: #cccc00;
 }
 
