@@ -52,15 +52,13 @@ angular.module( 'poms.media.controllers' ).controller( 'MultiEditController', [
 
             isOpen: false,
 
-            mayWrite: false,
-
             trustAsHtml: function ( value ) {
                 return this.$sce.trustAsHtml( value );
             },
 
             showEditElement: function ( event ) {
 
-                if ( this.mayWrite && !this.isOpen ) {
+                if (this.mayWrite() && !this.isOpen ) {
                     load( this.$scope, this.pomsEvents, this.selection );
 
                     this.isOpen = true;
