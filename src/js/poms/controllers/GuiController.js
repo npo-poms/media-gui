@@ -77,6 +77,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
         GuiController.prototype = {
 
             loaded: false,
+            hasCreateTypes: false,
 
             init: function () {
                 this.guiService.boot(this).then(
@@ -86,6 +87,12 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         this.initTabs();
                         //console.log(this.tabs);
                         this.editor = this.editorService.getCurrentEditor();
+
+                        this.createTypes().then(function (types) {
+                            this.hasCreateTypes = angular.isArray(types) && types.length > 0;
+                        }.bind(this), function () {
+                            this.hasCreateTypes = false;
+                        }.bind(this));
 
 
                         this.handleEdits();
@@ -361,11 +368,16 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                     }
                 } );
 
-                modal.result.then(
+
+                    modal.result.then(
                     function ( source ) {
                         this.editMedia( source, true);
                     }.bind( this )
                 );
+            },
+
+            createTypes: function () {
+                return this.listService.getMediaCreateTypes();
             },
 
 
