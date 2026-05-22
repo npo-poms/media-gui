@@ -28,7 +28,7 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
             this.$scope.suggestions = [];
 
             this.$scope.userSuggestions = [];
-            
+
 
             this.$scope.searchDate = {
                 'isOpen' : false,
@@ -202,6 +202,11 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                         field : 'portals',
                         options : 'portals',
                         load : this.listService.getPortals
+                    },
+                    {
+                        field : 'thirdParties',
+                        options : 'thirdParties',
+                        load : this.listService.getThirdParties
                     },
                     {
                         field : 'channels',

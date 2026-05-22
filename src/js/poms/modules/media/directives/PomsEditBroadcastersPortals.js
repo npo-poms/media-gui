@@ -10,6 +10,7 @@ angular.module( 'poms.media.directives' )
                 placeholderText: '@placeholdertext',
                 formatFilter: '@format',
                 allowedPortals: '=',
+                allowedThirdParties: '=',
                 allowedBroadcasters: '=',
                 options: '=',
                 helpField: '@'
@@ -183,16 +184,21 @@ angular.module( 'poms.media.directives' )
                     // function to make sure at least one of the editors broadcasters or portals is selected //
                     // prevents editor from saving media item and thereby removing his own editing permssions //
 
-                    var broadcasters, portals;
+                    var broadcasters, portals, thirdParties;
 
                     if ( field === 'broadcasters' ) {
                         broadcasters = data;
                         portals = $scope.media.portals;
+                        thirdParties = $scope.media.thirdParties;
                     } else if ( field === 'portals' ) {
                         broadcasters = $scope.media.broadcasters;
                         portals = data;
-                    }
-                    else {
+                        thirdParties = $scope.media.thirdParties;
+                    } else if (field === 'thirdParties' ) {
+                        broadcasters = $scope.media.broadcasters;
+                        portals = $scope.media.portals;
+                        thirdParties = data;
+                    } else {
                         return
                     }
 
@@ -219,6 +225,17 @@ angular.module( 'poms.media.directives' )
                         }
                     }
 
+                    var chosenAllowedThirdParties = [];
+                    if ( thirdParties ) {
+                        for ( var i = 0; i < thirdParties.length; i ++ ) {
+                            for ( var j = 0; j < $scope.allowedThirdParties.length; j ++ ) {
+                                if ( $scope.allowedThirdParties[j].id === thirdParties[i].id ) {
+                                    chosenAllowedThirdParties.push( $scope.allowedThirdParties[j] );
+                                }
+                            }
+                        }
+                    }
+
                     if ( field === 'broadcasters' && $scope.options ) {
                         for ( var j = 0; j < $scope.options.length; j ++ ) {
                             $scope.options[j].disabled = ( broadcasters.length === 1 && broadcasters[0].id === $scope.options[j].id );
@@ -229,9 +246,18 @@ angular.module( 'poms.media.directives' )
 
                     if ( field === 'portals' && $scope.options ) {
                         for ( var j = 0; j < $scope.options.length; j ++ ) {
-                            $scope.options[j].disabled = ( chosenAllowedBroadcasters.length === 0
+                            $scope.options[j].disabled = ( chosenAllowedPortals.length === 0
                             && chosenAllowedPortals.length === 1
                             && $scope.options[j].id === chosenAllowedPortals[0].id );
+
+                        }
+                    }
+
+                    if ( field === 'thirdParties' && $scope.options ) {
+                        for ( var j = 0; j < $scope.options.length; j ++ ) {
+                            $scope.options[j].disabled = ( chosenAllowedThirdParties.length === 0
+                                && chosenAllowedThirdParties.length === 1
+                                && $scope.options[j].id === chosenAllowedThirdParties[0].id );
 
                         }
                     }

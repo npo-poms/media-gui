@@ -214,6 +214,15 @@ angular.module( 'poms.media.controllers' ).controller( 'MediaController', [
                     }.bind( this )
                 );
 
+                this.editorService.getAllowedThirdParties().then(
+                    function ( data ) {
+                        this.$scope.allowedThirdParties = data;
+                    }.bind( this ),
+                    function () {
+                        this.$scope.allowedThirdParties = {};
+                    }.bind( this )
+                );
+
 
                 this.listService.getAvTypes().then(
                     function ( data ) {

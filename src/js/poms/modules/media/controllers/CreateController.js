@@ -8,12 +8,13 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
     'avTypes',
     'broadcasters',
     'portals',
+    'thirdParties',
     'media',
     'genres',
     'chapterTypes',
     (function () {
 
-        function CreateController ( $scope, $modalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, media, genres, chapterTypes ) {
+        function CreateController ( $scope, $modalInstance, EditorService, MediaService, PomsEvents, mediaTypes, avTypes, broadcasters, portals, thirdParties, media, genres, chapterTypes ) {
 
             this.$scope = $scope;
 
@@ -31,6 +32,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
             this.$scope.mediaTypes = mediaTypes;
             this.$scope.broadcasters = broadcasters;
             this.$scope.portals = portals;
+            this.$scope.thirdParties = thirdParties;
 
             this.$scope.genres = genres;
             this.$scope.genresHeader = 'Genre';
@@ -48,6 +50,7 @@ angular.module( 'poms.media.controllers' ).controller( 'CreateController', [
             this.currentEditor = this.editorService.getCurrentEditor();
             this.$scope.media.broadcasters = this.currentEditor.broadcasters;
             this.$scope.media.portals = this.currentEditor.portals;
+            this.$scope.media.thirdParties = this.currentEditor.thirdParties;
 
 
             this.init();

@@ -85,6 +85,7 @@ angular.module( 'poms.search.services' ).factory( 'SearchFactory', [
             this.text = config && config.text || '';
             this.types = new RestrictedValue( config && config.types || { value : [] } );
             this.portals = config && config.portals || [];
+            this.thirdParties = config && config.thirdParties || [];
             this.broadcasters = new RestrictedValue( config && config.broadcasters || { value : [] } );
             this.channels = config && config.channels || [];
             this.avType = config && config.avType || undefined;

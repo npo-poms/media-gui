@@ -123,6 +123,10 @@ angular.module('poms.list.services').factory('ListService', [
                 return get('/portals', GET_CONFIG);
             },
 
+
+            getThirdParties : function() {
+                return get('/thirdparties', GET_CONFIG);
+            },
             getPlatforms : function() {
                 return get('/platforms', GET_CONFIG);
             },

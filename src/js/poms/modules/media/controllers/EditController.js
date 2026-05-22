@@ -54,6 +54,15 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
                 }.bind( this )
             );
 
+            editorService.getAllowedThirdParties().then(
+                function ( data ) {
+                    this.allowedThirdParties = data;
+                }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
+
             listService.getBroadcasters().then(
                 function ( data ) {
                     this.broadcasters = data;
@@ -66,6 +75,16 @@ angular.module( 'poms.media.controllers' ).controller( 'EditController', [
             listService.getPortals().then(
                 function ( data ) {
                     this.portals = data;
+                }.bind( this ),
+                function ( error ) {
+                    $scope.$emit( pomsEvents.error, error )
+                }.bind( this )
+            );
+
+
+            listService.getThirdParties().then(
+                function ( data ) {
+                    this.thirdParties = data;
                 }.bind( this ),
                 function ( error ) {
                     $scope.$emit( pomsEvents.error, error )

@@ -194,6 +194,11 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                 return post( 'portals', portals );
             },
 
+            getAllowedThirdParties: function () {
+                return getOrganisations( '/thirdparties' );
+            },
+
+
             logOut: function () {
                 window.location.href = baseUrl + '/logout?url=' + encodeURIComponent(window.location.href);
             },

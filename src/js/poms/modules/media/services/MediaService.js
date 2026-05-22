@@ -161,6 +161,10 @@ angular.module( 'poms.media.services' ).factory( 'MediaService', [
                 return post( media, '/broadcasters', broadcasters );
             },
 
+            setThirdParties: function ( media, thirdParties ) {
+                return post( media, '/thirdparties', thirdParties );
+            },
+
             setPortals: function ( media, portals ) {
                 return post( media, '/portals', portals );
             },

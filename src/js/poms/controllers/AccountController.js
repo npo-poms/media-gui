@@ -75,6 +75,14 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
                         this.$scope.$emit( this.pomsEvents.error, error );
                     }.bind( this )
                 );
+                this.editorService.getAllowedThirdParties().then(
+                    function ( portals ) {
+                        this.allowedThirdParties = portals;
+                    }.bind( this ),
+                    function ( error ) {
+                        this.$scope.$emit( this.pomsEvents.error, error );
+                    }.bind( this )
+                );
             },
 
             remove: function ( collection, item ) {

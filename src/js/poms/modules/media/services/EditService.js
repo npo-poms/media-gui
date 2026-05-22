@@ -41,6 +41,10 @@ angular.module( 'poms.media.services' ).factory( 'EditService', [
                 return mediaService.setPortals( media, portals );
             },
 
+            thirdParties: function ( media, thirdParties ) {
+                return mediaService.setThirdParties( media, thirdParties );
+            },
+
             avType: function ( media, avType ) {
                 return mediaService.setAvType( media, avType );
             },
