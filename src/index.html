@@ -102,10 +102,14 @@
        ng-click="guiController.newSearch()">ZOEKEN</a>
 
     <a  id="liveknipper"
+        ng-if="guiController.editor.canUseKnipper"
         title="Maak mp4's and screen shot van een live stream"
         class="header-link header-link-new"
         href="javascript:void(0)"
-        ng-click="guiController.openLiveEditor()">Liveknipper</a>
+        ng-click="guiController.openLiveEditor()">
+        Liveknipper
+      <span class="warning" ng-if="guiController.editor.knipperWarning"> ({{guiController.editor.knipperWarning}})</span>
+    </a>
 
     <div class="header-account-details" ng-class="{'open': (userDropdown.isopen)}">
 

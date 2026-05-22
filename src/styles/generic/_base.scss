@@ -97,4 +97,11 @@ li .list-label{
     width: 150px;
 }
 
+span.warning {
+  color: $rood;
+  padding-left: 24px;
+  background-origin: border-box;
+  @include icon('warning', 20px, 0 center)
+
+}
 
