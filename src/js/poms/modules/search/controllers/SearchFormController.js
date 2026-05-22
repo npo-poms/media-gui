@@ -8,9 +8,12 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
     'MediaService',
     'SearchService',
     'SearchFactory',
+    'EditorService',
     (function() {
 
-        function SearchFormController($scope, $q, $filter, listService, favoritesService, guiService, mediaService, searchService, SearchFactory) {
+        function SearchFormController($scope, $q, $filter, listService, favoritesService, guiService, mediaService, searchService, SearchFactory, EditorService) {
+
+
 
             this.$scope = $scope;
             this.$q = $q;
@@ -25,9 +28,18 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
 
             this.search = $scope.search;
 
+            EditorService.getAllowedThirdParties().then(
+                function(thirdParties) {
+                    this.$scope.allowedThirdParties = thirdParties.length > 0;
+                }.bind(this),
+                function(error) {
+                    this.$scope.$emit(this.pomsEvents.error, error);
+                }.bind(this)
+            );
             this.$scope.suggestions = [];
 
             this.$scope.userSuggestions = [];
+
 
 
             this.$scope.searchDate = {
@@ -174,6 +186,11 @@ angular.module('poms.search.controllers').controller('SearchFormController', [
                     }
 
                 }.bind( this ) );
+
+            },
+
+            showThirdParties: function() {
+
 
             },
 

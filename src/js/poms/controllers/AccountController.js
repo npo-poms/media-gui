@@ -10,12 +10,12 @@ angular.module( 'poms.media.controllers' ).controller( 'AccountController', [
     'FavoritesService',
     'ListService',
     'localStorageService',
-    'editor',
+
     (function () {
 
         function AccountController ( $scope, $modalInstance, $sce, $window, appConfig, PomsEvents, EditorService, FavoritesService, ListService, LocalStorageService, editor ) {
 
-            $scope.editor = angular.copy( editor );
+
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
             this.$sce = $sce;
