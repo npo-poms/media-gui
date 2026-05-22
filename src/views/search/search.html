@@ -307,6 +307,20 @@
                 {{portal.text}}
             </a>
         </div>
+      <div class="dropdown-wrapper search-dropdown-wrapper ">
+        <poms-ui-select-multi class="poms-uiselect"
+                              options="thirdParties.data"
+                              name="Third Parties"
+                              selection="formData.thirdParties"
+                              option-selected="searchFormController.submit()"
+        > </poms-ui-select-multi>
+
+        <a title="verwijder dit criteria" class="dropdown-selected animate-fade"
+           ng-repeat="thirdPary in formData.thirdParties"
+           ng-click="searchFormController.removeOption(formData.thirdParties, thirdParty)">
+          {{thirdPary.text}}
+        </a>
+      </div>
 
     </div>
     <div class="search-filtering-row">

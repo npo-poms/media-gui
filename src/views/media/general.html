@@ -297,8 +297,9 @@
                        help-field="editor.general.portals"></poms-broadcasters>
 
 
+
     <poms-broadcasters
-            ng-if="editController.allowedThirdParties().length > 0"
+            ng-if="editController.allowedThirdParties.length > 0"
             type="media" media="media" class="media-field" header="ThirdParties" placeholdertext="thirdParty"
                        field="thirdParties" options='editController.thirdParties'
                        allowed-broadcasters='editController.allowedBroadcasters'

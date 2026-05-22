@@ -360,6 +360,7 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
                         avTypes: this.listService.getAvTypes,
                         broadcasters: this.editorService.getAllowedBroadcasters,
                         portals: this.editorService.getAllowedPortals,
+                        thirdParties: this.editorService.getAllowedThirdParties,
                         genres: this.listService.getGenres,
                         chapterTypes: this.listService.getChapterTypes,
                         media: function () {
