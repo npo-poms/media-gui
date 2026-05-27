@@ -1,8 +1,9 @@
 <div class="modal-header">
-  <div class="modal-title"> Poms - Live Knipper</div>
+  <div class="modal-title"> Poms - Liveknipper</div>
   <div class="modal-close-button" ng-click="liveEditorController.cancel()"> close</div>
 </div>
 <div class="modal-body modal-info">
+  <span class="warning" ng-if="guiController.editor.knipperWarning"> ({{guiController.editor.knipperWarning}})</span>
   <div class="modal-message poms-form">
     <div class="col-8">
       <video ng-show="liveEditorController.videoElement" id="video-player" class="framegrabber-container"

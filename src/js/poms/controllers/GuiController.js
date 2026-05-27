@@ -456,12 +456,21 @@ angular.module( 'poms.controllers' ).controller( 'GuiController', [
             },
 
             openLiveEditor : function(){
+                var guiController = this;
 
+                console.log("Open Live Editor", this, this.editor);
                 var modal = this.$modal.open( {
                     controller: 'LiveEditorController',
                     controllerAs: 'liveEditorController',
                     templateUrl: 'gui/modal-live-editor.html',
-                    windowClass: 'modal-live-editor'
+                    windowClass: 'modal-live-editor',
+                    resolve: {
+                        guiController: function () {
+                            return guiController;
+                        }
+                    }
+
+
                 } );
 
                 modal.result.then(
