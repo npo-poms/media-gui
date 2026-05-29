@@ -18,7 +18,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
     'segment',
     'EditorService',
     'ListService',
-
+    'NpoPlayerService',
     (function () {
 
 
@@ -32,7 +32,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
         }
 
 
-        function ItemizerController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, MessageService, media, segments, segment, editorService, listService) {
+        function ItemizerController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, MessageService, media, segments, segment, editorService, listService, NpoPlayerService) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -57,6 +57,9 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
 
             this.$scope.media = media;
             this.$scope.segments = segments;
+            this.npoPlayerService = NpoPlayerService;
+
+            console.log("player", this.npoPlayerService.player)
 
             this.$scope.required = [
                 {

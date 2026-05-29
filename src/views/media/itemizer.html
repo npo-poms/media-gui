@@ -12,10 +12,8 @@
 
             <div class="col-8">
 
-                <video ng-show='itemizerController.videoElement' id="video-player" class="framegrabber-container" style=""></video>
-                <ng-include src="'util/akamaiVideoControlBar.html'"></ng-include>
-
-                <div ng-if="media.avType.id == 'VIDEO' && itemizerController.mayUpload()" class="canvas-grab" ng-click="itemizerController.grabFrame()" > </div>
+              <poms-viewer media="media" size="small"></poms-viewer>
+               <div ng-if="media.avType.id == 'VIDEO' && itemizerController.mayUpload()" class="canvas-grab" ng-click="itemizerController.grabFrame()" > </div>
 
                 <div class="clear"> </div>
 
@@ -116,67 +114,6 @@
                     </div>
 
                 </div>
-
-            </div>
-
-            <div class="col-4">
-
-                <label>MP4 maken</label>
-
-                <p> Het is mogelijk om een downloadable MP4 op te vragen van dit segment. Klik hiervoor op 'maak MP4'.</p>
-
-                <p> Zodra het asset gemaakt is krijg je direct de link naar het geknipte videobestand. </p>
-
-
-                <button class="live-editor-button"
-                        id="create-asset"
-                        ng-if='!invalidTimes && !assetWaiting'
-                        ng-click="itemizerController.createAsset()"> Maak MP4
-                </button>
-
-                <div ng-if="assetLink && !assetWaiting">
-                    <button class="live-editor-button" ng-click="itemizerController.openAsset()">
-                        <a href="{{assetLink}}">download MP4</a> <span ng-if="assetSize">({{assetSize}})</span>
-                    </button>
-                </div>
-
-
-                <span ng-if="assetWaiting">
-                    MP4 wordt gemaakt ({{workflowExecution.status}}). Een moment geduld a.u.b.
-                </span>
-
-
-                <p>
-
-                </p>
-
-                <label>Afbeeldingen </label>
-
-                <div ng-if="!itemizerController.mayUpload()">
-                    <p>Je hebt niet de rechten om nieuwe plaatjes aan te maken in poms</p>
-                </div>
-                <div class="clear"></div>
-
-                <div ng-if="media.avType.id == 'VIDEO' && itemizerController.mayUpload()">
-
-                    <div class="image-preview" ng-if="still" style="background-image:url('{{still}}')">
-                    </div>
-                    <span ng-if="!still && stillLoading"> afbeelding wordt gemaakt</span>
-
-                </div>
-
-                <div class="clear"></div>
-
-                <div ng-repeat="image in segmentImages"  class="segment-image" style="background-image: url('{{image.backend.thumb}}')">
-                </div>
-
-                <p ng-show="!segmentImages.length && !still">Er zijn nog geen afbeeldingen gekoppeld aan dit segment.</p>
-                <div class="error" ng-if="stillerror">
-                    <label>Er is iets fout gegaan bij het maken van de afbeelding</label>
-                    <pre>{{stillerror}}</pre>
-                </div>
-
-                <a ng-if="still" href="{{still}}" download="{{media.mid}}.jpeg"> download deze afbeelding </a>
 
             </div>
         </div>

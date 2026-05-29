@@ -135,8 +135,13 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
                 console.log("guiservice", this.guiService);
                 if (this.canItemize()) {
-                    itemizerController = 'ItemizerNEPController';
-                    itemizerTemplate = 'media/itemizerNEP.html';
+                    if (this.guiService.guiController.editor.canUseNEPItemizer) {
+                        itemizerController = 'ItemizerNEPController';
+                        itemizerTemplate = 'media/itemizerNEP.html';
+                    } else {
+                        itemizerController = 'ItemizerController';
+                        itemizerTemplate = 'media/itemizer.html';
+                    }
                 }
 
                 const modal = this.$modal.open( {
