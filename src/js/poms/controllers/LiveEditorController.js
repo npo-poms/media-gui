@@ -10,10 +10,10 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
     'MessageService',
     'NotificationService',
     'appConfig',
-    'guiController',
+    'GuiService',
     (function() {
 
-        function LiveEditorController($scope, $modalInstance, $filter, $timeout, $interval,  PomsEvents, NEPService, ListService, MessageService, notificationService,  appConfig, guiController) {
+        function LiveEditorController($scope, $modalInstance, $filter, $timeout, $interval,  PomsEvents, NEPService, ListService, MessageService, notificationService,  appConfig, GuiService) {
 
             this.pomsEvents = PomsEvents;
             this.appConfig = appConfig;
@@ -28,7 +28,7 @@ angular.module('poms.media.controllers').controller('LiveEditorController', [
             this.$timeout = $timeout;
             this.$interval = $interval;
 
-            this.$scope.guiController = guiController;
+            this.$scope.guiController = GuiService.guiController;
 
             this.$scope.durationInvalid = true;
 

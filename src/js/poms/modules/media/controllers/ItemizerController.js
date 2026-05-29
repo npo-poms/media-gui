@@ -1,4 +1,6 @@
-angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', [
+<!-- TOOD: P0MS-323, copy of ItemizerNEPController.js, which we could update to use NPO player -->
+
+angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
     '$scope',
     '$filter',
     '$upload',
@@ -10,14 +12,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
     'PomsEvents',
     'MediaService',
     'NotificationService',
-    'NEPService',
     'MessageService',
     'media',
     'segments',
     'segment',
     'EditorService',
     'ListService',
-    'GuiService',
+
     (function () {
 
 
@@ -31,7 +32,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
         }
 
 
-        function ItemizerNEPController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, NEPService, MessageService, media, segments, segment, editorService, listService, GuiService) {
+        function ItemizerController ( $scope, $filter, $upload, $interval, $timeout, $modalInstance, $rootScope, appConfig, PomsEvents, MediaService, NotificationService, MessageService, media, segments, segment, editorService, listService) {
 
             this.$scope = $scope;
             this.$filter = $filter;
@@ -44,7 +45,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             this.pomsEvents = PomsEvents;
             this.mediaService = MediaService;
             this.notificationService = NotificationService;
-            this.NEPService = NEPService;
             this.messageService = MessageService;
             this.editorService = editorService;
 
@@ -58,7 +58,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             this.$scope.media = media;
             this.$scope.segments = segments;
 
-            this.$scope.guiController = GuiService.guiController;
             this.$scope.required = [
                 {
                     'id' : 'mainTitle',
@@ -83,15 +82,13 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
         }
 
-        ItemizerNEPController.prototype = {
+        ItemizerController.prototype = {
 
             init : function ( segment ) {
 
                 this.subscribeToItemizerMessages();
 
-                this.NEPService.getStream( this.$scope.media.mid ).then( function ( data ) {
-                    this.createMediaPlayer( data );
-                }.bind(this) );
+
 
                 // segment already exists
                 if ( segment ) {
@@ -221,40 +218,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
             },
 
             createMediaPlayer : function ( data ) {
-                this.videoElement = document.getElementById( 'video-player' );
-                // Setup player
-                this.mediaPlayer = dashjs.MediaPlayer().create();
-                this.mediaPlayer.initialize();
-                this.mediaPlayer.setAutoPlay( true );
-                //this.mediaPlayer.updateSettings({ 'debug': { 'logLevel': dashjs.Debug.LOG_LEVEL_NONE }});
-                this.mediaPlayer.attachView( this.videoElement );
-
-                // Initialize controlbar
-                this.controlbar = new ControlBar( this.mediaPlayer ); //Player is instance of Dash.js MediaPlayer;
-                this.controlbar.initialize();
-
-                // Add generated drm tokens for the stream requested. Depends on the profile and drm type.
-                var protectionData = {
-                    'com.microsoft.playready': {
-                        serverURL: 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
-                        httpRequestHeaders: {
-                            customdata: data.playReadyToken
-                        }
-                    },
-                    'com.widevine.alpha' : {
-                        serverURL : 'https://npo-drm-gateway.samgcloud.nepworldwide.nl/authentication',
-                        httpRequestHeaders : {
-                            customdata : data.widevineToken
-                        }
-                    }
-                };
-
-                // Attach protection data to mediaplayer
-                this.mediaPlayer.setProtectionData( protectionData );
-
-                // Attach manifest to mediaplayer
-                this.mediaPlayer.attachSource( data.stream );
-
+                console.log("TODO");
                 this.handleVideoEvents();
 
             },
@@ -280,31 +244,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                 this.$scope.stillerror = null;
                 var offset = Math.floor( this.videoElement.currentTime * 1000) ;
 
-                this.NEPService.getScreengrab( this.$scope.media.mid , offset )
-
-                    .then( function ( response ) {
-                            if (response && response.data) {
-                                var blob = new Blob([response.data], {type: 'image/jpeg'});
-                                this.$scope.still = window.URL.createObjectURL(blob);
-
-                                this.$scope.image = {
-                                    'file': [blob]
-                                };
-                            }
-                            this.$scope.stillLoading = false;
-
-                        }.bind( this ),
-                        function ( error ) {
-                            var reader = new FileReader();
-                            reader.onload = function() {
-                                this.$scope.stillerror = reader.result;
-                                this.notificationService.notify(reader.result, "error");
-                                this.$scope.$apply();
-                            }.bind(this);
-                            reader.readAsText(error.data);
-                            this.$scope.stillLoading = false;
-                        }.bind( this )
-                    );
+                console.log("TODO");
             },
 
 
@@ -621,12 +561,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
                     "stop" : this.$scope.segment.stop
                 };
 
-                this.NEPService.itemize( this.itemizeRequest ).then( function ( data ) {
-
-                    this.$scope.assetLink = this.appConfig.apiHost + data;
-                }.bind(this), function ( error ) {
-                    this.$scope.$emit( this.pomsEvents.error, error );
-                }.bind(this) );
+                console.log("TODO");
             },
 
             openAsset : function (){
@@ -657,6 +592,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerNEPController', 
 
 
         };
-        return ItemizerNEPController;
+        return ItemizerController;
     }())
 ] );

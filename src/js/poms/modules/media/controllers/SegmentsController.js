@@ -38,6 +38,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                 }
             }.bind( this ) );
 
+
             $scope.$on(PomsEvents.segmentAdded, function(e, mid) {
                 if(mid === $scope.media.mid) {
                     this.load();
@@ -129,15 +130,16 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
             itemize: function ( segment ) {
 
-                var itemizerController = undefined;
-                var itemizerTemplate = undefined;
+                let itemizerController = undefined;
+                let itemizerTemplate = undefined;
 
+                console.log("guiservice", this.guiService);
                 if (this.canItemize()) {
                     itemizerController = 'ItemizerNEPController';
                     itemizerTemplate = 'media/itemizerNEP.html';
                 }
 
-                var modal = this.$modal.open( {
+                const modal = this.$modal.open( {
                     controller : itemizerController,
                     controllerAs : 'itemizerController',
                     templateUrl : itemizerTemplate,

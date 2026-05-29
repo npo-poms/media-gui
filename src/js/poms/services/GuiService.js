@@ -21,26 +21,25 @@ angular.module('poms.services').factory('GuiService', [
             boot : function(guiController) {
                 this.guiController = guiController;
 
-                var deferred = $q.defer();
+                const deferred = $q.defer();
 
                 editorService.init().then(
-                        function(editor) {
-                            localStorageService.bind($rootScope, editor.hashId, []);
+                    function(editor) {
+                        localStorageService.bind($rootScope, editor.hashId, []);
 
 
-                            this.tabs = $rootScope[editor.hashId];
+                        this.tabs = $rootScope[editor.hashId];
 
-                            this.initTabs();
+                        this.initTabs();
 
-                            favoritesService.init();
+                        favoritesService.init();
 
-                            deferred.resolve(this.tabs);
-                        }.bind(this),
-                        function(error) {
-                            deferred.reject(error);
-                        }
+                        deferred.resolve(this.tabs);
+                    }.bind(this),
+                    function(error) {
+                        deferred.reject(error);
+                    }
                 );
-
                 return deferred.promise;
             },
 
