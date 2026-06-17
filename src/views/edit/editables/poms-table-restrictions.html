@@ -25,7 +25,7 @@
 
             <td ng-repeat="column in modalTableEditController.columns" ng-click="rowform.$show()" class="column-{{column.id}}">
 
-                <div ng-if="column.id == 'region'">
+                <div ng-if="column.id == 'region'" title="{{item[column.id].text}}">
                     <span e-form="rowform" e-name='{{column.id}}' e-required
                           editable-select="item[column.id].id"
                           e-ng-options="s.id as s.text for s in modalTableEditController.options">
