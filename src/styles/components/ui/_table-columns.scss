@@ -99,9 +99,15 @@
 }
 
 .poms-table .column-region {
-    width: 130px;
-    max-width: 130px;
+    width: 200px;
+    max-width: 250px;
     overflow: visible;
+}
+
+.poms-table .column-platform {
+  width: 100px;
+  max-width: 100px;
+  overflow: visible;
 }
 
 .poms-table.poms-table-restriction .column-start,
