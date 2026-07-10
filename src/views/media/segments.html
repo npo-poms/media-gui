@@ -81,7 +81,8 @@
 
         <td class="column-tools-xl"  ng-show="segmentsController.mayWrite() || (segmentsController.canItemize() && guiController.editor.canUseNEPItemizer)">
           <div class="tools">
-            <span class="warning" ng-if="guiController.editor.warningNEPItemizer"> ({{guiController.editor.warningNEPItemizer}})</span>
+            <poms-warning ng-if="guiController.editor.warningNEPItemizer"
+                          warning="guiController.editor.warningNEPItemizer"></poms-warning>
             <button id='itemize-{{segment.mid}}' name='itemize' title='itemize' class="poms-icon icon-itemizer"
                     ng-if="segmentsController.canItemize()"
                     ng-click="segmentsController.itemize(segment)">itemize

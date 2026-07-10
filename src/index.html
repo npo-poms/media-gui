@@ -108,7 +108,8 @@
         href="javascript:void(0)"
         ng-click="guiController.openLiveEditor()">
         Liveknipper
-      <span class="warning" ng-if="guiController.editor.warningNEPItemizer" title="{{guiController.editor.warningNEPItemizer}}"></span>
+      <poms-warning ng-if="guiController.editor.warningNEPItemizer"
+                    warning="guiController.editor.warningNEPItemizer"></poms-warning>
     </a>
 
     <div class="header-account-details" ng-class="{'open': (userDropdown.isopen)}">
@@ -337,6 +338,7 @@
 <script src="./js/poms/modules/util/directives/PomsInvalid.js"></script>
 <script src="./js/poms/modules/util/directives/PomsDateRange.js"></script>
 <script src="./js/poms/modules/util/directives/PomsHelp.js"></script>
+<script src="./js/poms/modules/util/directives/PomsWarning.js"></script>
 <script src="./js/poms/modules/util/directives/PomsUiSelect.js"></script>
 <script src="./js/poms/modules/util/directives/PomsViewer.js"></script>
 <script src="./js/poms/modules/util/directives/PomsWorkflow.js"></script>
