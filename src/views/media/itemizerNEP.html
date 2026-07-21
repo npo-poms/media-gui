@@ -119,7 +119,9 @@
             </div>
 
             <div class="col-4" ng-if="guiController.editor.canUseNEPItemizer">
-              <span class="warning" ng-if="guiController.editor.warningNEPItemizer" title="{{guiController.editor.warningNEPItemizer}}">{{guiController.editor.warningNEPItemizer}}</span>
+               <span class="warnming" ng-if="guiController.editor.warningNEPItemizer"
+                     ng-bind-html="guiController.editor.warningNEPItemizer">
+               </span>
                 <label>MP4 maken</label>
 
                 <p> Het is mogelijk om een downloadable MP4 op te vragen van dit segment. Klik hiervoor op 'maak MP4'.</p>
