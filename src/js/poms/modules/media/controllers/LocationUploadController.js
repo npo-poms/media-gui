@@ -91,14 +91,6 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationUploadController
 
             violations: {},
 
-            needsPriorityField: function() {
-                return this.$scope.streamType === 'VIDEO';
-            },
-
-            needsEncryptionField: function() {
-                return this.$scope.streamType === 'VIDEO';
-            },
-
             guiStreamType: function() {
                 return this.$scope.streamType === 'AUDIO' ? 'audio' : 'video';
             },
