@@ -5,14 +5,15 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
     '$sce',
     'PomsEvents',
     'EditorService',
+    'MessageService',
     'localStorageService',
     'appConfig',
     '$q',
     '$http',
-    function ( $rootScope, $timeout, $upload, $sce, PomsEvents, editorService, localStorageService, appConfig, $q, $http ) {
+    function ( $rootScope, $timeout, $upload, $sce, PomsEvents, editorService, messageService, localStorageService, appConfig, $q, $http ) {
 
 
-        var baseUrl = appConfig.apiHost + '/gui',
+        const baseUrl = appConfig.apiHost + '/gui',
 
             get = function ( path, config, params ) {
 
@@ -148,6 +149,7 @@ angular.module( 'poms.media.services' ).factory( 'UploadService', [
                                 "message": data.message
                             };
 
+                            this.$rootScope.$emit(this.pomsEvents.emitUploadStatus, newUpload);
                             this.notify(newUpload);
                         }
                         this.removeUpload( media.mid );

@@ -259,8 +259,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 );
             },
             notify: function(upload) {
-                var message = "";
-                var status;
+                let message = "";
+                let status;
                 console.log("Upload status:", upload);
                 if ( upload.status === 'uploadFinished' ) {
                     if (upload.avType.id === 'AUDIO') {
@@ -271,12 +271,15 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
                 } else if ( upload.status === 'uploadStart' ) {
                     message = '<span>' + upload.fileName + ' is nu aan het uploaden bij MID ' + upload.mid + ' </span>';
                 } else if ( upload.status === 'uploadError' ) {
-                    message = '<span>' + upload.fileName + 'is niet geüpload (' + upload.message + ')</span>';
+                    message = '<span>' + upload.fileName + ' is niet geüpload (' + upload.message + ')</span>';
                     status = 'error';
                 } else if ( upload.status === 'transcodingPublication' ) {
                     message = '<span> Het geüploade bestand bij' + upload.mid + ' is getranscodeerd </span>';
                 } else {
                     message = '<span>' + upload + '</span>';
+                }
+                if (status === 'error') {
+                    this.notificationService.notify(message, status, {timeout: -1});
                 }
                 upload.message = this.$sce.trustAsHtml(message);
                 //console.log(upload);
@@ -284,8 +287,8 @@ angular.module( 'poms.media.controllers' ).controller( 'LocationsController', [
             },
 
             uploadLocation : function (streamType) {
-                var self = this;
-                var modal = this.$modal.open( {
+                const self = this;
+                const modal = this.$modal.open( {
                     controller : 'LocationUploadController',
                     controllerAs : 'uploadController',
                     templateUrl : 'edit/modal-upload-location.html',
