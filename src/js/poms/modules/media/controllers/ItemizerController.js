@@ -58,7 +58,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             this.$scope.media = media;
             this.$scope.segments = segments;
             this.npoPlayerService = NpoPlayerService;
-            this.playerContainerId = 'viewer-' + media.mid;
+            this.playerContainerId = 'viewer-itemizer-' + media.mid;
 
             this.$scope.required = [
                 {
