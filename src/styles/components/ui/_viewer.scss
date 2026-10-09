@@ -37,6 +37,10 @@
   background-color: black;
   position: relative;
 
+  > div {
+    width: 100%;
+    height: 100%;
+  }
 
   &.playing.size-small {
     width: 400px;

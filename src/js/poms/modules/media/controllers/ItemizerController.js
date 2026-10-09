@@ -58,8 +58,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             this.$scope.media = media;
             this.$scope.segments = segments;
             this.npoPlayerService = NpoPlayerService;
-
-            console.log("player", this.npoPlayerService.player)
+            this.playerContainerId = 'viewer-itemizer-' + media.mid;
 
             this.$scope.required = [
                 {
@@ -227,16 +226,14 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             },
 
             handleVideoEvents : function () {
-
-                this.videoElement.addEventListener( 'loadeddata', function ( event ) {
-                    this.videoElement.pause();
-
-                    if ( !this.$scope.duration ) {
-                        this.$scope.duration = this.mediaPlayer.duration() * 1000 ;
+                this.npoPlayerService.pause(this.playerContainerId);
+                if ( !this.$scope.duration ) {
+                    var duration = this.npoPlayerService.getDuration(this.playerContainerId);
+                    if ( duration !== null ) {
+                        this.$scope.duration = duration * 1000;
                     }
-
-                    this.seek( Math.floor( this.$scope.segment.start / 1000 ) );
-                }.bind( this ), false );
+                }
+                this.seek( Math.floor( this.$scope.segment.start / 1000 ) );
 
             },
 
@@ -245,7 +242,8 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
 
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
-                var offset = Math.floor( this.videoElement.currentTime * 1000) ;
+                var currentTime = this.npoPlayerService.getCurrentTime(this.playerContainerId);
+                var offset = currentTime === null ? null : Math.floor( currentTime * 1000);
 
                 console.log("TODO");
             },
@@ -276,7 +274,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             },
 
             markStart : function () {
-                var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
+                var currentTime = this.npoPlayerService.getCurrentTime(this.playerContainerId);
+                if ( currentTime === null ) {
+                    return;
+                }
+                var currentPos = Math.floor( currentTime * 1000 );
                 if ( ! isNaN( currentPos ) && this.$scope.segment.stop < currentPos ) {
                     this.$scope.segment.stop = currentPos;
                 }
@@ -287,7 +289,11 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             },
 
             markStop : function () {
-                var currentPos = Math.floor( this.videoElement.currentTime * 1000 );
+                var currentTime = this.npoPlayerService.getCurrentTime(this.playerContainerId);
+                if ( currentTime === null ) {
+                    return;
+                }
+                var currentPos = Math.floor( currentTime * 1000 );
 
                 if ( ! isNaN( currentPos ) && this.$scope.segment.start > currentPos ) {
                     this.$scope.segment.start = currentPos;
@@ -340,19 +346,21 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
 
 
             playSegment : function () {
-                if ( this.videoElement ) {
-                    this.videoElement.currentTime = Math.floor( this.$scope.segment.start / 1000  );
-                    this.videoElement.play();
+                this.npoPlayerService.seek(this.playerContainerId, Math.floor( this.$scope.segment.start / 1000 ));
+                var playPromise = this.npoPlayerService.resume(this.playerContainerId);
+                if ( playPromise ) {
                     this.$scope.isPlaying = true;
                 }
+                return playPromise;
             },
 
             playEnd : function () {
-                if ( this.videoElement ) {
-                    this.videoElement.currentTime =  Math.floor( this.$scope.segment.stop / 1000  );
-                    this.videoElement.play();
+                this.npoPlayerService.seek(this.playerContainerId, Math.floor( this.$scope.segment.stop / 1000 ));
+                var playPromise = this.npoPlayerService.resume(this.playerContainerId);
+                if ( playPromise ) {
                     this.$scope.isPlaying = true;
                 }
+                return playPromise;
             },
 
             saveAndNew : function () {
@@ -381,16 +389,12 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
             },
 
             seekAndPause : function ( time ) {
-                if ( this.videoElement ){
-                    this.videoElement.pause();
-                    this.seek( Math.floor( time / 1000 ) );
-                }
+                this.npoPlayerService.pause(this.playerContainerId);
+                this.seek( Math.floor( time / 1000 ) );
             },
 
             seek : function ( pos ) {
-                if ( this.videoElement ) {
-                    this.videoElement.currentTime = pos ;
-                }
+                this.npoPlayerService.seek(this.playerContainerId, pos);
             },
 
 

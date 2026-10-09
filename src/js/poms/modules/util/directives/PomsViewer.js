@@ -14,7 +14,7 @@ angular.module( 'poms.util.directives')
                 $scope.play = function () {
 
                     var mid = $scope.media.mid;
-                    if ( mid && ( $scope.media.locations > 0 || ( $scope.media.locations && $scope.media.locations.length > 0) ) ) {
+                    if ( mid && $scope.media.type.id !== 'SEGMENT' ) {
                          setupPlayer(mid).then(function() {
                              startPlayer(mid, {})
                          });
@@ -122,11 +122,15 @@ angular.module( 'poms.util.directives')
                     return deferred.promise;
                 };
                 startPlayer = function (containerId, options ) {
-                    player = $scope.selected.value;
-                    NpoPlayerService.play($scope.containerId, player.request, $scope.size, options);
+                    var selectedPlayer = $scope.selected && $scope.selected.value;
+                    if (!selectedPlayer) {
+                        return;
+                    }
+                    var playPromise = NpoPlayerService.play($scope.containerId, selectedPlayer.request, $scope.size, options);
                     $rootScope.$on(PomsEvents.tabChanged, function ( ) {
                         $scope.pause();
                     }.bind(this));
+                    return playPromise;
                 };
             }
         };
