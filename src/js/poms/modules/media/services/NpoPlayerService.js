@@ -1,19 +1,37 @@
 angular.module( 'poms.media.services' ).factory('NpoPlayerService',
-    function ( $http, $q, appConfig) {
+    function ( $http, appConfig) {
 
         const playerRequestBase = appConfig.apiHost + '/gui/npoplayer';
         const NpoPlayerService = function () {};
-        const playerELement =  function(containerId) {
+        const players = {};
+        const loadedPlayers = {};
+        const playerElement = function(containerId) {
             if (typeof(containerId) === 'string') {
                 return $('#' + containerId + " div")[0];
             } else {
                 return containerId.find(" div")[0];
             }
         };
-        const playerObject =  function(containerId) {
-            element = playerELement(containerId);
-            player =  element ? element.player : null;
-            return player;
+        const playerObject = function(containerId) {
+            return players[containerId];
+        };
+        const loadedPlayer = function(containerId) {
+            const player = playerObject(containerId);
+            return player && loadedPlayers[containerId] ? player : null;
+        };
+        const playerClasses = function() {
+            const NpoVideoPlayer = window.NpoPlayer && window.NpoPlayer.NpoVideoPlayer;
+            const NpoVideoPlayerUIFactory = window.NpoVideoPlayerUIFactory &&
+                window.NpoVideoPlayerUIFactory.NpoVideoPlayerUIFactory;
+
+            if (!NpoVideoPlayer || !NpoVideoPlayerUIFactory) {
+                throw new Error('NPO Player v2 is not available');
+            }
+
+            return {
+                NpoVideoPlayer: NpoVideoPlayer,
+                NpoVideoPlayerUIFactory: NpoVideoPlayerUIFactory
+            };
         };
         NpoPlayerService.prototype = {
 
@@ -27,68 +45,98 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
                 });
             },
 
-
             play: function (containerId, request, size, options) {
                 options = options || {};
-                const deferred = $q.defer();
-                $http({
+                return $http({
                     method : 'GET',
                     url : playerRequestBase + request,
                     headers: {
                         "Accept": "application/json"
                     }
-                }).then(
-                    function(resp){
-                        let container = $('#' + containerId);
-                        let  playerConfig = {
-                            key: resp.data.key,
-                            logs: {
-                                level: 'info'
-                            },
-                            playback: {
-                                muted: false,
-                                autoplay: true
-                            },
-                        };
-                        if (resp.data.analyticsKey) {
-                            playerConfig.analytics = {
-                                key: resp.data.analyticsKey
-                            }
-                        }
+                }).then(function(resp) {
+                    const classes = playerClasses();
+                    let container = $('#' + containerId);
+                    let playerConfig = {
+                        autoplay: true,
+                        mediaType: 'video',
+                        options: {
+                            muted: false
+                        },
+                        uiFactory: new classes.NpoVideoPlayerUIFactory(),
+                    };
 
-                        $("#" + containerId + "-placeholder").hide();
-                        container.show();
-                        let element = playerELement(container);
-                        //console.log("element", element);
-                        let player = new NpoPlayer.default(element, playerConfig);
-
-                        // the npo player itself could also determin the start, then we could just pass the mid of the segment
-                        let streamOptions = {
-                            endpoint: resp.data.endpoint,
-                            startOffset: options.start
-                            //endOffset: options.stop
-                        };
-                        console.log("player with options", streamOptions);
-                        player.loadStream(resp.data.token, streamOptions);
-                        container.addClass("playing");
-                        container.addClass("size-" + size);
+                    $("#" + containerId + "-placeholder").hide();
+                    container.show();
+                    let element = playerElement(container);
+                    if (!element) {
+                        throw new Error('NPO Player container has no player element');
                     }
-                );
+                    let previousPlayer = playerObject(containerId);
+                    if (previousPlayer) {
+                        previousPlayer.destroy();
+                        delete players[containerId];
+                    }
+                    let player = new classes.NpoVideoPlayer(playerConfig, element);
+                    players[containerId] = player;
+                    loadedPlayers[containerId] = false;
 
-                return deferred.promise;
+                    // the npo player itself could also determin the start, then we could just pass the mid of the segment
+                    let streamOptions = {
+                        autoplay: true,
+                        endpoint: resp.data.endpoint,
+                        startOffset: options.start
+                        //endOffset: options.stop
+                    };
+                    container.addClass("playing");
+                    container.addClass("size-" + size);
+
+                    return player.load(resp.data.token, streamOptions).then(function() {
+                        if (players[containerId] === player) {
+                            loadedPlayers[containerId] = true;
+                        }
+                    }).catch(function(error) {
+                        if (players[containerId] === player) {
+                            delete players[containerId];
+                            delete loadedPlayers[containerId];
+                            container.removeClass("playing");
+                            $("#" + containerId + "-placeholder").show();
+                            container.hide();
+                        }
+                        player.destroy();
+                        throw error;
+                    });
+                });
             },
 
             stop: function (containerId) {
-                container = $('#' + containerId);
-                player =  playerObject(containerId);
-                player && player.unload();
+                const container = $('#' + containerId);
+                const player = playerObject(containerId);
+                player && player.destroy();
+                delete players[containerId];
+                delete loadedPlayers[containerId];
                 container.removeClass("playing");
                 $("#" + containerId + "-placeholder").show();
                 container.hide();
             },
             pause: function (containerId) {
-                player =  playerObject(containerId);
+                const player = playerObject(containerId);
                 player && player.pause();
+            },
+            resume: function (containerId) {
+                const player = loadedPlayer(containerId);
+                return player ? player.play() : null;
+            },
+            seek: function (containerId, timestamp) {
+                const player = loadedPlayer(containerId);
+                player && player.seek(timestamp);
+            },
+            getCurrentTime: function (containerId) {
+                const player = loadedPlayer(containerId);
+                return player ? player.getCurrentTime() : null;
+            },
+            getDuration: function (containerId) {
+                const player = loadedPlayer(containerId);
+                return player ? player.getDuration() : null;
             }
         };
 
