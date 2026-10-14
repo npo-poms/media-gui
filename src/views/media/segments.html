@@ -5,9 +5,14 @@
     <poms-help field="editor.segments"></poms-help>
   </h1>
 
-  <button id="addSegment" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite() || segmentsController.canItemize()"
-          ng-click="segmentsController.addSegment()">
-    Segment toevoegen {{::segmentsController.canItemize() ? 'met speler' : 'zonder speler'}}
+  <button id="addSegment1" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite"
+          ng-click="segmentsController.addSegment(0, true)">
+    Segment toevoegen met speler
+  </button>
+
+  <button id="addSegment2" class="btn-text-icon btn-text-icon-add" ng-if="segmentsController.mayWrite()"
+          ng-click="segmentsController.addSegment(0, false)">
+    Segment toevoegen zonder speler
   </button>
 
   <table class="poms-table" ng-show="segmentsController.segments.length > 0"

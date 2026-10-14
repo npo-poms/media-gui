@@ -56,7 +56,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
 
         SegmentsController.prototype = {
 
-            addSegment: function ( startTime ) {
+            addSegment: function (startTime, withPlayer) {
                 this.$scope.insertedSegment = {
                     start:  startTime || 0,
                     stop:  startTime || 0,
@@ -64,7 +64,7 @@ angular.module( 'poms.media.controllers' ).controller( 'SegmentsController', [
                     mainTitle: null
                 };
 
-                if (this.canItemize()) {
+                if (this.canItemize() && withPlayer) {
                     // Itemize with player
                     this.itemize(this.$scope.insertedSegment);
                 } else {
