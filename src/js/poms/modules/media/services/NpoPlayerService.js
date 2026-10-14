@@ -137,6 +137,38 @@ angular.module( 'poms.media.services' ).factory('NpoPlayerService',
             getDuration: function (containerId) {
                 const player = loadedPlayer(containerId);
                 return player ? player.getDuration() : null;
+            },
+            captureFrame: function (containerId) {
+                // AI genrated code, that doesn't work
+                const player = loadedPlayer(containerId);
+                if (!player) {
+                    return Promise.reject(new Error('NPO Player is not loaded'));
+                }
+
+                const video = player.container && player.container.querySelector('video');
+                if (!video) {
+                    return Promise.reject(new Error('NPO Player has no video element available'));
+                }
+                const width = video.videoWidth;
+                const height = video.videoHeight;
+                if (!width || !height) {
+                    return Promise.reject(new Error('NPO Player has no video frame available'));
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+
+                return new Promise(function (resolve, reject) {
+                    canvas.toBlob(function (blob) {
+                        if (blob) {
+                            resolve(blob);
+                        } else {
+                            reject(new Error('Could not capture the video frame'));
+                        }
+                    }, 'image/jpeg');
+                });
             }
         };
 

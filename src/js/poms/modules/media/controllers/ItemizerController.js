@@ -1,4 +1,4 @@
-<!-- TOOD: P0MS-323, copy of ItemizerNEPController.js, which we could update to use NPO player -->
+<!-- ItemizerController uses the shared NPO Player v2 viewer. -->
 
 angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
     '$scope',
@@ -219,12 +219,6 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
                 }
             },
 
-            createMediaPlayer : function ( data ) {
-                console.log("TODO");
-                this.handleVideoEvents();
-
-            },
-
             handleVideoEvents : function () {
                 this.npoPlayerService.pause(this.playerContainerId);
                 if ( !this.$scope.duration ) {
@@ -242,10 +236,28 @@ angular.module( 'poms.media.controllers' ).controller( 'ItemizerController', [
 
                 this.$scope.stillLoading = true;
                 this.$scope.stillerror = null;
-                var currentTime = this.npoPlayerService.getCurrentTime(this.playerContainerId);
-                var offset = currentTime === null ? null : Math.floor( currentTime * 1000);
 
-                console.log("TODO");
+                // AI code that doesn't work.
+                // Perhaps fixable?
+                this.npoPlayerService.captureFrame( this.playerContainerId )
+                    .then(
+                        function ( blob ) {
+                            this.$scope.$applyAsync( function () {
+                                this.$scope.still = window.URL.createObjectURL( blob );
+                                this.$scope.image = {
+                                    file: [ blob ]
+                                };
+                                this.$scope.stillLoading = false;
+                            }.bind( this ) );
+                        }.bind( this ),
+                        function ( error ) {
+                            this.$scope.$applyAsync( function () {
+                                this.$scope.stillerror = error.message || String( error );
+                                this.notificationService.notify( this.$scope.stillerror, 'error' );
+                                this.$scope.stillLoading = false;
+                            }.bind( this ) );
+                        }.bind( this )
+                    );
             },
 
 
