@@ -65,8 +65,15 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     .then(
                         // success
                         function (response) {
-                            console.log(response);
-                            editor = response.data;
+                            const editor = response.data;
+                            if (! angular.isObject(editor)) {
+                                // e.g. an empty response, or a html page because of a redirect to login. That is not an editor, and should not replace the current one.
+                                EditorService.heartBeatErrorCount++;
+                                console && console.log("Not an editor received from heartbeat", response);
+                                heartbeat();
+                                deferred.reject(false);
+                                return;
+                            }
                             this.hearbeatTimeout = editor.hearbeat || this.hearbeatTimeout;
                             if (editorHolder && editor.created < editorHolder.created) {
                                 console.log("Received editor", editor, "is older then current one", editorHolder);
@@ -123,14 +130,22 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
                     windowClass: 'modal-account',
                     resolve: {
                         editor: function () {
-                            return editorHolder;
+                            // if the editor is not loaded (yet), load it first. Otherwise the dialog would edit, and post, nothing.
+                            // (not via init(), since that would start another heartbeat)
+                            return editorHolder || $http.get( baseUrl ).then( function ( response ) {
+                                return angular.isObject( response.data ) ? response.data : $q.reject( response );
+                            } );
                         }.bind( this )
                     }
                 } );
 
                 modal.result.then(
                     function ( editor ) {
-                        angular.copy( editor, editorHolder );
+                        if (editorHolder) {
+                            angular.copy( editor, editorHolder );
+                        } else {
+                            editorHolder = editor;
+                        }
                     }.bind( this )
                 );
 
@@ -175,6 +190,10 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             setAccount: function ( account ) {
+                if (! angular.isObject(account)) {
+                    console && console.log("Not posting account without editor", account);
+                    return $q.reject( {message: 'Gebruikersgegevens zijn (nog) niet geladen. Probeer het opnieuw.'} );
+                }
                 return post( '', account );
             },
 
@@ -191,7 +210,7 @@ angular.module( 'poms.editor.services' ).factory( 'EditorService', [
             },
 
             setActivePortals: function ( portals ) {
-                return post( 'portals', portals );
+                return post( '/portals', portals );
             },
 
             getAllowedThirdParties: function () {
