@@ -8,6 +8,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
     'appConfig',
     'PomsEvents',
     'InfoService',
+    'EditorService',
     'imageTypes',
     'licenses',
     'media',
@@ -35,7 +36,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
             );
         }
 
-        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, infoService, imageTypes, licenses, media, image, edit, service) {
+        function ImageEditController ( $scope, $modal, $modalInstance, $upload, $sce, $timeout, appConfig, PomsEvents, infoService, EditorService, imageTypes, licenses, media, image, edit, service) {
 
             this.$scope = $scope;
             this.$modal = $modal;
@@ -46,6 +47,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
 
             this.apiHost   = appConfig.apiHost;
             this.infoService = infoService;
+            this.editorService = EditorService;
 
             this.pomsEvents = PomsEvents;
 
@@ -250,7 +252,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                     method: 'POST',
                     fields: this.fields(),
                     headers: {
-                        "authorization": "Bearer " + editor.token
+                        "authorization": "Bearer " + this.editorService.getCurrentEditor().token
                     }
                 }).then(
                     function (extResult) {
@@ -336,7 +338,7 @@ angular.module( 'poms.media.controllers' ).controller( 'ImageEditController', [
                         file: image.file && image.file.length > 0 ? image.file[0] : undefined,
                         fileFormDataName: 'file',
                         headers: {
-                            "authorization": "Bearer " + editor.token
+                            "authorization": "Bearer " + this.editorService.getCurrentEditor().token
                         }
                     }).then(
                         function (response) {
